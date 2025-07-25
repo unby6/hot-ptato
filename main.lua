@@ -149,11 +149,11 @@ function SMODS.create_mod_badges(obj, badges)
 end
 --#endregion
 
-SMODS.Joker:take_ownership("j_joker", {
-	hotpot_credits = {
-		art = {"Test"},
-		idea = {"Test"},
-		code = {"Test"},
-		team = {"Test"}
-	}
-})
+-- MISC
+--#region Miscelaneous
+
+-- Add optional features here
+HotPotato.optional_features = {
+	
+}
+--#endregion
