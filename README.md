@@ -6,7 +6,7 @@
 3. You are not allowed to remove features implemented by teams before you. Editing the code of a feature is fine, but removing it or changing its function to be unrecognizable is prohibited
 4. Communication between developers not within your team is strictly prohibited outside of critical bugfixing. Because of this, commenting your code is highly encouraged!
 5. Using JokerForge or generating assets with AI is not allowed! You must manually create/code your contributions (with an exception for custom sound effects)
-6. External libraries (outside of Steamodded and cross-mod support) is not allowed
+6. Using external libraries (outside of Steamodded and cross-mod support) is not allowed
 7. This mod is not to be developed with Talisman in mind
 8. No NSFW or griefing in the mod whatsoever. Just because you can add “anything” doesn’t mean you can be absolutely stupid with it
 
