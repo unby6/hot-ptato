@@ -11,7 +11,6 @@ function show_shop()
 end
 
 function hide_shop()
-    stop_use()
     if G.shop and not G.shop.alignment.offset.py then
       G.shop.alignment.offset.py = G.shop.alignment.offset.y
       G.shop.alignment.offset.y = G.ROOM.T.y + 29

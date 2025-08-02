@@ -14,6 +14,7 @@ payload = '''
 1000000 million dollar'''
 match_indent = true
 
+
 [[patches]]
 [patches.regex]
 target = 'card.lua'
@@ -23,3 +24,65 @@ very real patch'''
 payload = '''
 abab'''
 
+# Game:update
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
+payload = '''
+if self.STATE == self.STATES.PLINKO then
+  update_plinko()
+end
+
+'''
+match_indent = true
+
+# ease_background_colour_blind
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+position = 'before'
+pattern = '''elseif state == G.STATES.TAROT_PACK then'''
+payload = '''
+elseif state == G.STATES.PLINKO then
+    ease_colour(G.C.DYN_UI.MAIN, mix_colours(G.C.MONEY, G.C.BLACK, 0.9))
+'''
+match_indent = true
+
+# TEMPORARY PATCH (probably not temporary)
+# some fuckery happens when loading back into run while quit during plinko
+# save_run
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+position = 'at'
+pattern = '''STATE = G.STATE,'''
+payload = '''
+STATE = G.STATE == G.STATES.PLINKO and G.STATES.SHOP or G.STATE,
+'''
+match_indent = true
+
+# Remove plinko when closing the run and what not
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''if self.shop then self.shop:remove(); self.shop = nil end'''
+payload = '''
+if self.plinko then self.plinko:remove(); self.plinko = nil end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'after'
+pattern = '''G.shop = nil'''
+payload = '''
+if G.plinko then
+  G.plinko:remove()
+  G.plinko = nil
+end
+'''
+match_indent = true
