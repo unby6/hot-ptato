@@ -1,0 +1,25 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# empty patches to copypaste later 
+# I'm lazy okay?
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+position = 'before'
+pattern = '''unreal patch'''
+payload = '''
+1000000 million dollar'''
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+position = 'after'
+pattern = '''
+very real patch'''
+payload = '''
+abab'''
+
