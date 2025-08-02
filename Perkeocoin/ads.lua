@@ -57,9 +57,9 @@ function end_round()
             func = function()
                 local ad_to_use = nil
                 if G.GAME.hotpot_total_ads == 0 then
-                    local ad_to_use = HotPotato.Ads['ad_tutorial']
+                    ad_to_use = HotPotato.Ads['ad_tutorial']
                 else
-                    local ad_to_use = pseudorandom_element(HotPotato.Ads,'generate_ad')
+                    ad_to_use = pseudorandom_element(HotPotato.Ads,'generate_ad')
                 end
                 G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
                 G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
@@ -74,4 +74,5 @@ function end_round()
             return true end}))
     end
     return end_round_ref()
+
 end
