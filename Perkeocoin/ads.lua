@@ -81,8 +81,9 @@ end
 local start_run_ref = Game.start_run
 function Game:start_run(args)
     local result = start_run_ref(self, args)
-    if args and args.savetext then
-        G.GAME.hotpot_ads = {}
+
+    G.GAME.hotpot_ads = {}
+    if args and args.savetext and type(args.savetext.hotpot_ads) == "table" then
         for k, v in ipairs(args.savetext.hotpot_ads) do
             local new_ad = UIBox{
                 definition = create_UIBox_ad(v.key, v.id, v.scale),
