@@ -2,8 +2,10 @@
 -- Common utility functions
 
 function ease_plincoins(plink)
-  if not next(find_joker('Tribcoin')) then
+  if plink > 0 and not next(find_joker('Tribcoin')) then
     G.GAME.plincoins = G.GAME.plincoins + plink
+  elseif plink <= 0 then
+    G.GAME.plincoins = G.GAME.plincoins + plink 
   end
 end
 
