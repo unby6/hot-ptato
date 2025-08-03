@@ -1,7 +1,11 @@
 
 -- Common utility functions
 
-
+function ease_plincoins(plink)
+  if not next(find_joker('Tribcoin')) then
+    G.GAME.plincoins = G.GAME.plincoins + plink
+  end
+end
 
 function show_shop()
     if G.shop and G.shop.alignment.offset.py then 
