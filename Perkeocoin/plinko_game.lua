@@ -75,9 +75,10 @@ Plinko = {
         total_rewards = 7,
 
         peg_radius = 3.5,
-        pegs_x = 12,
+        pegs_x = 10,
         pegs_y = 7,
         peg_offset = 53,
+        peg_offset_x = 66,
 
         ball_radius = 13,
         -- density in kg / m^2, 
@@ -386,10 +387,11 @@ function Plinko.f.create_world()
 
     local obstacle_id = 1
     for y = 1, Plinko.s.pegs_y do
-        for x = 1, y%2 == 1 and Plinko.s.pegs_x - 1 or Plinko.s.pegs_x do
-            
+        local max_x = y%2 == 0 and Plinko.s.pegs_x + 1 or Plinko.s.pegs_x
+        for x = 1, max_x do
+
             local pos = {
-                x = (y%2 == 1 and Plinko.s.peg_offset/2 or 0) - 15 + x * Plinko.s.peg_offset, -- offset every other row a bit
+                x = (y%2 == 0 and -Plinko.s.peg_offset_x/2 or 0) - Plinko.s.peg_offset_x/2 + x * Plinko.s.peg_offset_x, -- offset every other row a bit
                 y = 40 + y * Plinko.s.peg_offset, -- generic offset from top, then every 90 px
             }
 
