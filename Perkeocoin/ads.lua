@@ -1,23 +1,60 @@
 HotPotato.Ads = {
+    Adverts = {
+        ad_lusty = {atlas = 'hpot_Ads', pos = {x=1,y=0}, animated = false, base_size = 0.75},
+        ad_boredjoker = {atlas = 'hpot_Ads', pos = {x=2, y=0}, animated = false, base_size = 0.75},
+        ad_triboulet = {atlas = 'hpot_TribouletAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
+    },
+    Shitposts = {
+        ad_digging = {atlas = 'hpot_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
+        ad_smoothie = {atlas = 'hpot_ProtoShitposts', pos = {x=0,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
+        ad_peeling = {atlas = 'hpot_ProtoShitposts', pos = {x=1,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
+        ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
+    },
+    Special = {
+        ad_tutorial = {atlas = 'hpot_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75},
+        ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25}, -- Demonstration. Do not include in final product
+    }
     -- Defaults = {atlas = 'hpot_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75}
-    ad_tutorial = {atlas = 'hpot_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75},
-    ad_lusty = {atlas = 'hpot_Ads', pos = {x=1,y=0}, animated = false, base_size = 0.75},
-    ad_animated = {atlas = 'hpot_AnimatedAds', pos = {x=0,y=0}, animated = true, base_size = 0.5} -- Demonstration. Do not include in final product
 }
 
 SMODS.Atlas{ -- Normal ad atlas. Note that size can be anything, but this is the recommended px/py
     key = 'Ads',
     px = 150,
     py = 100,
-    path = 'Ads.png'
+    path = 'Ads/Ads.png'
 }
 
 SMODS.Atlas{ -- Animated ad atlas. PLEASE have a normal amount of frames :(
     key = 'AnimatedAds',
     px = 150,
     py = 100,
-    path = 'AnimatedAds.png',
+    path = 'Ads/AnimatedAds.png',
     frames = 8,
+    atlas_table = 'ANIMATION_ATLAS'
+}
+
+SMODS.Atlas{
+    key = 'TribouletAd',
+    px = 150,
+    py = 100,
+    path = 'Ads/Tribouletad.png',
+    frames = 16,
+    atlas_table = 'ANIMATION_ATLAS'
+}
+
+SMODS.Atlas{
+    key = 'ProtoShitposts',
+    px = 300,
+    py = 400,
+    path = 'Ads/ProtoAds.png'
+}
+
+SMODS.Atlas{
+    key = 'SpectredAd',
+    px = 281,
+    py = 118,
+    frames = 10,
+    path = 'Ads/Spectred.png',
     atlas_table = 'ANIMATION_ATLAS'
 }
 
@@ -25,7 +62,7 @@ SMODS.Atlas{
     key = 'AbbieMindwave',
     px = 300,
     py = 300,
-    path = 'AbbieMindwave.png',
+    path = 'Ads/AbbieMindwave.png',
     frames = 4,
     atlas_table = 'ANIMATION_ATLAS'
 }
@@ -42,12 +79,12 @@ function create_UIBox_ad(ad, adNum, scale)
     local ad_image = nil
     if ad.animated and ad.animated == true then
         ad_atlas = G.ANIMATION_ATLAS[(ad.atlas or 'hpot_Ads')]
-        ad_image = AnimatedSprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
+        ad_image = AnimatedSprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,{x = math.ceil((pseudorandom('random_start')*ad_atlas.frames) - 0.5), y = ad.pos.y})
     else
         ad_atlas = G.ASSET_ATLAS[(ad.atlas or 'hpot_Ads')]
         ad_image = Sprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
     end
-    ad_image.states.drag.can = false
+    ad_image.states.drag.can = true
     local t = {n = G.UIT.ROOT, config = {colour = G.C.GREY, minh = 2, instance_type = 'CARD', r = 0.3, outline = 2, outline_colour = G.C.GREY, shadow = true}, nodes = {
         {n=G.UIT.R, config = {colour = G.C.GREY, minh = 0.5, align = 'cr', r = 0.3, padding = 0.1}, nodes = {
             {n=G.UIT.C, config = {colour = G.C.CLEAR, align = 'cl'}, nodes = {
@@ -74,8 +111,9 @@ G.FUNCS.remove_ad = function(args)
         else
         end
     end
-    remove_this_ad:remove()
+    if remove_this_ad then remove_this_ad:remove() end
     G.GAME.hotpot_ads_closed = G.GAME.hotpot_ads_closed + 1
+    save_run()
 end
 
 local start_run_ref = Game.start_run
@@ -110,16 +148,22 @@ end
 local end_round_ref = end_round
 function end_round()
     if G.GAME.blind:get_type() == "Boss" then
-        for i = 1, 20 do
+        local number_of_ads = 1+(math.ceil((pseudorandom('ad_num')-0.5)*2))
+        for i = 1, number_of_ads do
         G.E_MANAGER:add_event(Event({
             func = function()
                 local ad_to_use = nil
                 if G.GAME.hotpot_total_ads == 0 then
-                    ad_to_use = HotPotato.Ads['ad_tutorial']
+                    ad_to_use = HotPotato.Ads.Special['ad_tutorial']
                 else
-                    ad_to_use = pseudorandom_element(HotPotato.Ads,'generate_ad')
+                    local ad_type_poll = pseudorandom('ad_type')
+                    if ad_type_poll <= 0.95 then
+                        ad_to_use = pseudorandom_element(HotPotato.Ads.Adverts,'generate_ad')
+                    else
+                        ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
+                    end
                 end
-                local ad_scale = ad_to_use.base_size + (0.5*pseudorandom('ad_scale'))
+                local ad_scale = (ad_to_use.base_size or 0.75) + ((ad_to_use.max_scale or 0.5)*pseudorandom('ad_scale'))
                 G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
                 G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
                 local new_ad = UIBox{
@@ -132,7 +176,6 @@ function end_round()
                 new_ad.config.key = ad_to_use
                 new_ad.config.scale = ad_scale
                 G.GAME.hotpot_ads[#G.GAME.hotpot_ads+1] = new_ad
-                print(new_ad)
             return true end}))
             end
         end
