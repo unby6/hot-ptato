@@ -2,7 +2,6 @@
 
 -- watch lua Mods/Hot-Potato/Perkeocoin/plinko_game.lua
 
-
 -- plinko.lua is huge so this is the new thing game logic related only I guess
 
 -- Transform pixels into game units:
@@ -71,7 +70,9 @@ Plinko = {
         acceleration_x = 0,
         acceleration_y = 9.81,
         world_width = 660,  -- x
-        world_height = 475, -- y
+        world_height = 590, -- y
+
+        total_rewards = 7,
 
         peg_radius = 3.5,
         pegs_x = 12,
@@ -277,6 +278,50 @@ function Plinko.f.create_world_box()
     }
 end
 
+function Plinko.f.get_object(fixture)
+    for _, k in pairs(Plinko.o) do
+        if k.fixture == fixture then
+            return k
+        end
+    end
+end
+
+function Plinko.f.create_rewards()
+    local width = Plinko.s.world_width / Plinko.s.total_rewards
+
+    local wall_height = 110
+
+    for i = 1, Plinko.s.total_rewards do
+        Plinko.o["reward_"..tostring(i)] = fix {
+            body = love.physics.newBody(
+                Plinko.world,
+                world_offset.x + width * i - width/2, -- in the middle
+                world_offset.y + Plinko.s.world_height - 1 -- at the bottom
+            ),
+            color = {i/Plinko.s.world_width * 100/255, 255/255, i/Plinko.s.world_width * 190/255},
+            shape = love.physics.newRectangleShape(width, 1),
+            debug_draw = Plinko.f.polygon,
+            callback = function ()
+                won_reward(i)
+            end
+        }
+
+        if i < Plinko.s.total_rewards then
+            Plinko.o["reward_wall"..tostring(i)] = fix {
+                body = love.physics.newBody(
+                    Plinko.world,
+                    world_offset.x + width * i, -- in the middle
+                    world_offset.y + Plinko.s.world_height - wall_height/2 - 1 -- at the bottom
+                ),
+                color = {i/Plinko.s.world_width * 100/255, 255/255, i/Plinko.s.world_width * 190/255},
+                shape = love.physics.newRectangleShape(1, wall_height),
+                debug_draw = Plinko.f.polygon,
+            }
+        end
+    end
+
+end
+
 function is_above(body_a, body_b)
     return body_a:isActive() and body_a:getY() > body_b:getY()
 end
@@ -289,6 +334,8 @@ function should_boost(a, b)
             (is_above(b:getBody(), a:getBody()))
     end
 end
+
+
 
 function Plinko.f.create_world()
     if Plinko.world ~= "undefined" then
@@ -307,15 +354,23 @@ function Plinko.f.create_world()
         -- Begin contact callback
         function (a, b, coll)
             -- Small chance to boost if balls are colliding 
-            if math.random() < 0.5 then
-                local boost = should_boost(a, b)
-                if boost then
-                    
-                    -- extra bounce
+            local boost = should_boost(a, b)
+            if boost then
+                
+                -- extra bounce
+                if math.random() < 0.5 then
                     coll:setRestitution(1.1)
-                elseif type(boost) == "boolean" then
-                    -- lower bounce, boolean check because hitting a wall would return nil
+                end
+            elseif type(boost) == "boolean" then
+                -- lower bounce, boolean check because hitting a wall would return nil
+                if math.random() < 0.7 then
                     coll:setRestitution(0.5)
+                end
+            else
+                -- hit a rectangle
+                local obj = Plinko.f.get_object(a)
+                if obj and obj.callback then
+                    obj:callback()
                 end
             end
         end,
@@ -325,6 +380,7 @@ function Plinko.f.create_world()
     )
 
     Plinko.f.create_world_box()
+    Plinko.f.create_rewards()
 
     --#region Create obstacles for the ball
 
@@ -367,7 +423,11 @@ end
 function Plinko.f.polygon(obj)
     local r,g,b,a = love.graphics.getColor()
 
-    love.graphics.setColor(100/255, 255/255, 100/255, 255/255)
+    if obj.color then
+        love.graphics.setColor(obj.color)
+    else
+        love.graphics.setColor(100/255, 255/255, 100/255, 255/255)
+    end
     love.graphics.polygon("fill", obj.body:getWorldPoints(obj.shape:getPoints()))
     love.graphics.setColor(r,g,b,a)
 end

@@ -237,6 +237,18 @@ function update_plinko(dt)
 
 end
 
+function won_reward(reward_num)
+  assert(type(reward_num) == "number", "won_reward must be called with a number")
+  
+  print("damn, you won "..tostring(reward_num))
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      Plinko.f.init_dummy_ball()
+
+      return true
+    end
+  }))
+end
 
 -- Let's go gambling
 G.FUNCS.show_plinko = function(e)
