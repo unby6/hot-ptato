@@ -162,7 +162,8 @@ G.FUNCS.start_plinko = function(e)
 end
 
 
-function update_plinko()
+function update_plinko(dt)
+    update_plinko_world(dt)
     if not G.STATE_COMPLETE then
         stop_use()
         ease_background_colour_blind(G.STATES.PLINKO)
