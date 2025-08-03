@@ -226,6 +226,7 @@ function Plinko.f.drop_ball(x)
     }
 
     Plinko.o.ball.fixture:setRestitution(Plinko.s.ball_bounce)
+    Plinko.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * 500, 0)
 end
 
 function Plinko.f.create_world_box()
