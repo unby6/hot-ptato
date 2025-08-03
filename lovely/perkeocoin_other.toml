@@ -1,0 +1,16 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# plincoins will be real in 2013
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''bankrupt_at = 0,'''
+payload = '''
+plincoins = 0,
+balls_dropped = 0,
+'''
+match_indent = true
