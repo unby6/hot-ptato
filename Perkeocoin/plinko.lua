@@ -1,6 +1,6 @@
 
 -- watch lua Mods/Hot-Potato/Perkeocoin/plinko.lua
-
+ 
  
 G.STATES.PLINKO = 2934856393
 
@@ -103,7 +103,13 @@ G.FUNCS.start_plinko = function(e)
 ----------------------------------------------------------------------------
   stop_use()
   G.CONTROLLER.locks.start_plinko = true
-  print("meow")
+  -- TODO REMVOE LATER THIS IS TEMPORARY ! ! ! !! !
+  if Plinko.o.ball then
+    Plinko.f.init_dummy_ball()
+  else
+    Plinko.f.drop_ball()
+  end
+
   --[[
   if G.CONTROLLER:save_cardarea_focus('shop_jokers') then G.CONTROLLER.interrupt.focus = true end
   if G.GAME.current_round.reroll_cost > 0 then 
@@ -163,7 +169,7 @@ end
 
 
 function update_plinko(dt)
-    update_plinko_world(dt)
+    Plinko.f.update_plinko_world(dt)
     if not G.STATE_COMPLETE then
         stop_use()
         ease_background_colour_blind(G.STATES.PLINKO)
@@ -237,7 +243,7 @@ G.FUNCS.show_plinko = function(e)
   stop_use()
 
   hide_shop()
-
+ 
   G.STATE = G.STATES.PLINKO
   G.STATE_COMPLETE = false
 

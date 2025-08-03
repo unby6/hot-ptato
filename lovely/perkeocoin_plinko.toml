@@ -46,7 +46,7 @@ position = 'before'
 pattern = '''for k, v in pairs(self.I.CARDAREA) do'''
 payload = '''
 if self.STATE == self.STATES.PLINKO then
-  Plinko.draw()
+  Plinko.f.draw()
 end
 
 '''
