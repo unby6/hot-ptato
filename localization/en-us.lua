@@ -63,6 +63,14 @@ return {
                     [2] = '{C:red}-#2#{} hand size'
                 }
             },
+            c_hpot_czech_republic = {
+                ['name'] = 'Czech Republic',
+                ['text'] = {
+                    [1] = "Create up to {C:attention}#1#",
+                    [2] = "random {C:hpot_czech}Cheque{} cards",
+                    [3] = "{C:inactive}(Must have room)"
+                }
+            }
         },
         Joker = {
             j_hpot_fortnite = {

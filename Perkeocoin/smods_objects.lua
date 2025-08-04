@@ -688,3 +688,41 @@ SMODS.Consumable { --Handful
         ease_plincoins(card.ability.extra.plincoins)
     end
 }
+
+SMODS.Consumable { --Czech Republic
+    name = 'Czech Republic',
+    key = 'czech_republic',
+    set = 'Czech',
+    atlas = 'perkycardatlas',
+    pos = { x = 2, y = 1 },
+    config = { extra = { cards = 2 }},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['Czech'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.cards}}
+    end,
+
+    can_use = function(self, card)
+        if G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit then
+            return true
+        end
+        return false
+    end,
+
+    use = function(self, card, area, copier)
+        for i = 1, math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards)) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.4, func = function()
+                    play_sound('timpani')
+                    local new_czech = create_card('Czech', G.consumeables, nil, nil, nil, nil, nil, 'czech_republic')
+                    new_czech:add_to_deck()
+                    G.consumeables:emplace(new_czech)
+                    card:juice_up(0.3, 0.5)
+                return true end}))
+        end
+    end
+}

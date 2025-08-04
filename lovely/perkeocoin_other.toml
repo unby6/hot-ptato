@@ -14,3 +14,12 @@ plincoins = 0,
 balls_dropped = 0,
 '''
 match_indent = true
+
+# make the czech colour
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+position = 'after'
+pattern = '''spectral = G.C.SECONDARY_SET.Spectral,'''
+payload = '''hpot_czech = HEX("D2B48C"),'''
+match_indent = true
