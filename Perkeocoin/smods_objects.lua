@@ -4,6 +4,7 @@
 -- Bottlecap Booster
 
 SMODS.Atlas({key = "perkycardatlas", path = "perkycardatlas.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "PerkeocoinBoosters", path = "perkeocoin_boosters.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 
 SMODS.Gradient {
     key = 'plincoin',
@@ -337,6 +338,7 @@ SMODS.Joker{ -- Kitchen Gun
 
 -- }
 
+-- Czechs
 
 SMODS.ConsumableType { --Czech
     key = "Czech",
@@ -866,4 +868,76 @@ SMODS.Consumable { --Mystery Box
         flipped.forever_flipped = true
         ease_plincoins(card.ability.extra.plincoins)
     end
+}
+
+G.STATES.CZECH_PACK = 5734985
+
+-- Czech Boosters
+SMODS.Booster {
+    name = 'Czech Pack',
+    key = 'czech_normal',
+    atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
+    config = { choose = 1, extra = 3 },
+    discovered = true,
+    cost = 4,
+    weight = 0.1,
+    kind = 'hpot_czech',
+    group_key = 'k_hpot_czech_pack',
+
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.choose, card.ability.extra}}
+    end,
+    create_card = function(self, card, i)
+        local newCard = create_card('Czech', G.pack_cards, nil, nil, true, true, nil, 'czech_pack')
+        return newCard
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour_blind(G.STATES.CZECH_PACK)
+    end,
+}
+
+SMODS.Booster {
+    name = 'Jumbo Czech Pack',
+    key = 'czech_jumbo',
+    atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
+    config = { choose = 1, extra = 5 },
+    discovered = true,
+    cost = 5,
+    weight = 0.1,
+    kind = 'hpot_czech',
+    group_key = 'k_hpot_czech_pack',
+
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.choose, card.ability.extra}}
+    end,
+    create_card = function(self, card, i)
+        local newCard = create_card('Czech', G.pack_cards, nil, nil, true, true, nil, 'czech_pack')
+        return newCard
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour_blind(G.STATES.CZECH_PACK)
+    end,
+}
+
+SMODS.Booster {
+    name = 'Mega Czech Pack',
+    key = 'czech_mega',
+    atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
+    config = { choose = 2, extra = 5 },
+    discovered = true,
+    cost = 7,
+    weight = 0.03,
+    kind = 'hpot_czech',
+    group_key = 'k_hpot_czech_pack',
+
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.choose, card.ability.extra}}
+    end,
+    create_card = function(self, card, i)
+        local newCard = create_card('Czech', G.pack_cards, nil, nil, true, true, nil, 'czech_pack')
+        return newCard
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour_blind(G.STATES.CZECH_PACK)
+    end,
 }
