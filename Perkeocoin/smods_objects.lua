@@ -16,8 +16,8 @@ SMODS.Gradient {
     cycle = 1
 }
 
-SMODS.Joker{ --19 plincoin fortnite card who wants it
-    name = "19 Plincoin Fortnite Card Who Wants It",
+SMODS.Joker{ --19 plincoin fortnite card
+    name = "19 Plincoin Fortnite Card",
     key = "fortnite",
     config = {
         extra = {
@@ -25,18 +25,7 @@ SMODS.Joker{ --19 plincoin fortnite card who wants it
             bosses = 3
         }
     },
-    loc_txt = {
-        ['name'] = '19 Plincoin Fortnite Card Who Wants It',
-        ['text'] = {
-            [1] = 'Earn {C:attention}#1#{} {C:hpot_plincoin}Plincoins{} after',
-            [2] = '{C:attention}#2#{} bosses defeated',
-            [3] = '{C:red,E:2}self destructs'
-        }
-    },
-    pos = {
-        x = 7,
-        y = 0
-    },
+    pos = {x = 7, y = 0},
     cost = 4,
     rarity = 1,
     blueprint_compat = false,
@@ -45,6 +34,13 @@ SMODS.Joker{ --19 plincoin fortnite card who wants it
     unlocked = true,
     discovered = true,
     atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.fortnite, card.ability.extra.bosses}}
@@ -86,18 +82,7 @@ SMODS.Joker{ --Plink
             mult = 2
         }
     },
-    loc_txt = {
-        ['name'] = 'Plink',
-        ['text'] = {
-            [1] = "{C:red}+#1#{} Mult per {C:hpot_plincoin}Plinko{}",
-            [2] = "played this run",
-            [3] = "{C:inactive}(Currently {C:red}+#2#{C:inactive})"
-        }
-    },
-    pos = {
-        x = 8,
-        y = 0
-    },
+    pos = { x = 8, y = 0 },
     cost = 6,
     rarity = 1,
     blueprint_compat = true,
@@ -106,6 +91,13 @@ SMODS.Joker{ --Plink
     unlocked = true,
     discovered = true,
     atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.mult, G.GAME.balls_dropped}}
@@ -133,18 +125,7 @@ SMODS.Joker{ --PlincoinXmult
             Xmult = 0.25
         }
     },
-    loc_txt = {
-        ['name'] = 'PlincoinXmult',
-        ['text'] = {
-            [1] = "{C:white,X:red}X#1#{} Mult for every",
-            [2] = "{C:hpot_plincoin}Plincoin{} you have",
-            [3] = "{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)"
-        }
-    },
-    pos = {
-        x = 5,
-        y = 0
-    },
+    pos = { x = 5, y = 0 },
     cost = 6,
     rarity = 1,
     blueprint_compat = true,
@@ -153,6 +134,13 @@ SMODS.Joker{ --PlincoinXmult
     unlocked = true,
     discovered = true,
     atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.Xmult, 1 + (G.GAME.plincoins * card.ability.extra.Xmult)}}
@@ -180,18 +168,7 @@ SMODS.Joker{ --Tribcoin
             Xmult = 3
         }
     },
-    loc_txt = {
-        ['name'] = 'Tribcoin',
-        ['text'] = {
-            [1] = '{C:white,X:red}X#1#{} Mult',
-            [2] = '{C:hpot_plincoin}Plincoins{} can\'t',
-            [3] = 'be gained'
-        }
-    },
-    pos = {
-        x = 6,
-        y = 0
-    },
+    pos = { x = 6, y = 0 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -200,6 +177,13 @@ SMODS.Joker{ --Tribcoin
     unlocked = true,
     discovered = true,
     atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.Xmult}}
@@ -225,18 +209,7 @@ SMODS.Joker{ --Adspace
             chips = 30
         }
     },
-    loc_txt = {
-        ['name'] = 'Adspace',
-        ['text'] = {
-            [1] = '{C:blue}+#1#{} Chips for',
-            [2] = '{C:hpot_advert}Ad{} on screen',
-            [3] = '{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)'
-        }
-    },
-    pos = {
-        x = 0,
-        y = 1
-    },
+    pos = { x = 0, y = 1 },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -245,6 +218,13 @@ SMODS.Joker{ --Adspace
     unlocked = true,
     discovered = true,
     atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.chips, #G.GAME.hotpot_ads * card.ability.extra.chips}}
@@ -262,6 +242,59 @@ SMODS.Joker{ --Adspace
         end
     end
 
+}
+
+SMODS.Joker{ -- Kitchen Gun
+    key = 'kitchen_gun',
+    config = { extra = { odds = 4, xmult = 1, xmult_mod = 0.1 }},
+    cost = 7,
+    rarity = 2,
+    atlas = 'perkycardatlas', pos = {x=1,y=1},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    hotpot_credits = {
+        art = {'Kitty'},
+        idea = {'Kitty'},
+        code = {'Opal'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_kitchen_gun')
+        return{vars = {n, d, card.ability.extra.xmult_mod, card.ability.extra.xmult}}
+    end,
+    calculate = function(self, card, context)
+        if context.ending_shop and context.cardarea == G.jokers then
+            local adsRemoved = 0
+            for k, v in ipairs(G.GAME.hotpot_ads) do
+                if SMODS.pseudorandom_probability(card, 'hpot_kg_kill_ad', 1, card.ability.extra.odds) then
+                    G.E_MANAGER:add_event(Event({
+                        delay = 0.3, func = function()
+                            play_sound('tarot1')
+                            v:juice_up(0.3,0.5)
+                            remove_ad(v.config.id)
+                        return true end
+                    }))
+                    adsRemoved = adsRemoved+1
+                end
+            end
+            card.ability.extra.xmult = card.ability.extra.xmult + (adsRemoved*card.ability.extra.xmult_mod)
+            return{
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
+                colour = G.C.RED
+            }
+        end
+        if context.joker_main and context.cardarea == G.jokers and card.ability.extra.xmult > 1 then
+            return{
+                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
+                    xmult_mod = card.ability.extra.xmult
+                }
+        end
+    end
 }
 
 -- SMODS.Joker{ --free plincoins  yayy for testing
@@ -309,31 +342,17 @@ SMODS.ConsumableType { --Czech
     key = "Czech",
     primary_colour = HEX("EEEEEE"),
     secondary_colour = HEX("D2B48C"),
-    loc_txt =  	{
- 		name = 'Czech', -- used on card type badges
- 		collection = 'Czech Cards', -- label for the button to access the collection
- 	},
     collection_row = {6, 6},
     shop_rate = 0,
     default = "c_hpot_charity",
 }
 
-SMODS.Consumable { --cash exchange
+SMODS.Consumable { --Cash Exchange
     name = 'Cash Exchange',
     key = 'cashexchange',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Cash Exchange',
-        ['text'] = {
-            [1] = "Lose {C:money}$#1#{},",
-            [2] = "gain {C:hpot_plincoin}#2#{} Plincoins"
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             dollars = 8,
@@ -364,18 +383,8 @@ SMODS.Consumable { --Charity
     name = 'Charity',
     key = 'charity',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Charity',
-        ['text'] = {
-            [1] = "Gain {C:hpot_plincoin}#1#{} Plincoin",
-            [2] = 'completely free!!!'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             plincoins = 1
@@ -401,7 +410,7 @@ SMODS.Consumable { --Charity
 }
 
 local function sac_czech()
-    if #G.jokers.cards > 0 then
+    if G.jokers and G.jokers.cards and #G.jokers.cards > 0 then
         local thunk = G.jokers.cards[1].config.center.rarity
         if thunk == 1 then
             return 2
@@ -421,20 +430,8 @@ SMODS.Consumable { --Sacrifice
     name = 'Sacrifice',
     key = 'sacrifice',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Sacrifice',
-        ['text'] = {
-            [1] = "Destroy leftmost {C:attention}Joker{},",
-            [2] = 'Gain {C:hpot_plincoin}Plincoins{} based on',
-            [3] = 'that Joker\'s {C:attention}rarity',
-            [4] = '{C:inactive}(Currently {C:hpot_plincoin}#1#{C:inactive} Plincoins)'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
         }
@@ -468,23 +465,12 @@ SMODS.Consumable { --Sacrifice
     end
 }
 
-SMODS.Consumable { --Wheel of Plinko
-    name = 'Wheel of Plinko',
-    key = 'wheelofplinko',
+SMODS.Consumable { --Gamble
+    name = 'Gamble',
+    key = 'gamble',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Wheel of Plinko',
-        ['text'] = {
-            [1] = 'Lose #1# Plincoins,',
-            [2] = '#3# in #4# chance to',
-            [3] = 'gain #2# Plincoins'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             plincoinsdown = 2,
@@ -500,7 +486,7 @@ SMODS.Consumable { --Wheel of Plinko
         ['Czech'] = true
     },
     loc_vars = function(self, info_queue, card)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'wheelofplinko')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'gamble')
         return {vars = {card.ability.extra.plincoinsdown, card.ability.extra.plincoinsup, new_numerator, new_denominator}}
     end,
 
@@ -510,7 +496,7 @@ SMODS.Consumable { --Wheel of Plinko
 
     use = function(self, card, area, copier)
         ease_plincoins(-card.ability.extra.plincoinsdown)
-        if SMODS.pseudorandom_probability(card, 'czechwheel', card.ability.extra.num, card.ability.extra.den, 'wheelofplinko') then
+        if SMODS.pseudorandom_probability(card, 'czechgamble', card.ability.extra.num, card.ability.extra.den, 'gamble') then
             ease_plincoins(card.ability.extra.plincoinsup)
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
@@ -537,19 +523,8 @@ SMODS.Consumable { --Collateral
     name = 'Collateral',
     key = 'collateral',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Collateral',
-        ['text'] = {
-            [1] = "A random {C:attention}Joker",
-            [2] = 'becomes {C:attention}Perishable{},',
-            [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             plincoins = 4
@@ -590,23 +565,12 @@ SMODS.Consumable { --Collateral
     end
 }
 
-SMODS.Consumable { --CoD Account 
-    name = 'CoD Account',
-    key = 'codaccount',
+SMODS.Consumable { --Contract
+    name = 'Contract',
+    key = 'contract',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'CoD Account',
-        ['text'] = {
-            [1] = "A random {C:attention}Joker",
-            [2] = 'becomes {C:attention}Eternal{},',
-            [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             plincoins = 4
@@ -649,21 +613,10 @@ SMODS.Consumable { --CoD Account
 
 SMODS.Consumable { --Subscription
     name = 'Subscription',
-    key = 'subscription ',
+    key = 'subscription',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Subscription',
-        ['text'] = {
-            [1] = "A random {C:attention}Joker",
-            [2] = 'becomes {C:attention}Rental{},',
-            [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             plincoins = 4
@@ -708,18 +661,8 @@ SMODS.Consumable { --Handful
     name = 'Handful',
     key = 'handful',
     set = 'Czech',
-    loc_txt = {
-        ['name'] = 'Handful',
-        ['text'] = {
-            [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
-            [2] = '{C:red}-#2#{} hand size'
-        }
-    },
     atlas = 'perkycardatlas',
-    pos = {
-        x = 2,
-        y = 1
-    },
+    pos = { x = 2, y = 1 },
     config = {
         extra = {
             plincoins = 10,
