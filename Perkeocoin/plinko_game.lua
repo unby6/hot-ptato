@@ -151,8 +151,8 @@ end
 --#endregion
 
 local destroy_obj = function (self)
-        self.fixture:destroy()
-        self.destroyed = true
+    self.fixture:destroy()
+    self.destroyed = true
 end
 
 local function fix(obj)
