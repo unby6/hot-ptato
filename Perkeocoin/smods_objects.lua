@@ -465,9 +465,9 @@ SMODS.Consumable { --Sacrifice
     end
 }
 
-SMODS.Consumable { --Gamble
-    name = 'Gamble',
-    key = 'gamble',
+SMODS.Consumable { --Wheel of Plinko
+    name = 'Wheel of Plinko',
+    key = 'wheel_of_plinko',
     set = 'Czech',
     atlas = 'perkycardatlas',
     pos = { x = 2, y = 1 },
@@ -486,7 +486,7 @@ SMODS.Consumable { --Gamble
         ['Czech'] = true
     },
     loc_vars = function(self, info_queue, card)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'gamble')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'wheel_of_plinko')
         return {vars = {card.ability.extra.plincoinsdown, card.ability.extra.plincoinsup, new_numerator, new_denominator}}
     end,
 
@@ -496,7 +496,7 @@ SMODS.Consumable { --Gamble
 
     use = function(self, card, area, copier)
         ease_plincoins(-card.ability.extra.plincoinsdown)
-        if SMODS.pseudorandom_probability(card, 'czechgamble', card.ability.extra.num, card.ability.extra.den, 'gamble') then
+        if SMODS.pseudorandom_probability(card, 'czech_wheel_of_plinko', card.ability.extra.num, card.ability.extra.den, 'wheel_of_plinko') then
             ease_plincoins(card.ability.extra.plincoinsup)
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
@@ -565,9 +565,9 @@ SMODS.Consumable { --Collateral
     end
 }
 
-SMODS.Consumable { --Contract
-    name = 'Contract',
-    key = 'contract',
+SMODS.Consumable { --CoD Account
+    name = 'CoD Account',
+    key = 'cod_account',
     set = 'Czech',
     atlas = 'perkycardatlas',
     pos = { x = 2, y = 1 },
