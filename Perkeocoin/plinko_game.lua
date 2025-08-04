@@ -63,7 +63,16 @@ end
 local world_offset = {x = 845, y = 390}
 
 Plinko = {
+    -- GENERAL INFO    
+    STATES = {
+        IDLE = 1,
+        IN_PROGRESS = 2,
+        REWARD = 3,
+    },
+    STATE = 1,
+    
     world = "undefined",
+
     -- settings
     s = {
         meter = 150,
@@ -181,13 +190,7 @@ function Plinko.f.create_obstacle(offset)
 end
 
 function Plinko.f.init_dummy_ball()
-    if Plinko.o.dummy_ball then
-        Plinko.o.dummy_ball:destroy()
-    end
-
-    if Plinko.o.ball then
-        Plinko.o.ball:destroy()
-    end
+    Plinko.f.remove_balls()
 
     Plinko.o.dummy_ball = fix {
         body = love.physics.newBody(
@@ -201,10 +204,7 @@ function Plinko.f.init_dummy_ball()
 
 end
 
--- Create ball
-function Plinko.f.drop_ball(x)
-    x = x and (world_offset.x + x) or get_dummy_ball_x()
-
+function Plinko.f.remove_balls()
     if Plinko.o.dummy_ball then
         Plinko.o.dummy_ball:destroy()
     end
@@ -212,6 +212,13 @@ function Plinko.f.drop_ball(x)
     if Plinko.o.ball then
         Plinko.o.ball:destroy()
     end
+end
+
+-- Create ball
+function Plinko.f.drop_ball(x)
+    x = x and (world_offset.x + x) or get_dummy_ball_x()
+
+    Plinko.f.remove_balls()
 
     Plinko.o.ball = fix {
         body = love.physics.newBody(

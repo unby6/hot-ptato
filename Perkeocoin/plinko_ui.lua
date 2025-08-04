@@ -4,15 +4,71 @@
  
 G.STATES.PLINKO = 2934856393
 
+PlinkoLogic = {
+
+}
+
 local total_rewards = 7
+local rarity_rewards = {
+  ['Common'] = 3,
+  ['Uncommon'] = 2,
+  ['Rare'] = 1,
+  ['Legendary'] = 1
+}
 local plinko_cost = 69
 
 local cached_hand_state
 
 local reward_scale = 0.56
 
+local function adjust_rewards()
+  
+  for _, card in pairs(G.plinko_rewards.cards) do
+        card:hard_set_T(nil, nil, G.CARD_W * reward_scale, G.CARD_W * reward_scale);
+  end
+end
+
+function clear_plinko_rewards()
+  for k, v in pairs(G.plinko_rewards.cards) do
+    v:shatter()
+  end
+end
+
+function generate_plinko_rewards(shuffle)
+  if not G.plinko_rewards then
+    return
+  end
+  clear_plinko_rewards()
+  
+  G.E_MANAGER:add_event(Event({
+    delay = 0.4,
+    func = (function()
+        for rarity, amount in pairs(rarity_rewards) do
+          for i = 1, amount do
+            local card = SMODS.create_card {
+              set = "Joker",
+              rarity = rarity
+            }
+            if rarity == 'Legendary' then
+              card:set_edition("e_negative")
+            else
+              card:set_edition()
+            end
+            G.plinko_rewards:emplace(card)
+          end
+        end
+        if shuffle then
+          G.plinko_rewards:shuffle('plink')
+        end
+        adjust_rewards()
+        return true
+    end)
+  }))
+
+end
+
+
 function G.UIDEF.plinko()
-  G.GAME.current_round.plinko_reroll_cost = plinko_cost
 
     G.plinko_rewards = CardArea(
       G.hand.T.x+0,
@@ -28,7 +84,7 @@ function G.UIDEF.plinko()
                     {n=G.UIT.C, config={align = "tm"}, nodes={
                     {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
                       {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
-                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = 'hide_plinko', hover = true,shadow = true}, nodes = {
+                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = 'hide_plinko', func = 'can_hide_plinko', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
@@ -39,8 +95,8 @@ function G.UIDEF.plinko()
                               -------------------
                               {n=G.UIT.T, config={text = "shop", scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
-                            }}   
-                          }},              
+                            }}
+                          }},
                         }},
                         {n=G.UIT.R, config={align = "cm", minw = 2.8, minh = 1.6, r=0.15,colour = G.C.MONEY, button = 'start_plinko', func = 'can_plinko', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
@@ -51,7 +107,7 @@ function G.UIDEF.plinko()
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_reroll_cost', prefix = '$'}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', prefix = '$'}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
                               -------------------
                             }}
                           }}
@@ -79,18 +135,29 @@ end
 
 
 G.FUNCS.can_plinko = function(e)
-  ----------------------------------------------------------------------------
-  --- TODO
-  ----------------------------------------------------------------------------
-  --- if plinko state isn't idle = false 
-  --- if not enough plinkoins = false
-  if ((G.GAME.dollars-G.GAME.bankrupt_at) - G.GAME.current_round.reroll_cost < 0) and G.GAME.current_round.reroll_cost ~= 0 then
+  if Plinko.STATE ~= Plinko.STATES.IDLE or not Plincoin.f.can_roll() then
       e.config.colour = G.C.UI.BACKGROUND_INACTIVE
       e.config.button = nil
   else
       e.config.colour = G.C.MONEY
       e.config.button = 'start_plinko'
   end
+end
+
+-- Shop button logic - inactive when game isn't idle
+G.FUNCS.can_hide_plinko = function(e)
+  if Plinko.STATE ~= Plinko.STATES.IDLE then
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+  else
+      e.config.colour = G.C.RED
+      e.config.button = 'hide_plinko'
+  end
+end
+
+function reset_plinko()
+  Plinko.STATE = Plinko.STATES.IDLE
+  Plinko.f.init_dummy_ball()
 end
 
 
@@ -101,11 +168,10 @@ G.FUNCS.start_plinko = function(e)
   stop_use()
   G.CONTROLLER.locks.start_plinko = true
   -- TODO REMVOE LATER THIS IS TEMPORARY ! ! ! !! !
-  if Plinko.o.ball then
-    Plinko.f.init_dummy_ball()
-  else
-    Plinko.f.drop_ball()
-  end
+
+  Plincoin.f.handle_roll()
+  Plinko.STATE = Plinko.STATES.IN_PROGRESS
+  Plinko.f.drop_ball()
 
   --[[
   if G.CONTROLLER:save_cardarea_focus('shop_jokers') then G.CONTROLLER.interrupt.focus = true end
@@ -139,7 +205,8 @@ G.FUNCS.start_plinko = function(e)
     end
   }))
     ]]
-  G.E_MANAGER:add_event(Event({
+
+    G.E_MANAGER:add_event(Event({
     trigger = 'after',
     delay = 0.2,
     func = function()
@@ -176,11 +243,8 @@ function update_plinko(dt)
             config = {align='tmi', offset = {x=0,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
         }
 
-        print("update plinko with no G STATE_COMPLETE")
-
         G.E_MANAGER:add_event(Event({
             func = function()
-              print "zooming maybe"
                 G.plinko.alignment.offset.y = -5.3
                 G.plinko.alignment.offset.x = 0
                 G.E_MANAGER:add_event(Event({
@@ -201,21 +265,11 @@ function update_plinko(dt)
                                     --    if v.ability.consumeable then v:start_materialize() end
                                     --end
                                     G.load_plinko_rewards = nil
+                                    adjust_rewards()
                                 else
-                                  ----------------------------------------------
-                                  ----------------- TODO : GENERATE NEW REWARDS
-                                  ----------------------------------------------
-                                  for _ = 1, total_rewards - #G.plinko_rewards.cards do
-                                    local card = SMODS.create_card {
-                                      key = 'j_square'
-                                    }
-                                    G.plinko_rewards:emplace(card)
-                                    end
+                                  generate_plinko_rewards()
                                 end
 
-                                for _, card in pairs(G.plinko_rewards.cards) do
-                                      card:hard_set_T(nil, nil, G.CARD_W * reward_scale, G.CARD_W * reward_scale);
-                                end
                             end
                             -- Back to shop button
                             G.CONTROLLER:snap_to({node = G.plinko:get_UIE_by_ID('shop_button')})
@@ -237,9 +291,31 @@ end
 function won_reward(reward_num)
   assert(type(reward_num) == "number", "won_reward must be called with a number")
   
+  Plinko.f.remove_balls()
   print("damn, you won "..tostring(reward_num))
+
+  draw_card(G.plinko_rewards, G.play, 1, 'up', true, G.plinko_rewards.cards[reward_num], nil, nil)
+
+
+  local now = G.TIMERS.REAL
+  local first_time = true
+
   G.E_MANAGER:add_event(Event({
+    delay = 5,
     func = function()
+      if first_time then
+        first_time = false
+        clear_plinko_rewards()
+      end
+      if G.TIMERS.REAL - now < 5 then
+        return false
+      end
+      G.play.cards[1]:shatter()
+
+      generate_plinko_rewards(true)
+
+
+      Plinko.STATE = Plinko.STATES.IDLE
       Plinko.f.init_dummy_ball()
 
       return true
@@ -255,19 +331,16 @@ G.FUNCS.show_plinko = function(e)
  
   G.STATE = G.STATES.PLINKO
   G.STATE_COMPLETE = false
+  Plinko.STATE = Plinko.STATES.IDLE
 
   cached_hand_state = G.hand.states.visible
   G.hand.states.visible = false
-
-  print "show plinko"
 
 end
 
 -- Clicked back to shop
 G.FUNCS.hide_plinko = function(e)
   stop_use()
-
-  print "hide plinko"
   
   G.hand.states.visible = cached_hand_state
   G.STATE = G.STATES.SHOP
