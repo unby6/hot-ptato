@@ -70,7 +70,32 @@ return {
                     [2] = "random {C:hpot_czech}Cheque{} cards",
                     [3] = "{C:inactive}(Must have room)"
                 }
-            }
+            },
+            c_hpot_meteor = {
+                ['name'] = 'Meteor',
+                ['text'] = {
+                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [2] = 'decrease level of',
+                    [3] = '{C:attention}most played hand{} by {C:red}#2#',
+                    [4] = '{C:inactive}(Currently {C:planet}#3#{C:inactive})'
+                }
+            },
+            c_hpot_yard_sale = {
+                ['name'] = 'Yard Sale',
+                ['text'] = {
+                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [2] = 'add #2# random',
+                    [3] = 'cards to deck',
+                }
+            },
+            c_hpot_mystery_box = {
+                ['name'] = 'Mystery Box',
+                ['text'] = {
+                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [2] = 'a random Joker is',
+                    [3] = 'flipped face down'
+                }
+            },
         },
         Joker = {
             j_hpot_fortnite = {
