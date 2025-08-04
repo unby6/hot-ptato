@@ -343,7 +343,7 @@ SMODS.ConsumableType { --Czech
     primary_colour = HEX("EEEEEE"),
     secondary_colour = HEX("D2B48C"),
     collection_row = {6, 6},
-    shop_rate = 0,
+    shop_rate = 1,
     default = "c_hpot_charity",
 }
 
@@ -724,5 +724,146 @@ SMODS.Consumable { --Czech Republic
                     card:juice_up(0.3, 0.5)
                 return true end}))
         end
+    end
+}
+
+local function mostplayedhand()
+    local _handname, _played, _order = 'High Card', -1, 1000
+    for k, v in pairs(G.GAME.hands) do
+        if v.visible and ((v.played > _played) or ((v.played == _played) and (v.order < _order))) then
+            _played = v.played
+            _order = v.order
+            _handname = k
+        end
+    end
+    return _handname
+end
+SMODS.Consumable { --Meteor
+    name = 'Meteor',
+    key = 'meteor',
+    set = 'Czech',
+    atlas = 'perkycardatlas',
+    pos = { x = 2, y = 1 },
+    config = {
+        extra = {
+            plincoins = 3,
+            levels = 1
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['Czech'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.plincoins, card.ability.extra.levels, mostplayedhand()}}
+    end,
+
+    can_use = function(self, card)
+        local thunk = mostplayedhand()
+        return G.GAME.hands[thunk].level > 0
+    end,
+
+    use = function(self, card, area, copier)
+        local thunk = mostplayedhand()
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(thunk, 'poker_hands'),chips = G.GAME.hands[thunk].chips, mult = G.GAME.hands[thunk].mult, level=G.GAME.hands[thunk].level})
+        level_up_hand(card, thunk, nil, -card.ability.extra.levels)
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+        ease_plincoins(card.ability.extra.plincoins)
+    end
+}
+
+SMODS.Consumable { --Yard Sale
+    name = 'Yard Sale',
+    key = 'yard_sale',
+    set = 'Czech',
+    atlas = 'perkycardatlas',
+    pos = { x = 2, y = 1 },
+    config = {
+        extra = {
+            plincoins = 3,
+            cards = 4
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['Czech'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.plincoins, card.ability.extra.cards}}
+    end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.7,
+                func = function() 
+                    local cards = {}
+                    for i=1, card.ability.extra.cards do
+                        cards[i] = true
+                        local _suit, _rank = nil, nil
+                            _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('yardsale'))
+                            _suit = pseudorandom_element(SMODS.Suits, pseudoseed('yardsale'))
+                        _suit = _suit or 'S'; _rank = _rank or 'A'
+                        
+                        create_playing_card({front = G.P_CARDS[_suit.card_key..'_'.._rank.card_key], center = G.P_CENTERS.c_base}, G.deck, nil, i ~= 1, {HEX("D2B48C")})
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    end
+                    playing_card_joker_effects(cards)
+                    return true end }))
+        ease_plincoins(card.ability.extra.plincoins)
+    end
+}
+
+SMODS.Consumable { --Mystery Box
+    name = 'Mystery Box',
+    key = 'mystery_box',
+    set = 'Czech',
+    atlas = 'perkycardatlas',
+    pos = { x = 2, y = 1 },
+    config = {
+        extra = {
+            plincoins = 2
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['Czech'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.plincoins}}
+    end,
+
+    can_use = function(self, card)
+        if #G.jokers.cards > 0 then
+            for k, v in ipairs(G.jokers.cards) do
+                if v.facing == 'front' then
+                    return true
+                end
+            end
+        end
+        return false
+    end,
+
+    use = function(self, card, area, copier)
+        local flippers = {}
+        for k, v in ipairs(G.jokers.cards) do
+            if v.facing == 'front' then
+                flippers[#flippers+1] = v
+            end
+        end
+        local flipped = pseudorandom_element(flippers, pseudoseed('yardsale'))
+        flipped:flip()
+        flipped.forever_flipped = true
+        ease_plincoins(card.ability.extra.plincoins)
     end
 }

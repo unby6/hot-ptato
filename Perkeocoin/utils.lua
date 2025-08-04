@@ -9,6 +9,14 @@ function ease_plincoins(plink)
   end
 end
 
+local big_f = Card.flip
+function Card:flip()
+    if self.forever_flipped then
+      return
+    end
+    big_f(self)
+end
+
 function show_shop()
     if G.shop and G.shop.alignment.offset.py then 
       G.shop.alignment.offset.y = G.shop.alignment.offset.py
