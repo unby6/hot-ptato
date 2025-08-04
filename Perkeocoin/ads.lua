@@ -111,6 +111,14 @@ G.FUNCS.remove_ad = function(args)
         else
         end
     end
+
+    for i=1, #G.jokers.cards do
+        local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, close_ad = remove_this_ad})
+        if effects.jokers then
+            card_eval_status_text(G.jokers.cards[i], 'jokers', nil, nil, nil, effects.jokers)
+        end
+    end
+
     if remove_this_ad then remove_this_ad:remove() end
     G.GAME.hotpot_ads_closed = G.GAME.hotpot_ads_closed + 1
     save_run()

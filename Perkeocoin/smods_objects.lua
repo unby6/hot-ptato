@@ -4,6 +4,7 @@
 -- Bottlecap Booster
 
 SMODS.Atlas({key = "perkycardatlas", path = "perkycardatlas.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "perkeocoinjokers", path = "PerkeocoinJokers.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 SMODS.Atlas({key = "PerkeocoinBoosters", path = "perkeocoin_boosters.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 
 SMODS.Gradient {
@@ -26,7 +27,7 @@ SMODS.Joker{ --19 plincoin fortnite card
             bosses = 3
         }
     },
-    pos = {x = 7, y = 0},
+    pos = {x = 0, y = 0},
     cost = 4,
     rarity = 1,
     blueprint_compat = false,
@@ -34,7 +35,7 @@ SMODS.Joker{ --19 plincoin fortnite card
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
         art = {''}, --update
@@ -169,7 +170,7 @@ SMODS.Joker{ --Tribcoin
             Xmult = 3
         }
     },
-    pos = { x = 6, y = 0 },
+    pos = { x = 3, y = 0 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -177,7 +178,7 @@ SMODS.Joker{ --Tribcoin
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
         art = {''}, --update
@@ -250,7 +251,7 @@ SMODS.Joker{ -- Kitchen Gun
     config = { extra = { odds = 4, xmult = 1, xmult_mod = 0.1 }},
     cost = 7,
     rarity = 2,
-    atlas = 'perkycardatlas', pos = {x=1,y=1},
+    atlas = 'perkeocoinjokers', pos = {x=1,y=0},
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -296,6 +297,79 @@ SMODS.Joker{ -- Kitchen Gun
                 }
         end
     end
+}
+
+SMODS.Joker{ --TV Dinner
+    name = "TV Dinner",
+    key = "tv_dinner",
+    config = {
+        extra = {
+            mult = 20,
+            mult_mod = 4
+        }
+    },
+    pos = { x = 5, y = 0 },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkeocoinjokers',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod}}
+    end,
+
+    calculate = function(self, card, context)
+
+        if context.cardarea == G.jokers and context.joker_main then
+            if card.ability.extra.mult > 0 then
+                return{
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                    mult_mod = card.ability.extra.mult
+                }
+            end
+
+        elseif context.close_ad and not context.blueprint then
+            card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_mod
+            if card.ability.extra.mult <= 0 then
+                G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                    func = function()
+                        G.jokers:remove_card(self)
+                        card:remove()
+                        card = nil
+                        return true; end})) 
+                    return true
+                end
+                }))
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.FILTER
+                }
+            end
+            return {
+                message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.mult_mod}},
+                colour = G.C.MULT
+            }
+        end
+    end
+
 }
 
 -- SMODS.Joker{ --free plincoins  yayy for testing
@@ -869,6 +943,7 @@ SMODS.Consumable { --Mystery Box
         ease_plincoins(card.ability.extra.plincoins)
     end
 }
+
 
 G.STATES.CZECH_PACK = 5734985
 
