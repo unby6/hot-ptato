@@ -147,40 +147,21 @@ return {
                     [3] = 'for each {C:hpot_advert}Ad{} destroyed',
                     [4] = '{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}X#4#{C:inactive,s:0.8})'
                 }
-            }
-        },
-        Other = {
-            p_hpot_czech_normal = {
-                ['name'] = 'Cheque Pack',
+            },
+            j_hpot_tv_dinner = {
+                ['name'] = 'TV Dinner',
                 ['text'] = {
-                    [1] = 'Choose {C:attention}#1#{} of up to',
-                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
-                    [3] = 'be used immediately',
+                    [1] = '{C:mult}+#1#{} Mult',
+                    [2] = '{C:mult}-#2#{} Mult per',
+                    [3] = '{C:hpot_advert}Ad{} closed'
                 }
             },
-            p_hpot_czech_jumbo = {
-                ['name'] = 'Jumbo Cheque Pack',
-                ['text'] = {
-                    [1] = 'Choose {C:attention}#1#{} of up to',
-                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
-                    [3] = 'be used immediately',
-                }
-            },
-            p_hpot_czech_mega = {
-                ['name'] = 'Mega Cheque Pack',
-                ['text'] = {
-                    [1] = 'Choose {C:attention}#1#{} of up to',
-                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
-                    [3] = 'be used immediately',
-                }
-            }
-        },
+        }
     },
     misc = {
         dictionary = {
             b_czech_cards = 'Cheque Cards',
-            k_czech = 'Cheque',
-            k_hpot_czech_pack = 'Cheque Pack',
+            k_czech = 'Cheque'
         },
         v_dictionary = {
             hotpot_art = { "Art: #1#" },
