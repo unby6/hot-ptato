@@ -24,8 +24,8 @@ return {
                     [4] = '{C:inactive}(Currently {C:hpot_plincoin}#1#{C:inactive} Plincoins)'
                 }
             },
-            c_hpot_gamble = {
-                ['name'] = 'Gamble',
+            c_hpot_wheel_of_plinko = {
+                ['name'] = 'Wheel of Plinko',
                 ['text'] = {
                     [1] = 'Lose #1# Plincoins,',
                     [2] = '#3# in #4# chance to',
@@ -40,8 +40,8 @@ return {
                     [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
                 }
             },
-            c_hpot_contract = {
-                ['name'] = 'Contract',
+            c_hpot_cod_account = {
+                ['name'] = 'CoD Account',
                 ['text'] = {
                     [1] = "A random {C:attention}Joker",
                     [2] = 'becomes {C:attention}Eternal{},',
