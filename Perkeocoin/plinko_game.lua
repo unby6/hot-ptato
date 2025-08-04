@@ -76,8 +76,8 @@ Plinko = {
 
         peg_radius = 3.5,
         pegs_x = 10,
-        pegs_y = 7,
-        peg_offset = 53,
+        pegs_y = 8,
+        peg_offset = 45,
         peg_offset_x = 66,
 
         ball_radius = 13,
@@ -226,7 +226,7 @@ function Plinko.f.drop_ball(x)
     }
 
     Plinko.o.ball.fixture:setRestitution(Plinko.s.ball_bounce)
-    Plinko.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * 500, 0)
+    Plinko.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * (300 + math.random() * 200), 0)
 end
 
 function Plinko.f.create_world_box()
@@ -360,7 +360,7 @@ function Plinko.f.create_world()
             if boost then
                 
                 -- extra bounce
-                if math.random() < 0.5 then
+                if math.random() < 0.4 then
                     coll:setRestitution(1.1)
                 end
             elseif type(boost) == "boolean" then
