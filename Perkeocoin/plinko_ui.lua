@@ -1,6 +1,6 @@
 
--- watch lua Mods/Hot-Potato/Perkeocoin/plinko.lua
- 
+-- watch lua Mods/Hot-Potato/Perkeocoin/plinko_ui.lua
+  
  
 G.STATES.PLINKO = 2934856393
 
@@ -46,16 +46,13 @@ function G.UIDEF.plinko()
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Play Plinko", scale = 0.4, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = "Play", scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              --- TODO : use a png for this
-                              {n=G.UIT.T, config={text = '₽', scale = 0.7, colour = G.C.WHITE, shadow = true}},
-                              {n=G.UIT.T, config={text = '₱', scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_reroll_cost', prefix = '$'}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
                               -------------------
-                              {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                             }}
                           }}
                         }},
