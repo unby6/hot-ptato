@@ -278,7 +278,7 @@ SMODS.Joker{ -- Kitchen Gun
                         delay = 0.3, func = function()
                             play_sound('tarot1')
                             v:juice_up(0.3,0.5)
-                            remove_ad(v.config.id)
+                            G.FUNCS.remove_ad(v.config.id)
                         return true end
                     }))
                     adsRemoved = adsRemoved+1
@@ -522,6 +522,63 @@ SMODS.Joker{ --Bank Teller
                 end
             end
         end
+    end
+
+}
+
+SMODS.Joker{ --Balatro **PREMIUM**
+    name = "Balatro **PREMIUM**",
+    key = "balatro_premium",
+    config = {
+        extra = {
+            dollars = 5,
+        }
+    },
+    pos = { x = 4, y = 0 },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkeocoinjokers',
+
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.dollars}}
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        for k, v in ipairs(G.GAME.hotpot_ads) do
+            G.E_MANAGER:add_event(Event({
+                delay = 0.3, func = function()
+                    play_sound('tarot1')
+                    v:juice_up(0.3,0.5)
+                    G.FUNCS.remove_ad(v.config.id)
+                return true end
+            }))
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual and not context.bluleprint then
+            ease_dollars(-card.ability.extra.dollars)
+            return {
+                message = "-$"..card.ability.extra.dollars,
+                colour = G.C.MONEY
+            }
+
+        elseif context.close_ad and not context.blueprint then
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Ad Removed!", colour = G.C.FILTER})
+        end
+   
     end
 
 }

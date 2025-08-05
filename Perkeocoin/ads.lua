@@ -103,12 +103,23 @@ end
 
 G.FUNCS.remove_ad = function(args)
     local remove_this_ad = nil
-    for k, v in ipairs(G.GAME.hotpot_ads) do
-        if v.config.id == args.config.adnum then
-            remove_this_ad = v
-            table.remove(G.GAME.hotpot_ads, k)
-            break
-        else
+    if type(args) == 'table' then
+        for k, v in ipairs(G.GAME.hotpot_ads) do
+            if v.config.id == args.config.adnum then
+                remove_this_ad = v
+                table.remove(G.GAME.hotpot_ads, k)
+                break
+            else
+            end
+        end
+    else
+        for k, v in ipairs(G.GAME.hotpot_ads) do
+            if v.config.id == args then
+                remove_this_ad = v
+                table.remove(G.GAME.hotpot_ads, k)
+                break
+            else
+            end
         end
     end
 
@@ -163,33 +174,52 @@ function end_round()
 end
 
 function create_ads(number_of_ads)
-  for i = 1, number_of_ads do
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            local ad_to_use = nil
-            if G.GAME.hotpot_total_ads == 0 then
-                ad_to_use = HotPotato.Ads.Special['ad_tutorial']
-            else
-                local ad_type_poll = pseudorandom('ad_type')
-                if ad_type_poll <= 0.95 then
-                    ad_to_use = pseudorandom_element(HotPotato.Ads.Adverts,'generate_ad')
-                else
-                    ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
+    local ad_index = #G.GAME.hotpot_ads
+    for i = 1, number_of_ads do
+        if next(find_joker('Balatro **PREMIUM**')) then
+            G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
+            for i=1, #G.jokers.cards do
+                local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, close_ad = true})
+                if effects.jokers then
+                    card_eval_status_text(G.jokers.cards[i], 'jokers', nil, nil, nil, effects.jokers)
                 end
             end
-            local ad_scale = (ad_to_use.base_size or 0.75) + ((ad_to_use.max_scale or 0.5)*pseudorandom('ad_scale'))
-            G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
-            G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
-            local new_ad = UIBox{
-                definition = create_UIBox_ad(ad_to_use, G.GAME.hotpot_total_ads, ad_scale),
-                config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
-            }
-            new_ad.alignment.offset.x = (pseudorandom('ad_x_offset')-0.5)*16
-            new_ad.alignment.offset.y = (pseudorandom('ad_y_offset')-0.5)*9
-            new_ad.config.id = G.GAME.hotpot_total_ads
-            new_ad.config.key = ad_to_use
-            new_ad.config.scale = ad_scale
-            G.GAME.hotpot_ads[#G.GAME.hotpot_ads+1] = new_ad
-        return true end}))
+        else
+            G.E_MANAGER:add_event(Event({
+            func = function()
+                local ad_to_use = nil
+                if G.GAME.hotpot_total_ads == 0 then
+                    ad_to_use = HotPotato.Ads.Special['ad_tutorial']
+                else
+                    local ad_type_poll = pseudorandom('ad_type')
+                    if ad_type_poll <= 0.95 then
+                        ad_to_use = pseudorandom_element(HotPotato.Ads.Adverts,'generate_ad')
+                    else
+                        ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
+                    end
+                end
+                local ad_scale = (ad_to_use.base_size or 0.75) + ((ad_to_use.max_scale or 0.5)*pseudorandom('ad_scale'))
+                G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
+                G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
+                local new_ad = UIBox{
+                    definition = create_UIBox_ad(ad_to_use, G.GAME.hotpot_total_ads, ad_scale),
+                    config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
+                }
+                new_ad.alignment.offset.x = (pseudorandom('ad_x_offset')-0.5)*16
+                new_ad.alignment.offset.y = (pseudorandom('ad_y_offset')-0.5)*9
+                new_ad.config.id = G.GAME.hotpot_total_ads
+                new_ad.config.key = ad_to_use
+                new_ad.config.scale = ad_scale
+                G.GAME.hotpot_ads[#G.GAME.hotpot_ads+1] = new_ad
+            return true end}))
         end
+    end
+    if number_of_ads > 0 then
+        for i=1, #G.jokers.cards do
+            local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, create_ad = number_of_ads})
+            if effects.jokers then
+                card_eval_status_text(G.jokers.cards[i], 'jokers', nil, nil, nil, effects.jokers)
+            end
+        end
+    end
 end
