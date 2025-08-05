@@ -46,7 +46,7 @@ position = 'before'
 pattern = '''for k, v in pairs(self.I.CARDAREA) do'''
 payload = '''
 if self.STATE == self.STATES.PLINKO then
-  Plinko.f.draw()
+  PlinkoGame.f.draw()
 end
 
 '''
@@ -94,6 +94,10 @@ target = 'functions/button_callbacks.lua'
 position = 'after'
 pattern = '''G.shop = nil'''
 payload = '''
+if G.plinko_rewards then
+  G.plinko_rewards:remove()
+  G.plinko_rewards = nil
+end
 if G.plinko then
   G.plinko:remove()
   G.plinko = nil

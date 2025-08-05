@@ -2,8 +2,6 @@
 
 -- watch lua Mods/Hot-Potato/Perkeocoin/plinko_game.lua
 
--- plinko.lua is huge so this is the new thing game logic related only I guess
-
 -- Transform pixels into game units:
 local function to_game_units(val)
     return val / (G.TILESCALE*G.TILESIZE)
@@ -12,10 +10,6 @@ end
 local function to_pixels(val)
     return val * (G.TILESCALE*G.TILESIZE)
 end
-
--- all of this works, adjust the map to the UI
--- After that, add logic to automatically adjust scale on screen scale change
---
 
 --[[
 Use this to draw sprites 
@@ -48,29 +42,20 @@ number ky (0)
 
 ]]
 
-
 -- TODO UPDATE PHYSICS SHIT WHEN PLAYER CHANGES WINDOW SIZE
 
 
-if Plinko then
+if PlinkoGame then
     -- Cleanup old stuff on reload
-    if Plinko.world ~= "undefined" then
-        Plinko.world:destroy()
-        Plinko.world = "undefined"
+    if PlinkoGame.world ~= "undefined" then
+        PlinkoGame.world:destroy()
+        PlinkoGame.world = "undefined"
     end
 end
 
 local world_offset = {x = 845, y = 390}
 
-Plinko = {
-    -- GENERAL INFO    
-    STATES = {
-        IDLE = 1,
-        IN_PROGRESS = 2,
-        REWARD = 3,
-    },
-    STATE = 1,
-    
+PlinkoGame = {
     world = "undefined",
 
     -- settings
@@ -103,36 +88,36 @@ Plinko = {
     f = { },
 }
 
-function Plinko.f.draw()
-  if Plinko.world == 'undefined' then
+function PlinkoGame.f.draw()
+  if PlinkoGame.world == 'undefined' then
     return
   end
   -- TODO : draw normal textures
-  Plinko.f.debug_objects()
+  PlinkoGame.f.debug_objects()
 end
 
-function Plinko.f.tick_objects()
+function PlinkoGame.f.tick_objects()
 
-    for k, v in pairs(Plinko.o) do
+    for k, v in pairs(PlinkoGame.o) do
         if v.destroyed then
-            Plinko.o[k] = nil
+            PlinkoGame.o[k] = nil
         end
     end
 
 end
 
-function Plinko.f.update_plinko_world(dt)
-    if Plinko.world == 'undefined' then
-        Plinko.f.create_world()
-        Plinko.f.init_dummy_ball()
+function PlinkoGame.f.update_plinko_world(dt)
+    if PlinkoGame.world == 'undefined' then
+        PlinkoGame.f.create_world()
+        PlinkoGame.f.init_dummy_ball()
         return
     end
 
 
-    Plinko.f.tick_objects()
-    Plinko.f.ballin(dt)
+    PlinkoGame.f.tick_objects()
+    PlinkoGame.f.ballin(dt)
 
-    Plinko.world:update(dt)
+    PlinkoGame.world:update(dt)
 end
 
 --#region Dynamic ball offset
@@ -141,19 +126,19 @@ local plinko_balling = 1
 local where_is_plinko_balling = 1
 local how_much_balling_per_second = 200
 local ball_idle_offset = 175/2
-local plinko_should_be_balling_in_a_different_direction = (Plinko.s.world_width - ball_idle_offset * 2)
+local plinko_should_be_balling_in_a_different_direction = (PlinkoGame.s.world_width - ball_idle_offset * 2)
 local function get_dummy_ball_x()
     return world_offset.x + (ball_idle_offset + plinko_balling)
 end
 
-function Plinko.f.ballin(dt)
+function PlinkoGame.f.ballin(dt)
     plinko_balling = plinko_balling + where_is_plinko_balling * how_much_balling_per_second * G.real_dt
     if plinko_balling >= plinko_should_be_balling_in_a_different_direction or plinko_balling <= 1 then
         where_is_plinko_balling = -where_is_plinko_balling
     end
 
-    if Plinko.o.dummy_ball then
-        Plinko.o.dummy_ball.body:setX(get_dummy_ball_x())
+    if PlinkoGame.o.dummy_ball then
+        PlinkoGame.o.dummy_ball.body:setX(get_dummy_ball_x())
     end
 end
 
@@ -174,157 +159,157 @@ local function fix(obj)
 end
 
 -- Create obstacle pegs 
-function Plinko.f.create_obstacle(offset)
+function PlinkoGame.f.create_obstacle(offset)
     return fix {
         body = love.physics.newBody(
-            Plinko.world,
+            PlinkoGame.world,
             world_offset.x + offset.x,
             world_offset.y + offset.y
         ),
-        shape = love.physics.newCircleShape(Plinko.s.peg_radius),
-        debug_draw = Plinko.f.circle,
+        shape = love.physics.newCircleShape(PlinkoGame.s.peg_radius),
+        debug_draw = PlinkoGame.f.circle,
         draw = function (self)
             -- TODO draw texture
         end
     }
 end
 
-function Plinko.f.init_dummy_ball()
-    Plinko.f.remove_balls()
+function PlinkoGame.f.init_dummy_ball()
+    PlinkoGame.f.remove_balls()
 
-    Plinko.o.dummy_ball = fix {
+    PlinkoGame.o.dummy_ball = fix {
         body = love.physics.newBody(
-            Plinko.world,
+            PlinkoGame.world,
             get_dummy_ball_x(),
             world_offset.y + 20
         ),
-        shape = love.physics.newCircleShape(Plinko.s.ball_radius),
-        debug_draw = Plinko.f.circle_fill,
+        shape = love.physics.newCircleShape(PlinkoGame.s.ball_radius),
+        debug_draw = PlinkoGame.f.circle_fill,
     }
 
 end
 
-function Plinko.f.remove_balls()
-    if Plinko.o.dummy_ball then
-        Plinko.o.dummy_ball:destroy()
+function PlinkoGame.f.remove_balls()
+    if PlinkoGame.o.dummy_ball then
+        PlinkoGame.o.dummy_ball:destroy()
     end
 
-    if Plinko.o.ball then
-        Plinko.o.ball:destroy()
+    if PlinkoGame.o.ball then
+        PlinkoGame.o.ball:destroy()
     end
 end
 
 -- Create ball
-function Plinko.f.drop_ball(x)
+function PlinkoGame.f.drop_ball(x)
     x = x and (world_offset.x + x) or get_dummy_ball_x()
 
-    Plinko.f.remove_balls()
+    PlinkoGame.f.remove_balls()
 
-    Plinko.o.ball = fix {
+    PlinkoGame.o.ball = fix {
         body = love.physics.newBody(
-            Plinko.world,
+            PlinkoGame.world,
             x,
             world_offset.y + 20,
             "dynamic"
         ),
-        shape = love.physics.newCircleShape(Plinko.s.ball_radius),
-        density = Plinko.s.ball_density,
-        debug_draw = Plinko.f.circle_fill
+        shape = love.physics.newCircleShape(PlinkoGame.s.ball_radius),
+        density = PlinkoGame.s.ball_density,
+        debug_draw = PlinkoGame.f.circle_fill
     }
 
-    Plinko.o.ball.fixture:setRestitution(Plinko.s.ball_bounce)
-    Plinko.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * (300 + math.random() * 200), 0)
+    PlinkoGame.o.ball.fixture:setRestitution(PlinkoGame.s.ball_bounce)
+    PlinkoGame.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * (300 + math.random() * 200), 0)
 end
 
-function Plinko.f.create_world_box()
+function PlinkoGame.f.create_world_box()
     local h_rect = {
-        width = Plinko.s.world_width,
+        width = PlinkoGame.s.world_width,
         height = 1,
     }
 
     local v_rect = {
         width = 1,
-        height = Plinko.s.world_height,
+        height = PlinkoGame.s.world_height,
     }
 
-    Plinko.o.box_bottom = fix {
+    PlinkoGame.o.box_bottom = fix {
         body = love.physics.newBody(
-            Plinko.world,
-            world_offset.x + Plinko.s.world_width / 2, -- in the middle
-            world_offset.y + Plinko.s.world_height - h_rect.height / 2 -- at the bottom
+            PlinkoGame.world,
+            world_offset.x + PlinkoGame.s.world_width / 2, -- in the middle
+            world_offset.y + PlinkoGame.s.world_height - h_rect.height / 2 -- at the bottom
         ),
         shape = love.physics.newRectangleShape(h_rect.width, h_rect.height),
-        debug_draw = Plinko.f.polygon
+        debug_draw = PlinkoGame.f.polygon
     }
-    Plinko.o.box_top = fix {
+    PlinkoGame.o.box_top = fix {
         body = love.physics.newBody(
-            Plinko.world,
-            world_offset.x + Plinko.s.world_width / 2, -- in the middle
+            PlinkoGame.world,
+            world_offset.x + PlinkoGame.s.world_width / 2, -- in the middle
             world_offset.y + h_rect.height / 2 -- at the top
         ),
         shape = love.physics.newRectangleShape(h_rect.width, h_rect.height),
-        debug_draw = Plinko.f.polygon
+        debug_draw = PlinkoGame.f.polygon
     }
 
-    Plinko.o.box_left = fix {
+    PlinkoGame.o.box_left = fix {
         body = love.physics.newBody(
-            Plinko.world,
+            PlinkoGame.world,
             world_offset.x + v_rect.width / 2, -- to the left
-            world_offset.y + Plinko.s.world_height / 2 -- in the middle
+            world_offset.y + PlinkoGame.s.world_height / 2 -- in the middle
         ),
         shape = love.physics.newRectangleShape(v_rect.width, v_rect.height),
-        debug_draw = Plinko.f.polygon
+        debug_draw = PlinkoGame.f.polygon
     }
 
-    Plinko.o.box_right = fix {
+    PlinkoGame.o.box_right = fix {
         body = love.physics.newBody(
-            Plinko.world,
-            world_offset.x + Plinko.s.world_width - v_rect.width / 2, -- to the right
-            world_offset.y + Plinko.s.world_height / 2 -- in the middle
+            PlinkoGame.world,
+            world_offset.x + PlinkoGame.s.world_width - v_rect.width / 2, -- to the right
+            world_offset.y + PlinkoGame.s.world_height / 2 -- in the middle
         ),
         shape = love.physics.newRectangleShape(v_rect.width, v_rect.height),
-        debug_draw = Plinko.f.polygon
+        debug_draw = PlinkoGame.f.polygon
     }
 end
 
-function Plinko.f.get_object(fixture)
-    for _, k in pairs(Plinko.o) do
+function PlinkoGame.f.get_object(fixture)
+    for _, k in pairs(PlinkoGame.o) do
         if k.fixture == fixture then
             return k
         end
     end
 end
 
-function Plinko.f.create_rewards()
-    local width = Plinko.s.world_width / Plinko.s.total_rewards
+function PlinkoGame.f.create_rewards()
+    local width = PlinkoGame.s.world_width / PlinkoGame.s.total_rewards
 
     local wall_height = 110
 
-    for i = 1, Plinko.s.total_rewards do
-        Plinko.o["reward_"..tostring(i)] = fix {
+    for i = 1, PlinkoGame.s.total_rewards do
+        PlinkoGame.o["reward_"..tostring(i)] = fix {
             body = love.physics.newBody(
-                Plinko.world,
+                PlinkoGame.world,
                 world_offset.x + width * i - width/2, -- in the middle
-                world_offset.y + Plinko.s.world_height - 1 -- at the bottom
+                world_offset.y + PlinkoGame.s.world_height - 1 -- at the bottom
             ),
-            color = {i/Plinko.s.world_width * 100/255, 255/255, i/Plinko.s.world_width * 190/255},
+            color = {i/PlinkoGame.s.world_width * 100/255, 255/255, i/PlinkoGame.s.world_width * 190/255},
             shape = love.physics.newRectangleShape(width, 1),
-            debug_draw = Plinko.f.polygon,
+            debug_draw = PlinkoGame.f.polygon,
             callback = function ()
-                won_reward(i)
+                PlinkoLogic.f.won_reward(i)
             end
         }
 
-        if i < Plinko.s.total_rewards then
-            Plinko.o["reward_wall"..tostring(i)] = fix {
+        if i < PlinkoGame.s.total_rewards then
+            PlinkoGame.o["reward_wall"..tostring(i)] = fix {
                 body = love.physics.newBody(
-                    Plinko.world,
+                    PlinkoGame.world,
                     world_offset.x + width * i, -- in the middle
-                    world_offset.y + Plinko.s.world_height - wall_height/2 - 1 -- at the bottom
+                    world_offset.y + PlinkoGame.s.world_height - wall_height/2 - 1 -- at the bottom
                 ),
-                color = {i/Plinko.s.world_width * 100/255, 255/255, i/Plinko.s.world_width * 190/255},
+                color = {i/PlinkoGame.s.world_width * 100/255, 255/255, i/PlinkoGame.s.world_width * 190/255},
                 shape = love.physics.newRectangleShape(1, wall_height),
-                debug_draw = Plinko.f.polygon,
+                debug_draw = PlinkoGame.f.polygon,
             }
         end
     end
@@ -346,20 +331,20 @@ end
 
 
 
-function Plinko.f.create_world()
-    if Plinko.world ~= "undefined" then
+function PlinkoGame.f.create_world()
+    if PlinkoGame.world ~= "undefined" then
         return
     end
 
-    love.physics.setMeter(Plinko.s.meter)
+    love.physics.setMeter(PlinkoGame.s.meter)
 
-    Plinko.world = love.physics.newWorld(
-        Plinko.s.acceleration_x * Plinko.s.meter,
-        Plinko.s.acceleration_y * Plinko.s.meter,
+    PlinkoGame.world = love.physics.newWorld(
+        PlinkoGame.s.acceleration_x * PlinkoGame.s.meter,
+        PlinkoGame.s.acceleration_y * PlinkoGame.s.meter,
         true -- Whether the bodies in this world are allowed to sleep (eepy)
     )
 
-    Plinko.world:setCallbacks(
+    PlinkoGame.world:setCallbacks(
         -- Begin contact callback
         function (a, b, coll)
             -- Small chance to boost if balls are colliding 
@@ -377,7 +362,7 @@ function Plinko.f.create_world()
                 end
             else
                 -- hit a rectangle
-                local obj = Plinko.f.get_object(a)
+                local obj = PlinkoGame.f.get_object(a)
                 if obj and obj.callback then
                     obj:callback()
                 end
@@ -388,22 +373,22 @@ function Plinko.f.create_world()
         nil
     )
 
-    Plinko.f.create_world_box()
-    Plinko.f.create_rewards()
+    PlinkoGame.f.create_world_box()
+    PlinkoGame.f.create_rewards()
 
     --#region Create obstacles for the ball
 
     local obstacle_id = 1
-    for y = 1, Plinko.s.pegs_y do
-        local max_x = y%2 == 0 and Plinko.s.pegs_x + 1 or Plinko.s.pegs_x
+    for y = 1, PlinkoGame.s.pegs_y do
+        local max_x = y%2 == 0 and PlinkoGame.s.pegs_x + 1 or PlinkoGame.s.pegs_x
         for x = 1, max_x do
 
             local pos = {
-                x = (y%2 == 0 and -Plinko.s.peg_offset_x/2 or 0) - Plinko.s.peg_offset_x/2 + x * Plinko.s.peg_offset_x, -- offset every other row a bit
-                y = 40 + y * Plinko.s.peg_offset, -- generic offset from top, then every 90 px
+                x = (y%2 == 0 and -PlinkoGame.s.peg_offset_x/2 or 0) - PlinkoGame.s.peg_offset_x/2 + x * PlinkoGame.s.peg_offset_x, -- offset every other row a bit
+                y = 40 + y * PlinkoGame.s.peg_offset, -- generic offset from top, then every 90 px
             }
 
-            Plinko.o["obstacle_"..tostring(obstacle_id)] = Plinko.f.create_obstacle(pos)
+            PlinkoGame.o["obstacle_"..tostring(obstacle_id)] = PlinkoGame.f.create_obstacle(pos)
             obstacle_id = obstacle_id + 1
         end
     end
@@ -414,7 +399,7 @@ end
 
 --#region Debug Objects (draw hitboxes outlines)
 
-function Plinko.f.circle(obj)
+function PlinkoGame.f.circle(obj)
     local r,g,b,a = love.graphics.getColor()
     
     love.graphics.setColor(255/255, 100/255, 100/255, 255/255)
@@ -422,7 +407,7 @@ function Plinko.f.circle(obj)
     love.graphics.setColor(r,g,b,a)
 end 
 
-function Plinko.f.circle_fill(obj)
+function PlinkoGame.f.circle_fill(obj)
     local r,g,b,a = love.graphics.getColor()
     
     love.graphics.setColor(100/255, 100/255, 255/255, 255/255)
@@ -430,7 +415,7 @@ function Plinko.f.circle_fill(obj)
     love.graphics.setColor(r,g,b,a)
 end
 
-function Plinko.f.polygon(obj)
+function PlinkoGame.f.polygon(obj)
     local r,g,b,a = love.graphics.getColor()
 
     if obj.color then
@@ -445,7 +430,7 @@ end
 local debugging = true
  
 -- Draw hitboxes
-function Plinko.f.debug_objects(toggle)
+function PlinkoGame.f.debug_objects(toggle)
     if toggle then
         debugging = not debugging
         print(("You are %s debugging objects"):format(debugging and "now" or "no longer"))
@@ -456,7 +441,7 @@ function Plinko.f.debug_objects(toggle)
         return
     end
 
-    for _, v in pairs(Plinko.o) do
+    for _, v in pairs(PlinkoGame.o) do
         v:debug_draw()
     end
 end

@@ -1,0 +1,156 @@
+
+G.STATES.PLINKO = 2934856393
+
+
+PlinkoLogic = {
+    -- Settings
+    s = {
+      default_roll_cost = 1,
+      rolls_to_up_cost = 3,
+    },
+    
+    -- GENERAL INFO    
+    STATES = {
+        IDLE = 1,
+        IN_PROGRESS = 2,
+        REWARD = 3,
+    },
+    STATE = 1,
+    
+    rewards = {
+        total = 7,
+        per_rarity = {
+            ['Common'] = 3,
+            ['Uncommon'] = 2,
+            ['Rare'] = 1,
+            ['Legendary'] = 1
+        }
+    },
+
+    roll_cost_reset = {
+        -- No vouchers
+        {ante_left = 2, rounds_left = 0},
+        -- Tier 1
+        {ante_left = 1, rounds_left = 0},
+        -- Tier 2
+        {ante_left = 0, rounds_left = 1},
+    },
+    
+    -- Functions
+    f = { },
+}
+
+--#region Game logic
+
+function PlinkoLogic.f.reset_plinko()
+  PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
+  PlinkoGame.f.init_dummy_ball()
+end
+
+function PlinkoLogic.f.generate_rewards()
+  for rarity, amount in pairs(PlinkoLogic.rewards.per_rarity) do
+    for i = 1, amount do
+      local card = SMODS.create_card {
+        set = "Joker",
+        rarity = rarity
+      }
+      if rarity == 'Legendary' then
+        card:set_edition("e_negative")
+      else
+        card:set_edition()
+      end
+      G.plinko_rewards:emplace(card)
+    end
+  end
+end
+
+function PlinkoLogic.f.won_reward(reward_num)
+  assert(type(reward_num) == "number", "won_reward must be called with a number")
+  
+  PlinkoGame.f.remove_balls()
+
+  draw_card(G.plinko_rewards, G.play, 1, 'up', true, G.plinko_rewards.cards[reward_num], nil, nil)
+
+  local now = G.TIMERS.REAL
+  local first_time = true
+
+  G.E_MANAGER:add_event(Event({
+    delay = 5,
+    func = function()
+      if first_time then
+        first_time = false
+        PlinkoUI.f.clear_plinko_rewards()
+
+        G.CONTROLLER:snap_to({node = G.plinko_rewards.cards[1]})
+      end
+
+      if G.TIMERS.REAL - now < 3 then
+        return false
+      end
+
+      if G.play.cards[1] then
+        G.play.cards[1]:shatter()
+      end
+
+      PlinkoUI.f.update_plinko_rewards(true)
+
+      PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
+      PlinkoGame.f.init_dummy_ball()
+
+      return true
+    end
+  }))
+end
+
+--#endregion
+
+
+--#region Roll cost logic
+
+-- NOTE FOR VOUCHER IMPL: 
+-- run PlinkoLogic.f.reset_cost(true) to update when the roll cost is gonna reset
+
+function PlinkoLogic.f.reset_cost(keep_roll_cost)
+  local current_level = 1
+  if G.GAME.used_vouchers['hpot_plincoin2'] then
+    current_level = 3
+  elseif G.GAME.used_vouchers['hpot_plincoin1'] then
+    current_level = 2
+  end
+
+  if not keep_roll_cost then
+    G.GAME.current_round.plinko_roll_cost = PlinkoLogic.default_roll_cost
+  end
+  G.GAME.current_round.plinko_cost_reset = copy_table(PlinkoLogic.roll_cost_reset[current_level])
+end
+
+function PlinkoLogic.f.ante_up()
+  G.GAME.current_round.plinko_cost_reset.ante_left = math.max(0, G.GAME.current_round.plinko_cost_reset.ante_left - 1)
+
+  if G.GAME.current_round.plinko_cost_reset.ante_left <= 0 and G.GAME.current_round.plinko_cost_reset.rounds_left <= 0 then
+    PlinkoLogic.f.reset_cost()
+  end
+end
+
+function PlinkoLogic.f.round_up()
+  G.GAME.current_round.plinko_cost_reset.rounds_left = math.max(0, G.GAME.current_round.plinko_cost_reset.rounds_left - 1)
+
+  if G.GAME.current_round.plinko_cost_reset.ante_left <= 0 and G.GAME.current_round.plinko_cost_reset.rounds_left <= 0 then
+    PlinkoLogic.f.reset_cost()
+  end
+end
+
+function PlinkoLogic.f.can_roll()
+  return G.GAME.plincoins >= G.GAME.current_round.plinko_roll_cost
+end
+
+function PlinkoLogic.f.handle_roll()
+  G.GAME.current_round.plinko_rolls = G.GAME.current_round.plinko_rolls + 1
+  -- Cost grows every 3 rounds +1
+  if G.GAME.current_round.plinko_rolls % PlinkoLogic.s.rolls_to_up_cost == 0 then
+    G.GAME.current_round.plinko_roll_cost = G.GAME.current_round.plinko_roll_cost + 1
+  end
+end
+
+--#endregion
+
