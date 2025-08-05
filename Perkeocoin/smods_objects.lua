@@ -420,7 +420,6 @@ SMODS.Joker{ --Free To Use
 
 }
 
-
 SMODS.Joker{ --Direct Deposit
     name = "Direct Deposit",
     key = "direct_deposit",
@@ -432,11 +431,11 @@ SMODS.Joker{ --Direct Deposit
         }
     },
     pos = { x = 8, y = 0 },
-    cost = 6,
-    rarity = 1,
+    cost = 7,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'perkycardatlas',
@@ -453,11 +452,9 @@ SMODS.Joker{ --Direct Deposit
     end,
 
     calculate = function(self, card, context)
-
         if context.pk_cashout_row and not context.blueprint then
             local new_config = context.pk_cashout_row
             if new_config.name == 'bottom' and new_config.dollars > 0 then
-                
                 card.ability.extra.so_far = card.ability.extra.so_far + new_config.dollars
                 new_config.dollars = 0
                 if card.ability.extra.so_far >= card.ability.extra.dollars then
@@ -468,11 +465,62 @@ SMODS.Joker{ --Direct Deposit
                     card_eval_status_text(card, 'jokers', nil, nil, nil, {message = tostring(card.ability.extra.so_far).."/"..tostring(card.ability.extra.dollars), colour = G.C.FILTER})
                 end
             end
-            
             return{
                 new_config = new_config
             }
-            
+        end
+    end
+
+}
+
+SMODS.Joker{ --Bank Teller
+    name = "Bank Teller",
+    key = "bank_teller",
+    config = {
+        extra = {
+            compare = 5,
+            cards = 1
+        }
+    },
+    pos = { x = 1, y = 1 },
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {'CampfireCollective'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.compare-1, card.ability.extra.cards, localize('k_czech')..(card.ability.extra.cards > 1 and "s" or "")}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.pk_cashout_row_but_just_looking and not context.blueprint then
+            if context.pk_cashout_row_but_just_looking.name == 'bottom' and context.pk_cashout_row_but_just_looking.dollars < 5 then
+                if G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit then
+                    local amount = math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards))
+                    for i = 1, amount do
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after', delay = 0.4, func = function()
+                                play_sound('timpani')
+                                local new_czech = create_card('Czech', G.consumeables, nil, nil, nil, nil, nil, 'czech_republic')
+                                new_czech:add_to_deck()
+                                G.consumeables:emplace(new_czech)
+                                card:juice_up(0.3, 0.5)
+                            return true end}))
+                    end
+                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "+"..amount.." "..localize('k_czech')..(amount > 1 and "s" or ""), colour = HEX("D2B48C")})
+                end
+            end
         end
     end
 
