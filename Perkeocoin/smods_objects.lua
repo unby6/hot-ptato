@@ -372,6 +372,54 @@ SMODS.Joker{ --TV Dinner
 
 }
 
+SMODS.Joker{ --Free To Use
+    name = "Free To Use",
+    key = "free_to_use",
+    config = {
+        extra = {
+            reps = 1,
+            num = 1,
+            den = 3
+        }
+    },
+    pos = { x = 4, y = 1 },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {'CampfireCollective'}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'wheel_of_plinko')
+        return {vars = {card.ability.extra.reps, new_numerator, new_denominator}}
+    end,
+
+    calculate = function(self, card, context)
+
+        if context.cardarea == G.play and context.repetition then
+            if SMODS.pseudorandom_probability(card, 'perky_free!', card.ability.extra.num, card.ability.extra.den, 'free_to_use') then
+                create_ads(card.ability.extra.reps)
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = 1,
+                    card = card
+                }
+            end
+        end
+    end
+
+}
+
 -- SMODS.Joker{ --free plincoins  yayy for testing
 --     name = "free",
 --     key = "free",
