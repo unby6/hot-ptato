@@ -156,6 +156,14 @@ return {
                     [3] = '{C:hpot_advert}Ad{} closed'
                 }
             },
+            j_hpot_free_to_use = {
+                ['name'] = 'Free To Use',
+                ['text'] = {
+                    [1] = 'Played cards have a',
+                    [2] = '{C:green}#2# in #3#{} chance to be',
+                    [3] = '{C:attention}retriggered{} and create an {C:hpot_advert}ad'
+                }
+            },
         }
     },
     misc = {
