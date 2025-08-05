@@ -173,6 +173,14 @@ return {
                     [4] = '{C:inactive}(Currently {C:attention}#3#{C:inactive}/#1#)'
                 }
             },
+            j_hpot_bank_teller = {
+                ['name'] = 'Bank Teller',
+                ['text'] = {
+                    [1] = 'Create {C:attention}#2#{} {C:hpot_czech}#3#',
+                    [2] = 'if {C:attention}Cash Out{} is',
+                    [3] = '{C:money}$#1#{} or smaller'
+                }
+            },
         }
     },
     misc = {
