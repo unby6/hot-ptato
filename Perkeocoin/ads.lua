@@ -1,8 +1,9 @@
 HotPotato.Ads = {
-    Adverts = {
+    Adverts = { -- Adverts are pulled from this pool most of the time.
         ad_lusty = {atlas = 'hpot_Ads', pos = {x=1,y=0}, animated = false, base_size = 0.75},
-        ad_boredjoker = {atlas = 'hpot_Ads', pos = {x=2, y=0}, animated = false, base_size = 0.75},
+        ad_hawaii = {atlas = 'hpot_Ads', pos = {x=2, y=0}, animated = false, base_size = 0.75},
         ad_triboulet = {atlas = 'hpot_TribouletAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
+        ad_attack = {atlas = 'hpot_Ads', pos = {x=0, y=0}, animated = false, base_size = 0.75, max_scale = 0.25},
     },
     Shitposts = {
         ad_digging = {atlas = 'hpot_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -11,8 +12,7 @@ HotPotato.Ads = {
         ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
     },
     Special = {
-        ad_tutorial = {atlas = 'hpot_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75},
-        ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25}, -- Demonstration. Do not include in final product
+        ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
     }
     -- Defaults = {atlas = 'hpot_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75}
 }
@@ -67,6 +67,13 @@ SMODS.Atlas{
     atlas_table = 'ANIMATION_ATLAS'
 }
 
+SMODS.Atlas{
+    key = 'AdBanner',
+    px = 150,
+    py = 31,
+    path = 'Ads/AdBanners.png',
+}
+
 local apply_to_run_ref = Back.apply_to_run
 function Back:apply_to_run()
     G.GAME.hotpot_total_ads = 0
@@ -74,9 +81,13 @@ function Back:apply_to_run()
     return apply_to_run_ref(self)
 end
 
-function create_UIBox_ad(ad, adNum, scale)
+function create_UIBox_ad(args)
+    local ad = args.ad
+    local adNum = args.id
+    local scale = args.scale
     local ad_atlas = nil
     local ad_image = nil
+
     if ad.animated and ad.animated == true then
         ad_atlas = G.ANIMATION_ATLAS[(ad.atlas or 'hpot_Ads')]
         ad_image = AnimatedSprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,{x = math.ceil((pseudorandom('random_start')*ad_atlas.frames) - 0.5), y = ad.pos.y})
@@ -84,7 +95,23 @@ function create_UIBox_ad(ad, adNum, scale)
         ad_atlas = G.ASSET_ATLAS[(ad.atlas or 'hpot_Ads')]
         ad_image = Sprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
     end
-    ad_image.states.drag.can = true
+
+    local ad_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
+                        {n = G.UIT.O, config = {object = ad_image, r = 0.3}}
+                    }}
+    
+    local tutorial_banner = nil
+    local tutorial = args.tutorial or false
+    local tutorial_content = nil
+
+    if tutorial then
+        tutorial_banner = Sprite(0,0,(150/49)*scale,(31/49)*scale,G.ASSET_ATLAS['hpot_AdBanner'], {x=0,y=0})
+        tutorial_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
+                        {n = G.UIT.O, config = {object = tutorial_banner, r = 0.3}}
+                        }}
+                    
+    end
+
     local t = {n = G.UIT.ROOT, config = {colour = G.C.GREY, minh = 2, instance_type = 'CARD', r = 0.3, outline = 2, outline_colour = G.C.GREY, shadow = true}, nodes = {
         {n=G.UIT.R, config = {colour = G.C.GREY, minh = 0.5, align = 'cr', r = 0.3, padding = 0.1}, nodes = {
             {n=G.UIT.C, config = {colour = G.C.CLEAR, align = 'cl'}, nodes = {
@@ -94,9 +121,8 @@ function create_UIBox_ad(ad, adNum, scale)
                 {n=G.UIT.T, config = {text = 'X', colour = G.C.UI.TEXT_LIGHT, scale = 0.4}}
             }}
         }},
-        {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
-            {n = G.UIT.O, config = {object = ad_image, r = 0.3}}
-        }}
+        tutorial_content,
+        ad_content
     }}
     return t
 end
@@ -143,12 +169,13 @@ function Game:start_run(args)
     if args and args.savetext and type(args.savetext.hotpot_ads) == "table" then
         for k, v in ipairs(args.savetext.hotpot_ads) do
             local new_ad = UIBox{
-                definition = create_UIBox_ad(v.key, v.id, v.scale),
+                definition = create_UIBox_ad{ad = v.key, id = v.id, scale = v.scale, tutorial = v.tutorial},
                 config = {align="cm", offset = v.offset, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
             }
             new_ad.config.id = v.id
             new_ad.config.key = v.key
             new_ad.config.scale = v.scale
+            new_ad.config.tutorial = v.tutorial
             G.GAME.hotpot_ads[k] = new_ad
         end
     end
@@ -160,7 +187,8 @@ function save_ad(ad)
         key = ad.config.key,
         id = ad.config.id,
         offset = ad.alignment.offset,
-        scale = ad.config.scale
+        scale = ad.config.scale,
+        tutorial = ad.config.tutorial,
     }
 end
 
@@ -188,21 +216,23 @@ function create_ads(number_of_ads)
             G.E_MANAGER:add_event(Event({
             func = function()
                 local ad_to_use = nil
+                local tutorial_ad = false
                 if G.GAME.hotpot_total_ads == 0 then
-                    ad_to_use = HotPotato.Ads.Special['ad_tutorial']
-                else
-                    local ad_type_poll = pseudorandom('ad_type')
-                    if ad_type_poll <= 0.95 then
-                        ad_to_use = pseudorandom_element(HotPotato.Ads.Adverts,'generate_ad')
-                    else
-                        ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
-                    end
+                    tutorial_ad = true
                 end
+
+                local ad_type_poll = pseudorandom('ad_type')
+                if ad_type_poll <= 0.95 then
+                    ad_to_use = pseudorandom_element(HotPotato.Ads.Adverts,'generate_ad')
+                else
+                    ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
+                end
+
                 local ad_scale = (ad_to_use.base_size or 0.75) + ((ad_to_use.max_scale or 0.5)*pseudorandom('ad_scale'))
                 G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
                 G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
                 local new_ad = UIBox{
-                    definition = create_UIBox_ad(ad_to_use, G.GAME.hotpot_total_ads, ad_scale),
+                    definition = create_UIBox_ad{ad = ad_to_use, id = G.GAME.hotpot_total_ads,scale = ad_scale, tutorial = tutorial_ad},
                     config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
                 }
                 new_ad.alignment.offset.x = (pseudorandom('ad_x_offset')-0.5)*16
@@ -210,6 +240,7 @@ function create_ads(number_of_ads)
                 new_ad.config.id = G.GAME.hotpot_total_ads
                 new_ad.config.key = ad_to_use
                 new_ad.config.scale = ad_scale
+                new_ad.config.tutorial = tutorial_ad
                 G.GAME.hotpot_ads[#G.GAME.hotpot_ads+1] = new_ad
             return true end}))
         end

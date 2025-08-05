@@ -27,9 +27,9 @@ return {
             c_hpot_wheel_of_plinko = {
                 ['name'] = 'Wheel of Plinko',
                 ['text'] = {
-                    [1] = 'Lose #1# Plincoins,',
-                    [2] = '#3# in #4# chance to',
-                    [3] = 'gain #2# Plincoins'
+                    [1] = 'Lose {C:hpot_plincoin}#1#{} Plincoins,',
+                    [2] = '{C:green}#3# in #4#{} chance to',
+                    [3] = 'gain {C:hpot_plincoin}#2#{} Plincoins'
                 }
             },
             c_hpot_collateral = {
@@ -188,12 +188,39 @@ return {
                     [2] = '{C:money}-$#1#{} each ante'
                 }
             },
-        }
+        },
+        Other = {
+            p_hpot_czech_normal = {
+                ['name'] = 'Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            },
+            p_hpot_czech_jumbo = {
+                ['name'] = 'Jumbo Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            },
+            p_hpot_czech_mega = {
+                ['name'] = 'Mega Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            }
+        },
     },
     misc = {
         dictionary = {
             b_czech_cards = 'Cheque Cards',
-            k_czech = 'Cheque'
+            k_czech = 'Cheque',
+            k_hpot_czech_pack = 'Cheque Pack',
         },
         v_dictionary = {
             hotpot_art = { "Art: #1#" },

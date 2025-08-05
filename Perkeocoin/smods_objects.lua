@@ -38,7 +38,7 @@ SMODS.Joker{ --19 plincoin fortnite card
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
+        art = {'Kitty'},
         idea = {''}, --i forgot
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
@@ -181,7 +181,7 @@ SMODS.Joker{ --Tribcoin
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
+        art = {'Omegaflowey18'}, --update
         idea = {''}, --i forgot
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
@@ -278,7 +278,7 @@ SMODS.Joker{ -- Kitchen Gun
                         delay = 0.3, func = function()
                             play_sound('tarot1')
                             v:juice_up(0.3,0.5)
-                            G.FUNCS.remove_ad(v.config.id)
+                            G.FUNCS.remove_ad({config = {adnum = v.config.id}})
                         return true end
                     }))
                     adsRemoved = adsRemoved+1
@@ -292,8 +292,7 @@ SMODS.Joker{ -- Kitchen Gun
         end
         if context.joker_main and context.cardarea == G.jokers and card.ability.extra.xmult > 1 then
             return{
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                    xmult_mod = card.ability.extra.xmult
+                    Xmult = card.ability.extra.xmult
                 }
         end
     end
@@ -319,8 +318,8 @@ SMODS.Joker{ --TV Dinner
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
+        art = {'Omegaflowey18'},
+        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -394,7 +393,7 @@ SMODS.Joker{ --Free To Use
 
     hotpot_credits = {
         art = {''}, --update
-        idea = {'CampfireCollective'}, --i forgot
+        idea = {'CampfireCollective'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -546,7 +545,7 @@ SMODS.Joker{ --Balatro **PREMIUM**
 
     hotpot_credits = {
         art = {'Omegaflowey18'},
-        idea = {''}, --i forgot
+        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
