@@ -164,6 +164,15 @@ return {
                     [3] = '{C:attention}retriggered{} and create an {C:hpot_advert}ad'
                 }
             },
+            j_hpot_direct_deposit = {
+                ['name'] = 'Direct Deposit',
+                ['text'] = {
+                    [1] = 'Earn {C:hpot_plincoin}#2#{} Plincoin for',
+                    [2] = 'every {C:money}$#1#{} in {C:attention}Cash Out,',
+                    [3] = 'then set {C:attention}Cash Out{} to {C:money}$0',
+                    [4] = '{C:inactive}(Currently {C:attention}#3#{C:inactive}/#1#)'
+                }
+            },
         }
     },
     misc = {
