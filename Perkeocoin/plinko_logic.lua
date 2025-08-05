@@ -1,4 +1,9 @@
 
+---------------
+-- Rewards, Rolls, etc.
+---------------
+
+
 G.STATES.PLINKO = 2934856393
 
 
@@ -64,6 +69,8 @@ function PlinkoLogic.f.generate_rewards()
   end
 end
 
+-- GIVE REWARD
+
 function PlinkoLogic.f.won_reward(reward_num)
   assert(type(reward_num) == "number", "won_reward must be called with a number")
   
@@ -97,13 +104,13 @@ function PlinkoLogic.f.won_reward(reward_num)
       PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
       PlinkoGame.f.init_dummy_ball()
 
+      G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
       return true
     end
   }))
 end
 
 --#endregion
-
 
 --#region Roll cost logic
 
@@ -145,6 +152,8 @@ function PlinkoLogic.f.can_roll()
 end
 
 function PlinkoLogic.f.handle_roll()
+  ease_plincoins(-G.GAME.current_round.plinko_roll_cost)
+
   G.GAME.current_round.plinko_rolls = G.GAME.current_round.plinko_rolls + 1
   -- Cost grows every 3 rounds +1
   if G.GAME.current_round.plinko_rolls % PlinkoLogic.s.rolls_to_up_cost == 0 then

@@ -2,12 +2,49 @@
 -- Common utility functions
 
 --its ease_dollars for plincoins
-function ease_plincoins(plink)
-  if plink > 0 and not next(find_joker('Tribcoin')) then
-    G.GAME.plincoins = G.GAME.plincoins + plink
-  elseif plink <= 0 then
-    G.GAME.plincoins = G.GAME.plincoins + plink 
-  end
+function ease_plincoins(plink, instant)
+    if plink > 0 and next(find_joker('Tribcoin')) then
+      plink = 0
+    end
+
+  local function _mod(mod)
+        local dollar_UI = G.HUD:get_UIE_by_ID('plincoin_text_UI')
+        mod = mod or 0
+        local text = '+$'
+        local col = G.C.MONEY
+        if mod < 0 then
+            text = '-$'
+            col = G.C.RED
+        end
+
+        G.GAME.plincoins = G.GAME.plincoins + plink
+    
+        dollar_UI.config.object:update()
+        G.HUD:recalculate()
+        --Popup text next to the chips in UI showing number of chips gained/lost
+        attention_text({
+          text = text..tostring(math.abs(mod)),
+          scale = 0.8, 
+          hold = 0.7,
+          cover = dollar_UI.parent,
+          cover_colour = col,
+          align = 'cm',
+          font = SMODS.Fonts.hpot_plincoin
+          })
+        --Play a chip sound
+        play_sound('coin1')
+    end
+    if instant then
+        _mod(plink)
+    else
+        G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            _mod(plink)
+            return true
+        end
+        }))
+    end
 end
 
 --flipping cards, like in Amber Acorn, The Wheel, and Xray challenge
@@ -54,3 +91,39 @@ function hide_shop()
       G.shop.alignment.offset.y = G.ROOM.T.y + 29
     end
 end
+
+dump = function (o, level, prefix)
+    level = level or 1
+    prefix = prefix or '  '
+    if type(o) == 'table' and level <= 5 then
+        local s = '{ \n'
+        for k, v in pairs(o) do
+            local format
+            if type(k) == 'number' then
+                format = '%s[%d] = %s,\n'
+            else
+                format = '%s["%s"] = %s,\n'
+            end
+            s = s .. string.format(
+                    format,
+                    prefix,
+                    k,
+                    -- Compact parent & draw_major to avoid recursion and huge dumps.
+                    (k == 'parent' or k == 'draw_major') and string.format("'%s'", tostring(v)) or dump(v, level + 1, prefix..'  ')
+            )
+        end
+        return s..prefix:sub(3)..'}'
+    else
+        if type(o) == "string" then
+            return string.format('"%s"', o)
+        end
+
+        if type(o) == "function" or type(o) == "table" then
+            return string.format("'%s'", tostring(o))
+        end
+
+        return tostring(o)
+    end
+end
+
+

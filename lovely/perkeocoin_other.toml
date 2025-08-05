@@ -3,16 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-# plincoins will be real in 2013
+# Custom Font for attention_text()
 [[patches]]
-[patches.pattern]
-target = 'game.lua'
+[patches.regex]
+target = 'functions/UI_definitions.lua'
 position = 'after'
-pattern = '''bankrupt_at = 0,'''
-payload = '''
-plincoins = 0,
-balls_dropped = 0,
-'''
+pattern = '''colours = \{args\.colour\}\,float = true\,'''
+payload = '''font = args.font,'''
 match_indent = true
 
 # make the czech colour

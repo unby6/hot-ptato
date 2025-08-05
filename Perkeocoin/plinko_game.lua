@@ -2,6 +2,11 @@
 
 -- watch lua Mods/Hot-Potato/Perkeocoin/plinko_game.lua
 
+---------------
+-- Game Physics
+---------------
+
+
 -- Transform pixels into game units:
 local function to_game_units(val)
     return val / (G.TILESCALE*G.TILESIZE)
@@ -124,7 +129,7 @@ end
 
 local plinko_balling = 1
 local where_is_plinko_balling = 1
-local how_much_balling_per_second = 200
+local how_much_balling_per_second = 250
 local ball_idle_offset = 175/2
 local plinko_should_be_balling_in_a_different_direction = (PlinkoGame.s.world_width - ball_idle_offset * 2)
 local function get_dummy_ball_x()
@@ -218,7 +223,7 @@ function PlinkoGame.f.drop_ball(x)
     }
 
     PlinkoGame.o.ball.fixture:setRestitution(PlinkoGame.s.ball_bounce)
-    PlinkoGame.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * (300 + math.random() * 200), 0)
+    PlinkoGame.o.ball.fixture:getBody():applyForce(where_is_plinko_balling * (400 + math.random() * 150), 0)
 end
 
 function PlinkoGame.f.create_world_box()

@@ -1,6 +1,10 @@
 
 -- watch lua Mods/Hot-Potato/Perkeocoin/plinko_ui.lua
 
+---------------
+-- Lovely UI mess
+---------------
+
 
 PlinkoUI = {
   s = {
@@ -134,9 +138,12 @@ G.FUNCS.start_plinko = function(e)
   stop_use()
   G.CONTROLLER.locks.start_plinko = true
 
-  PlinkoLogic.f.handle_roll()
   PlinkoLogic.STATE = PlinkoLogic.STATES.IN_PROGRESS
 
+  PlinkoLogic.f.handle_roll()
+
+  G.GAME.balls_dropped = G.GAME.balls_dropped + 1
+  
   PlinkoGame.f.drop_ball()
 
   G.E_MANAGER:add_event(Event({
@@ -208,8 +215,6 @@ function update_plinko(dt)
                             -- Back to shop button
                             G.CONTROLLER:snap_to({node = G.plinko:get_UIE_by_ID('shop_button')})
 
-                            -- not loaded from save?
-                            if not nosave_plinko then G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) end
                             return true
                         end
                     end}))
