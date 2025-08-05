@@ -421,7 +421,7 @@ SMODS.Joker{ --Free To Use
 }
 
 
-SMODS.Joker{ --Direct Deposit broken L
+SMODS.Joker{ --Direct Deposit
     name = "Direct Deposit",
     key = "direct_deposit",
     config = {
