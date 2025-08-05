@@ -181,6 +181,13 @@ return {
                     [3] = '{C:money}$#1#{} or smaller'
                 }
             },
+            j_hpot_balatro_premium = {
+                ['name'] = 'Balatro **PREMIUM**',
+                ['text'] = {
+                    [1] = 'Removes {C:hpot_advert}Ads{}!',
+                    [2] = '{C:money}-$#1#{} each ante'
+                }
+            },
         }
     },
     misc = {
