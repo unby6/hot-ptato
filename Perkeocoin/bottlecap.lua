@@ -9,7 +9,7 @@ SMODS.ConsumableType {
     default = "c_hpot_cap_money",
 }
 
-SMODS.ObjectType {
+SMODS.ObjectType { --dummy pools for bottlecaps per valid rarity 
     key = 'bottlecap_Common',
     default = "c_hpot_cap_money"
 }
@@ -25,6 +25,25 @@ SMODS.ObjectType {
     key = 'bottlecap_Bad',
     default = "c_hpot_cap_money"
 }
+
+--[[
+
+Wanna add your own bottlecaps to the plinko game? Here's what you need to know!
+
+In the extra table, you should have a value for each of the valid rarities for that bottlecap, indexed by string
+For example, a bottlecap that only has an Uncommon and a Rare effect will have:
+['Uncommon'] = value1,
+['Rare'] = value2
+
+Importantly, make sure to have extra.chosen be a string that corresponds to one of the valid rarities for that bottlecap, such as:
+chosen = 'Uncommon'
+
+In the use function, do a check identical to the can_use function first, since card:use() is called manually by the plinko. You can put a Nope! in there for if the check fails.
+Then, have your payout effect based on card.ability.extra[card.ability.extra.chosen], as the plinko will set chosen to the correct rarity when it's created
+
+To get the bottlecap into the correct rarity pools, use the pools of the ObjectTypes above this. Notice how cap_money and cap_edition have different pools!
+
+]]
 
 SMODS.Consumable { --Money
     name = 'Money',
@@ -153,20 +172,45 @@ SMODS.Consumable { --Edition
     can_use = function(self, card)
         if G.jokers and G.jokers.cards then
             for k, v in ipairs(G.jokers.cards) do
-                if not v.ability.edition then return true end
+                if not v.edition then return true end
             end
         end
         return false
     end,
 
     use = function(self, card, area, copier)
-        local valid = {}
-        for k, v in ipairs(G.jokers.cards) do
-            if not v.ability.edition then 
-                valid[#valid+1] = v
-             end
+        local can_use = false
+        if G.jokers and G.jokers.cards then
+            for k, v in ipairs(G.jokers.cards) do
+                if not v.edition then can_use = true break end
+            end
         end
-        pseudorandom_element(valid, pseudoseed("cap_edition")):set_edition(card.ability.extra[card.ability.extra.chosen][1])
+        if can_use then
+            local valid = {}
+            for k, v in ipairs(G.jokers.cards) do
+                if not v.edition then 
+                    valid[#valid+1] = v
+                end
+            end
+            pseudorandom_element(valid, pseudoseed("cap_edition")):set_edition(card.ability.extra[card.ability.extra.chosen][1])
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
     end
 }
 
@@ -208,14 +252,504 @@ SMODS.Consumable { --Perkeo
     end,
 
     use = function(self, card, area, copier)
-        G.E_MANAGER:add_event(Event({
-            func = function() 
-                local _card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo_cap')), nil)
-                _card:set_edition({negative = true}, true)
-                _card:add_to_deck()
-                G.consumeables:emplace(_card) 
+        if G.consumeables and #G.consumeables.cards > 0 and not (#G.consumeables.cards == 1 and G.consumeables.cards[1] == card) then
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    local _card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo_cap')), nil)
+                    _card:set_edition({negative = true}, true)
+                    _card:add_to_deck()
+                    G.consumeables:emplace(_card) 
+                    return true
+                end}))
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Joker
+    name = 'Joker',
+    key = 'cap_joker',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 0, y = 0 },
+    config = {
+        extra = {
+            ['Common'] = 'Common',
+            ['Uncommon'] = 'Uncommon',
+            ['Rare'] = 'Rare',
+            chosen = 'Common'
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen]}}
+    end,
+
+    can_use = function(self, card)
+        return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+    end,
+
+    use = function(self, card, area, copier)
+        if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
+            SMODS.add_card({set = 'Joker', rarity = card.ability.extra[card.ability.extra.chosen], key_append = 'jokercap'}):juice_up(0.5,0.5)
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Wheel
+    name = 'Wheel',
+    key = 'cap_wheel',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 1, y = 0 },
+    config = {
+        extra = {
+            ['Common'] = 4,
+            ['Uncommon'] = 3,
+            ['Rare'] = 2,
+            ['Bad'] = 16,
+            chosen = 'Common',
+            dollars = 50
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra[card.ability.extra.chosen], 'cap_wheel')
+        return {vars = {new_numerator, new_denominator, card.ability.extra.dollars}}
+    end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        if SMODS.pseudorandom_probability(card, 'cap_wheel', 1, card.ability.extra[card.ability.extra.chosen], 'cap_wheel') then
+            ease_dollars(card.ability.extra.dollars)
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Sticker
+    name = 'Sticker',
+    key = 'cap_sticker',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 1, y = 1 },
+    config = {
+        extra = {
+            ['Bad'] = 'Nothing!!! #MyNothing',
+            chosen = 'Bad'
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {}}
+    end,
+
+    can_use = function(self, card)
+        if G.jokers and #G.jokers.cards > 0 then
+            for k, v in ipairs(G.jokers.cards) do
+                if not (v.ability.rental) or (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) or (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) then
+                    return true
+                end
+            end
+        end
+        return false
+    end,
+
+    use = function(self, card, area, copier)
+        local can_use = false
+        if G.jokers and #G.jokers.cards > 0 then
+            for k, v in ipairs(G.jokers.cards) do
+                if not (v.ability.rental) or (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) or (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) then
+                    can_use = true break
+                end
+            end
+        end
+        if can_use then
+            local choices = {}
+            for k, v in ipairs(G.jokers.cards) do
+                if not (v.ability.rental) then
+                    choices[1] = 'rental' 
+                end
+                if (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) then
+                    choices[2] = 'eternal' 
+                end
+                if (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) then
+                    choices[3] = 'perishable' 
+                end
+            end
+            local stickertype = pseudorandom_element(choices, pseudoseed('stickercap'))
+            if stickertype == 'rental' then
+                local valid = {}
+                for k, v in ipairs(G.jokers.cards) do
+                    if not v.ability.rental then
+                        valid[#valid+1] = v
+                    end
+                end
+                pseudorandom_element(valid, pseudoseed('stickercap')):set_rental(true)
+            elseif stickertype == 'eternal' then
+                local valid = {}
+                for k, v in ipairs(G.jokers.cards) do
+                    if (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) then
+                        valid[#valid+1] = v
+                    end
+                end
+                pseudorandom_element(valid, pseudoseed('stickercap')):set_eternal(true)
+            elseif stickertype == 'perishable' then
+                local valid = {}
+                for k, v in ipairs(G.jokers.cards) do
+                    if (not v.ability.perishable and not v.ability.perishable and v.config.center.eternal_compat) then
+                        valid[#valid+1] = v
+                    end
+                end
+                pseudorandom_element(valid, pseudoseed('stickercap')):set_perishable(true)
+            end
+            
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Anti-Joker 
+    name = 'Anti-Joker',
+    key = 'cap_anti_joker',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 3, y = 2 },
+    config = {
+        extra = {
+            ['Bad'] = 1,
+            chosen = 'Bad'
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen]}}
+    end,
+
+    can_use = function(self, card)
+        if G.jokers and G.jokers.cards[1] then
+            for k, v in ipairs(G.jokers.cards) do
+                if not SMODS.is_eternal(v) then return true end
+            end
+        end
+        return false
+    end,
+
+    use = function(self, card, area, copier)
+        if G.jokers and G.jokers.cards[1] then
+            local valid = {}
+            if G.jokers and G.jokers.cards[1] then
+            for k, v in ipairs(G.jokers.cards) do
+                if not SMODS.is_eternal(v) then 
+                    valid[#valid+1] = v
+                end
+            end
+            local byebye = pseudorandom_element(valid, pseudoseed('antijokercap'))
+            byebye.getting_sliced = true
+            G.E_MANAGER:add_event(Event({func = function()
+                card:juice_up(0.8, 0.8)
+                byebye:start_dissolve({G.C.RED}, nil, 1.6)
+            return true end }))
+        end
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Tag
+    name = 'Tag',
+    key = 'cap_tag',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 4, y = 1 },
+    config = {
+        extra = {
+            ['Common'] = 1,
+            ['Uncommon'] = 2,
+            ['Rare'] = 3,
+            chosen = 'Common'
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
+    end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        for i=1, card.ability.extra[card.ability.extra.chosen] do
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                local tagkey = get_next_tag_key('tagcap')
+                local tag = Tag(tagkey)
+                if tagkey == 'tag_orbital' then
+                    local _poker_hands = {}
+                    for k, v in pairs(G.GAME.hands) do
+                        if v.visible then _poker_hands[#_poker_hands+1] = k end
+                    end
+                    
+                    tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed('orbital'))
+                end
+                if i==1 then
+                    play_sound('timpani')
+                    card:juice_up(0.3, 0.5)
+                end
+                add_tag(tag)
                 return true
             end}))
-        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+        end
+    end
+}
+
+SMODS.Consumable { --Hands
+    name = 'Hands',
+    key = 'cap_hands',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 0, y = 1 },
+    config = {
+        extra = {
+            ['Common'] = 1,
+            ['Uncommon'] = 2,
+            ['Rare'] = 3,
+            ['Bad'] = -1,
+            chosen = 'Common'
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
+    end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        G.GAME.round_bonus.next_hands = G.GAME.round_bonus.next_hands + card.ability.extra[card.ability.extra.chosen]
+        ease_hands_played(card.ability.extra[card.ability.extra.chosen])
+        card:juice_up(0.5,0.5)
+    end
+}
+
+SMODS.Consumable { --Discards
+    name = 'Discards',
+    key = 'cap_discards',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 5, y = 0 },
+    config = {
+        extra = {
+            ['Common'] = 1,
+            ['Uncommon'] = 2,
+            ['Rare'] = 3,
+            ['Bad'] = -1,
+            chosen = 'Common'
+        }
+    },
+    hotpot_credits = {
+        art = {'dottykitty'},
+        idea = {''},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
+    end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        G.GAME.round_bonus.discards = G.GAME.round_bonus.discards + card.ability.extra[card.ability.extra.chosen]
+        ease_discard(card.ability.extra[card.ability.extra.chosen])
+        card:juice_up(0.5,0.5)
     end
 }
