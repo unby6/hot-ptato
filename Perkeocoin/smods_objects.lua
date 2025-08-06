@@ -583,6 +583,56 @@ SMODS.Joker{ --Balatro **PREMIUM**
 
 }
 
+SMODS.Joker{ --Skimming
+    name = "Skimming",
+    key = "skimming",
+    config = {
+        extra = {
+            dollars = 0,
+            dollars_mod = 1
+        }
+    },
+    pos = { x = 0, y = 1 },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.dollars, card.ability.extra.dollars_mod}}
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        local thunk = card.ability.extra.dollars
+        if G.GAME.blind.boss then
+            card.ability.extra.dollars = 0
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize('k_reset'), colour = G.C.FILTER})
+        end
+        if thunk > 0 then
+            return thunk
+        end
+    end,
+
+    calculate = function(self, card, context)
+        if context.close_ad and not context.blueprint then
+            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "$"..card.ability.extra.dollars, colour = G.C.MONEY})
+        end
+    end
+
+}
+
 -- Czechs
 
 SMODS.ConsumableType { --Czech
@@ -626,36 +676,6 @@ SMODS.Consumable { --Cash Exchange
     end
 }
 
-SMODS.Consumable { --Charity
-    name = 'Charity',
-    key = 'charity',
-    set = 'Czech',
-    atlas = 'chequeatlas',
-    pos = { x = 3, y = 0 },
-    config = {
-        extra = {
-            plincoins = 1
-        }
-    },
-    unlocked = true,
-    discovered = true,
-    cost = 3,
-    pools = {
-        ['Czech'] = true
-    },
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.plincoins}}
-    end,
-
-    can_use = function(self, card)
-        return true
-    end,
-
-    use = function(self, card, area, copier)
-        ease_plincoins(card.ability.extra.plincoins)
-    end
-}
-
 local function sac_czech()
     if G.jokers and G.jokers.cards and #G.jokers.cards > 0 then
         local thunk = G.jokers.cards[1].config.center.rarity
@@ -677,8 +697,8 @@ SMODS.Consumable { --Sacrifice
     name = 'Sacrifice',
     key = 'sacrifice',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 1, y = 0 },
     config = {
         extra = {
         }
@@ -766,12 +786,42 @@ SMODS.Consumable { --Wheel of Plinko
     end
 }
 
+SMODS.Consumable { --Charity
+    name = 'Charity',
+    key = 'charity',
+    set = 'Czech',
+    atlas = 'chequeatlas',
+    pos = { x = 3, y = 0 },
+    config = {
+        extra = {
+            plincoins = 1
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['Czech'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.plincoins}}
+    end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        ease_plincoins(card.ability.extra.plincoins)
+    end
+}
+
 SMODS.Consumable { --Collateral 
     name = 'Collateral',
     key = 'collateral',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 0, y = 1 },
     config = {
         extra = {
             plincoins = 4
@@ -816,8 +866,8 @@ SMODS.Consumable { --CoD Account
     name = 'CoD Account',
     key = 'cod_account',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 1, y = 1 },
     config = {
         extra = {
             plincoins = 4
@@ -862,7 +912,7 @@ SMODS.Consumable { --Subscription
     name = 'Subscription',
     key = 'subscription',
     set = 'Czech',
-    atlas = 'perkycardatlas',
+    atlas = 'chequeatlas',
     pos = { x = 2, y = 1 },
     config = {
         extra = {
@@ -989,8 +1039,8 @@ SMODS.Consumable { --Meteor
     name = 'Meteor',
     key = 'meteor',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 1, y = 2 },
     config = {
         extra = {
             plincoins = 3,
