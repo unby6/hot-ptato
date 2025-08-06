@@ -1,9 +1,4 @@
 
-Plincoin = {
-  -- Functions
-  f = { }
-}
-
 -- SMODS.Fonts.hpot_plincoin
 SMODS.Font {
   key = "plincoin",

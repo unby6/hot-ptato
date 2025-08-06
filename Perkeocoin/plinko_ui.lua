@@ -14,6 +14,21 @@ PlinkoUI = {
   f = { }
 }
 
+SMODS.Atlas {
+  key = "perkeorb",
+  path = "perkeocoin_perkeorb.png",
+  px = 40,
+  py = 40,
+}
+
+SMODS.Atlas {
+  key = "peg",
+  path = "perkeocoin_peg.png",
+  px = 10,
+  py = 10,
+}
+
+
 function PlinkoUI.f.adjust_rewards()
   for _, card in pairs(G.plinko_rewards.cards) do
         card:hard_set_T(nil, nil, G.CARD_W * PlinkoUI.s.reward_scale_x, G.CARD_H * PlinkoUI.s.reward_scale_y);
