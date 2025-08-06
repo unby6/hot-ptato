@@ -204,7 +204,7 @@ local function draw_peg(self)
     local sprite = PlinkoUI.sprites.peg
 
     self.curr_pos = {x = self.body:getX() - self.shape:getRadius(), y = self.body:getY() - self.shape:getRadius()}
-    sprite.T.x, sprite.T.y = translate_pos(self.curr_pos)
+    sprite.T.x, sprite.T.y = PlinkoGame.f.translate_pos(self.curr_pos)
     -- hard set T or something
     sprite.VT.x = sprite.T.x
     sprite.VT.y = sprite.T.y
@@ -229,8 +229,8 @@ local function vec_length(p1, p2)
     return math.sqrt((p1.x - p2.x)^2 + (p1.y - p2.y)^2)
 end
 
-function translate_pos(pos)
-    -- offset pos to the starting point of the UI, then convert world coordinate into coordinate within the UI box
+-- Offset pos to the starting point of the UI, then convert world coordinate into coordinate within the UI box
+function PlinkoGame.f.translate_pos(pos)
     return PlinkoGame.UI.x + pos.x / PlinkoGame.s.world_width * PlinkoGame.UI.w,
            PlinkoGame.UI.y + pos.y / PlinkoGame.s.world_height * PlinkoGame.UI.h
 end
@@ -247,7 +247,7 @@ local function draw_perkeorb(self)
         sprite.VT.r = 0
     end
     sprite.T.r = sprite.T.r + delta_r
-    sprite.T.x, sprite.T.y = translate_pos(self.curr_pos)
+    sprite.T.x, sprite.T.y = PlinkoGame.f.translate_pos(self.curr_pos)
     -- hard set T or something
     sprite.VT.x = sprite.T.x
     sprite.VT.y = sprite.T.y
@@ -368,7 +368,7 @@ local function draw_wall(self)
     local x1, y1 = self.body:getWorldPoints(self.shape:getPoints())
 
     self.curr_pos = {x = x1, y = y1}
-    sprite.T.x, sprite.T.y = translate_pos(self.curr_pos)
+    sprite.T.x, sprite.T.y = PlinkoGame.f.translate_pos(self.curr_pos)
     -- hard set T or something
     sprite.VT.x = sprite.T.x
     sprite.VT.y = sprite.T.y
@@ -412,12 +412,12 @@ function PlinkoGame.f.create_rewards()
 
 end
 
-function is_above(body_a, body_b)
+local function is_above(body_a, body_b)
     return body_a:isActive() and body_a:getY() > body_b:getY()
 end
 
 -- Check if moveable ball is above the statis one
-function should_boost(a, b)
+local function should_boost(a, b)
     if a:type() == b:type() and a:type() == "Fixture" and a:getShape():type() == b:getShape():type() and a:getShape():type() == "CircleShape" then
         return
             (is_above(a:getBody(), b:getBody())) or

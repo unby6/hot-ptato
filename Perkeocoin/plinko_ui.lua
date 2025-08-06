@@ -55,7 +55,7 @@ function PlinkoUI.f.init_sprites()
   if not PlinkoUI.sprites.wall then
     -- scale dimensions relative to the orb
     local wall_width = PlinkoGame.s.wall_width * (orb_size / PlinkoGame.s.ball_radius)
-    local wall_height = PlinkoGame.s.wall_height * (orb_size / PlinkoGame.s.ball_radius)
+    local wall_height = PlinkoGame.s.wall_height/1.8 * (orb_size / PlinkoGame.s.ball_radius)
   
 
     PlinkoUI.sprites.wall = Sprite (0, 0, wall_width, wall_height, G.ASSET_ATLAS['hpot_wall'])
