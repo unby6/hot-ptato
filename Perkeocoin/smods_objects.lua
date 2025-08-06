@@ -633,6 +633,119 @@ SMODS.Joker{ --Skimming
 
 }
 
+SMODS.Joker{ --Recycling
+    name = "Recycling",
+    key = "recycling",
+    config = {
+        extra = {
+            dollars = 5
+        }
+    },
+    pos = { x = 0, y = 1 },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.dollars}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            if context.consumeable.ability.set == 'bottlecap' then
+                ease_dollars(card.ability.extra.dollars)
+                card:juice_up(0.5,0.5)
+            end
+        end
+    end
+
+}
+
+SMODS.Joker{ --Don't Touch That Dial!
+    name = "Don\'t Touch That Dial!",
+    key = "dont_touch_that_dial",
+    config = {
+        extra = {
+            dial = 1
+        }
+    },
+    pos = { x = 0, y = 1 },
+    cost = 6,
+    rarity = 3,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.dial}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and G.GAME.current_round.discards_left > 0 and not (context.blueprint or context.individual or context.repetition) then
+            ease_plincoins(G.GAME.current_round.discards_left)
+            create_ads(G.GAME.current_round.discards_left)
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Stay Tuned!", colour = G.C.MONEY})
+        end
+    end
+
+}
+
+SMODS.Joker{ --Tipping Point
+    name = "Tipping Point",
+    key = "tipping_point",
+    config = {
+        extra = {
+        }
+    },
+    pos = { x = 0, y = 1 },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkycardatlas',
+
+    hotpot_credits = {
+        art = {''}, --update
+        idea = {''}, --i forgot
+        code = {''},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {}}
+    end,
+
+    calculate = function(self, card, context)
+  
+    end
+
+}
+
 -- Czechs
 
 SMODS.ConsumableType { --Czech

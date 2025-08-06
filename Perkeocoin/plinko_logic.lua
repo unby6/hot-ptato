@@ -109,6 +109,9 @@ function PlinkoLogic.f.won_reward(reward_num)
 
       if G.play.cards[1] then
         G.play.cards[1]:use_consumeable()
+        for i = 1, #G.jokers.cards do
+          G.jokers.cards[i]:calculate_joker({using_consumeable = true, consumeable = G.play.cards[1]})
+        end
         G.play.cards[1]:shatter()
       end
 
