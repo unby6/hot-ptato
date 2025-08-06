@@ -6,7 +6,24 @@ SMODS.ConsumableType {
     secondary_colour = HEX("E223EB"),
     collection_row = {5, 5},
     shop_rate = 0,
-    default = "c_hpot_money",
+    default = "c_hpot_cap_money",
+}
+
+SMODS.ObjectType {
+    key = 'bottlecap_Common',
+    default = "c_hpot_cap_money"
+}
+SMODS.ObjectType {
+    key = 'bottlecap_Uncommon',
+    default = "c_hpot_cap_money"
+}
+SMODS.ObjectType {
+    key = 'bottlecap_Rare',
+    default = "c_hpot_cap_money"
+}
+SMODS.ObjectType {
+    key = 'bottlecap_Bad',
+    default = "c_hpot_cap_money"
 }
 
 SMODS.Consumable { --Money
@@ -35,7 +52,11 @@ SMODS.Consumable { --Money
     discovered = true,
     cost = 3,
     pools = {
-        ['bottlecap'] = true
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
@@ -76,7 +97,11 @@ SMODS.Consumable { --Plincoin
     discovered = true,
     cost = 3,
     pools = {
-        ['bottlecap'] = true
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
@@ -116,7 +141,10 @@ SMODS.Consumable { --Edition
     discovered = true,
     cost = 3,
     pools = {
-        ['bottlecap'] = true
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen][2]}}
@@ -147,7 +175,7 @@ SMODS.Consumable { --Perkeo
     key = 'cap_perkeo',
     set = 'bottlecap',
     atlas = 'capatlas',
-    pos = { x = 4, y = 0 },
+    pos = { x = 2, y = 2 },
     config = {
         extra = {
             ['Uncommon'] = 1,
@@ -165,7 +193,8 @@ SMODS.Consumable { --Perkeo
     discovered = true,
     cost = 3,
     pools = {
-        ['bottlecap'] = true
+        ['bottlecap'] = true,
+        ['bottlecap_Uncommon'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {}}

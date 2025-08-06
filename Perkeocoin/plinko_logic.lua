@@ -67,7 +67,7 @@ function PlinkoLogic.f.generate_rewards()
   for rarity, amount in pairs(PlinkoLogic.rewards.per_rarity) do
     for i = 1, amount do
       local card = SMODS.create_card {
-        set = "bottlecap",
+        set = "bottlecap_"..rarity,
         rarity = rarity
       }
       if rarity == 'Bad' then
@@ -75,6 +75,7 @@ function PlinkoLogic.f.generate_rewards()
       else
         card:set_edition()
       end
+      card.ability.extra.chosen = rarity
       G.plinko_rewards:emplace(card)
     end
   end
@@ -107,6 +108,7 @@ function PlinkoLogic.f.won_reward(reward_num)
       end
 
       if G.play.cards[1] then
+        G.play.cards[1]:use_consumeable()
         G.play.cards[1]:shatter()
       end
 
