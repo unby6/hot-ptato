@@ -224,7 +224,7 @@ return {
                     [1] = 'Destroys {C:green}#1# in #2# {C:hpot_advert}Ads{} after',
                     [2] = 'exiting the {C:green}Shop{}, gain {C:white,X:red}X#3#',
                     [3] = 'for each {C:hpot_advert}Ad{} destroyed',
-                    [4] = '{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}X#4#{C:inactive,s:0.8})'
+                    [4] = '{C:inactive}(Currently {C:white,X:red}X#4#{C:inactive} Mult)'
                 }
             },
             j_hpot_tv_dinner = {
@@ -265,6 +265,37 @@ return {
                 ['text'] = {
                     [1] = 'Removes {C:hpot_advert}Ads{}!',
                     [2] = '{C:money}-$#1#{} each ante'
+                }
+            },
+            j_hpot_skimming = {
+                ['name'] = 'Skimming',
+                ['text'] = {
+                    [1] = 'Earn {C:money}$#2#{} at end of round',
+                    [2] = 'for each {C:hpot_advert}Ad{} closed this {C:attention}ante',
+                    [3] = '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
+                }
+            },
+            j_hpot_recycling = {
+                ['name'] = 'recycling',
+                ['text'] = {
+                    [1] = 'Earn {C:money}$#1#{} each time',
+                    [2] = 'a {C:attention}Bottlecap{} is used'
+                }
+            },
+            j_hpot_dont_touch_that_dial = {
+                ['name'] = 'Don\'t Touch That Dial!',
+                ['text'] = {
+                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and {C:money}$#1#{} for',
+                    [2] = 'each {C:red}discard{} remaining',
+                    [3] = 'at end of round'
+                }
+            },
+            j_hpot_tipping_point = {
+                ['name'] = 'Tipping Point',
+                ['text'] = {
+                    [1] = '+1 Rare bottlecap',
+                    [2] = 'in each Plinko,',
+                    [3] = 'pegs always move'
                 }
             },
         },
