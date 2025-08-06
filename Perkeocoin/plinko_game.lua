@@ -16,46 +16,10 @@ local function to_pixels(val)
     return val * (G.TILESCALE*G.TILESIZE)
 end
 
---[[
-Use this to draw sprites 
-love.graphics.draw( texture, quad, x, y, r, sx, sy, ox, oy, kx, ky )
-
-Arguments
-
-Texture texture
-    A Texture (Image or Canvas) to texture the Quad with.
-Quad quad
-    The Quad to draw on screen.
-number x
-    The position to draw the object (x-axis).
-number y
-    The position to draw the object (y-axis).
-number r (0)
-    Orientation (radians).
-number sx (1)
-    Scale factor (x-axis).
-number sy (sx)
-    Scale factor (y-axis).
-number ox (0)
-    Origin offset (x-axis).
-number oy (0)
-    Origin offset (y-axis).
-number kx (0)
-    Shearing factor (x-axis).
-number ky (0)
-    Shearing factor (y-axis).
-
-]]
-
--- TODO UPDATE PHYSICS SHIT WHEN PLAYER CHANGES WINDOW SIZE
-
 
 if PlinkoGame then
     -- Cleanup old stuff on reload
-    if PlinkoGame.world ~= "undefined" then
-        PlinkoGame.world:destroy()
-        PlinkoGame.world = "undefined"
-    end
+    PlinkoGame.yeet()
 end
 
 local world_offset = {x = 0, y = 0}
@@ -87,21 +51,35 @@ PlinkoGame = {
         -- How much velocity is saved after collision?
         -- range: [0.0, 1.0]
         ball_bounce = 0.85,
+
+        wall_height = 110,
+        wall_width = 5,
     },
     -- objects
     o = { },
     -- functions
     f = { },
+
+    -- Remove cached data
+    yeet = function ()
+        if PlinkoGame.world ~= "undefined" then
+            PlinkoGame.world:destroy()
+            PlinkoGame.world = "undefined"
+            PlinkoGame.o = {}
+        end
+    end
 }
 
 
 --#region Testing how draw game relative to the center of the screen
 
-local world_T = {x = -2 + 0.588, y = -2 + 0.301, w = 8.000, h = 7.195}
+local screen_w, screen_h
+local world_T = {x = 0, y = 0, w = 8.000, h = 7.195}
+
 local function t_x(x)
     return to_pixels(
         -- offset 0,0 to be relative to the center of the screen, then transform x from pixels to screen units
-        to_game_units(screen_w/2) + world_T.x        +       x / PlinkoGame.s.world_width * world_T.w
+        to_game_units(screen_w/2) + world_T.x + x / PlinkoGame.s.world_width * world_T.w
     )
 end
 
@@ -122,51 +100,48 @@ local function poly_to_pixels(x1, y1, x2, y2, x3, y3, x4, y4)
     return t_x(x1), t_y(y1), t_x(x2), t_y(y2), t_x(x3), t_y(y3), t_x(x4), t_y(y4)
 end
 
-
-
-local function ttt(a)
-    a.x = to_game_units(screen_w/2) + a.x
-    a.y = to_game_units(screen_h/2) + a.y
-
-    return to_pixels(a.x), to_pixels(a.y), to_pixels(a.w), to_pixels(a.h)
-end
-
-local function test()
-    local r,g,b,a = love.graphics.getColor()
-    love.graphics.setColor(150/255, 60/255, 241/255, 30/255)
-
-    local obj_T = {x = -2 + 0.588, y = -2 + 0.301, w = G.plinko_rewards.T.w, h = 7.195}
-    --local obj_T = {x = -2 + 0.6, y = 5 - 0.24, w = 8.065, h = 7.195}
-
-    love.graphics.rectangle("fill", ttt(obj_T))
-    love.graphics.setColor(r,g,b,a)
-end
 --#endregion
-
 
 function PlinkoGame.f.draw()
   if PlinkoGame.world == 'undefined' then
     return
   end
-  -- window size
+  
+  PlinkoUI.f.init_sprites()
+  
+  -- update window size
   screen_w, screen_h = love.window.getMode()
-  -- update to use real width
-  world_T = {x = -2 + 0.588, y = -2 + 0.301, w = G.plinko_rewards.T.w, h = 7.195}
+  -- update transform to use cardarea width
+  world_T = {x = -3.6 + 0.588, y = -3. + 0.701, w = 8, h = 7.195}
 
-  -- TODO : draw normal textures
+  local plinking = G.plinko:get_UIE_by_ID("plinking_area")
+  if plinking then
+    PlinkoGame.UI = {
+      x = plinking.VT.x,
+      y = plinking.VT.y,
+      w = plinking.VT.w,
+      -- account for cardarea padding
+      h = (G.plinko_rewards.VT.y + G.plinko_rewards.VT.h) - plinking.VT.y,
+    }
+  end
+
+  love.graphics.push()
+  -- draw properly with screenshake
+  G.plinko:translate_container()
+  
+  PlinkoGame.f.draw_objects()
+  
+  love.graphics.pop()
+
   PlinkoGame.f.debug_objects()
-
-  --test()
 end
 
-function PlinkoGame.f.tick_objects()
-
-    for k, v in pairs(PlinkoGame.o) do
-        if v.destroyed then
-            PlinkoGame.o[k] = nil
+function PlinkoGame.f.draw_objects()
+    for _, v in pairs(PlinkoGame.o) do
+        if type(v.draw) == "function" then
+            v:draw()
         end
     end
-
 end
 
 function PlinkoGame.f.update_plinko_world(dt)
@@ -176,10 +151,14 @@ function PlinkoGame.f.update_plinko_world(dt)
         return
     end
 
+    -- Remove destroyed objects
+    for k, v in pairs(PlinkoGame.o) do
+        if v.destroyed then
+            PlinkoGame.o[k] = nil
+        end
+    end
 
-    PlinkoGame.f.tick_objects()
     PlinkoGame.f.ballin(dt)
-
     PlinkoGame.world:update(dt)
 end
 
@@ -221,6 +200,17 @@ local function fix(obj)
     return obj
 end
 
+local function draw_peg(self)
+    local sprite = PlinkoUI.sprites.peg
+
+    self.curr_pos = {x = self.body:getX() - self.shape:getRadius(), y = self.body:getY() - self.shape:getRadius()}
+    sprite.T.x, sprite.T.y = translate_pos(self.curr_pos)
+    -- hard set T or something
+    sprite.VT.x = sprite.T.x
+    sprite.VT.y = sprite.T.y
+    sprite:draw()
+end
+
 -- Create obstacle pegs 
 function PlinkoGame.f.create_obstacle(offset)
     return fix {
@@ -231,10 +221,38 @@ function PlinkoGame.f.create_obstacle(offset)
         ),
         shape = love.physics.newCircleShape(PlinkoGame.s.peg_radius),
         debug_draw = PlinkoGame.f.circle,
-        draw = function (self)
-            -- TODO draw texture
-        end
+        draw = draw_peg,
     }
+end
+
+local function vec_length(p1, p2)
+    return math.sqrt((p1.x - p2.x)^2 + (p1.y - p2.y)^2)
+end
+
+function translate_pos(pos)
+    -- offset pos to the starting point of the UI, then convert world coordinate into coordinate within the UI box
+    return PlinkoGame.UI.x + pos.x / PlinkoGame.s.world_width * PlinkoGame.UI.w,
+           PlinkoGame.UI.y + pos.y / PlinkoGame.s.world_height * PlinkoGame.UI.h
+end
+
+local function draw_perkeorb(self)
+    local sprite = PlinkoUI.sprites.perkeorb
+
+    self.curr_pos = {x = self.body:getX() - self.shape:getRadius(), y = self.body:getY() - self.shape:getRadius()}
+    self.last_pos = self.last_pos or self.curr_pos
+    local sign = self.curr_pos.x - self.last_pos.x < 0 and -1 or 1
+    local delta_r = sign * vec_length(self.curr_pos, self.last_pos) / 40
+    if sprite.T.r > 100 then
+        sprite.T.r = 0
+        sprite.VT.r = 0
+    end
+    sprite.T.r = sprite.T.r + delta_r
+    sprite.T.x, sprite.T.y = translate_pos(self.curr_pos)
+    -- hard set T or something
+    sprite.VT.x = sprite.T.x
+    sprite.VT.y = sprite.T.y
+    self.last_pos = self.curr_pos
+    sprite:draw()
 end
 
 function PlinkoGame.f.init_dummy_ball()
@@ -248,8 +266,8 @@ function PlinkoGame.f.init_dummy_ball()
         ),
         shape = love.physics.newCircleShape(PlinkoGame.s.ball_radius),
         debug_draw = PlinkoGame.f.circle_fill,
+        draw = draw_perkeorb,
     }
-
 end
 
 function PlinkoGame.f.remove_balls()
@@ -277,7 +295,8 @@ function PlinkoGame.f.drop_ball(x)
         ),
         shape = love.physics.newCircleShape(PlinkoGame.s.ball_radius),
         density = PlinkoGame.s.ball_density,
-        debug_draw = PlinkoGame.f.circle_fill
+        debug_draw = PlinkoGame.f.circle_fill,
+        draw = draw_perkeorb
     }
 
     PlinkoGame.o.ball.fixture:setRestitution(PlinkoGame.s.ball_bounce)
@@ -343,10 +362,24 @@ function PlinkoGame.f.get_object(fixture)
     end
 end
 
+local function draw_wall(self)
+    local sprite = PlinkoUI.sprites.wall
+
+    local x1, y1 = self.body:getWorldPoints(self.shape:getPoints())
+
+    self.curr_pos = {x = x1, y = y1}
+    sprite.T.x, sprite.T.y = translate_pos(self.curr_pos)
+    -- hard set T or something
+    sprite.VT.x = sprite.T.x
+    sprite.VT.y = sprite.T.y
+    sprite:draw()
+end
+
 function PlinkoGame.f.create_rewards()
     local width = PlinkoGame.s.world_width / PlinkoGame.s.total_rewards
 
-    local wall_height = 110
+    local wall_height = PlinkoGame.s.wall_height
+    local wall_width = PlinkoGame.s.wall_width
 
     for i = 1, PlinkoGame.s.total_rewards do
         PlinkoGame.o["reward_"..tostring(i)] = fix {
@@ -370,9 +403,9 @@ function PlinkoGame.f.create_rewards()
                     world_offset.x + width * i, -- in the middle
                     world_offset.y + PlinkoGame.s.world_height - wall_height/2 - 1 -- at the bottom
                 ),
-                color = {i/PlinkoGame.s.world_width * 100/255, 255/255, i/PlinkoGame.s.world_width * 190/255},
-                shape = love.physics.newRectangleShape(1, wall_height),
+                shape = love.physics.newRectangleShape(wall_width, wall_height),
                 debug_draw = PlinkoGame.f.polygon,
+                draw = draw_wall,
             }
         end
     end
@@ -473,7 +506,7 @@ end
 
 function PlinkoGame.f.circle_fill(obj)
     local r,g,b,a = love.graphics.getColor()
-    
+
     love.graphics.setColor(100/255, 100/255, 255/255, 255/255)
     local x, y = p_to_pixels(obj.body:getX(), obj.body:getY())
     love.graphics.circle("fill", x, y, t_r(obj.shape:getRadius()))
@@ -492,7 +525,7 @@ function PlinkoGame.f.polygon(obj)
     love.graphics.setColor(r,g,b,a)
 end
 
-local debugging = true
+local debugging = false
  
 -- Draw hitboxes
 function PlinkoGame.f.debug_objects(toggle)

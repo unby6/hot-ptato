@@ -42,8 +42,8 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
-position = 'before'
-pattern = '''for k, v in pairs(self.I.CARDAREA) do'''
+position = 'after'
+pattern = '''timer_checkpoint('uiboxes', 'draw')'''
 payload = '''
 if self.STATE == self.STATES.PLINKO then
   PlinkoGame.f.draw()

@@ -13,9 +13,7 @@ PlinkoUI = {
   },
   f = { },
   sprites = {
-    perkeorb = 'undefined',
-    peg = 'undefined',
-  }
+  },
 }
 
 SMODS.Atlas {
@@ -32,17 +30,37 @@ SMODS.Atlas {
   py = 10,
 }
 
+SMODS.Atlas {
+  key = "wall",-- temp sprite
+  path = "perkeocoin_wall.png",
+  px = 5,
+  py = 110,
+}
+
 function PlinkoUI.f.init_sprites()
 
-  local orb_size = 40
+  local orb_size = 0.343
+  if not PlinkoUI.sprites.perkeorb then
+    PlinkoUI.sprites.perkeorb = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_perkeorb'])
+  end
 
-  local a_orb = SMODS.Atlases.hpot_perkeorb
-  PlinkoUI.sprites.perkeorb = Sprite {0, 0, orb_size, orb_size, a_orb}
+  if not PlinkoUI.sprites.peg then
+    -- scale dimensions relative to the orb
+    local peg_size = PlinkoGame.s.peg_radius * (orb_size / PlinkoGame.s.ball_radius)
+  
 
-  local peg_size = orb_size * (PlinkoGame.s.peg_radius / PlinkoGame.s.ball_radius)
+    PlinkoUI.sprites.peg = Sprite (0, 0, peg_size, peg_size, G.ASSET_ATLAS['hpot_peg'])
+  end
 
-  local a_peg = SMODS.Atlases.hpot_peg
-  PlinkoUI.sprites.peg = Sprite {0, 0, peg_size, peg_size, a_peg}
+  if not PlinkoUI.sprites.wall then
+    -- scale dimensions relative to the orb
+    local wall_width = PlinkoGame.s.wall_width * (orb_size / PlinkoGame.s.ball_radius)
+    local wall_height = PlinkoGame.s.wall_height * (orb_size / PlinkoGame.s.ball_radius)
+  
+
+    PlinkoUI.sprites.wall = Sprite (0, 0, wall_width, wall_height, G.ASSET_ATLAS['hpot_wall'])
+  end
+
 end
 
 
@@ -124,12 +142,12 @@ function G.UIDEF.plinko()
                       }},
                     }},
                     {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2}, nodes={
-                      {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, minw = 7., minh = 5.8}, nodes={
+                      {n=G.UIT.R, config={id = "plinking_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 7., minh = 5.8}, nodes={
 
                         -- Area for the plinko minigame
 
                       }},
-                      {n=G.UIT.R, config={align = "cm",}, nodes={
+                      {n=G.UIT.R, config={align = "cm", padding = 0., }, nodes={
                         {n=G.UIT.O, config={object = G.plinko_rewards}}
                       }},
                     }},
