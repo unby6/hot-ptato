@@ -8,24 +8,74 @@ return {
                 }
             },
             c_hpot_cap_plincoin = {
-                ['name'] = 'Money',
+                ['name'] = 'Plincoin',
                 ['text'] = {
                     [1] = "Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#"
                 }
             },
             c_hpot_cap_edition = {
-                ['name'] = 'Money',
+                ['name'] = 'Edition',
                 ['text'] = {
                     [1] = "A random Joker gains",
                     [2] = '{C:dark_edition}#1#'
                 }
             },
             c_hpot_cap_perkeo = {
-                ['name'] = 'Money',
+                ['name'] = 'Perkeo',
                 ['text'] = {
                     [1] = "Creates a {C:dark_edition}Negative{} copy of",
                     [2] = "{C:attention}1{} random {C:attention}consumable{}",
                     [3] = "card in your possession",
+                }
+            },
+            c_hpot_cap_joker = {
+                ['name'] = 'Joker',
+                ['text'] = {
+                    [1] = "Create a random",
+                    [2] = "{C:attention}#1#{} Joker",
+                    [3] = "{C:inactive}Must have room",
+                }
+            },
+            c_hpot_cap_wheel = {
+                ['name'] = 'Wheel',
+                ['text'] = {
+                    [1] = "{C:green}#1# in #2#{} chance",
+                    [2] = "to earn {C:money}$#3#"
+                }
+            },
+            c_hpot_cap_sticker = {
+                ['name'] = 'Sticker',
+                ['text'] = {
+                    [1] = "A random {C:attention}Joker{} gains",
+                    [2] = "a random {C:attention}Sticker"
+                }
+            },
+            c_hpot_cap_anti_joker = {
+                ['name'] = 'Anti-Joker',
+                ['text'] = {
+                    [1] = "{C:red}Destroy{} a",
+                    [2] = "random {C:attention}Joker"
+                }
+            },
+            c_hpot_cap_tag = {
+                ['name'] = 'Tag',
+                ['text'] = {
+                    [1] = "Create {C:attention}#1#",
+                    [2] = "random {C:attention}Tag#2#"
+                }
+            },
+            c_hpot_cap_hands = {
+                ['name'] = 'Hands',
+                ['text'] = {
+                    [1] = "Gain {C:blue}#1#{} Hand#2#",
+                    [2] = "for one round"
+                }
+            },
+            c_hpot_cap_discards = {
+                ['name'] = 'Discards',
+                ['text'] = {
+                    [1] = "Gain {C:red}#1#{} Discard#2#",
+                    [2] = "for one round"
                 }
             },
         },
