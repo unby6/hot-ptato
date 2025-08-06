@@ -6,6 +6,7 @@
 SMODS.Atlas({key = "perkycardatlas", path = "perkycardatlas.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 SMODS.Atlas({key = "perkeocoinjokers", path = "PerkeocoinJokers.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 SMODS.Atlas({key = "PerkeocoinBoosters", path = "perkeocoin_boosters.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "chequeatlas", path = "checks.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 
 SMODS.Gradient {
     key = 'plincoin',
@@ -582,46 +583,6 @@ SMODS.Joker{ --Balatro **PREMIUM**
 
 }
 
--- SMODS.Joker{ --free plincoins  yayy for testing
---     name = "free",
---     key = "free",
---     config = {
---         extra = {
---             Xmult = 3
---         }
---     },
---     loc_txt = {
---         ['name'] = 'free',
---         ['text'] = {
---             [1] = "bluh bluh"
---         }
---     },
---     pos = {
---         x = 9,
---         y = 0
---     },
---     cost = 6,
---     rarity = 1,
---     blueprint_compat = true,
---     eternal_compat = true,
---     perishable_compat = false,
---     unlocked = true,
---     discovered = true,
---     atlas = 'perkycardatlas',
-
---     loc_vars = function(self, info_queue, card)
---         return {vars = {card.ability.extra.mult, G.GAME.balls_dropped}}
---     end,
-
---     calculate = function(self, card, context)
-
---         if context.cardarea == G.jokers and context.joker_main then
---             ease_plincoins(1)
---         end
---     end
-
--- }
-
 -- Czechs
 
 SMODS.ConsumableType { --Czech
@@ -637,8 +598,8 @@ SMODS.Consumable { --Cash Exchange
     name = 'Cash Exchange',
     key = 'cashexchange',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 0, y = 0 },
     config = {
         extra = {
             dollars = 8,
@@ -669,8 +630,8 @@ SMODS.Consumable { --Charity
     name = 'Charity',
     key = 'charity',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 3, y = 0 },
     config = {
         extra = {
             plincoins = 1
@@ -800,7 +761,7 @@ SMODS.Consumable { --Wheel of Plinko
                     play_sound('tarot2', 0.76, 0.4);return true end}))
                 play_sound('tarot2', 1, 0.4)
                 card:juice_up(0.3, 0.5)
-        return true end }))
+            return true end }))
         end
     end
 }
@@ -979,8 +940,8 @@ SMODS.Consumable { --Czech Republic
     name = 'Czech Republic',
     key = 'czech_republic',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 0, y = 2 },
     config = { extra = { cards = 2 }},
     unlocked = true,
     discovered = true,
@@ -1112,8 +1073,8 @@ SMODS.Consumable { --Mystery Box
     name = 'Mystery Box',
     key = 'mystery_box',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 3, y = 2 },
     config = {
         extra = {
             plincoins = 2
