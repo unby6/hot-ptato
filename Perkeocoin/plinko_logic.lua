@@ -28,7 +28,7 @@ PlinkoLogic = {
             ['Common'] = 3,
             ['Uncommon'] = 2,
             ['Rare'] = 1,
-            ['Legendary'] = 1
+            ['Bad'] = 1
         }
     },
 
@@ -47,6 +47,17 @@ PlinkoLogic = {
 
 --#region Game logic
 
+-- Reset run specific data
+local gsr = Game.start_run
+function Game:start_run(args)
+    local result = gsr(self, args)
+
+    PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
+    PlinkoGame.yeet()
+    return result
+end
+
+
 function PlinkoLogic.f.reset_plinko()
   PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
   PlinkoGame.f.init_dummy_ball()
@@ -56,10 +67,10 @@ function PlinkoLogic.f.generate_rewards()
   for rarity, amount in pairs(PlinkoLogic.rewards.per_rarity) do
     for i = 1, amount do
       local card = SMODS.create_card {
-        set = "Joker",
+        set = "bottlecap",
         rarity = rarity
       }
-      if rarity == 'Legendary' then
+      if rarity == 'Bad' then
         card:set_edition("e_negative")
       else
         card:set_edition()
@@ -101,8 +112,7 @@ function PlinkoLogic.f.won_reward(reward_num)
 
       PlinkoUI.f.update_plinko_rewards(true)
 
-      PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
-      PlinkoGame.f.init_dummy_ball()
+      PlinkoLogic.f.reset_plinko()
 
       G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
       return true
