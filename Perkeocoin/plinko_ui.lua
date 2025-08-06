@@ -11,7 +11,11 @@ PlinkoUI = {
     reward_scale_x = 0.56,
     reward_scale_y = 0.56 * G.CARD_W/G.CARD_H, -- square
   },
-  f = { }
+  f = { },
+  sprites = {
+    perkeorb = 'undefined',
+    peg = 'undefined',
+  }
 }
 
 SMODS.Atlas {
@@ -27,6 +31,19 @@ SMODS.Atlas {
   px = 10,
   py = 10,
 }
+
+function PlinkoUI.f.init_sprites()
+
+  local orb_size = 40
+
+  local a_orb = SMODS.Atlases.hpot_perkeorb
+  PlinkoUI.sprites.perkeorb = Sprite {0, 0, orb_size, orb_size, a_orb}
+
+  local peg_size = orb_size * (PlinkoGame.s.peg_radius / PlinkoGame.s.ball_radius)
+
+  local a_peg = SMODS.Atlases.hpot_peg
+  PlinkoUI.sprites.peg = Sprite {0, 0, peg_size, peg_size, a_peg}
+end
 
 
 function PlinkoUI.f.adjust_rewards()

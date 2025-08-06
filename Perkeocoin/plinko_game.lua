@@ -58,7 +58,8 @@ if PlinkoGame then
     end
 end
 
-local world_offset = {x = 845, y = 390}
+local world_offset = {x = 0, y = 0}
+--local world_offset = {x = 845, y = 390}
 
 PlinkoGame = {
     world = "undefined",
@@ -93,12 +94,69 @@ PlinkoGame = {
     f = { },
 }
 
+
+--#region Testing how draw game relative to the center of the screen
+
+local world_T = {x = -2 + 0.588, y = -2 + 0.301, w = 8.000, h = 7.195}
+local function t_x(x)
+    return to_pixels(
+        -- offset 0,0 to be relative to the center of the screen, then transform x from pixels to screen units
+        to_game_units(screen_w/2) + world_T.x        +       x / PlinkoGame.s.world_width * world_T.w
+    )
+end
+
+local function t_y(y)
+    -- same as above
+    return to_pixels(to_game_units(screen_h/2) + world_T.y + y / PlinkoGame.s.world_height * world_T.h)
+end
+
+local function t_r(r)
+    return to_pixels(r / PlinkoGame.s.world_height * world_T.h)
+end
+
+local function p_to_pixels(x, y)
+    return t_x(x), t_y(y)
+end
+
+local function poly_to_pixels(x1, y1, x2, y2, x3, y3, x4, y4)
+    return t_x(x1), t_y(y1), t_x(x2), t_y(y2), t_x(x3), t_y(y3), t_x(x4), t_y(y4)
+end
+
+
+
+local function ttt(a)
+    a.x = to_game_units(screen_w/2) + a.x
+    a.y = to_game_units(screen_h/2) + a.y
+
+    return to_pixels(a.x), to_pixels(a.y), to_pixels(a.w), to_pixels(a.h)
+end
+
+local function test()
+    local r,g,b,a = love.graphics.getColor()
+    love.graphics.setColor(150/255, 60/255, 241/255, 30/255)
+
+    local obj_T = {x = -2 + 0.588, y = -2 + 0.301, w = G.plinko_rewards.T.w, h = 7.195}
+    --local obj_T = {x = -2 + 0.6, y = 5 - 0.24, w = 8.065, h = 7.195}
+
+    love.graphics.rectangle("fill", ttt(obj_T))
+    love.graphics.setColor(r,g,b,a)
+end
+--#endregion
+
+
 function PlinkoGame.f.draw()
   if PlinkoGame.world == 'undefined' then
     return
   end
+  -- window size
+  screen_w, screen_h = love.window.getMode()
+  -- update to use real width
+  world_T = {x = -2 + 0.588, y = -2 + 0.301, w = G.plinko_rewards.T.w, h = 7.195}
+
   -- TODO : draw normal textures
   PlinkoGame.f.debug_objects()
+
+  --test()
 end
 
 function PlinkoGame.f.tick_objects()
@@ -408,7 +466,8 @@ function PlinkoGame.f.circle(obj)
     local r,g,b,a = love.graphics.getColor()
     
     love.graphics.setColor(255/255, 100/255, 100/255, 255/255)
-    love.graphics.circle("line", obj.body:getX(), obj.body:getY(), obj.shape:getRadius())
+    local x, y = p_to_pixels(obj.body:getX(), obj.body:getY())
+    love.graphics.circle("line", x, y, t_r(obj.shape:getRadius()))
     love.graphics.setColor(r,g,b,a)
 end 
 
@@ -416,7 +475,8 @@ function PlinkoGame.f.circle_fill(obj)
     local r,g,b,a = love.graphics.getColor()
     
     love.graphics.setColor(100/255, 100/255, 255/255, 255/255)
-    love.graphics.circle("fill", obj.body:getX(), obj.body:getY(), obj.shape:getRadius())
+    local x, y = p_to_pixels(obj.body:getX(), obj.body:getY())
+    love.graphics.circle("fill", x, y, t_r(obj.shape:getRadius()))
     love.graphics.setColor(r,g,b,a)
 end
 
@@ -428,7 +488,7 @@ function PlinkoGame.f.polygon(obj)
     else
         love.graphics.setColor(100/255, 255/255, 100/255, 255/255)
     end
-    love.graphics.polygon("fill", obj.body:getWorldPoints(obj.shape:getPoints()))
+    love.graphics.polygon("fill", poly_to_pixels(obj.body:getWorldPoints(obj.shape:getPoints())))
     love.graphics.setColor(r,g,b,a)
 end
 
