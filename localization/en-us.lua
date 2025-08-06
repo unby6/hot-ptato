@@ -1,5 +1,34 @@
 return {
     descriptions = {
+        bottlecap = {
+            c_hpot_cap_money = {
+                ['name'] = 'Money',
+                ['text'] = {
+                    [1] = "Earn {C:money}$#1#"
+                }
+            },
+            c_hpot_cap_plincoin = {
+                ['name'] = 'Money',
+                ['text'] = {
+                    [1] = "Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#"
+                }
+            },
+            c_hpot_cap_edition = {
+                ['name'] = 'Money',
+                ['text'] = {
+                    [1] = "A random Joker gains",
+                    [2] = '{C:dark_edition}#1#'
+                }
+            },
+            c_hpot_cap_perkeo = {
+                ['name'] = 'Money',
+                ['text'] = {
+                    [1] = "Creates a {C:dark_edition}Negative{} copy of",
+                    [2] = "{C:attention}1{} random {C:attention}consumable{}",
+                    [3] = "card in your possession",
+                }
+            },
+        },
         Czech = {
             c_hpot_cashexchange = {
                 ['name'] = 'Cash Exchange',
