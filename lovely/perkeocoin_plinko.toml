@@ -52,6 +52,16 @@ end
 '''
 match_indent = true
 
+# Game:draw
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+position = 'after'
+pattern = '''(self.config.type == 'hand' and state == G.STATES.SMODS_BOOSTER_OPENED) or'''
+payload = '''
+(self.config.type == 'hand' and G.STATE == G.STATES.PLINKO) or'''
+match_indent = true
+
 # ease_background_colour_blind
 [[patches]]
 [patches.pattern]

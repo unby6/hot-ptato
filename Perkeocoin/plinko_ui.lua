@@ -43,6 +43,11 @@ SMODS.Sound {
   path = "tada.ogg",
 }
 
+--SMODS.Sound {
+--  key = "hit_wall",
+--  path = "hit_wall.ogg",
+--}
+
 SMODS.Sound {
   key = "music_plinko",
   path = "music_plinko.ogg",
@@ -320,8 +325,6 @@ function update_plinko(dt)
 
 end
 
-local cached_hand_state
-
 -- Let's go gambling
 G.FUNCS.show_plinko = function(e)
   stop_use()
@@ -332,16 +335,13 @@ G.FUNCS.show_plinko = function(e)
   G.STATE_COMPLETE = false
   PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
 
-  cached_hand_state = G.hand.states.visible
-  G.hand.states.visible = false
 
 end
 
 -- Clicked back to shop
 G.FUNCS.hide_plinko = function(e)
   stop_use()
-  
-  G.hand.states.visible = cached_hand_state
+
   G.STATE = G.STATES.SHOP
   G.STATE_COMPLETE = false
   ease_background_colour_blind(G.STATE)
