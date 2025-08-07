@@ -78,6 +78,50 @@ return {
                     [2] = "for one round"
                 }
             },
+            c_hpot_cap_pack = {
+                ['name'] = 'Pack',
+                ['text'] = {
+                    [1] = "Add a random",
+                    [2] = "{C:attention}#1#",
+                    [3] = 'to the shop'
+                }
+            },
+            c_hpot_cap_italism = {
+                ['name'] = 'Capitalism',
+                ['text'] = {
+                    [1] = "Create #1# {C:hpot_advert}Ads"
+                }
+            },
+            c_hpot_cap_inflation = {
+                ['name'] = 'Inflation',
+                ['text'] = {
+                    [1] = "Increase Plinko",
+                    [2] = "cost by {C:hpot_plincoin}#1#"
+                }
+            },
+            c_hpot_cap_emperor = {
+                ['name'] = 'Emperor',
+                ['text'] = {
+                    [1] = "Create up to {C:attention}#1#",
+                    [2] = "{C:attention}#2#{} Bottlecaps",
+                    [3] = "{C:inactive}(Must have room)"
+                }
+            },
+            c_hpot_cap_consumable = {
+                ['name'] = 'Consumables',
+                ['text'] = {
+                    [1] = "{C:attention}Fill{} consumeable slots",
+                    [2] = "with {C:attention}#1#{} cards",
+                    [3] = "{C:inactive}(Must have room)"
+                }
+            },
+            c_hpot_cap_voucher = {
+                ['name'] = 'Voucher',
+                ['text'] = {
+                    [1] = "Redeem a random",
+                    [2] = "#1# {C:attention}Voucher",
+                }
+            },
         },
         Czech = {
             c_hpot_cashexchange = {

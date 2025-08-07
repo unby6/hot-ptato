@@ -78,6 +78,13 @@ function add_round_eval_row(config)
     return cashout_row(config)
 end
 
+--eternal consumables are SUPPOSED to just work out of the box, but maybe something with the new SMODS eternal stuff fucked it. this is so emperor bottlecap can make the bad caps eternal
+local pk_can_sell = Card.can_sell_card
+function Card:can_sell_card(context)
+    if self.ability.eternal then return false end
+    return pk_can_sell(self, context)
+end
+
 function show_shop()
     if G.shop and G.shop.alignment.offset.py then 
       G.shop.alignment.offset.y = G.shop.alignment.offset.py
