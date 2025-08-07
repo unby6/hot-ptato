@@ -54,6 +54,12 @@ PlinkoGame = {
 
         wall_height = 110,
         wall_width = 5,
+
+        moving_pegs = false,
+        peg_speed = 25, -- per second
+        max_peg_offset = 5,
+
+        
     },
     -- objects
     o = { },
@@ -148,7 +154,63 @@ function PlinkoGame.f.draw_objects()
     end
 end
 
+--#region Movable pegs logic
+local peg_offset = 0
+local sign = 1
+local function move_pegs(dt)
+    if not PlinkoGame.s.moving_pegs then
+        return
+    end
+
+    if peg_offset >= PlinkoGame.s.max_peg_offset then
+        sign = -1
+    elseif peg_offset <= -PlinkoGame.s.max_peg_offset then
+        sign = 1
+    end
+
+    local add = PlinkoGame.s.peg_speed * dt * sign
+    for k, v in pairs(PlinkoGame.o) do
+        if k:find("obstacle_") then
+            if v.odd then
+                v.body:setX(v.body:getX() - add)
+            else
+                v.body:setX(v.body:getX() + add)
+            end
+        end
+    end
+    peg_offset = peg_offset + add
+end
+
+function PlinkoGame.f.toggle_moving_pegs(value)
+    if type(value) ~= "nil" then
+        PlinkoGame.s.moving_pegs = not not value
+    else
+        PlinkoGame.s.moving_pegs = not PlinkoGame.s.moving_pegs
+    end
+
+    if not PlinkoGame.s.moving_pegs then
+        -- Reset peg positions
+        for k, v in pairs(PlinkoGame.o) do
+            if k:find("obstacle_") then
+                if v.odd then
+                    v.body:setX(v.body:getX() + peg_offset)
+                else
+                    v.body:setX(v.body:getX() - peg_offset)
+                end
+            end
+        end
+        peg_offset = 0
+    end
+end
+--#endregion
+
+
+
 function PlinkoGame.f.update_plinko_world(dt)
+    if G.SETTINGS.paused then
+        return
+    end
+
     if PlinkoGame.world == 'undefined' then
         PlinkoGame.f.create_world()
         PlinkoGame.f.init_dummy_ball()
@@ -162,9 +224,13 @@ function PlinkoGame.f.update_plinko_world(dt)
         end
     end
 
+    move_pegs(dt)
+
     PlinkoGame.f.ballin(dt)
     PlinkoGame.world:update(dt)
 end
+
+
 
 --#region Dynamic ball offset
 
@@ -499,7 +565,13 @@ function PlinkoGame.f.create_world()
                 y = 40 + y * PlinkoGame.s.peg_offset, -- generic offset from top, then every 90 px
             }
 
-            PlinkoGame.o["obstacle_"..tostring(obstacle_id)] = PlinkoGame.f.create_obstacle(pos)
+            local o = PlinkoGame.f.create_obstacle(pos)
+            PlinkoGame.o["obstacle_"..tostring(obstacle_id)] = o
+            if y%2 == 1 then
+                o.odd = true
+            else
+                o.even = true
+            end
             obstacle_id = obstacle_id + 1
         end
     end
