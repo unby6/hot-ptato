@@ -375,6 +375,12 @@ return {
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
+
+            hotpot_plinko_play = "Play",
+            hotpot_plinko_to_shop1 = "Back to",
+            hotpot_plinko_to_shop2 = "shop",
+            hotpot_plinko_to_plinko1 = "Let's go",
+            hotpot_plinko_to_plinko2 = "gambling!",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',

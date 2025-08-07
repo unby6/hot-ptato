@@ -66,7 +66,7 @@ function PlinkoLogic.f.reset_plinko()
 end
 
 function PlinkoLogic.f.generate_rewards()
-  for rarity, amount in pairs(PlinkoLogic.rewards.per_rarity) do
+  for rarity, amount in pairs(G.GAME.plinko_rewards) do
     for i = 1, amount do
       local card = SMODS.create_card {
         set = "bottlecap_"..rarity,

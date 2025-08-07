@@ -6,6 +6,27 @@ SMODS.Font {
 }
 
 
+local gigo = Game.init_game_object
+function Game:init_game_object()
+  local t = gigo(self)
+  t.plincoins = 0
+  t.balls_dropped = 0
+  t.plincoins_per_round = PlinkoLogic.s.plincoins_per_round
+  t.current_round.plincoins = 0
+  
+  t.current_round.plinko_roll_cost = PlinkoLogic.s.default_roll_cost
+  t.current_round.plinko_rolls = 0
+  t.current_round.plinko_cost_reset = {ante_left = 2, rounds_left = 0}
+
+  t.plinko_rewards = {}
+  for k, v in pairs(PlinkoLogic.rewards.per_rarity) do
+    t.plinko_rewards[k] = v
+  end
+
+  return t
+end
+
+
 function add_round_eval_plincoins(config)
     local config = config or {}
     local width = G.round_eval.T.w - 0.51
@@ -96,21 +117,6 @@ function add_round_eval_plincoins(config)
       -- might cause issues. Dollars cashout adds up everything and sends "bottom" cashout. Might need similar implementation if more plincoin cashouts are added
       G.GAME.current_round.plincoins = G.GAME.current_round.plincoins + config.plincoins
 
-end
-
-local gigo = Game.init_game_object
-function Game:init_game_object()
-  local t = gigo(self)
-  t.plincoins = 0
-  t.balls_dropped = 0
-  t.plincoins_per_round = PlinkoLogic.s.plincoins_per_round
-  t.current_round.plincoins = 0
-  
-  t.current_round.plinko_roll_cost = PlinkoLogic.s.default_roll_cost
-  t.current_round.plinko_rolls = 0
-  t.current_round.plinko_cost_reset = {ante_left = 2, rounds_left = 0}
-
-  return t
 end
 
 local cuh = create_UIBox_HUD
