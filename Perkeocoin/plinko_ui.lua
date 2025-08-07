@@ -32,15 +32,20 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-  key = "wall",-- temp sprite
-  path = "perkeocoin_wall.png",
+  key = "wall",
+  path = "perkeocoin_wall2.png",
   px = 5,
   py = 110,
 }
 
 SMODS.Sound {
   key = "tada",
-  path = "tada.ogg",
+  path = "sfx_tada.ogg",
+}
+
+SMODS.Sound {
+  key = "bottlecap",
+  path = "sfx_bottlecap.ogg",
 }
 
 --SMODS.Sound {

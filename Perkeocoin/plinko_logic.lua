@@ -12,6 +12,7 @@ PlinkoLogic = {
     s = {
       default_roll_cost = 1,
       rolls_to_up_cost = 3,
+      plincoins_per_round = 1,
     },
     
     -- GENERAL INFO    
@@ -21,6 +22,7 @@ PlinkoLogic = {
         REWARD = 3,
     },
     STATE = 1,
+
     
     rewards = {
         total = 7,
@@ -118,7 +120,8 @@ function PlinkoLogic.f.won_reward(reward_num)
         for i = 1, #G.jokers.cards do
           G.jokers.cards[i]:calculate_joker({using_consumeable = true, consumeable = G.play.cards[1]})
         end
-        card:start_dissolve({G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY}, nil, 4)
+        card:start_dissolve({G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY}, true, 4)
+        play_sound('hpot_bottlecap')
       end
 
       PlinkoUI.f.update_plinko_rewards(true)
@@ -152,21 +155,35 @@ function PlinkoLogic.f.reset_cost(keep_roll_cost)
   G.GAME.current_round.plinko_cost_reset = copy_table(PlinkoLogic.roll_cost_reset[current_level])
 end
 
-function PlinkoLogic.f.ante_up()
-  G.GAME.current_round.plinko_cost_reset.ante_left = math.max(0, G.GAME.current_round.plinko_cost_reset.ante_left - 1)
+function PlinkoLogic.f.ante_up(mod)
+  G.GAME.current_round.plinko_cost_reset.ante_left = math.max(0, G.GAME.current_round.plinko_cost_reset.ante_left - mod)
 
   if G.GAME.current_round.plinko_cost_reset.ante_left <= 0 and G.GAME.current_round.plinko_cost_reset.rounds_left <= 0 then
     PlinkoLogic.f.reset_cost()
   end
 end
 
-function PlinkoLogic.f.round_up()
-  G.GAME.current_round.plinko_cost_reset.rounds_left = math.max(0, G.GAME.current_round.plinko_cost_reset.rounds_left - 1)
+local ea = ease_ante
+function ease_ante(mod)
+  ea(mod)
+  PlinkoLogic.f.ante_up(mod)
+end
 
+
+function PlinkoLogic.f.round_up(mod)
+  G.GAME.current_round.plinko_cost_reset.rounds_left = math.max(0, G.GAME.current_round.plinko_cost_reset.rounds_left - mod)
+  
   if G.GAME.current_round.plinko_cost_reset.ante_left <= 0 and G.GAME.current_round.plinko_cost_reset.rounds_left <= 0 then
     PlinkoLogic.f.reset_cost()
   end
 end
+
+local er = ease_round
+function ease_round(mod)
+  er(mod)
+  PlinkoLogic.f.round_up(mod)
+end
+
 
 function PlinkoLogic.f.can_roll()
   return G.GAME.plincoins >= G.GAME.current_round.plinko_roll_cost
