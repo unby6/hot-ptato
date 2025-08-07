@@ -40,7 +40,8 @@ SMODS.Joker{ --19 plincoin fortnite card
 
     hotpot_credits = {
         art = {'Kitty'},
-        idea = {''}, --i forgot
+        idea = {'Proto'}, --i forgot
+        --dw, i rember :3c
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
