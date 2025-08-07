@@ -742,10 +742,33 @@ SMODS.Joker{ --Tipping Point
     end,
 
     calculate = function(self, card, context)
-  
     end
 
 }
+
+local function calculate_tipping_point()
+    if next(find_joker('Tipping Point')) then
+        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
+        G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
+        PlinkoGame.f.toggle_moving_pegs(true)
+    else
+        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
+        G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+        PlinkoGame.f.toggle_moving_pegs(false)
+    end
+end
+
+
+local game_update = Game.update
+function Game:update(dt)
+    game_update(self, dt)
+
+    if not G.jokers then
+        return
+    end
+    calculate_tipping_point()
+end
+
 
 -- Czechs
 

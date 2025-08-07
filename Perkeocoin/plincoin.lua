@@ -5,25 +5,24 @@ SMODS.Font {
   path = "plincoin2.ttf"
 }
 
+-- Properly init perkeocoin stuff to be compatible with existing save files
+function init_perkeocoin(game)
 
-local gigo = Game.init_game_object
-function Game:init_game_object()
-  local t = gigo(self)
-  t.plincoins = 0
-  t.balls_dropped = 0
-  t.plincoins_per_round = PlinkoLogic.s.plincoins_per_round
-  t.current_round.plincoins = 0
-  
-  t.current_round.plinko_roll_cost = PlinkoLogic.s.default_roll_cost
-  t.current_round.plinko_rolls = 0
-  t.current_round.plinko_cost_reset = {ante_left = 2, rounds_left = 0}
+  game.plincoins = game.plincoins or 0
+  game.balls_dropped = game.balls_dropped or 0
+  game.plincoins_per_round = game.plincoins_per_round or PlinkoLogic.s.plincoins_per_round
+  game.current_round.plincoins = game.current_round.plincoins or 0
 
-  t.plinko_rewards = {}
-  for k, v in pairs(PlinkoLogic.rewards.per_rarity) do
-    t.plinko_rewards[k] = v
+  game.current_round.plinko_roll_cost = game.current_round.plinko_roll_cost or PlinkoLogic.s.default_roll_cost
+  game.current_round.plinko_rolls = game.current_round.plinko_rolls or 0
+  game.current_round.plinko_cost_reset = game.current_round.plinko_cost_reset or {ante_left = 2, rounds_left = 0}
+
+  if not game.plinko_rewards then
+    game.plinko_rewards = {}
+    for k, v in pairs(PlinkoLogic.rewards.per_rarity) do
+      game.plinko_rewards[k] = v
+    end
   end
-
-  return t
 end
 
 

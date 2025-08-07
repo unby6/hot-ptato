@@ -182,6 +182,9 @@ local function move_pegs(dt)
 end
 
 function PlinkoGame.f.toggle_moving_pegs(value)
+    if value == PlinkoGame.s.moving_pegs then
+        return
+    end
     if type(value) ~= "nil" then
         PlinkoGame.s.moving_pegs = not not value
     else
