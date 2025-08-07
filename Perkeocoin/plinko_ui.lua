@@ -340,7 +340,7 @@ G.FUNCS.show_plinko = function(e)
   G.STATE_COMPLETE = false
   PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
 
-
+  
 end
 
 -- Clicked back to shop
@@ -352,6 +352,7 @@ G.FUNCS.hide_plinko = function(e)
   ease_background_colour_blind(G.STATE)
   show_shop()
 
+  PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED
   G.plinko.alignment.offset.y = G.ROOM.T.y + 29
 
   G.E_MANAGER:add_event(Event({func = function()

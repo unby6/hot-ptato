@@ -112,6 +112,9 @@ function PlinkoGame.f.draw()
   if PlinkoGame.world == 'undefined' then
     return
   end
+  if PlinkoLogic.STATE == PlinkoLogic.STATES.CLOSED then
+      return
+  end
 
   if not G.plinko or not G.plinko_rewards then
     return
@@ -211,6 +214,9 @@ end
 
 function PlinkoGame.f.update_plinko_world(dt)
     if G.SETTINGS.paused then
+        return
+    end
+    if PlinkoLogic.STATE == PlinkoLogic.STATES.CLOSED then
         return
     end
 

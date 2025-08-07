@@ -23,6 +23,9 @@ function init_perkeocoin(game)
       game.plinko_rewards[k] = v
     end
   end
+
+  PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED
+  PlinkoGame.yeet()
 end
 
 

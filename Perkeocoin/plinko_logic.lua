@@ -17,6 +17,7 @@ PlinkoLogic = {
     
     -- GENERAL INFO    
     STATES = {
+        CLOSED = 0,
         IDLE = 1,
         IN_PROGRESS = 2,
         REWARD = 3,
@@ -48,17 +49,6 @@ PlinkoLogic = {
 }
 
 --#region Game logic
-
--- Reset run specific data
-local gsr = Game.start_run
-function Game:start_run(args)
-    local result = gsr(self, args)
-
-    PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
-    PlinkoGame.yeet()
-    return result
-end
-
 
 function PlinkoLogic.f.reset_plinko()
   PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE

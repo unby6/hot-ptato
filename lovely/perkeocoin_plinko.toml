@@ -24,7 +24,7 @@ target = 'game.lua'
 position = 'after'
 pattern = '''timer_checkpoint('uiboxes', 'draw')'''
 payload = '''
-if self.STATE == self.STATES.PLINKO then
+if self.STATE == self.STATES.PLINKO or PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then
   PlinkoGame.f.draw()
 end
 
