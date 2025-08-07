@@ -245,7 +245,7 @@ local function draw_perkeorb(self)
     self.curr_pos = {x = self.body:getX() - self.shape:getRadius(), y = self.body:getY() - self.shape:getRadius()}
     self.last_pos = self.last_pos or self.curr_pos
     local sign = self.curr_pos.x - self.last_pos.x < 0 and -1 or 1
-    local delta_r = sign * vec_length(self.curr_pos, self.last_pos) / 40
+    local delta_r = sign * vec_length(self.curr_pos, self.last_pos) / (PlinkoLogic.STATE == PlinkoLogic.STATES.IDLE and 30 or 40) -- 30 when idle makes animation nicer
     if sprite.T.r > 100 then
         sprite.T.r = 0
         sprite.VT.r = 0
@@ -371,7 +371,7 @@ local function draw_wall(self)
 
     local x1, y1 = self.body:getWorldPoints(self.shape:getPoints())
 
-    self.curr_pos = {x = x1, y = y1}
+    self.curr_pos = {x = x1 - PlinkoGame.s.wall_width / 2, y = y1}
     sprite.T.x, sprite.T.y = PlinkoGame.f.translate_pos(self.curr_pos)
     -- hard set T or something
     sprite.VT.x = sprite.T.x
@@ -455,7 +455,7 @@ function PlinkoGame.f.create_world()
                 if math.random() < 0.4 then
                     coll:setRestitution(1.1)
                 end
-            elseif type(boost) == "boolean" then
+            elseif boost == false then
                 -- lower bounce, boolean check because hitting a wall would return nil
                 if math.random() < 0.7 then
                     coll:setRestitution(0.5)
@@ -467,6 +467,17 @@ function PlinkoGame.f.create_world()
                     obj:callback()
                 end
             end
+            
+            local sfx = nil
+            if type(boost) == "boolean" then
+                sfx = 'voice'..tostring(math.random(11))
+            else
+                sfx = 'whoosh'
+            end
+            G.E_MANAGER:add_event(Event{blocking = false, func = function ()
+              play_sound(sfx)
+              return true
+            end})
         end,
         nil,
         nil,

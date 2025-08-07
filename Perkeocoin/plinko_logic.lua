@@ -90,8 +90,13 @@ function PlinkoLogic.f.won_reward(reward_num)
 
   draw_card(G.plinko_rewards, G.play, 1, 'up', true, G.plinko_rewards.cards[reward_num], nil, nil)
 
-  local now = G.TIMERS.REAL
+  local start = G.TIMERS.REAL
   local first_time = true
+
+  G.E_MANAGER:add_event(Event{delay = 0.5, blocking = false, func = function ()
+    play_sound('hpot_tada')
+    return true
+  end})
 
   G.E_MANAGER:add_event(Event({
     delay = 5,
@@ -100,19 +105,20 @@ function PlinkoLogic.f.won_reward(reward_num)
         first_time = false
         PlinkoUI.f.clear_plinko_rewards()
 
-        G.CONTROLLER:snap_to({node = G.plinko_rewards.cards[1]})
+        G.CONTROLLER:snap_to {node = G.plinko_rewards.cards[1]}
       end
 
-      if G.TIMERS.REAL - now < 3 then
+      if G.TIMERS.REAL - start < 3 then
         return false
       end
 
-      if G.play.cards[1] then
-        G.play.cards[1]:use_consumeable()
+      local card = G.play.cards[1]
+      if card then
+        card:use_consumeable()
         for i = 1, #G.jokers.cards do
           G.jokers.cards[i]:calculate_joker({using_consumeable = true, consumeable = G.play.cards[1]})
         end
-        G.play.cards[1]:shatter()
+        card:start_dissolve({G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY}, nil, 4)
       end
 
       PlinkoUI.f.update_plinko_rewards(true)

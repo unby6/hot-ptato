@@ -5,11 +5,12 @@
 -- Lovely UI mess
 ---------------
 
+local reward_scale = 0.7
 
 PlinkoUI = {
   s = {
-    reward_scale_x = 0.56,
-    reward_scale_y = 0.56 * G.CARD_W/G.CARD_H, -- square
+    reward_area_w = 0.56 * reward_scale,
+    reward_area_h = 0.56 * reward_scale * G.CARD_W/G.CARD_H, -- square
   },
   f = { },
   sprites = {
@@ -37,6 +38,23 @@ SMODS.Atlas {
   py = 110,
 }
 
+SMODS.Sound {
+  key = "tada",
+  path = "tada.ogg",
+}
+
+SMODS.Sound {
+  key = "music_plinko",
+  path = "music_plinko.ogg",
+  select_music_track = function (self)
+    if G.STATE == G.STATES.PLINKO then
+      return 1337
+    end
+  end
+}
+
+
+
 function PlinkoUI.f.init_sprites()
 
   local orb_size = 0.343
@@ -55,7 +73,7 @@ function PlinkoUI.f.init_sprites()
   if not PlinkoUI.sprites.wall then
     -- scale dimensions relative to the orb
     local wall_width = PlinkoGame.s.wall_width * (orb_size / PlinkoGame.s.ball_radius)
-    local wall_height = PlinkoGame.s.wall_height/1.8 * (orb_size / PlinkoGame.s.ball_radius)
+    local wall_height = PlinkoGame.s.wall_height/2.2 * (orb_size / PlinkoGame.s.ball_radius)
   
 
     PlinkoUI.sprites.wall = Sprite (0, 0, wall_width, wall_height, G.ASSET_ATLAS['hpot_wall'])
@@ -66,13 +84,14 @@ end
 
 function PlinkoUI.f.adjust_rewards()
   for _, card in pairs(G.plinko_rewards.cards) do
-        card:hard_set_T(nil, nil, G.CARD_W * PlinkoUI.s.reward_scale_x, G.CARD_H * PlinkoUI.s.reward_scale_y);
+    -- Scale down
+        card:hard_set_T(nil, nil, G.CARD_W * PlinkoUI.s.reward_area_w, G.CARD_H * PlinkoUI.s.reward_area_h);
   end
 end
 
 function PlinkoUI.f.clear_plinko_rewards()
   for k, v in pairs(G.plinko_rewards.cards) do
-    v:shatter()
+    v:start_dissolve({G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY}, true)
   end
 end
 
@@ -100,8 +119,8 @@ function G.UIDEF.plinko()
     G.plinko_rewards = CardArea(
       G.hand.T.x+0,
       G.hand.T.y+9,
-      PlinkoLogic.rewards.total*PlinkoUI.s.reward_scale_x*G.CARD_W,
-      PlinkoUI.s.reward_scale_y*G.CARD_H,
+      PlinkoLogic.rewards.total*PlinkoUI.s.reward_area_w/reward_scale*G.CARD_W,
+      PlinkoUI.s.reward_area_h/reward_scale*G.CARD_H,
       {card_limit = PlinkoLogic.rewards.total, type = 'shop', highlight_limit = 0})
 
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
@@ -142,13 +161,15 @@ function G.UIDEF.plinko()
                       }},
                     }},
                     {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2}, nodes={
-                      {n=G.UIT.R, config={id = "plinking_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 7., minh = 5.8}, nodes={
+                      {n=G.UIT.R, config={id = "plinking_area", align = "cm", colour = G.C.BLACK, }, nodes={
 
-                        -- Area for the plinko minigame
+                        {n=G.UIT.R, config={id = "plinking_area", align = "tm", colour = G.C.BLACK, padding = 0., minw = 7., minh = 5.8}, nodes={
+                          -- Area for the plinko minigame
+                        }},
 
-                      }},
-                      {n=G.UIT.R, config={align = "cm", padding = 0., }, nodes={
-                        {n=G.UIT.O, config={object = G.plinko_rewards}}
+                        {n=G.UIT.R, config={align = "bm", padding = 0., }, nodes={
+                          {n=G.UIT.O, config={object = G.plinko_rewards}}
+                        }},
                       }},
                     }},
 
@@ -222,6 +243,28 @@ G.FUNCS.start_plinko = function(e)
   G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
 end
 
+local caac = CardArea.align_cards
+
+function CardArea:align_cards()
+  caac(self)
+
+    if self == G.plinko_rewards then
+      local max_cards = math.max(#self.cards, self.config.temp_limit)
+      for k, card in ipairs(self.cards) do
+          if not card.states.drag.is then
+              card.T.r = 0
+              -- There is a smarter way to do this but I cba at this point
+              card.T.x = self.T.x + (self.T.w)*((k)/math.max(max_cards, 1)) - self.card_w*(0.5 - reward_scale) - 1.4085
+              local highlight_height = G.HIGHLIGHT_H
+              if not card.highlighted then highlight_height = 0 end
+              card.T.y = self.T.y + self.T.h/2 - card.T.h/2 - highlight_height
+              card.T.x = card.T.x + card.shadow_parrallax.x/30
+          end
+      end
+      table.sort(self.cards, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
+    end
+
+end
 
 function update_plinko(dt)
     PlinkoGame.f.update_plinko_world(dt)
