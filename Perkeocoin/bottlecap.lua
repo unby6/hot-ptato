@@ -843,7 +843,7 @@ SMODS.Consumable { --Capitalism
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
+        idea = {'Proto'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
