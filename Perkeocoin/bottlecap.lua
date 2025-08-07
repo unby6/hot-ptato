@@ -920,7 +920,7 @@ SMODS.Consumable { --Emperor
             ['Uncommon'] = 2,
             ['Rare'] = 2,
             ['Bad'] = 2,
-            chosen = 'Common'
+            chosen = 'Uncommon'
         }
     },
         hotpot_credits = {
@@ -957,6 +957,7 @@ SMODS.Consumable { --Emperor
                     G.E_MANAGER:add_event(Event({
                         func = function() 
                             local _card = SMODS.create_card{set = 'bottlecap_'..card.ability.extra.chosen,area = G.consumeables, key_append = 'empercap'}
+                            _card.ability.extra.chosen = card.ability.extra.chosen
                             if card.ability.extra.chosen == "Bad" then
                                 _card.ability.eternal = true
                             end
