@@ -215,7 +215,7 @@ return {
                 ['name'] = 'Mystery Box',
                 ['text'] = {
                     [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
-                    [2] = 'a random Joker is',
+                    [2] = '#2# random Jokers are',
                     [3] = 'flipped face down'
                 }
             },
@@ -241,17 +241,15 @@ return {
             j_hpot_plincoinxmult = {
                 ['name'] = 'PlincoinXmult',
                 ['text'] = {
-                    [1] = "{C:white,X:red}X#1#{} Mult for every",
-                    [2] = "{C:hpot_plincoin}Plincoin{} you have",
-                    [3] = "{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)"
+                    [1] = "NOTHING!!!!!!!!!" --(i will manifest this joker as something new on my own if we're at 14/15 by the cutoff dw)
                 }
             },
             j_hpot_tribcoin = {
                 ['name'] = 'Tribcoin',
                 ['text'] = {
-                    [1] = '{C:white,X:red}X#1#{} Mult',
-                    [2] = '{C:hpot_plincoin}Plincoins{} can\'t',
-                    [3] = 'be gained'
+                    [1] = "{C:white,X:red}X#1#{} Mult for every",
+                    [2] = "{C:hpot_plincoin}Plincoin{} you have",
+                    [3] = "{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)"
                 }
             },
             j_hpot_adspace = {
