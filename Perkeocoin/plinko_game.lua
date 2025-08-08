@@ -340,8 +340,9 @@ function PlinkoGame.f.init_dummy_ball()
     PlinkoGame.f.remove_balls()
 
     if PlinkoUI.sprites.is_stupid then
+        PlinkoUI.sprites.is_stupid = false
         s(PlinkoUI.sprites,"perkeorb","stupidorb")
-    elseif math.random(100) then
+    elseif math.random(100) == 69 then
         PlinkoUI.sprites.is_stupid = true
         s(PlinkoUI.sprites,"perkeorb","stupidorb")
     end
@@ -557,12 +558,12 @@ function PlinkoGame.f.create_world()
             local volume = nil
             if type(boost) == "boolean" then
                 sfx = 'voice'..tostring(math.random(11))
-                pitch = math.random(0.95,1.05)
-                volume = math.random(0.9,1.0)
+                --pitch = math.random(0.95,1.05)
+                --volume = math.random(0.9,1.0)
             else
                 sfx = 'whoosh'
-                pitch = 1
-                volume = 0
+                --pitch = 1
+                --volume = 0
             end
             G.E_MANAGER:add_event(Event{blocking = false, blockable = false, func = function ()
               play_sound(sfx, pitch, volume)
