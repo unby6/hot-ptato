@@ -73,6 +73,10 @@ function PlinkoUI.f.init_sprites()
     PlinkoUI.sprites.perkeorb = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_perkeorb'])
   end
 
+  if not PlinkoUI.sprites.stupidorb then
+    PlinkoUI.sprites.stupidorb = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_stupidorb'])
+  end
+
   if not PlinkoUI.sprites.peg then
     -- scale dimensions relative to the orb
     local peg_size = PlinkoGame.s.peg_radius * (orb_size / PlinkoGame.s.ball_radius)
@@ -362,4 +366,5 @@ G.FUNCS.hide_plinko = function(e)
 
 end
 
-
+-- meow
+SMODS.Atlas{key = "stupidorb",path = "perkeocoin_stupidorb.png",px = 40,py = 40,}

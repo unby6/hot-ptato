@@ -334,8 +334,17 @@ local function draw_perkeorb(self)
     sprite:draw()
 end
 
+local function s(t,a,b)t[a],t[b]=t[b],t[a]end
+
 function PlinkoGame.f.init_dummy_ball()
     PlinkoGame.f.remove_balls()
+
+    if PlinkoUI.sprites.is_stupid then
+        s(PlinkoUI.sprites,"perkeorb","stupidorb")
+    elseif math.random(100) then
+        PlinkoUI.sprites.is_stupid = true
+        s(PlinkoUI.sprites,"perkeorb","stupidorb")
+    end
 
     PlinkoGame.o.dummy_ball = fix {
         body = love.physics.newBody(
@@ -548,14 +557,14 @@ function PlinkoGame.f.create_world()
             local volume = nil
             if type(boost) == "boolean" then
                 sfx = 'voice'..tostring(math.random(11))
-                pitch = math.random(0.84,1.04)
-                volume = math.random(0.4,0.6)
+                pitch = math.random(0.95,1.05)
+                volume = math.random(0.9,1.0)
             else
                 sfx = 'whoosh'
                 pitch = 1
                 volume = 0
             end
-            G.E_MANAGER:add_event(Event{blocking = false, func = function ()
+            G.E_MANAGER:add_event(Event{blocking = false, blockable = false, func = function ()
               play_sound(sfx, pitch, volume)
               return true
             end})
