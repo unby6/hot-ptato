@@ -3,10 +3,6 @@
 
 --its ease_dollars for plincoins
 function ease_plincoins(plink, instant)
-    if plink > 0 and next(find_joker('Tribcoin')) then
-      plink = 0
-    end
-
   local function _mod(mod)
         local dollar_UI = G.HUD:get_UIE_by_ID('plincoin_text_UI')
         mod = mod or 0
@@ -81,7 +77,7 @@ end
 --eternal consumables are SUPPOSED to just work out of the box, but maybe something with the new SMODS eternal stuff fucked it. this is so emperor bottlecap can make the bad caps eternal
 local pk_can_sell = Card.can_sell_card
 function Card:can_sell_card(context)
-    if self.ability.eternal then return false end
+    if self.ability.set == 'bottlecap' and self.ability.eternal then return false end
     return pk_can_sell(self, context)
 end
 
