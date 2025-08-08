@@ -48,6 +48,11 @@ SMODS.Sound {
   path = "sfx_bottlecap.ogg",
 }
 
+SMODS.Sound {
+  key = "meow",
+  path = "sfx_meow.ogg",
+}
+
 
 --SMODS.Sound {
 --  key = "hit_wall",

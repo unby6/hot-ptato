@@ -557,10 +557,14 @@ function PlinkoGame.f.create_world()
             local pitch = nil
             local volume = nil
             if type(boost) == "boolean" then
-                sfx = 'voice'..tostring(math.random(11))
-                if math.random(1,1000) == 1 then
-                    pitch = math.random(0.04,8) / 4
-                    --nothing to see here
+                if PlinkoUI.sprites.is_stupid then
+                    sfx = "hpot_meow"
+                else
+                    sfx = 'voice'..tostring(math.random(11))
+                    if math.random(1000) == 1 then
+                        pitch = math.random(0.04,8) / 4
+                        --nothing to see here
+                    end
                 end
                 volume = math.random(0.85,0.9)
             else
