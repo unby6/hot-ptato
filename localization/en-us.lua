@@ -216,7 +216,8 @@ return {
                 ['text'] = {
                     [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
                     [2] = '#2# random Jokers are',
-                    [3] = 'flipped face down'
+                    [3] = 'flipped face down',
+                    [4] = '{C:inactive}(Shuffles Jokers)'
                 }
             },
         },
@@ -373,6 +374,8 @@ return {
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
+            b_bottlecap_cards = 'Bottlecaps',
+            k_bottlecap = 'Bottlecap',
 
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
