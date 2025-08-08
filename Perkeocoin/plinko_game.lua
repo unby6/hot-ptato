@@ -544,13 +544,19 @@ function PlinkoGame.f.create_world()
             end
             
             local sfx = nil
+            local pitch = nil
+            local volume = nil
             if type(boost) == "boolean" then
                 sfx = 'voice'..tostring(math.random(11))
+                pitch = math.random(0.84,1.04)
+                volume = math.random(0.4,0.6)
             else
-                sfx = 'whoosh'
+                sfx = 'woosh'
+                pitch = 1
+                volume = 1
             end
             G.E_MANAGER:add_event(Event{blocking = false, func = function ()
-              play_sound(sfx)
+              play_sound(sfx, pitch, volume)
               return true
             end})
         end,
