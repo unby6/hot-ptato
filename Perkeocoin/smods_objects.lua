@@ -1347,6 +1347,16 @@ SMODS.Consumable { --Mystery Box
         local flipped = pseudorandom_element(flippers, pseudoseed('yardsale'))
         flipped:flip()
         flipped.forever_flipped = true
+
+        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function() 
+            G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('mystery_box'); play_sound('cardSlide1', 0.85);return true end })) 
+            delay(0.15)
+            G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('mystery_box'); play_sound('cardSlide1', 1.15);return true end })) 
+            delay(0.15)
+            G.E_MANAGER:add_event(Event({ func = function() G.jokers:shuffle('mystery_box'); play_sound('cardSlide1', 1);return true end })) 
+            delay(0.5)
+        return true end })) 
+
         ease_plincoins(card.ability.extra.plincoins)
     end
 }
