@@ -40,8 +40,6 @@ SMODS.Joker{ --19 plincoin fortnite card
 
     hotpot_credits = {
         art = {'Kitty'},
-        idea = {'Proto'}, --i forgot
-        --dw, i rember :3c
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -86,7 +84,7 @@ SMODS.Joker{ --Plink
             mult = 2
         }
     },
-    pos = { x = 8, y = 0 },
+    pos = { x = 1, y = 2 },
     cost = 6,
     rarity = 1,
     blueprint_compat = true,
@@ -94,17 +92,16 @@ SMODS.Joker{ --Plink
     perishable_compat = false,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
+        art = {'Kitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mult, G.GAME.balls_dropped}}
+        return {vars = {card.ability.extra.mult, G.GAME.balls_dropped and G.GAME.balls_dropped or 0}}
     end,
 
     calculate = function(self, card, context)
@@ -121,12 +118,11 @@ SMODS.Joker{ --Plink
 
 }
 
-SMODS.Joker{ --PlincoinXmult
+SMODS.Joker{ --PlincoinXmult DOES NOTHING (i will manifest this joker as something new on my own if we're at 14/15 by the cutoff dw)
     name = "PlincoinXmult",
     key = "plincoinxmult",
     config = {
         extra = {
-            Xmult = 0.25
         }
     },
     pos = { x = 5, y = 0 },
@@ -141,13 +137,46 @@ SMODS.Joker{ --PlincoinXmult
 
     hotpot_credits = {
         art = {''}, --update
-        idea = {''}, --i forgot
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.Xmult, 1 + (G.GAME.plincoins * card.ability.extra.Xmult)}}
+        return {vars = {}}
+    end,
+
+    calculate = function(self, card, context)
+
+    end
+
+}
+
+SMODS.Joker{ --Tribcoin
+    name = "Tribcoin",
+    key = "tribcoin",
+    config = {
+        extra = {
+            Xmult = 0.25
+        }
+    },
+    pos = { x = 3, y = 0 },
+    cost = 7,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'perkeocoinjokers',
+
+    hotpot_credits = {
+        art = {'Omegaflowey18'}, 
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.Xmult,G.GAME.plincoins and (1 + ((G.GAME.plincoins * card.ability.extra.Xmult))) or 1}}
     end,
 
     calculate = function(self, card, context)
@@ -164,47 +193,6 @@ SMODS.Joker{ --PlincoinXmult
 
 }
 
-SMODS.Joker{ --Tribcoin
-    name = "Tribcoin",
-    key = "tribcoin",
-    config = {
-        extra = {
-            Xmult = 3
-        }
-    },
-    pos = { x = 3, y = 0 },
-    cost = 7,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'perkeocoinjokers',
-
-    hotpot_credits = {
-        art = {'Omegaflowey18'}, --update
-        idea = {''}, --i forgot
-        code = {'CampfireCollective'},
-        team = {'Perkeocoin'}
-    },
-
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.Xmult}}
-    end,
-
-    calculate = function(self, card, context)
-
-        if context.cardarea == G.jokers and context.joker_main then
-            return{
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.Xmult}},
-                Xmult_mod = card.ability.extra.Xmult
-            }
-        end
-    end
-
-}
-
 SMODS.Joker{ --Adspace
     name = "Adspace",
     key = "adspace",
@@ -213,7 +201,7 @@ SMODS.Joker{ --Adspace
             chips = 30
         }
     },
-    pos = { x = 0, y = 1 },
+    pos = { x = 3, y = 1 },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -221,11 +209,10 @@ SMODS.Joker{ --Adspace
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
+        art = {'Kitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -262,7 +249,6 @@ SMODS.Joker{ -- Kitchen Gun
 
     hotpot_credits = {
         art = {'Kitty'},
-        idea = {'Kitty'},
         code = {'Opal'},
         team = {'Perkeocoin'}
     },
@@ -309,7 +295,7 @@ SMODS.Joker{ --TV Dinner
             mult_mod = 4
         }
     },
-    pos = { x = 5, y = 0 },
+    pos = { x = 0, y = 1 },
     cost = 6,
     rarity = 1,
     blueprint_compat = true,
@@ -321,7 +307,6 @@ SMODS.Joker{ --TV Dinner
 
     hotpot_credits = {
         art = {'Omegaflowey18'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -383,7 +368,7 @@ SMODS.Joker{ --Free To Use
             den = 3
         }
     },
-    pos = { x = 4, y = 1 },
+    pos = { x = 1, y = 1 },
     cost = 6,
     rarity = 1,
     blueprint_compat = true,
@@ -391,11 +376,10 @@ SMODS.Joker{ --Free To Use
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {'CampfireCollective'},
+        art = {'Kitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -443,7 +427,6 @@ SMODS.Joker{ --Direct Deposit
 
     hotpot_credits = {
         art = {''}, --update
-        idea = {'CampfireCollective'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -483,7 +466,7 @@ SMODS.Joker{ --Bank Teller
             cards = 1
         }
     },
-    pos = { x = 1, y = 1 },
+    pos = { x = 2, y = 0 },
     cost = 5,
     rarity = 1,
     blueprint_compat = false,
@@ -491,11 +474,10 @@ SMODS.Joker{ --Bank Teller
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {'CampfireCollective'},
+        art = {'Kitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -547,7 +529,6 @@ SMODS.Joker{ --Balatro **PREMIUM**
 
     hotpot_credits = {
         art = {'Omegaflowey18'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -590,10 +571,10 @@ SMODS.Joker{ --Skimming
     config = {
         extra = {
             dollars = 0,
-            dollars_mod = 1
+            dollars_mod = 2
         }
     },
-    pos = { x = 0, y = 1 },
+    pos = { x = 2, y = 2 },
     cost = 4,
     rarity = 1,
     blueprint_compat = true,
@@ -601,11 +582,10 @@ SMODS.Joker{ --Skimming
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
+        art = {'Kitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -642,7 +622,7 @@ SMODS.Joker{ --Recycling
             dollars = 5
         }
     },
-    pos = { x = 0, y = 1 },
+    pos = { x = 2, y = 1 },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -650,11 +630,10 @@ SMODS.Joker{ --Recycling
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
+        art = {'Kitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -682,7 +661,7 @@ SMODS.Joker{ --Don't Touch That Dial!
             dial = 1
         }
     },
-    pos = { x = 0, y = 1 },
+    pos = { x = 0, y = 2 },
     cost = 6,
     rarity = 3,
     blueprint_compat = false,
@@ -690,11 +669,10 @@ SMODS.Joker{ --Don't Touch That Dial!
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
+        art = {'Omegaflowey18'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -720,7 +698,7 @@ SMODS.Joker{ --Tipping Point
         extra = {
         }
     },
-    pos = { x = 0, y = 1 },
+    pos = { x = 4, y = 1 },
     cost = 4,
     rarity = 1,
     blueprint_compat = false,
@@ -728,12 +706,11 @@ SMODS.Joker{ --Tipping Point
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
-        idea = {''}, --i forgot
-        code = {''},
+        art = {'Omegaflowey18'},
+        code = {'stupidx'},
         team = {'Perkeocoin'}
     },
 
@@ -799,6 +776,11 @@ SMODS.Consumable { --Cash Exchange
     pools = {
         ['Czech'] = true
     },
+    hotpot_credits = {
+        art = {'Kitty'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.dollars, card.ability.extra.plincoins}}
     end,
@@ -846,6 +828,11 @@ SMODS.Consumable { --Sacrifice
     pools = {
         ['Czech'] = true
     },
+    hotpot_credits = {
+        art = {'Kitty'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
     loc_vars = function(self, info_queue, card)
         return {vars = {sac_czech()}}
     end,
@@ -888,6 +875,11 @@ SMODS.Consumable { --Wheel of Plinko
     cost = 3,
     pools = {
         ['Czech'] = true
+    },
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
     },
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'wheel_of_plinko')
@@ -940,6 +932,11 @@ SMODS.Consumable { --Charity
     pools = {
         ['Czech'] = true
     },
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins}}
     end,
@@ -969,6 +966,11 @@ SMODS.Consumable { --Collateral
     cost = 3,
     pools = {
         ['Czech'] = true
+    },
+    hotpot_credits = {
+        art = {'Kitty & Omega'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins}}
@@ -1016,6 +1018,11 @@ SMODS.Consumable { --CoD Account
     pools = {
         ['Czech'] = true
     },
+    hotpot_credits = {
+        art = {'Kitty & Omega'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins}}
     end,
@@ -1061,6 +1068,11 @@ SMODS.Consumable { --Subscription
     cost = 3,
     pools = {
         ['Czech'] = true
+    },
+    hotpot_credits = {
+        art = {'Kitty & Omega'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins}}
@@ -1112,6 +1124,11 @@ SMODS.Consumable { --Handful
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins, card.ability.extra.h_size}}
     end,
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
 
     can_use = function(self, card)
         return true
@@ -1135,6 +1152,11 @@ SMODS.Consumable { --Czech Republic
     cost = 3,
     pools = {
         ['Czech'] = true
+    },
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'Opal'},
+        team = {'Perkeocoin'}
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.cards}}
@@ -1190,6 +1212,11 @@ SMODS.Consumable { --Meteor
     pools = {
         ['Czech'] = true
     },
+    hotpot_credits = {
+        art = {'Kitty'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins, card.ability.extra.levels, mostplayedhand()}}
     end,
@@ -1225,6 +1252,11 @@ SMODS.Consumable { --Yard Sale
     cost = 3,
     pools = {
         ['Czech'] = true
+    },
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.plincoins, card.ability.extra.cards}}
@@ -1264,7 +1296,8 @@ SMODS.Consumable { --Mystery Box
     pos = { x = 3, y = 2 },
     config = {
         extra = {
-            plincoins = 2
+            plincoins = 2,
+            facedowns = 2
         }
     },
     unlocked = true,
@@ -1273,15 +1306,22 @@ SMODS.Consumable { --Mystery Box
     pools = {
         ['Czech'] = true
     },
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'CampfireCollective'},
+        team = {'Perkeocoin'}
+    },
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.plincoins}}
+        return {vars = {card.ability.extra.plincoins, card.ability.extra.facedowns}}
     end,
 
     can_use = function(self, card)
         if #G.jokers.cards > 0 then
+            local thunk = 0
             for k, v in ipairs(G.jokers.cards) do
                 if v.facing == 'front' then
-                    return true
+                    thunk = thunk + 1
+                    if thunk >= card.ability.extra.facedowns then return true end
                 end
             end
         end
@@ -1290,6 +1330,15 @@ SMODS.Consumable { --Mystery Box
 
     use = function(self, card, area, copier)
         local flippers = {}
+        for k, v in ipairs(G.jokers.cards) do
+            if v.facing == 'front' then
+                flippers[#flippers+1] = v
+            end
+        end
+        local flipped = pseudorandom_element(flippers, pseudoseed('yardsale'))
+        flipped:flip()
+        flipped.forever_flipped = true
+        flippers = {}
         for k, v in ipairs(G.jokers.cards) do
             if v.facing == 'front' then
                 flippers[#flippers+1] = v
