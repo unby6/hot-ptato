@@ -551,9 +551,9 @@ function PlinkoGame.f.create_world()
                 pitch = math.random(0.84,1.04)
                 volume = math.random(0.4,0.6)
             else
-                sfx = 'woosh'
+                sfx = 'whoosh'
                 pitch = 1
-                volume = 1
+                volume = 0
             end
             G.E_MANAGER:add_event(Event{blocking = false, func = function ()
               play_sound(sfx, pitch, volume)
