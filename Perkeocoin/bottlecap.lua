@@ -496,7 +496,7 @@ SMODS.Consumable { --Sticker
             elseif stickertype == 'perishable' then
                 local valid = {}
                 for k, v in ipairs(G.jokers.cards) do
-                    if (not v.ability.perishable and not v.ability.perishable and v.config.center.eternal_compat) then
+                    if (not v.ability.eternal and not v.ability.perishable and v.config.center.perishable_compat) then
                         valid[#valid+1] = v
                     end
                 end
