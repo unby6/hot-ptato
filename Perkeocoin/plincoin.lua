@@ -16,6 +16,7 @@ function init_perkeocoin(game)
   game.current_round.plinko_roll_cost = game.current_round.plinko_roll_cost or PlinkoLogic.s.default_roll_cost
   game.current_round.plinko_rolls = game.current_round.plinko_rolls or 0
   game.current_round.plinko_cost_reset = game.current_round.plinko_cost_reset or {ante_left = 2, rounds_left = 0}
+  game.rolls_to_up_cost = game.rolls_to_up_cost or PlinkoLogic.s.rolls_to_up_cost
 
   if not game.plinko_rewards then
     game.plinko_rewards = {}

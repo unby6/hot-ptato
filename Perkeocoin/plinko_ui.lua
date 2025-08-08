@@ -58,7 +58,7 @@ SMODS.Sound {
   key = "music_plinko",
   path = "music_plinko.ogg",
   select_music_track = function (self)
-    if G.STATE == G.STATES.PLINKO then
+    if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then
       return 1337
     end
   end
@@ -138,6 +138,8 @@ function G.UIDEF.plinko()
       PlinkoUI.s.reward_area_h/reward_scale*G.CARD_H,
       {card_limit = PlinkoLogic.rewards.total, type = 'shop', highlight_limit = 0})
 
+    local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
+
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
             UIBox_dyn_container({
                 {n=G.UIT.R, config={align = "cm", padding = 0.1, emboss = 0.05, r = 0.1, colour = G.C.DYN_UI.BOSS_MAIN}, nodes={
@@ -172,9 +174,38 @@ function G.UIDEF.plinko()
                             }}
                           }}
                         }},
-                      }},
-                      }},
+                        {n=G.UIT.R, config={align = "cm", id="plinko_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
+                          {n=G.UIT.C, config={align = "cm", }, nodes={
+                            {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
+                              -------------------
+                              {n=G.UIT.T, config={text = localize("hotpot_plinko_cost1"), scale = 0.75, colour = G.C.WHITE, shadow = true}},
+                              -------------------
+                            }},
+                            {n=G.UIT.R, config={align = "cm", maxw = 1.9, minw = 1}, nodes={
+                              -------------------
+                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_cost_up_in', suffix = localize('hotpot_plinko_cost2')}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                              -------------------
+                              }}
+                            }},
+                          }},
+                          {n=G.UIT.R, config={align = "cm", id="plinko_reset", minw = 2.8, r=0.15, minh = 1.3}, nodes = {
+                            {n=G.UIT.C, config={align = "cm", }, nodes={
+                              {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
+                                -------------------
+                                {n=G.UIT.T, config={text = localize("hotpot_plinko_reset1"), scale = 0.75, colour = G.C.WHITE, shadow = true}},
+                                -------------------
+                              }},
+                              {n=G.UIT.R, config={align = "cm", maxw = 1.9, minw = 1}, nodes={
+                                -------------------
+                                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round.plinko_cost_reset, ref_value = use_ante and 'ante_left' or 'rounds_left', suffix = use_ante and localize('hotpot_plinko_reset2_ante') or localize('hotpot_plinko_reset2_round')}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                                -------------------
+                                }}
+                              }},
+                            }},
+                          }},
+                        }},
                     }},
+
                     {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2}, nodes={
                       {n=G.UIT.R, config={id = "plinking_area", align = "cm", colour = G.C.BLACK, }, nodes={
 
