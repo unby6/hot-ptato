@@ -1,78 +1,44 @@
 HotPotato.Ads = {
     Adverts = { -- Adverts are pulled from this pool most of the time.
-        ad_lusty = {atlas = 'hpot_Ads', pos = {x=1,y=0}, animated = false, base_size = 0.75},
-        ad_hawaii = {atlas = 'hpot_Ads', pos = {x=2, y=0}, animated = false, base_size = 0.75},
+        ad_lusty = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=1,y=0}, animated = false, base_size = 0.75},
+        ad_hawaii = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=2, y=0}, animated = false, base_size = 0.75},
         ad_triboulet = {atlas = 'hpot_TribouletAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
-        ad_attack = {atlas = 'hpot_Ads', pos = {x=0, y=0}, animated = false, base_size = 0.75, max_scale = 0.25},
+        ad_attack = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0, y=0}, animated = false, base_size = 0.75, max_scale = 0.5},
+        ad_dotty = {atlas = 'hpot_DottyAd', pos = {x=0, y=0}, animated = false, base_size = 0.6, max_scale = 0.6},
+        ad_perkeoboss = {atlas = 'hpot_PerkeoBoss', pos = {x=0, y=0}, animated = false, base_size = 0.3, max_scale = 0.2}
     },
-    Shitposts = {
-        ad_digging = {atlas = 'hpot_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
+    Shitposts = { -- Adverts are very rarely pulled from this pool.
+        ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
         ad_smoothie = {atlas = 'hpot_ProtoShitposts', pos = {x=0,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_peeling = {atlas = 'hpot_ProtoShitposts', pos = {x=1,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
     },
-    Special = {
+    Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
     }
-    -- Defaults = {atlas = 'hpot_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75}
+    -- Defaults = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75, max_scale = 0.5}
 }
 
-SMODS.Atlas{ -- Normal ad atlas. Note that size can be anything, but this is the recommended px/py
-    key = 'Ads',
-    px = 150,
-    py = 100,
-    path = 'Ads/Ads.png'
-}
+--- In case you haven't played HotPot yet, Ads appear after the Boss Blind is defeated.
+--- They can also appear from a certain Joker, or a particular Consumable type.
+--- Ads are not *actually* advertising anything - they are just meant to be silly :3
 
-SMODS.Atlas{ -- Animated ad atlas. PLEASE have a normal amount of frames :(
-    key = 'AnimatedAds',
-    px = 150,
-    py = 100,
-    path = 'Ads/AnimatedAds.png',
-    frames = 8,
-    atlas_table = 'ANIMATION_ATLAS'
-}
+-- Normal ad atlas. Note that size can be anything, but this is the recommended px/py
+SMODS.Atlas({key = 'Perkeocoin_Ads', px = 150, py = 100, path = 'Ads/Ads.png', atlas_table = "ASSET_ATLAS"}):register()
 
-SMODS.Atlas{
-    key = 'TribouletAd',
-    px = 150,
-    py = 100,
-    path = 'Ads/Tribouletad.png',
-    frames = 16,
-    atlas_table = 'ANIMATION_ATLAS'
-}
+-- Animated ad atlas - animated ads use the default animation logic (i.e. have the same fps as Blind Chips)
+SMODS.Atlas({key = 'TribouletAd', px = 150, py = 100, path = 'Ads/Tribouletad.png', frames = 16, atlas_table = 'ANIMATION_ATLAS'}):register()
 
-SMODS.Atlas{
-    key = 'ProtoShitposts',
-    px = 300,
-    py = 400,
-    path = 'Ads/ProtoAds.png'
-}
+-- Tutorial banner:
+SMODS.Atlas({ key = 'TutorialAdBanner', px = 150, py = 31, path = 'Ads/AdBanners.png', atlas_table = "ASSET_ATLAS"}):register()
 
-SMODS.Atlas{
-    key = 'SpectredAd',
-    px = 281,
-    py = 118,
-    frames = 10,
-    path = 'Ads/Spectred.png',
-    atlas_table = 'ANIMATION_ATLAS'
-}
+-- Other ad atli used by Perkeocoin:
+SMODS.Atlas({key = 'ProtoShitposts', px = 300, py = 400, path = 'Ads/ProtoAds.png', atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({ key = 'SpectredAd', px = 281, py = 118, frames = 10, path = 'Ads/Spectred.png', atlas_table = 'ANIMATION_ATLAS'}):register()
+SMODS.Atlas({ key = 'AbbieMindwave', px = 300, py = 300, path = 'Ads/AbbieMindwave.png', frames = 4, atlas_table = 'ANIMATION_ATLAS'}):register()
+SMODS.Atlas({ key = 'DottyAd', px = 170, py = 150, path = 'Ads/DottyAd.png', atlas_table = 'ASSET_ATLAS'}):register()
+SMODS.Atlas({ key = 'PerkeoBoss', px = 470, py = 326, path = 'Ads/PerkeoBoss.png', atlas_table = 'ASSET_ATLAS'}):register()
 
-SMODS.Atlas{
-    key = 'AbbieMindwave',
-    px = 300,
-    py = 300,
-    path = 'Ads/AbbieMindwave.png',
-    frames = 4,
-    atlas_table = 'ANIMATION_ATLAS'
-}
-
-SMODS.Atlas{
-    key = 'AdBanner',
-    px = 150,
-    py = 31,
-    path = 'Ads/AdBanners.png',
-}
 
 local apply_to_run_ref = Back.apply_to_run
 function Back:apply_to_run()
@@ -89,10 +55,10 @@ function create_UIBox_ad(args)
     local ad_image = nil
 
     if ad.animated and ad.animated == true then
-        ad_atlas = G.ANIMATION_ATLAS[(ad.atlas or 'hpot_Ads')]
+        ad_atlas = G.ANIMATION_ATLAS[(ad.atlas or 'hpot_Perkeocoin_Ads')]
         ad_image = AnimatedSprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,{x = math.ceil((pseudorandom('random_start')*ad_atlas.frames) - 0.5), y = ad.pos.y})
     else
-        ad_atlas = G.ASSET_ATLAS[(ad.atlas or 'hpot_Ads')]
+        ad_atlas = G.ASSET_ATLAS[(ad.atlas or 'hpot_Perkeocoin_Ads')]
         ad_image = Sprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
     end
 
@@ -105,7 +71,7 @@ function create_UIBox_ad(args)
     local tutorial_content = nil
 
     if tutorial then
-        tutorial_banner = Sprite(0,0,(150/49)*scale,(31/49)*scale,G.ASSET_ATLAS['hpot_AdBanner'], {x=0,y=0})
+        tutorial_banner = Sprite(0,0,(150/49)*scale,(31/49)*scale,G.ASSET_ATLAS['hpot_TutorialAdBanner'], {x=0,y=0})
         tutorial_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
                         {n = G.UIT.O, config = {object = tutorial_banner, r = 0.3}}
                         }}
@@ -254,3 +220,4 @@ function create_ads(number_of_ads)
         end
     end
 end
+
