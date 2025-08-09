@@ -44,6 +44,11 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
+  key = "not_tada",
+  path = "sfx_not_tada.ogg",
+}
+
+SMODS.Sound {
   key = "bottlecap",
   path = "sfx_bottlecap.ogg",
 }
@@ -69,6 +74,15 @@ SMODS.Sound {
   end
 }
 
+SMODS.Sound {
+  key = "music_plinko_stupid",
+  path = "music_plinko_stupid.ogg",
+  select_music_track = function (self)
+    if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.is_stupid then
+      return 1337
+    end
+  end
+}
 
 
 function PlinkoUI.f.init_sprites()
