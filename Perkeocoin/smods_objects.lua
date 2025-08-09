@@ -118,35 +118,64 @@ SMODS.Joker{ --Plink
 
 }
 
-SMODS.Joker{ --PlincoinXmult DOES NOTHING (i will manifest this joker as something new on my own if we're at 14/15 by the cutoff dw)
-    name = "PlincoinXmult",
-    key = "plincoinxmult",
+SMODS.Joker{ --Metal Detector
+    name = "Metal Detector",
+    key = "metal_detector",
     config = {
         extra = {
+            skipped = 0,
+            needs = 2
         }
     },
-    pos = { x = 5, y = 0 },
+    pos = { x = 4, y = 2 },
     cost = 6,
     rarity = 1,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = false,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
+        art = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {}}
+        return {vars = {card.ability.extra.skipped, card.ability.extra.needs}}
     end,
 
     calculate = function(self, card, context)
-
+        if context.skipping_booster and not context.blueprint then
+            card.ability.extra.skipped = card.ability.extra.skipped + 1
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = card.ability.extra.skipped.."/"..card.ability.extra.needs , colour = G.C.FILTER})
+            if card.ability.extra.skipped >= card.ability.extra.needs then
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    local rarity = pseudorandom_element({'Bad','Common','Common','Common','Uncommon','Uncommon','Rare'}, pseudoseed('detected'))
+                    G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function() 
+                                local _card = SMODS.create_card{set = 'bottlecap_'..rarity,area = G.consumeables, key_append = 'detected'}
+                                _card.ability.extra.chosen = rarity
+                                if rarity == "Bad" then
+                                    _card.ability.eternal = true
+                                end
+                                _card:add_to_deck()
+                                G.consumeables:emplace(_card)
+                                G.GAME.consumeable_buffer = 0
+                                return true
+                            end}))                         
+                        return true
+                    end)}))
+                end
+                card.ability.extra.skipped = 0
+                card_eval_status_text(card, 'jokers', nil, nil, nil, {message = 'Detected!', colour = G.C.FILTER})
+            end
+        end
     end
 
 }
@@ -237,7 +266,7 @@ SMODS.Joker{ --Adspace
 
 SMODS.Joker{ -- Kitchen Gun
     key = 'kitchen_gun',
-    config = { extra = { odds = 4, xmult = 1, xmult_mod = 0.1 }},
+    config = { extra = { odds = 3, xmult = 1, xmult_mod = 0.1 }},
     cost = 7,
     rarity = 2,
     atlas = 'perkeocoinjokers', pos = {x=1,y=0},
