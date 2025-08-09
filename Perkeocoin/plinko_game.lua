@@ -161,6 +161,10 @@ end
 local peg_offset = 0
 local sign = 1
 local function move_pegs(dt)
+    if PlinkoGame.s.moving_pegs ~= G.plinko_rewards.moving_pegs then
+        PlinkoGame.f.toggle_moving_pegs(G.plinko_rewards.moving_pegs)
+    end
+
     if not PlinkoGame.s.moving_pegs then
         return
     end

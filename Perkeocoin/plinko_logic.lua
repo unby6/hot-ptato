@@ -56,6 +56,18 @@ function PlinkoLogic.f.reset_plinko()
 end
 
 function PlinkoLogic.f.generate_rewards()
+  -- Logic for extra reward with that rarity is kinda ass
+  -- didn't have time to think of something better
+  if next(find_joker('Tipping Point')) then
+      G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
+      G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
+      G.plinko_rewards.moving_pegs = true
+  else
+      G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
+      G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+      G.plinko_rewards.moving_pegs = false
+  end
+
   for rarity, amount in pairs(G.GAME.plinko_rewards) do
     for i = 1, amount do
       local card = SMODS.create_card {
