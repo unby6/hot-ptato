@@ -12,6 +12,7 @@ HotPotato.Ads = {
         ad_smoothie = {atlas = 'hpot_ProtoShitposts', pos = {x=0,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_peeling = {atlas = 'hpot_ProtoShitposts', pos = {x=1,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
+        ad_sweebro = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0,y=1}, animated = false, base_size = 0.75},
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
