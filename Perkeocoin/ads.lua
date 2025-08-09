@@ -172,7 +172,7 @@ function end_round()
 end
 
 function create_ads(number_of_ads)
-    local ad_index = #G.GAME.hotpot_ads
+    local ad_index = #G.GAME.hotpot_ads or 0 --TODO: Find logic error that causes the bug. This default value is a temporary fix.
     for i = 1, number_of_ads do
         if next(find_joker('Balatro **PREMIUM**')) then
             G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
