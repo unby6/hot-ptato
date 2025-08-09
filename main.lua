@@ -1,3 +1,7 @@
+--(idk if this has to go here, but i assume its better if this is done before any files are loaded so nothing crashes because of it not being called yet)
+--for adding custom loc_colours, dont touch this!
+loc_colour()
+
 -- CONFIG
 --#region Config
 
@@ -156,4 +160,5 @@ end
 HotPotato.optional_features = {
 	
 }
+
 --#endregion

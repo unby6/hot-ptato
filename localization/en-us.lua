@@ -495,6 +495,8 @@ return {
             k_hpot_czech_pack = 'Cheque Pack',
             b_bottlecap_cards = 'Bottlecaps',
             k_bottlecap = 'Bottlecap',
+            b_key_cards = "Keys",
+            k_key = "Key",
 
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
@@ -517,7 +519,8 @@ return {
         labels = {
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
-            hpot_plincoin_seal = "Plincoin Seal"
+            hpot_plincoin_seal = "Plincoin Seal",
+            key = "Key"
         }
     }
 }
