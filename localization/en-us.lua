@@ -261,10 +261,13 @@ return {
                     [3] = "{C:inactive}(Currently {C:red}+#2#{C:inactive})"
                 }
             },
-            j_hpot_plincoinxmult = {
-                ['name'] = 'PlincoinXmult',
+            j_hpot_metal_detector = {
+                ['name'] = 'Metal Detector',
                 ['text'] = {
-                    [1] = "NOTHING!!!!!!!!!" --(i will manifest this joker as something new on my own if we're at 14/15 by the cutoff dw)
+                    [1] = "Create a random",
+                    [2] = "{C:attention}Bottlecap{} for every {C:attention}#2#",
+                    [3] = "{C:attention}Booster Packs{} skipped",
+                    [4] = "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
                 }
             },
             j_hpot_tribcoin = {
