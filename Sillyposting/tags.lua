@@ -29,7 +29,7 @@ SMODS.Tag {
         end
     end,
     hotpot_credits = {
-        art = {'goodmorning'},
+        art = {'Jaydchw'},
         code = {'UnusedParadox'},
         team = {'Sillyposting'}
     },

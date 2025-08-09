@@ -409,6 +409,14 @@ return {
                     [3] = 'be used immediately',
                 }
             },
+            hpot_plincoin_seal = {
+                name = "Plincoin Seal",
+                text = {
+                    "Gives a free",
+                    "{C:hpot_plincoin}Plincoin{}",
+                    "when scored",
+                },
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -418,7 +426,7 @@ return {
                     "{C:hpot_czech}Mega Cheque Pack",
                 },
             },
-        }
+        },
     },
     misc = {
         quips = {
@@ -508,7 +516,8 @@ return {
         },
         labels = {
             bottlecap = "Bottle Cap",
-            czech = "Cheque Card"
+            czech = "Cheque Card",
+            hpot_plincoin_seal = "Plincoin Seal"
         }
     }
 }
