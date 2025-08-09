@@ -39,7 +39,7 @@ SMODS.Joker{ --19 plincoin fortnite card
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -95,7 +95,7 @@ SMODS.Joker{ --Plink
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -212,7 +212,7 @@ SMODS.Joker{ --Adspace
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -248,7 +248,7 @@ SMODS.Joker{ -- Kitchen Gun
     discovered = true,
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'Opal'},
         team = {'Perkeocoin'}
     },
@@ -379,7 +379,7 @@ SMODS.Joker{ --Free To Use
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -477,7 +477,7 @@ SMODS.Joker{ --Bank Teller
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -585,7 +585,7 @@ SMODS.Joker{ --Skimming
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -633,7 +633,7 @@ SMODS.Joker{ --Recycling
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -777,7 +777,7 @@ SMODS.Consumable { --Cash Exchange
         ['Czech'] = true
     },
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -829,7 +829,7 @@ SMODS.Consumable { --Sacrifice
         ['Czech'] = true
     },
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -887,7 +887,7 @@ SMODS.Consumable { --Wheel of Plinko
     end,
 
     can_use = function(self, card)
-        return G.GAME.plincoins >= card.ability.extra.plincoinsdown
+        return true
     end,
 
     use = function(self, card, area, copier)
@@ -1213,7 +1213,7 @@ SMODS.Consumable { --Meteor
         ['Czech'] = true
     },
     hotpot_credits = {
-        art = {'Kitty'},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -1372,9 +1372,14 @@ SMODS.Booster {
     config = { choose = 1, extra = 3 },
     discovered = true,
     cost = 4,
-    weight = 0.1,
+    weight = 0.4,
     kind = 'hpot_czech',
     group_key = 'k_hpot_czech_pack',
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'Opal'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return{vars={card.ability.choose, card.ability.extra}}
@@ -1394,10 +1399,15 @@ SMODS.Booster {
     atlas = 'PerkeocoinBoosters', pos = {x=1,y=0},
     config = { choose = 1, extra = 5 },
     discovered = true,
-    cost = 5,
-    weight = 0.1,
+    cost = 6,
+    weight = 0.4,
     kind = 'hpot_czech',
     group_key = 'k_hpot_czech_pack',
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'Opal'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return{vars={card.ability.choose, card.ability.extra}}
@@ -1417,10 +1427,15 @@ SMODS.Booster {
     atlas = 'PerkeocoinBoosters', pos = {x=2,y=0},
     config = { choose = 2, extra = 5 },
     discovered = true,
-    cost = 7,
-    weight = 0.03,
+    cost = 8,
+    weight = 0.1,
     kind = 'hpot_czech',
     group_key = 'k_hpot_czech_pack',
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'Opal'},
+        team = {'Perkeocoin'}
+    },
 
     loc_vars = function(self, info_queue, card)
         return{vars={card.ability.choose, card.ability.extra}}

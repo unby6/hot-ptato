@@ -26,6 +26,12 @@ SMODS.ObjectType {
     default = "c_hpot_cap_money"
 }
 
+local function make_rarity_badge(rarity)
+    if rarity == 'Common' then
+        
+    end
+end
+
 --[[
 Wanna add your own bottlecaps to the plinko game? Here's what you need to know!
 
@@ -81,6 +87,18 @@ SMODS.Consumable { --Money
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -125,6 +143,18 @@ SMODS.Consumable { --Plincoin
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -166,6 +196,18 @@ SMODS.Consumable { --Edition
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen][2]}}
     end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         if G.jokers and G.jokers.cards then
@@ -241,6 +283,10 @@ SMODS.Consumable { --Perkeo
         return {vars = {}}
     end,
 
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.GREEN, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         if G.consumeables and #G.consumeables.cards > 0 and not (#G.consumeables.cards == 1 and G.consumeables.cards[1] == card) then
             return true
@@ -313,6 +359,18 @@ SMODS.Consumable { --Joker
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
     end,
@@ -378,6 +436,18 @@ SMODS.Consumable { --Wheel
         return {vars = {new_numerator, new_denominator, card.ability.extra.dollars}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -434,6 +504,10 @@ SMODS.Consumable { --Sticker
     loc_vars = function(self, info_queue, card)
         return {vars = {}}
     end,
+
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.BLACK, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         if G.jokers and #G.jokers.cards > 0 then
@@ -545,6 +619,10 @@ SMODS.Consumable { --Anti-Joker
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.BLACK, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         if G.jokers and G.jokers.cards[1] then
             for k, v in ipairs(G.jokers.cards) do
@@ -628,6 +706,18 @@ SMODS.Consumable { --Tag
         return true
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     use = function(self, card, area, copier)
         for i=1, card.ability.extra[card.ability.extra.chosen] do
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
@@ -687,6 +777,18 @@ SMODS.Consumable { --Hands
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -733,6 +835,18 @@ SMODS.Consumable { --Discards
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -776,6 +890,18 @@ SMODS.Consumable { --Pack
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen][1]}}
     end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         return G.shop
@@ -846,6 +972,14 @@ SMODS.Consumable { --Capitalism
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLACK
+        if card.ability.extra.chosen == 'Common' then
+            color = G.C.BLUE
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -883,6 +1017,10 @@ SMODS.Consumable { --Inflation
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
+
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.BLACK, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         return true
@@ -927,6 +1065,18 @@ SMODS.Consumable { --Emperor
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         return (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or (card.area == G.consumeables)
@@ -1007,6 +1157,18 @@ SMODS.Consumable { --Consumable
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or (card.area == G.consumeables)
     end,
@@ -1079,6 +1241,14 @@ SMODS.Consumable { --Voucher
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.GREEN
+        if card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         return true
@@ -1191,6 +1361,10 @@ SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.BLACK, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -1272,6 +1446,18 @@ SMODS.Consumable { --Venture Capital
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen, card.ability.extra.every}}
     end,
 
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
     can_use = function(self, card)
         return true
     end,
@@ -1328,6 +1514,10 @@ SMODS.Consumable { --Duplicate
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
+
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.RED, G.C.WHITE, 1 )
+ 	end,
 
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards < G.jokers.config.card_limit and G.jokers.cards[1]
