@@ -368,6 +368,22 @@ return {
                 }
             },
         },
+        Voucher = {
+            v_hpot_currency_exchange = {
+                ['name'] = 'Currency Exchange',
+                ['text'] = {
+                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:attention}#1#{} per',
+                    [2] = 'plincoin',
+                }
+            },
+            v_hpot_currency_exchange2 = {
+                ['name'] = 'Currency Exchange',
+                ['text'] = {
+                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:attention}#1#{} per',
+                    [2] = 'plincoin',
+                }
+            },
+        },
         Other = {
             p_hpot_czech_normal = {
                 ['name'] = 'Cheque Pack',
@@ -391,20 +407,6 @@ return {
                     [1] = 'Choose {C:attention}#1#{} of up to',
                     [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
                     [3] = 'be used immediately',
-                }
-            },
-            v_hpot_currency_exchange = {
-                ['name'] = 'Currency Exchange',
-                ['text'] = {
-                    [1] = 'Play Plinko for {C:attention}#1#{} per',
-                    [2] = 'plincoin',
-                }
-            },
-            v_hpot_currency_exchange2 = {
-                ['name'] = 'Exchange Board',
-                ['text'] = {
-                    [1] = 'Play Plinko for {C:attention}#1#{} per',
-                    [2] = 'plincoin',
                 }
             },
         },
@@ -469,7 +471,6 @@ return {
                 [1] = 'this dialogue crashes the game',
                 [2] = '(chat, pretend streamer just bluescreened)'
             },
-            
             }
         },
         dictionary = {
@@ -498,4 +499,3 @@ return {
             hotpot_team = { "Team: #1#" }
         }
     }
-}
