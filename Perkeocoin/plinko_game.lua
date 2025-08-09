@@ -568,7 +568,7 @@ function PlinkoGame.f.create_world()
                 end
                 volume = math.random(0.85,0.9)
             else
-                sfx = 'sfx_plink'
+                sfx = 'hpot_plink'
                 pitch = 0.8
                 --volume = 0
             end
