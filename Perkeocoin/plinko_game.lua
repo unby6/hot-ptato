@@ -334,6 +334,7 @@ local function draw_perkeorb(self)
     -- hard set T or something
     sprite.VT.x = sprite.T.x
     sprite.VT.y = sprite.T.y
+    sprite.VT.r = sprite.T.r
     self.last_pos = self.curr_pos
     sprite:draw()
 end
