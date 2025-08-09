@@ -1,4 +1,4 @@
-
+SMODS.Atlas({key = "chequeatlas", path = "PerkeoCards/checks.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 -- Jokers
 -- Bottlecaps
 -- Bottlecap Booster

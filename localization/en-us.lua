@@ -471,7 +471,6 @@ return {
                 [1] = 'this dialogue crashes the game',
                 [2] = '(chat, pretend streamer just bluescreened)'
             },
-            }
         },
         dictionary = {
             b_czech_cards = 'Cheque Cards',
@@ -499,3 +498,4 @@ return {
             hotpot_team = { "Team: #1#" }
         }
     }
+}
