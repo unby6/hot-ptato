@@ -152,7 +152,7 @@ function PlinkoLogic.f.reset_cost(keep_roll_cost)
   end
 
   if not keep_roll_cost then
-    G.GAME.current_round.plinko_roll_cost = PlinkoLogic.s.default_roll_cost
+    PlinkoLogic.f.change_roll_cost(PlinkoLogic.s.default_roll_cost)
     G.GAME.current_round.plinko_rolls = 0
     G.GAME.current_round.plinko_cost_up_in = G.GAME.rolls_to_up_cost
   end
@@ -193,16 +193,31 @@ function PlinkoLogic.f.update_roll_cost()
 
   -- Cost grows every 3 rounds +1
   if G.GAME.current_round.plinko_rolls % G.GAME.rolls_to_up_cost == 0 then
-    G.GAME.current_round.plinko_roll_cost = G.GAME.current_round.plinko_roll_cost + 1
+    PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost + 1)
   end
+end
+
+function PlinkoLogic.f.change_roll_cost(new_val)
+  G.GAME.current_round.plinko_roll_cost = new_val
+  G.GAME.current_round.plinko_roll_cost_dollars = G.GAME.plinko_dollars_cost and (G.GAME.plinko_dollars_cost * G.GAME.current_round.plinko_roll_cost)
 end
 
 function PlinkoLogic.f.can_roll()
   return G.GAME.plincoins >= G.GAME.current_round.plinko_roll_cost
 end
 
-function PlinkoLogic.f.handle_roll()
-  ease_plincoins(-G.GAME.current_round.plinko_roll_cost)
+function PlinkoLogic.f.can_roll_dollars()
+  local cost = G.GAME.current_round.plinko_roll_cost * G.GAME.plinko_dollars_cost
+
+  return not (((G.GAME.dollars-G.GAME.bankrupt_at) - cost < 0) and cost ~= 0)
+end
+
+function PlinkoLogic.f.handle_roll(use_dollars)
+  if use_dollars then
+    ease_dollars(-G.GAME.current_round.plinko_roll_cost * G.GAME.plinko_dollars_cost)
+  else
+    ease_plincoins(-G.GAME.current_round.plinko_roll_cost)
+  end
 
   G.GAME.current_round.plinko_rolls = G.GAME.current_round.plinko_rolls + 1
 

@@ -1465,3 +1465,55 @@ SMODS.Booster {
         ease_background_colour_blind(G.STATES.CZECH_PACK)
     end,
 }
+
+
+-- VOUCHERS
+
+SMODS.Voucher {
+    key = "currency_exchange",
+    config = { dollar_cost = 10, },
+    unlocked = true,
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.dollar_cost}}
+    end,
+
+    redeem = function (self, card)
+        G.GAME.plinko_dollars_cost = card.ability.dollar_cost
+
+        -- Update dollar cost
+        PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost)
+
+        if G.plinko then
+            G.plinko:recalculate()
+        end
+    end
+}
+
+SMODS.Voucher {
+    key = "currency_exchange2",
+    config = { dollar_cost = 5, },
+    unlocked = true,
+    redeem = function (self, card)
+        G.GAME.plinko_dollars_cost = card.ability.dollar_cost
+        -- Update dollar cost
+        PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost)
+
+        if G.plinko then
+            G.plinko:recalculate()
+        end
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
