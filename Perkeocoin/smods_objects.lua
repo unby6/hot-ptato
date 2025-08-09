@@ -860,8 +860,8 @@ SMODS.Consumable { --Wheel of Plinko
     name = 'Wheel of Plinko',
     key = 'wheel_of_plinko',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 2, y = 0 },
     config = {
         extra = {
             plincoinsdown = 2,
@@ -1107,8 +1107,8 @@ SMODS.Consumable { --Handful
     name = 'Handful',
     key = 'handful',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 3, y = 1 },
     config = {
         extra = {
             plincoins = 10,
@@ -1239,8 +1239,8 @@ SMODS.Consumable { --Yard Sale
     name = 'Yard Sale',
     key = 'yard_sale',
     set = 'Czech',
-    atlas = 'perkycardatlas',
-    pos = { x = 2, y = 1 },
+    atlas = 'chequeatlas',
+    pos = { x = 2, y = 2 },
     config = {
         extra = {
             plincoins = 3,
