@@ -269,7 +269,8 @@ SMODS.Joker{ -- Kitchen Gun
     config = { extra = { odds = 3, xmult = 1, xmult_mod = 0.1 }},
     cost = 7,
     rarity = 2,
-    atlas = 'perkeocoinjokers', pos = {x=1,y=0},
+    atlas = 'perkeocoinjokers',
+    pos = { x = 1 , y = 0 },
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -444,7 +445,7 @@ SMODS.Joker{ --Direct Deposit
             so_far = 0
         }
     },
-    pos = { x = 8, y = 0 },
+    pos = { x = 3, y = 2 },
     cost = 7,
     rarity = 2,
     blueprint_compat = false,
@@ -452,7 +453,7 @@ SMODS.Joker{ --Direct Deposit
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkycardatlas',
+    atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
         art = {''}, --update
