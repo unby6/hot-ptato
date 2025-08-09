@@ -568,8 +568,8 @@ function PlinkoGame.f.create_world()
                 end
                 volume = math.random(0.85,0.9)
             else
-                sfx = 'whoosh'
-                --pitch = 1
+                sfx = 'sfx_plink'
+                pitch = 0.8
                 --volume = 0
             end
             G.E_MANAGER:add_event(Event{blocking = false, blockable = false, func = function ()
