@@ -19,21 +19,21 @@ PlinkoUI = {
 
 SMODS.Atlas {
   key = "perkeorb",
-  path = "perkeocoin_perkeorb.png",
+  path = "plinko/perkeocoin_perkeorb.png",
   px = 40,
   py = 40,
 }
 
 SMODS.Atlas {
   key = "peg",
-  path = "perkeocoin_peg.png",
+  path = "plinko/perkeocoin_peg.png",
   px = 10,
   py = 10,
 }
 
 SMODS.Atlas {
   key = "wall",
-  path = "perkeocoin_wall2.png",
+  path = "plinko/perkeocoin_wall2.png",
   px = 5,
   py = 110,
 }
@@ -403,4 +403,4 @@ G.FUNCS.hide_plinko = function(e)
 end
 
 -- meow
-SMODS.Atlas{key = "stupidorb",path = "perkeocoin_stupidorb.png",px = 40,py = 40,}
+SMODS.Atlas{key = "stupidorb",path = "plinko/perkeocoin_stupidorb.png",px = 40,py = 40,}
