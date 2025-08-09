@@ -394,14 +394,48 @@ return {
     misc = {
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
-                [1] = 'We need more',
-                [2] = 'fun facts!!'
+                [1] = 'It\'s really easy to',
+                [2] = 'add more fun facts to',
+                [3] = 'to my pool of quips!'
             },
             bc_2 = {
-                [1] = 'quip 2'
+                [1] = 'Your plays are looking',
+                [2] = 'pretty {C:dark_edition}Negative!'
             },
             bc_3 = {
-                [1] = 'quip 3'
+                [1] = 'I am affected by',
+                [2] = 'dwarfism in real life!'
+            },
+            bc_4 = {
+                [1] = 'I drink between',
+                [2] = '5 and 8 gallons',
+                [3] = 'of Joka Cola daily!'
+            },
+            bc_5 = {
+                [1] = 'I got my nickname',
+                [2] = 'by often saying',
+                [3] = '\"perché no?\"'
+            },
+            bc_6 = {
+                [1] = 'I was put in charge',
+                [2] = 'of the largest wine',
+                [3] = 'barrel in the world',
+                [4] = '{C:inactive,S:0.8}at the time, at least'
+            },
+            bc_7 = {
+                [1] = 'Not every Bottlecap',
+                [2] = 'can come in all',
+                [3] = 'four rarities!'
+            },
+            bc_8 = {
+                [1] = 'Before I was Perkeo,',
+                [2] = 'my name was originally',
+                [3] = 'Clemens Pankert'
+            },
+            bc_9 = {
+                [1] = 'Before I was Perkeo,',
+                [2] = 'my name was originally',
+                [3] = 'Giovanni Clementi'
             },
         },
         dictionary = {
