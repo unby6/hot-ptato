@@ -6,7 +6,7 @@
 SMODS.Atlas({key = "perkycardatlas", path = "PerkeoCards/perkycardatlas.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 SMODS.Atlas({key = "perkeocoinjokers", path = "PerkeoCards/PerkeocoinJokers.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 SMODS.Atlas({key = "PerkeocoinBoosters", path = "PerkeoCards/perkeocoin_boosters.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
-SMODS.Atlas({key = "chequeatlas", path = "PerkeoCards/checks.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "PerkeocoinVouchers", path = "PerkeoCards/PerkeocoinVouchers.png", px = 61, py = 94, atlas_table = "ASSET_ATLAS"}):register()
 
 SMODS.Gradient {
     key = 'plincoin',
@@ -1473,6 +1473,8 @@ SMODS.Voucher {
     key = "currency_exchange",
     config = { dollar_cost = 10, },
     unlocked = true,
+    atlas = "PerkeocoinVouchers",
+    pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
         return{vars={card.ability.dollar_cost}}
     end,
@@ -1491,6 +1493,8 @@ SMODS.Voucher {
 
 SMODS.Voucher {
     key = "currency_exchange2",
+    atlas = "PerkeocoinVouchers",
+    pos = { x = 1, y = 0 },
     config = { dollar_cost = 5, },
     unlocked = true,
     redeem = function (self, card)
