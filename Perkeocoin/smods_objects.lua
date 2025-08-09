@@ -1385,7 +1385,7 @@ G.STATES.CZECH_PACK = 5734985
 -- Czech Boosters
 SMODS.Booster {
     name = 'Czech Pack',
-    key = 'czech_normal',
+    key = 'czech_normal_1',
     atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
     config = { choose = 1, extra = 3 },
     discovered = true,
@@ -1400,7 +1400,35 @@ SMODS.Booster {
     },
 
     loc_vars = function(self, info_queue, card)
-        return{vars={card.ability.choose, card.ability.extra}}
+        return{vars={card.ability.choose, card.ability.extra}, key = self.key:sub(1, -3)}
+    end,
+    create_card = function(self, card, i)
+        local newCard = create_card('Czech', G.pack_cards, nil, nil, true, true, nil, 'czech_pack')
+        return newCard
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour_blind(G.STATES.CZECH_PACK)
+    end,
+}
+
+SMODS.Booster {
+    name = 'Czech Pack',
+    key = 'czech_normal_2',
+    atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
+    config = { choose = 1, extra = 3 },
+    discovered = true,
+    cost = 4,
+    weight = 0.4,
+    kind = 'hpot_czech',
+    group_key = 'k_hpot_czech_pack',
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'Opal'},
+        team = {'Perkeocoin'}
+    },
+
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.choose, card.ability.extra}, key = self.key:sub(1, -3)}
     end,
     create_card = function(self, card, i)
         local newCard = create_card('Czech', G.pack_cards, nil, nil, true, true, nil, 'czech_pack')
