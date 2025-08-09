@@ -1162,7 +1162,7 @@ SMODS.Consumable { --Voucher
     end
 }
 
-SMODS.Consumable { --Perkeo Quip
+SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE 
     name = 'Perkeo?',
     key = 'cap_perkeo_quip',
     set = 'bottlecap',
@@ -1207,7 +1207,7 @@ SMODS.Consumable { --Perkeo Quip
 
         --                                               vvv HERE FOR QUIP POOL
 
-        perkolator:add_speech_bubble("bc_"..math.random(1,3), nil, {quip = true})
+        perkolator:add_speech_bubble("bc_"..math.random(1,9), nil, {quip = true})
 
         --                                               ^^^ THAT SECOND NUMBER RIGHT THERE THANK YOU
 

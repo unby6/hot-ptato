@@ -1391,7 +1391,7 @@ SMODS.Booster {
 SMODS.Booster {
     name = 'Jumbo Czech Pack',
     key = 'czech_jumbo',
-    atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
+    atlas = 'PerkeocoinBoosters', pos = {x=1,y=0},
     config = { choose = 1, extra = 5 },
     discovered = true,
     cost = 5,
@@ -1414,7 +1414,7 @@ SMODS.Booster {
 SMODS.Booster {
     name = 'Mega Czech Pack',
     key = 'czech_mega',
-    atlas = 'PerkeocoinBoosters', pos = {x=0,y=0},
+    atlas = 'PerkeocoinBoosters', pos = {x=2,y=0},
     config = { choose = 2, extra = 5 },
     discovered = true,
     cost = 7,
