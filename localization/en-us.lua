@@ -410,6 +410,15 @@ return {
                 }
             },
         },
+        Tag = {
+            tag_hpot_job = {
+                name = "Job Tag",
+                text = {
+                    "Gives a free",
+                    "{C:hpot_czech}Mega Cheque Pack",
+                },
+            },
+        }
     },
     misc = {
         quips = {
