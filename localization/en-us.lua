@@ -384,6 +384,16 @@ return {
                 }
             },
         },
+        Spectral = {
+            c_hpot_arcade_machine = {
+                 name = "Arcade Machine",
+                text = {
+                    "Add a {C:hpot_plincoin}Plincoin Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                }
+            },
+        },
         Other = {
             p_hpot_czech_normal = {
                 ['name'] = 'Cheque Pack',
