@@ -26,12 +26,6 @@ SMODS.ObjectType {
     default = "c_hpot_cap_money"
 }
 
-local function make_rarity_badge(rarity)
-    if rarity == 'Common' then
-        
-    end
-end
-
 --[[
 Wanna add your own bottlecaps to the plinko game? Here's what you need to know!
 
