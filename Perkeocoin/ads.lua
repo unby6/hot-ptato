@@ -174,7 +174,7 @@ end
 function create_ads(number_of_ads)
     local ad_index = #G.GAME.hotpot_ads or 0 --TODO: Find logic error that causes the bug. This default value is a temporary fix.
     for i = 1, number_of_ads do
-        if next(find_joker('Balatro **PREMIUM**')) then
+        if next(SMODS.find_card("j_hpot_balatro_premium", false)) then
             G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
             for i=1, #G.jokers.cards do
                 local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, close_ad = true})
