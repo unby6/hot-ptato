@@ -401,7 +401,7 @@ return {
                 }
             },
             v_hpot_currency_exchange2 = {
-                ['name'] = 'Currency Exchange',
+                ['name'] = 'Exchange Board',
                 ['text'] = {
                     [1] = 'Play Plinko for {C:attention}#1#{} per',
                     [2] = 'plincoin',

@@ -1497,8 +1497,10 @@ SMODS.Voucher {
     pos = { x = 1, y = 0 },
     config = { dollar_cost = 5, },
     unlocked = true,
+    requires = {'v_hpot_currency_exchange'},
     redeem = function (self, card)
         G.GAME.plinko_dollars_cost = card.ability.dollar_cost
+
         -- Update dollar cost
         PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost)
 
