@@ -79,7 +79,7 @@ SMODS.Sound {
   path = "music_plinko_stupid.ogg",
   select_music_track = function (self)
     if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.is_stupid then
-      return 1337
+      return 1338
     end
   end
 }

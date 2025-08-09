@@ -101,7 +101,7 @@ SMODS.Joker{ --Plink
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mult, G.GAME.balls_dropped and G.GAME.balls_dropped or 0}}
+        return {vars = {card.ability.extra.mult, card.ability.extra.mult * (G.GAME.balls_dropped or 0)}}
     end,
 
     calculate = function(self, card, context)
