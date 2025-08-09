@@ -195,7 +195,7 @@ function G.UIDEF.plinko()
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = localize('$'), SMODS.Fonts.hpot_plincoin, scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }}

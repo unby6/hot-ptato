@@ -161,31 +161,33 @@ end
 local peg_offset = 0
 local sign = 1
 local function move_pegs(dt)
-    if PlinkoGame.s.moving_pegs ~= G.plinko_rewards.moving_pegs then
-        PlinkoGame.f.toggle_moving_pegs(G.plinko_rewards.moving_pegs)
-    end
+    if G.plinko_rewards then
+        if PlinkoGame.s.moving_pegs ~= G.plinko_rewards.moving_pegs then
+            PlinkoGame.f.toggle_moving_pegs(G.plinko_rewards.moving_pegs)
+        end
 
-    if not PlinkoGame.s.moving_pegs then
-        return
-    end
+        if not PlinkoGame.s.moving_pegs then
+            return
+        end
 
-    if peg_offset >= PlinkoGame.s.max_peg_offset then
-        sign = -1
-    elseif peg_offset <= -PlinkoGame.s.max_peg_offset then
-        sign = 1
-    end
+        if peg_offset >= PlinkoGame.s.max_peg_offset then
+            sign = -1
+        elseif peg_offset <= -PlinkoGame.s.max_peg_offset then
+            sign = 1
+        end
 
-    local add = PlinkoGame.s.peg_speed * dt * sign
-    for k, v in pairs(PlinkoGame.o) do
-        if k:find("obstacle_") then
-            if v.odd then
-                v.body:setX(v.body:getX() - add)
-            else
-                v.body:setX(v.body:getX() + add)
+        local add = PlinkoGame.s.peg_speed * dt * sign
+        for k, v in pairs(PlinkoGame.o) do
+            if k:find("obstacle_") then
+                if v.odd then
+                    v.body:setX(v.body:getX() - add)
+                else
+                    v.body:setX(v.body:getX() + add)
+                end
             end
         end
+        peg_offset = peg_offset + add
     end
-    peg_offset = peg_offset + add
 end
 
 function PlinkoGame.f.toggle_moving_pegs(value)
