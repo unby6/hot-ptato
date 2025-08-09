@@ -149,7 +149,7 @@ SMODS.Joker{ --Metal Detector
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''},
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -467,7 +467,7 @@ SMODS.Joker{ --Direct Deposit
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {''}, --update
+        art = {'dottykitty'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -1479,7 +1479,11 @@ SMODS.Voucher {
     loc_vars = function(self, info_queue, card)
         return{vars={card.ability.dollar_cost}}
     end,
-
+    hotpot_credits = {
+        art = {'Omegaflowey18'},
+        code = {'stupid'},
+        team = {'Perkeocoin'}
+    },
     redeem = function (self, card)
         G.GAME.plinko_dollars_cost = card.ability.dollar_cost
 
@@ -1498,6 +1502,11 @@ SMODS.Voucher {
     pos = { x = 1, y = 0 },
     config = { dollar_cost = 5, },
     unlocked = true,
+    hotpot_credits = {
+        art = {'dottykitty'},
+        code = {'stupid'},
+        team = {'Perkeocoin'}
+    },
     requires = {'v_hpot_currency_exchange'},
     redeem = function (self, card)
         G.GAME.plinko_dollars_cost = card.ability.dollar_cost
