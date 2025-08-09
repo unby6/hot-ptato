@@ -186,8 +186,8 @@ function G.UIDEF.plinko()
                           }},
                         }},
 
-                        {n=G.UIT.R, config={id= "plinko_plincoins", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r=0.15,colour = G.C.MONEY, button = 'start_plinko', func = 'can_plinko', hover = true,shadow = true}, nodes = {
-                          {n=G.UIT.C, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
+                        {n=G.UIT.R, config={id= "plinko_plincoins", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r=0.15, padding = 0.07, colour = G.C.MONEY, button = 'start_plinko', func = 'can_plinko', hover = true,shadow = true}, nodes = {
+                          {n=G.UIT.C, config={align = "cm", focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
                               {n=G.UIT.T, config={text = localize("hotpot_plinko_play"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
@@ -195,15 +195,15 @@ function G.UIDEF.plinko()
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', prefix = '$'}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                              {n=G.UIT.T, config={text = localize('$'), SMODS.Fonts.hpot_plincoin, scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }}
                           }}
                         }},
 
-                        -- I HAVE NO IDEA WHY THE BUTTON TAKES CONFIG FROM BUTTON ABOVE 
-                        play_dollars and {n=G.UIT.R, config={id= "plinko_dollars", align = "cm", minw = 2.8, minh = 1.3, r=0.15, colour = G.C.GREEN, button = 'start_plinko_dollars', func = 'can_plinko_dollars', hover = true,shadow = true}, nodes = {
-                          {n=G.UIT.C, config={align = "cm", padding = 0.07, }, nodes={
+                        play_dollars and {n=G.UIT.R, config={id= "plinko_dollars", align = "cm", minw = 2.8, minh = 1.3, r=0.15, padding = 0.07, colour = G.C.GREEN, button = 'start_plinko_dollars', func = 'can_plinko_dollars', hover = true,shadow = true}, nodes = {
+                          {n=G.UIT.C, config={align = "cm", }, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
                               {n=G.UIT.T, config={text = localize("hotpot_plinko_play"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
@@ -211,7 +211,8 @@ function G.UIDEF.plinko()
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost_dollars', prefix = '$'}}, maxw = 1.35, colours = {G.C.WHITE}, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                              {n=G.UIT.T, config={text = localize('$'), scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost_dollars', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }}
                           }}
@@ -291,8 +292,8 @@ G.FUNCS.can_plinko_dollars = function(e)
       e.config.colour = G.C.UI.BACKGROUND_INACTIVE
       e.config.button = nil
   else
-      e.config.colour = G.C.MONEY
-      e.config.button = 'start_plinko'
+      e.config.colour = G.C.GREEN
+      e.config.button = 'start_plinko_dollars'
   end
 end
 
@@ -314,9 +315,6 @@ end
 
 G.FUNCS.start_plinko = function(e, use_dollars)
   stop_use()
-  if e.config.id == 'plinko_dollars' then
-    use_dollars = true
-  end
 
   G.CONTROLLER.locks.start_plinko = true
 
