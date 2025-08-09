@@ -140,7 +140,7 @@ function PlinkoLogic.f.reset_cost(keep_roll_cost)
   end
 
   if not keep_roll_cost then
-    G.GAME.current_round.plinko_roll_cost = PlinkoLogic.default_roll_cost
+    G.GAME.current_round.plinko_roll_cost = PlinkoLogic.s.default_roll_cost
     G.GAME.current_round.plinko_rolls = 0
     G.GAME.current_round.plinko_cost_up_in = G.GAME.rolls_to_up_cost
   end
