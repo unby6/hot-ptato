@@ -23,7 +23,7 @@ SMODS.Sound {
   key = "music_czech",
   path = "music_czech.ogg",
   select_music_track = function (self)
-    if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "czech", true) ~= nil then
+    if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "czech", 0, true) ~= nil then
       return 1339
     end
   end
