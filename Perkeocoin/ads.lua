@@ -163,6 +163,9 @@ function end_round()
     if G.GAME.blind:get_type() == "Boss" then
         local number_of_ads = 1+(math.ceil((pseudorandom('ad_num')-0.5)*2))
         create_ads(number_of_ads)
+    else
+        local number_of_ads = math.floor(pseudorandom('ad_num')*2)
+        create_ads(number_of_ads)
     end
     return end_round_ref()
 end
