@@ -63,7 +63,6 @@ SMODS.Consumable { --Money
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -108,7 +107,6 @@ SMODS.Consumable { --Plincoin
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -152,7 +150,6 @@ SMODS.Consumable { --Edition
     },
         hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -229,7 +226,6 @@ SMODS.Consumable { --Perkeo
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -300,7 +296,6 @@ SMODS.Consumable { --Joker
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -354,8 +349,8 @@ SMODS.Consumable { --Wheel
     pos = { x = 1, y = 0 },
     config = {
         extra = {
-            ['Common'] = 4,
-            ['Uncommon'] = 3,
+            ['Common'] = 8,
+            ['Uncommon'] = 4,
             ['Rare'] = 2,
             ['Bad'] = 16,
             chosen = 'Common',
@@ -364,7 +359,6 @@ SMODS.Consumable { --Wheel
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -426,7 +420,6 @@ SMODS.Consumable { --Sticker
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -537,7 +530,6 @@ SMODS.Consumable { --Anti-Joker
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -615,7 +607,6 @@ SMODS.Consumable { --Tag
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -678,7 +669,6 @@ SMODS.Consumable { --Hands
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -725,7 +715,6 @@ SMODS.Consumable { --Discards
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -771,7 +760,6 @@ SMODS.Consumable { --Pack
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -842,7 +830,6 @@ SMODS.Consumable { --Capitalism
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {'Proto'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -882,7 +869,6 @@ SMODS.Consumable { --Inflation
     },
     hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -924,7 +910,6 @@ SMODS.Consumable { --Emperor
     },
         hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -1005,7 +990,6 @@ SMODS.Consumable { --Consumable
     },
         hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -1080,7 +1064,6 @@ SMODS.Consumable { --Voucher
     },
         hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
@@ -1242,6 +1225,7 @@ SMODS.Consumable { --Perkeo Quip
 				trigger = "after",
 				delay = 0.5 * G.SETTINGS.GAMESPEED,
 				func = function()
+                    real_perky:remove()
 					perkolator:remove()
 					return true
 				end,
@@ -1271,7 +1255,6 @@ SMODS.Consumable { --Venture Capital
     },
         hotpot_credits = {
         art = {'dottykitty'},
-        idea = {''},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
