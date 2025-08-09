@@ -441,6 +441,42 @@ return {
                 [2] = 'my name was originally',
                 [3] = 'Giovanni Clementi'
             },
+            bc_10 = {
+                [1] = 'Fun fcat',
+                [2] = 'read you that wrong',
+                [3] = 'and taht too'
+            },
+            bc_11 = {
+                [1] = 'would you rather have',
+                [2] = 'unlimited plincoins, and tribcoin',
+                [3] = 'or tribcoins, unlimited plincoins, but no plincoins?'
+            },
+            bc_12 = {
+                [1] = 'this dialogue crashes the game',
+                [2] = '(chat, pretend streamer just bluescreened)'
+            },
+            bc_13 = {
+                [1] = 'Life is roblox',
+            },
+            bc_14 = {
+                [1] = 'First we joker,',
+                [2] = 'then we poker!',
+                [3] = 'Lets JOKER POKER!'
+            },
+            bc_15 = {
+                [1] = 'guys, what if',
+                [2] = 'what if instead of',
+                [3] = 'plincoin, it was freaky coin',
+                [4] = 'and the plincoins made you freaky?'
+            },
+            bc_16 = {
+                [1] = 'mount everest is a very short mountain',
+                [2] = 'its barely even a hill actually'
+            },
+            bc_17 = {
+                [1] = 'Waltuh, we must assemble the yuri waltuh',
+                [2] = 'Blueprint and brainstorm, waltuh'
+            }
         },
         dictionary = {
             b_czech_cards = 'Cheque Cards',
