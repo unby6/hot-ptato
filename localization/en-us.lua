@@ -496,6 +496,10 @@ return {
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" }
+        },
+        labels = {
+            bottlecap = "Bottle Cap",
+            czech = "Cheque Card"
         }
     }
 }
