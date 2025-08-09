@@ -1,4 +1,4 @@
-SMODS.Atlas({key = "capatlas", path = "bottlecaps.png", px = 34, py = 34, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "capatlas", path = "PerkeoCards/bottlecaps.png", px = 34, py = 34, atlas_table = "ASSET_ATLAS"}):register()
 
 SMODS.ConsumableType {
     key = "bottlecap",
