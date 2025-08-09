@@ -54,6 +54,11 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
+  key = "plink",
+  path = "sfx_plink.ogg",
+}
+
+SMODS.Sound {
   key = "meow",
   path = "sfx_meow.ogg",
 }
