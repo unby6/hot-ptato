@@ -237,7 +237,7 @@ return {
                 ['name'] = 'Mystery Box',
                 ['text'] = {
                     [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
-                    [2] = '#2# random Jokers are',
+                    [2] = '{C:attention}#2#{} random Jokers are',
                     [3] = 'flipped face down',
                     [4] = '{C:inactive}(Shuffles Jokers)'
                 }
