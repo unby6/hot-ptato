@@ -54,6 +54,11 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
+  key = "plink",
+  path = "sfx_plink.ogg",
+}
+
+SMODS.Sound {
   key = "meow",
   path = "sfx_meow.ogg",
 }
@@ -158,6 +163,7 @@ function G.UIDEF.plinko()
       {card_limit = PlinkoLogic.rewards.total, type = 'shop', highlight_limit = 0})
 
     local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
+    local play_dollars = not not G.GAME.plinko_dollars_cost
 
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
             UIBox_dyn_container({
@@ -179,8 +185,9 @@ function G.UIDEF.plinko()
                             }}
                           }},
                         }},
-                        {n=G.UIT.R, config={align = "cm", minw = 2.8, minh = 1.6, r=0.15,colour = G.C.MONEY, button = 'start_plinko', func = 'can_plinko', hover = true,shadow = true}, nodes = {
-                          {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
+
+                        {n=G.UIT.R, config={id= "plinko_plincoins", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r=0.15,colour = G.C.MONEY, button = 'start_plinko', func = 'can_plinko', hover = true,shadow = true}, nodes = {
+                          {n=G.UIT.C, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
                               {n=G.UIT.T, config={text = localize("hotpot_plinko_play"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
@@ -193,6 +200,28 @@ function G.UIDEF.plinko()
                             }}
                           }}
                         }},
+
+                        -- I HAVE NO IDEA WHY THE BUTTON TAKES CONFIG FROM BUTTON ABOVE 
+                        play_dollars and {n=G.UIT.R, config={id= "plinko_dollars", align = "cm", minw = 2.8, minh = 1.3, r=0.15, colour = G.C.GREEN, button = 'start_plinko_dollars', func = 'can_plinko_dollars', hover = true,shadow = true}, nodes = {
+                          {n=G.UIT.C, config={align = "cm", padding = 0.07, }, nodes={
+                            {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
+                              -------------------
+                              {n=G.UIT.T, config={text = localize("hotpot_plinko_play"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              -------------------
+                            }},
+                            {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
+                              -------------------
+                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost_dollars', prefix = '$'}}, maxw = 1.35, colours = {G.C.WHITE}, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                              -------------------
+                            }}
+                          }}
+                        }} or nil,
+
+
+                        -- 
+                        -- PLINKO INFO
+                        -- 
+
                         {n=G.UIT.R, config={align = "cm", id="plinko_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
                           {n=G.UIT.C, config={align = "cm", }, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
@@ -257,6 +286,16 @@ G.FUNCS.can_plinko = function(e)
   end
 end
 
+G.FUNCS.can_plinko_dollars = function(e)
+  if PlinkoLogic.STATE ~= PlinkoLogic.STATES.IDLE or not PlinkoLogic.f.can_roll_dollars() then
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+  else
+      e.config.colour = G.C.MONEY
+      e.config.button = 'start_plinko'
+  end
+end
+
 -- Shop button logic - inactive when game isn't idle
 G.FUNCS.can_hide_plinko = function(e)
   if PlinkoLogic.STATE ~= PlinkoLogic.STATES.IDLE then
@@ -268,15 +307,22 @@ G.FUNCS.can_hide_plinko = function(e)
   end
 end
 
+G.FUNCS.start_plinko_dollars = function (e)
+  G.FUNCS.start_plinko(e, true)
+end
 
 
-G.FUNCS.start_plinko = function(e)
+G.FUNCS.start_plinko = function(e, use_dollars)
   stop_use()
+  if e.config.id == 'plinko_dollars' then
+    use_dollars = true
+  end
+
   G.CONTROLLER.locks.start_plinko = true
 
   PlinkoLogic.STATE = PlinkoLogic.STATES.IN_PROGRESS
 
-  PlinkoLogic.f.handle_roll()
+  PlinkoLogic.f.handle_roll(use_dollars)
 
   G.GAME.balls_dropped = G.GAME.balls_dropped + 1
   

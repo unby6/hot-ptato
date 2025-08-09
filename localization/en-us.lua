@@ -392,7 +392,21 @@ return {
                     [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
                     [3] = 'be used immediately',
                 }
-            }
+            },
+            v_hpot_currency_exchange = {
+                ['name'] = 'Currency Exchange',
+                ['text'] = {
+                    [1] = 'Play Plinko for {C:attention}#1#{} per',
+                    [2] = 'plincoin',
+                }
+            },
+            v_hpot_currency_exchange2 = {
+                ['name'] = 'Currency Exchange',
+                ['text'] = {
+                    [1] = 'Play Plinko for {C:attention}#1#{} per',
+                    [2] = 'plincoin',
+                }
+            },
         },
     },
     misc = {

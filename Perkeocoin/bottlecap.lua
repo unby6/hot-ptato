@@ -1021,7 +1021,7 @@ SMODS.Consumable { --Inflation
     end,
 
     use = function(self, card, area, copier)
-        G.GAME.current_round.plinko_roll_cost = G.GAME.current_round.plinko_roll_cost + card.ability.extra[card.ability.extra.chosen]
+        PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost + card.ability.extra[card.ability.extra.chosen])
     end
 }
 

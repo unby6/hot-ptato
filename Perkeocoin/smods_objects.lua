@@ -91,7 +91,7 @@ SMODS.Joker{ --Plink
     key = "plink",
     config = {
         extra = {
-            mult = 2
+            mult = 3
         }
     },
     pos = { x = 1, y = 2 },
@@ -558,7 +558,7 @@ SMODS.Joker{ --Balatro **PREMIUM**
         }
     },
     pos = { x = 4, y = 0 },
-    cost = 6,
+    cost = 1,
     rarity = 1,
     blueprint_compat = false,
     eternal_compat = true,
@@ -762,29 +762,6 @@ SMODS.Joker{ --Tipping Point
     end
 
 }
-
-local function calculate_tipping_point()
-    if next(find_joker('Tipping Point')) then
-        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
-        G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
-        PlinkoGame.f.toggle_moving_pegs(true)
-    else
-        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
-        G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
-        PlinkoGame.f.toggle_moving_pegs(false)
-    end
-end
-
-
-local game_update = Game.update
-function Game:update(dt)
-    game_update(self, dt)
-
-    if not G.jokers then
-        return
-    end
-    calculate_tipping_point()
-end
 
 
 -- Czechs
@@ -1488,3 +1465,55 @@ SMODS.Booster {
         ease_background_colour_blind(G.STATES.CZECH_PACK)
     end,
 }
+
+
+-- VOUCHERS
+
+SMODS.Voucher {
+    key = "currency_exchange",
+    config = { dollar_cost = 10, },
+    unlocked = true,
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.dollar_cost}}
+    end,
+
+    redeem = function (self, card)
+        G.GAME.plinko_dollars_cost = card.ability.dollar_cost
+
+        -- Update dollar cost
+        PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost)
+
+        if G.plinko then
+            G.plinko:recalculate()
+        end
+    end
+}
+
+SMODS.Voucher {
+    key = "currency_exchange2",
+    config = { dollar_cost = 5, },
+    unlocked = true,
+    redeem = function (self, card)
+        G.GAME.plinko_dollars_cost = card.ability.dollar_cost
+        -- Update dollar cost
+        PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost)
+
+        if G.plinko then
+            G.plinko:recalculate()
+        end
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
