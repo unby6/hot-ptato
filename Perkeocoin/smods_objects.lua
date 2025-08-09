@@ -1501,6 +1501,9 @@ SMODS.Voucher {
     atlas = "PerkeocoinVouchers",
     pos = { x = 1, y = 0 },
     config = { dollar_cost = 5, },
+    loc_vars = function(self, info_queue, card)
+        return{vars={card.ability.dollar_cost}}
+    end,
     unlocked = true,
     hotpot_credits = {
         art = {'dottykitty'},

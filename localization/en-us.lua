@@ -372,14 +372,14 @@ return {
             v_hpot_currency_exchange = {
                 ['name'] = 'Currency Exchange',
                 ['text'] = {
-                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:attention}#1#{} per',
+                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
                     [2] = 'plincoin',
                 }
             },
             v_hpot_currency_exchange2 = {
                 ['name'] = 'Currency Exchange',
                 ['text'] = {
-                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:attention}#1#{} per',
+                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
                     [2] = 'plincoin',
                 }
             },
