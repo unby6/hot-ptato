@@ -558,7 +558,7 @@ SMODS.Joker{ --Balatro **PREMIUM**
         }
     },
     pos = { x = 4, y = 0 },
-    cost = 6,
+    cost = 1,
     rarity = 1,
     blueprint_compat = false,
     eternal_compat = true,
