@@ -289,10 +289,11 @@ return {
             j_hpot_kitchen_gun = {
                 ['name'] = 'Kitchen Gun',
                 ['text'] = {
-                    [1] = 'Destroys {C:green}#1# in #2# {C:hpot_advert}Ads{} after',
-                    [2] = 'exiting the {C:green}Shop{}, gain {C:white,X:red}X#3#',
-                    [3] = 'for each {C:hpot_advert}Ad{} destroyed',
-                    [4] = '{C:inactive}(Currently {C:white,X:red}X#4#{C:inactive} Mult)'
+                    [1] = 'Each {C:hpot_advert}Ad{} has a {C:green}1 in 3{} chance to be',
+                    [2] = 'destroyed at the end of the {C:attention}shop{},',
+                    [3] = 'then this Joker gains {C:white,X:red}X0.1{} Mult',
+                    [4] = 'for each one destroyed',
+                    [5] = '{C:inactive}(Currently {C:white,X:red}X#4#{C:inactive} Mult)'
                 }
             },
             j_hpot_tv_dinner = {
@@ -361,9 +362,9 @@ return {
             j_hpot_tipping_point = {
                 ['name'] = 'Tipping Point',
                 ['text'] = {
-                    [1] = '+1 Rare bottlecap',
-                    [2] = 'in each Plinko,',
-                    [3] = 'pegs always move'
+                    [1] = '{C:attention}+1 {C:red}Rare{} bottlecap',
+                    [2] = 'in each {C:hpot_plincoin}Plinko{},',
+                    [3] = 'pegs always {C:attention}move'
                 }
             },
         },
