@@ -122,6 +122,28 @@ return {
                     [2] = "#1# {C:attention}Voucher",
                 }
             },
+            c_hpot_cap_perkeo_quip = {
+                ['name'] = 'Perkeo?',
+                ['text'] = {
+                    [1] = "Get a",
+                    [2] = "{C:hpot_plincoin}fun fact!",
+                }
+            },
+            c_hpot_cap_venture = {
+                ['name'] = 'Venture Capital',
+                ['text'] = {
+                    [1] = "Earn {C:hpot_plincoin,f:hpot_plincoin}$1{} of interest",
+                    [2] = "for every {C:hpot_plincoin,f:hpot_plincoin}$#3#{} you have",
+                    [3] = "{C:inactive}(Max of {C:hpot_plincoin,f:hpot_plincoin}$#1#{C:inactive})"
+                }
+            },
+            c_hpot_cap_duplicate = {
+                ['name'] = 'Duplicate',
+                ['text'] = {
+                    [1] = "{C:attention}Duplicate{} a random Joker",
+                    [2] = "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)"
+                }
+            },
         },
         Czech = {
             c_hpot_cashexchange = {
@@ -370,6 +392,18 @@ return {
         },
     },
     misc = {
+        quips = {
+            bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
+                [1] = 'We need more',
+                [2] = 'fun facts!!'
+            },
+            bc_2 = {
+                [1] = 'quip 2'
+            },
+            bc_3 = {
+                [1] = 'quip 3'
+            },
+        },
         dictionary = {
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
