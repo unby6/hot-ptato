@@ -18,6 +18,8 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
                     (G.GAME.max_highlighted_mod or 0)
                 if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
             end
+        elseif card.ability.max_highlighted then
+            card.ability.max_highlighted = card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)
         end
     end
     return card
@@ -33,6 +35,8 @@ function change_max_highlight(amount) --modifies the max_highlighted_mod variabl
             elseif card.ability.extra and card.ability.extra.max_highlighted then
                 card.ability.extra.max_highlighted = card.ability.extra.max_highlighted + amount
                 if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
+            elseif card.ability.max_highlighted then
+                card.ability.max_highlighted = card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)
             end
         end
     end
