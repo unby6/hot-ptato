@@ -17,5 +17,10 @@ SMODS.Joker {
     end,
     remove_from_deck = function (self, card, from_debuff)
         change_max_highlight(-card.ability.extra.bonus_highlight)
-    end
+    end,
+    hotpot_credits = {
+        art = {"Eris (TEMPORARY)"},
+        code = {"Eris"},
+        team = {"Sillyposting"}
+    }
 }
