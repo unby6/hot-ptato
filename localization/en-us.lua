@@ -371,7 +371,7 @@ return {
                 ["name"] = "Wizard Tower",
                 ["text"] = {
                     "All {C:attention}consumables{} can affect",
-                    "{C:attention}+1{} extra card"
+                    "{C:attention}+#1#{} extra card"
                 }
             }
         },
@@ -434,6 +434,13 @@ return {
                     "when scored",
                 },
             },
+            highlight_mod_warning = {
+                name = "Notice",
+                text = {
+                    "May not display or function correctly",
+                    "on all consumables due to wierd coding."
+                }
+            }
         },
         Tag = {
             tag_hpot_job = {
