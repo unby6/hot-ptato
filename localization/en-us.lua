@@ -385,6 +385,7 @@ return {
                     "Play all to earn {C:money}$#2#"
                 }
             },
+        },
         Voucher = {
             v_hpot_currency_exchange = {
                 ['name'] = 'Currency Exchange',
