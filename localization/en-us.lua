@@ -200,7 +200,7 @@ return {
                     [2] = 'becomes {C:attention}Rental{},',
                     [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
                 }
-            },      
+            },
             c_hpot_handful = {
                 ['name'] = 'Handful',
                 ['text'] = {
@@ -373,8 +373,18 @@ return {
                     "All {C:attention}consumables{} can affect",
                     "{C:attention}+#1#{} extra card"
                 }
-            }
-        },
+            },
+            j_hpot_hangman = {
+                name = 'Hangman',
+                text = {
+                    "{C:attention}Each round{}, this Joker",
+                    "{C:dark_edition,E:1}secretly{} chooses {C:attention}5 ranks",
+                    "{s:0.33} ",
+                    "{C:attention}The first time{}",
+                    "{C:attention}you score each{}, earn {C:money}$#1#",
+                    "Play all to earn {C:money}$#2#"
+                }
+            },
         Voucher = {
             v_hpot_currency_exchange = {
                 ['name'] = 'Currency Exchange',
