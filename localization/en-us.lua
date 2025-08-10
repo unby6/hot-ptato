@@ -367,6 +367,13 @@ return {
                     [3] = 'pegs always {C:attention}move'
                 }
             },
+            j_hpot_wizard_tower = {
+                ["name"] = "Wizard Tower",
+                ["text"] = {
+                    "All {C:attention}consumables{} can affect",
+                    "{C:attention}+1{} extra card"
+                }
+            }
         },
         Voucher = {
             v_hpot_currency_exchange = {
