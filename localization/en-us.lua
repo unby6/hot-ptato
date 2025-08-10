@@ -461,6 +461,7 @@ return {
                 },
             },
         },
+        },
     },
     misc = {
         quips = {
@@ -532,30 +533,29 @@ return {
             b_key_cards = "Keys",
             k_key = "Key",
 
-                hotpot_plinko_play = "Play",
-                hotpot_plinko_to_shop1 = "Back to",
-                hotpot_plinko_to_shop2 = "shop",
-                hotpot_plinko_to_plinko1 = "Let's go",
-                hotpot_plinko_to_plinko2 = "gambling!",
-                hotpot_plinko_cost1 = "Cost up after",
-                hotpot_plinko_cost2 = " play(s)",
-                hotpot_plinko_reset1 = "Cost reset in",
-                hotpot_plinko_reset2_round = " round",
-                hotpot_plinko_reset2_ante = " ante",
-            },
-            v_dictionary = {
-                hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
-                hotpot_art = { "Art: #1#" },
-                hotpot_code = { "Code: #1#" },
-                hotpot_idea = { "Idea: #1#" },
-                hotpot_team = { "Team: #1#" }
-            },
-            labels = {
-                bottlecap = "Bottle Cap",
-                czech = "Cheque Card",
-                hpot_plincoin_seal = "Plincoin Seal",
-                key = "Key"
-            }
+            hotpot_plinko_play = "Play",
+            hotpot_plinko_to_shop1 = "Back to",
+            hotpot_plinko_to_shop2 = "shop",
+            hotpot_plinko_to_plinko1 = "Let's go",
+            hotpot_plinko_to_plinko2 = "gambling!",
+            hotpot_plinko_cost1 = "Cost up after",
+            hotpot_plinko_cost2 = " play(s)",
+            hotpot_plinko_reset1 = "Cost reset in",
+            hotpot_plinko_reset2_round = " round",
+            hotpot_plinko_reset2_ante = " ante",
+        },
+        v_dictionary = {
+            hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
+            hotpot_art = { "Art: #1#" },
+            hotpot_code = { "Code: #1#" },
+            hotpot_idea = { "Idea: #1#" },
+            hotpot_team = { "Team: #1#" }
+        },
+        labels = {
+            bottlecap = "Bottle Cap",
+            czech = "Cheque Card",
+            hpot_plincoin_seal = "Plincoin Seal",
+            key = "Key"
         }
     }
 }
