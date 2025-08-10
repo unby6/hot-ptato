@@ -385,152 +385,152 @@ return {
                     "Play all to earn {C:money}$#2#"
                 }
             },
-            Voucher = {
-                v_hpot_currency_exchange = {
-                    ['name'] = 'Currency Exchange',
-                    ['text'] = {
-                        [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
-                        [2] = 'plincoin',
-                    }
-                },
-                v_hpot_currency_exchange2 = {
-                    ['name'] = 'Currency Exchange',
-                    ['text'] = {
-                        [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
-                        [2] = 'plincoin',
-                    }
-                },
-            },
-            Spectral = {
-                c_hpot_arcade_machine = {
-                    name = "Arcade Machine",
-                    text = {
-                        "Add a {C:hpot_plincoin}Plincoin Seal{}",
-                        "to {C:attention}1{} selected",
-                        "card in your hand",
-                    }
-                },
-            },
-            Other = {
-                p_hpot_czech_normal = {
-                    ['name'] = 'Cheque Pack',
-                    ['text'] = {
-                        [1] = 'Choose {C:attention}#1#{} of up to',
-                        [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
-                        [3] = 'be used immediately',
-                    }
-                },
-                p_hpot_czech_jumbo = {
-                    ['name'] = 'Jumbo Cheque Pack',
-                    ['text'] = {
-                        [1] = 'Choose {C:attention}#1#{} of up to',
-                        [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
-                        [3] = 'be used immediately',
-                    }
-                },
-                p_hpot_czech_mega = {
-                    ['name'] = 'Mega Cheque Pack',
-                    ['text'] = {
-                        [1] = 'Choose {C:attention}#1#{} of up to',
-                        [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
-                        [3] = 'be used immediately',
-                    }
-                },
-                hpot_plincoin_seal = {
-                    name = "Plincoin Seal",
-                    text = {
-                        "Gives a free",
-                        "{C:hpot_plincoin}Plincoin{}",
-                        "when scored",
-                    },
-                },
-                highlight_mod_warning = {
-                    name = "Notice",
-                    text = {
-                        "May not display or function correctly",
-                        "on all consumables due to wierd coding."
-                    }
+        Voucher = {
+            v_hpot_currency_exchange = {
+                ['name'] = 'Currency Exchange',
+                ['text'] = {
+                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
+                    [2] = 'plincoin',
                 }
             },
-            Tag = {
-                tag_hpot_job = {
-                    name = "Job Tag",
-                    text = {
-                        "Gives a free",
-                        "{C:hpot_czech}Mega Cheque Pack",
-                    },
+            v_hpot_currency_exchange2 = {
+                ['name'] = 'Currency Exchange',
+                ['text'] = {
+                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
+                    [2] = 'plincoin',
+                }
+            },
+        },
+        Spectral = {
+            c_hpot_arcade_machine = {
+                 name = "Arcade Machine",
+                text = {
+                    "Add a {C:hpot_plincoin}Plincoin Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                }
+            },
+        },
+        Other = {
+            p_hpot_czech_normal = {
+                ['name'] = 'Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            },
+            p_hpot_czech_jumbo = {
+                ['name'] = 'Jumbo Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            },
+            p_hpot_czech_mega = {
+                ['name'] = 'Mega Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            },
+            hpot_plincoin_seal = {
+                name = "Plincoin Seal",
+                text = {
+                    "Gives a free",
+                    "{C:hpot_plincoin}Plincoin{}",
+                    "when scored",
+                },
+            },
+            highlight_mod_warning = {
+                name = "Notice",
+                text = {
+                    "May not display or function correctly",
+                    "on all consumables due to wierd coding."
+                }
+            }
+        },
+        Tag = {
+            tag_hpot_job = {
+                name = "Job Tag",
+                text = {
+                    "Gives a free",
+                    "{C:hpot_czech}Mega Cheque Pack",
                 },
             },
         },
-        misc = {
-            quips = {
-                bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
-                    [1] = 'It\'s really easy to',
-                    [2] = 'add more fun facts to',
-                    [3] = 'to my pool of quips!'
-                },
-                bc_2 = {
-                    [1] = 'Your plays are looking',
-                    [2] = 'pretty {C:dark_edition}Negative!'
-                },
-                bc_3 = {
-                    [1] = 'I am affected by',
-                    [2] = 'dwarfism in real life!'
-                },
-                bc_4 = {
-                    [1] = 'I drink between',
-                    [2] = '5 and 8 gallons',
-                    [3] = 'of Joka Cola daily!'
-                },
-                bc_5 = {
-                    [1] = 'I got my nickname',
-                    [2] = 'by often saying',
-                    [3] = '\"perché no?\"'
-                },
-                bc_6 = {
-                    [1] = 'I was put in charge',
-                    [2] = 'of the largest wine',
-                    [3] = 'barrel in the world',
-                    [4] = '{C:inactive,S:0.8}at the time, at least'
-                },
-                bc_7 = {
-                    [1] = 'Not every Bottlecap',
-                    [2] = 'can come in all',
-                    [3] = 'four rarities!'
-                },
-                bc_8 = {
-                    [1] = 'Before I was Perkeo,',
-                    [2] = 'my name was originally',
-                    [3] = 'Clemens Pankert'
-                },
-                bc_9 = {
-                    [1] = 'Before I was Perkeo,',
-                    [2] = 'my name was originally',
-                    [3] = 'Giovanni Clementi'
-                },
-                bc_10 = {
-                    [1] = 'Fun fcat',
-                    [2] = 'read you that wrong',
-                    [3] = 'and taht too'
-                },
-                bc_11 = {
-                    [1] = 'would you rather have',
-                    [2] = 'unlimited plincoins, and tribcoin',
-                    [3] = 'or tribcoins, unlimited plincoins, but no plincoins?'
-                },
-                bc_12 = {
-                    [1] = 'this dialogue crashes the game',
-                    [2] = '(chat, pretend streamer just bluescreened)'
-                },
+    },
+    misc = {
+        quips = {
+            bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
+                [1] = 'It\'s really easy to',
+                [2] = 'add more fun facts to',
+                [3] = 'to my pool of quips!'
             },
-            dictionary = {
-                b_czech_cards = 'Cheque Cards',
-                k_czech = 'Cheque',
-                k_hpot_czech_pack = 'Cheque Pack',
-                b_bottlecap_cards = 'Bottlecaps',
-                k_bottlecap = 'Bottlecap',
-                b_key_cards = "Keys",
-                k_key = "Key",
+            bc_2 = {
+                [1] = 'Your plays are looking',
+                [2] = 'pretty {C:dark_edition}Negative!'
+            },
+            bc_3 = {
+                [1] = 'I am affected by',
+                [2] = 'dwarfism in real life!'
+            },
+            bc_4 = {
+                [1] = 'I drink between',
+                [2] = '5 and 8 gallons',
+                [3] = 'of Joka Cola daily!'
+            },
+            bc_5 = {
+                [1] = 'I got my nickname',
+                [2] = 'by often saying',
+                [3] = '\"perché no?\"'
+            },
+            bc_6 = {
+                [1] = 'I was put in charge',
+                [2] = 'of the largest wine',
+                [3] = 'barrel in the world',
+                [4] = '{C:inactive,S:0.8}at the time, at least'
+            },
+            bc_7 = {
+                [1] = 'Not every Bottlecap',
+                [2] = 'can come in all',
+                [3] = 'four rarities!'
+            },
+            bc_8 = {
+                [1] = 'Before I was Perkeo,',
+                [2] = 'my name was originally',
+                [3] = 'Clemens Pankert'
+            },
+            bc_9 = {
+                [1] = 'Before I was Perkeo,',
+                [2] = 'my name was originally',
+                [3] = 'Giovanni Clementi'
+            },
+            bc_10 = {
+                [1] = 'Fun fcat',
+                [2] = 'read you that wrong',
+                [3] = 'and taht too'
+            },
+            bc_11 = {
+                [1] = 'would you rather have',
+                [2] = 'unlimited plincoins, and tribcoin',
+                [3] = 'or tribcoins, unlimited plincoins, but no plincoins?'
+            },
+            bc_12 = {
+                [1] = 'this dialogue crashes the game',
+                [2] = '(chat, pretend streamer just bluescreened)'
+            },
+        },
+        dictionary = {
+            b_czech_cards = 'Cheque Cards',
+            k_czech = 'Cheque',
+            k_hpot_czech_pack = 'Cheque Pack',
+            b_bottlecap_cards = 'Bottlecaps',
+            k_bottlecap = 'Bottlecap',
+            b_key_cards = "Keys",
+            k_key = "Key",
 
                 hotpot_plinko_play = "Play",
                 hotpot_plinko_to_shop1 = "Back to",
