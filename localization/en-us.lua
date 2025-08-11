@@ -390,6 +390,7 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "Create a {C:attention}Modded{} Joker",
+                    "{C:inactive, s:0.6}slop not included!{}"
                 }
             }
         },
