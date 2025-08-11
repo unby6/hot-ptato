@@ -385,6 +385,13 @@ return {
                     "Play all to earn {C:money}$#2#"
                 }
             },
+            j_hpot_joker_forge = {
+                name = 'Joker Forge',
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "Create a {C:attention}Modded{} Joker",
+                }
+            }
         },
         Voucher = {
             v_hpot_currency_exchange = {
