@@ -1,4 +1,3 @@
-SMODS.Atlas({ key = "SillypostingJokers", path = "Sillyposting/Jokers.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS" }):register()
 
 SMODS.Joker {
     key = "joker_forge",
