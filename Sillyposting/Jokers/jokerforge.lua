@@ -9,7 +9,7 @@ SMODS.Joker {
     pos = { x = 1, y = 0 },
     discovered = true,
 
-    
+    --society if create_card had an options field
     -- there is probably a better way to do this but i just copied the joker code for expansion pack joker from more fluff
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced and 
@@ -20,7 +20,7 @@ SMODS.Joker {
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             
             local vanilla_jokers = {
-                "j_joker", "j_jolly_joker", "j_greedy_joker", "j_lusty_joker", "j_wrathful_joker", "j_gluttenous_joker",
+                "j_joker", "j_jolly", "j_greedy_joker", "j_lusty_joker", "j_wrathful_joker", "j_gluttenous_joker",
                 "j_zany", "j_mad", "j_crazy", "j_droll", "j_sly", "j_wily", "j_clever", "j_devious",
                 "j_crafty", "j_half", "j_stencil", "j_four_fingers", "j_mime", "j_credit_card",
                 "j_ceremonial", "j_banner", "j_mystic_summit", "j_marble", "j_loyalty_card", "j_8_ball",
