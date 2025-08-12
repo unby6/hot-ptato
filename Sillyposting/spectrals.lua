@@ -13,7 +13,6 @@ SMODS.Consumable {
         return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
-        local conv_card = G.hand.highlighted[1]
         G.E_MANAGER:add_event(Event({
             func = function()
                 play_sound('tarot1')
@@ -21,16 +20,16 @@ SMODS.Consumable {
                 return true
             end
         }))
-
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
             func = function()
-                conv_card:set_seal(card.ability.extra.seal, nil, true)
+                for i in #G.hand.highlighted do
+                    G.hand.highlighted[i]:set_seal(card.ability.extra.seal, nil, true)
+                end
                 return true
             end
         }))
-
         delay(0.5)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
