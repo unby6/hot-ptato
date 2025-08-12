@@ -5,6 +5,7 @@ SMODS.Joker {
     blueprint_compat = false,
     rarity = 3,
     cost = 10,
+    discovered = true,
     atlas = "SillypostingJokers",
     pos = { x = 0, y = 0 },
     config = { extra = { bonus_highlight = 1 } },
@@ -19,7 +20,7 @@ SMODS.Joker {
         change_max_highlight(-card.ability.extra.bonus_highlight)
     end,
     hotpot_credits = {
-        art = {"Eris (TEMPORARY)"},
+        art = {"Jaydchw"},
         code = {"Eris"},
         team = {"Sillyposting"}
     }
