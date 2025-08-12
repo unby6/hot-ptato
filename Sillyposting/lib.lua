@@ -38,7 +38,7 @@ function change_max_highlight(amount) --modifies the max_highlighted_mod variabl
                     if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
                 end
             elseif card.ability.max_highlighted then
-                card.ability.max_highlighted = card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)
+                card.ability.max_highlighted = card.ability.max_highlighted + amount
             end
         end
     end
