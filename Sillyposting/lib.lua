@@ -32,9 +32,11 @@ function change_max_highlight(amount) --modifies the max_highlighted_mod variabl
             if card.ability.consumeable and card.ability.consumeable.max_highlighted then
                 card.ability.consumeable.max_highlighted = card.ability.consumeable.max_highlighted + amount
                 if card.ability.consumeable.max_highlighted < 1 then card.ability.consumeable.max_highlighted = 1 end
-            elseif card.ability.extra and card.ability.extra.max_highlighted then
-                card.ability.extra.max_highlighted = card.ability.extra.max_highlighted + amount
-                if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
+            elseif card.ability.extra and type(card.ability.extra) == "table" then
+                if card.ability.max_highlighted then
+                    card.ability.extra.max_highlighted = card.ability.extra.max_highlighted + amount
+                    if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
+                end
             elseif card.ability.max_highlighted then
                 card.ability.max_highlighted = card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)
             end
