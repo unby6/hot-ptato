@@ -727,12 +727,12 @@ return {
             highlight_mod_warning = {
                 name = "Notice",
                 text = {
-                    "May not display or function correctly",
-                    "on modded consumables not from this mod.",
-                    "Displaying incorrectly isn't an indicator",
-                    "of not functioning correctly and vice versa.",
-                    "However, displaying correctly likely means",
-                    "the consumable functions correctly."
+                    "{s:0.7}May not display or function correctly",
+                    "{s:0.7}on modded consumables not from this mod.",
+                    "{s:0.7}Displaying incorrectly isn't an indicator",
+                    "{s:0.7}of not functioning correctly and vice versa.",
+                    "{s:0.7}However, displaying correctly likely means",
+                    "{s:0.7}the consumable functions correctly."
                 }
             },
             hpot_death_clarification = {

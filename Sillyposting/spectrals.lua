@@ -14,7 +14,7 @@ SMODS.Consumable {
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + G.GAME.max_highlighted_mod) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
