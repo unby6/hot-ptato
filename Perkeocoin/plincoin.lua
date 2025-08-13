@@ -62,8 +62,10 @@ function add_round_eval_plincoins(config)
                 if config.name == 'plincoins' then
                   table.insert(left_text, {n=G.UIT.T, config={text = config.plincoins, font = config.font, scale = 0.8*scale, colour = SMODS.Gradients.hpot_plincoin, shadow = true, juice = true}})
                   table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_plincoins_cashout', vars = {G.GAME.plincoins_per_round or 0}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
+                elseif string.find(config.name, 'joker') then
+                  table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
                 end
-                local full_row = {n=G.UIT.R, config={align = "cm", minw = 5}, nodes={
+                    local full_row = {n=G.UIT.R, config={align = "cm", minw = 5}, nodes={
                     {n=G.UIT.C, config={padding = 0.05, minw = width*0.55, minh = 0.61, align = "cl"}, nodes=left_text},
                     {n=G.UIT.C, config={padding = 0.05,minw = width*0.45, align = "cr"}, nodes={{n=G.UIT.C, config={align = "cm", id = 'dollar_'..config.name},nodes={}}}}
                 }}

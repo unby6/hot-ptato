@@ -45,6 +45,9 @@ function change_max_highlight(amount) --modifies the max_highlighted_mod variabl
         end
     end]]--
 end
+function init_sillyposting(game)
+  game.max_highlighted_mod = game.max_highlighted_mod or 0
+end
 -- Below this line is a series of take_ownerships made to ensure every consumable works properly with Wizard Tower
 --#region Take ownership maxhighlight stuff
 local usage_check_consumable = function(self, card)
