@@ -15,5 +15,9 @@ SMODS.Joker {
             end
             return {new_config = new_config}
         end
-    end
+    end,
+    hotpot_credits = {
+        code = {"Eris"},
+        team = {"Sillyposting"}
+    }
 }
