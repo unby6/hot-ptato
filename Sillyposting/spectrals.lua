@@ -42,7 +42,7 @@ SMODS.Consumable {
     end,
 
      hotpot_credits = {
-        art = {'Jaydchw'},
+        art = {'Jaydchw', 'Superb'},
         code = {'Jaydchw'},
         team = {'Sillyposting'}
     },
