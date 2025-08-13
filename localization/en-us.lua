@@ -504,6 +504,14 @@ return {
                     "cards in your hand",
                 },
             },
+            c_talisman_v2 = {
+                name = "Talisman",
+                text = {
+                    "Add a {C:attention}Gold Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "card in your hand",
+                },
+            },
             c_talisman_v2_p = {
                 name = "Talisman",
                 text = {
@@ -555,6 +563,15 @@ return {
                     "{C:inactive}(Drag to rearrange)",
                 },
             },
+            c_death_v2_s = {
+                name = "Death",
+                text = {
+                    "Select {C:attention}#1#{} card,",
+                    "convert the card",
+                    "into the card",
+                    "{C:inactive}(Drag to do nothing)",
+                },
+            },
             c_devil_v2 = {
                 name = "The Devil",
                 text = {
@@ -579,6 +596,14 @@ return {
                     "{C:attention}#2#s",
                 },
             },
+            c_empress_v2_s = {
+                name = "The Empress",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected card to",
+                    "{C:attention}#2#s",
+                },
+            },
             c_hanged_man_v2 = {
                 name = "The Hanged Man",
                 text = {
@@ -586,11 +611,26 @@ return {
                     "{C:attention}#1#{} selected cards",
                 },
             },
+            c_hanged_man_v2_s = {
+                name = "The Hanged Man",
+                text = {
+                    "Destroys up to",
+                    "{C:attention}#1#{} selected card",
+                },
+            },
             c_heirophant_v2 = {
                 name = "The Hierophant",
                 text = {
                     "Enhances {C:attention}#1#",
                     "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_heirophant_v2_s = {
+                name = "The Hierophant",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected card to",
                     "{C:attention}#2#s",
                 },
             },
@@ -634,6 +674,14 @@ return {
                     "{C:attention}#2#s",
                 },
             },
+            c_magician_v2_s = {
+                name = "The Magician",
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected card to",
+                    "{C:attention}#2#s",
+                },
+            },
             c_moon_v2 = {
                 name = "The Moon",
                 text = {
@@ -656,6 +704,14 @@ return {
                     "Increases rank of",
                     "up to {C:attention}#1#{} selected",
                     "cards by {C:attention}1",
+                },
+            },
+            c_strength_v2_s = {
+                name = "Strength",
+                text = {
+                    "Increases rank of",
+                    "up to {C:attention}#1#{} selected",
+                    "card by {C:attention}1",
                 },
             },
             c_sun_v2 = {
@@ -735,11 +791,18 @@ return {
                     "{s:0.7}the consumable functions correctly."
                 }
             },
-            hpot_death_clarification = {
+            hpot_death_clarification_plus = {
                 name = "Notice: Death with 3+ cards",
                 text = {
                     "When Death is used with {C:attention}3 or more{} cards,",
                     "{C:attention}all cards{} become the right most card"
+                }
+            },
+            hpot_death_clarification_minus = {
+                name = "Notice: Death with 1 card",
+                text = {
+                    "When Death is used with {C:attention}1{} card,",
+                    "it does {C:attention}absolutely nothing{}"
                 }
             }
         },
@@ -754,6 +817,9 @@ return {
         },
     },
     misc = {
+        challenge_names = {
+            c_hpot_amateur_magician = "Amateur Magician"
+        },
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
                 [1] = 'It\'s really easy to',
@@ -841,6 +907,9 @@ return {
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" }
         },
+		v_text = {
+			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"}
+		},
         labels = {
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
