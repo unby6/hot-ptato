@@ -12,7 +12,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                xmult = 2
+                xmult = card.ability.extra.xmult
             }
         end
         if context.close_ad and not context.blueprint then
