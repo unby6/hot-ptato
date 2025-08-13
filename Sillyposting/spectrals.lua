@@ -24,7 +24,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i in #G.hand.highlighted do
+                for _, i in #G.hand.highlighted do
                     G.hand.highlighted[i]:set_seal(card.ability.extra.seal, nil, true)
                 end
                 return true

@@ -419,6 +419,264 @@ return {
                     "card in your hand",
                 }
             },
+            c_hpot_arcade_machine_p = {
+                name = "Arcade Machine",
+                text = {
+                    "Add a {C:hpot_plincoin}Plincoin Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                }
+            },
+            c_aura_v2 = {
+                name = "Aura",
+                text = {
+                    "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
+                    "or {C:dark_edition}Polychrome{} effect to",
+                    "{C:attention}#1#{} selected card in hand",
+                },
+            },
+            c_aura_v2_p = {
+                name = "Aura",
+                text = {
+                    "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
+                    "or {C:dark_edition}Polychrome{} effect to",
+                    "{C:attention}#1#{} selected cards in hand",
+                },
+            },
+            c_cryptid_v2 = {
+                name = "Cryptid",
+                text = {
+                    "Create {C:attention}#1#{} copies of",
+                    "{C:attention}#2#{} selected card",
+                    "in your hand",
+                },
+            },
+            c_cryptid_v2_p = {
+                name = "Cryptid",
+                text = {
+                    "Create {C:attention}#1#{} copies of",
+                    "{C:attention}#2#{} selected cards",
+                    "in your hand",
+                },
+            },
+            c_deja_vu_v2 = {
+                name = "Deja Vu",
+                text = {
+                    "Add a {C:red}Red Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "card in your hand",
+                },
+            },
+            c_deja_vu_v2_p = {
+                name = "Deja Vu",
+                text = {
+                    "Add a {C:red}Red Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                },
+            },
+            c_medium_v2 = {
+                name = "Medium",
+                text = {
+                    "Add a {C:purple}Purple Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "card in your hand",
+                },
+            },
+            c_medium_v2_p = {
+                name = "Medium",
+                text = {
+                    "Add a {C:purple}Purple Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                },
+            },
+            c_talisman_v2_p = {
+                name = "Talisman",
+                text = {
+                    "Add a {C:attention}Gold Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                },
+            },
+            c_trance_v2 = {
+                name = "Trance",
+                text = {
+                    "Add a {C:blue}Blue Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "card in your hand",
+                },
+            },
+            c_trance_v2_p = {
+                name = "Trance",
+                text = {
+                    "Add a {C:blue}Blue Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                },
+            },
+        },
+        Tarot = {
+            c_chariot_v2 = {
+                name = "The Chariot",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_chariot_v2_p = {
+                name = "The Chariot",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_death_v2 = {
+                name = "Death",
+                text = {
+                    "Select {C:attention}#1#{} cards,",
+                    "convert the {C:attention}left{} card",
+                    "into the {C:attention}right{} card",
+                    "{C:inactive}(Drag to rearrange)",
+                },
+            },
+            c_devil_v2 = {
+                name = "The Devil",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_devil_v2_p = {
+                name = "The Devil",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_empress_v2 = {
+                name = "The Empress",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_hanged_man_v2 = {
+                name = "The Hanged Man",
+                text = {
+                    "Destroys up to",
+                    "{C:attention}#1#{} selected cards",
+                },
+            },
+            c_heirophant_v2 = {
+                name = "The Hierophant",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_justice_v2 = {
+                name = "Justice",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_justice_v2_p = {
+                name = "Justice",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_lovers_v2 = {
+                name = "The Lovers",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_lovers_v2_p = {
+                name = "The Lovers",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_magician_v2 = {
+                name = "The Magician",
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_moon_v2 = {
+                name = "The Moon",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_star_v2 = {
+                name = "The Star",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_strength_v2 = {
+                name = "Strength",
+                text = {
+                    "Increases rank of",
+                    "up to {C:attention}#1#{} selected",
+                    "cards by {C:attention}1",
+                },
+            },
+            c_sun_v2 = {
+                name = "The Sun",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_tower_v2 = {
+                name = "The Tower",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_tower_v2_p = {
+                name = "The Tower",
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_world_v2 = {
+                name = "The World",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
         },
         Other = {
             p_hpot_czech_normal = {
@@ -457,7 +715,14 @@ return {
                 name = "Notice",
                 text = {
                     "May not display or function correctly",
-                    "on all consumables due to wierd coding."
+                    "on modded consumables not from this mod.",
+                }
+            },
+            hpot_death_clarification = {
+                name = "Death with 3+ cards",
+                text = {
+                    "When Death is used with {C:attention}3 or more{} cards,",
+                    "{C:attention}all cards{} become the right most cards"
                 }
             }
         },
