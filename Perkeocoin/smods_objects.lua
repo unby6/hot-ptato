@@ -385,6 +385,7 @@ SMODS.Joker{ --TV Dinner
                     return true
                 end
                 }))
+                G.GAME.pool_flags.tv_dinner_eaten = true
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
@@ -395,6 +396,9 @@ SMODS.Joker{ --TV Dinner
                 colour = G.C.MULT
             }
         end
+    end,
+    in_pool = function (self, args)
+        return not G.GAME.pool_flags.tv_dinner_eaten
     end
 
 }

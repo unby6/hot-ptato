@@ -39,5 +39,8 @@ SMODS.Joker {
                 message = localize("k_eaten_ex")
             }
         end
+    end,
+    in_pool = function (self, args)
+        return G.GAME.pool_flags.tv_dinner_eaten
     end
 }
