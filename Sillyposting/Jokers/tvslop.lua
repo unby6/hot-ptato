@@ -42,5 +42,9 @@ SMODS.Joker {
     end,
     in_pool = function (self, args)
         return G.GAME.pool_flags.tv_dinner_eaten
-    end
+    end,
+    hotpot_credits = {
+        code = {"Eris"},
+        team = {"Sillyposting"}
+    }
 }
