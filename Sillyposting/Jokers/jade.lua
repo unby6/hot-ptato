@@ -20,7 +20,7 @@ SMODS.Joker {
         return card.ability.extra.coins
     end,
     hotpot_credits = {
-        code = {"Eris"},
+        code = {"UnusedParadox"},
         team = {"Sillyposting"}
     }
 }
