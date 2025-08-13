@@ -96,7 +96,7 @@ return {
                 ['name'] = 'Inflation',
                 ['text'] = {
                     [1] = "Increase Plinko",
-                    [2] = "cost by {C:hpot_plincoin}#1#"
+                    [2] = "cost by {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#"
                 }
             },
             c_hpot_cap_emperor = {
@@ -150,13 +150,13 @@ return {
                 ['name'] = 'Cash Exchange',
                 ['text'] = {
                     [1] = "Lose {C:money}$#1#{},",
-                    [2] = "gain {C:hpot_plincoin}#2#{} Plincoins"
+                    [2] = "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#2#{}"
                 }
             },
             c_hpot_charity = {
                 ['name'] = 'Charity',
                 ['text'] = {
-                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoin",
+                    [1] = "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                     [2] = 'completely free!!!'
                 }
             },
@@ -166,15 +166,15 @@ return {
                     [1] = "Destroy leftmost {C:attention}Joker{},",
                     [2] = 'Gain {C:hpot_plincoin}Plincoins{} based on',
                     [3] = 'that Joker\'s {C:attention}rarity',
-                    [4] = '{C:inactive}(Currently {C:hpot_plincoin}#1#{C:inactive} Plincoins)'
+                    [4] = '{C:inactive}(Currently {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{C:inactive})'
                 }
             },
             c_hpot_wheel_of_plinko = {
                 ['name'] = 'Wheel of Plinko',
                 ['text'] = {
-                    [1] = 'Lose {C:hpot_plincoin}#1#{} Plincoins,',
+                    [1] = 'Lose {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{},',
                     [2] = '{C:green}#3# in #4#{} chance to',
-                    [3] = 'gain {C:hpot_plincoin}#2#{} Plincoins'
+                    [3] = 'gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#2#{}'
                 }
             },
             c_hpot_collateral = {
@@ -182,7 +182,7 @@ return {
                 ['text'] = {
                     [1] = "A random {C:attention}Joker",
                     [2] = 'becomes {C:attention}Perishable{},',
-                    [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
+                    [3] = 'gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}'
                 }
             },
             c_hpot_cod_account = {
@@ -190,7 +190,7 @@ return {
                 ['text'] = {
                     [1] = "A random {C:attention}Joker",
                     [2] = 'becomes {C:attention}Eternal{},',
-                    [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
+                    [3] = 'gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}'
                 }
             },
             c_hpot_subscription = {
@@ -198,13 +198,13 @@ return {
                 ['text'] = {
                     [1] = "A random {C:attention}Joker",
                     [2] = 'becomes {C:attention}Rental{},',
-                    [3] = 'gain {C:hpot_plincoin}#1#{} Plincoins'
+                    [3] = 'gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}'
                 }
             },
             c_hpot_handful = {
                 ['name'] = 'Handful',
                 ['text'] = {
-                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [1] = "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{},",
                     [2] = '{C:red}-#2#{} hand size'
                 }
             },
@@ -219,7 +219,7 @@ return {
             c_hpot_meteor = {
                 ['name'] = 'Meteor',
                 ['text'] = {
-                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [1] = "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{},",
                     [2] = 'decrease level of',
                     [3] = '{C:attention}most played hand{} by {C:red}#2#',
                     [4] = '{C:inactive}(Currently {C:planet}#3#{C:inactive})'
@@ -228,7 +228,7 @@ return {
             c_hpot_yard_sale = {
                 ['name'] = 'Yard Sale',
                 ['text'] = {
-                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [1] = "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{},",
                     [2] = 'add #2# random',
                     [3] = 'cards to deck',
                 }
@@ -236,7 +236,7 @@ return {
             c_hpot_mystery_box = {
                 ['name'] = 'Mystery Box',
                 ['text'] = {
-                    [1] = "Gain {C:hpot_plincoin}#1#{} Plincoins,",
+                    [1] = "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{},",
                     [2] = '{C:attention}#2#{} random Jokers are',
                     [3] = 'flipped face down',
                     [4] = '{C:inactive}(Shuffles Jokers)'
@@ -247,7 +247,7 @@ return {
             j_hpot_fortnite = {
                 ['name'] = '19 Plincoin Fortnite Card',
                 ['text'] = {
-                    [1] = 'Earn {C:attention}#1#{} {C:hpot_plincoin}Plincoins{} after',
+                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} after',
                     [2] = '{C:attention}#2#{} bosses defeated',
                     [3] = '{C:red,E:2}self destructs',
                     [4] = '{C:inactive,s:0.8}Who wants it?'
@@ -274,7 +274,7 @@ return {
                 ['name'] = 'Tribcoin',
                 ['text'] = {
                     [1] = "{C:white,X:red}X#1#{} Mult for every",
-                    [2] = "{C:hpot_plincoin}Plincoin{} you have",
+                    [2] = "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}1{} you have",
                     [3] = "{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)"
                 }
             },
@@ -315,7 +315,7 @@ return {
             j_hpot_direct_deposit = {
                 ['name'] = 'Direct Deposit',
                 ['text'] = {
-                    [1] = 'Earn {C:hpot_plincoin}#2#{} Plincoin for',
+                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#2#{} for',
                     [2] = 'every {C:money}$#1#{} in {C:attention}Cash Out,',
                     [3] = 'then set {C:attention}Cash Out{} to {C:money}$0',
                     [4] = '{C:inactive}(Currently {C:attention}#3#{C:inactive}/#1#)'
