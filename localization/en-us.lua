@@ -399,6 +399,12 @@ return {
                     "{C:white,X:red}X#1#{} Mult",
                     "Eaten when an ad is closed"
                 }
+            },
+            j_hpot_jade = {
+                name = "Jade Joker",
+                text = {
+                    "Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} at the end of round"
+                }
             }
         },
         Voucher = {
