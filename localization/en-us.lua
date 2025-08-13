@@ -392,6 +392,13 @@ return {
                     "Create a {C:attention}Modded{} Joker",
                     "{C:inactive, s:0.6}slop not included!{}"
                 }
+            },
+            j_hpot_slop = {
+                name = "TV Slop",
+                text = {
+                    "{C:white,X:red}X#1#{} Mult",
+                    "Eaten when an ad is closed"
+                }
             }
         },
         Voucher = {
