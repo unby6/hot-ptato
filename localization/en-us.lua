@@ -428,7 +428,7 @@ return {
                  name = "Arcade Machine",
                 text = {
                     "Add a {C:hpot_plincoin}Plincoin Seal{}",
-                    "to {C:attention}1{} selected",
+                    "to {C:attention}#1#{} selected",
                     "card in your hand",
                 }
             },
@@ -729,13 +729,17 @@ return {
                 text = {
                     "May not display or function correctly",
                     "on modded consumables not from this mod.",
+                    "Displaying incorrectly isn't an indicator",
+                    "of not functioning correctly and vice versa.",
+                    "However, displaying correctly likely means",
+                    "the consumable functions correctly."
                 }
             },
             hpot_death_clarification = {
-                name = "Death with 3+ cards",
+                name = "Notice: Death with 3+ cards",
                 text = {
                     "When Death is used with {C:attention}3 or more{} cards,",
-                    "{C:attention}all cards{} become the right most cards"
+                    "{C:attention}all cards{} become the right most card"
                 }
             }
         },
