@@ -405,6 +405,24 @@ return {
                 text = {
                     "Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} at the end of round"
                 }
+            },
+            j_hpot_login_bonus = {
+                name = "Login Bonus",
+                text = {
+                    {
+                        "At end of round, gain {C:attention}listed reward{} then",
+                        "increase {C:attention}reward number{} by {C:attention}1{}",
+                        "Reset reward number to {C:attention}1{}",
+                        "after gaining reward {C:attention}#7#{}",
+                        "{C:inactive}(Currently reward #8#/#7# with {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#9#{C:inactive} and {C:money}$#10#{C:inactive})"
+                    },
+                    {
+                        "Rewards:",
+                        "Reward 1: {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and {C:money}$#2#",
+                        "Reward 2: {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#3#{} and {C:money}$#4#",
+                        "Reward 3: {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#5#{} and {C:money}$#6#",
+                    }
+                }
             }
         },
         Voucher = {
