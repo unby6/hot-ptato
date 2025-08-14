@@ -818,7 +818,8 @@ return {
     },
     misc = {
         challenge_names = {
-            c_hpot_amateur_magician = "Amateur Magician"
+            c_hpot_amateur_magician = "Amateur Magician",
+            c_hpot_isolated_wizard = "Isolated Wizard"
         },
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)

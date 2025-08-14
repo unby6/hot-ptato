@@ -165,7 +165,7 @@ SMODS.Consumable:take_ownership('lovers',
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
         if (G.GAME.max_highlighted_mod or 0) > 0 then
-            key = key .. "_s"
+            key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
@@ -181,7 +181,7 @@ SMODS.Consumable:take_ownership('chariot',
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
         if (G.GAME.max_highlighted_mod or 0) > 0 then
-            key = key .. "_s"
+            key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
@@ -197,7 +197,7 @@ SMODS.Consumable:take_ownership('justice',
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
         if (G.GAME.max_highlighted_mod or 0) > 0 then
-            key = key .. "_s"
+            key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
@@ -403,7 +403,7 @@ SMODS.Consumable:take_ownership('devil',
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
         if (G.GAME.max_highlighted_mod or 0) > 0 then
-            key = key .. "_s"
+            key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
