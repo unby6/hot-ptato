@@ -432,6 +432,17 @@ return {
                     "(if applicable)"
                 }
             },
+            j_hpot_magic_factory = {
+                name = "Magic Factory",
+                text = {
+                    "Creates a {C:dark_edition}Negative {C:tarot}Tarot{}",
+                    "card when blind is selected",
+                    "All {C:attention}consumables{} can affect",
+                    "{C:red}#1#{} less card",
+                    "{C:inactive}(Minimum of 1)",
+                    "{C:inactive,s:0.8}mass-produced tarotslop"
+                }
+            },
         },
         Voucher = {
             v_hpot_currency_exchange = {

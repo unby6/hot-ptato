@@ -15,7 +15,7 @@ SMODS.Joker {
     discovered = true,
     atlas = 'SillypostingJokers',
     calculate = function (self, card, context)
-        if context.using_consumeable and context.consumeable.ability.max_highlighted then
+        if context.using_consumeable and context.consumeable.ability.max_highlighted and not context.blueprint then
             card.ability.extra.uses_left = card.ability.extra.uses_left - 1
             if card.ability.extra.uses_left <= 0 then
                 G.E_MANAGER:add_event(Event({
