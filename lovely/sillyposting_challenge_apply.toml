@@ -1,0 +1,19 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# apply
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+local _ch = args.challenge
+'''
+position = "after"
+payload = '''
+if _ch.apply and type(_ch.apply) == "function" then
+    _ch:apply()
+end
+'''
+match_indent = true

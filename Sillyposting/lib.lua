@@ -45,10 +45,13 @@ function change_max_highlight(amount) --modifies the max_highlighted_mod variabl
         end
     end]]--
 end
+function init_sillyposting(game)
+  game.max_highlighted_mod = game.max_highlighted_mod or 0
+end
 -- Below this line is a series of take_ownerships made to ensure every consumable works properly with Wizard Tower
 --#region Take ownership maxhighlight stuff
 local usage_check_consumable = function(self, card)
-    return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= math.max(card.ability.max_highlighted + G.GAME.max_highlighted_mod, 1)
+    return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= math.max(card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0), 1)
 end
 --#region Tarots
 local enhancement_tarot_use = function(self, card, area, copier)
@@ -112,8 +115,12 @@ SMODS.Consumable:take_ownership('magician',
     {
     config = { max_highlighted = 2, mod_conv = 'm_lucky' },
     loc_vars = function(self, info_queue, card)
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+            key = key .. "_s"
+        end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -124,8 +131,12 @@ SMODS.Consumable:take_ownership('empress',
     {
     config = { max_highlighted = 2, mod_conv = 'm_mult' },
     loc_vars = function(self, info_queue, card)
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+            key = key .. "_s"
+        end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -136,8 +147,12 @@ SMODS.Consumable:take_ownership('heirophant',
     {
     config = { max_highlighted = 2, mod_conv = 'm_bonus' },
     loc_vars = function(self, info_queue, card)
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+            key = key .. "_s"
+        end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -149,11 +164,11 @@ SMODS.Consumable:take_ownership('lovers',
     config = { max_highlighted = 1, mod_conv = 'm_wild' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -165,11 +180,11 @@ SMODS.Consumable:take_ownership('chariot',
     config = { max_highlighted = 1, mod_conv = 'm_steel' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -181,11 +196,11 @@ SMODS.Consumable:take_ownership('justice',
     config = { max_highlighted = 1, mod_conv = 'm_glass' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -196,7 +211,11 @@ SMODS.Consumable:take_ownership('strength',
     {
     config = { max_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+            key = key .. "_s"
+        end
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -263,7 +282,11 @@ SMODS.Consumable:take_ownership('hanged_man',
     {
     config = { max_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+            key = key .. "_s"
+        end
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = function(self, card, area, copier)
@@ -293,11 +316,15 @@ SMODS.Consumable:take_ownership('death',
     {
     config = { max_highlighted = 2 }, -- used as exact amount of cards to higlight
     loc_vars = function(self, info_queue, card)
+        local key = self.key .. "_v2"
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        if G.GAME.max_highlighted_mod ~= 0 then
-            info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification"}
+        if (G.GAME.max_highlighted_mod or 0) >= 0 then
+            info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification_plus"}
+        elseif (G.GAME.max_highlighted_mod or 0) <= 0 then
+            key = key .. "_s"
+            info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification_minus"}
         end
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
    use = function(self, card, area, copier)
@@ -366,7 +393,7 @@ SMODS.Consumable:take_ownership('death',
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted == math.max(card.ability.max_highlighted + G.GAME.max_highlighted_mod, 1)
+        return G.hand and #G.hand.highlighted == math.max(card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0), 1)
     end
     }
 , true)
@@ -375,11 +402,11 @@ SMODS.Consumable:take_ownership('devil',
     config = { max_highlighted = 1, mod_conv = 'm_gold' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -391,11 +418,11 @@ SMODS.Consumable:take_ownership('tower',
     config = { max_highlighted = 1, mod_conv = 'm_stone' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
     use = enhancement_tarot_use,
@@ -463,7 +490,7 @@ SMODS.Consumable:take_ownership('star',
     {
     config = { max_highlighted = 3, suit_conv = 'Diamonds' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -475,7 +502,7 @@ SMODS.Consumable:take_ownership('moon',
     {
     config = { max_highlighted = 3, suit_conv = 'Clubs' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -487,7 +514,7 @@ SMODS.Consumable:take_ownership('sun',
     {
     config = { max_highlighted = 3, suit_conv = 'Hearts' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -499,7 +526,7 @@ SMODS.Consumable:take_ownership('world',
     {
     config = { max_highlighted = 3, suit_conv = 'Spades' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod,
+        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -515,11 +542,11 @@ SMODS.Consumable:take_ownership('talisman',
     config = { extra = { seal = 'Gold' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -557,13 +584,13 @@ SMODS.Consumable:take_ownership('aura',
     config = { max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
         info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         for _, v in ipairs(G.hand.highlighted) do
@@ -588,11 +615,11 @@ SMODS.Consumable:take_ownership('deja_vu',
     config = { extra = { seal = 'Red' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -630,11 +657,11 @@ SMODS.Consumable:take_ownership('trance',
     config = { extra = { seal = 'Blue' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -672,11 +699,11 @@ SMODS.Consumable:take_ownership('medium',
     config = { extra = { seal = 'Purple' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { key = key, vars = { card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -714,10 +741,10 @@ SMODS.Consumable:take_ownership('cryptid',
     config = { max_highlighted = 1, extra = { cards = 2 } },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if G.GAME.max_highlighted_mod > 0 then
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
-        return { key = key, vars = { card.ability.extra.cards, card.ability.max_highlighted + G.GAME.max_highlighted_mod } }
+        return { key = key, vars = { card.ability.extra.cards, math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)) } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({

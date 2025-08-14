@@ -1,0 +1,25 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''self.GAME = saveTable and saveTable.GAME or self:init_game_object()'''
+payload = '''
+init_sillyposting(self.GAME)
+'''
+match_indent = true
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+position = 'at'
+pattern = '''
+if self.ability.consumeable.mod_num >= #G.hand.highlighted and #G.hand.highlighted >= (self.ability.consumeable.min_highlighted or 1) then
+'''
+payload = '''
+if (self.ability.consumeable.mod_num + G.GAME.max_highlighted_mod) >= #G.hand.highlighted and #G.hand.highlighted >= (self.ability.consumeable.min_highlighted or 1) then
+'''
+match_indent = true
