@@ -1,12 +1,14 @@
 SMODS.Joker {
     key = "jade",
-    --still needs art!
     config = { extra = { coins = 4 } },
     loc_vars = function (self, info_queue, card)
         return { vars = { card.ability.extra.coins } }
     end,
+    pos = { x = 4, y = 0 },
+    atlas = "SillypostingJokers",
     rarity = 3,
     cost = 10,
+    discovered = true,
     calculate = function (self, card, context)
         if context.pk_cashout_row then
             local new_config = context.pk_cashout_row
@@ -18,6 +20,7 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         code = {"Eris"},
+        art = {"Jaydchw"},
         team = {"Sillyposting"}
     }
 }

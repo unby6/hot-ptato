@@ -56,7 +56,7 @@ SMODS.Joker { --Recycling
             dollars_extra = 4,
         }
     },
-    pos = { x = 0, y = 0 },
+    pos = { x = 2, y = 0 },
     cost = 1,
     rarity = 1,
     blueprint_compat = true,
@@ -64,10 +64,10 @@ SMODS.Joker { --Recycling
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkeocoinjokers', -- Placeholder
+    atlas = "SillypostingJokers",
 
     hotpot_credits = {
-        art = { 'TODO' },
+        art = { 'Jaydchw' },
         code = { 'TODO' },
         team = { 'Sillyposting' }
     },
@@ -108,5 +108,6 @@ SMODS.Joker { --Recycling
             end
         elseif context.end_of_round and context.cardarea == G.jokers then
         end
-    end
+    end,
+
 }

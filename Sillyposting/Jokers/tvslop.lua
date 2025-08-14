@@ -1,12 +1,14 @@
 SMODS.Joker {
     key = "slop",
-    --still needs sprite
     config = { extra = { xmult = 2 } },
     loc_vars = function (self, info_queue, card)
         return { vars = { card.ability.extra.xmult } }
     end,
+    atlas = "SillypostingJokers",
+    pos = { x = 3, y = 0 },
     rarity = 1,
     cost = 4,
+    discovered = true,
     blueprint_compat = true,
     eternal_compat = false,
     calculate = function(self, card, context)
@@ -45,6 +47,7 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         code = {"Eris"},
+        art = {"Jaydchw"},
         team = {"Sillyposting"}
     }
 }
