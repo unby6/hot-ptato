@@ -906,6 +906,19 @@ return {
                 [1] = 'this dialogue crashes the game',
                 [2] = '(chat, pretend streamer just bluescreened)'
             },
+            bc_13 = {
+                [1] = 'Though Wheel of Fortune\'s listed odds',
+                [2] = 'are 1 in 4, its actual odds are 1 in 40!'
+            },
+            bc_14 = {
+                [1] = 'According to a 2025 survey,',
+                [2] = '80% of players prefer me over Chicot!',
+                [3] = "{C:inactive,s:0.8}Ignore the fact it was a survey of 5 people"
+            },
+            bc_15 = {
+                [1] = '98% of Balatro fans',
+                [2] = 'cannot read!'
+            }
         },
         dictionary = {
             b_czech_cards = 'Cheque Cards',

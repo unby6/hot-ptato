@@ -1375,7 +1375,7 @@ SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE
 
         --                                               vvv HERE FOR QUIP POOL
 
-        perkolator:add_speech_bubble("bc_"..math.random(1,12), nil, {quip = true})
+        perkolator:add_speech_bubble("bc_"..math.random(1,15), nil, {quip = true})
 
         --                                               ^^^ THAT SECOND NUMBER RIGHT THERE THANK YOU
 
