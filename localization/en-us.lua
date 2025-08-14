@@ -969,6 +969,10 @@ return {
             bc_15 = {
                 [1] = '98% of Balatro fans',
                 [2] = 'cannot read!'
+            },
+            bc_16 = {
+                [1] = 'Generally, buying an Eternal',
+                [2] = 'Cartomancer is a bad move!'
             }
         },
         dictionary = {
