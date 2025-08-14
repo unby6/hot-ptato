@@ -5,7 +5,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.xmult } }
     end,
     atlas = "SillypostingJokers",
-    pos = { x = 3, y = 0 },
+    pos = { x = 4, y = 0 },
     rarity = 1,
     cost = 4,
     discovered = true,
