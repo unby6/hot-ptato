@@ -34,3 +34,28 @@ SMODS.Tag {
         team = {'Sillyposting'}
     },
 }
+SMODS.Tag {
+    key = "plincoin",
+    atlas = "SillypostingTags",
+    pos = { x = 1, y = 0 },
+    config = { plincoins = 3 },
+    loc_vars = function(self, info_queue, tag)
+        return { vars = { tag.config.plincoins } }
+    end,
+    apply = function(self, tag, context)
+        if context.type == 'eval' then
+            if G.GAME.last_blind and G.GAME.last_blind.boss then
+                tag:yep('+', SMODS.Gradients.hpot_plincoin, function()
+                    ease_plincoins(tag.config.plincoins)
+                    return true
+                end)
+                tag.triggered = true
+            end
+        end
+    end,
+    hotpot_credits = {
+        art = {'Superb Thing'},
+        code = {'UnusedParadox'},
+        team = {'Sillyposting'}
+    },
+}

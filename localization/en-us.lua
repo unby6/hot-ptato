@@ -832,6 +832,14 @@ return {
                     "{C:hpot_czech}Mega Cheque Pack",
                 },
             },
+            tag_hpot_plincoin = {
+                name = "Plincoin Tag",
+                text = {
+                    "After defeating",
+                    "the Boss Blind,",
+                    "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
+                },
+            },
         },
     },
     misc = {
