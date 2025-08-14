@@ -423,7 +423,15 @@ return {
                         "Reward 3: {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#5#{} and {C:money}$#6#",
                     }
                 }
-            }
+            },
+            j_hpot_golden_apple = {
+                name = "Golden Apple",
+                text = {
+                    "The next {C:attention}#1#{} used consumables",
+                    "can affect {C:attention}#2#{} extra card",
+                    "(if applicable)"
+                }
+            },
         },
         Voucher = {
             v_hpot_currency_exchange = {
@@ -708,11 +716,27 @@ return {
                     "to {V:1}#2#{}",
                 },
             },
+            c_moon_v2_s = {
+                name = "The Moon",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected card",
+                    "to {V:1}#2#{}",
+                },
+            },
             c_star_v2 = {
                 name = "The Star",
                 text = {
                     "Converts up to",
                     "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_star_v2_s = {
+                name = "The Star",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected card",
                     "to {V:1}#2#{}",
                 },
             },
@@ -740,6 +764,14 @@ return {
                     "to {V:1}#2#{}",
                 },
             },
+            c_sun_v2_s = {
+                name = "The Sun",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected card",
+                    "to {V:1}#2#{}",
+                },
+            },
             c_tower_v2 = {
                 name = "The Tower",
                 text = {
@@ -761,6 +793,14 @@ return {
                 text = {
                     "Converts up to",
                     "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_world_v2_s = {
+                name = "The World",
+                text = {
+                    "Converts up to",
+                    "{C:attention}#1#{} selected card",
                     "to {V:1}#2#{}",
                 },
             },

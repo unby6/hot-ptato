@@ -18,8 +18,8 @@ SMODS.Joker {
         end
         return { vars = vars }
     end,
-    rarity = 2,
-    cost = 8,
+    rarity = 1,
+    cost = 5,
     pos = { x = 2, y = 0 },
     blueprint_compat = false,
     eternal_compat = true,

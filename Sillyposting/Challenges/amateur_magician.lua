@@ -23,5 +23,6 @@ SMODS.Challenge {
         {id = "c_cryptid"},
         {id = "c_hpot_arcade_machine"},
         {id = "j_hpot_wizard_tower"},
+        {id = "j_hpot_golden_apple"},
     }, banned_other = {}}
 }

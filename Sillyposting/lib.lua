@@ -490,7 +490,11 @@ SMODS.Consumable:take_ownership('star',
     {
     config = { max_highlighted = 3, suit_conv = 'Diamonds' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+            key = key .. "_s"
+        end
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -502,7 +506,11 @@ SMODS.Consumable:take_ownership('moon',
     {
     config = { max_highlighted = 3, suit_conv = 'Clubs' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+            key = key .. "_s"
+        end
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -514,7 +522,11 @@ SMODS.Consumable:take_ownership('sun',
     {
     config = { max_highlighted = 3, suit_conv = 'Hearts' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+            key = key .. "_s"
+        end
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
@@ -526,7 +538,11 @@ SMODS.Consumable:take_ownership('world',
     {
     config = { max_highlighted = 3, suit_conv = 'Spades' },
     loc_vars = function(self, info_queue, card)
-        return { key = self.key .. "_v2", vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
+        local key = self.key .. "_v2"
+        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+            key = key .. "_s"
+        end
+        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)),
         localize(card.ability.suit_conv, 'suits_plural'),
         colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
