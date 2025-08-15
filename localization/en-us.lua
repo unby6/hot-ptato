@@ -892,6 +892,15 @@ return {
                 },
             },
         },
+        Edition = {
+            e_hpot_psychedelic = {
+                name = "Psychedelic",
+                text = {
+                    "{C:green}#1# in #2#{} chance",
+                    "to upgrade played hand"
+                }
+            }
+        }
     },
     misc = {
         challenge_names = {
