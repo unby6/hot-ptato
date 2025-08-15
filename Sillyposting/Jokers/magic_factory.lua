@@ -5,7 +5,7 @@ SMODS.Joker {
     cost = 6,
     discovered = true,
     atlas = "SillypostingJokers",
-    pos = { x = 0, y = 0 },
+    pos = { x = 6, y = 0 },
     config = { extra = { bonus_highlight = -1 } },
     loc_vars = function (self, info_queue, card)
         return { vars = { math.abs(card.ability.extra.bonus_highlight) } }
@@ -41,7 +41,7 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {"TODO"},
+        art = {"Jaydchw"},
         code = {"UnusedParadox"},
         team = {"Sillyposting"}
     }
