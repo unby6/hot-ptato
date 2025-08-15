@@ -20,7 +20,7 @@ SMODS.Joker {
     end,
     rarity = 1,
     cost = 5,
-    pos = { x = 2, y = 0 },
+    pos = { x = 5, y = 0 },
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
@@ -44,7 +44,7 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {"TODO"},
+        art = {"Jaydchw"},
         code = {"UnusedParadox"},
         team = {"Sillyposting"}
     }

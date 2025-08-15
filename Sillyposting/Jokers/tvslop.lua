@@ -46,7 +46,7 @@ SMODS.Joker {
         return G.GAME.pool_flags.tv_dinner_eaten
     end,
     hotpot_credits = {
-        art = { 'UnusedParadox' },
+        art = { 'UnusedParadox & Jaydchw' },
         code = { 'Eris' },
         team = { 'Sillyposting' }
     },
