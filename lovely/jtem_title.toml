@@ -1,0 +1,21 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.copy]
+sources = ["Jtem/titletext.lua"]
+target = "conf.lua"
+position = "prepend"
+
+
+
+[[patches]]
+[patches.pattern]
+target = 'conf.lua'
+position = 'at'
+pattern = "t.title = 'Balatro'"
+payload = '''
+t.title = "Balatro: "..HPJTTT.text[HPJTTT.chosen] '''
+match_indent = true

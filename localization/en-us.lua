@@ -1,5 +1,15 @@
 return {
     descriptions = {
+        Back = {
+            b_hpot_domn = {
+                name = "The Deck of Many Names",
+                text = {
+                    "(Replace text during final teams turn)",
+                    "This is meant to be a deck that","every team adds ideas to",
+                    "go ham, deck is at Jtem/deck.lua"
+                }
+            }
+        },
         bottlecap = {
             c_hpot_cap_money = {
                 ['name'] = 'Money',
