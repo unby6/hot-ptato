@@ -17,5 +17,9 @@ target = 'conf.lua'
 position = 'at'
 pattern = "t.title = 'Balatro'"
 payload = '''
-t.title = "Balatro: "..HPJTTT.text[HPJTTT.chosen] '''
+if HPJTTT.balala then
+    t.title = "Balala"
+else
+t.title = "Balatro: "..HPJTTT.text[HPJTTT.chosen]
+end'''
 match_indent = true
