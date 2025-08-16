@@ -1,0 +1,1 @@
+SMODS.Atlas({ key = "SillypostingBlinds", path = "Sillyposting/Blinds.png", px = 34, py = 34, asset_table = "ANIMATION_ATLAS", frames = 21}):register()
