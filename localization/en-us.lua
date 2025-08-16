@@ -905,7 +905,8 @@ return {
             bl_hpot_quartz = {
                 name = "The Quartz",
                 text = {
-                    "Lose {f:hpot_plincoin}${}1 when hand is played"
+                    "Lose {f:hpot_plincoin}${}1 when",
+                    "hand is played"
                 }
             }
         }
