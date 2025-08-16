@@ -17,7 +17,8 @@ SMODS.Edition { --doesnt have unique sound yet!
         if context.before and context.main_eval and SMODS.pseudorandom_probability(card, "hpot_psych", 1, card.edition.odds ) then
             return {
                 level_up = true,
-                message = "k_upgrade_ex"
+                message = "k_upgrade_ex",
+                colour = G.C.DARK_EDITION
             }
         end
     end
