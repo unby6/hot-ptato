@@ -21,5 +21,10 @@ SMODS.Edition { --doesnt have unique sound yet!
                 colour = G.C.DARK_EDITION
             }
         end
-    end
+    end,
+    hotpot_credits = {
+        art = {"Superb"},
+        code = {"Eris"},
+        team = {"Sillyposting"}
+    }
 }

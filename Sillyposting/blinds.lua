@@ -12,5 +12,10 @@ SMODS.Blind {
         if not blind.disabled and context.press_play then
             ease_plincoins(-1)
         end
-    end
+    end,
+    hotpot_credits = {
+        art = {"Superb"},
+        code = {"Eris"},
+        team = {"Sillyposting"}
+    }
 }
