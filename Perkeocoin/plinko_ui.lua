@@ -83,7 +83,7 @@ SMODS.Sound {
   key = "music_plinko_stupid",
   path = "music_plinko_stupid.ogg",
   select_music_track = function (self)
-    if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.is_stupid then
+    if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.changed == "stupid" then
       return 1338
     end
   end
@@ -94,11 +94,16 @@ function PlinkoUI.f.init_sprites()
 
   local orb_size = 0.343
   if not PlinkoUI.sprites.perkeorb then
-    PlinkoUI.sprites.perkeorb = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_perkeorb'])
+    PlinkoUI.sprites.perkeorbOG = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_perkeorb'])
+    PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
   end
 
   if not PlinkoUI.sprites.stupidorb then
     PlinkoUI.sprites.stupidorb = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_stupidorb'])
+  end
+
+  if not PlinkoUI.sprites.morb then
+    PlinkoUI.sprites.morb = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_morb'])
   end
 
   if not PlinkoUI.sprites.peg then

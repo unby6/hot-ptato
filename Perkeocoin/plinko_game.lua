@@ -345,13 +345,18 @@ local function s(t,a,b)t[a],t[b]=t[b],t[a]end
 
 function PlinkoGame.f.init_dummy_ball()
     PlinkoGame.f.remove_balls()
-
-    if PlinkoUI.sprites.is_stupid then
-        PlinkoUI.sprites.is_stupid = false
-        s(PlinkoUI.sprites,"perkeorb","stupidorb")
-    elseif math.random(100) == 69 then
-        PlinkoUI.sprites.is_stupid = true
-        s(PlinkoUI.sprites,"perkeorb","stupidorb")
+    PlinkoUI.f.init_sprites()
+    local choice = math.random(100)
+    if choice  == 69 then
+        PlinkoUI.sprites.changed = "stupid"
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.stupidorb
+        --this following code added by JTEM for other orbs
+    elseif  choice >= 90  then
+        PlinkoUI.sprites.changed = "morb"
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.morb
+    else
+         PlinkoUI.sprites.changed = nil
+         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
     end
 
     PlinkoGame.o.dummy_ball = fix {
