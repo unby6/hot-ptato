@@ -63,7 +63,8 @@ HPJTTT = {
         "Friends of Jimbo Edition",
         "Great Value Blueberries",
         "Wordle in #general",
-        "posted gore award"
+        "posted gore award",
+        "now with big naturals"
     }
 }
 
