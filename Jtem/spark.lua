@@ -31,7 +31,7 @@ function create_UIBox_HUD()
 									nodes = {
 										{
 											n = G.UIT.C,
-											config = { id = 'spark_text_label', align = "tl", minw = 2.85 },
+											config = { align = "tl", minw = 2.85 },
 											nodes = {
 												{
 													n = G.UIT.R,
@@ -40,7 +40,7 @@ function create_UIBox_HUD()
 												{
 													n = G.UIT.T,
 													-- Having to add manual spaces fucking SUCKS
-													config = { text = '    Joker points:', colour = G.C.UI.TEXT_LIGHT, scale = 0.8 * scale }
+													config = { text = '    Joker points:', colour = G.C.UI.TEXT_LIGHT, scale = 0.8 * scale, id = 'spark_text_label' }
 												}
 											}
 										},
