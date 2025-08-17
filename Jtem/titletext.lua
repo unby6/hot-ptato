@@ -39,7 +39,9 @@ HPJTTT = {
         "Mental breakdown in the Balatro modding channel?",
         "Electric boogaloo!",
         "YES SKIP TRAINING",
-        "Now includes PhotoChad™"
+        "Now includes PhotoChad™",
+        "After nine years of development, hopefully itll be worth the wait!",
+        "Blue Stake, yet to be reworked."
     }
 }
 
