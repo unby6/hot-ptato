@@ -40,7 +40,7 @@ HPJTTT = {
         "Electric boogaloo!",
         "YES SKIP TRAINING",
         "Now includes PhotoChad™",
-        "After nine years of development, hopefully itll be worth the wait!",
+        "After nine years in development, hopefully itll be worth the wait!",
         "Blue Stake, yet to be reworked.",
         "Featuring Dante from the Devil May Cry series",
         "New Funky Mode!",
@@ -58,7 +58,12 @@ HPJTTT = {
         "There's so much OREO Chocolate Sandwich Cookies, 14.3oz!",
         "AGAIN!",
         "Let's take a look...",
-        "Without the AI slop!"
+        "Without the AI slop!",
+        ">looks inside",
+        "Friends of Jimbo Edition",
+        "Great Value Blueberries",
+        "Wordle in #general",
+        "posted gore award"
     }
 }
 
