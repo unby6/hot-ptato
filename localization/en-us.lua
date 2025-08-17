@@ -453,6 +453,36 @@ return {
                     "{C:inactive,s:0.8}mass-produced tarotslop"
                 }
             },
+            j_hpot_jtemj = {
+                name = "J",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult"
+                }
+            },
+            j_hpot_jtemo = {
+                name = "O",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult"
+                }
+            },
+            j_hpot_jtemk = {
+                name = "K",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult"
+                }
+            },
+            j_hpot_jteme = {
+                name = "E",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult"
+                }
+            },
+            j_hpot_jtemr = {
+                name = "R",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult"
+                }
+            }
         },
         Voucher = {
             v_hpot_currency_exchange = {
