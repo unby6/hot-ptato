@@ -64,7 +64,11 @@ HPJTTT = {
         "Great Value Blueberries",
         "Wordle in #general",
         "posted gore award",
-        "now with big naturals"
+        "now with big naturals",
+        "DOES SENDING HTTP REQUEST COUNT AS FAIR GAME???",
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "its peaj...",
+        "Rocket, my beloved <3"
     }
 }
 
