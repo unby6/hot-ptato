@@ -1022,6 +1022,8 @@ return {
             hotpot_plinko_reset1 = "Cost reset in",
             hotpot_plinko_reset2_round = " round",
             hotpot_plinko_reset2_ante = " ante",
+
+            hotpot_spark_points = "Joker Exchange",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',

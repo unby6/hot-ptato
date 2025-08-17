@@ -1,5 +1,45 @@
 -- This is by far the worst thing added probably
 
+function ease_spark_points(mod, instant)
+	local function _mod(mod)
+		local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
+		mod = mod or 0
+		local text = '+'
+		local col = G.C.BLUE
+		if mod < 0 then
+			text = '-'
+			col = G.C.RED
+		end
+		--Ease from current chips to the new number of chips
+		G.GAME.spark_points = G.GAME.spark_points + mod
+		check_for_unlock({ type = 'spark_points' })
+		dollar_UI.config.object:update()
+		G.HUD:recalculate()
+		--Popup text next to the chips in UI showing number of chips gained/lost
+		attention_text({
+			text = text .. tostring(math.abs(mod)),
+			scale = 0.8,
+			hold = 0.7,
+			cover = dollar_UI.parent,
+			cover_colour = col,
+			align = 'cm',
+		})
+		--Play a chip sound
+		play_sound('coin1')
+	end
+	if instant then
+		_mod(mod)
+	else
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = function()
+				_mod(mod)
+				return true
+			end
+		}))
+	end
+end
+
 local c_u_h_ref = create_UIBox_HUD
 function create_UIBox_HUD()
 	local nodes = c_u_h_ref()
@@ -27,7 +67,7 @@ function create_UIBox_HUD()
 							nodes = {
 								{
 									n = G.UIT.C,
-									config = { align = "cm", r = 0.1, minw = 2.85, minh = 0.5, colour = temp_col2, padding = -0.8*scale },
+									config = { align = "cm", r = 0.1, minw = 2.85, minh = 0.5, colour = temp_col2, padding = -0.8 * scale, id = 'spark_text_UI' },
 									nodes = {
 										{
 											n = G.UIT.C,
@@ -40,7 +80,7 @@ function create_UIBox_HUD()
 												{
 													n = G.UIT.T,
 													-- Having to add manual spaces fucking SUCKS
-													config = { text = '    Joker points:', colour = G.C.UI.TEXT_LIGHT, scale = 0.8 * scale, id = 'spark_text_label' }
+													config = { text = '    ' .. localize('hotpot_spark_points'), colour = G.C.UI.TEXT_LIGHT, scale = 0.8 * scale, id = 'spark_text_label' }
 												}
 											}
 										},
@@ -64,8 +104,7 @@ function create_UIBox_HUD()
 															spacing = 2,
 															bump = true,
 															scale = 0.8 * scale
-														},
-														id = 'spark_text_UI'
+														}
 													}
 												}
 											}
@@ -80,14 +119,4 @@ function create_UIBox_HUD()
 		})
 
 	return nodes
-end
-
-local i_g_o_ref = Game.init_game_object
-function Game:init_game_object()
-	local game = i_g_o_ref(self)
-
-	-- obviously you start with NOTHING !!!!
-	game.spark_points = 0
-
-	return game
 end

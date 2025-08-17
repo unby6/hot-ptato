@@ -5,6 +5,16 @@ priority = 0
 
 [[patches]]
 [patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''self.GAME = saveTable and saveTable.GAME or self:init_game_object()'''
+payload = '''
+init_jtem(self.GAME)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
 target = '''globals.lua'''
 position = 'at'
 pattern = '''VERSION = '1.0.1o'
