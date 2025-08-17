@@ -1,4 +1,4 @@
-SMODS.Atlas({ key = "SillypostingBlinds", path = "Sillyposting/Blinds.png", px = 34, py = 34, asset_table = "ANIMATION_ATLAS", frames = 21}):register()
+SMODS.Atlas({ key = "SillypostingBlinds", path = "Sillyposting/Blinds.png", px = 34, py = 34, atlas_table = "ANIMATION_ATLAS", frames = 21})
 
 SMODS.Blind {
     key = "quartz",
