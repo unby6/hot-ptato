@@ -41,7 +41,24 @@ HPJTTT = {
         "YES SKIP TRAINING",
         "Now includes PhotoChad™",
         "After nine years of development, hopefully itll be worth the wait!",
-        "Blue Stake, yet to be reworked."
+        "Blue Stake, yet to be reworked.",
+        "Featuring Dante from the Devil May Cry series",
+        "New Funky Mode!",
+        "Whose idea was this?!",
+        "attempt to compare nil with number",
+        "+1 Plasmid",
+        "& Knuckles",
+        "Numberslop!",
+        "Only 20% cringe!",
+        "Why are all my cards sliding around?",
+        "Banned forever!",
+        "All toasters toast toast!",
+        "Skate2Win and MySpace are no match for me!",
+        "Not funny, didn't laugh!",
+        "There's so much OREO Chocolate Sandwich Cookies, 14.3oz!",
+        "AGAIN!",
+        "Let's take a look...",
+        "Without the AI slop!"
     }
 }
 
