@@ -13,7 +13,22 @@ HPJTTT = {
         "guess you're really feeling the BALATRO",
         "Hey folks! In today's video we're back with another unseeded high score Balatro run. Here, after running a lot of Baron/Mime builds recently, I decided to work towards an Idol after receiving a lot of Queens and several Immolates in the early game. The result was one of the best Flush Five builds I've ever put together. Enjoy the video! ",
         "Ship It",
-        "Go Next"
+        "Go Next",
+"You should play Finity!",
+"You should play JoyousSpring!",
+"You should play Aikoyori's Shenanigans!",
+"You should play Paya's Terrible Additions!",
+"Nxkoo found dead in Miami",
+"Too many decks!",
+"Isn't this splash text from Potassium?",
+"Entropy did it!",
+"HE HAS A GUN",
+"My wife left me!",
+"Not sponsored!",
+"100% Unsatisfied!",
+"Still a better love story than Twilight!",
+"Still a better love story than Wedding Dash 3!",
+"Not compatible with Balamod!",
     }
 }
 
