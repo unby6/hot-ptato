@@ -68,7 +68,9 @@ HPJTTT = {
         "DOES SENDING HTTP REQUEST COUNT AS FAIR GAME???",
         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "its peaj...",
-        "Rocket, my beloved <3"
+        "Rocket, my beloved <3",
+        "squid i am going to strap you to the back of the tsar bomba and email you to the nearest binary star system",
+        "NOTHING !!!!",
     }
 }
 
