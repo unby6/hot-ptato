@@ -79,7 +79,7 @@ function create_UIBox_HUD()
 												{
 													n = G.UIT.T,
 													-- Having to add manual spaces fucking SUCKS
-													config = { text = '    ' .. localize('hotpot_spark_points'), colour = G.C.UI.TEXT_LIGHT, scale = 0.8 * scale, id = 'spark_text_label' }
+													config = { text = '   ' .. localize('hotpot_spark_points'), colour = G.C.UI.TEXT_LIGHT, scale = 0.8 * scale, id = 'spark_text_label', shadow = true }
 												}
 											}
 										},
