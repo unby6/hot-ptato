@@ -2,7 +2,7 @@
 
 function ease_spark_points(mod, instant)
 	local function _mod(mod)
-		local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
+		local dollar_UI = G.HUD:get_UIE_by_ID('spark_text_UI')
 		mod = mod or 0
 		local text = '+'
 		local col = G.C.BLUE
@@ -13,14 +13,13 @@ function ease_spark_points(mod, instant)
 		--Ease from current chips to the new number of chips
 		G.GAME.spark_points = G.GAME.spark_points + mod
 		check_for_unlock({ type = 'spark_points' })
-		dollar_UI.config.object:update()
 		G.HUD:recalculate()
 		--Popup text next to the chips in UI showing number of chips gained/lost
 		attention_text({
 			text = text .. tostring(math.abs(mod)),
-			scale = 0.8,
+			scale = 0.8*0.4,
 			hold = 0.7,
-			cover = dollar_UI.parent,
+			cover = dollar_UI,
 			cover_colour = col,
 			align = 'cm',
 		})
