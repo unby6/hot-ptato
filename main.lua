@@ -160,5 +160,13 @@ end
 HotPotato.optional_features = {
 	
 }
-
+HotPotato.extra_tabs = function ()
+	return {
+		--nxclicker
+		{
+			label = "Kill Nxkoo",
+			tab_definition_function = G.UIDEF.nxclicker
+		}
+	}
+end
 --#endregion

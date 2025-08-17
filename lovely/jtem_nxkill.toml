@@ -1,0 +1,14 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'at'
+pattern = '''play_sound('button', 1, 0.3)'''
+payload = '''
+if not self.config.nosound then play_sound('button', 1, 0.3) end
+'''
+match_indent = true
