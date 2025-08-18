@@ -32,6 +32,11 @@ SMODS.Sound {
   end
 }
 
+SMODS.Sound {
+  key = "ws_again",
+  path = "sfx_again.ogg"
+}
+
 SMODS.Atlas {
   key = "jtemads",
   path = "Ads/Jtem.png",

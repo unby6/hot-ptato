@@ -488,7 +488,17 @@ return {
                 text = {
                     "For every {C:attention}#1#{} Nxkoo's killed",
                     "this card gains {X:mult,C:white}X#2#{}",
+                    "{C:inactive}(Max of {X:mult,C:white}X15{C:inactive} Mult)",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                }
+            },
+            j_hpot_retriggered = {
+                name = "what if there was a joker that retriggered",
+                text = {
+                    "Retriggers every card",
+                    "{C:attention}#1#{} additional time",
+                    "{C:inactive}Wait, isn't this just Boredom?",
+                    "{C:inactive}You'll see."
                 }
             }
         },
