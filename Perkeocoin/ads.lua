@@ -157,7 +157,7 @@ function Game:start_run(args)
             new_ad:align_to_major()
             new_ad.config.major = nil
             new_ad:set_role{role_type = 'Major'}
-            new_ad:hard_set_T(v.position.x, v.position.y)
+            new_ad:hard_set_T(v.position.x, v.position.y,new_ad.T.w, new_ad.T.h)
             G.GAME.hotpot_ads[k] = new_ad
         end
     end
