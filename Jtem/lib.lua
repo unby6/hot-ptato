@@ -30,3 +30,11 @@ function ease_splash_text(delta, reset)
         end
     }), "splash_text")
 end
+
+function simple_add_event(func, config)
+    config = config or { delay = 0, trigger = "after"}
+    G.E_MANAGER:add_event(Event{
+        func = func,
+        unpack(config)
+    })
+end

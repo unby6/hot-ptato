@@ -62,6 +62,19 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+  key = "jtem_postlatro",
+  path = "Jtem/postlatro.png",
+  px = 113,py = 57,
+  frames = 4, atlas_table = 'ANIMATION_ATLAS'
+}
+
+SMODS.Atlas {
+  key = "jtem_aikoshen1",
+  path = "Ads/aikoshenad1.png",
+  px = 179,py = 97,
+}
+
+SMODS.Atlas {
   key = "jtemrally",
   path = "Ads/rally.png",
   px = 240,py = 320,
