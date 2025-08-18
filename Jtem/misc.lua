@@ -32,6 +32,22 @@ SMODS.Sound {
   end
 }
 
+SMODS.Sound {
+  key = "sfx_whistleup",
+  path = "sfx_whistleup.ogg",
+}
+
+SMODS.Sound {
+  key = "sfx_whistledown",
+  path = "sfx_whistledown.ogg",
+}
+
+SMODS.Atlas {
+  key = "jtem_pkg",
+  path = "Jtem/package_icon.png",
+  px = 34,py = 34
+}
+
 SMODS.Atlas {
   key = "jtemads",
   path = "Ads/Jtem.png",

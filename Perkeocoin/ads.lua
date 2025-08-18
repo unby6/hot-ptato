@@ -92,7 +92,7 @@ function create_UIBox_ad(args)
                 {n=G.UIT.T, config = {text = 'ad_'..adNum, colour = G.C.UI.TEXT_LIGHT, scale = 0.4, align = 'cl'}}
             }},
             {n=G.UIT.C, config = {align = 'cm', colour = G.C.RED, minw = 0.3, minh = 0.3, r = 0.3, button = 'remove_ad', adnum = adNum}, nodes = {
-                {n=G.UIT.T, config = {text = 'X', colour = G.C.UI.TEXT_LIGHT, scale = 0.4}}
+                {n=G.UIT.T, config = {text = 'x', colour = G.C.UI.TEXT_LIGHT, scale = 0.4}}
             }}
         }},
         tutorial_content,
