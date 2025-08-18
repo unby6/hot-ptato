@@ -48,6 +48,11 @@ SMODS.Atlas {
   px = 34,py = 34
 }
 
+SMODS.Sound {
+  key = "ws_again",
+  path = "sfx_again.ogg"
+}
+
 SMODS.Atlas {
   key = "jtemads",
   path = "Ads/Jtem.png",
