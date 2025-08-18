@@ -347,7 +347,6 @@ function PlinkoGame.f.init_dummy_ball()
     PlinkoGame.f.remove_balls()
     PlinkoUI.f.init_sprites()
     local choice = math.random(100)
-    print(choice)
     if choice  == 69 or choice == 42 then
         PlinkoUI.sprites.changed = "stupid"
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.stupidorb
