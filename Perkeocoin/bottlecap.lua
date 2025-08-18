@@ -898,11 +898,11 @@ SMODS.Consumable { --Pack
  	end,
 
     can_use = function(self, card)
-        return G.shop
+        return G.shop or G.GAME.modifiers.hpot_plinko_4ever
     end,
 
     use = function(self, card, area, copier)
-        if G.shop then
+        if G.shop or G.GAME.modifiers.hpot_plinko_4ever then
             local key = {}
                 for k, v in pairs(G.P_CENTERS) do
                     if v.set == 'Booster' and string.find(k, string.lower(card.ability.extra[card.ability.extra.chosen][2])) ~= nil then

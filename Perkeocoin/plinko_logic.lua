@@ -198,6 +198,7 @@ function PlinkoLogic.f.update_roll_cost()
 end
 
 function PlinkoLogic.f.change_roll_cost(new_val)
+  if G.GAME.modifiers.hpot_plinko_4ever then new_val = 0 end
   G.GAME.current_round.plinko_roll_cost = new_val
   G.GAME.current_round.plinko_roll_cost_dollars = G.GAME.plinko_dollars_cost and (G.GAME.plinko_dollars_cost * G.GAME.current_round.plinko_roll_cost)
 end
