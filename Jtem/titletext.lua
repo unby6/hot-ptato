@@ -121,6 +121,11 @@ HPJTTT = {
         "Update your Steamodded",
         "Compatible with Windows, macOS, and Linux!",
         "why is my patch not working",
+        "the second currency has hit the hot pot",
+        "+4 Mult",
+        ":blunder:",
+        "Imagine knowing what you are doing",
+        "May the Soul be in Arcana Pack",
         "Speed, Power, Stamina",
     }
 }

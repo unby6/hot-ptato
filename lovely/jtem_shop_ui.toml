@@ -1,0 +1,38 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+position = 'before'
+pattern = '''              }, false)'''
+payload = '''G.UIDEF.hotpot_jtem_shop_delivery_btn()'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'after'
+pattern = '''                if self.config.vert then love.graphics.translate(0,self.VT.h); love.graphics.rotate(-math.pi/2) end'''
+payload = '''if self.config.opposite_vert then love.graphics.translate(self.VT.w, 0 ); love.graphics.rotate(math.pi/2) end'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'after'
+pattern = '''            if node.config.vert then local thunk = tx; tx = ty; ty = thunk end'''
+payload = '''            if node.config.opposite_vert then local thunk = tx; tx = ty; ty = thunk end'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+position = 'after'
+pattern = '''                        {n=G.UIT.O, config={object = G.shop_booster}},
+                      }},
+                    }}'''
+payload = ''',G.UIDEF.hotpot_jtem_shop_delivery_section()'''
+match_indent = true
