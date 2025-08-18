@@ -383,7 +383,8 @@ end
 
 function hpot_event_start_scenario(forced_key)
 	-- TODO: get from pool
-	local scenario_key = forced_key or get_next_hpot_event()
+	local scenario_key = forced_key or G.GAME.round_resets.blind_choices.hpot_event or get_next_hpot_event()
+	G.GAME.round_resets.hpot_event_encountered = true
 	local scenario = SMODS.EventScenarios[scenario_key]
 	G.GAME.hpot_event_scenario_data = {}
 	G.GAME.hpot_event_scenario_key = scenario.key
@@ -1079,6 +1080,13 @@ function CardArea:draw(...)
 	return ca_dref(self, ...)
 end
 
+local r_bref = reset_blinds
+function reset_blinds(...)
+	r_bref(...)
+	G.GAME.round_resets.blind_choices.hpot_event = get_next_hpot_event()
+	G.GAME.round_resets.hpot_event_encountered = false
+end
+
 -- Contexts
 
 -- Scenario start
@@ -1106,3 +1114,18 @@ end
 --     scenario = scenario,
 --     step = step
 -- }
+
+-- Variables
+-- G.GAME.round_resets.hpot_event_encountered - is event was encountered this ante
+-- G.GAME.round_resets.blind_choices.hpot_event - event key in this ante
+
+-- G.hpot_event_scenario - current scenario
+-- G.hpot_event_current_step - current step
+-- G.hpot_event_previous_step - previous step
+
+-- G.hpot_event_ui - full event ui
+-- G.hpot_event_ui_image_area - black box in left side of event ui, primarily for images or showing some cutscenes etc
+
+-- Functions
+-- hpot_event_start_step(key) - move scenario to next step
+-- hpot_event_display_lines(amount, no_delay) - by default all lines displayed with small delay, this function allows to show each line separately by using event queue
