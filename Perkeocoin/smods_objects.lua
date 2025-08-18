@@ -339,6 +339,7 @@ SMODS.Joker{ --TV Dinner
     pos = { x = 0, y = 1 },
     cost = 6,
     rarity = 1,
+    pools = { Food = true },
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = true,

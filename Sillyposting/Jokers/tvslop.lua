@@ -8,6 +8,7 @@ SMODS.Joker {
     pos = { x = 4, y = 0 },
     rarity = 1,
     cost = 4,
+    pools = { Food = true },
     discovered = true,
     blueprint_compat = true,
     eternal_compat = false,

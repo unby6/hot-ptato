@@ -132,3 +132,25 @@ SMODS.Joker {
         team = {'JTem'}
     }
 }
+
+
+
+SMODS.Joker {
+    key = "greedybastard",
+    atlas = "jtem_jokers",
+    pos = {x=4,y=1},
+    rarity = 2,
+    calculate = function (self,card,context)
+        if context.destroy_card then
+            --print(context)
+        end
+    end
+}
+
+local ref = SMODS.showman
+function SMODS.showman(key)
+    if next(SMODS.find_card('j_hpot_greedybastard')) and (true) then
+        return true
+    end
+    return ref(key)
+end
