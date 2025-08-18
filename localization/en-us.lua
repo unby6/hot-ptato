@@ -949,7 +949,7 @@ return {
                 }
             }
         },
-        Blinds = {
+        Blind = {
             bl_hpot_quartz = {
                 name = "The Quartz",
                 text = {

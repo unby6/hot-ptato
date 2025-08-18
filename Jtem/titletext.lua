@@ -1,5 +1,7 @@
 -- please add more to this if you think of any im out of ideas
 
+if HPJTTT then return end
+
 HPJTTT = {
     chosen = 1,
     text = {
