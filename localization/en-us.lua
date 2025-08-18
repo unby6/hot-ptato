@@ -155,6 +155,14 @@ return {
                 }
             },
         },
+        imaginary = {
+            c_hpot_imag_stars = {
+                name = "Stardust",
+                text = {
+                    "{C:inactive}Sweet summer child"
+                }
+            }
+        },
         Czech = {
             c_hpot_cashexchange = {
                 ['name'] = 'Cash Exchange',
@@ -1088,6 +1096,9 @@ return {
             k_bottlecap = 'Bottlecap',
             b_key_cards = "Keys",
             k_key = "Key",
+
+            b_imaginary_cards = "Imaginary Cards",
+            k_imaginary = "Imaginary",
 
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
