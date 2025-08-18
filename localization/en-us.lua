@@ -1073,7 +1073,8 @@ return {
         },
 		v_text = {
 			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},
-            ch_c_hpot_plinko_4ever = {"No shops. {C:attention}Only plinko"}
+            ch_c_hpot_plinko_4ever = {"{C:attention}Forced plinko{} in all shop areas"},
+            ch_c_hpot_plinko_4ever_2 = {"Playing plinko does not require {C:hpot_plincoin}Plincoins"}
 		},
         labels = {
             bottlecap = "Bottle Cap",
