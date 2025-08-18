@@ -919,7 +919,32 @@ return {
                     "hand is played"
                 }
             }
-        }
+        },
+        EventSteps = {
+            hpot_test_1 = {
+                text = {
+                    "This is test event step 1",
+                    "Choose, {C:attention}NOW!{}",
+                }
+            },
+            hpot_test_2 = {
+                text = {
+			        "This is test event step 2",
+			        "{C:attention}Surely{} there's {C:mult}nothing interesting{} here",
+                }
+            },
+            hpot_test_3 = {
+                text = {
+			        "Congratultions! Yoy get {C:money}FREE MONEY!",
+			        "Now, {s:1.5}GO AWAY!{}",
+                }
+            }
+        },
+        EventScenarios = {
+            hpot_test = {
+                name = "Test Event Name",
+            }
+        },
     },
     misc = {
         challenge_names = {
