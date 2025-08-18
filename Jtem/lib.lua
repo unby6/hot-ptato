@@ -51,3 +51,16 @@ function remove_element_from_list(_table, object)
     local ind = find_index_from_list(_table, object)
     table.remove(_table, ind)
 end
+
+function set_element_object(container, object)
+	if container then
+		container.config.object:remove()
+		container.config.object = object
+		if object then
+			object.config.parent = container
+		else
+			container.config.object = Moveable()
+		end
+		container.UIBox:recalculate()
+	end
+end

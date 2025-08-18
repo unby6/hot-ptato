@@ -1,4 +1,3 @@
-
 SMODS.EventStep({
 	key = "test_1",
 	get_choices = function()
@@ -9,7 +8,7 @@ SMODS.EventStep({
 				end,
 				button = function()
 					ease_dollars(-5)
-					start_hpot_step("hpot_test_2")
+					hpot_event_start_step("hpot_test_2")
 				end,
 			},
 			{
@@ -18,7 +17,7 @@ SMODS.EventStep({
 				end,
 				button = function()
 					ease_dollars(5)
-					start_hpot_step("hpot_test_3")
+					hpot_event_start_step("hpot_test_3")
 				end,
 				func = function()
 					return G.GAME.dollars > 100
@@ -30,13 +29,13 @@ SMODS.EventStep({
 				end,
 				button = function()
 					ease_dollars(5)
-					start_hpot_step("hpot_test_3")
+					hpot_event_start_step("hpot_test_3")
 				end,
 			},
 		}
 	end,
 	start = function(self, scenario, previous_step)
-		hpot_step_display_next_line(2, true)
+		hpot_event_display_lines(2, true)
 		delay(1)
 		local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
 		local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
@@ -46,10 +45,10 @@ SMODS.EventStep({
 			center = G.P_CENTERS.j_joker,
 		})
 		G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
-		hpot_step_display_next_line(1, true)
+		hpot_event_display_lines(1, true)
 		jimbo_card:say_stuff(3)
 		delay(1)
-		hpot_step_display_next_line(1, true)
+		hpot_event_display_lines(1, true)
 		jimbo_card:say_stuff(2)
 	end,
 	finish = function(self)
@@ -73,7 +72,7 @@ SMODS.EventStep({
 				text = function()
 					return "Move on"
 				end,
-				button = finish_hpot_event,
+				button = hpot_event_end_scenario,
 				func = function()
 					return true
 				end,
@@ -89,16 +88,16 @@ SMODS.EventStep({
 				text = function()
 					return "Move on"
 				end,
-				button = finish_hpot_event,
+				button = hpot_event_end_scenario,
 			},
 		}
 	end,
 })
 --------- Example above
 
-SMODS.EventStep{
-    key = "pelter",
-    get_choices = function()
+SMODS.EventStep({
+	key = "pelter",
+	get_choices = function()
 		return {
 			{
 				text = function()
@@ -106,7 +105,7 @@ SMODS.EventStep{
 				end,
 				button = function()
 					ease_dollars(5)
-					start_hpot_step("hpot_test_3")
+					hpot_event_start_step("hpot_test_3")
 				end,
 				func = function()
 					return G.GAME.dollars > 100
@@ -118,13 +117,13 @@ SMODS.EventStep{
 				end,
 				button = function()
 					ease_dollars(5)
-					start_hpot_step("hpot_test_3")
+					hpot_event_start_step("hpot_test_3")
 				end,
 			},
 		}
 	end,
 	start = function(self, scenario, previous_step)
-		hpot_step_display_next_line(2, true)
+		hpot_event_display_lines(2, true)
 		delay(1)
 		local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
 		local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
@@ -134,10 +133,10 @@ SMODS.EventStep{
 			center = G.P_CENTERS.j_joker,
 		})
 		G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
-		hpot_step_display_next_line(1, true)
+		hpot_event_display_lines(1, true)
 		jimbo_card:say_stuff(3)
 		delay(1)
-		hpot_step_display_next_line(1, true)
+		hpot_event_display_lines(1, true)
 		jimbo_card:say_stuff(2)
 	end,
 	finish = function(self)
@@ -152,7 +151,7 @@ SMODS.EventStep{
 			}))
 		end
 	end,
-}
+})
 
 SMODS.EventScenario({
 	key = "test",
