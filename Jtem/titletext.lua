@@ -121,7 +121,7 @@ HPJTTT = {
         "Update your Steamodded",
         "Compatible with Windows, macOS, and Linux!",
         "why is my patch not working",
-
+        "Speed, Power, Stamina",
     }
 }
 

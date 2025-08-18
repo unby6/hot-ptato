@@ -11,7 +11,9 @@ HotPotato.Ads = {
         ad_blank = {atlas = "hpot_jtemads",pos = {x=0,y=0}},
         ad_naner = {atlas = "hpot_jtemads",pos = {x=1,y=1}},
         ad_rally = {atlas = "hpot_jtemrally",pos = {x=0,y=0},animated = true},
-        ad_fuck = {atlas = "hpot_jtemfuck",pos = {x=0,y=0},animated = true}
+        ad_fuck = {atlas = "hpot_jtemfuck",pos = {x=0,y=0},animated = true},
+        ad_sauce = {atlas = 'hpot_jtemads',pos = {x=1,y=2}},
+        ad_singles = {atlas = 'hpot_jtemads',pos = {x=2,y=2}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -19,7 +21,9 @@ HotPotato.Ads = {
         ad_peeling = {atlas = 'hpot_ProtoShitposts', pos = {x=1,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
         ad_sweebro = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0,y=1}, animated = false, base_size = 0.75},
-        ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}}
+        ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}},
+        ad_labubu = {atlas = 'hpot_jtemads',pos = {x=2,y=1}},
+        ad_4f6368 = {atlas = 'hpot_jtemads',pos = {x=0,y=2}},
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
