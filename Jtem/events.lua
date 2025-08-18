@@ -1,4 +1,4 @@
-G.STATES.hpot_event_select = 198275827
+G.STATES.HOTPOT_EVENT_SELECT = 198275827
 G.STATES.HOTPOT_EVENT = 198275828
 
 -- TODO: draw cards in hand api
@@ -410,6 +410,8 @@ function hpot_event_start_scenario(forced_key)
 	G.hpot_event_ui_text_area = G.hpot_event_ui:get_UIE_by_ID("text_area")
 	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
 
+	SMODS.calculate_context({ hpot_event_scenario_start = true, scenario = G.hpot_event_scenario })
+
 	G.E_MANAGER:add_event(Event({
 		func = function()
 			G.hpot_event_ui.alignment.offset.y = -8.5
@@ -478,6 +480,11 @@ function hpot_event_start_step(key)
 		func = function()
 			if G.hpot_event_previous_step then
 				G.hpot_event_previous_step:finish(G.hpot_event_scenario, G.hpot_event_current_step)
+				SMODS.calculate_context({
+					hpot_event_step_end = true,
+					scenario = G.hpot_event_scenario,
+					step = G.hpot_event_previous_step,
+				})
 			end
 			G.E_MANAGER:add_event(Event({
 				func = function()
@@ -486,6 +493,11 @@ function hpot_event_start_step(key)
 						func = function()
 							hpot_event_prepare_text_lines()
 							G.hpot_event_current_step:start(G.hpot_event_scenario, G.hpot_event_previous_step)
+							SMODS.calculate_context({
+								hpot_event_step_start = true,
+								scenario = G.hpot_event_scenario,
+								step = G.hpot_event_current_step,
+							})
 							G.E_MANAGER:add_event(Event({
 								func = function()
 									hpot_event_render_current_step()
@@ -536,10 +548,16 @@ function hpot_event_end_scenario()
 
 		if G.hpot_event_current_step then
 			G.hpot_event_current_step:finish()
+			SMODS.calculate_context({
+				hpot_event_step_end = true,
+				scenario = G.hpot_event_scenario,
+				step = G.hpot_event_current_step,
+			})
 		end
 
 		G.E_MANAGER:add_event(Event({
 			func = function()
+				SMODS.calculate_context({ hpot_event_scenario_end = true, scenario = G.hpot_event_scenario })
 				G.E_MANAGER:add_event(Event({
 					trigger = "before",
 					delay = 0.2,
@@ -1053,7 +1071,38 @@ end
 
 --
 
-local g_s_ref = Game.start_run
-function Game:start_run(...)
-	g_s_ref(self, ...)
+local ca_dref = CardArea.draw
+function CardArea:draw(...)
+	if self == G.hand and (G.STATE == G.STATES.HOTPOT_EVENT_SELECT) then
+		return
+	end
+	return ca_dref(self, ...)
 end
+
+-- Contexts
+
+-- Scenario start
+-- {
+--     hpot_event_scenario_start = true,
+--     scenario = scenario
+-- }
+
+-- Scenario end
+-- {
+--     hpot_event_scenario_end = true,
+--     scenario = scenario
+-- }
+
+-- Step start
+-- {
+--     hpot_event_step_start = true,
+--     scenario = scenario,
+--     step = step
+-- }
+
+-- Step end
+-- {
+--     hpot_event_step_end = true,
+--     scenario = scenario,
+--     step = step
+-- }
