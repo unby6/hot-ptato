@@ -30,9 +30,8 @@ SMODS.EventStep = SMODS.GameObject:extend({
 		}
 	end,
 
-	load = function(self, scenario) end,
-
-	start = function(self, scenario, previous_step) end,
+	load = function(self, scenario, previous_step) end,
+	start = function(self, scenario, previous_step, is_load) end,
 	finish = function(self, scenario, next_step) end,
 
 	inject = function() end,
@@ -384,9 +383,14 @@ end
 
 function hpot_event_start_scenario(forced_key)
 	-- TODO: get from pool
-	local scenario = SMODS.EventScenarios["hpot_test"]
+	local scenario_key = forced_key or get_next_hpot_event()
+	local scenario = SMODS.EventScenarios[scenario_key]
 	G.GAME.hpot_event_scenario_data = {}
 	G.GAME.hpot_event_scenario_key = scenario.key
+	if not G.GAME.hpot_events_encountered then
+		G.GAME.hpot_events_encountered = {}
+	end
+	G.GAME.hpot_events_encountered[scenario.key] = (G.GAME.hpot_events_encountered[scenario.key] or 0) + 1
 	G.hpot_event_scenario = scenario
 
 	local event_ui = UIBox({
@@ -420,16 +424,60 @@ function hpot_event_start_scenario(forced_key)
 		end,
 	}))
 end
+function hpot_event_load_scenario()
+	local scenario_key = G.GAME.hpot_event_scenario_key
+	local step_key = G.GAME.hpot_event_step_key
+	local previous_step_key = G.GAME.hpot_event_previous_step_key
+
+	local scenario = SMODS.EventScenarios[scenario_key]
+	local step = SMODS.EventSteps[step_key]
+	local previous_step = SMODS.EventSteps[previous_step_key]
+
+	G.hpot_event_scenario = scenario
+	G.hpot_event_current_step = step
+	G.hpot_event_previous_step = previous_step
+
+	local event_ui = UIBox({
+		definition = G.UIDEF.hpot_event(),
+		config = {
+			align = "br",
+			major = G.ROOM_ATTACH,
+			bond = "Weak",
+			offset = {
+				x = -15.3,
+				y = G.ROOM.T.y + 21,
+			},
+		},
+	})
+	G.hpot_event_ui = event_ui
+	G.hpot_event_ui_image_area = G.hpot_event_ui:get_UIE_by_ID("image_area")
+	G.hpot_event_ui_text_area = G.hpot_event_ui:get_UIE_by_ID("text_area")
+	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
+
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			G.hpot_event_ui.alignment.offset.y = -8.5
+			return true
+		end,
+	}))
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			hpot_event_load_step()
+			return true
+		end,
+	}))
+end
 function hpot_event_start_step(key)
 	local step = SMODS.EventSteps[key]
 	G.hpot_event_previous_step = G.hpot_event_current_step or nil
 	G.hpot_event_current_step = step
+	G.GAME.hpot_event_previous_step_key = G.hpot_event_previous_step and G.hpot_event_previous_step.key or nil
 	G.GAME.hpot_event_step_key = step.key
 
 	G.E_MANAGER:add_event(Event({
 		func = function()
 			if G.hpot_event_previous_step then
-				G.hpot_event_previous_step:finish(G.hpot_event_current_step)
+				G.hpot_event_previous_step:finish(G.hpot_event_scenario, G.hpot_event_current_step)
 			end
 			G.E_MANAGER:add_event(Event({
 				func = function()
@@ -437,7 +485,34 @@ function hpot_event_start_step(key)
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							hpot_event_prepare_text_lines()
-							G.hpot_event_current_step:start(G.hpot_event_previous_step)
+							G.hpot_event_current_step:start(G.hpot_event_scenario, G.hpot_event_previous_step)
+							G.E_MANAGER:add_event(Event({
+								func = function()
+									hpot_event_render_current_step()
+									return true
+								end,
+							}))
+							return true
+						end,
+					}))
+					return true
+				end,
+			}))
+			return true
+		end,
+	}))
+end
+function hpot_event_load_step()
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			G.hpot_event_current_step:load(G.hpot_event_scenario, G.hpot_event_previous_step)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					hpot_event_cleanup()
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							hpot_event_prepare_text_lines()
+							G.hpot_event_current_step:start(G.hpot_event_scenario, G.hpot_event_previous_step, true)
 							G.E_MANAGER:add_event(Event({
 								func = function()
 									hpot_event_render_current_step()
@@ -928,4 +1003,57 @@ function G.UIDEF.hpot_event()
 			}),
 		},
 	}
+end
+
+--
+
+function get_next_hpot_event()
+	if G.hpot_event_scenario_forced_key then
+		local result = G.hpot_event_scenario_forced_key
+		G.hpot_event_scenario_forced_key = nil
+		return result
+	end
+	local eligible_events = {}
+	local total_weight = 0
+	for key, event in pairs(SMODS.EventScenarios) do
+		local weight = event:get_weight()
+		if weight > 0 and event:in_pool() then
+			eligible_events[key] = event
+			total_weight = total_weight + weight
+		end
+	end
+
+	local min_use = 100
+	for k, v in pairs(eligible_events) do
+		eligible_events[k] = G.GAME.hpot_events_encountered[k] or 0
+		min_use = math.min(min_use, eligible_events[k])
+	end
+
+	local weighted_events = {}
+	for k, _ in pairs(eligible_events) do
+		if eligible_events[k] <= min_use then
+			table.insert(weighted_events, {
+				key = k,
+				weight = SMODS.EventScenarios[k]:get_weight(),
+			})
+		end
+	end
+
+	local roll = pseudorandom(pseudoseed("hpot_event" .. G.GAME.round_resets.ante))
+	local weight_i = 0
+	for _, v in ipairs(weighted_events) do
+		weight_i = weight_i + v.weight
+		if roll > 1 - (weight_i / total_weight) then
+			return v.key
+		end
+	end
+
+	return "hpot_nothing"
+end
+
+--
+
+local g_s_ref = Game.start_run
+function Game:start_run(...)
+	g_s_ref(self, ...)
 end

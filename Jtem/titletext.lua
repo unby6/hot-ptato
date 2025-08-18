@@ -5,7 +5,7 @@ if HPJTTT then return end
 HPJTTT = {
     chosen = 1,
     text = {
-        "Also try Nubbys Number Factory!",
+        "Also try Nubby's Number Factory!",
         "HotPot Edition",
         "Joker Poker",
         "The Original                                      Rougelike",
