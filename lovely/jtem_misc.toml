@@ -60,3 +60,16 @@ position = 'at'
 pattern = '''if G.GAME.blind then t[#t + 1] = { object = G.GAME.blind, scored_card = G.GAME.blind.children.animatedSprite } end'''
 payload = '''if G.GAME.blind and G.GAME.blind.is and G.GAME.blind:is(Blind) then t[#t + 1] = { object = G.GAME.blind, scored_card = G.GAME.blind.children.animatedSprite } end'''
 match_indent = true
+
+# Draggable UIBoxes
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'before'
+pattern = '''if args.config.can_collide == nil then '''
+payload = '''
+if args.config.draggable then
+  self.states.drag.can = true
+end
+'''
+match_indent = true

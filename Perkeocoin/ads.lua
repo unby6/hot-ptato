@@ -148,12 +148,16 @@ function Game:start_run(args)
         for k, v in ipairs(args.savetext.hotpot_ads) do
             local new_ad = UIBox{
                 definition = create_UIBox_ad{ad = v.key, id = v.id, scale = v.scale, tutorial = v.tutorial},
-                config = {align="cm", offset = v.offset, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
+                config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', bond = 'Weak', draggable = true, collideable = true, can_collide = true}
             }
             new_ad.config.id = v.id
             new_ad.config.key = v.key
             new_ad.config.scale = v.scale
             new_ad.config.tutorial = v.tutorial
+            new_ad:align_to_major()
+            new_ad.config.major = nil
+            new_ad:set_role{role_type = 'Major'}
+            new_ad:hard_set_T(v.position.x, v.position.y)
             G.GAME.hotpot_ads[k] = new_ad
         end
     end
@@ -165,6 +169,7 @@ function save_ad(ad)
         key = ad.config.key,
         id = ad.config.id,
         offset = ad.alignment.offset,
+        position = {x = ad.T.x, y = ad.T.y},
         scale = ad.config.scale,
         tutorial = ad.config.tutorial,
     }
@@ -214,10 +219,13 @@ function create_ads(number_of_ads)
                 G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
                 local new_ad = UIBox{
                     definition = create_UIBox_ad{ad = ad_to_use, id = G.GAME.hotpot_total_ads,scale = ad_scale, tutorial = tutorial_ad},
-                    config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
+                    config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak', draggable = true, collideable = true, can_collide = true, foc}
                 }
-                new_ad.alignment.offset.x = (pseudorandom('ad_x_offset')-0.5)*16
-                new_ad.alignment.offset.y = (pseudorandom('ad_y_offset')-0.5)*9
+                new_ad:align_to_major()
+                new_ad.config.major = nil
+                new_ad:set_role{role_type = 'Major'}
+                new_ad.T.x = new_ad.T.x + (pseudorandom('ad_x_offset')-0.5)*16
+                new_ad.T.y = new_ad.T.y + (pseudorandom('ad_y_offset')-0.5)*9
                 new_ad.config.id = G.GAME.hotpot_total_ads
                 new_ad.config.key = ad_to_use
                 new_ad.config.scale = ad_scale
