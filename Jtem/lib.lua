@@ -38,3 +38,16 @@ function simple_add_event(func, config)
         unpack(config)
     })
 end
+
+function find_index_from_list(_table, object)
+    if not _table then return nil end
+    for _i, _e in pairs(_table) do
+        if _e == object then return _i end
+    end
+    return nil
+end
+
+function remove_element_from_list(_table, object)
+    local ind = find_index_from_list(_table, object)
+    table.remove(_table, ind)
+end

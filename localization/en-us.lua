@@ -1077,6 +1077,9 @@ return {
             hotpot_delivery_back = "Back to Shop",
             hotpot_request_joker_line_1 = "Request",
             hotpot_request_joker_line_2 = "a Joker",
+            hotpot_exchange_for_jx_line_1 = "Exchange",
+            hotpot_exchange_for_jx_line_2 = "for Joker Exchange",
+            hotpot_delivery_order = "ORDER",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
