@@ -1,0 +1,33 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# G.FUNCS.toggle_shop
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.STATE = G.STATES.BLIND_SELECT"
+position = 'after'
+payload = '''
+if G.GAME.blind_on_deck == "Small" then
+    G.STATE = G.STATES.HOTPOT_EVENT_SELECT
+end
+'''
+match_indent = true
+
+# Game:update
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
+payload = '''
+if self.STATE == self.STATES.HOTPOT_EVENT_SELECT then
+  self:update_hpot_event_select(dt)
+end
+if self.STATE == self.STATES.HOTPOT_EVENT then
+  self:update_hpot_event(dt)
+end
+'''
+match_indent = true
