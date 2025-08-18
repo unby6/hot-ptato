@@ -482,6 +482,14 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Mult"
                 }
+            },
+            j_hpot_nxkoodead = {
+                name = "Nxkoo found dead",
+                text = {
+                    "For every {C:attention}#1#{} Nxkoo's killed",
+                    "this card gains {X:mult,C:white}X#2#{}",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                }
             }
         },
         Voucher = {

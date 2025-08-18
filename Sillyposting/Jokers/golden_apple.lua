@@ -7,13 +7,13 @@ SMODS.Joker {
     end,
     rarity = 2,
     cost = 5,
-    pos = { x = 2, y = 0 },
+    pos = { x = 2, y = 1 },
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'SillypostingJokers',
+    atlas = 'jtem_jokers',
     calculate = function (self, card, context)
         if context.using_consumeable and context.consumeable.ability.max_highlighted and not context.blueprint then
             card.ability.extra.uses_left = card.ability.extra.uses_left - 1
@@ -56,7 +56,7 @@ SMODS.Joker {
         change_max_highlight(-card.ability.extra.bonus_highlight)
     end,
     hotpot_credits = {
-        art = {"TODO"},
+        art = {"MissingNumber"},
         code = {"UnusedParadox"},
         team = {"Sillyposting"}
     }
