@@ -51,3 +51,12 @@ end
 
 '''
 match_indent = true
+
+# I am so frustrated
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+position = 'at'
+pattern = '''if G.GAME.blind then t[#t + 1] = { object = G.GAME.blind, scored_card = G.GAME.blind.children.animatedSprite } end'''
+payload = '''if G.GAME.blind and G.GAME.blind.is and G.GAME.blind:is(Blind) then t[#t + 1] = { object = G.GAME.blind, scored_card = G.GAME.blind.children.animatedSprite } end'''
+match_indent = true
