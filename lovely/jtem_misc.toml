@@ -24,3 +24,30 @@ payload = '''VERSION = '1.O.1o'
 VERSION = VERSION..'-empty'
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
+payload = '''
+if self.STATE == self.STATES.JTEM_PANDEMONIUM then
+  PandemoniumGame.f.update(dt)
+end
+
+'''
+match_indent = true
+
+# Game:draw
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''timer_checkpoint('uiboxes', 'draw')'''
+payload = '''
+if self.STATE == self.STATES.JTEM_PANDEMONIUM then
+  PandemoniumGame.f.draw()
+end
+
+'''
+match_indent = true
