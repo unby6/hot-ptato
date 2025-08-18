@@ -962,7 +962,8 @@ return {
     misc = {
         challenge_names = {
             c_hpot_amateur_magician = "Amateur Magician",
-            c_hpot_isolated_wizard = "Isolated Wizard"
+            c_hpot_isolated_wizard = "Isolated Wizard",
+            c_hpot_plinko4ever = "Plinko 4ever",
         },
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
@@ -1071,7 +1072,8 @@ return {
             hotpot_team = { "Team: #1#" }
         },
 		v_text = {
-			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"}
+			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},
+            ch_c_hpot_plinko_4ever = {"No shops. {C:attention}Only plinko"}
 		},
         labels = {
             bottlecap = "Bottle Cap",

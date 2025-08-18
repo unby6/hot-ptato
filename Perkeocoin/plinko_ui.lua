@@ -180,16 +180,16 @@ function G.UIDEF.plinko()
                     {n=G.UIT.C, config={align = "tm"}, nodes={
                     {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
                       {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
-                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = 'hide_plinko', func = 'can_hide_plinko', hover = true,shadow = true}, nodes = {
+                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = G.GAME.modifiers.hpot_plinko_4ever and 'toggle_shop' or 'hide_plinko', func = 'can_hide_plinko', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = localize("hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = localize(G.GAME.modifiers.hpot_plinko_4ever and 'b_next_round_1' or "hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = localize("hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = localize(G.GAME.modifiers.hpot_plinko_4ever and 'b_next_round_2' or "hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }}
                           }},
@@ -453,6 +453,10 @@ end
 
 -- Clicked back to shop
 G.FUNCS.hide_plinko = function(e)
+  if G.GAME.modifiers.hpot_plinko_4ever then
+    PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED
+    return G.FUNCS.toggle_shop(e)
+  end
   stop_use()
 
   G.STATE = G.STATES.SHOP
