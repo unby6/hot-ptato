@@ -13,3 +13,24 @@ SMODS.Sound {
     end
   end
 }
+
+SMODS.Atlas {
+  key = "jtemads",
+  path = "Ads/Jtem.png",
+  px = 200,py = 150
+}
+
+SMODS.Atlas {
+  key = "jtemfuck",
+  path = "Ads/fuck.png",
+  px = 200,py = 150,
+  frames = 16, atlas_table = 'ANIMATION_ATLAS'
+}
+
+SMODS.Atlas {
+  key = "jtemrally",
+  path = "Ads/rally.png",
+  px = 240,py = 320,
+  frames = 40, atlas_table = 'ANIMATION_ATLAS'
+}
+
