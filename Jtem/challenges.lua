@@ -8,5 +8,13 @@ SMODS.Challenge {
 	apply = function(self)
 		G.GAME.plincoins_per_round = 0
 		G.GAME.current_round.plinko_roll_cost = 0
+		G.GAME.starting_params.boosters_in_shop = 1
 	end,
+	restrictions = {
+		banned_tags = {
+			{ id = "tag_voucher" },
+			{ id = "tag_uncommon" },
+			{ id = "tag_rare" },
+		}
+	}
 }

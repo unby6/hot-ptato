@@ -173,6 +173,7 @@ function G.UIDEF.plinko()
 
     local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
     local play_dollars = not not G.GAME.plinko_dollars_cost
+    local plinko_4ever = G.GAME.modifiers.hpot_plinko_4ever
 
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
             UIBox_dyn_container({
@@ -180,16 +181,16 @@ function G.UIDEF.plinko()
                     {n=G.UIT.C, config={align = "tm"}, nodes={
                     {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
                       {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
-                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = G.GAME.modifiers.hpot_plinko_4ever and 'toggle_shop' or 'hide_plinko', func = 'can_hide_plinko', hover = true,shadow = true}, nodes = {
+                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = 'hide_plinko', func = 'can_hide_plinko', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = localize(G.GAME.modifiers.hpot_plinko_4ever and 'b_next_round_1' or "hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = localize(plinko_4ever and 'b_next_round_1' or "hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = localize(G.GAME.modifiers.hpot_plinko_4ever and 'b_next_round_2' or "hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = localize(plinko_4ever and 'b_next_round_2' or "hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }}
                           }},
@@ -202,12 +203,12 @@ function G.UIDEF.plinko()
                               {n=G.UIT.T, config={text = localize("hotpot_plinko_play"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
-                            {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
+                            not plinko_4ever and {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
                               {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
-                            }}
+                            }} or nil
                           }}
                         }},
 
@@ -218,12 +219,12 @@ function G.UIDEF.plinko()
                               {n=G.UIT.T, config={text = localize("hotpot_plinko_play"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
-                            {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
+                            not plinko_4ever and {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
                               {n=G.UIT.T, config={text = localize('$'), scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost_dollars', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
-                            }}
+                            }} or nil
                           }}
                         }} or nil,
 
@@ -232,7 +233,7 @@ function G.UIDEF.plinko()
                         -- PLINKO INFO
                         -- 
 
-                        {n=G.UIT.R, config={align = "cm", id="plinko_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
+                        not plinko_4ever and {n=G.UIT.R, config={align = "cm", id="plinko_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
                           {n=G.UIT.C, config={align = "cm", }, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
                               -------------------
@@ -245,8 +246,8 @@ function G.UIDEF.plinko()
                               -------------------
                               }}
                             }},
-                          }},
-                          {n=G.UIT.R, config={align = "cm", id="plinko_reset", minw = 2.8, r=0.15, minh = 1.3}, nodes = {
+                          }} or nil,
+                          not plinko_4ever and {n=G.UIT.R, config={align = "cm", id="plinko_reset", minw = 2.8, r=0.15, minh = 1.3}, nodes = {
                             {n=G.UIT.C, config={align = "cm", }, nodes={
                               {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
                                 -------------------
@@ -259,7 +260,12 @@ function G.UIDEF.plinko()
                                 -------------------
                                 }}
                               }},
-                            }},
+                            }} or nil,
+                          plinko_4ever and {n=G.UIT.R, config={align = "cm", minh = 0.3}, nodes={}} or nil,
+                          -- JTEM: Booster slot for Booster related bottlecaps
+                          plinko_4ever and {n=G.UIT.R, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.L_BLACK, maxw = 2.8, emboss = 0.05}, nodes={
+                              {n=G.UIT.O, config={object = G.shop_booster, maxw = 2.8}},
+                            }} or nil,
                           }},
                         }},
                     }},
