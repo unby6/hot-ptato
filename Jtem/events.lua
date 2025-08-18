@@ -21,7 +21,7 @@ SMODS.EventStep = SMODS.GameObject:extend({
 					return "Leave"
 				end,
 				button = function()
-					G.FUNCS.finish_hotpot_event()
+					G.FUNCS.finish_hpot_event()
 				end,
 				func = function()
 					return true
@@ -79,25 +79,60 @@ SMODS.EventStep({
 				end,
 				button = function()
 					ease_dollars(-5)
-					start_hotpot_step("hpot_test_2")
-				end,
-				func = function()
-					return true
+					start_hpot_step("hpot_test_2")
 				end,
 			},
 			{
 				text = function()
-					return "Gain {C:money}money{} for no reason"
+					return "Gain {E:1,C:money}money{} for no reason"
 				end,
 				button = function()
 					ease_dollars(5)
-					start_hotpot_step("hpot_test_3")
+					start_hpot_step("hpot_test_3")
 				end,
 				func = function()
-					return true
+					return G.GAME.dollars > 100
+				end,
+			},
+			{
+				text = function()
+					return "Gain {E:1,C:money}money{} for no reason"
+				end,
+				button = function()
+					ease_dollars(5)
+					start_hpot_step("hpot_test_3")
 				end,
 			},
 		}
+	end,
+	start = function(self, scenario, previous_step)
+		hpot_step_display_next_line(2, true)
+		delay(1)
+		local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
+		local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
+		local jimbo_card = Card_Character({
+			x = x,
+			y = y,
+			center = G.P_CENTERS.j_joker,
+		})
+		G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
+		hpot_step_display_next_line(1, true)
+		jimbo_card:say_stuff(3)
+		delay(1)
+		hpot_step_display_next_line(1, true)
+		jimbo_card:say_stuff(2)
+	end,
+	finish = function(self)
+		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+		if jimbo_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					jimbo_card:remove()
+					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					return true
+				end,
+			}))
+		end
 	end,
 })
 SMODS.EventStep({
@@ -108,9 +143,7 @@ SMODS.EventStep({
 				text = function()
 					return "Move on"
 				end,
-				button = function()
-					G.FUNCS.finish_hotpot_event()
-				end,
+				button = finish_hpot_event,
 				func = function()
 					return true
 				end,
@@ -126,12 +159,7 @@ SMODS.EventStep({
 				text = function()
 					return "Move on"
 				end,
-				button = function()
-					G.FUNCS.finish_hotpot_event()
-				end,
-				func = function()
-					return true
-				end,
+				button = finish_hpot_event,
 			},
 		}
 	end,
@@ -144,8 +172,33 @@ SMODS.EventScenario({
 
 -----------------
 
--- TODO: prettify
-function create_UIBox_hotpot_event_choice()
+function Game:update_hpot_event(dt)
+	if not G.STATE_COMPLETE then
+		stop_use()
+		ease_background_colour_blind(G.STATES.BLIND_SELECT)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				save_run()
+				return true
+			end,
+		}))
+		G.STATE_COMPLETE = true
+		G.CONTROLLER.interrupt.focus = true
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.E_MANAGER:add_event(Event({
+					trigger = "immediate",
+					func = function()
+						start_hpot_event()
+						return true
+					end,
+				}))
+				return true
+			end,
+		}))
+	end
+end
+function create_UIBox_hpot_event_choice()
 	local disabled = false
 	local run_info = false
 
@@ -271,8 +324,8 @@ function create_UIBox_hotpot_event_choice()
 									shadow = true,
 									hover = true,
 									one_press = true,
-									button = "select_hotpot_event",
-									func = "can_select_hotpot_event",
+									button = "select_hpot_event",
+									func = "can_select_hpot_event",
 								},
 								nodes = {
 									{
@@ -407,39 +460,8 @@ function create_UIBox_hotpot_event_choice()
 	}
 	return t
 end
--- TODO: remove card area
-function create_UIBox_hpot_event_select()
-	local choice = UIBox({
-		definition = {
-			n = G.UIT.ROOT,
-			config = { align = "cm", colour = G.C.CLEAR },
-			nodes = {
-				UIBox_dyn_container(
-					{ create_UIBox_hotpot_event_choice() },
-					false,
-					get_blind_main_colour("Big"),
-					mix_colours(G.C.BLACK, get_blind_main_colour("Big"), 0.8)
-				),
-			},
-		},
-		config = { align = "bmi", offset = { x = 0, y = 0 } },
-	})
-	local t = {
-		n = G.UIT.ROOT,
-		config = { align = "tm", minw = width, r = 0.15, colour = G.C.CLEAR },
-		nodes = {
-			{
-				n = G.UIT.R,
-				config = { align = "cm", padding = 0.5 },
-				nodes = {
-					{ n = G.UIT.O, config = { align = "cm", object = choice } },
-				},
-			},
-		},
-	}
-	return t
-end
 
+-- TODO: remove card area
 function Game:update_hpot_event_select(dt)
 	if self.buttons then
 		self.buttons:remove()
@@ -490,24 +512,142 @@ function Game:update_hpot_event_select(dt)
 		}))
 	end
 end
-function Game:update_hpot_event(dt)
-	if not G.STATE_COMPLETE then
-		stop_use()
-		ease_background_colour_blind(G.STATES.BLIND_SELECT)
-		G.E_MANAGER:add_event(Event({
-			func = function()
-				save_run()
-				return true
-			end,
-		}))
-		G.STATE_COMPLETE = true
-		G.CONTROLLER.interrupt.focus = true
+function create_UIBox_hpot_event_select()
+	local choice = UIBox({
+		definition = {
+			n = G.UIT.ROOT,
+			config = { align = "cm", colour = G.C.CLEAR },
+			nodes = {
+				UIBox_dyn_container(
+					{ create_UIBox_hpot_event_choice() },
+					false,
+					get_blind_main_colour("Big"),
+					mix_colours(G.C.BLACK, get_blind_main_colour("Big"), 0.8)
+				),
+			},
+		},
+		config = { align = "bmi", offset = { x = 0, y = 0 } },
+	})
+	local t = {
+		n = G.UIT.ROOT,
+		config = { align = "tm", minw = width, r = 0.15, colour = G.C.CLEAR },
+		nodes = {
+			{
+				n = G.UIT.R,
+				config = { align = "cm", padding = 0.5 },
+				nodes = {
+					{ n = G.UIT.O, config = { align = "cm", object = choice } },
+				},
+			},
+		},
+	}
+	return t
+end
+
+-----------------
+
+function start_hpot_event(forced_key)
+	-- TODO: get from pool
+	local scenario = SMODS.EventScenarios["hpot_test"]
+	G.hpot_event_scenario = scenario
+
+	local event_ui = UIBox({
+		definition = G.UIDEF.hpot_event(),
+		config = {
+			align = "br",
+			major = G.ROOM_ATTACH,
+			bond = "Weak",
+			offset = {
+				x = -15.3,
+				y = G.ROOM.T.y + 21,
+			},
+		},
+	})
+	G.hpot_event_ui = event_ui
+	G.hpot_event_ui_image_area = G.hpot_event_ui:get_UIE_by_ID("image_area")
+	G.hpot_event_ui_text_area = G.hpot_event_ui:get_UIE_by_ID("text_area")
+	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
+
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			G.hpot_event_ui.alignment.offset.y = -8.5
+			return true
+		end,
+	}))
+	delay(1)
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			start_hpot_step(scenario.starting_step_key)
+			return true
+		end,
+	}))
+end
+function start_hpot_step(key)
+	local step = SMODS.EventSteps[key]
+	G.hpot_event_previous_step = G.hpot_event_current_step or nil
+	G.hpot_event_current_step = step
+
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			if G.hpot_event_previous_step then
+				G.hpot_event_previous_step:finish(G.hpot_event_current_step)
+			end
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					cleanup_hpot_previous_step()
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							prepare_hpot_current_step_lines()
+							G.hpot_event_current_step:start(G.hpot_event_previous_step)
+							G.E_MANAGER:add_event(Event({
+								func = function()
+									render_hpot_current_step()
+									return true
+								end,
+							}))
+							return true
+						end,
+					}))
+					return true
+				end,
+			}))
+			return true
+		end,
+	}))
+end
+function finish_hpot_event()
+	stop_use()
+	if G.hpot_event_ui then
+		G.GAME.facing_hpot_event = nil
+
+		if G.hpot_event_current_step then
+			G.hpot_event_current_step:finish()
+		end
+
 		G.E_MANAGER:add_event(Event({
 			func = function()
 				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.2,
+					func = function()
+						G.hpot_event_ui.alignment.offset.y = G.ROOM.T.y + 21
+						return true
+					end,
+				}))
+				G.E_MANAGER:add_event(Event({
 					trigger = "immediate",
 					func = function()
-						start_hotpot_event()
+						G.hpot_event_ui:remove()
+						G.hpot_event_ui = nil
+						delay(0.3)
+						return true
+					end,
+				}))
+				G.E_MANAGER:add_event(Event({
+					trigger = "immediate",
+					func = function()
+						G.STATE = G.STATES.BLIND_SELECT
+						G.STATE_COMPLETE = false
 						return true
 					end,
 				}))
@@ -517,70 +657,32 @@ function Game:update_hpot_event(dt)
 	end
 end
 
-function start_hotpot_event(forced_key)
-	-- TODO: get from pool
-	local scenario = SMODS.EventScenarios["hpot_test"]
-	G.hpot_event_scenario = scenario
-
-	local event_ui = UIBox({
-		definition = G.UIDEF.hotpot_event(),
-		config = {
-			align = "br",
-			major = G.ROOM_ATTACH,
-			bond = "Weak",
-			offset = {
-				x = -15.25,
-				y = G.ROOM.T.y + 21,
-			},
-		},
-	})
-	G.hpot_event_ui = event_ui
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			G.hpot_event_ui.alignment.offset.y = -8.5
-			return true
-		end,
-	}))
-	delay(0.2)
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			start_hotpot_step(scenario.starting_step_key)
-			return true
-		end,
-	}))
-end
-function start_hotpot_step(key)
-	local step = SMODS.EventSteps[key]
-	G.hpot_event_previous_step = G.hpot_event_current_step or nil
-	G.hpot_event_current_step = step
-
-	if G.hpot_event_previous_step then
-		G.hpot_event_previous_step:finish(step)
-	end
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			render_hotpot_current_step()
-
-			return true
-		end,
-	}))
-end
-
-function cleanup_hotpot_previous_step() end
-function render_hotpot_current_step()
-	local scenario = G.hpot_event_scenario
-	local step = G.hpot_event_current_step
-
-	local event_text_container = G.hpot_event_ui:get_UIE_by_ID("event_text")
-	local event_choices_container = G.hpot_event_ui:get_UIE_by_ID("event_choices")
+function cleanup_hpot_previous_step()
 	local function set_object(container, object)
 		container.config.object:remove()
 		container.config.object = object
 		container.UIBox:recalculate()
 	end
 
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			set_object(G.hpot_event_ui_text_area, Moveable())
+			return true
+		end,
+	}))
 	delay(1)
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			set_object(G.hpot_event_ui_choices_area, Moveable())
+			return true
+		end,
+	}))
+end
+function prepare_hpot_current_step_lines()
+	local scenario = G.hpot_event_scenario
+	local step = G.hpot_event_current_step
 
+	local text_objects = {}
 	-- Step text
 	local event_text_content = {}
 	localize({
@@ -593,55 +695,110 @@ function render_hotpot_current_step()
 	})
 	local event_text_lines = {}
 	for _, line in ipairs(event_text_content) do
+		local text_object = UIBox({
+			definition = {
+				n = G.UIT.ROOT,
+				config = {
+					colour = G.C.CLEAR,
+				},
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "c", minh = 0.35 },
+						nodes = line,
+					},
+				},
+			},
+			config = {},
+		})
+		text_object.states.visible = false
+		table.insert(text_objects, text_object)
 		table.insert(event_text_lines, {
 			n = G.UIT.R,
-			config = { align = "c" },
-			nodes = line,
+			nodes = {
+				{
+					n = G.UIT.O,
+					config = {
+						object = text_object,
+					},
+				},
+			},
 		})
 	end
 
-	set_object(event_text_container, Moveable())
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			set_object(
-				event_text_container,
-				UIBox({
-					definition = {
-						n = G.UIT.ROOT,
-						config = { colour = G.C.CLEAR },
-						nodes = {
-							{
-								n = G.UIT.C,
-								config = {
-									align = "cm",
-								},
-								nodes = event_text_lines,
-							},
-						},
-					},
-					config = {
-						parent = event_text_container,
-					},
-				})
-			)
-			return true
-		end,
-	}))
+	local function set_object(container, object)
+		container.config.object:remove()
+		container.config.object = object
+		if object then
+			object.config.parent = container
+		end
+		container.UIBox:recalculate()
+	end
 
-	delay(1)
+	set_object(
+		G.hpot_event_ui_text_area,
+		UIBox({
+			definition = {
+				n = G.UIT.ROOT,
+				config = { colour = G.C.CLEAR },
+				nodes = {
+					{
+						n = G.UIT.C,
+						config = {
+							align = "cm",
+						},
+						nodes = event_text_lines,
+					},
+				},
+			},
+			config = {
+				parent = G.hpot_event_ui_text_area,
+			},
+		})
+	)
+
+	G.hpot_event_ui_text_objects = text_objects
+	G.hpot_event_ui_next_text_object = 1
+end
+function render_hpot_current_step()
+	local scenario = G.hpot_event_scenario
+	local step = G.hpot_event_current_step
 
 	-- Step buttons
 	local event_buttons_content = {}
 	local choices = step:get_choices(scenario)
 	for _, choice in ipairs(choices) do
-		table.insert(event_buttons_content, G.UIDEF.hotpot_event_choice_button(choice))
+		table.insert(event_buttons_content, G.UIDEF.hpot_event_choice_button(choice))
 	end
 
-	set_object(event_choices_container, Moveable())
+	local function set_object(container, object)
+		container.config.object:remove()
+		container.config.object = object
+		if object then
+			object.config.parent = container
+		end
+		container.UIBox:recalculate()
+	end
+
+	local text_objects = G.hpot_event_ui_text_objects
+	for i = G.hpot_event_ui_next_text_object, #G.hpot_event_ui_text_objects do
+		local object = text_objects[i]
+		if object then
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.75,
+				func = function()
+					object.states.visible = true
+					return true
+				end,
+			}))
+		end
+	end
+	delay(1)
 	G.E_MANAGER:add_event(Event({
 		func = function()
 			set_object(
-				event_choices_container,
+				G.hpot_event_ui_choices_area,
 				UIBox({
 					definition = {
 						n = G.UIT.ROOT,
@@ -649,7 +806,7 @@ function render_hotpot_current_step()
 						nodes = event_buttons_content,
 					},
 					config = {
-						parent = event_choices_container,
+						parent = G.hpot_event_ui_choices_area,
 					},
 				})
 			)
@@ -658,12 +815,33 @@ function render_hotpot_current_step()
 	}))
 end
 
+function hpot_step_display_next_line(n, no_delay)
+	n = n or 1
+	local text_objects = G.hpot_event_ui_text_objects
+	if text_objects and G.hpot_event_ui_next_text_object then
+		for i = G.hpot_event_ui_next_text_object, math.min(G.hpot_event_ui_next_text_object + n - 1, #text_objects) do
+			local object = text_objects[i]
+			if object then
+				G.E_MANAGER:add_event(Event({
+					trigger = "after",
+					delay = no_delay and 0 or 0.75,
+					func = function()
+						object.states.visible = true
+						return true
+					end,
+				}))
+			end
+		end
+	end
+	G.hpot_event_ui_next_text_object = G.hpot_event_ui_next_text_object + n
+end
+
 --
 
-function G.FUNCS.select_hotpot_event(e)
+function G.FUNCS.select_hpot_event(e)
 	stop_use()
 	if G.hpot_event_select then
-		G.GAME.facing_hotpot_event = true
+		G.GAME.facing_hpot_event = true
 
 		G.E_MANAGER:add_event(Event({
 			trigger = "before",
@@ -708,72 +886,44 @@ function G.FUNCS.select_hotpot_event(e)
 		}))
 	end
 end
-function G.FUNCS.can_select_hotpot_event(e)
+function G.FUNCS.can_select_hpot_event(e)
 	if G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0) then
 		e.config.button = nil
 	else
-		e.config.button = "select_hotpot_event"
-	end
-end
-
-function G.FUNCS.finish_hotpot_event(e)
-	stop_use()
-	if G.hpot_event_ui then
-		G.GAME.facing_hotpot_event = nil
-
-		G.E_MANAGER:add_event(Event({
-			trigger = "before",
-			delay = 0.2,
-			func = function()
-				G.hpot_event_ui.alignment.offset.y = G.ROOM.T.y + 21
-				return true
-			end,
-		}))
-		G.E_MANAGER:add_event(Event({
-			trigger = "immediate",
-			func = function()
-				G.hpot_event_ui:remove()
-				G.hpot_event_ui = nil
-				delay(0.2)
-				return true
-			end,
-		}))
-		G.E_MANAGER:add_event(Event({
-			trigger = "immediate",
-			func = function()
-				G.STATE = G.STATES.BLIND_SELECT
-				G.STATE_COMPLETE = false
-				return true
-			end,
-		}))
-	end
-end
-function G.FUNCS.can_finish_hotpot_event(e)
-	if G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0) then
-		e.config.button = nil
-	else
-		e.config.button = "finish_hotpot_event"
+		e.config.button = "select_hpot_event"
 	end
 end
 
 --
 
-function G.FUNCS.hotpot_can_execute_choice(e) end
-function G.FUNCS.hotpot_execute_choice(e)
-	-- local scenario = G.hpot_event_scenario
-	-- local step = G.hpot_event_current_step
-
+function G.FUNCS.hpot_can_execute_choice(e)
+	if not e.config.old_colour then
+		e.config.old_colour = e.config.colour
+	end
+	local choice_func = e.config.choice_func
+	if
+		(G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0))
+		or (choice_func and not choice_func())
+	then
+		e.config.button = nil
+		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+	else
+		e.config.button = "hpot_execute_choice"
+		e.config.colour = e.config.old_colour
+	end
+end
+function G.FUNCS.hpot_execute_choice(e)
 	local choice_button = e.config.choice_button
 	local choice_func = e.config.choice_func
 
-	if choice_func() then
+	if not choice_func or choice_func() then
 		choice_button()
 	end
 end
 
 --
 
-function G.UIDEF.hotpot_event_choice_button(choice)
+function G.UIDEF.hpot_event_choice_button(choice)
 	local localized = SMODS.localize_box(loc_parse_string(choice.text()), {
 		default_col = G.C.UI.TEXT_LIGHT,
 		vars = {},
@@ -782,32 +932,42 @@ function G.UIDEF.hotpot_event_choice_button(choice)
 		n = G.UIT.R,
 		config = {
 			align = "cm",
-			padding = 0.1,
-			r = 0.1,
+			padding = 0.08,
+			r = 0.75,
 			hover = true,
-			colour = choice.colour or G.C.MULT,
-			-- one_press = true,
+			colour = choice.colour or G.C.GREY,
+			one_press = true,
 			shadow = true,
-			func = "hotpot_can_execute_choice",
-			button = "hotpot_execute_choice",
+			func = "hpot_can_execute_choice",
+			button = "hpot_execute_choice",
 			choice_button = choice.button,
 			choice_func = choice.func,
+			minh = 0.5,
+			maxh = 0.5,
 		},
 		nodes = {
 			{
-				n = G.UIT.R,
+				n = G.UIT.C,
+				config = { minw = 0.05 },
+			},
+			{
+				n = G.UIT.C,
 				config = { align = "cm" },
 				nodes = localized,
+			},
+			{
+				n = G.UIT.C,
+				config = { minw = 0.05 },
 			},
 		},
 	}
 end
 
 -- TODO: prettify
-function G.UIDEF.hotpot_event()
+function G.UIDEF.hpot_event()
 	local scenario = G.hpot_event_scenario
 
-	local container_H = 5.475
+	local container_H = 5.6
 	local container_W = 14.9
 	local container_padding = 0.1
 
@@ -820,8 +980,8 @@ function G.UIDEF.hotpot_event()
 	local content_padding = 0.1
 
 	local image_area_size = container_H - container_padding * 2 - header_H - content_padding * 2
-	local choices_H = 1.75
-	local text_H = image_area_size - content_padding - choices_H
+	local choices_H = 1.8
+	local text_H = image_area_size - content_padding * 2 - choices_H
 
 	local event_text_name = {}
 	localize({
@@ -836,6 +996,7 @@ function G.UIDEF.hotpot_event()
 	for _, line in ipairs(event_text_name) do
 		table.insert(event_name_lines, {
 			n = G.UIT.R,
+			config = { minh = 0.3 },
 			nodes = line,
 		})
 	end
@@ -843,111 +1004,112 @@ function G.UIDEF.hotpot_event()
 	return {
 		n = G.UIT.ROOT,
 		config = {
-			colour = G.C.UI.BACKGROUND_DARK,
-			r = 0.1,
-			padding = container_padding,
+			colour = G.C.CLEAR,
 			minw = container_W,
 			maxw = container_W,
 			minh = container_H,
 			maxh = container_H,
 		},
 		nodes = {
-			{
-				n = G.UIT.R,
-				config = {
-					minw = header_W,
-					maxw = header_W,
-					r = 0.1,
-					colour = G.C.UI.BACKGROUND_INACTIVE,
-					minh = header_H,
-					maxh = header_H,
-					padding = header_padding,
-					align = "cm",
-				},
-				nodes = {
-					{
-						n = G.UIT.C,
-						config = { align = "cm" },
-						nodes = event_name_lines,
+			UIBox_dyn_container({
+				{
+					n = G.UIT.R,
+					config = {
+						minw = header_W,
+						maxw = header_W,
+						colour = G.C.DYN_UI.BOSS_MAIN,
+						r = 0.1,
+						emboss = 0.05,
+						minh = header_H,
+						maxh = header_H,
+						padding = header_padding,
+						align = "cm",
 					},
-				},
-			},
-			{
-				n = G.UIT.R,
-				config = {
-					r = 0.1,
-					colour = G.C.UI.BACKGROUND_INACTIVE,
-					padding = content_padding,
-					minh = content_H,
-					maxh = content_H,
-					minw = content_W,
-					maxw = content_W,
-				},
-				nodes = {
-					{
-						n = G.UIT.C,
-						config = {
-							minw = image_area_size,
-							minh = image_area_size,
-							colour = { 0, 0, 0, 0.1 },
-							r = 0.1,
+					nodes = {
+						{
+							n = G.UIT.C,
+							config = { align = "cm" },
+							nodes = event_name_lines,
 						},
 					},
-					{
-						n = G.UIT.C,
-						nodes = {
-							{
-								n = G.UIT.R,
-								config = {
-									minh = text_H,
-									maxh = text_H,
-									align = "c",
+				},
+				{
+					n = G.UIT.R,
+					config = {
+						r = 0.1,
+						minh = content_H,
+						maxh = content_H,
+						minw = content_W,
+						maxw = content_W,
+						align = "c",
+					},
+					nodes = {
+						{
+							n = G.UIT.C,
+							config = {
+								minw = image_area_size,
+								maxw = image_area_size,
+								minh = image_area_size,
+								maxh = image_area_size,
+								colour = { 0, 0, 0, 0.1 },
+								r = 0.1,
+								id = "image_area",
+							},
+						},
+						{
+							n = G.UIT.C,
+							config = {
+								minw = 0.1,
+								maxw = 0.1,
+							},
+						},
+						{
+							n = G.UIT.C,
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = {
+										minh = text_H,
+										maxh = text_H,
+										align = "c",
+										padding = 0.1,
+									},
+									nodes = {
+										{
+											n = G.UIT.O,
+											config = {
+												id = "text_area",
+												object = Moveable(),
+											},
+										},
+									},
 								},
-								nodes = {
-									{
-										n = G.UIT.O,
-										config = {
-											id = "event_text",
-											object = Moveable(),
+								{
+									n = G.UIT.R,
+									config = { minh = 0.1 },
+								},
+								{
+									n = G.UIT.R,
+									config = {
+										align = "c",
+										minh = choices_H,
+										maxh = choices_H,
+									},
+									nodes = {
+										{
+											n = G.UIT.O,
+											config = {
+												id = "choices_area",
+												object = Moveable(),
+											},
 										},
 									},
 								},
 							},
-							{
-								n = G.UIT.R,
-								config = { minh = 0.1 },
-							},
-							{
-								n = G.UIT.R,
-								config = {
-									align = "c",
-									minh = choices_H,
-									maxh = choices_H,
-								},
-								nodes = {
-									{
-										n = G.UIT.O,
-										config = {
-											id = "event_choices",
-											object = Moveable(),
-										},
-									},
-									-- G.UIDEF.hotpot_event_choice_button({
-									-- 	colour = G.C.CHIPS,
-									-- 	event_key = "test",
-									-- 	choice_key = "choice1",
-									-- }),
-									-- G.UIDEF.hotpot_event_choice_button({
-									-- 	colour = G.C.CHIPS,
-									-- 	event_key = "test",
-									-- 	choice_key = "choice2",
-									-- }),
-								},
-							},
 						},
 					},
 				},
-			},
+			}),
 		},
 	}
 end

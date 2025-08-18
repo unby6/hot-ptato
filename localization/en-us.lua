@@ -923,8 +923,10 @@ return {
         EventSteps = {
             hpot_test_1 = {
                 text = {
-                    "This is test event step 1",
-                    "Choose, {C:attention}NOW!{}",
+                    "This is test event step 1. Hey look, it's Jim-",
+                    " ",
+                    "{s:1.75,C:attention}Choose,{}",
+                    "{E:1,s:3,C:attention}NOW!{}"
                 }
             },
             hpot_test_2 = {
@@ -937,6 +939,7 @@ return {
                 text = {
 			        "Congratultions! Yoy get {C:money}FREE MONEY!",
 			        "Now, {s:1.5}GO AWAY!{}",
+                    "{E:1,s:3,C:mult}AND NEVER COME BACK!"
                 }
             }
         },
