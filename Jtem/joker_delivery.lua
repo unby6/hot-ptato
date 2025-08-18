@@ -195,7 +195,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, price_colour)
         local t1 = {
             n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
                 {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = { unpack(price_text) }, colours = {price_colour or G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                {n=G.UIT.O, config={object = DynaText({string = { unpack(price_text) }, colours = {price_colour or G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5, font = SMODS.Fonts["hpot_plincoin"]})}},
                 }}
             }}
             
@@ -343,7 +343,7 @@ function hotpot_delivery_refresh_card()
     end
     for i = 1, 5 do
         local _c = SMODS.create_card{ area = G.hp_jtem_delivery_special_deals, key = "j_joker", skip_materialize = true, no_edition = true}
-        hpot_jtem_create_special_deal_boxes(_c,{{prefix = "JX", ref_table = _c, ref_value = "cost"}})
+        hpot_jtem_create_special_deal_boxes(_c,{{prefix = "͸", ref_table = _c, ref_value = "cost"}}, G.C.BLUE)
         G.hp_jtem_delivery_special_deals:emplace(_c)
     end
 end
