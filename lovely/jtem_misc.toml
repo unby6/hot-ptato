@@ -24,3 +24,52 @@ payload = '''VERSION = '1.O.1o'
 VERSION = VERSION..'-empty'
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
+payload = '''
+if self.STATE == self.STATES.JTEM_PANDEMONIUM then
+  PandemoniumGame.f.update(dt)
+end
+
+'''
+match_indent = true
+
+# Game:draw
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''timer_checkpoint('uiboxes', 'draw')'''
+payload = '''
+if self.STATE == self.STATES.JTEM_PANDEMONIUM then
+  PandemoniumGame.f.draw()
+end
+
+'''
+match_indent = true
+
+# I am so frustrated
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+position = 'at'
+pattern = '''if G.GAME.blind then t[#t + 1] = { object = G.GAME.blind, scored_card = G.GAME.blind.children.animatedSprite } end'''
+payload = '''if G.GAME.blind and G.GAME.blind.is and G.GAME.blind:is(Blind) then t[#t + 1] = { object = G.GAME.blind, scored_card = G.GAME.blind.children.animatedSprite } end'''
+match_indent = true
+
+# Draggable UIBoxes
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'before'
+pattern = '''if args.config.can_collide == nil then '''
+payload = '''
+if args.config.draggable then
+  self.states.drag.can = true
+end
+'''
+match_indent = true

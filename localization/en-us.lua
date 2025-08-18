@@ -488,7 +488,17 @@ return {
                 text = {
                     "For every {C:attention}#1#{} Nxkoo's killed",
                     "this card gains {X:mult,C:white}X#2#{}",
+                    "{C:inactive}(Max of {X:mult,C:white}X15{C:inactive} Mult)",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                }
+            },
+            j_hpot_retriggered = {
+                name = "what if there was a joker that retriggered",
+                text = {
+                    "Retriggers every card",
+                    "{C:attention}#1#{} additional time",
+                    "{C:inactive}Wait, isn't this just Boredom?",
+                    "{C:inactive}You'll see."
                 }
             }
         },
@@ -962,7 +972,8 @@ return {
     misc = {
         challenge_names = {
             c_hpot_amateur_magician = "Amateur Magician",
-            c_hpot_isolated_wizard = "Isolated Wizard"
+            c_hpot_isolated_wizard = "Isolated Wizard",
+            c_hpot_plinko4ever = "Plinko 4ever",
         },
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
@@ -1062,6 +1073,8 @@ return {
             hotpot_plinko_reset2_ante = " ante",
 
             hotpot_spark_points = "Joker Exchange",
+            hotpot_delivery = "Delivery",
+            hotpot_delivery_back = "Back to Shop",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
@@ -1071,7 +1084,9 @@ return {
             hotpot_team = { "Team: #1#" }
         },
 		v_text = {
-			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"}
+			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},
+            ch_c_hpot_plinko_4ever = {"{C:attention}Forced plinko{} in all shop areas"},
+            ch_c_hpot_plinko_4ever_2 = {"Playing plinko does not require {C:hpot_plincoin}Plincoins"}
 		},
         labels = {
             bottlecap = "Bottle Cap",

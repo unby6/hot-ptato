@@ -11,7 +11,9 @@ HotPotato.Ads = {
         ad_blank = {atlas = "hpot_jtemads",pos = {x=0,y=0}},
         ad_naner = {atlas = "hpot_jtemads",pos = {x=1,y=1}},
         ad_rally = {atlas = "hpot_jtemrally",pos = {x=0,y=0},animated = true},
-        ad_fuck = {atlas = "hpot_jtemfuck",pos = {x=0,y=0},animated = true}
+        ad_fuck = {atlas = "hpot_jtemfuck",pos = {x=0,y=0},animated = true},
+        ad_sauce = {atlas = 'hpot_jtemads',pos = {x=1,y=2}},
+        ad_singles = {atlas = 'hpot_jtemads',pos = {x=2,y=2}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -19,7 +21,9 @@ HotPotato.Ads = {
         ad_peeling = {atlas = 'hpot_ProtoShitposts', pos = {x=1,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
         ad_sweebro = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0,y=1}, animated = false, base_size = 0.75},
-        ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}}
+        ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}},
+        ad_labubu = {atlas = 'hpot_jtemads',pos = {x=2,y=1}},
+        ad_4f6368 = {atlas = 'hpot_jtemads',pos = {x=0,y=2}},
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
@@ -92,7 +96,7 @@ function create_UIBox_ad(args)
                 {n=G.UIT.T, config = {text = 'ad_'..adNum, colour = G.C.UI.TEXT_LIGHT, scale = 0.4, align = 'cl'}}
             }},
             {n=G.UIT.C, config = {align = 'cm', colour = G.C.RED, minw = 0.3, minh = 0.3, r = 0.3, button = 'remove_ad', adnum = adNum}, nodes = {
-                {n=G.UIT.T, config = {text = 'X', colour = G.C.UI.TEXT_LIGHT, scale = 0.4}}
+                {n=G.UIT.T, config = {text = 'x', colour = G.C.UI.TEXT_LIGHT, scale = 0.4}}
             }}
         }},
         tutorial_content,
@@ -144,12 +148,16 @@ function Game:start_run(args)
         for k, v in ipairs(args.savetext.hotpot_ads) do
             local new_ad = UIBox{
                 definition = create_UIBox_ad{ad = v.key, id = v.id, scale = v.scale, tutorial = v.tutorial},
-                config = {align="cm", offset = v.offset, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
+                config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', bond = 'Weak', draggable = true, collideable = true, can_collide = true}
             }
             new_ad.config.id = v.id
             new_ad.config.key = v.key
             new_ad.config.scale = v.scale
             new_ad.config.tutorial = v.tutorial
+            new_ad:align_to_major()
+            new_ad.config.major = nil
+            new_ad:set_role{role_type = 'Major'}
+            new_ad:hard_set_T(v.position.x, v.position.y,new_ad.T.w, new_ad.T.h)
             G.GAME.hotpot_ads[k] = new_ad
         end
     end
@@ -161,6 +169,7 @@ function save_ad(ad)
         key = ad.config.key,
         id = ad.config.id,
         offset = ad.alignment.offset,
+        position = {x = ad.T.x, y = ad.T.y},
         scale = ad.config.scale,
         tutorial = ad.config.tutorial,
     }
@@ -210,10 +219,13 @@ function create_ads(number_of_ads)
                 G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
                 local new_ad = UIBox{
                     definition = create_UIBox_ad{ad = ad_to_use, id = G.GAME.hotpot_total_ads,scale = ad_scale, tutorial = tutorial_ad},
-                    config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak'}
+                    config = {align="cm", offset = {x=0,y=0}, instance_type = 'CARD', major = G.ROOM_ATTACH, bond = 'Weak', draggable = true, collideable = true, can_collide = true, foc}
                 }
-                new_ad.alignment.offset.x = (pseudorandom('ad_x_offset')-0.5)*16
-                new_ad.alignment.offset.y = (pseudorandom('ad_y_offset')-0.5)*9
+                new_ad:align_to_major()
+                new_ad.config.major = nil
+                new_ad:set_role{role_type = 'Major'}
+                new_ad.T.x = new_ad.T.x + (pseudorandom('ad_x_offset')-0.5)*16
+                new_ad.T.y = new_ad.T.y + (pseudorandom('ad_y_offset')-0.5)*9
                 new_ad.config.id = G.GAME.hotpot_total_ads
                 new_ad.config.key = ad_to_use
                 new_ad.config.scale = ad_scale

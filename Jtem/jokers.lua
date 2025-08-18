@@ -90,7 +90,7 @@ SMODS.Joker {
     loc_vars = function (self,info_queue,card)
         local save = G.PROFILES[G.SETTINGS.profile]
         return {vars = {
-            card.ability.extra.per, card.ability.extra.gain,(math.floor((save.JtemNXkilled or 0)/card.ability.extra.per) * card.ability.extra.gain)+1
+            card.ability.extra.per, card.ability.extra.gain,math.min((math.floor((save.JtemNXkilled or 0)/card.ability.extra.per) * card.ability.extra.gain)+1,15)
         }}
     end,
     calculate = function(self,card,context)
@@ -106,4 +106,29 @@ SMODS.Joker {
         code = {'Squidguset'},
         team = {'JTem'}
     },
+}
+
+SMODS.Joker {
+    key = "retriggered",
+    atlas = "jtem_jokers",
+    pos = { x = 3, y = 1 },
+    config = { extra = { retriggers = 1 } },
+    rarity = 3,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.retriggers } }
+    end,
+    calculate = function(self, card, context)
+        if (context.repetition) or (context.retrigger_joker_check and not context.retrigger_joker) then
+            return {
+                repetitions = card.ability.extra.retriggers,
+                sound = "hpot_ws_again"
+            }
+        end
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Haya'},
+        idea = {'MissingNumber'}, -- No one adds this for some reason. For future mods please do :pray:
+        team = {'JTem'}
+    }
 }

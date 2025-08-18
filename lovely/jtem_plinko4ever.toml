@@ -1,0 +1,253 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+
+# hpot_plinko_4ever forces you on plinko 
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''if not G.STATE_COMPLETE then
+        stop_use()
+        ease_background_colour_blind(G.STATES.SHOP)'''
+payload = '''
+local plinko = false
+if G.GAME.modifiers.hpot_plinko_4ever then
+	G.FUNCS.show_plinko()
+	plinko = true
+	G.shop_booster = CardArea(
+      G.hand.T.x+0,
+      G.hand.T.y+G.ROOM.T.y + 9,
+      1.2*G.CARD_W,
+      1.15*G.CARD_H, 
+      {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
+	-- Dummy card areas. These will never appear in the plinko shop
+	G.shop_jokers = CardArea(
+      0, 0,
+      G.CARD_W*2,
+      G.CARD_H, 
+      {card_limit = 1, type = 'shop', highlight_limit = 1})
+	G.shop_jokers.states.visible = false
+
+    G.shop_vouchers = CardArea(
+      0, 0,
+      G.CARD_W,
+      G.CARD_H, 
+      {card_limit = 1, type = 'shop', highlight_limit = 1})
+	G.shop_vouchers.states.visible = false
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''G.shop.alignment.offset.y = G.shop.alignment.offset.py
+		G.shop.alignment.offset.py = nil'''
+payload = '''
+if not G.GAME.modifiers.hpot_plinko_4ever then
+	G.shop.alignment.offset.y = G.shop.alignment.offset.py
+	G.shop.alignment.offset.py = nil
+else
+	G.plinko.alignment.offset.y = G.plinko.alignment.offset.py
+	G.plinko.alignment.offset.py = nil
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''if G.shop and G.shop.alignment.offset.py then'''
+payload = '''
+if (G.shop and G.shop.alignment.offset.py) or (G.plinko and G.plinko.alignment.offset.py) then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'before'
+pattern = '''if G.shop and not G.shop.alignment.offset.py then'''
+payload = '''
+if not G.shop and G.plinko and not G.plinko.alignment.offset.py then
+	G.plinko.alignment.offset.py = G.plinko.alignment.offset.y
+    G.plinko.alignment.offset.y = G.ROOM.T.y + 29
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''if G.shop then '''
+payload = '''
+if G.shop or G.plinko then 
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''G.shop.alignment.offset.y = G.ROOM.T.y + 29
+          G.SHOP_SIGN.alignment.offset.y = -15'''
+payload = '''
+if G.shop then
+	G.shop.alignment.offset.y = G.ROOM.T.y + 29
+	G.SHOP_SIGN.alignment.offset.y = -15
+elseif G.plinko then
+	G.plinko.alignment.offset.y = G.ROOM.T.y + 29
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'before'
+pattern = '''G.shop:remove()'''
+payload = '''
+if G.shop then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'after'
+pattern = '''G.shop = nil'''
+payload = '''
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''G.SHOP_SIGN:remove()
+          G.SHOP_SIGN = nil'''
+payload = '''
+if G.SHOP_SIGN then
+	G.SHOP_SIGN:remove()
+	G.SHOP_SIGN = nil
+end
+'''
+match_indent = true
+
+# This is disgusting
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''if not nosave_shop then G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) end
+                                return true
+                            end
+                        end}))
+                    return true
+                end
+            }))
+          G.STATE_COMPLETE = true'''
+payload = '''
+if not nosave_shop then G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) end
+                                return true
+                            end
+                        end}))
+                    return true
+                end
+            }))
+          if not plinko then G.STATE_COMPLETE = true end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''if not nosave_shop then G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) end'''
+payload = '''
+if not nosave_shop and not plinko then G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end})) end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''G.shop = G.shop or UIBox{
+            definition = G.UIDEF.shop(),
+            config = {align='tmi', offset = {x=0,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
+        }'''
+payload = '''
+if not plinko then
+	G.shop = G.shop or UIBox{
+		definition = G.UIDEF.shop(),
+		config = {align='tmi', offset = {x=0,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
+	}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''if math.abs(G.shop.T.y - G.shop.VT.y) < 3 then'''
+payload = '''
+if (G.shop and math.abs(G.shop.T.y - G.shop.VT.y) < 3) or plinko then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''G.shop.alignment.offset.y = -5.3
+                    G.shop.alignment.offset.x = 0'''
+payload = '''
+if G.shop then
+	G.shop.alignment.offset.y = -5.3
+	G.shop.alignment.offset.x = 0
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''else
+                                        for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do'''
+payload = '''
+elseif G.shop_jokers then
+    for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''else
+                                        local vouchers_to_spawn = 0'''
+payload = '''
+elseif G.shop_vouchers then
+    local vouchers_to_spawn = 0
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')})'''
+payload = '''
+if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end
+'''
+match_indent = true
