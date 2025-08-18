@@ -354,6 +354,9 @@ function PlinkoGame.f.init_dummy_ball()
     elseif  choice >= 90  then
         PlinkoUI.sprites.changed = "morb"
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.morb
+    elseif  choice <= 5  then
+        PlinkoUI.sprites.changed = "finity"
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.finity
     else
          PlinkoUI.sprites.changed = nil
          PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG

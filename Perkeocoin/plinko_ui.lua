@@ -106,6 +106,10 @@ function PlinkoUI.f.init_sprites()
     PlinkoUI.sprites.morb = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_morb'])
   end
 
+    if not PlinkoUI.sprites.finity then
+    PlinkoUI.sprites.finity = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_finityorb'])
+  end
+
   if not PlinkoUI.sprites.peg then
     -- scale dimensions relative to the orb
     local peg_size = PlinkoGame.s.peg_radius * (orb_size / PlinkoGame.s.ball_radius)
