@@ -23,3 +23,94 @@ else
 t.title = "Balatro: "..HPJTTT.text[HPJTTT.chosen]
 end'''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = "G.SPLASH_LOGO.dissolve = 1   "
+payload = '''
+G.SPLASH_TEXT = DynaText {
+	string = HPJTTT.text[HPJTTT.chosen],
+	colours = { G.C.EDITION },
+	shadow = true,
+	spacing = 2,
+	bump = true,
+	scale = 0.4
+}
+--G.SPLASH_TEXT.T.scale = 0
+--G.SPLASH_TEXT.VT.scale = 0
+G.SPLASH_TEXT.VT.r = -0.2
+G.SPLASH_TEXT.T.r = -0.2
+G.SPLASH_TEXT.scale = 0
+G.SPLASH_TEXT.config.spacing = 0
+G.SPLASH_TEXT:update_text(true)
+G.SPLASH_TEXT:set_alignment({
+    major = G.title_top,
+    type = 'cm',
+    bond = 'Strong',
+    offset = {x=5,y=2}
+})
+
+G.E_MANAGER.queues.splash_text = G.E_MANAGER.queues.splash_text or {}
+local function ease_splash_text(delta, reset)
+    if not G.SPLASH_TEXT then return end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        ease = 'quad',
+        ref_table = G.SPLASH_TEXT,
+        ref_value = 'scale',
+        ease_to = reset and 0.4 or (0.4 + delta),
+        delay = 0.5,
+        func = (function(t)
+            G.SPLASH_TEXT.config.spacing = G.SPLASH_TEXT.config.spacing*t
+            G.SPLASH_TEXT:update_text(true)
+            return t
+        end) 
+    }), "splash_text")
+    G.E_MANAGER:add_event(Event({
+        func = function() 
+            ease_splash_text(delta, not reset)
+            return true
+        end
+    }), "splash_text")
+end
+delay(1, "splash_text")
+ease_splash_text(0.1)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/event.lua'
+position = 'after'
+pattern = "if G.debug_splash_size_toggle then "
+payload = '''
+splash_text = {},
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = "if G.debug_splash_size_toggle then "
+payload = '''
+if G.SPLASH_TEXT then
+    love.graphics.push()
+    G.SPLASH_TEXT:translate_container()
+    G.SPLASH_TEXT:draw()
+    love.graphics.pop()
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = "if self.SPLASH_LOGO then self.SPLASH_LOGO:remove(); self.SPLASH_LOGO = nil end"
+payload = '''
+if self.SPLASH_TEXT then self.SPLASH_TEXT:remove(); self.SPLASH_TEXT = nil end
+'''
+match_indent = true
