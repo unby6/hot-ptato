@@ -245,11 +245,12 @@ G.FUNCS.hp_jtem_can_request_joker = function(e)
         e.config.button = nil
     else
         e.config.colour = G.C.RED
-        e.config.button = 'hp_jtem_order'
+        e.config.button = 'hotpot_jtem_delivery_request_item'
     end
 end
 
-function G.FUNCS.hotpot_jtem_delivery_request_item()
+function G.FUNCS.hotpot_jtem_delivery_request_item(e)
+    print(e)
 end
 
 G.FUNCS.hp_jtem_can_cancel = function(e)
@@ -617,7 +618,7 @@ function hotpot_jtem_generate_special_deals( deals )
                     perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
                 },
                 create_card_args = {
-                    edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or (not jx and poll_edition("hpjtem_delivery_edition")),
+                    hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or (not jx and poll_edition("hpjtem_delivery_edition")),
                     no_edition = jx
                 }
             } )

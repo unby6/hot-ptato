@@ -44,3 +44,11 @@ position = 'after'
 pattern = '''            -- TARGET: setting_blind effects'''
 payload = '''hotpot_jtem_calculate_deliveries()'''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+position = 'after'
+pattern = '''    if t.edition then _card:set_edition(t.edition) end'''
+payload = '''if t.hp_jtem_silent_edition then _card:set_edition(t.hp_jtem_silent_edition, true, true) end'''
+match_indent = true
