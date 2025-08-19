@@ -1020,11 +1020,20 @@ return {
 			        "Now, {s:1.5}GO AWAY!{}",
                     "{E:1,s:3,C:mult}AND NEVER COME BACK!"
                 }
+            },
+            hpot_pelter = {
+                text = {
+                    "A young man comes up to you and offers to trade",
+                    "what would you like to do?"
+                }
             }
         },
         EventScenarios = {
             hpot_test = {
                 name = "Test Event Name",
+            },
+            hpot_trade1 = {
+                name = "The Trader"
             }
         },
     },
@@ -1176,6 +1185,8 @@ return {
             hpot_test_1_lose = "Destroy {C:attention}ALL{} cards in hand",
             hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
             hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(but only if you have at least #1#$)",
+            hpot_multi_tradenone = "Ignore",
+            hpot_multi_tradecard = "Trade {C:attention}1{C:imaginary} #1#{} card",
         }
     }
 }
