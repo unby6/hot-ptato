@@ -93,7 +93,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 nodes = {
                     {
                         n = G.UIT.R,
-                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item', hover = true},
+                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item',func = "hp_jtem_can_request_joker", hover = true},
                         nodes = {
                             {
                                 n = G.UIT.R, config = { align = "cm" },
@@ -220,7 +220,7 @@ G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
-    if (G.GAME.hp_jtem_p2j_rate.from > G.GAME.plincoins) then
+    if (G.GAME.hp_jtem_p2j_rate.from > G.GAME.plincoins) or not G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -238,6 +238,20 @@ G.FUNCS.hp_jtem_can_order = function(e)
         e.config.button = 'hp_jtem_order'
     end
 end
+G.FUNCS.hp_jtem_can_request_joker = function(e)
+    local _c = e.config.ref_table
+    if not G.GAME.hp_jtem_should_allow_custom_order then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.RED
+        e.config.button = 'hp_jtem_order'
+    end
+end
+
+function G.FUNCS.hotpot_jtem_delivery_request_item()
+end
+
 G.FUNCS.hp_jtem_can_cancel = function(e)
     return false
 end
@@ -465,6 +479,9 @@ function Game:init_game_object()
     r.hp_jtem_d2j_rate = { from = 1, to = 5000 }
     -- p2j is plincoin to joker exchange
     r.hp_jtem_p2j_rate = { from = 1, to = 32000 }
+    r.hp_jtem_special_offer_count = 3
+    r.hp_jtem_should_allow_custom_order = false
+    r.hp_jtem_should_allow_buying_jx_from_plincoin = false
     return r
 end
 
@@ -573,7 +590,8 @@ function hotpot_jtem_generate_special_deals( deals )
     -- to other people who see this
     -- feel free to tweak the balanced
     G.GAME.round_resets.hp_jtem_special_offer = {}
-    for i = 1, (deals or 5) do
+    G.GAME.hp_jtem_special_offer_count = G.GAME.hp_jtem_special_offer_count or 3
+    for i = 1, (deals or G.GAME.hp_jtem_special_offer_count) do
         local _pool, _pool_key = get_current_pool("Joker")
         _pool = remove_unavailable(_pool)
         local center_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
@@ -768,9 +786,6 @@ function G.FUNCS.toggle_shop(e)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals,true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue,true)
     return next_round_button_for_delivery_area_destruction(e)
-end
-
-function G.FUNCS.hotpot_jtem_delivery_request_item()
 end
 
 
