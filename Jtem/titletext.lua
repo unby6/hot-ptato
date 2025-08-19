@@ -129,6 +129,7 @@ HPJTTT = {
         "Speed, Power, Stamina",
         "attempt to compare number with table",
         "WDYM NO LABUBU GLASS BRIDGE",
+        "Code my Jokers",
     }
 }
 
