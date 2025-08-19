@@ -12,6 +12,7 @@ function ease_spark_points(mod, instant)
 		end
 		--Ease from current chips to the new number of chips
 		G.GAME.spark_points = G.GAME.spark_points + mod
+		G.GAME.spark_points_display = number_format(G.GAME.spark_points, 1e10)
 		check_for_unlock({ type = 'spark_points' })
 		G.HUD:recalculate()
 		--Popup text next to the chips in UI showing number of chips gained/lost
@@ -95,8 +96,9 @@ function create_UIBox_HUD()
 													n = G.UIT.O,
 													config = {
 														object = DynaText {
+															-- i want the number to display in full until 1e10 or something so here
 															string = {
-																{ ref_table = G.GAME, ref_value = 'spark_points' }
+																{ ref_table = G.GAME, ref_value = 'spark_points_display' }
 															},
 															colours = { G.C.BLUE },
 															shadow = true,

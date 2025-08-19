@@ -1,6 +1,7 @@
 -- Might as well lmao
 function init_jtem(game)
 	game.spark_points = 0
+	game.spark_points_display = "0"
 	game.hpot_events_encountered = {}
 end
 
@@ -75,4 +76,14 @@ function set_element_object(container, object)
 		end
 		container.UIBox:recalculate()
 	end
+end
+
+function remove_unavailable(_table)
+	local _t2 = {}
+	for _, v in ipairs(_table) do 
+		if v ~= "UNAVAILABLE" then
+			table.insert(_t2, v)
+		end
+	end
+	return _t2
 end

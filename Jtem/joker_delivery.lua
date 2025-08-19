@@ -1,5 +1,8 @@
 -- SHOP Button for Delivery
 -- this is patched into the code via jtem_delivery.toml
+
+-- little reminder that unless absolutely needed, don't use "at" target for patches :3
+
 function G.UIDEF.hotpot_jtem_delivery_section()
 end
 -- like in React, I made stuff I reuse into buttons
@@ -65,6 +68,8 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
 end
 
 function G.UIDEF.hotpot_jtem_shop_delivery_section()
+    -- dollars to jx
+    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 500 }
     return 
     {
         n = G.UIT.R,
@@ -107,19 +112,19 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                     },
                     {
                         n = G.UIT.R,
-                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3.5, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item', hover = true},
+                        config = {colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 3.5, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true},
                         nodes = {
                             {
                                 n = G.UIT.R, config = { align = "cm" },
                                 nodes = { { n = G.UIT.T,
-                                        config = { text = localize("hotpot_request_joker_line_1"), scale = 0.5, colour = G.C.WHITE,}
+                                        config = { text = localize({type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = {G.GAME.hp_jtem_d2j_rate.to}}), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin']}
                                     },
                                 }
                             },
                             {
                                 n = G.UIT.R, config = { align = "cm" },
                                 nodes = { { n = G.UIT.T,
-                                        config = { text = localize("hotpot_request_joker_line_2"), scale = 0.3, colour = G.C.WHITE,}
+                                        config = { text = localize({type = "variable", key = "hotpot_exchange_for_jx_line_2",vars = {"$",G.GAME.hp_jtem_d2j_rate.from}} ), scale = 0.3, colour = G.C.WHITE}
                                     },
                                 }
                             },
@@ -165,14 +170,35 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
     }
 end
 
+G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
+    if (G.GAME.hp_jtem_d2j_rate.from > G.GAME.dollars - G.GAME.bankrupt_at) then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.BLUE
+        e.config.button = 'hp_jtem_exchange_d2j'
+    end
+end
 G.FUNCS.hp_jtem_can_order = function(e)
-    return false
+    local _c = e.config.ref_table
+    if (_c.hp_jtem_currency_bought_value > get_currency_amount(_c.hp_jtem_currency_bought) - (_c.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.ORANGE
+        e.config.button = 'hp_jtem_order'
+    end
 end
 G.FUNCS.hp_jtem_can_cancel = function(e)
     return false
 end
-G.FUNCS.hp_jtem_order = function(e)
+G.FUNCS.hp_jtem_exchange_d2j = function(e)
+    ease_dollars(-G.GAME.hp_jtem_d2j_rate.from)
+    ease_spark_points(G.GAME.hp_jtem_d2j_rate.to)
+end
 
+G.FUNCS.hp_jtem_order = function(e)
+    
 end
 G.FUNCS.hp_jtem_cancel = function(e)
 
@@ -277,6 +303,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
             
         }
         }
+    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 2400 }
         
 
         card.children.hp_jtem_price_side = UIBox{
@@ -344,12 +371,32 @@ function Game:init_game_object()
             key - the key of the card that was queue in delivery
             rounds_passed - rounds waited for delivery
             rounds_total - rounds that you would have to wait in total
-            price - cost in case of refunds
+            price - cost in case of refunds (is a table now lol)
+                price.value and price.currency - should be self explanatory (ok so currency at the moment has 3, 
+                    dollars, plincoin, and joker exchange (internally spark_points) )
             extras - other attributes that should apply to card ability directly, for example eternal, rental
     ]]
-    r.hp_jtem_special_offer = {}
+    r.round_resets.hp_jtem_special_offer = {}
+    --[[
+        the offer should reset EVERY round with the following format which is basically the same as above (there should be 5 of them at most)
+            key - the center key thing (lol)
+            extras - shit like rental and eternal and stuff like that
+            price - same as above really
+            rounds_passed, rounds_total should be lower than normally ordering jokers to incentivise doing this 
+                instead of ordering everything and so should the price
+    ]]
+    -- from 1 dollar to 500 jx
+    r.hp_jtem_d2j_rate = { from = 1, to = 2400 }
     return r
 end
+
+SMODS.current_mod.reset_game_globals = function(run_start)
+    if not run_start then
+        G.GAME.round_resets.hp_jtem_special_offer = {}
+        hotpot_jtem_generate_special_deals()
+    end
+end
+
 function hotpot_jtem_center_to_round_wait(center) -- accept ONLY center object
     local rounds = 2
     if center.set == "Joker" then
@@ -371,19 +418,27 @@ function hotpot_jtem_center_to_round_wait(center) -- accept ONLY center object
 end
 
 -- very useful for multiple currencies like this
+function get_currency_amount(currency)
+    currency = currency or "dollars"
+    value = value or 0
+    if currency == "dollars" then return G.GAME.dollars end
+    if currency == "plincoin" then return G.GAME.plincoins end
+    if currency == "joker_exchange" then return G.GAME.spark_points end
+end
 function ease_currency(currency, value, instant)
     currency = currency or "dollars"
     value = value or 0
     if currency == "dollars" then ease_dollars(value,instant) end
     if currency == "plincoin" then ease_plincoins(value,instant) end
     if currency == "joker_exchange" then ease_spark_points(value, instant) end
-    -- patches for other currencies
+    -- patches for other currencies ease
 end
 function generate_currency_string_args(currency)
     currency = currency or "dollars"
     if currency == "dollars" then return { colour = G.C.MONEY, symbol = "$", font = G.LANG.font } end
     if currency == "plincoin" then return { colour = SMODS.Gradients["hpot_plincoin"], symbol = "$", font = SMODS.Fonts["hpot_plincoin"] } end
     if currency == "joker_exchange" then return { colour = G.C.BLUE, symbol = "͸", font = SMODS.Fonts["hpot_plincoin"] } end
+    -- patches for other currencies strings
 end
 
 function hotpot_jtem_add_card_to_delivery_queue( key, price )
@@ -410,6 +465,57 @@ function hotpot_jtem_add_card_to_delivery_queue( key, price )
         hotpot_delivery_refresh_card()
     end
 end
+function hotpot_jtem_add_to_offers( key, args )
+    -- args accepts like weird shit you can probably just understand it by looking at it
+    if not G.P_CENTERS[key] then return end
+
+    local price = args.price or 0
+    local value = type(price) == "table" and price.value or price
+    local currency = type(price) == "table" and price.currency or "dollars"
+    local ct = G.P_CENTERS[key]
+    local delivery_table = {
+        key = key,
+        rounds_passed = args.rounds_passed or 0,
+        rounds_total = args.rounds_total or math.ceil(hotpot_jtem_center_to_round_wait(ct) * (args.rounds_total_factor or 0)),
+        price = value,
+        currency = currency,
+        extras = args.extras or {}
+    }
+    -- target patch for custom special deals
+    G.GAME.round_resets.hp_jtem_special_offer = G.GAME.round_resets.hp_jtem_special_offer or {}
+    table.insert(G.GAME.round_resets.hp_jtem_special_offer, delivery_table)
+    if G.GAME.round_resets.hp_jtem_special_offer then
+        hotpot_delivery_refresh_card()
+    end
+end
+function hotpot_jtem_generate_special_deals( deals )
+    -- generate 5 deals
+
+    G.GAME.round_resets.hp_jtem_special_offer = {}
+    for i = 1, (deals or 5) do
+        local _pool, _pool_key = get_current_pool("Joker")
+        _pool = remove_unavailable(_pool)
+        local center_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local center = G.P_CENTERS[center_key]
+        local should_spawn_with_rental = pseudorandom("hpjtem_delivery_rental") < 0.1 and true
+        local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_rental") < 0.1 and true
+        local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_rental") < 0.1 and not should_spawn_with_eternal
+        local price_factor = 2410
+        price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) * (should_spawn_with_perishable and 0.3 or 1)
+        if center then
+            hotpot_jtem_add_to_offers( center.key , {
+                price = { currency = "joker_exchange", value = center.cost * price_factor },
+                rounds_total_factor = 0.8,
+                extras = {
+                    rental = should_spawn_with_rental,
+                    eternal = should_spawn_with_eternal,
+                    perishable = should_spawn_with_perishable,
+                }
+            } )
+        end
+
+    end
+end
 
 function hotpot_delivery_refresh_card()
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals,true)
@@ -419,22 +525,28 @@ function hotpot_delivery_refresh_card()
         local _c = SMODS.create_card{ area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true}
         _c.hp_jtem_currency_bought = _obj.currency
         _c.hp_jtem_currency_bought_value = _obj.price
+        _c.hp_delivery_obj = _obj
         local args = generate_currency_string_args(_c.hp_jtem_currency_bought)
         hpot_jtem_create_delivery_boxes(_c,{{ref_table = temp_str, ref_value = 'str'}},args)
-        
         if _obj.extras then
             for k,v in pairs(_obj.extras) do
-                _c[k] = v
+                _c.ability[k] = v
             end
         end
         G.hp_jtem_delivery_queue:emplace(_c)
     end
-    for i = 1, 5 do
-        local _c = SMODS.create_card{ area = G.hp_jtem_delivery_special_deals, key = "j_joker", skip_materialize = true, no_edition = true}
-        _c.hp_jtem_currency_bought = "joker_exchange"
-        _c.hp_jtem_currency_bought_value = 3000
+    for _,_obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
+        local _c = SMODS.create_card{ area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true}
+        _c.hp_jtem_currency_bought = _obj.currency
+        _c.hp_jtem_currency_bought_value = _obj.price
+        _c.hp_delivery_obj = _obj
         local args = generate_currency_string_args(_c.hp_jtem_currency_bought)
         hpot_jtem_create_special_deal_boxes(_c,{{prefix = args.symbol, ref_table = _c, ref_value = "hp_jtem_currency_bought_value"}}, args)
+        if _obj.extras then
+            for k,v in pairs(_obj.extras) do
+                _c.ability[k] = v
+            end
+        end
         G.hp_jtem_delivery_special_deals:emplace(_c)
     end
 end

@@ -1112,12 +1112,10 @@ return {
             hotpot_plinko_reset2_ante = " ante",
 
             hotpot_spark_points = "Joker Exchange",
-            hotpot_delivery = "Delivery",
+            hotpot_delivery = "Deliveries",
             hotpot_delivery_back = "Back to Shop",
             hotpot_request_joker_line_1 = "Request",
             hotpot_request_joker_line_2 = "a Joker",
-            hotpot_exchange_for_jx_line_1 = "Exchange",
-            hotpot_exchange_for_jx_line_2 = "for Joker Exchange",
             hotpot_delivery_order = "ORDER",
             hotpot_delivery_order_cancel = "CANCEL",
         },
@@ -1126,7 +1124,10 @@ return {
             hotpot_art = { "Art: #1#" },
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
-            hotpot_team = { "Team: #1#" }
+            hotpot_team = { "Team: #1#" },
+
+            hotpot_exchange_for_jx_line_1 = "Buy +͸#1#",
+            hotpot_exchange_for_jx_line_2 = "for -#1##2#",
         },
 		v_text = {
 			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},
