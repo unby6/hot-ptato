@@ -18,6 +18,9 @@ SMODS.EventStep({
 			},
 		}
 	end,
+	in_pool = function()
+		return false
+	end,
 })
 SMODS.EventScenario({
 	key = "nothing",
