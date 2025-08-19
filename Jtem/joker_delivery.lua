@@ -93,7 +93,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 nodes = {
                     {
                         n = G.UIT.R,
-                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item', hover = true},
+                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item',func = "hp_jtem_can_request_joker", hover = true},
                         nodes = {
                             {
                                 n = G.UIT.R, config = { align = "cm" },
@@ -220,7 +220,7 @@ G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
-    if (G.GAME.hp_jtem_p2j_rate.from > G.GAME.plincoins) then
+    if (G.GAME.hp_jtem_p2j_rate.from > G.GAME.plincoins) or not G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -238,6 +238,21 @@ G.FUNCS.hp_jtem_can_order = function(e)
         e.config.button = 'hp_jtem_order'
     end
 end
+G.FUNCS.hp_jtem_can_request_joker = function(e)
+    local _c = e.config.ref_table
+    if not G.GAME.hp_jtem_should_allow_custom_order then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.RED
+        e.config.button = 'hotpot_jtem_delivery_request_item'
+    end
+end
+
+function G.FUNCS.hotpot_jtem_delivery_request_item(e)
+    print(e)
+end
+
 G.FUNCS.hp_jtem_can_cancel = function(e)
     return false
 end
@@ -465,6 +480,9 @@ function Game:init_game_object()
     r.hp_jtem_d2j_rate = { from = 1, to = 5000 }
     -- p2j is plincoin to joker exchange
     r.hp_jtem_p2j_rate = { from = 1, to = 32000 }
+    r.hp_jtem_special_offer_count = 3
+    r.hp_jtem_should_allow_custom_order = false
+    r.hp_jtem_should_allow_buying_jx_from_plincoin = false
     return r
 end
 
@@ -573,14 +591,15 @@ function hotpot_jtem_generate_special_deals( deals )
     -- to other people who see this
     -- feel free to tweak the balanced
     G.GAME.round_resets.hp_jtem_special_offer = {}
-    for i = 1, (deals or 5) do
+    G.GAME.hp_jtem_special_offer_count = G.GAME.hp_jtem_special_offer_count or 3
+    for i = 1, (deals or G.GAME.hp_jtem_special_offer_count) do
         local _pool, _pool_key = get_current_pool("Joker")
         _pool = remove_unavailable(_pool)
         local center_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
         local center = G.P_CENTERS[center_key]
         local should_spawn_with_rental = pseudorandom("hpjtem_delivery_rental") < 0.1 and true
-        local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
-        local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
+        local should_spawn_with_eternal = center.eternal_compat and pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
+        local should_spawn_with_perishable = center.perishable_compat and pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
         local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
         local price_factor = currency == "joker_exchange" and 7331 or currency == "plincoin" and 0.3 or 0.8
         local plincoin = currency == "plincoin"
@@ -599,7 +618,7 @@ function hotpot_jtem_generate_special_deals( deals )
                     perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
                 },
                 create_card_args = {
-                    edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or (not jx and poll_edition("hpjtem_delivery_edition")),
+                    hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or (not jx and poll_edition("hpjtem_delivery_edition")),
                     no_edition = jx
                 }
             } )
@@ -764,13 +783,11 @@ end
 -- destroy cards below
 local next_round_button_for_delivery_area_destruction = G.FUNCS.toggle_shop
 function G.FUNCS.toggle_shop(e)
-    G.HP_SHOP_CREATED_CARDS = nil   
+    G.HP_SHOP_CREATED_CARDS = nil
+    G.HP_JTEM_DELIVERY_VISIBLE = false
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals,true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue,true)
     return next_round_button_for_delivery_area_destruction(e)
-end
-
-function G.FUNCS.hotpot_jtem_delivery_request_item()
 end
 
 
@@ -780,8 +797,10 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
     if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
     stop_use()
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
-    if G.shop.alignment.offset.y == -5.3 then
+    if not G.HP_JTEM_DELIVERY_VISIBLE then
+		ease_background_colour({new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 2})
         G.shop.alignment.offset.y = -20
+        G.HP_JTEM_DELIVERY_VISIBLE = true
         simple_add_event(function ()
             sign_sprite.pinch.y = true
             delay(0.5)
@@ -794,7 +813,9 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
         end, {trigger = "after", delay = 0})
         play_sound("hpot_sfx_whistleup",nil, 0.25)
     else
+		ease_background_colour_blind(G.STATES.SHOP)
         G.shop.alignment.offset.y = -5.3
+        G.HP_JTEM_DELIVERY_VISIBLE = nil
         simple_add_event(function ()
             sign_sprite.pinch.y = true
             delay(0.5)
