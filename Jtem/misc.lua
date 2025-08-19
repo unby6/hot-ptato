@@ -90,6 +90,12 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+  key = "jtem_legendary_plinker",
+  path = "Jtem/legendary_plinker.png",
+  px = 40,py = 40,
+}
+
+SMODS.Atlas {
   key = "jtem_aikoshen1",
   path = "Ads/aikoshenad1.png",
   px = 179,py = 97,
@@ -102,6 +108,11 @@ SMODS.Atlas {
   frames = 40, atlas_table = 'ANIMATION_ATLAS'
 }
 
+SMODS.Atlas {
+  key = "jtem_ad_error1",
+  path = "Ads/errorAd.png",
+  px = 200,py = 150,
+}
 -- Defines food jokers
 
 if not SMODS.ObjectTypes.Food then

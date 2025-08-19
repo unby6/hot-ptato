@@ -15,6 +15,7 @@ HotPotato.Ads = {
         ad_sauce = {atlas = 'hpot_jtemads',pos = {x=1,y=2}},
         ad_singles = {atlas = 'hpot_jtemads',pos = {x=2,y=2}},
         ad_aikoshen1 = {atlas = 'hpot_jtem_aikoshen1',pos = {x=0,y=0}},
+        ad_error1 = {atlas = 'hpot_jtem_ad_error1',pos = {x=0,y=0}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
