@@ -70,6 +70,7 @@ end
 function G.UIDEF.hotpot_jtem_shop_delivery_section()
     -- dollars to jx
     G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
+    G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
     return 
     {
         n = G.UIT.R,
@@ -125,6 +126,26 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                 n = G.UIT.R, config = { align = "cm" },
                                 nodes = { { n = G.UIT.T,
                                         config = { text = localize({type = "variable", key = "hotpot_exchange_for_jx_line_2",vars = {"$",G.GAME.hp_jtem_d2j_rate.from}} ), scale = 0.3, colour = G.C.WHITE}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    {
+                        n = G.UIT.R,
+                        config = {colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_p2j', func = "hp_jtem_can_exchange_p2j", hover = true},
+                        nodes = {
+                            {
+                                n = G.UIT.R, config = { align = "cm" },
+                                nodes = { { n = G.UIT.T,
+                                        config = { text = localize({type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = {G.GAME.hp_jtem_p2j_rate.to}}), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin']}
+                                    },
+                                }
+                            },
+                            {
+                                n = G.UIT.R, config = { align = "cm" },
+                                nodes = { { n = G.UIT.T,
+                                        config = { text = localize({type = "variable", key = "hotpot_exchange_for_jx_line_2",vars = {"$",G.GAME.hp_jtem_p2j_rate.from}} ), scale = 0.3, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin']}
                                     },
                                 }
                             },
@@ -198,6 +219,15 @@ G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
         e.config.button = 'hp_jtem_exchange_d2j'
     end
 end
+G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
+    if (G.GAME.hp_jtem_p2j_rate.from > G.GAME.plincoins) then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.BLUE
+        e.config.button = 'hp_jtem_exchange_p2j'
+    end
+end
 G.FUNCS.hp_jtem_can_order = function(e)
     local _c = e.config.ref_table
     if (_c.hp_jtem_currency_bought_value > get_currency_amount(_c.hp_jtem_currency_bought) - (_c.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
@@ -214,6 +244,10 @@ end
 G.FUNCS.hp_jtem_exchange_d2j = function(e)
     ease_dollars(-G.GAME.hp_jtem_d2j_rate.from)
     ease_spark_points(G.GAME.hp_jtem_d2j_rate.to)
+end
+G.FUNCS.hp_jtem_exchange_p2j = function(e)
+    ease_plincoins(-G.GAME.hp_jtem_p2j_rate.from)
+    ease_spark_points(G.GAME.hp_jtem_p2j_rate.to)
 end
 
 G.FUNCS.hp_jtem_order = function(e)
@@ -343,6 +377,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
         }
         }
     G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
+    G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
         
 
         card.children.hp_jtem_price_side = UIBox{
@@ -426,7 +461,10 @@ function Game:init_game_object()
     ]]
     -- from 1 dollar to 500 jx
     r.hp_jtem_queue_max_size = 2
+    -- d2j is dollars to joker exchange
     r.hp_jtem_d2j_rate = { from = 1, to = 5000 }
+    -- p2j is plincoin to joker exchange
+    r.hp_jtem_p2j_rate = { from = 1, to = 32000 }
     return r
 end
 
@@ -532,7 +570,8 @@ end
 local currencies = {"dollars", "joker_exchange", "plincoin"}
 function hotpot_jtem_generate_special_deals( deals )
     -- generate 5 deals
-
+    -- to other people who see this
+    -- feel free to tweak the balanced
     G.GAME.round_resets.hp_jtem_special_offer = {}
     for i = 1, (deals or 5) do
         local _pool, _pool_key = get_current_pool("Joker")
@@ -560,7 +599,7 @@ function hotpot_jtem_generate_special_deals( deals )
                     perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
                 },
                 create_card_args = {
-                    edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or nil,
+                    edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or (not jx and poll_edition("hpjtem_delivery_edition")),
                     no_edition = jx
                 }
             } )
