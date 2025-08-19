@@ -92,7 +92,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 nodes = {
                     {
                         n = G.UIT.R,
-                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3.5, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item', hover = true},
+                        config = {colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hotpot_jtem_delivery_request_item', hover = true},
                         nodes = {
                             {
                                 n = G.UIT.R, config = { align = "cm" },
@@ -112,7 +112,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                     },
                     {
                         n = G.UIT.R,
-                        config = {colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 3.5, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true},
+                        config = {colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true},
                         nodes = {
                             {
                                 n = G.UIT.R, config = { align = "cm" },
@@ -163,7 +163,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
         nodes = {
             {
                 n = G.UIT.C,
-                config = { padding = 0.2, colour = G.C.UI.TRANSPARENT_DARK, r = 0.05 },
+                config = { padding = 0.05, colour = G.C.UI.TRANSPARENT_DARK, r = 0.05 },
                 nodes = {
                     {
                         n = G.UIT.O,
@@ -519,7 +519,8 @@ function hotpot_jtem_add_to_offers( key, args )
         rounds_total = args.rounds_total or math.ceil(hotpot_jtem_center_to_round_wait(ct) * (args.rounds_total_factor or 0)),
         price = value,
         currency = currency,
-        extras = args.extras or {}
+        extras = args.extras or {},
+        create_card_args = args.create_card_args or {},
     }
     -- target patch for custom special deals
     G.GAME.round_resets.hp_jtem_special_offer = G.GAME.round_resets.hp_jtem_special_offer or {}
@@ -542,19 +543,25 @@ function hotpot_jtem_generate_special_deals( deals )
         local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
         local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
         local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
-        local price_factor = currency == "joker_exchange" and 24100 or currency == "plincoin" and 0.1 or 0.7
+        local price_factor = currency == "joker_exchange" and 7331 or currency == "plincoin" and 0.3 or 0.8
+        local plincoin = currency == "plincoin"
+        local jx = currency == "joker_exchange"
         -- add factor of 0.87 to 1.15
         local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) * (should_spawn_with_perishable and 0.3 or 1)
         if center then
             hotpot_jtem_add_to_offers( center.key , {
                 price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
-                rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1)* (should_spawn_with_rental and 0.3 or 1)* (should_spawn_with_rental and 0.5 or 1),
+                rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1)* (should_spawn_with_rental and 0.3 or 1)* (should_spawn_with_rental and 0.5 or 1) * (plincoin and 2 or 1),
                 extras = {
                     rental = should_spawn_with_rental,
                     eternal = should_spawn_with_eternal,
                     perishable = should_spawn_with_perishable,
                     perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
+                },
+                create_card_args = {
+                    edition = plincoin and poll_edition("hpjtem_delivery_edition",nil,nil,true) or nil,
+                    no_edition = jx
                 }
             } )
         end
@@ -567,7 +574,11 @@ function hotpot_delivery_refresh_card()
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue,true)
     for _,_obj in ipairs(G.GAME.hp_jtem_delivery_queue) do
         local temp_str = { str = (_obj.rounds_passed .. "/" .. _obj.rounds_total)}
-        local _c = SMODS.create_card{ area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true}
+        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true}
+        for k,v in pairs(_obj.create_card_args) do
+            cct[k] = v
+        end
+        local _c = SMODS.create_card(cct)
         _c.hp_jtem_currency_bought = _obj.currency
         _c.hp_jtem_currency_bought_value = _obj.price
         _c.hp_delivery_obj = _obj
@@ -581,7 +592,11 @@ function hotpot_delivery_refresh_card()
         G.hp_jtem_delivery_queue:emplace(_c)
     end
     for _,_obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
-        local _c = SMODS.create_card{ area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true}
+        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true}
+        for k,v in pairs(_obj.create_card_args) do
+            cct[k] = v
+        end
+        local _c = SMODS.create_card(cct)
         _c.hp_jtem_currency_bought = _obj.currency
         _c.hp_jtem_currency_bought_value = _obj.price
         _c.hp_delivery_obj = _obj
@@ -664,7 +679,12 @@ function hotpot_jtem_calculate_deliveries()
             
             local area = G.P_CENTERS[delivery.key].consumeable and G.consumeables or G.P_CENTERS[delivery.key].set == 'Joker' and G.jokers
             if area and area.cards and #area.cards < area.config.card_limit then
-                local c = SMODS.add_card({ key = delivery.key })
+                
+                local cct = { key = delivery.key, skip_materialize = true}
+                for k,v in pairs(delivery.create_card_args) do
+                    cct[k] = v
+                end
+                local c = SMODS.add_card(cct)
                 if delivery.extras then
                     for k,v in pairs(delivery.extras) do
                         c.ability[k] = v
