@@ -106,8 +106,24 @@ function PlinkoUI.f.init_sprites()
     PlinkoUI.sprites.morb = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_morb'])
   end
 
-    if not PlinkoUI.sprites.finity then
+  if not PlinkoUI.sprites.finity then
     PlinkoUI.sprites.finity = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_finityorb'])
+  end
+
+  if not PlinkoUI.sprites.caino_plinker then -- yes i misspell it on purpose
+    PlinkoUI.sprites.caino_plinker = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_legendary_plinker'], { x = 0, y = 0})
+  end
+
+  if not PlinkoUI.sprites.trib_plinker then
+    PlinkoUI.sprites.trib_plinker = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_legendary_plinker'], { x = 1, y = 0})
+  end
+
+  if not PlinkoUI.sprites.yorick_plinker then
+    PlinkoUI.sprites.yorick_plinker = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_legendary_plinker'], { x = 2, y = 0})
+  end
+  
+  if not PlinkoUI.sprites.chicot_plinker then
+    PlinkoUI.sprites.chicot_plinker = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_legendary_plinker'], { x = 3, y = 0})
   end
 
   if not PlinkoUI.sprites.peg then

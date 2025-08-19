@@ -357,6 +357,10 @@ function PlinkoGame.f.init_dummy_ball()
     elseif  choice <= 5  then
         PlinkoUI.sprites.changed = "finity"
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.finity
+    elseif choice >= 20 then
+        local plinker = {"caino_plinker", "trib_plinker", "yorick_plinker", "chicot_plinker"}
+        PlinkoUI.sprites.changed = plinker[(math.floor(choice / 20) + 1)]
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[plinker[(math.floor(choice / 20) + 1)]]
     else
          PlinkoUI.sprites.changed = nil
          PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
