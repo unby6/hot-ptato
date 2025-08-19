@@ -157,9 +157,27 @@ return {
         },
         imaginary = {
             c_hpot_imag_stars = {
-                name = "Stardust",
+                name = "Dreams",
                 text = {
                     "{C:inactive}Sweet summer child"
+                }
+            },
+            c_hpot_imag_curi = {
+                name = "Questions",
+                text = {
+                    "{C:inactive}Young curiosity"
+                }
+            },
+            c_hpot_imag_duck = {
+                name = "Interests",
+                text = {
+                    "{C:inactive}Something for fun"
+                }
+            },
+            c_hpot_imag_drop = {
+                name = "Emotions",
+                text = {
+                    "{C:inactive}Don't be scared"
                 }
             }
         },
