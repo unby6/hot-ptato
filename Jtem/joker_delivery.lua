@@ -133,9 +133,15 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 }
             },
             {
-                n = G.UIT.O,
-                config = {
-                    object = G.hp_jtem_delivery_queue,
+                n = G.UIT.C,
+                config = { padding = 0.2, colour = G.C.UI.TRANSPARENT_DARK, r = 0.05 },
+                nodes = {
+                    {
+                        n = G.UIT.O,
+                        config = {
+                            object = G.hp_jtem_delivery_queue,
+                        }
+                    }
                 }
             }
         }
@@ -157,6 +163,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
         nodes = {
             {
                 n = G.UIT.C,
+                config = { padding = 0.2, colour = G.C.UI.TRANSPARENT_DARK, r = 0.05 },
                 nodes = {
                     {
                         n = G.UIT.O,
@@ -166,6 +173,18 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                     }
                 }
             },
+        }
+    },
+    {
+        n = G.UIT.R,
+        nodes = {
+            {
+                n = G.UIT.B,
+                config = {
+                    h = 0.5,
+                    w = 0.1
+                }
+            }
         }
     }
 end
@@ -198,10 +217,26 @@ G.FUNCS.hp_jtem_exchange_d2j = function(e)
 end
 
 G.FUNCS.hp_jtem_order = function(e)
-    
+    G.GAME.hp_jtem_queue_max_size = G.GAME.hp_jtem_queue_max_size or 2
+    local card = e.config.ref_table
+    if #G.GAME.hp_jtem_delivery_queue >= G.GAME.hp_jtem_queue_max_size then
+        alert_no_space(card, G.hp_jtem_delivery_queue)
+        e.disable_button = nil
+        return
+    end
+    local object = card.hp_delivery_obj
+    ease_currency(object.currency, -object.price)
+    table.insert(G.GAME.hp_jtem_delivery_queue, object)
+    remove_element_from_list(G.GAME.round_resets.hp_jtem_special_offer,object)
+    hotpot_delivery_refresh_card()
 end
 G.FUNCS.hp_jtem_cancel = function(e)
-
+    local card = e.config.ref_table
+    local object = card.hp_delivery_obj
+    local returncost = math.ceil(object.price * 0.5)
+    ease_currency(object.currency, returncost)
+    remove_element_from_list(G.GAME.hp_jtem_delivery_queue,object)
+    hotpot_delivery_refresh_card()
 end
 
 -- literally copied from price boxes
@@ -220,15 +255,14 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                 }}
             }}
         local t2 =  {
-        n=G.UIT.ROOT, config = {ref_table = card, minw = 2.1, maxw = 2.4, padding = 0.1, align = 'cr', colour = args.colour, shadow = true, r = 0.08, minh = 0.94}, nodes={
-
-            { n = G.UIT.C, nodes = { {n = G.UIT.B,config = {h = 0.1,w = 1}}}},
+        n=G.UIT.ROOT, config = {ref_table = card, minw = 2.1, maxw = 2.4, padding = 0.1, align = 'mc', colour = args.colour, shadow = true, r = 0.08, minh = 0.94}, nodes={
             {
-                n = G.UIT.C,
+                n = G.UIT.R,
                 nodes = {
-                    {n=G.UIT.T, config={font = args.font, text = ((args.symbol)..number_format(card.hp_jtem_currency_bought_value)) ,colour = G.C.WHITE, scale = 0.5}}
+                    {n=G.UIT.T, config={font = args.font, text = localize("hotpot_cashback")..((args.symbol)..number_format(math.ceil(card.hp_jtem_currency_bought_value * 0.5))) ,colour = G.C.WHITE, scale = 0.3}}
                 }
             },
+            { n = G.UIT.R, nodes = { {n = G.UIT.B,config = {h = 1,w = 0.1}}}},
         }}
         card.children.price = UIBox{
         definition = t1,
@@ -243,8 +277,8 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
         card.children.hp_jtem_price_side = UIBox{
         definition = t2,
         config = {
-            align="rt",
-            offset = {x=-1,y=1.5},
+            align="tm",
+            offset = {x=0,y=0.5},
             major = card,
             bond = 'Weak',
             parent = card
@@ -253,7 +287,7 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
 
 
         local t3 = {
-            n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_cancel', one_press = true, button = 'hp_jtem_cancel', hover = true}, nodes={
+            n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.RED, shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_cancel', one_press = true, button = 'hp_jtem_cancel', hover = true}, nodes={
                 {n=G.UIT.T, config={text = localize('hotpot_delivery_order_cancel'),colour = G.C.WHITE, scale = 0.5}}
             }}
 
@@ -284,7 +318,12 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
             n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
                 {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
                 {n=G.UIT.O, config={object = DynaText({string = { unpack(price_text) }, colours = {args.colour or G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5, font = args.font or SMODS.Fonts["hpot_plincoin"]})}},
-                }}
+                }},
+                {n=G.UIT.R, config={align = "cm", r = 0.1, minw = 1, minh = 0.2, emboss = 0.05, padding = 0.01}, nodes={
+                {n=G.UIT.T, config={text = localize{key="hotpot_round_total_eta",type="variable",vars = {card.hp_delivery_obj.rounds_total,(card.hp_delivery_obj.rounds_total ~= 1 and localize("rounds_plural") or localize("rounds_singular"))}}, colour = G.C.WHITE, scale = 0.2}},
+                }},
+                { n = G.UIT.R, nodes = { {n = G.UIT.B,config = {h = 0.2,w = 0.1}}}},
+                
             }}
             
         local t2 =  {
@@ -386,6 +425,7 @@ function Game:init_game_object()
                 instead of ordering everything and so should the price
     ]]
     -- from 1 dollar to 500 jx
+    r.hp_jtem_queue_max_size = 2
     r.hp_jtem_d2j_rate = { from = 1, to = 2400 }
     return r
 end
@@ -461,7 +501,7 @@ function hotpot_jtem_add_card_to_delivery_queue( key, price )
     -- target patch for custom delivery queue
     G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
     table.insert(G.GAME.hp_jtem_delivery_queue, delivery_table)
-    if G.GAME.hp_jtem_delivery_queue then
+    if G.hp_jtem_delivery_queue then
         hotpot_delivery_refresh_card()
     end
 end
@@ -484,10 +524,11 @@ function hotpot_jtem_add_to_offers( key, args )
     -- target patch for custom special deals
     G.GAME.round_resets.hp_jtem_special_offer = G.GAME.round_resets.hp_jtem_special_offer or {}
     table.insert(G.GAME.round_resets.hp_jtem_special_offer, delivery_table)
-    if G.GAME.round_resets.hp_jtem_special_offer then
+    if G.hp_jtem_delivery_special_deals then
         hotpot_delivery_refresh_card()
     end
 end
+local currencies = {"dollars", "joker_exchange", "plincoin"}
 function hotpot_jtem_generate_special_deals( deals )
     -- generate 5 deals
 
@@ -498,14 +539,17 @@ function hotpot_jtem_generate_special_deals( deals )
         local center_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
         local center = G.P_CENTERS[center_key]
         local should_spawn_with_rental = pseudorandom("hpjtem_delivery_rental") < 0.1 and true
-        local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_rental") < 0.1 and true
-        local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_rental") < 0.1 and not should_spawn_with_eternal
-        local price_factor = 2410
+        local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
+        local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
+        local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
+        local price_factor = currency == "joker_exchange" and 2410 or currency == "plincoin" and 0.1 or 0.7
+        -- add factor of 0.87 to 1.15
+        local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) * (should_spawn_with_perishable and 0.3 or 1)
         if center then
             hotpot_jtem_add_to_offers( center.key , {
-                price = { currency = "joker_exchange", value = center.cost * price_factor },
-                rounds_total_factor = 0.8,
+                price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
+                rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1)* (should_spawn_with_rental and 0.3 or 1)* (should_spawn_with_rental and 0.5 or 1),
                 extras = {
                     rental = should_spawn_with_rental,
                     eternal = should_spawn_with_eternal,
@@ -536,7 +580,7 @@ function hotpot_delivery_refresh_card()
         G.hp_jtem_delivery_queue:emplace(_c)
     end
     for _,_obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
-        local _c = SMODS.create_card{ area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true}
+        local _c = SMODS.create_card{ area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true}
         _c.hp_jtem_currency_bought = _obj.currency
         _c.hp_jtem_currency_bought_value = _obj.price
         _c.hp_delivery_obj = _obj
