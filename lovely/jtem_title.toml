@@ -9,8 +9,6 @@ sources = ["Jtem/titletext.lua"]
 target = "conf.lua"
 position = "prepend"
 
-
-
 [[patches]]
 [patches.pattern]
 target = 'conf.lua'
@@ -42,8 +40,7 @@ G.SPLASH_TEXT = DynaText {
 G.SPLASH_TEXT.VT.r = -0.2
 G.SPLASH_TEXT.T.r = -0.2
 -- Starts at 0 scale initially
-G.SPLASH_TEXT.scale = 0
-G.SPLASH_TEXT.config.spacing = 0
+G.SPLASH_TEXT.scale_mod = 0
 G.SPLASH_TEXT:update_text(true)
 G.SPLASH_TEXT:set_alignment({
     major = G.title_top,
@@ -97,5 +94,15 @@ position = 'before'
 pattern = "if self.SPLASH_LOGO then self.SPLASH_LOGO:remove(); self.SPLASH_LOGO = nil end"
 payload = '''
 if self.SPLASH_TEXT then self.SPLASH_TEXT:remove(); self.SPLASH_TEXT = nil end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+position = 'at'
+pattern = "prep_draw(self, 1)"
+payload = '''
+prep_draw(self, self.scale_mod or 1)
 '''
 match_indent = true
