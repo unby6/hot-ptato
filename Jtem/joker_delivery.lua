@@ -598,8 +598,8 @@ function hotpot_jtem_generate_special_deals( deals )
         local center_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
         local center = G.P_CENTERS[center_key]
         local should_spawn_with_rental = pseudorandom("hpjtem_delivery_rental") < 0.1 and true
-        local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
-        local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
+        local should_spawn_with_eternal = center.eternal_compat and pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
+        local should_spawn_with_perishable = center.perishable_compat and pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
         local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
         local price_factor = currency == "joker_exchange" and 7331 or currency == "plincoin" and 0.3 or 0.8
         local plincoin = currency == "plincoin"
@@ -783,7 +783,8 @@ end
 -- destroy cards below
 local next_round_button_for_delivery_area_destruction = G.FUNCS.toggle_shop
 function G.FUNCS.toggle_shop(e)
-    G.HP_SHOP_CREATED_CARDS = nil   
+    G.HP_SHOP_CREATED_CARDS = nil
+    G.HP_JTEM_DELIVERY_VISIBLE = false
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals,true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue,true)
     return next_round_button_for_delivery_area_destruction(e)
@@ -797,6 +798,7 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
     stop_use()
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
     if not G.HP_JTEM_DELIVERY_VISIBLE then
+		ease_background_colour({new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 2})
         G.shop.alignment.offset.y = -20
         G.HP_JTEM_DELIVERY_VISIBLE = true
         simple_add_event(function ()
@@ -811,6 +813,7 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
         end, {trigger = "after", delay = 0})
         play_sound("hpot_sfx_whistleup",nil, 0.25)
     else
+		ease_background_colour_blind(G.STATES.SHOP)
         G.shop.alignment.offset.y = -5.3
         G.HP_JTEM_DELIVERY_VISIBLE = nil
         simple_add_event(function ()
