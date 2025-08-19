@@ -54,6 +54,12 @@ SMODS.Sound {
 }
 
 SMODS.Atlas {
+  key = "jukebox_default",
+  path = "Jukebox/default_coverart.png",
+  px = 159,py = 159
+}
+
+SMODS.Atlas {
   key = "jtemads",
   path = "Ads/Jtem.png",
   px = 200,py = 150

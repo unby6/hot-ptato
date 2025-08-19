@@ -73,3 +73,17 @@ if args.config.draggable then
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''functions/misc_functions.lua'''
+pattern = '''if G.F_SOUND_THREAD then
+    G.SOUND_MANAGER.channel:push(G.ARGS.push)'''
+position = 'before'
+payload = '''
+if JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
+	desired_track = JTJukebox.ActuallyPlaying
+	G.ARGS.push.desired_track = desired_track
+end
+'''
+match_indent = true
