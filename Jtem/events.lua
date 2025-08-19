@@ -622,6 +622,7 @@ function hpot_event_end_scenario()
 
 		if G.hpot_event_current_step then
 			G.hpot_event_current_step:finish()
+			G.FUNCS.draw_from_hand_to_deck()
 			SMODS.calculate_context({
 				hpot_event_step_end = true,
 				scenario = G.hpot_event_scenario,
