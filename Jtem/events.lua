@@ -1043,7 +1043,6 @@ end
 
 --
 
--- TODO: test it properly, when more events will be added
 function get_next_hpot_event()
 	if G.hpot_event_scenario_forced_key then
 		local result = G.hpot_event_scenario_forced_key
@@ -1056,7 +1055,6 @@ function get_next_hpot_event()
 		local weight = event:get_weight()
 		if weight > 0 and event:in_pool() then
 			eligible_events[key] = event
-			total_weight = total_weight + weight
 		end
 	end
 
@@ -1069,14 +1067,18 @@ function get_next_hpot_event()
 	local weighted_events = {}
 	for k, _ in pairs(eligible_events) do
 		if eligible_events[k] <= min_use then
+			local weight = SMODS.EventScenarios[k]:get_weight()
+			total_weight = total_weight + weight
 			table.insert(weighted_events, {
 				key = k,
-				weight = SMODS.EventScenarios[k]:get_weight(),
+				weight = weight,
 			})
 		end
 	end
 
 	local roll = pseudorandom(pseudoseed("hpot_event" .. G.GAME.round_resets.ante))
+	print(roll)
+	print(weighted_events)
 	local weight_i = 0
 	for _, v in ipairs(weighted_events) do
 		weight_i = weight_i + v.weight
