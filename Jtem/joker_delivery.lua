@@ -666,7 +666,7 @@ function hotpot_jtem_calculate_deliveries()
                 local c = SMODS.add_card({ key = delivery.key })
                 if delivery.extras then
                     for k,v in pairs(delivery.extras) do
-                        c[k] = v
+                        c.ability[k] = v
                     end
                 end
             else
