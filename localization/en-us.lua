@@ -939,6 +939,12 @@ return {
                     "When Death is used with {C:attention}1{} card,",
                     "it does {C:attention}absolutely nothing{}"
                 }
+            },
+            hpot_event_encounter = {
+                name = "Event Encounter",
+                text = {
+                    "Choices, choices, choices..."
+                }
             }
         },
         Tag = {

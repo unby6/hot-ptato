@@ -1,6 +1,15 @@
 G.STATES.HOTPOT_EVENT_SELECT = 198275827
 G.STATES.HOTPOT_EVENT = 198275828
 
+SMODS.Atlas({
+	key = "hpot_event_default",
+	px = 34,
+	py = 34,
+	path = "Events/default.png",
+	atlas_table = "ANIMATION_ATLAS",
+	frames = 21,
+})
+
 -- TODO: draw cards in hand api
 SMODS.EventSteps = {}
 SMODS.EventStep = SMODS.GameObject:extend({
@@ -69,6 +78,13 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 		SMODS.process_loc_text(G.localization.descriptions.EventScenarios, self.key:lower(), self.loc_txt)
 	end,
 
+	atlas = "hpot_event_default",
+	pos = {
+		x = 0,
+		y = 0,
+	},
+	colour = "A17CFF",
+
 	weight = 5,
 	in_pool = function(self)
 		return true
@@ -79,6 +95,7 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 
 	inject = function(self)
 		SMODS.insert_pool(G.P_CENTER_POOLS[self.set], self)
+		self.colour = type(self.colour) == "string" and HEX(self.colour) or self.colour or G.C.BLIND.Big
 	end,
 	pre_inject_class = function(self)
 		G.P_CENTER_POOLS[self.set] = {}
@@ -115,8 +132,9 @@ function Game:update_hpot_event_select(dt)
 					trigger = "immediate",
 					func = function()
 						play_sound("cancel")
+						local scenario = SMODS.EventScenarios[G.GAME.round_resets.blind_choices.hpot_event]
 						G.hpot_event_select = UIBox({
-							definition = create_UIBox_hpot_event_select(),
+							definition = create_UIBox_hpot_event_select(scenario),
 							config = {
 								align = "bmi",
 								offset = { x = 0, y = G.ROOM.T.y + 29 },
@@ -140,7 +158,7 @@ function Game:update_hpot_event_select(dt)
 end
 
 -- TODO: custom blind sprite & desc
-function create_UIBox_hpot_event_choice()
+function create_UIBox_hpot_event_choice(scenario)
 	local disabled = false
 	local run_info = false
 
@@ -148,22 +166,22 @@ function create_UIBox_hpot_event_choice()
 		config = G.P_BLINDS[G.GAME.round_resets.blind_choices["Big"]],
 	}
 
-	blind_choice.animation = AnimatedSprite(0, 0, 1.4, 1.4, G.ANIMATION_ATLAS["blind_chips"], blind_choice.config.pos)
+	blind_choice.animation = AnimatedSprite(0, 0, 1.4, 1.4, G.ANIMATION_ATLAS[scenario.atlas], scenario.pos)
 	blind_choice.animation:define_draw_steps({
 		{ shader = "dissolve", shadow_height = 0.05 },
 		{ shader = "dissolve" },
 	})
 
-	G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+	-- TODO: Description
 	local loc_target = localize({
 		type = "raw_descriptions",
-		key = blind_choice.config.key,
-		set = "Blind",
+		key = "hpot_event_encounter",
+		set = "Other",
 		vars = { "" },
 	})
-	local loc_name = localize({ type = "name_text", key = blind_choice.config.key, set = "Blind" })
+	local loc_name = localize({ type = "name_text", key = "hpot_event_encounter", set = "Other" })
 	local text_table = loc_target
-	local blind_col = get_blind_main_colour("Big")
+	local blind_col = scenario.colour
 
 	local t = {
 		n = G.UIT.R,
@@ -273,6 +291,49 @@ function create_UIBox_hpot_event_choice()
 													{ n = G.UIT.O, config = { object = blind_choice.animation } },
 												},
 											},
+											text_table[1] and {
+												n = G.UIT.R,
+												config = {
+													align = "cm",
+													minh = 0.7,
+													padding = 0.05,
+													minw = 2.9,
+												},
+												nodes = {
+													text_table[1] and {
+														n = G.UIT.R,
+														config = { align = "cm", maxw = 2.8 },
+														nodes = {
+															{
+																n = G.UIT.T,
+																config = {
+																	text = text_table[1] or "-",
+																	scale = 0.32,
+																	colour = disabled and G.C.UI.TEXT_INACTIVE
+																		or G.C.WHITE,
+																	shadow = not disabled,
+																},
+															},
+														},
+													} or nil,
+													text_table[2] and {
+														n = G.UIT.R,
+														config = { align = "cm", maxw = 2.8 },
+														nodes = {
+															{
+																n = G.UIT.T,
+																config = {
+																	text = text_table[2] or "-",
+																	scale = 0.32,
+																	colour = disabled and G.C.UI.TEXT_INACTIVE
+																		or G.C.WHITE,
+																	shadow = not disabled,
+																},
+															},
+														},
+													} or nil,
+												},
+											} or nil,
 										},
 									},
 									{
@@ -288,21 +349,6 @@ function create_UIBox_hpot_event_choice()
 										nodes = {
 											{
 												n = G.UIT.R,
-												config = { align = "cm", maxw = 3 },
-												nodes = {
-													{
-														n = G.UIT.T,
-														config = {
-															text = "Random event encounter",
-															scale = 0.3,
-															colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE,
-															shadow = not disabled,
-														},
-													},
-												},
-											},
-											{
-												n = G.UIT.R,
 												config = { align = "cm" },
 												nodes = {
 													{
@@ -315,12 +361,15 @@ function create_UIBox_hpot_event_choice()
 														},
 													},
 													{
-														n = G.UIT.T,
+														n = G.UIT.O,
 														config = {
-															text = "???",
-															scale = 0.35,
-															colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY,
-															shadow = not disabled,
+															object = DynaText({
+																string = { "???" },
+																colours = { G.C.MONEY },
+																float = true,
+																spacing = 3,
+																scale = 0.7,
+															}),
 														},
 													},
 												},
@@ -337,17 +386,17 @@ function create_UIBox_hpot_event_choice()
 	}
 	return t
 end
-function create_UIBox_hpot_event_select()
+function create_UIBox_hpot_event_select(scenario)
 	local choice = UIBox({
 		definition = {
 			n = G.UIT.ROOT,
 			config = { align = "cm", colour = G.C.CLEAR },
 			nodes = {
 				UIBox_dyn_container(
-					{ create_UIBox_hpot_event_choice() },
+					{ create_UIBox_hpot_event_choice(scenario) },
 					false,
-					get_blind_main_colour("Big"),
-					mix_colours(G.C.BLACK, get_blind_main_colour("Big"), 0.8)
+					scenario.colour,
+					mix_colours(G.C.BLACK, scenario.colour, 0.8)
 				),
 			},
 		},
@@ -435,7 +484,15 @@ function hpot_event_start_scenario()
 			return true
 		end,
 	}))
-	delay(1)
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.75,
+		func = function()
+			play_sound("cardFan2")
+			return true
+		end,
+	}))
+	delay(0.25)
 	G.E_MANAGER:add_event(Event({
 		func = function()
 			hpot_event_start_step(scenario.starting_step_key)
@@ -616,7 +673,7 @@ function hpot_event_cleanup()
 			return true
 		end,
 	}))
-	delay(1)
+	delay(0.5)
 	G.E_MANAGER:add_event(Event({
 		func = function()
 			set_element_object(G.hpot_event_ui_choices_area, Moveable())
@@ -716,6 +773,7 @@ function hpot_event_render_current_step()
 				trigger = "after",
 				delay = 0.75,
 				func = function()
+					play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
 					object.states.visible = true
 					return true
 				end,
@@ -725,6 +783,7 @@ function hpot_event_render_current_step()
 	delay(1)
 	G.E_MANAGER:add_event(Event({
 		func = function()
+			play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
 			set_element_object(
 				G.hpot_event_ui_choices_area,
 				UIBox({
@@ -754,6 +813,7 @@ function hpot_event_display_lines(amount, no_delay)
 					trigger = "after",
 					delay = no_delay and 0 or 0.75,
 					func = function()
+						play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
 						object.states.visible = true
 						return true
 					end,
@@ -770,6 +830,8 @@ function G.FUNCS.hpot_event_select(e)
 	stop_use()
 	if G.hpot_event_select then
 		G.GAME.facing_hpot_event = true
+		play_sound("timpani", 0.8)
+		play_sound("generic1")
 
 		G.E_MANAGER:add_event(Event({
 			trigger = "before",
