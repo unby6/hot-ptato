@@ -166,6 +166,11 @@ HotPotato.extra_tabs = function ()
 		{
 			label = "Kill Nxkoo",
 			tab_definition_function = G.UIDEF.nxclicker
+		},
+		-- Jukebox
+		{
+			label = "Jukebox",
+			tab_definition_function = JTJukebox.MusicTab
 		}
 	}
 end
