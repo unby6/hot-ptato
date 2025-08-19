@@ -69,7 +69,7 @@ end
 
 function G.UIDEF.hotpot_jtem_shop_delivery_section()
     -- dollars to jx
-    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 500 }
+    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
     return 
     {
         n = G.UIT.R,
@@ -342,7 +342,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
             
         }
         }
-    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 2400 }
+    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
         
 
         card.children.hp_jtem_price_side = UIBox{
@@ -426,7 +426,7 @@ function Game:init_game_object()
     ]]
     -- from 1 dollar to 500 jx
     r.hp_jtem_queue_max_size = 2
-    r.hp_jtem_d2j_rate = { from = 1, to = 2400 }
+    r.hp_jtem_d2j_rate = { from = 1, to = 5000 }
     return r
 end
 
@@ -542,7 +542,7 @@ function hotpot_jtem_generate_special_deals( deals )
         local should_spawn_with_eternal = pseudorandom("hpjtem_delivery_eternal") < 0.1 and true
         local should_spawn_with_perishable = pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
         local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
-        local price_factor = currency == "joker_exchange" and 2410 or currency == "plincoin" and 0.1 or 0.7
+        local price_factor = currency == "joker_exchange" and 24100 or currency == "plincoin" and 0.1 or 0.7
         -- add factor of 0.87 to 1.15
         local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) * (should_spawn_with_perishable and 0.3 or 1)
@@ -554,6 +554,7 @@ function hotpot_jtem_generate_special_deals( deals )
                     rental = should_spawn_with_rental,
                     eternal = should_spawn_with_eternal,
                     perishable = should_spawn_with_perishable,
+                    perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
                 }
             } )
         end
