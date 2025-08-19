@@ -105,3 +105,7 @@ if not SMODS.ObjectTypes.Food then
     },
   }
 end
+
+-- more buttons!!!
+SMODS.draw_ignore_keys.hp_jtem_price_side = true
+SMODS.draw_ignore_keys.hp_jtem_cancel_order = true

@@ -1119,6 +1119,7 @@ return {
             hotpot_exchange_for_jx_line_1 = "Exchange",
             hotpot_exchange_for_jx_line_2 = "for Joker Exchange",
             hotpot_delivery_order = "ORDER",
+            hotpot_delivery_order_cancel = "CANCEL",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',

@@ -139,6 +139,18 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
         n = G.UIT.R,
         nodes = {
             {
+                n = G.UIT.B,
+                config = {
+                    h = 0.5,
+                    w = 0.1
+                }
+            }
+        }
+    },
+    {
+        n = G.UIT.R,
+        nodes = {
+            {
                 n = G.UIT.C,
                 nodes = {
                     {
@@ -153,8 +165,21 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
     }
 end
 
+G.FUNCS.hp_jtem_can_order = function(e)
+    return false
+end
+G.FUNCS.hp_jtem_can_cancel = function(e)
+    return false
+end
+G.FUNCS.hp_jtem_order = function(e)
+
+end
+G.FUNCS.hp_jtem_cancel = function(e)
+
+end
+
 -- literally copied from price boxes
-function hpot_jtem_create_delivery_boxes(card, price_text, price_colour)
+function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
     G.E_MANAGER:add_event(Event({
     trigger = 'after',
     delay = 0.43,
@@ -165,9 +190,20 @@ function hpot_jtem_create_delivery_boxes(card, price_text, price_colour)
         local t1 = {
             n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
                 {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = { unpack(price_text) }, colours = {price_colour or G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                {n=G.UIT.O, config={object = DynaText({string = { unpack(rounds_text) }, colours = { G.C.GREEN },shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
                 }}
             }}
+        local t2 =  {
+        n=G.UIT.ROOT, config = {ref_table = card, minw = 2.1, maxw = 2.4, padding = 0.1, align = 'cr', colour = args.colour, shadow = true, r = 0.08, minh = 0.94}, nodes={
+
+            { n = G.UIT.C, nodes = { {n = G.UIT.B,config = {h = 0.1,w = 1}}}},
+            {
+                n = G.UIT.C,
+                nodes = {
+                    {n=G.UIT.T, config={font = args.font, text = ((args.symbol)..number_format(card.hp_jtem_currency_bought_value)) ,colour = G.C.WHITE, scale = 0.5}}
+                }
+            },
+        }}
         card.children.price = UIBox{
         definition = t1,
         config = {
@@ -177,14 +213,40 @@ function hpot_jtem_create_delivery_boxes(card, price_text, price_colour)
             bond = 'Weak',
             parent = card
             
-        }
+        }}
+        card.children.hp_jtem_price_side = UIBox{
+        definition = t2,
+        config = {
+            align="rt",
+            offset = {x=-1,y=1.5},
+            major = card,
+            bond = 'Weak',
+            parent = card
+            
+        }}
+
+
+        local t3 = {
+            n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_cancel', one_press = true, button = 'hp_jtem_cancel', hover = true}, nodes={
+                {n=G.UIT.T, config={text = localize('hotpot_delivery_order_cancel'),colour = G.C.WHITE, scale = 0.5}}
+            }}
+
+        card.children.hp_jtem_cancel_order = UIBox{
+            definition = t3,
+            config = {
+            align="bm",
+            offset = {x=0,y=-0.5},
+            major = card,
+            bond = 'Weak',
+            parent = card
+            }
         }
         card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.38
         return true
     end)
     }))
 end
-function hpot_jtem_create_special_deal_boxes(card, price_text, price_colour)
+function hpot_jtem_create_special_deal_boxes(card, price_text, args)
     G.E_MANAGER:add_event(Event({
     trigger = 'after',
     delay = 0.43,
@@ -195,12 +257,12 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, price_colour)
         local t1 = {
             n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
                 {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = { unpack(price_text) }, colours = {price_colour or G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5, font = SMODS.Fonts["hpot_plincoin"]})}},
+                {n=G.UIT.O, config={object = DynaText({string = { unpack(price_text) }, colours = {args.colour or G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5, font = args.font or SMODS.Fonts["hpot_plincoin"]})}},
                 }}
             }}
             
         local t2 =  {
-        n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'can_buy', one_press = true, button = 'hp_jtem_order', hover = true}, nodes={
+        n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_order', one_press = true, button = 'hp_jtem_order', hover = true}, nodes={
             {n=G.UIT.T, config={text = localize('hotpot_delivery_order'),colour = G.C.WHITE, scale = 0.5}}
         }}
 
@@ -217,7 +279,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, price_colour)
         }
         
 
-        card.children.buy_button = UIBox{
+        card.children.hp_jtem_price_side = UIBox{
         definition = t2,
         config = {
             align="bm",
@@ -307,14 +369,38 @@ function hotpot_jtem_center_to_round_wait(center) -- accept ONLY center object
     -- target: for custom rounds :3
     return rounds
 end
-function hotpot_jtem_add_card_to_delivery_queue( key )
+
+-- very useful for multiple currencies like this
+function ease_currency(currency, value, instant)
+    currency = currency or "dollars"
+    value = value or 0
+    if currency == "dollars" then ease_dollars(value,instant) end
+    if currency == "plincoin" then ease_plincoins(value,instant) end
+    if currency == "joker_exchange" then ease_spark_points(value, instant) end
+    -- patches for other currencies
+end
+function generate_currency_string_args(currency)
+    currency = currency or "dollars"
+    if currency == "dollars" then return { colour = G.C.MONEY, symbol = "$", font = G.LANG.font } end
+    if currency == "plincoin" then return { colour = SMODS.Gradients["hpot_plincoin"], symbol = "$", font = SMODS.Fonts["hpot_plincoin"] } end
+    if currency == "joker_exchange" then return { colour = G.C.BLUE, symbol = "͸", font = SMODS.Fonts["hpot_plincoin"] } end
+end
+
+function hotpot_jtem_add_card_to_delivery_queue( key, price )
+    -- price accepts the following value
+    -- number - defaults to dollars
+    -- table with key currency and value for 
+    price = price or 0
+    local value = type(price) == "table" and price.value or price
+    local currency = type(price) == "table" and price.currency or "dollars"
     if not G.P_CENTERS[key] then return end
     local ct = G.P_CENTERS[key]
     local delivery_table = {
         key = key,
         rounds_passed = 0,
         rounds_total = hotpot_jtem_center_to_round_wait(ct),
-        price = ct.cost,
+        price = value,
+        currency = currency,
         extras = {}
     }
     -- target patch for custom delivery queue
@@ -326,13 +412,15 @@ function hotpot_jtem_add_card_to_delivery_queue( key )
 end
 
 function hotpot_delivery_refresh_card()
-    
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals,true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue,true)
     for _,_obj in ipairs(G.GAME.hp_jtem_delivery_queue) do
         local temp_str = { str = (_obj.rounds_passed .. "/" .. _obj.rounds_total)}
         local _c = SMODS.create_card{ area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true}
-        hpot_jtem_create_delivery_boxes(_c,{{ref_table = temp_str, ref_value = 'str'}}, G.C.BLUE)
+        _c.hp_jtem_currency_bought = _obj.currency
+        _c.hp_jtem_currency_bought_value = _obj.price
+        local args = generate_currency_string_args(_c.hp_jtem_currency_bought)
+        hpot_jtem_create_delivery_boxes(_c,{{ref_table = temp_str, ref_value = 'str'}},args)
         
         if _obj.extras then
             for k,v in pairs(_obj.extras) do
@@ -343,10 +431,36 @@ function hotpot_delivery_refresh_card()
     end
     for i = 1, 5 do
         local _c = SMODS.create_card{ area = G.hp_jtem_delivery_special_deals, key = "j_joker", skip_materialize = true, no_edition = true}
-        hpot_jtem_create_special_deal_boxes(_c,{{prefix = "͸", ref_table = _c, ref_value = "cost"}}, G.C.BLUE)
+        _c.hp_jtem_currency_bought = "joker_exchange"
+        _c.hp_jtem_currency_bought_value = 3000
+        local args = generate_currency_string_args(_c.hp_jtem_currency_bought)
+        hpot_jtem_create_special_deal_boxes(_c,{{prefix = args.symbol, ref_table = _c, ref_value = "hp_jtem_currency_bought_value"}}, args)
         G.hp_jtem_delivery_special_deals:emplace(_c)
     end
 end
+-- this part is for saving card value
+local card_init_val = Card.init
+function Card:init(x,y,w,h,_card,_center,_params)
+    local _c = card_init_val(self,x,y,w,h,_card,_center,_params)
+    self.hp_jtem_currency_bought = self.hp_jtem_currency_bought or "dollars"
+    self.hp_jtem_currency_bought_value = self.hp_jtem_currency_bought_value or 0
+    return _c
+end
+local card_save_additional_props = Card.save
+function Card:save()
+    local st = card_save_additional_props(self)
+    st.hp_jtem_currency_bought = self.hp_jtem_currency_bought or "dollars"
+    st.hp_jtem_currency_bought_value = self.hp_jtem_currency_bought_value or 0
+    return st
+end
+local card_load_additional_props = Card.load
+function Card:load(ct, oc)
+    local st = card_load_additional_props(self, ct, oc)
+    self.hp_jtem_currency_bought = ct.hp_jtem_currency_bought or "dollars"
+    self.hp_jtem_currency_bought_value = ct.hp_jtem_currency_bought_value or 0
+    return st
+end
+
 
 local update_shop_hook_to_create_cards = Game.update_shop
 function Game:update_shop()
@@ -382,7 +496,7 @@ function Game:update_new_round()
     return update_new_round_to_reset_card(self)
 end
 
--- calculate delivery
+-- calculate delivery which is calculated at the start of the round along with giving out cards
 function hotpot_jtem_calculate_deliveries()
     
     G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
