@@ -526,6 +526,15 @@ return {
                     "{C:inactive}Wait, isn't this just Boredom?",
                     "{C:inactive}You'll see."
                 }
+            },
+            j_hpot_greedybastard = {
+                name = "Greedy Bastard",
+                text = {
+                    "All {C:attention}Food Jokers{} may appear multiple times",
+                    "When a {C:attention}Food Joker{} is destroyed, this card",
+                    "gains {C:mult}+#1#{} Mult",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mults)"
+                }
             }
         },
         Voucher = {

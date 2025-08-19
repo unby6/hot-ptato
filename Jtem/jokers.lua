@@ -146,6 +146,14 @@ SMODS.Joker {
             gain = 12
         }
     },
+    loc_vars = function (self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.gain,
+                card.ability.mult
+            }
+        }
+    end,
     calculate = function (self,card,context)
         if context.hp_card_destroyed and not context.blueprint and not context.is_being_sold then
             local key = context.card_being_destroyed.config.center.key
