@@ -20,7 +20,7 @@ position = 'at'
 pattern = '''VERSION = '1.0.1o'
 VERSION = VERSION..'-FULL'
 '''
-payload = '''VERSION = '1.O.1o'
+payload = '''VERSION = '1.0.1o'
 VERSION = VERSION..'-H0TP0T'
 '''
 match_indent = true
