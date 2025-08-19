@@ -88,3 +88,27 @@ if JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
 end
 '''
 match_indent = true
+
+
+# make the hook hook properly i hope
+[[patches]]
+[patches.pattern]
+target = '''card.lua'''
+pattern = '''    if self.area then self.area:remove_card(self) end'''
+position = 'before'
+payload = '''
+self.hp_area_back = self.area
+'''
+match_indent = true
+[[patches]]
+[patches.pattern]
+target = '''card.lua'''
+pattern = '''        if self.ability.d_size > 0 then
+            G.GAME.round_resets.discards = G.GAME.round_resets.discards - self.ability.d_size'''
+position = 'before'
+payload = '''
+if self.hp_area_back and not self.hp_area_back.REMOVED then
+    SMODS.calculate_context{ hp_card_destroyed = true, card_being_destroyed = self, is_being_sold = self.HP_JTEM_IS_BEING_SOLD, area = self.hp_area_back }
+end
+'''
+match_indent = true

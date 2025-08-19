@@ -147,28 +147,34 @@ SMODS.Joker {
         }
     },
     calculate = function (self,card,context)
-        if context.hp_card_removed and not context.blueprint then
-            local key = context.card.config.center.key
+        if context.hp_card_destroyed and not context.blueprint and not context.is_being_sold then
+            local key = context.card_being_destroyed.config.center.key
             if (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.Food) then
-                card.ability.mult = card.ability.mult + card.ability.extra.gain
-                card_eval_status_text(
-					card,
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_upgrade_ex"), colour = G.C.RED}
-				)
+                return {
+                    func = function()
+                        card.ability.mult = card.ability.mult + card.ability.extra.gain
+                    end,
+                    message = localize("k_upgrade_ex")
+                }
+                
             end
         end
     end
 }
 
-local ref = SMODS.showman
+local sellcardhook = G.FUNCS.sell_card
+function G.FUNCS.sell_card(e)
+    e.config.ref_table.HP_JTEM_IS_BEING_SOLD = true
+    return sellcardhook(e)
+end
+
+
+local showman_ref = SMODS.showman
 function SMODS.showman(key)
     if next(SMODS.find_card('j_hpot_greedybastard')) and (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.Food) then
         return true
     end
-    return ref(key)
+    return showman_ref(key)
 end
 
 

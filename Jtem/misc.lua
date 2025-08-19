@@ -125,14 +125,3 @@ end
 -- more buttons!!!
 SMODS.draw_ignore_keys.hp_jtem_price_side = true
 SMODS.draw_ignore_keys.hp_jtem_cancel_order = true
-
--- context.hp_card_removed
-local ref = Card.remove
-function Card:remove()
-  SMODS.calculate_context({
-    hp_card_removed = true,
-    card = self,
-    area = self.area
-  })
-    return ref(self)
-end
