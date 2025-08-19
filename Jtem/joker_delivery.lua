@@ -30,11 +30,11 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
             },
             {
                 n = G.UIT.R,
-                config = { },
+                config = { align = "cm" },
                 nodes = {
                     {
                         n = G.UIT.T,
-                        config = { text = localize(localized), scale = 0.5, colour = G.C.WHITE, opposite_vert = true}
+                        config = { text = localize(localized), scale = 0.4, colour = G.C.WHITE, opposite_vert = true}
                     },
                 }
             },
@@ -416,6 +416,11 @@ end
 local start_run_to_init_areas = Game.start_run
 function Game:start_run(args)
     local x = {start_run_to_init_areas(self,args)}
+
+    local saveTable = args.savetext or nil
+    if not saveTable or (saveTable and not saveTable.GAME) then
+        G.HP_SHOP_CREATED_CARDS = nil
+    end
     
     if G.STATE == G.STATES.SHOP then 
         hotpot_jtem_init_extra_shops_area() 
