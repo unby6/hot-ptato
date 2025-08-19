@@ -128,6 +128,8 @@ HPJTTT = {
         "May the Soul be in Arcana Pack",
         "Speed, Power, Stamina",
         "attempt to compare number with table",
+        "WDYM NO LABUBU GLASS BRIDGE",
+        "Code my Jokers",
     }
 }
 

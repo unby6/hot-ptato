@@ -140,17 +140,35 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = {x=4,y=1},
     rarity = 2,
+    config = {
+        mult = 0,
+        extra = {
+            gain = 12
+        }
+    },
     calculate = function (self,card,context)
-        if context.destroy_card then
-            --print(context)
+        if context.hp_card_removed and not context.blueprint then
+            local key = context.card.config.center.key
+            if (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.Food) then
+                card.ability.mult = card.ability.mult + card.ability.extra.gain
+                card_eval_status_text(
+					card,
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_upgrade_ex"), colour = G.C.RED}
+				)
+            end
         end
     end
 }
 
 local ref = SMODS.showman
 function SMODS.showman(key)
-    if next(SMODS.find_card('j_hpot_greedybastard')) and (true) then
+    if next(SMODS.find_card('j_hpot_greedybastard')) and (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.Food) then
         return true
     end
     return ref(key)
 end
+
+

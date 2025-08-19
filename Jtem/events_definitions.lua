@@ -38,7 +38,6 @@ SMODS.EventStep({
 			rich = 25,
 			gain = 5,
 			gain_rich = 10,
-			lose = -5,
 		},
 	},
 
@@ -47,7 +46,6 @@ SMODS.EventStep({
 			{
 				key = "lose",
 				button = function()
-					ease_dollars(self.config.extra.lose)
 					hpot_event_start_step("hpot_test_2")
 				end,
 			},
@@ -89,6 +87,7 @@ SMODS.EventStep({
 		delay(1)
 		hpot_event_display_lines(1, true)
 		jimbo_card:say_stuff(2)
+		G.FUNCS.draw_from_deck_to_hand(3)
 	end,
 	finish = function(self)
 		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
@@ -113,6 +112,11 @@ SMODS.EventStep({
 				button = hpot_event_end_scenario,
 			},
 		}
+	end,
+	start = function()
+		if #G.hand.cards > 0 then
+			SMODS.destroy_cards(G.hand.cards)
+		end
 	end,
 })
 SMODS.EventStep({

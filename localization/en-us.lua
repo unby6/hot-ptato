@@ -157,9 +157,27 @@ return {
         },
         imaginary = {
             c_hpot_imag_stars = {
-                name = "Stardust",
+                name = "Dreams",
                 text = {
                     "{C:inactive}Sweet summer child"
+                }
+            },
+            c_hpot_imag_curi = {
+                name = "Questions",
+                text = {
+                    "{C:inactive}Young curiosity"
+                }
+            },
+            c_hpot_imag_duck = {
+                name = "Interests",
+                text = {
+                    "{C:inactive}Something for fun"
+                }
+            },
+            c_hpot_imag_drop = {
+                name = "Emotions",
+                text = {
+                    "{C:inactive}Don't be scared"
                 }
             }
         },
@@ -939,6 +957,12 @@ return {
                     "When Death is used with {C:attention}1{} card,",
                     "it does {C:attention}absolutely nothing{}"
                 }
+            },
+            hpot_event_encounter = {
+                name = "Event Encounter",
+                text = {
+                    "Choices, choices, choices..."
+                }
             }
         },
         Tag = {
@@ -1149,7 +1173,7 @@ return {
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
-            hpot_test_1_lose = "Lose {E:1,C:money}money{} for no reason",
+            hpot_test_1_lose = "Destroy {C:attention}ALL{} cards in hand",
             hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
             hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(but only if you have at least #1#$)",
         }
