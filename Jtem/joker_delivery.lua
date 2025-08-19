@@ -780,8 +780,9 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
     if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
     stop_use()
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
-    if G.shop.alignment.offset.y == -5.3 then
+    if not G.HP_JTEM_DELIVERY_VISIBLE then
         G.shop.alignment.offset.y = -20
+        G.HP_JTEM_DELIVERY_VISIBLE = true
         simple_add_event(function ()
             sign_sprite.pinch.y = true
             delay(0.5)
@@ -795,6 +796,7 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
         play_sound("hpot_sfx_whistleup",nil, 0.25)
     else
         G.shop.alignment.offset.y = -5.3
+        G.HP_JTEM_DELIVERY_VISIBLE = nil
         simple_add_event(function ()
             sign_sprite.pinch.y = true
             delay(0.5)

@@ -33,6 +33,16 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
+  key = "music_delivery",
+  path = "music_delivery.ogg",
+  select_music_track = function (self)
+    if G.HP_JTEM_DELIVERY_VISIBLE and G.STATE == G.STATES.SHOP then
+      return 1349
+    end
+  end
+}
+
+SMODS.Sound {
   key = "sfx_whistleup",
   path = "sfx_whistleup.ogg",
 }
