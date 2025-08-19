@@ -979,7 +979,7 @@ return {
         EventSteps = {
             hpot_test_1 = {
                 text = {
-                    "This is test event step 1. Hey look, it's Jim-",
+                    "Hey look, it's Jim-",
                     " ",
                     "{s:1.75,C:attention}Choose,{}",
                     "{E:1,s:3,C:attention}NOW!{}"
@@ -987,13 +987,12 @@ return {
             },
             hpot_test_2 = {
                 text = {
-			        "This is test event step 2",
-			        "{C:attention}Surely{} there's {C:mult}nothing interesting{} here",
+			        "Well, that was... {C:mult}unfortunate{}",
                 }
             },
             hpot_test_3 = {
                 text = {
-			        "Congratultions! Yoy get {C:money}FREE MONEY!",
+			        "Congratultions! Yoy got {C:money}FREE #1#${}!",
 			        "Now, {s:1.5}GO AWAY!{}",
                     "{E:1,s:3,C:mult}AND NEVER COME BACK!"
                 }
@@ -1147,6 +1146,12 @@ return {
             czech = "Cheque Card",
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key"
+        },
+        EventChoices = {
+            hpot_general_move_on = "Move on",
+            hpot_test_1_lose = "Lose {E:1,C:money}money{} for no reason",
+            hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
+            hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(but only if you have at least #1#$)",
         }
     }
 }

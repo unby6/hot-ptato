@@ -5,17 +5,16 @@ SMODS.EventStep({
 		text = {
 			"Looks like there's nothing here...",
 		},
+		choices = {
+			go = "...Go?",
+		},
 	},
+	config = {},
 	get_choices = function()
 		return {
 			{
-				text = function()
-					return "..Go?"
-				end,
+				key = "go",
 				button = hpot_event_end_scenario,
-				func = function()
-					return true
-				end,
 			},
 		}
 	end,
@@ -28,35 +27,42 @@ SMODS.EventScenario({
 -- Test scenario
 SMODS.EventStep({
 	key = "test_1",
-	get_choices = function()
+
+	config = {
+		extra = {
+			rich = 25,
+			gain = 5,
+			gain_rich = 10,
+			lose = -5,
+		},
+	},
+
+	get_choices = function(self)
 		return {
 			{
-				text = function()
-					return "Lose {C:money}money{} for no reason"
-				end,
+				key = "lose",
 				button = function()
-					ease_dollars(-5)
+					ease_dollars(self.config.extra.lose)
 					hpot_event_start_step("hpot_test_2")
 				end,
 			},
 			{
-				text = function()
-					return "Gain {E:1,C:money}money{} for no reason"
-				end,
+				key = "gain_rich",
+				loc_vars = { self.config.extra.rich },
 				button = function()
-					ease_dollars(5)
+					ease_dollars(self.config.extra.gain_rich)
+					G.GAME.hpot_event_scenario_data.money_gain = self.config.extra.gain_rich
 					hpot_event_start_step("hpot_test_3")
 				end,
 				func = function()
-					return G.GAME.dollars > 100
+					return G.GAME.dollars >= self.config.extra.rich
 				end,
 			},
 			{
-				text = function()
-					return "Gain {E:1,C:money}money{} for no reason"
-				end,
+				key = "gain",
 				button = function()
-					ease_dollars(5)
+					ease_dollars(self.config.extra.gain)
+					G.GAME.hpot_event_scenario_data.money_gain = self.config.extra.gain
 					hpot_event_start_step("hpot_test_3")
 				end,
 			},
@@ -97,13 +103,9 @@ SMODS.EventStep({
 	get_choices = function()
 		return {
 			{
-				text = function()
-					return "Move on"
-				end,
+				key = "hpot_general_move_on",
+				no_prefix = true,
 				button = hpot_event_end_scenario,
-				func = function()
-					return true
-				end,
 			},
 		}
 	end,
@@ -113,12 +115,14 @@ SMODS.EventStep({
 	get_choices = function()
 		return {
 			{
-				text = function()
-					return "Move on"
-				end,
+				key = "hpot_general_move_on",
+				no_prefix = true,
 				button = hpot_event_end_scenario,
 			},
 		}
+	end,
+	loc_vars = function(self)
+		return { G.GAME.hpot_event_scenario_data.money_gain }
 	end,
 })
 

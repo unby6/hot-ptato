@@ -12,16 +12,29 @@ SMODS.EventStep = SMODS.GameObject:extend({
 	},
 	process_loc_text = function(self)
 		SMODS.process_loc_text(G.localization.descriptions.EventSteps, self.key:lower(), self.loc_txt)
+		if self.loc_txt and self.loc_txt.choices then
+			for k, _ in pairs(self.loc_txt.choices) do
+				SMODS.process_loc_text(
+					G.localization.misc.EventChoices,
+					self.key:lower() .. "_" .. k,
+					self.loc_txt.choices[k]
+				)
+			end
+		end
 	end,
+
+	config = {
+		extra = {},
+	},
 
 	get_choices = function(self, scenario)
 		return {
 			{
-				text = function()
-					return "Leave"
-				end,
+				key = "leave",
+				loc_vars = {},
+				text = "Leave",
 				button = function()
-					G.FUNCS.finish_hpot_event()
+					hpot_event_end_scenario()
 				end,
 				func = function()
 					return true
@@ -33,6 +46,10 @@ SMODS.EventStep = SMODS.GameObject:extend({
 	load = function(self, scenario, previous_step) end,
 	start = function(self, scenario, previous_step, is_load) end,
 	finish = function(self, scenario, next_step) end,
+
+	loc_vars = function(self)
+		return {}
+	end,
 
 	inject = function() end,
 })
@@ -52,12 +69,12 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 		SMODS.process_loc_text(G.localization.descriptions.EventScenarios, self.key:lower(), self.loc_txt)
 	end,
 
-	default_weight = 5,
+	weight = 5,
 	in_pool = function(self)
 		return true
 	end,
 	get_weight = function(self)
-		return self.default_weight
+		return self.weight
 	end,
 
 	inject = function(self)
@@ -381,9 +398,8 @@ function Game:update_hpot_event(dt)
 	end
 end
 
-function hpot_event_start_scenario(forced_key)
-	-- TODO: get from pool
-	local scenario_key = forced_key or G.GAME.round_resets.blind_choices.hpot_event or get_next_hpot_event()
+function hpot_event_start_scenario()
+	local scenario_key = G.GAME.round_resets.blind_choices.hpot_event or get_next_hpot_event()
 	G.GAME.round_resets.hpot_event_encountered = true
 	local scenario = SMODS.EventScenarios[scenario_key]
 	G.GAME.hpot_event_scenario_data = {}
@@ -620,7 +636,7 @@ function hpot_event_prepare_text_lines()
 		set = step.set,
 		key = step.key,
 		nodes = event_text_content,
-		vars = {},
+		vars = step:loc_vars() or {},
 		default_col = G.C.UI.TEXT_LIGHT,
 	})
 	local event_text_lines = {}
@@ -689,7 +705,7 @@ function hpot_event_render_current_step()
 	local event_buttons_content = {}
 	local choices = step:get_choices(scenario)
 	for _, choice in ipairs(choices) do
-		table.insert(event_buttons_content, G.UIDEF.hpot_event_choice_button(choice))
+		table.insert(event_buttons_content, G.UIDEF.hpot_event_choice_button(step, choice))
 	end
 
 	local text_objects = G.hpot_event_ui_text_objects
@@ -777,11 +793,9 @@ function G.FUNCS.hpot_event_select(e)
 			trigger = "immediate",
 			func = function()
 				G.RESET_JIGGLES = nil
-				delay(0.4)
 				G.E_MANAGER:add_event(Event({
 					trigger = "immediate",
 					func = function()
-						delay(0.4)
 						G.E_MANAGER:add_event(Event({
 							trigger = "immediate",
 							func = function()
@@ -835,10 +849,12 @@ end
 
 --
 
-function G.UIDEF.hpot_event_choice_button(choice)
-	local localized = SMODS.localize_box(loc_parse_string(choice.text()), {
+function G.UIDEF.hpot_event_choice_button(step, choice)
+	local loc_key = choice.no_prefix and choice.key or (step.key:lower() .. "_" .. choice.key)
+	local loc_txt = G.localization.misc.EventChoices[loc_key] or choice.text or "ERROR"
+	local localized = SMODS.localize_box(loc_parse_string(loc_txt), {
 		default_col = G.C.UI.TEXT_LIGHT,
-		vars = {},
+		vars = choice.loc_vars or {},
 	})
 	return {
 		n = G.UIT.R,
@@ -854,6 +870,7 @@ function G.UIDEF.hpot_event_choice_button(choice)
 			button = "hpot_event_execute_choice",
 			choice_button = choice.button,
 			choice_func = choice.func,
+			choice_key = loc_key,
 			minh = 0.5,
 			maxh = 0.5,
 		},
@@ -1026,6 +1043,7 @@ end
 
 --
 
+-- TODO: test it properly, when more events will be added
 function get_next_hpot_event()
 	if G.hpot_event_scenario_forced_key then
 		local result = G.hpot_event_scenario_forced_key
@@ -1085,6 +1103,14 @@ function reset_blinds(...)
 	r_bref(...)
 	G.GAME.round_resets.blind_choices.hpot_event = get_next_hpot_event()
 	G.GAME.round_resets.hpot_event_encountered = false
+end
+
+function force_hpot_event(key)
+	if G.GAME.round_resets.hpot_event_encountered then
+		G.hpot_event_scenario_forced_key = key
+	else
+		G.GAME.round_resets.blind_choices.hpot_event = key
+	end
 end
 
 -- Contexts
