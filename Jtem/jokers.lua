@@ -14,7 +14,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {'LocalThunk'},
         code = {'Squidguset'},
-        team = {'JTem'}
+        team = {'Jtem'}
     },
 }
 
@@ -29,7 +29,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {'LocalThunk'},
         code = {'Squidguset'},
-        team = {'JTem'}
+        team = {'Jtem'}
     },
 }
 
@@ -44,7 +44,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {'LocalThunk'},
         code = {'Squidguset'},
-        team = {'JTem'}
+        team = {'Jtem'}
     },
 }
 
@@ -60,7 +60,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {'LocalThunk'},
         code = {'Squidguset'},
-        team = {'JTem'}
+        team = {'Jtem'}
     },
 }
 
@@ -76,7 +76,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {'LocalThunk'},
         code = {'Squidguset'},
-        team = {'JTem'}
+        team = {'Jtem'}
     },
 }
 
@@ -104,7 +104,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {'MissingNumber'},
         code = {'Squidguset'},
-        team = {'JTem'}
+        team = {'Jtem'}
     },
 }
 
@@ -129,7 +129,7 @@ SMODS.Joker {
         art = {'MissingNumber'},
         code = {'Haya'},
         idea = {'MissingNumber'}, -- No one adds this for some reason. For future mods please do :pray:
-        team = {'JTem'}
+        team = {'Jtem'}
     }
 }
 
