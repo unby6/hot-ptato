@@ -1,0 +1,113 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Marqueeing text, repurposed from Aiko's old SMODS pr
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''    if self.children.particle_effect then self.children.particle_effect:draw() end'''
+position = "after"
+payload = '''if self.config and self.config.stencil then
+    love.graphics.stencil(self.config.stencil, self.config.stencil_mode or "replace", 1)
+    love.graphics.setStencilTest((self.config.stencil_test or "greater"), self.config.stencil_value or 0)
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''    add_to_drawhash(self)'''
+position = "after"
+payload = '''
+love.graphics.setStencilTest()
+love.graphics.pop()
+if (self.total_width) > ((self.config.maxw or 0)) and self.config.does_scroll then
+    local sinewave = (math.tanh(1.5*math.sin((G.TIMERS.REAL - self.created_time) / (self.total_width * 0.35)))) / math.tanh(1.5)
+    self.scrolling = -(sinewave + 1) * ((self.total_width - (self.config.maxw or 0) + 0.1) * G.TILESIZE * G.TILESCALE * 0.5) 
+	--print(self.scrolling)
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''    if self.config.maxw and self.config.W > self.config.maxw and not self.config.marquee then'''
+position = "at"
+payload = '''
+if self.config.does_scroll then
+    self:update_text(true)
+    self.config.W = self.config.maxw or 0
+end
+if self.config.maxw and self.config.W > self.config.maxw and not self.config.does_scroll and not self.config.marquee then'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''    if self.shadow then'''
+position = "before"
+payload = '''
+love.graphics.push()
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''    if self.shadow then'''
+position = "after"
+payload = '''
+love.graphics.translate(self.scrolling or 0,0)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''if self.config.marquee and self.config.maxw then'''
+position = "at"
+payload = '''
+if (self.config.marquee or self.config.does_scroll) and self.config.maxw then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''self.strings[k].letters = {}--EMPTY(self.strings[k].letters)'''
+position = "after"
+payload = '''
+if self.config.does_scroll then
+    self.scrolling = 0
+    self.created_time = G.TIMERS.REAL
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''    love.graphics.setCanvas{self.CANVAS}'''
+position = "at"
+payload = '''love.graphics.setCanvas{self.CANVAS, stencil = true}'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''    if self.config.spacing then love.graphics.translate(self.config.spacing*self.font.FONTSCALE/G.TILESIZE, 0) end'''
+position = "before"
+payload = '''self.total_width = 0'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/text.lua'
+pattern = '''        love.graphics.translate(letter.dims.x*self.font.FONTSCALE/G.TILESIZE, 0)'''
+position = "after"
+payload = '''self.total_width = self.total_width + letter.dims.x*self.font.FONTSCALE/G.TILESIZE'''
+match_indent = true

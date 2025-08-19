@@ -1121,6 +1121,10 @@ return {
             hotpot_cashback = "Refund: ",
             rounds_plural = "rounds",
             rounds_singular = "round",
+
+            hotpot_jukebox_request = "Request Song",
+            hotpot_jukebox_unrequest = "Unrequest Song",
+            hotpot_jukebox_default_music_title = "*",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',

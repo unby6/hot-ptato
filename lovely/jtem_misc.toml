@@ -74,6 +74,7 @@ end
 '''
 match_indent = true
 
+# Jukebox music is prioritized
 [[patches]]
 [patches.pattern]
 target = '''functions/misc_functions.lua'''
