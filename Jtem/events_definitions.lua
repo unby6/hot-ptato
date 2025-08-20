@@ -228,7 +228,7 @@ SMODS.EventStep({
 				no_prefix = true,
 				button = function()
 					ease_dollars(-self.config.extra.remove)
-					hpot_event_start_step("porch_pirate_good")
+					hpot_event_start_step("hpot_porch_pirate_good")
 				end,
 			},
 			{
