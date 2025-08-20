@@ -1035,7 +1035,45 @@ return {
                     "A young man comes up to you and offers to trade",
                     "what would you like to do?"
                 }
-            }
+            },
+            hpot_porch_pirate_1 = {
+                text = {
+                    "There have been reports of porch pirates",
+                    "stealing deliveries around the table.",
+                    " ",
+                    "They may attempt to get your",
+                    "deliveries too!"
+                }
+            },
+            hpot_porch_pirate_2 = {
+                text = {
+                    "Attempt to try protecting your current",
+                    "running deliveries?",
+                    " ",
+                    "One of your deliveries gets the Eternal",
+                    "sticker and you lose {C:money}$#1#{}."
+                }
+            },
+            hpot_porch_pirate_good = {
+                text = {
+                    "Successfully protected.",
+                }
+            },
+            hpot_porch_pirate_bad = {
+                text = {
+                    "You left your deliveries unprotected.",
+                    "Uh oh!",
+                    " ",
+                    "One of your deliveries got stolen!"
+                }
+            },
+            hpot_porch_pirate_phew = {
+                text = {
+                    "You left your deliveries unprotected.",
+                    " ",
+                    "Nothing got stolen."
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -1043,6 +1081,9 @@ return {
             },
             hpot_trade1 = {
                 name = "The Trader"
+            },
+            hpot_porch_pirate = {
+                name = "Ack! Porch Pirates!"
             }
         },
     },
@@ -1196,6 +1237,9 @@ return {
             hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(but only if you have at least #1#$)",
             hpot_multi_tradenone = "Ignore",
             hpot_multi_tradecard = "Trade {C:attention}1{C:imaginary} #1#{} card",
+
+            hpot_porch_pirate_protect = "Protect",
+            hpot_porch_pirate_leave = "Leave as is",
         }
     }
 }

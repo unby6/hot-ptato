@@ -194,3 +194,165 @@ SMODS.EventScenario {
 	key = "trade1",
 	starting_step_key = "hpot_pelter"
 }
+
+-- Porch Pirates
+
+SMODS.EventStep({
+	key = "porch_pirate_1",
+	get_choices = function()
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = function()
+					hpot_event_start_step("hpot_porch_pirate_2")
+				end,
+			},
+		}
+	end,
+	start = function(self, scenario, previous_step) end,
+	finish = function(self) end,
+})
+
+SMODS.EventStep({
+	key = "porch_pirate_2",
+	config = {
+		extra = {
+			remove = 10,
+		},
+	},
+	get_choices = function(self)
+		return {
+			{
+				key = "hpot_porch_pirate_protect",
+				no_prefix = true,
+				button = function()
+					ease_dollars(-self.config.extra.remove)
+					hpot_event_start_step("porch_pirate_good")
+				end,
+			},
+			{
+				key = "hpot_porch_pirate_leave",
+				no_prefix = true,
+				button = function()
+					if pseudorandom('fuck_you') < 0.5 then
+						hpot_event_start_step("hpot_porch_pirate_bad")
+					else
+						hpot_event_start_step("hpot_porch_pirate_phew")
+					end
+				end,
+			},
+		}
+	end,
+	loc_vars = function(self)
+		return { self.config.extra.remove }
+	end,
+	start = function(self, scenario, previous_step) end,
+	finish = function(self) end,
+})
+
+SMODS.EventStep({
+	key = "porch_pirate_good",
+	get_choices = function()
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = hpot_event_end_scenario,
+			},
+		}
+	end,
+	start = function(self, scenario, previous_step)
+		---@type Card
+		local card = pseudorandom_element(G.hp_jtem_delivery_queue.cards, 'porch_pirate_eternal_'..G.GAME.round_resets.ante)
+		if card then
+			card:set_perishable(false)
+			card:set_eternal(true)
+		end
+	end,
+	finish = function(self) end,
+})
+
+SMODS.EventStep({
+	key = "porch_pirate_bad",
+	get_choices = function()
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = hpot_event_end_scenario,
+			},
+		}
+	end,
+	start = function(self, scenario, previous_step)
+		local delivery = pseudorandom_element(G.hp_jtem_delivery_queue.cards, 'porch_pirate_steal_'..G.GAME.round_resets.ante)
+		if delivery then
+			local remove = {}
+			for k, v in pairs(G.GAME.hp_jtem_delivery_queue) do
+				if v == delivery.hp_delivery_obj then
+					remove[k] = true
+				end
+			end
+			for i = #G.GAME.hp_jtem_delivery_queue, 1, -1 do
+				if remove[i] then
+					table.remove(G.GAME.hp_jtem_delivery_queue, i)
+				end
+			end
+			remove = {}
+			local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
+			local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
+			local jimbo_card = Card_Character({
+				x = x,
+				y = y,
+				center = delivery.config.center,
+			})
+			G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
+			hpot_event_display_lines(1, true)
+			delay(1)
+			jimbo_card:say_stuff(3)
+			hpot_event_display_lines(1, true)
+			G.E_MANAGER:add_event(Event{
+				func = function()
+					jimbo_card.children.card:start_dissolve()
+					return true
+				end
+			})
+			delivery:remove()
+		end
+	end,
+	finish = function(self)
+		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+		if jimbo_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					jimbo_card:remove()
+					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					return true
+				end,
+			}))
+		end
+	end,
+})
+
+SMODS.EventStep({
+	key = "porch_pirate_phew",
+	get_choices = function()
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = hpot_event_end_scenario,
+			},
+		}
+	end,
+	start = function(self, scenario, previous_step) end,
+	finish = function(self) end,
+})
+
+SMODS.EventScenario {
+	key = "porch_pirate",
+	starting_step_key = "hpot_porch_pirate_1",
+	in_pool = function ()
+		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0
+	end
+}
