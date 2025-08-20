@@ -6,6 +6,7 @@ HotPotato.Ads = {
         ad_attack = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0, y=0}, animated = false, base_size = 0.75, max_scale = 0.5},
         ad_dotty = {atlas = 'hpot_DottyAd', pos = {x=0, y=0}, animated = false, base_size = 0.6, max_scale = 0.6},
         ad_perkeoboss = {atlas = 'hpot_PerkeoBoss', pos = {x=0, y=0}, animated = false, base_size = 0.3, max_scale = 0.2},
+        -- Jtem :))))
         ad_obsidian = {atlas = "hpot_jtemads",pos = {x=0,y=1}},
         ad_what = {atlas = "hpot_jtemads",pos = {x=2,y=0}},
         ad_blank = {atlas = "hpot_jtemads",pos = {x=0,y=0}},
@@ -16,6 +17,10 @@ HotPotato.Ads = {
         ad_singles = {atlas = 'hpot_jtemads',pos = {x=2,y=2}},
         ad_aikoshen1 = {atlas = 'hpot_jtem_aikoshen1',pos = {x=0,y=0}},
         ad_error1 = {atlas = 'hpot_jtem_ad_error1',pos = {x=0,y=0}},
+        ad_broken_page = {atlas = 'hpot_jtemads',pos = {x=3,y=0}},
+        ad_404 = {atlas = 'hpot_jtemads',pos = {x=4,y=0}},
+        ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
+        ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -26,6 +31,8 @@ HotPotato.Ads = {
         ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}},
         ad_labubu = {atlas = 'hpot_jtemads',pos = {x=2,y=1}},
         ad_4f6368 = {atlas = 'hpot_jtemads',pos = {x=0,y=2}},
+        ad_beachday = {atlas = 'hpot_jtemads',pos = {x=3,y=2}},
+        ad_astolfo = {atlas = 'hpot_jtemads',pos = {x=4,y=2}},
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
