@@ -263,14 +263,48 @@ SMODS.EventStep({
 		}
 	end,
 	start = function(self, scenario, previous_step)
+		if not G.hp_jtem_delivery_queue then
+			hotpot_jtem_init_extra_shops_area()
+			hotpot_delivery_refresh_card()
+		end
 		---@type Card
 		local card = pseudorandom_element(G.hp_jtem_delivery_queue.cards, 'porch_pirate_eternal_'..G.GAME.round_resets.ante)
 		if card then
 			card:set_perishable(false)
 			card:set_eternal(true)
+			local delivery = copy_card(card)
+			local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
+			local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
+			local jimbo_card = Card_Character({
+				x = x,
+				y = y,
+				center = delivery.config.center.key,
+			})
+			G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
+			hpot_event_display_lines(1, true)
+			delay(1)
+			G.E_MANAGER:add_event(Event{
+				func = function()
+					jimbo_card.children.card:set_eternal(true)
+					jimbo_card.children.card:juice_up(0.3, 0.3)
+					play_sound('gold_seal', 1.2, 0.4)
+					return true
+				end
+			})
 		end
 	end,
-	finish = function(self) end,
+	finish = function(self)
+		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+		if jimbo_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					jimbo_card:remove()
+					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					return true
+				end,
+			}))
+		end
+	end,
 })
 
 SMODS.EventStep({
@@ -285,6 +319,11 @@ SMODS.EventStep({
 		}
 	end,
 	start = function(self, scenario, previous_step)
+		-- make sure the queue exists first
+		if not G.hp_jtem_delivery_queue then
+			hotpot_jtem_init_extra_shops_area()
+			hotpot_delivery_refresh_card()
+		end
 		local delivery = pseudorandom_element(G.hp_jtem_delivery_queue.cards, 'porch_pirate_steal_'..G.GAME.round_resets.ante)
 		if delivery then
 			local remove = {}
@@ -304,7 +343,7 @@ SMODS.EventStep({
 			local jimbo_card = Card_Character({
 				x = x,
 				y = y,
-				center = delivery.config.center,
+				center = delivery.config.center.key,
 			})
 			G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
 			hpot_event_display_lines(1, true)

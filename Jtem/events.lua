@@ -1140,8 +1140,8 @@ function get_next_hpot_event()
 	end
 
 	local roll = pseudorandom(pseudoseed("hpot_event" .. G.GAME.round_resets.ante))
-	print(roll)
-	print(weighted_events)
+	--print(roll)
+	--print(weighted_events)
 	local weight_i = 0
 	for _, v in ipairs(weighted_events) do
 		weight_i = weight_i + v.weight

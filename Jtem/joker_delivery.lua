@@ -326,18 +326,18 @@ local function hpot_create_joker_from_amazon(card, center)
     local should_spawn_with_perishable = center.perishable_compat and
         pseudorandom("hpjtem_delivery_perishable") < 0.3 and not should_spawn_with_eternal
     local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
-    local price_factor = currency == "joker_exchange" and 12942 or currency == "plincoin" and 0.5 or 0.3
+    local price_factor = currency == "joker_exchange" and 12942 or currency == "plincoin" and 0.75 or 0.5
     local plincoin = currency == "plincoin"
     local jx = currency == "joker_exchange"
     -- TODO: Needs tweaking. This isn't free joker simulator :V
-    local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.54 + 0.64
-    price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) *
-        (should_spawn_with_perishable and 0.3 or 1)
+    local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.52 + 0.84
+    price_factor = price_factor * (should_spawn_with_eternal and 0.9 or 1) * (should_spawn_with_rental and 0.6 or 1) *
+        (should_spawn_with_perishable and 0.6 or 1) * 1.5
     hotpot_jtem_add_to_offers(center.key, {
         price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
-        rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1) *
-            (should_spawn_with_rental and 0.3 or 1) * (should_spawn_with_rental and 0.5 or 1) *
-            (plincoin and 2 or 1),
+        rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
+            (should_spawn_with_rental and 0.6 or 1) * (should_spawn_with_rental and 0.5 or 1) *
+            (plincoin and 2 or 1) * 1.5,
         extras = {
             rental = should_spawn_with_rental,
             eternal = should_spawn_with_eternal,
