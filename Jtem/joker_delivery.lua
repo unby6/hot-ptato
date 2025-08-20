@@ -657,7 +657,9 @@ function Game:init_game_object()
     return r
 end
 
+local r_g_ref = SMODS.current_mod.reset_game_globals or function() end
 SMODS.current_mod.reset_game_globals = function(run_start)
+    r_g_ref(run_start)
     if not run_start then
         G.GAME.round_resets.hp_jtem_special_offer = {}
         hotpot_jtem_generate_special_deals()

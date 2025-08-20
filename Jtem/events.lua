@@ -10,7 +10,6 @@ SMODS.Atlas({
 	frames = 21,
 })
 
--- TODO: draw cards in hand api
 SMODS.EventSteps = {}
 SMODS.EventStep = SMODS.GameObject:extend({
 	obj_table = SMODS.EventSteps,
@@ -104,7 +103,6 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 
 -----------------
 
--- TODO: remove card area
 function Game:update_hpot_event_select(dt)
 	if self.buttons then
 		self.buttons:remove()
@@ -157,7 +155,6 @@ function Game:update_hpot_event_select(dt)
 	end
 end
 
--- TODO: custom blind sprite & desc
 function create_UIBox_hpot_event_choice(scenario)
 	local disabled = false
 	local run_info = false
@@ -172,7 +169,6 @@ function create_UIBox_hpot_event_choice(scenario)
 		{ shader = "dissolve" },
 	})
 
-	-- TODO: Description
 	local loc_target = localize({
 		type = "raw_descriptions",
 		key = "hpot_event_encounter",
@@ -500,49 +496,6 @@ function hpot_event_start_scenario()
 		end,
 	}))
 end
-function hpot_event_load_scenario()
-	local scenario_key = G.GAME.hpot_event_scenario_key
-	local step_key = G.GAME.hpot_event_step_key
-	local previous_step_key = G.GAME.hpot_event_previous_step_key
-
-	local scenario = SMODS.EventScenarios[scenario_key]
-	local step = SMODS.EventSteps[step_key]
-	local previous_step = SMODS.EventSteps[previous_step_key]
-
-	G.hpot_event_scenario = scenario
-	G.hpot_event_current_step = step
-	G.hpot_event_previous_step = previous_step
-
-	local event_ui = UIBox({
-		definition = G.UIDEF.hpot_event(),
-		config = {
-			align = "br",
-			major = G.ROOM_ATTACH,
-			bond = "Weak",
-			offset = {
-				x = -15.3,
-				y = G.ROOM.T.y + 21,
-			},
-		},
-	})
-	G.hpot_event_ui = event_ui
-	G.hpot_event_ui_image_area = G.hpot_event_ui:get_UIE_by_ID("image_area")
-	G.hpot_event_ui_text_area = G.hpot_event_ui:get_UIE_by_ID("text_area")
-	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
-
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			G.hpot_event_ui.alignment.offset.y = -8.5
-			return true
-		end,
-	}))
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			hpot_event_load_step()
-			return true
-		end,
-	}))
-end
 function hpot_event_start_step(key)
 	local step = SMODS.EventSteps[key]
 	G.hpot_event_previous_step = G.hpot_event_current_step or nil
@@ -572,33 +525,6 @@ function hpot_event_start_step(key)
 								scenario = G.hpot_event_scenario,
 								step = G.hpot_event_current_step,
 							})
-							G.E_MANAGER:add_event(Event({
-								func = function()
-									hpot_event_render_current_step()
-									return true
-								end,
-							}))
-							return true
-						end,
-					}))
-					return true
-				end,
-			}))
-			return true
-		end,
-	}))
-end
-function hpot_event_load_step()
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			G.hpot_event_current_step:load(G.hpot_event_scenario, G.hpot_event_previous_step)
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					hpot_event_cleanup()
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							hpot_event_prepare_text_lines()
-							G.hpot_event_current_step:start(G.hpot_event_scenario, G.hpot_event_previous_step, true)
 							G.E_MANAGER:add_event(Event({
 								func = function()
 									hpot_event_render_current_step()
@@ -762,9 +688,23 @@ function hpot_event_render_current_step()
 	-- Step buttons
 	local event_buttons_content = {}
 	local choices = step:get_choices(scenario)
-	for _, choice in ipairs(choices) do
-		table.insert(event_buttons_content, G.UIDEF.hpot_event_choice_button(step, choice))
-	end
+    for i = 1, math.ceil(#choices / 4) do
+        local buttons_in_column = {}
+        local j = i - 1
+        for k = j * 4 + 1, i * 4 do
+            local choice = choices[k]
+            if choice then
+                table.insert(buttons_in_column, G.UIDEF.hpot_event_choice_button(step, choice))
+            end
+        end
+        table.insert(event_buttons_content, {
+            n = G.UIT.C,
+            config = {
+                padding = 0.075,
+            },
+            nodes = buttons_in_column
+        })
+    end
 
 	local text_objects = G.hpot_event_ui_text_objects
 	for i = G.hpot_event_ui_next_text_object, #G.hpot_event_ui_text_objects do
@@ -790,7 +730,7 @@ function hpot_event_render_current_step()
 				UIBox({
 					definition = {
 						n = G.UIT.ROOT,
-						config = { colour = G.C.CLEAR, padding = 0.1 },
+						config = { colour = G.C.CLEAR },
 						nodes = event_buttons_content,
 					},
 					config = {
@@ -970,7 +910,7 @@ function G.UIDEF.hpot_event()
 	local content_padding = 0.1
 
 	local image_area_size = container_H - container_padding * 2 - header_H - content_padding * 2
-	local choices_H = 1.8
+	local choices_H = 2.4
 	local text_H = image_area_size - content_padding * 2 - choices_H
 
 	local event_text_name = {}
@@ -1140,8 +1080,6 @@ function get_next_hpot_event()
 	end
 
 	local roll = pseudorandom(pseudoseed("hpot_event" .. G.GAME.round_resets.ante))
-	--print(roll)
-	--print(weighted_events)
 	local weight_i = 0
 	for _, v in ipairs(weighted_events) do
 		weight_i = weight_i + v.weight
@@ -1175,6 +1113,15 @@ function force_hpot_event(key)
 		G.hpot_event_scenario_forced_key = key
 	else
 		G.GAME.round_resets.blind_choices.hpot_event = key
+	end
+end
+
+local r_g_ref = SMODS.current_mod.reset_game_globals or function() end
+SMODS.current_mod.reset_game_globals = function(run_start)
+	r_g_ref(run_start)
+	if run_start then
+		G.GAME.round_resets.blind_choices.hpot_event = get_next_hpot_event()
+		G.GAME.round_resets.hpot_event_encountered = false
 	end
 end
 

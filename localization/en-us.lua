@@ -1245,7 +1245,7 @@ return {
             hpot_general_move_on = "Move on",
             hpot_test_1_lose = "Destroy {C:attention}ALL{} cards in hand",
             hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
-            hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(but only if you have at least #1#$)",
+            hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(only if you have at least #1#$)",
             hpot_multi_tradenone = "Ignore",
             hpot_multi_tradecard = "Trade {C:attention}1{C:imaginary} #1#{} card",
 
