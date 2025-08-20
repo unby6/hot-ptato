@@ -1108,14 +1108,6 @@ function reset_blinds(...)
 	G.GAME.round_resets.hpot_event_encountered = false
 end
 
-function force_hpot_event(key)
-	if G.GAME.round_resets.hpot_event_encountered then
-		G.hpot_event_scenario_forced_key = key
-	else
-		G.GAME.round_resets.blind_choices.hpot_event = key
-	end
-end
-
 local r_g_ref = SMODS.current_mod.reset_game_globals or function() end
 SMODS.current_mod.reset_game_globals = function(run_start)
 	r_g_ref(run_start)
@@ -1124,6 +1116,23 @@ SMODS.current_mod.reset_game_globals = function(run_start)
 		G.GAME.round_resets.hpot_event_encountered = false
 	end
 end
+
+--
+
+function force_hpot_event(key)
+	if G.GAME.round_resets.hpot_event_encountered then
+		G.hpot_event_scenario_forced_key = key
+	else
+		G.GAME.round_resets.blind_choices.hpot_event = key
+	end
+end
+
+function get_hpot_event_image_center(card_w, card_h)
+    local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - (card_w or G.CARD_W) / 2
+    local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - (card_h or G.CARD_H) / 2
+    return x, y
+end
+
 
 -- Contexts
 

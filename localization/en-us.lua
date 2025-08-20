@@ -1073,8 +1073,8 @@ return {
             hpot_porch_pirate_bad = {
                 text = {
                     "You left your deliveries unprotected.",
-                    "Uh oh!",
                     " ",
+                    "{C:attention,s:1.25}Uh oh!{}",
                     "One of your deliveries got stolen!"
                 }
             },

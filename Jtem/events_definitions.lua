@@ -74,8 +74,7 @@ SMODS.EventStep({
 	start = function(self, scenario, previous_step)
 		hpot_event_display_lines(2, true)
 		delay(1)
-		local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
-		local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
+        local x, y = get_hpot_event_image_center()
 		local jimbo_card = Card_Character({
 			x = x,
 			y = y,
@@ -210,10 +209,30 @@ SMODS.EventStep({
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step) end,
+	start = function(self, scenario, previous_step)
+        local x, y = get_hpot_event_image_center(G.CARD_W * 0.75, G.CARD_H * 0.75)
+		local pirate_card = Card_Character({
+			x = x,
+			y = y,
+            w = G.CARD_W * 0.75,
+            h = G.CARD_H * 0.75,
+			center = "j_swashbuckler",
+		})
+        pirate_card.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
+        pirate_card.states.collide.can = false
+		G.hpot_event_ui_image_area.children.pirate_card = pirate_card
+        G.E_MANAGER:add_event(Event({
+            trigger = "immediate",
+            blockable = false,
+            blocking = false,
+            func = function()
+                pirate_card.T.scale = pirate_card.T.scale * 0.75
+                return true
+            end,
+        }))
+    end,
 	finish = function(self) end,
 })
-
 SMODS.EventStep({
 	key = "porch_pirate_2",
 	config = {
@@ -247,10 +266,21 @@ SMODS.EventStep({
 	loc_vars = function(self)
 		return { self.config.extra.remove }
 	end,
-	start = function(self, scenario, previous_step) end,
-	finish = function(self) end,
+	start = function(self, scenario, previous_step)
+    end,
+	finish = function(self)
+        local pirate_card = G.hpot_event_ui_image_area.children.pirate_card
+		if pirate_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					pirate_card:remove()
+					G.hpot_event_ui_image_area.children.pirate_card = nil
+					return true
+				end,
+			}))
+		end
+    end,
 })
-
 SMODS.EventStep({
 	key = "porch_pirate_good",
 	get_choices = function()
@@ -273,8 +303,7 @@ SMODS.EventStep({
 			card:set_perishable(false)
 			card:set_eternal(true)
 			local delivery = copy_card(card)
-			local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
-			local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
+			local x, y = get_hpot_event_image_center()
 			local jimbo_card = Card_Character({
 				x = x,
 				y = y,
@@ -306,7 +335,6 @@ SMODS.EventStep({
 		end
 	end,
 })
-
 SMODS.EventStep({
 	key = "porch_pirate_bad",
 	get_choices = function()
@@ -338,15 +366,14 @@ SMODS.EventStep({
 				end
 			end
 			remove = {}
-			local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - G.CARD_W / 2
-			local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - G.CARD_H / 2
+			local x, y = get_hpot_event_image_center()
 			local jimbo_card = Card_Character({
 				x = x,
 				y = y,
 				center = delivery.config.center.key,
 			})
 			G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
-			hpot_event_display_lines(1, true)
+			hpot_event_display_lines(2, true)
 			delay(1)
 			jimbo_card:say_stuff(3)
 			hpot_event_display_lines(1, true)
@@ -372,7 +399,6 @@ SMODS.EventStep({
 		end
 	end,
 })
-
 SMODS.EventStep({
 	key = "porch_pirate_phew",
 	get_choices = function()
