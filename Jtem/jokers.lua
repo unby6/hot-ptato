@@ -167,7 +167,74 @@ SMODS.Joker {
                 
             end
         end
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Squidguset'},
+        idea = {'MissingNumber'}, -- No one adds this for some reason. For future mods please do :pray:
+        team = {'Jtem'}
+    }
+}
+
+function hpot_jtem_scale_card(card, key)
+    if SMODS.scale_card then
+        SMODS.scale_card(card,
+            {
+                ref_table = card.ability.extra,
+                ref_value = key,
+                scalar_value = key.."_mod",
+                operation = "+",
+                no_message = true
+            }
+        )
+    else
+        card.ability.extra[key] = card.ability.extra[key] + card.ability.extra[key.."_mod"]
     end
+end
+
+SMODS.Joker {
+    key = "labubu",
+    atlas = "jtem_jokers",
+    pos = {x=0,y=2},
+    rarity = 2,
+    config = { extra = { xmult = 1, xmult_mod = 0.1, cion = 1 } },
+    calculate = function(self, card, context)
+        if context.after and mult and hand_chips then
+            for k, v in pairs(context.scoring_hand) do
+                if SMODS.has_enhancement(v, "m_glass") and not v.shattered then
+                    hpot_jtem_scale_card(card, "xmult")
+                    G.E_MANAGER:add_event(Event{
+                        func = function()
+                            v:juice_up()
+                            return true
+                        end
+                    })
+                    SMODS.calculate_effect( {
+                        message = localize('k_upgrade_ex'),
+                        delay = 0.4
+                    }, card )
+                end
+            end
+        end
+        if context.remove_playing_cards and context.scoring_hand then
+            ease_plincoins(card.ability.extra.cion*#context.removed)
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.cion*#context.removed).."", colour = G.C.MONEY})
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    loc_vars = function (self, info_queue, card)
+        return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult, card.ability.extra.cion } }
+    end,
+    hotpot_credits = {
+        art = {'Haya'},
+        code = {'Haya'},
+        idea = {'triple6lexi'},
+        team = {'Jtem'}
+    }
 }
 
 local sellcardhook = G.FUNCS.sell_card

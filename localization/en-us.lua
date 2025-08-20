@@ -535,6 +535,17 @@ return {
                     "gains {C:mult}+#1#{} Mult",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mults)"
                 }
+            },
+            j_hpot_labubu = {
+                name = "Joker Glass Bridge",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult",
+                    "for every glass card {C:attention}remaining",
+                    "and gives {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#3#{} for each",
+                    "glass card {C:attention}destroyed",
+                    "after a hand is played",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+                }
             }
         },
         Voucher = {
