@@ -277,7 +277,23 @@ G.FUNCS.hp_jtem_order = function(e)
     ease_currency(object.currency, -object.price)
     table.insert(G.GAME.hp_jtem_delivery_queue, object)
     remove_element_from_list(G.GAME.round_resets.hp_jtem_special_offer,object)
-    hotpot_delivery_refresh_card()
+    draw_card(G.hp_jtem_delivery_special_deals, G.hp_jtem_delivery_queue, nil, 'up', false, card)
+    if card.children.price then
+        card.children.price:remove()
+        card.children.price = nil
+    end
+    if card.children.hp_jtem_price_side then
+        card.children.hp_jtem_price_side:remove()
+        card.children.hp_jtem_price_side = nil
+    end
+    if card.children.hp_jtem_cancel_order then
+        card.children.hp_jtem_cancel_order:remove()
+        card.children.hp_jtem_cancel_order = nil
+    end
+    local args = generate_currency_string_args(card.hp_jtem_currency_bought)
+    local temp_str = { str = (object.rounds_passed .. "/" .. object.rounds_total)}
+    hpot_jtem_create_delivery_boxes(card,{{ref_table = temp_str, ref_value = 'str'}},args)
+    --hotpot_delivery_refresh_card()
 end
 G.FUNCS.hp_jtem_cancel = function(e)
     local card = e.config.ref_table
@@ -285,7 +301,8 @@ G.FUNCS.hp_jtem_cancel = function(e)
     local returncost = math.ceil(object.price * 0.5)
     ease_currency(object.currency, returncost)
     remove_element_from_list(G.GAME.hp_jtem_delivery_queue,object)
-    hotpot_delivery_refresh_card()
+    card:start_dissolve()
+    --hotpot_delivery_refresh_card()
 end
 
 -- literally copied from price boxes
@@ -632,7 +649,7 @@ function hotpot_delivery_refresh_card()
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue,true)
     for _,_obj in ipairs(G.GAME.hp_jtem_delivery_queue) do
         local temp_str = { str = (_obj.rounds_passed .. "/" .. _obj.rounds_total)}
-        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true}
+        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true }
         for k,v in pairs(_obj.create_card_args) do
             cct[k] = v
         end
@@ -650,7 +667,7 @@ function hotpot_delivery_refresh_card()
         G.hp_jtem_delivery_queue:emplace(_c)
     end
     for _,_obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
-        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true}
+        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true }
         for k,v in pairs(_obj.create_card_args) do
             cct[k] = v
         end
