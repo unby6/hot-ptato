@@ -1,5 +1,20 @@
 -- waiter waiter ! more useless features please !
 
+-- The Jukebox is an additional tab in the mod settings.
+-- Sounds prefixed with `music_` are automatically added.
+--
+-- Metadata about the music track is meant to be saved within
+-- the music track as a vorbis comment. This includes album covers.
+--
+-- It is recommended for the metadata to contain these tags:
+-- TITLE - the title of the music track
+-- ARTIST - the composer of the music track
+--
+-- Specific music tag editors also allow you to put images in the metadata.
+-- The image MUST be a 159x159 jpeg.
+-- Images may be considered as 'invalid' due to limitations.
+-- There will be a default one shown if it doesn't have one, or if its regarded as invalid.
+
 require 'bit'
 base64 = SMODS.load_file("JTem/base64.lua")()
 
@@ -106,24 +121,22 @@ function JTJukebox.read_music_tags(path, music_name)
 			idx = idx + 4
 			local comment = string.sub(str, idx, idx + len - 1)
 			-- split string between =
-			local tag_values = {}
-			local count = 0
-			for c in string.gmatch(comment, '([^=]+)') do
-				if count == 0 then
-					tag_values[1] = c
+			for key, value in string.gmatch(comment, '([^=]+)=(.*)') do
+				local comment_name = string.lower(key)
+				-- This is an image. Do not add to final info as it is unnecessary
+				if comment_name == "metadata_block_picture" then
+					-- just in case...
+					value = value .. "=="
+					local success, atlas = pcall(decode_vorbis_comment_img, value, music_name)
+					if success then
+						G.ASSET_ATLAS[(music_name or path)] = atlas
+					else
+						print("Failed to create atlas image for music " .. music_name)
+					end
 				else
-					tag_values[2] = (tag_values[2] or "") .. c
+					-- add it to our info
+					info[comment_name] = value
 				end
-				count = count + 1
-			end
-			local comment_name = string.lower(tag_values[1])
-			-- This is an image. Do not add to final info as it is unnecessary
-			if comment_name == "metadata_block_picture" then
-				tag_values[2] = tag_values[2] .. "=="
-				G.ASSET_ATLAS[(music_name or path)] = decode_vorbis_comment_img(tag_values[2], music_name)
-			else
-				-- add it to our info
-				info[string.lower(tag_values[1])] = tag_values[2]
 			end
 			-- change index based on length
 			idx = idx + len
@@ -265,7 +278,7 @@ end
 function JTJukebox.CreateDescription(current)
 	return JTJukebox.manual_parse(
 		{
-			"{s:1.1}" .. (current.title or current.key),
+			"{s:1.2}" .. (current.title or current.key),
 			"{C:dark_edition}" .. (current.artist or "")
 		},
 		{ loc_key = current.key }
@@ -316,8 +329,18 @@ function G.FUNCS.hpot_update_current(e)
 		e.UIBox:recalculate()
 
 		-- update cover art
-		local cover = e.UIBox:get_UIE_by_ID('hpot_jukebox_cover_art')
-		cover.config.object.atlas = G.ASSET_ATLAS[current.key] or G.ASSET_ATLAS["hpot_jukebox_default"]
+		if G.ALBUM_CARD and G.ALBUM_CARD.children and G.ALBUM_CARD.children.center then
+			G.ALBUM_CARD.children.center:remove()
+			local sprite = Sprite(G.ALBUM_CARD.T.x, G.ALBUM_CARD.T.y, G.ALBUM_CARD.T.w, G.ALBUM_CARD.T.h, G.ASSET_ATLAS[current.key] or G.ASSET_ATLAS["hpot_jukebox_default"],
+				{ x = 0, y = 0 })
+			sprite.states.hover = G.ALBUM_CARD.states.hover
+			sprite.states.click = G.ALBUM_CARD.states.click
+			sprite.states.drag = G.ALBUM_CARD.states.drag
+			sprite.states.collide.can = false
+			sprite:set_role({ major = G.ALBUM_CARD, role_type = 'Glued', draw_major = G.ALBUM_CARD })
+			G.ALBUM_CARD.children.center = sprite
+			G.ALBUM_CARD:juice_up(0.2)
+		end
 	end
 end
 
@@ -339,7 +362,7 @@ end
 function G.FUNCS.hpot_jukebox_play(e)
 	local current = JTJukebox.MusicTags[JTJukebox.Current]
 	if not JTJukebox.ActuallyPlaying then
-		JTJukebox.CurrentlyPlaying = (current.title and (current.title .. " - " .. current.artist) or current.key)
+		JTJukebox.CurrentlyPlaying = (current.title and (current.title .. " - " .. current.artist) or current.key).." - "
 		JTJukebox.ActuallyPlaying = current.key
 		e.children[1].children[1].config.text = localize('hotpot_jukebox_unrequest')
 	else
@@ -365,7 +388,7 @@ function JTJukebox.MusicTab()
 			}
 		},
 		colours = { G.C.DARK_EDITION },
-		bump = false,
+		bump = true,
 		silent = true,
 		pop_in_rate = 99999,
 		spacing = 2,
@@ -382,6 +405,29 @@ function JTJukebox.MusicTab()
 			7.25 * G.TILESIZE * G.TILESCALE,
 			10 * G.TILESIZE * G.TILESCALE
 		)
+	end
+	G.ALBUM_CARD = Card(0, 0, 3.5, 3.5, G.P_CARDS.empty, G.P_CENTERS.c_base)
+	G.ALBUM_CARD.states.drag.can = true
+	if G.ALBUM_CARD.children and G.ALBUM_CARD.children.center then
+		G.ALBUM_CARD.children.center:remove()
+		local sprite = Sprite(G.ALBUM_CARD.T.x, G.ALBUM_CARD.T.y, G.ALBUM_CARD.T.w, G.ALBUM_CARD.T.h, G.ASSET_ATLAS[current.key] or G.ASSET_ATLAS["hpot_jukebox_default"],
+			{ x = 0, y = 0 })
+		sprite.states.hover = G.ALBUM_CARD.states.hover
+		sprite.states.click = G.ALBUM_CARD.states.click
+		sprite.states.drag = G.ALBUM_CARD.states.drag
+		sprite.states.collide.can = false
+		sprite:set_role({ major = G.ALBUM_CARD, role_type = 'Glued', draw_major = G.ALBUM_CARD })
+		G.ALBUM_CARD.children.center = sprite
+		local old_hover = G.ALBUM_CARD.hover
+		G.ALBUM_CARD.hover = function(self)
+			old_hover(self)
+			self.config.h_popup = nil
+			self.config.h_popup_config = nil
+			if self.children.h_popup then
+				self.children.h_popup:remove()
+				self.children.h_popup = nil
+			end
+		end
 	end
 	return {
 		n = G.UIT.ROOT,
@@ -442,11 +488,7 @@ function JTJukebox.MusicTab()
 									{
 										n = G.UIT.O,
 										config = {
-											object = Sprite(
-												0, 0, 4, 4,
-												G.ASSET_ATLAS[current.key] or G.ASSET_ATLAS["hpot_jukebox_default"],
-												{ x = 0, y = 0 }
-											),
+											object = G.ALBUM_CARD,
 											id = 'hpot_jukebox_cover_art'
 										},
 									}

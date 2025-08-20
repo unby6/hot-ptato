@@ -22,12 +22,15 @@ target = 'engine/text.lua'
 pattern = '''    add_to_drawhash(self)'''
 position = "after"
 payload = '''
+end
 love.graphics.setStencilTest()
 love.graphics.pop()
 if (self.total_width) > ((self.config.maxw or 0)) and self.config.does_scroll then
-    local sinewave = (math.tanh(1.5*math.sin((G.TIMERS.REAL - self.created_time) / (self.total_width * 0.35)))) / math.tanh(1.5)
-    self.scrolling = -(sinewave + 1) * ((self.total_width - (self.config.maxw or 0) + 0.1) * G.TILESIZE * G.TILESCALE * 0.5) 
-	--print(self.scrolling)
+    self.scrolling = (G.TIMERS.REAL - self.created_time)*G.TILESIZE * G.TILESCALE
+    self.saved_total_width = self.total_width
+    if self.scrolling > self.total_width * G.TILESIZE * G.TILESCALE then
+        self.created_time = G.TIMERS.REAL
+    end
 end
 '''
 match_indent = true
@@ -52,6 +55,7 @@ pattern = '''    if self.shadow then'''
 position = "before"
 payload = '''
 love.graphics.push()
+for text_add = 0, (self.config.does_scroll and 1 or 0) do
 '''
 match_indent = true
 
@@ -61,7 +65,13 @@ target = 'engine/text.lua'
 pattern = '''    if self.shadow then'''
 position = "after"
 payload = '''
-love.graphics.translate(self.scrolling or 0,0)
+if text_add > 0 then
+    love.graphics.translate(((self.saved_total_width or self.config.maxw or 0) * text_add) * G.TILESIZE * G.TILESCALE, 0)
+end
+love.graphics.translate(-(self.scrolling or 0),0)
+if text_add > 0 then
+    love.graphics.translate((self.scrolling or 0),0)
+end
 '''
 match_indent = true
 
