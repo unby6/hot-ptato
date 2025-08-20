@@ -1,0 +1,2 @@
+love2d only accept ogv format which suuuuuuuuuuuucks as you can see
+the problem is that higher resolution just doesn't give it enough bitrate to make it look at least watchable
