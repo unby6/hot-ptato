@@ -112,3 +112,23 @@ if self.hp_area_back and not self.hp_area_back.REMOVED then
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/ui.lua"]'''
+pattern = '''{n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, '''
+position = 'before'
+payload = '''
+args.hp_misc_elements and args.hp_misc_elements() or nil, 
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''functions/state_events.lua'''
+pattern = '''reset_castle_card()  '''
+position = 'after'
+payload = '''
+G.GAME.hp_jtem_already_requested_this_ante = nil
+'''
+match_indent = true
