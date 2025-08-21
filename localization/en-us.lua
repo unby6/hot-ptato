@@ -1047,6 +1047,21 @@ return {
                     "what would you like to do?"
                 }
             },
+            hpot_tradedreams = {
+                text = {'"Oh wow, I like this one! Thanks, have some {C:attention}Hand Size{}"'}
+            },
+            hpot_tradeduck = {
+                text = {
+                    '"How\'d you know I like knives?"',
+                    '"..."',
+                    '"What do you mean its a duck?"'
+            }
+            },
+            hpot_taxman = {
+                text = {
+                    "The Taxman is here for your {C:money}Taxes{}"
+                }
+            },
             hpot_porch_pirate_1 = {
                 text = {
                     "There have been reports of porch pirates",

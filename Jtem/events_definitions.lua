@@ -144,6 +144,41 @@ SMODS.EventScenario({
 
 --------- Example above
 
+local moveon = function()
+		return {
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = hpot_event_end_scenario,
+			}
+		
+end
+
+local Character = function(key)
+	local x, y = get_hpot_event_image_center()
+		local jimbo_card = Card_Character({
+			x = x,
+			y = y,
+			center = key,
+		})
+		G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
+		return jimbo_card
+end
+
+local Remove = function ()
+	local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+		if jimbo_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					jimbo_card:remove()
+					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					return true
+				end,
+			}))
+		end
+end
+
+-- Trade
+
 SMODS.EventStep({
 	key = "pelter",
 	get_choices = function()
@@ -163,7 +198,7 @@ SMODS.EventStep({
 				button = function()
 					SMODS.find_card("c_hpot_imag_stars")[1]:start_dissolve()
 					G.hand:change_size(1)
-					hpot_event_end_scenario()
+					hpot_event_start_step("hpot_tradedreams")
 				end,
 			},
 			{
@@ -176,22 +211,53 @@ SMODS.EventStep({
 				button = function()
 					SMODS.find_card("c_hpot_imag_duck")[1]:start_dissolve()
 					G.consumeables:change_size(1)
-					hpot_event_end_scenario()
+					hpot_event_start_step("hpot_tradeduck")
 				end,
 			},
 		}
 	end,
 	start = function(self, scenario, previous_step)
-	
+		
 	end,
 	finish = function(self)
 		
 	end,
 })
 
+SMODS.EventStep {
+	key = "tradedreams",
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, scenario, previous_step)
+		Character("c_hpot_imag_stars")
+	end,
+	finish = function(self)
+		Remove()
+	end,
+}
+
+SMODS.EventStep {
+	key = "tradeduck",
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, scenario, previous_step)
+		Character("c_hpot_imag_duck")
+	end,
+	finish = function(self)
+		Remove()
+	end,
+
+}
+
 SMODS.EventScenario {
 	key = "trade1",
-	starting_step_key = "hpot_pelter"
+	starting_step_key = "hpot_pelter",
 }
 
 -- Porch Pirates
@@ -210,17 +276,9 @@ SMODS.EventStep({
 		}
 	end,
 	start = function(self, scenario, previous_step)
-        local x, y = get_hpot_event_image_center(G.CARD_W * 0.75, G.CARD_H * 0.75)
-		local pirate_card = Card_Character({
-			x = x,
-			y = y,
-            w = G.CARD_W * 0.75,
-            h = G.CARD_H * 0.75,
-			center = "j_swashbuckler",
-		})
+		local pirate_card = Character("j_swashbuckler")
         pirate_card.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
         pirate_card.states.collide.can = false
-		G.hpot_event_ui_image_area.children.pirate_card = pirate_card
         G.E_MANAGER:add_event(Event({
             trigger = "immediate",
             blockable = false,
@@ -269,16 +327,7 @@ SMODS.EventStep({
 	start = function(self, scenario, previous_step)
     end,
 	finish = function(self)
-        local pirate_card = G.hpot_event_ui_image_area.children.pirate_card
-		if pirate_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					pirate_card:remove()
-					G.hpot_event_ui_image_area.children.pirate_card = nil
-					return true
-				end,
-			}))
-		end
+        Remove()
     end,
 })
 SMODS.EventStep({
@@ -408,11 +457,7 @@ SMODS.EventStep({
 	key = "porch_pirate_phew",
 	get_choices = function()
 		return {
-			{
-				key = "hpot_general_move_on",
-				no_prefix = true,
-				button = hpot_event_end_scenario,
-			},
+			moveon()
 		}
 	end,
 	start = function(self, scenario, previous_step) end,
@@ -425,4 +470,51 @@ SMODS.EventScenario {
 	in_pool = function ()
 		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0
 	end
+}
+
+-- Taxes
+
+local function taxcalc(d)
+	d = d or 0
+	if not G.GAME then return 0 end
+	G.GAME.CurrentInflation = G.GAME.CurrentInflation or 0.5
+	return d * (G.GAME.CurrentInflation*(1+(1/12.4))) + math.sqrt(G.GAME.CurrentInflation)
+end
+
+SMODS.EventStep {
+	key = "taxman",
+	config = {extra = {cost = 50,req = 10}},
+	get_choices = function (self)
+		return {
+			{
+				key = "taxespay",
+				loc_vars = {},
+				func = function ()
+					return G.GAME.dollars >= G.GAME.dollars - taxcalc(G.GAME.dollars)
+				end,
+				button = function()
+					ease_dollars(-taxcalc(G.GAME.dollars))
+				end,
+			},
+			{
+				key = "bribe",
+				func = function ()
+					return G.GAME.dollars >= self.config.extra.req
+				end,
+				button = function ()
+					ease_dollars(-self.config.extra.req)
+				end
+			},
+			{
+				key = "debt",
+				button = function ()
+					ease_dollars(-(G.GAME.dollars + pseudorandom("hotpot_taxes",15,25)))
+				end
+			}
+
+		}
+	end,
+	start = function(self, scenario, previous_step) 
+		Character("j_hpot_bank_teller")
+	end,
 }
