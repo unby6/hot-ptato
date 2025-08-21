@@ -2,11 +2,7 @@ SMODS.Videos = {}
 
 -- if someone has better idea please change this
 local function load_video_from_NFS(file_path, file_name)
-    local fl = NFS.newFile(file_path)
-    if not fl then assert(false,"no can read video") end
-    fl:open("r")
-    local data = fl:read()
-    fl:close()
+    local data = NFS.read('data', file_path)
     love.filesystem.createDirectory( "video_cache" )
     local temp_file_path = "video_cache/"..file_name
     love.filesystem.write(temp_file_path, data)
@@ -14,7 +10,6 @@ local function load_video_from_NFS(file_path, file_name)
     love.filesystem.remove(temp_file_path)
     return video_data
 end
-
 
 SMODS.Video = SMODS.GameObject:extend{
     obj_table = SMODS.Videos,
@@ -51,9 +46,11 @@ SMODS.Video = SMODS.GameObject:extend{
             'assets/videos/'.. file_path
         self.video_stream = assert(load_video_from_NFS(self.full_path,file_path),
             ('Failed to create video stream for Video %s'):format(self.key))
-        self.video = love.graphics.newVideo(self.video_stream)
+        -- Handled by ad creation
+        -- self.video = love.graphics.newVideo(self.video_stream)
+        -- Shortcut this to self.image so this works out of the box for Sprites
+        -- self.image = self.video
         SMODS.Videos[self.key_noloc or self.key] = self
-
     end,
     process_loc_text = function() end,
     pre_inject_class = function(self)
@@ -61,8 +58,17 @@ SMODS.Video = SMODS.GameObject:extend{
     end
 }
 
+local sprite_reset_ref = Sprite.reset
+function Sprite:reset()
+    if self.atlas and self.atlas.video then
+        self.atlas = SMODS.Videos[self.atlas.name]
+        self:set_sprite_pos(self.sprite_pos)
+        return
+    end
+    sprite_reset_ref(self)
+end
 
-SMODS.Video{
+SMODS.Video {
     key = "paket_balala",
     path = "ad_paket.ogv",
     px = 240,

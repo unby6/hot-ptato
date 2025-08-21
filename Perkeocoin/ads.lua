@@ -21,6 +21,7 @@ HotPotato.Ads = {
         ad_404 = {atlas = 'hpot_jtemads',pos = {x=4,y=0}},
         ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
         ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
+        ad_indiepaketphoenix = {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -49,6 +50,9 @@ SMODS.Atlas({key = 'Perkeocoin_Ads', px = 150, py = 100, path = 'Ads/Ads.png', a
 
 -- Animated ad atlas - animated ads use the default animation logic (i.e. have the same fps as Blind Chips)
 SMODS.Atlas({key = 'TribouletAd', px = 150, py = 100, path = 'Ads/Tribouletad.png', frames = 16, atlas_table = 'ANIMATION_ATLAS'}):register()
+
+-- Video ad atlas - Must be an ogv file. (Sorry, this is a Love2d limitation.)
+-- SMODS.Video({ key = "paket_balala", path = "ad_paket.ogv", px = 240, py = 240 }):register()
 
 -- Tutorial banner:
 SMODS.Atlas({ key = 'TutorialAdBanner', px = 150, py = 31, path = 'Ads/AdBanners.png', atlas_table = "ASSET_ATLAS"}):register()
@@ -79,8 +83,24 @@ function create_UIBox_ad(args)
         ad_atlas = G.ANIMATION_ATLAS[(ad.atlas or 'hpot_Perkeocoin_Ads')]
         ad_image = AnimatedSprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,{x = math.ceil((pseudorandom('random_start')*ad_atlas.frames) - 0.5), y = ad.pos.y})
     else
-        ad_atlas = G.ASSET_ATLAS[(ad.atlas or 'hpot_Perkeocoin_Ads')]
+        ad_atlas = (ad.video and SMODS.Videos or G.ASSET_ATLAS)[(ad.atlas or 'hpot_Perkeocoin_Ads')]
+        if ad.video then
+            -- required to set the damn dimensions that are not even a factor when its a video
+            ad_atlas.image = {
+                getDimensions = function(self)
+                    return ad_atlas.px, ad_atlas.py
+                end
+            }
+        end
         ad_image = Sprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
+        if ad.video then
+            ad_atlas.image = nil
+            ad_image.video = love.graphics.newVideo(ad_atlas.video_stream)
+            ad_image.video:play()
+            -- tweak the video audio source to use the current volume
+            local source = ad_image.video:getSource()
+            source:setVolume(((G.SETTINGS.SOUND.volume/100.0)*(G.SETTINGS.SOUND.music_volume/100.0))/1.5)
+        end
     end
 
     local ad_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
