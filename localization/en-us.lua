@@ -1019,6 +1019,21 @@ return {
                     "results by {C:red}#1#%{}"
                 },
             },
+            hpot_jtem_training_status={
+                name="Training",
+                text={
+                    "{C:jtem_stats_speed}Speed{} - {V:1}#1#{} - {V:1}#2#",
+                    "{S:0.8,C:inactive}Chance of this Joker retriggering",
+                    "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{} - {V:2}#4#",
+                    "{S:0.8,C:inactive}How long jokers train before needing to rest",
+                    "{C:jtem_stats_power}Power{} - {V:3}#5#{} - {V:3}#6#",
+                    "{S:0.8,C:inactive}Gives more (X)Chips & (X)Mult",
+                    "{C:jtem_stats_guts}Guts{} - {V:4}#7#{} - {V:4}#8#",
+                    "{S:0.8,C:inactive}Base Joker stats improvement",
+                    "{C:jtem_stats_wits}Wits{} - {V:5}#9#{} - {V:5}#10#",
+                    "{S:0.8,C:inactive}Improves sell cost of self",
+                },
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1277,7 +1292,7 @@ return {
             czech = "Cheque Card",
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key",
-            hpot_jtem_mood="Mood",
+            hpot_jtem_mood="Under Training",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

@@ -51,6 +51,48 @@ function hot_mod_mood(card, mood_mod)
     
 end
 
+-- please adjust value later is this for debugging
+function hpot_get_rank_and_colour(score)
+	if score >= 18 then
+		return "UG", SMODS.Gradient["hpot_jtem_training_ug"]
+	elseif score >= 17 then
+		return "SS+", G.C.HP_JTEM.RANKS.SS
+	elseif score >= 16 then
+		return "SS+", G.C.HP_JTEM.RANKS.SS
+	elseif score >= 15 then
+		return "S+", G.C.HP_JTEM.RANKS.S
+	elseif score >= 14 then
+		return "S", G.C.HP_JTEM.RANKS.S
+	elseif score >= 13 then
+		return "A+", G.C.HP_JTEM.RANKS.A
+	elseif score >= 12 then
+		return "A", G.C.HP_JTEM.RANKS.A
+	elseif score >= 11 then
+		return "B+", G.C.HP_JTEM.RANKS.B
+	elseif score >= 10 then
+		return "B", G.C.HP_JTEM.RANKS.B
+	elseif score >= 9 then
+		return "C+", G.C.HP_JTEM.RANKS.C
+	elseif score >= 8 then
+		return "C", G.C.HP_JTEM.RANKS.C
+	elseif score >= 7 then
+		return "D+", G.C.HP_JTEM.RANKS.D
+	elseif score >= 6 then
+		return "D", G.C.HP_JTEM.RANKS.D
+	elseif score >= 5 then
+		return "E+", G.C.HP_JTEM.RANKS.E
+	elseif score >= 4 then
+		return "E", G.C.HP_JTEM.RANKS.E
+	elseif score >= 3 then
+		return "F+", G.C.HP_JTEM.RANKS.F
+	elseif score >= 2 then
+		return "F", G.C.HP_JTEM.RANKS.F
+	elseif score >= 1 then
+		return "G+", G.C.HP_JTEM.RANKS.G
+	end
+	return "G", G.C.HP_JTEM.RANKS.G
+end
+
 HP_MOOD_STICKERS = {}
 
 -- Mood stickers
@@ -61,6 +103,33 @@ SMODS.Sticker {
 	pos = { x = 2, y = 0 },
 	hpot_mood_sticker = true,
 	loc_vars = function (self, info_queue, card)
+		local st = {}
+		for _,keys in ipairs({"speed","stamina","power","guts","wits"}) do
+			table.insert(st,{card.ability["hp_jtem_stats"][keys], hpot_get_rank_and_colour(card.ability["hp_jtem_stats"][keys] or 0)})
+		end
+        info_queue[#info_queue+1] = {
+            key = "hpot_jtem_training_status", 
+            set = "Other",
+            vars = {
+				st[1][1],
+				st[1][2],
+				st[2][1],
+				st[2][2],
+				st[3][1],
+				st[3][2],
+				st[4][1],
+				st[4][2],
+				st[5][1],
+				st[5][2],
+                colours = {
+					st[1][3],
+					st[2][3],
+					st[3][3],
+					st[4][3],
+					st[5][3],
+				}
+            } 
+        }
         return { 
             vars = { math.abs(mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"]) * 100 }, 
             key = self.key .. "_" .. (card.ability.hp_jtem_mood or "normal")  }
@@ -69,6 +138,13 @@ SMODS.Sticker {
         card.ability[self.key] = val
         card.ability["hp_jtem_mood_config"] = self.config
         card.ability["hp_jtem_mood"] = "normal"
+        card.ability["hp_jtem_stats"] = {
+            speed = 0,
+            stamina = 1,
+            power = 2,
+            guts = 3,
+            wits = 4,
+        }
     end,
     draw = function (self, card, layer)
         local val = card.ability["hp_jtem_mood"] or "normal"
@@ -80,7 +156,7 @@ SMODS.Sticker {
         HP_MOOD_STICKERS[val]:draw_shader('dissolve', nil, nil, nil, card.children.center, nil, nil, 0,
             (-8 * (card.T.h / 95) * card.T.scale))
     end,
-	badge_colour = HEX('955adf'),
+	badge_colour = HEX('ffcc11'),
 	hotpot_credits = {
 		art = { "Haya" },
 		idea = { "Aikoyori" },
