@@ -1,8 +1,8 @@
 -- Might as well lmao
 function init_jtem(game)
-	game.spark_points = 0
-	game.spark_points_display = "0"
-	game.hpot_events_encountered = {}
+	game.spark_points = game.spark_points or 0
+	game.spark_points_display = game.spark_points_display or "0"
+	game.hpot_events_encountered = game.hpot_events_encountered or {}
 end
 
 -- For the splash text
