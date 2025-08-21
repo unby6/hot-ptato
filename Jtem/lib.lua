@@ -87,3 +87,41 @@ function remove_unavailable(_table)
 	end
 	return _t2
 end
+
+
+G.C.HP_JTEM = {
+	STATS = {
+		SPEED   = HEX("556665"),
+		STAMINA = HEX("FF5E73"),
+		POWER   = HEX("64A7FF"),
+		GUTS    = HEX("FFCD29"),
+		WITS    = HEX("5DF158"),
+	},
+	RANKS = {
+		G   = HEX("686868"), 
+		F   = HEX("7071AA"),
+		E   = HEX("B157C4"),
+		D   = HEX("7CCFFF"),
+		C   = HEX("55DF39"),
+		B   = HEX("FF5D85"),
+		A   = HEX("FF9C59"),
+		S   = HEX("FCFF3D"),
+		SS  = HEX("FFC037"),
+	}
+}
+
+G.ARGS.LOC_COLOURS.jtem_stats_speed = G.C.HP_JTEM.STATS.SPEED
+G.ARGS.LOC_COLOURS.jtem_stats_stamina = G.C.HP_JTEM.STATS.STAMINA
+G.ARGS.LOC_COLOURS.jtem_stats_power = G.C.HP_JTEM.STATS.POWER
+G.ARGS.LOC_COLOURS.jtem_stats_guts = G.C.HP_JTEM.STATS.GUTS
+G.ARGS.LOC_COLOURS.jtem_stats_wits = G.C.HP_JTEM.STATS.WITS
+
+SMODS.Gradient{
+	key = "jtem_training_ug",
+	colours = {
+		HEX("3FD2FF"),
+		HEX("A14FFF"),
+		HEX("FF55F6"),
+	},
+	cycle = 4
+}

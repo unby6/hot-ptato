@@ -2,16 +2,6 @@
 
 -- Default draw function for mood
 local function mood_draw(self, card, layer)
-	self.sticker_sprite.role.draw_major = card
-	self.sticker_sprite:draw_shader('dissolve', 0, nil, nil, card.children.center, nil, nil, 0,
-		0.1 + (-8 * (card.T.h / 95) * card.T.scale), nil, 0.6)
-	self.sticker_sprite:draw_shader('dissolve', nil, nil, nil, card.children.center, nil, nil, 0,
-		(-8 * (card.T.h / 95) * card.T.scale))
-end
-
--- Default loc vars function for mood (using mult)
-local function mood_loc_vars(self, info_queue, card)
-	return { vars = { math.abs(1 - card.ability[self.key].mult) * 100 } }
 end
 
 -- Default apply function for mood (copies config table)
@@ -29,127 +19,148 @@ function hpot_has_mood(card)
 	return nil
 end
 
+local index_to_mood = {
+    [1] = "awful",
+    [2] = "bad",
+    [3] = "normal",
+    [4] = "good",
+    [5] = "great",
+    -- lmaooo
+}
+
+local mood_to_index = {
+    ["awful"] = 1,
+    ["bad"] = 2,
+    ["normal"] = 3,
+    ["good"] = 4,
+    ["great"] = 5,
+    -- lmaooo
+}
+
+local mood_to_multiply = {
+    ["awful"] = 0.8,
+    ["bad"] = 0.9,
+    ["normal"] = 1,
+    ["good"] = 1.1,
+    ["great"] = 1.2,
+    -- lmaooo
+}
+
+-- changes mood
+function hot_mod_mood(card, mood_mod)
+    
+end
+
+-- please adjust value later is this for debugging
+function hpot_get_rank_and_colour(score)
+	if score >= 18 then
+		return "UG", SMODS.Gradient["hpot_jtem_training_ug"]
+	elseif score >= 17 then
+		return "SS+", G.C.HP_JTEM.RANKS.SS
+	elseif score >= 16 then
+		return "SS+", G.C.HP_JTEM.RANKS.SS
+	elseif score >= 15 then
+		return "S+", G.C.HP_JTEM.RANKS.S
+	elseif score >= 14 then
+		return "S", G.C.HP_JTEM.RANKS.S
+	elseif score >= 13 then
+		return "A+", G.C.HP_JTEM.RANKS.A
+	elseif score >= 12 then
+		return "A", G.C.HP_JTEM.RANKS.A
+	elseif score >= 11 then
+		return "B+", G.C.HP_JTEM.RANKS.B
+	elseif score >= 10 then
+		return "B", G.C.HP_JTEM.RANKS.B
+	elseif score >= 9 then
+		return "C+", G.C.HP_JTEM.RANKS.C
+	elseif score >= 8 then
+		return "C", G.C.HP_JTEM.RANKS.C
+	elseif score >= 7 then
+		return "D+", G.C.HP_JTEM.RANKS.D
+	elseif score >= 6 then
+		return "D", G.C.HP_JTEM.RANKS.D
+	elseif score >= 5 then
+		return "E+", G.C.HP_JTEM.RANKS.E
+	elseif score >= 4 then
+		return "E", G.C.HP_JTEM.RANKS.E
+	elseif score >= 3 then
+		return "F+", G.C.HP_JTEM.RANKS.F
+	elseif score >= 2 then
+		return "F", G.C.HP_JTEM.RANKS.F
+	elseif score >= 1 then
+		return "G+", G.C.HP_JTEM.RANKS.G
+	end
+	return "G", G.C.HP_JTEM.RANKS.G
+end
+
+HP_MOOD_STICKERS = {}
+
 -- Mood stickers
 SMODS.Sticker {
-	key = "mood_awful",
-	atlas = "jtem_mood",
-	pos = { x = 0, y = 0 },
-	config = { mult = 0.8 },
-	hpot_mood_sticker = true,
-	loc_vars = mood_loc_vars,
-	loc_txt = {
-		name = "Awful",
-		text = {
-			"Lowers training",
-			"results by {C:red}#1#%{}"
-		},
-		label = "Awful"
-	},
-	apply = mood_apply,
-	badge_colour = HEX('955adf'),
-	draw = mood_draw,
-	hotpot_credits = {
-		art = { "Haya" },
-		idea = { "Aikoyori" },
-		code = { "Haya" },
-		team = { "Jtem" }
-	}
-}
-SMODS.Sticker {
-	key = "mood_bad",
-	atlas = "jtem_mood",
-	pos = { x = 1, y = 0 },
-	config = { mult = 0.9 },
-	hpot_mood_sticker = true,
-	loc_vars = mood_loc_vars,
-	loc_txt = {
-		name = "Bad",
-		text = {
-			"Lowers training",
-			"results by {C:red}#1#%{}"
-		},
-		label = "Bad"
-	},
-	apply = mood_apply,
-	badge_colour = HEX('0082d3'),
-	draw = mood_draw,
-	hotpot_credits = {
-		art = { "Haya" },
-		idea = { "Aikoyori" },
-		code = { "Haya" },
-		team = { "Jtem" }
-	}
-}
-SMODS.Sticker {
-	key = "mood_normal",
+	key = "jtem_mood",
+    rate = 0,
 	atlas = "jtem_mood",
 	pos = { x = 2, y = 0 },
-	config = { mult = 1 },
 	hpot_mood_sticker = true,
-	loc_txt = {
-		name = "Normal",
-		text = {
-			"No effects"
-		},
-		label = "Normal"
-	},
-	apply = mood_apply,
-	badge_colour = HEX('f4d401'),
-	draw = mood_draw,
+	loc_vars = function (self, info_queue, card)
+		local st = {}
+		for _,keys in ipairs({"speed","stamina","power","guts","wits"}) do
+			table.insert(st,{card.ability["hp_jtem_stats"][keys], hpot_get_rank_and_colour(card.ability["hp_jtem_stats"][keys] or 0)})
+		end
+        info_queue[#info_queue+1] = {
+            key = "hpot_jtem_training_status", 
+            set = "Other",
+            vars = {
+				st[1][1],
+				st[1][2],
+				st[2][1],
+				st[2][2],
+				st[3][1],
+				st[3][2],
+				st[4][1],
+				st[4][2],
+				st[5][1],
+				st[5][2],
+                colours = {
+					st[1][3],
+					st[2][3],
+					st[3][3],
+					st[4][3],
+					st[5][3],
+				}
+            } 
+        }
+        return { 
+            vars = { math.abs(mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"]) * 100 }, 
+            key = self.key .. "_" .. (card.ability.hp_jtem_mood or "normal")  }
+    end,
+	apply = function(self, card, val)
+        card.ability[self.key] = val
+        card.ability["hp_jtem_mood_config"] = self.config
+        card.ability["hp_jtem_mood"] = "normal"
+        card.ability["hp_jtem_stats"] = {
+            speed = 0,
+            stamina = 1,
+            power = 2,
+            guts = 3,
+            wits = 4,
+        }
+    end,
+    draw = function (self, card, layer)
+        local val = card.ability["hp_jtem_mood"] or "normal"
+        
+        HP_MOOD_STICKERS[val] = HP_MOOD_STICKERS[val] or Sprite(card.T.x, card.T.y, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["hpot_jtem_mood"], { x = (mood_to_index[val] or 3) - 1, y = 0})
+        HP_MOOD_STICKERS[val].role.draw_major = card
+        HP_MOOD_STICKERS[val]:draw_shader('dissolve', 0, nil, nil, card.children.center, nil, nil, 0,
+            0.1 + (-8 * (card.T.h / 95) * card.T.scale), nil, 0.6)
+        HP_MOOD_STICKERS[val]:draw_shader('dissolve', nil, nil, nil, card.children.center, nil, nil, 0,
+            (-8 * (card.T.h / 95) * card.T.scale))
+    end,
+	badge_colour = HEX('ffcc11'),
 	hotpot_credits = {
 		art = { "Haya" },
 		idea = { "Aikoyori" },
-		code = { "Haya" },
-		team = { "Jtem" }
-	}
-}
-SMODS.Sticker {
-	key = "mood_good",
-	atlas = "jtem_mood",
-	pos = { x = 3, y = 0 },
-	config = { mult = 1.1 },
-	hpot_mood_sticker = true,
-	loc_vars = mood_loc_vars,
-	loc_txt = {
-		name = "Good",
-		text = {
-			"Increases training",
-			"results by {C:attention}#1#%{}"
-		},
-		label = "Good"
-	},
-	apply = mood_apply,
-	badge_colour = HEX('f98938'),
-	draw = mood_draw,
-	hotpot_credits = {
-		art = { "Haya" },
-		idea = { "Aikoyori" },
-		code = { "Haya" },
-		team = { "Jtem" }
-	}
-}
-SMODS.Sticker {
-	key = "mood_great",
-	atlas = "jtem_mood",
-	pos = { x = 4, y = 0 },
-	config = { mult = 1.2 },
-	hpot_mood_sticker = true,
-	loc_vars = mood_loc_vars,
-	loc_txt = {
-		name = "Great",
-		text = {
-			"Increases training",
-			"results by {C:attention}#1#%{}"
-		},
-		label = "Great"
-	},
-	apply = mood_apply,
-	badge_colour = HEX('f1306d'),
-	draw = mood_draw,
-	hotpot_credits = {
-		art = { "Haya" },
-		idea = { "Aikoyori" },
-		code = { "Haya" },
+		code = { "Haya", "Aikoyori" },
 		team = { "Jtem" }
 	}
 }
@@ -178,7 +189,7 @@ function G.FUNCS.hpot_start_training_joker(e)
 		trigger = 'after',
 		delay = 0.25*G.SPEEDFACTOR,
 		func = function()
-			SMODS.Stickers["hpot_mood_normal"]:apply(card, true)
+			SMODS.Stickers["hpot_jtem_mood"]:apply(card, true)
 			-- This process is irreversible!
 			card.ability.hpot_training_mode = true
 			card:juice_up(0.3, 0.3)

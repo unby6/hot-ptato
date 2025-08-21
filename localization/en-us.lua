@@ -983,7 +983,57 @@ return {
                 text = {
                     "Choices, choices, choices..."
                 }
-            }
+            },
+            hpot_jtem_mood_awful={
+                name="Awful",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_bad={
+                name="Bad",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_normal={
+                name="Normal",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_good={
+                name="Good",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_great={
+                name="Great",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_training_status={
+                name="Training",
+                text={
+                    "{C:jtem_stats_speed}Speed{} - {V:1}#1#{} - {V:1}#2#",
+                    "{s:0.8,C:inactive}Chance of this Joker retriggering",
+                    "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{} - {V:2}#4#",
+                    "{s:0.8,C:inactive}How long jokers train before needing to rest",
+                    "{C:jtem_stats_power}Power{} - {V:3}#5#{} - {V:3}#6#",
+                    "{s:0.8,C:inactive}Gives more (X)Chips & (X)Mult",
+                    "{C:jtem_stats_guts}Guts{} - {V:4}#7#{} - {V:4}#8#",
+                    "{s:0.8,C:inactive}Base Joker stats improvement",
+                    "{C:jtem_stats_wits}Wits{} - {V:5}#9#{} - {V:5}#10#",
+                    "{s:0.8,C:inactive}Improves sell cost of self",
+                },
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1256,7 +1306,8 @@ return {
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
             hpot_plincoin_seal = "Plincoin Seal",
-            key = "Key"
+            key = "Key",
+            hpot_jtem_mood="Under Training",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
