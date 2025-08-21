@@ -105,8 +105,8 @@ G.C.HP_JTEM = {
 		C   = HEX("55DF39"),
 		B   = HEX("FF5D85"),
 		A   = HEX("FF9C59"),
-		S   = HEX("FCFF3D"),
-		SS  = HEX("FFC037"),
+		S   = HEX("D29763"),
+		SS  = HEX("FFA837"),
 	}
 }
 
