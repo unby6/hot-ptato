@@ -303,6 +303,11 @@ SMODS.EventStep({
 			card:set_perishable(false)
 			card:set_eternal(true)
 			local delivery = copy_card(card)
+			local delivery_obj = card.hp_delivery_obj
+			if delivery_obj then
+				delivery_obj.extras = delivery_obj.extras or {}
+				delivery_obj.extras.eternal = true
+			end
 			local x, y = get_hpot_event_image_center()
 			local jimbo_card = Card_Character({
 				x = x,
