@@ -3,6 +3,24 @@
 
 -- little reminder that unless absolutely needed, don't use "at" target for patches :3
 
+-- Lil LSP definitions
+
+--- Type of currency.
+---@alias Jtem.CurrencyType
+---| "dollars"          -- Traditional dollars
+---| "plincoin"
+---| "joker_exchange"
+
+--- Delivery object.
+---@class Jtem.Delivery
+---@field key string Key to the object to be delivered.
+---@field price? number Price of the object.
+---@field currency? Jtem.CurrencyType|string Currency type for the object.
+---@field rounds_passed number Amount of rounds passed for delivery.
+---@field rounds_total number Amount of rounds required until delivery.
+---@field extras? table Additional fields to be added to the delivered card's ability table.
+---@field create_card_args? CreateCard|table Arguments to be passed to `SMODS.create_card`.
+
 function G.UIDEF.hotpot_jtem_delivery_section()
 end
 
@@ -624,6 +642,7 @@ end
 local init_game_object_for_delivery = Game.init_game_object
 function Game:init_game_object()
     local r = init_game_object_for_delivery(self)
+    ---@type Jtem.Delivery[]
     r.hp_jtem_delivery_queue = {}
     --[[
         okay so before i get murdered for not documenting my code here's the rundown on the format
@@ -636,6 +655,7 @@ function Game:init_game_object()
                     dollars, plincoin, and joker exchange (internally spark_points) )
             extras - other attributes that should apply to card ability directly, for example eternal, rental
     ]]
+    ---@type Jtem.Delivery[]
     r.round_resets.hp_jtem_special_offer = {}
     --[[
         the offer should reset EVERY round with the following format which is basically the same as above (there should be 5 of them at most)
@@ -737,6 +757,7 @@ function hotpot_jtem_add_card_to_delivery_queue(key, price)
         extras = {}
     }
     -- target patch for custom delivery queue
+    ---@type Jtem.Delivery[]
     G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
     table.insert(G.GAME.hp_jtem_delivery_queue, delivery_table)
     if G.hp_jtem_delivery_queue then
@@ -752,6 +773,7 @@ function hotpot_jtem_add_to_offers(key, args)
     local value = type(price) == "table" and price.value or price
     local currency = type(price) == "table" and price.currency or "dollars"
     local ct = G.P_CENTERS[key]
+    ---@type Jtem.Delivery
     local delivery_table = {
         key = key,
         rounds_passed = args.rounds_passed or 0,
@@ -774,6 +796,7 @@ function hotpot_jtem_generate_special_deals(deals)
     -- generate 5 deals
     -- to other people who see this
     -- feel free to tweak the balanced
+    ---@type Jtem.Delivery[]
     G.GAME.round_resets.hp_jtem_special_offer = {}
     G.GAME.hp_jtem_special_offer_count = G.GAME.hp_jtem_special_offer_count or 3
     for i = 1, (deals or G.GAME.hp_jtem_special_offer_count) do
@@ -940,7 +963,8 @@ function hotpot_jtem_calculate_deliveries()
                     end
                 end
             else
-                ease_dollars(delivery.price)
+                ease_currency(delivery.currency, delivery.price)
+                --ease_dollars(delivery.price)
             end
         end
     end
