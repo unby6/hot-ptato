@@ -132,3 +132,52 @@ payload = '''
 G.GAME.hp_jtem_already_requested_this_ante = nil
 '''
 match_indent = true
+
+# We add the mod badge to mood stickers
+# Taken from Paperback
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "badges.mod_set = nil"
+position = "before"
+match_indent = true
+payload = '''
+if card and card.ability then
+  local key = hpot_has_mood(card)
+  if key then
+    SMODS.create_mod_badges(SMODS.Stickers[key], badges)
+  end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''self.children.use_button = UIBox{'''
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.set == "Joker" and not self.ability.hpot_training_mode then
+  self.children.hpot_train_button = UIBox{
+    definition = hpot_joker_train_button_definition(self), 
+    config = {
+      align = "bmi", 
+      offset ={x=0,y=0.45},
+      parent = self
+    }
+  }
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''self.children.use_button:remove()'''
+position = "before"
+match_indent = true
+payload = '''
+if self.children.hpot_train_button then
+  self.children.hpot_train_button:remove()
+  self.children.hpot_train_button = nil
+end
+'''
