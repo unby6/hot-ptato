@@ -983,7 +983,42 @@ return {
                 text = {
                     "Choices, choices, choices..."
                 }
-            }
+            },
+            hpot_jtem_mood_awful={
+                name="Awful",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_bad={
+                name="Bad",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_normal={
+                name="Normal",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_good={
+                name="Good",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_great={
+                name="Great",
+                text={
+                    "Multiply training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1241,7 +1276,8 @@ return {
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
             hpot_plincoin_seal = "Plincoin Seal",
-            key = "Key"
+            key = "Key",
+            hpot_jtem_mood="Mood",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
