@@ -141,7 +141,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                     config = { align = "cm" },
                                     nodes = { {
                                         n = G.UIT.T,
-                                        config = { text = "Once every ante", scale = 0.2, colour = G.C.WHITE, }
+                                        config = { text = localize("hotpot_request_joker_line_3"), scale = 0.2, colour = G.C.WHITE, }
                                     },
                                     }
                                 },
@@ -409,7 +409,7 @@ function hpot_jtem_create_request_menu()
         minw = 3,
         align = "cm",
         colour = G.C.RED,
-        label = { "Search" },
+        label = { localize("hotpot_search") },
         scale = 0.6
     }
     -- i am going to kill myself

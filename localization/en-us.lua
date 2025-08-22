@@ -1421,6 +1421,8 @@ return {
             hotpot_delivery_back = "Back to Shop",
             hotpot_request_joker_line_1 = "Request",
             hotpot_request_joker_line_2 = "a Joker",
+            hotpot_request_joker_line_3 = "Once every ante",
+            hotpot_search = "Search",
             hotpot_delivery_order = "ORDER",
             hotpot_delivery_order_cancel = "CANCEL",
             hotpot_cashback = "΁",

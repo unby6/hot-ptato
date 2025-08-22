@@ -126,6 +126,10 @@ function PlinkoUI.f.init_sprites()
     PlinkoUI.sprites.chicot_plinker = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_legendary_plinker'], { x = 3, y = 0})
   end
 
+  if not PlinkoUI.sprites.jcoin then
+    PlinkoUI.sprites.jcoin = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_jcoin'], { x = 0, y = 0})
+  end
+
   if not PlinkoUI.sprites.peg then
     -- scale dimensions relative to the orb
     local peg_size = PlinkoGame.s.peg_radius * (orb_size / PlinkoGame.s.ball_radius)

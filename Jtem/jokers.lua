@@ -375,3 +375,18 @@ SMODS.Joker {
         team = {'Jtem'}
     }
 }
+
+SMODS.Joker {
+    key = "dupedshovel",
+    atlas = "jtem_jokers",
+    pos = {x=3,y=2},
+    rarity = 3,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval then
+            local cards = {}
+            for x,y in ipairs(G.playing_cards) do
+                
+            end
+        end
+    end,
+}

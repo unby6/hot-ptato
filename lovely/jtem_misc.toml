@@ -126,7 +126,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '''functions/state_events.lua'''
-pattern = '''reset_castle_card()  '''
+pattern = '''                    G.GAME.voucher_restock = nil'''
 position = 'after'
 payload = '''
 G.GAME.hp_jtem_already_requested_this_ante = nil
