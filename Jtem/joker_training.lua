@@ -11,7 +11,7 @@ end
 
 -- Checks if a card has a mood sticker.
 function hpot_has_mood(card)
-	return card.ability.hpot_jtem_mood or card.ability.hp_jtem_mood
+	return (card.ability.hpot_jtem_mood or card.ability.hp_jtem_mood) and "hpot_jtem_mood" or nil
 end
 
 local index_to_mood = {
@@ -262,8 +262,8 @@ SMODS.Sticker {
 	end,
 	badge_colour = HEX('ffcc11'),
 	hotpot_credits = {
-		art = { "Haya" },
-		idea = { "Aikoyori" },
+		art = { "Aikoyori" },
+		idea = { "Haya", "Aikoyori" },
 		code = { "Haya", "Aikoyori" },
 		team = { "Jtem" }
 	}
@@ -529,7 +529,7 @@ SMODS.Consumable {
 	key = 'training_rest',
 	set = 'Tarot',
 	atlas = 'jtem_training_tarots',
-	pos = { x = 0, y = 1 },
+	pos = { x = 1, y = 1 },
 	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_energy_change = 50, hpot_skip_fail_check = true },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
@@ -540,7 +540,7 @@ SMODS.Consumable {
 	key = 'training_recreation',
 	set = 'Tarot',
 	atlas = 'jtem_training_tarots',
-	pos = { x = 1, y = 1 },
+	pos = { x = 2, y = 1 },
 	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_mood_change = 1, hpot_skip_fail_check = true },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
