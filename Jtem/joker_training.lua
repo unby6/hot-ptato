@@ -11,7 +11,7 @@ end
 
 -- Checks if a card has a mood sticker.
 function hpot_has_mood(card)
-	return card.ability.hpot_jtem_mood
+	return card.ability.hpot_jtem_mood or card.ability.hp_jtem_mood
 end
 
 local index_to_mood = {

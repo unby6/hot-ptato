@@ -83,6 +83,12 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+  key = "jtem_vouchers",
+  path = "Jtem/Vouchers.png",
+  px = 71,py = 95
+}
+
+SMODS.Atlas {
   key = "jtemads",
   path = "Ads/Jtem.png",
   px = 200,py = 150

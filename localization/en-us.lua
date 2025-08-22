@@ -564,7 +564,24 @@ return {
                         "{f:hpot_jtem_roboto_bold}and create a {C:attention,f:hpot_jtem_roboto_bold}Buffoon Tag{}",
                     }
                 }
-            }
+            },
+            j_hpot_empty_can = {
+                name = "Empty Can",
+                text = {
+                    "Gives {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} whenever a",
+                    "consumable is used"
+                }
+            },
+            j_hpot_spam = {
+                name = {
+                    "Spam",
+                    "{s:0.5}with eggs"
+                },
+                text = {
+                    "Creates {C:red}#1#{} additional ads",
+                    "at the end of round"
+                }
+            },
         },
         Voucher = {
             v_hpot_currency_exchange = {
@@ -581,6 +598,21 @@ return {
                     [2] = 'plincoin',
                 }
             },
+            v_hpot_exchange_rate = {
+                name = "Exchange Rate",
+                text = {
+                    "Enable converting {C:hpot_plincoin}plincoins",
+                    "for {C:blue}Joker Exchange"
+                }
+            },
+            v_hpot_right_at_your_door = {
+                name = "Right at Your Door",
+                text = {
+                    "Enable requesting a",
+                    "Joker {C:attention}of choice{} for",
+                    "delivery once every ante"
+                }
+            }
         },
         Spectral = {
             c_hpot_arcade_machine = {
