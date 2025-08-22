@@ -136,6 +136,29 @@ local function copy_table_to_table(tbl, obj, seen)
 	return res
 end
 
+-- this part is for saving misc values for this stuff
+local card_init_val = Card.init
+function Card:init(x, y, w, h, _card, _center, _params)
+    local _c = card_init_val(self, x, y, w, h, _card, _center, _params)
+    self.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
+    return _c
+end
+
+local card_save_additional_props = Card.save
+function Card:save()
+    local st = card_save_additional_props(self)
+    st.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
+    return st
+end
+
+local card_load_additional_props = Card.load
+function Card:load(ct, oc)
+    local st = card_load_additional_props(self, ct, oc)
+    self.jp_jtem_orig_sell_cost = ct.jp_jtem_orig_sell_cost or 0
+    return st
+end
+
+
 -- Mood stickers
 SMODS.Sticker {
 	key = "jtem_mood",
@@ -223,6 +246,7 @@ SMODS.Sticker {
 		end
 		-- energy
 		card.ability.hp_jtem_energy = 100
+		card.jp_jtem_orig_sell_cost = card.sell_cost
 
 		local stats = card.ability["hp_jtem_stats"]
 		hpot_jtem_with_deck_effects(card, function(c)
@@ -230,6 +254,10 @@ SMODS.Sticker {
 				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
 			end
 		end)
+		if stats.wits and stats.wits > 150 then
+			card.sell_cost = card.jp_jtem_orig_sell_cost + (stats.guts-150) / 200
+		end
+		
 	end,
 	draw = function(self, card, layer)
 		local val = card.ability["hp_jtem_mood"] or "normal"
@@ -247,9 +275,14 @@ SMODS.Sticker {
 		local stats = card.ability["hp_jtem_stats"]
 		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card == card then
 			-- Speed checks
-			if stats.speed > 200 and pseudorandom('speed_repetition_check_'..G.GAME.round_resets.ante) < ((stats.speed-200)/1000) then
+			if stats.speed > 200 then
+				local speed = (stats.speed-200)
+				-- if stat is at least 1200 guarantee a retrig
+				local retriggers = math.floor(speed / 1000)
+				-- and the remainder gets calculated as chance
+				retriggers = retriggers + (pseudorandom('speed_repetition_check_'..G.GAME.round_resets.ante) < math.fmod(speed, 1000) and 1 or 0)
 				return {
-					repetitions = 1
+					repetitions = retriggers
 				}
 			end
 		end
@@ -424,6 +457,11 @@ function hpot_training_tarot_use(self, card, area, copier)
 					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
 				end
 			end)
+			print(inspect(stats))
+			-- change joker sell cost
+			if stats.wits and stats.wits > 150 then
+				joker.sell_cost = joker.jp_jtem_orig_sell_cost * ( 1 + ( stats.guts-150 ) / 20)
+			end
 			-- increase/decrease mood if possible
 			if card.ability.hpot_mood_change then
 				hot_mod_mood(joker, card.ability.hpot_mood_change * (success and 1 or -1))
