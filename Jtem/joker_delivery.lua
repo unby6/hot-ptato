@@ -67,7 +67,7 @@ end
 function G.UIDEF.hotpot_jtem_shop_delivery_btn()
     return {
         n = G.UIT.C,
-        config = { padding = 0.1, r = 0.05, w = 0.1, h = 0.1 },
+        config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
         nodes = {
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
             {
@@ -76,7 +76,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                     {
                         n = G.UIT.B,
                         config = {
-                            h = 12,
+                            h = 12.2,
                             w = 0.1
                         }
                     }
@@ -724,13 +724,13 @@ function hotpot_jtem_init_extra_shops_area()
     G.hp_jtem_delivery_special_deals = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        9.45,
+        9.375,
         1.15 * G.CARD_H,
         { card_limit = 4, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W, lr_padding = 0.1 })
     G.hp_jtem_delivery_queue = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        5.5,
+        5.525,
         1.15 * G.CARD_H,
         { card_limit = 2, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W })
     G.hp_jtem_delivery_queue.cards = G.hp_jtem_delivery_queue.cards or {}
