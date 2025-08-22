@@ -254,8 +254,8 @@ end
 
 SMODS.Joker {
     key = "jtem_slop_live",
-    --atlas = "jtem_jokers",
-    --pos = {x=1,y=1},
+    atlas = "jtem_slop_live",
+    pos = {x=0,y=0},
     rarity = 3,
     config = {
         extras = {
@@ -318,7 +318,7 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'???'},
+        art = {'Aikoyori'},
         code = {'Aikoyori'},
         idea = {'Aikoyori'},
         team = {'Jtem'}

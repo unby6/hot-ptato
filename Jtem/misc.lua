@@ -133,11 +133,18 @@ SMODS.Atlas {
   px = 200,py = 150,
 }
 
+SMODS.Atlas {
+  key = "jtem_slop_live",
+  path = "Jtem/slop_live.png",
+  px = 71,py = 95
+}
+
 SMODS.Font {
   key = "jtem_roboto_bold",
   path = "Roboto-Bold.ttf",
   FONTSCALE = 0.085
 }
+
 -- Defines food jokers
 
 if not SMODS.ObjectTypes.Food then
