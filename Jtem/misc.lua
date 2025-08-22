@@ -126,6 +126,12 @@ SMODS.Atlas {
   path = "Ads/errorAd.png",
   px = 200,py = 150,
 }
+
+SMODS.Font {
+  key = "jtem_roboto_bold",
+  path = "Roboto-Bold.ttf",
+  FONTSCALE = 0.085
+}
 -- Defines food jokers
 
 if not SMODS.ObjectTypes.Food then
