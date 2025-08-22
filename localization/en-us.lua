@@ -1436,6 +1436,8 @@ return {
             hotpot_cashback = "΁",
             rounds_plural = "rounds",
             rounds_singular = "round",
+            hpot_delivery_queue = "DELIVERY QUEUE",
+            hpot_special_deals = "SPECIAL DEALS",
 
             hotpot_jukebox_request = "Request Song",
             hotpot_jukebox_unrequest = "Unrequest Song",

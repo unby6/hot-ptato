@@ -217,7 +217,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                         align = "cm",
                                     },
                                     nodes = {
-                                        {n=G.UIT.T, config={text = localize{type = 'variable', key = 'ante_x_voucher', vars = {G.GAME.round_resets.ante}}, scale = 0.45, colour = G.C.L_BLACK, vert = true}},
+                                        {n=G.UIT.T, config={text = localize("hpot_delivery_queue"), scale = 0.45, colour = G.C.L_BLACK, vert = true}},
                                     }
                                 },
                                 {
@@ -306,7 +306,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                         align = "cm",
                                     },
                                     nodes = {
-                                        {n=G.UIT.T, config={text = localize{type = 'variable', key = 'ante_x_voucher', vars = {G.GAME.round_resets.ante}}, scale = 0.45, colour = G.C.L_BLACK, vert = true}},
+                                        {n=G.UIT.T, config={text = localize("hpot_special_deals"), scale = 0.45, colour = G.C.L_BLACK, vert = true}},
                                     }
                                 },
                                 {
