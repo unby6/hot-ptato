@@ -460,7 +460,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			-- print(inspect(stats))
 			-- change joker sell cost
 			if stats.wits and stats.wits > 150 then
-				joker.sell_cost = joker.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits-150 ) / 20)
+				joker.sell_cost = joker.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50)
 			end
 			-- increase/decrease mood if possible
 			if card.ability.hpot_mood_change then
