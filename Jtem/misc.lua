@@ -52,6 +52,23 @@ SMODS.Sound {
   path = "sfx_whistledown.ogg",
 }
 
+-- theres background noise since i took this while recording the game sound
+-- couldnt find this while looking through the game assets lmao
+SMODS.Sound {
+  key = "sfx_stat_up",
+  path = "sfx_stat_up.ogg",
+}
+
+SMODS.Sound {
+  key = "sfx_success",
+  path = "sfx_success.ogg",
+}
+
+SMODS.Sound {
+  key = "sfx_failure",
+  path = "sfx_failure.ogg",
+}
+
 SMODS.Atlas {
   key = "jtem_pkg",
   path = "Jtem/package_icon.png",
@@ -72,6 +89,19 @@ SMODS.Atlas {
 SMODS.Atlas {
   key = "jtem_mood",
   path = "Jtem/mood.png",
+  px = 71,py = 95
+}
+
+-- temporary- to be added actual art by aiko later
+SMODS.Atlas {
+  key = "jtem_training_tarots",
+  path = "Jtem/uma_tarots.png",
+  px = 71,py = 95
+}
+
+SMODS.Atlas {
+  key = "jtem_vouchers",
+  path = "Jtem/Vouchers.png",
   px = 71,py = 95
 }
 
@@ -120,11 +150,18 @@ SMODS.Atlas {
   px = 200,py = 150,
 }
 
+SMODS.Atlas {
+  key = "jtem_slop_live",
+  path = "Jtem/slop_live.png",
+  px = 71,py = 95
+}
+
 SMODS.Font {
   key = "jtem_roboto_bold",
   path = "Roboto-Bold.ttf",
   FONTSCALE = 0.085
 }
+
 -- Defines food jokers
 
 if not SMODS.ObjectTypes.Food then

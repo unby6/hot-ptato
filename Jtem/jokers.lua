@@ -254,8 +254,8 @@ end
 
 SMODS.Joker {
     key = "jtem_slop_live",
-    --atlas = "jtem_jokers",
-    --pos = {x=1,y=1},
+    atlas = "jtem_slop_live",
+    pos = {x=0,y=0},
     rarity = 3,
     config = {
         extras = {
@@ -318,9 +318,60 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'???'},
+        art = {'Aikoyori'},
         code = {'Aikoyori'},
         idea = {'Aikoyori'},
+        team = {'Jtem'}
+    }
+}
+
+SMODS.Joker {
+    key = 'empty_can',
+    atlas = "jtem_jokers",
+    pos = { x = 1, y = 2 },
+    config = { extra = { plincoin = 1 } },
+    pools = { Food = true },
+    rarity = 2,
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            ease_plincoins(card.ability.extra.plincoin)
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.plincoin).."", colour = G.C.MONEY})
+        end
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.plincoin } }
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Haya'},
+        idea = {'MissingNumber'},
+        team = {'Jtem'}
+    }
+}
+
+SMODS.Joker {
+    key = 'spam',
+    atlas = "jtem_jokers",
+    pos = { x = 2, y = 2 },
+    config = { extra = { eggs = 5 } },
+    rarity = 1,
+    pixel_size = { w = 71, h = 62 },
+    pools = { Food = true },
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval then
+            create_ads(card.ability.extra.eggs)
+            return {
+                message = "Spam!"
+            }
+        end
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.eggs } }
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Haya'},
+        idea = {'MissingNumber'},
         team = {'Jtem'}
     }
 }
