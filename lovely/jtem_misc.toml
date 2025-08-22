@@ -157,7 +157,7 @@ pattern = '''self.children.use_button = UIBox{'''
 position = "before"
 match_indent = true
 payload = '''
-G.hpot_training_consumable_highlighted = nil
+--G.hpot_training_consumable_highlighted = nil
 if self.ability.hpot_train_increase and self.highlighted and self.ability.consumeable then
   -- set this as the highlighted consumeable
   G.hpot_training_consumable_highlighted = self
