@@ -457,7 +457,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
 				end
 			end)
-			print(inspect(stats))
+			-- print(inspect(stats))
 			-- change joker sell cost
 			if stats.wits and stats.wits > 150 then
 				joker.sell_cost = joker.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits-150 ) / 20)
