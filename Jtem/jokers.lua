@@ -84,7 +84,7 @@ SMODS.Joker {
     key = "nxkoodead",
     atlas = "jtem_jokers",
     pos = {x=0,y=1},
-    config = {extra = {gain = 0.25,per = 20,}},
+    config = {extra = {gain = 0.1,per = 100,}},
     soul_pos = {x=1,y=1},
     rarity = 4,
     loc_vars = function (self,info_queue,card)
@@ -381,12 +381,38 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = {x=3,y=2},
     rarity = 3,
+    blueprint_compat = true,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval then
             local cards = {}
             for x,y in ipairs(G.playing_cards) do
-                
+                if y:is_suit("Spades") then cards[#cards+1] = y end
             end
+            local scard = pseudorandom_element(cards,pseudoseed("dupedshovel"))
+            G.E_MANAGER:add_event(Event({
+				func = function()
+                            scard = copy_card(scard,nil,nil,G.playing_card)
+                            G.deck:emplace(scard)
+                            G.deck.config.card_limit = G.deck.config.card_limit + 1
+                            table.insert(G.playing_cards, scard)
+                            scard:add_to_deck()
+                            card_eval_status_text(
+					            context.blueprint_card or card,
+					            "extra",
+					            nil,
+					            nil,
+					            nil,
+					            { message = localize("k_copied_ex") }
+				            )
+                            return true
+                        end
+                    }))
         end
     end,
+    hotpot_credits = {
+        art = {'Squidguset'},
+        code = {'Squidguset'},
+        idea = {'Ornabug'},
+        team = {'Jtem'}
+    }
 }

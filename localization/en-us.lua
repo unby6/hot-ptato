@@ -582,6 +582,14 @@ return {
                     "at the end of round"
                 }
             },
+            j_hpot_dupedshovel = {
+                name = "Duped Spade",
+                text = {
+                    "At end of round, copy",
+                    "{C:attention}1{} random {C:spades}Spade{} card",
+                    "and add it to deck"
+                }
+            }
         },
         Voucher = {
             v_hpot_currency_exchange = {
