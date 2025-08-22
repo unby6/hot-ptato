@@ -1440,7 +1440,7 @@ return {
             hotpot_request_joker_line_3 = "Once every ante",
             hotpot_search = "Search",
             hotpot_delivery_order = "ORDER",
-            hotpot_delivery_order_cancel = "CANCEL",
+            hotpot_delivery_order_cancel = "REFUND",
             hotpot_cashback = "΁",
             rounds_plural = "rounds",
             rounds_singular = "round",
