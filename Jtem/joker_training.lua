@@ -329,6 +329,7 @@ function G.FUNCS.hpot_start_training_joker(e)
 			SMODS.Stickers["hpot_jtem_mood"]:apply(card, true)
 			-- This process is irreversible!
 			card.ability.hpot_training_mode = true
+			G.GAME.hpot_training_has_ever_been_done = true
 			card:juice_up(0.3, 0.3)
 			play_sound('gold_seal', 1.2, 0.4)
 			return true
