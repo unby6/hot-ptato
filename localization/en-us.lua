@@ -1055,6 +1055,20 @@ return {
                     "Choices, choices, choices..."
                 }
             },
+            hpot_jtem_mood_depressed={
+                name="Depressed",
+                text={
+                    "Lowers training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_horrible={
+                name="Horrible",
+                text={
+                    "Lowers training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
             hpot_jtem_mood_awful={
                 name="Awful",
                 text={
@@ -1084,6 +1098,20 @@ return {
             },
             hpot_jtem_mood_great={
                 name="Great",
+                text={
+                    "Increases training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_hyper={
+                name="Hyper",
+                text={
+                    "Increases training",
+                    "results by {C:red}#1#%{}"
+                },
+            },
+            hpot_jtem_mood_trance={
+                name="Trance",
                 text={
                     "Increases training",
                     "results by {C:red}#1#%{}"

@@ -15,29 +15,41 @@ function hpot_has_mood(card)
 end
 
 local index_to_mood = {
-	[1] = "awful",
-	[2] = "bad",
-	[3] = "normal",
-	[4] = "good",
-	[5] = "great",
+	"depressed",
+	"horrible",
+	"awful",
+	"bad",
+	"normal",
+	"good",
+	"great",
+	"hyper",
+	"trance",
 	-- lmaooo
 }
 
 local mood_to_index = {
-	["awful"] = 1,
-	["bad"] = 2,
-	["normal"] = 3,
-	["good"] = 4,
-	["great"] = 5,
+	["depressed"] = 1,
+	["horrible"] = 2,
+	["awful"] = 3,
+	["bad"] = 4,
+	["normal"] = 5,
+	["good"] = 6,
+	["great"] = 7,
+	["hyper"] = 8,
+	["trance"] = 9,
 	-- lmaooo
 }
 
 local mood_to_multiply = {
+	["depressed"] = -0.5,
+	["horrible"] = 0.3,
 	["awful"] = 0.8,
 	["bad"] = 0.9,
 	["normal"] = 1,
 	["good"] = 1.1,
 	["great"] = 1.2,
+	["hyper"] = 1.5,
+	["trance"] = 2,
 	-- lmaooo
 }
 
@@ -97,6 +109,7 @@ function hpot_get_rank_and_colour(score)
 	end
 	return "G", G.C.HP_JTEM.RANKS.G
 end
+HP_JTEM_STATS = { "speed", "stamina", "power", "guts", "wits" }
 
 HP_MOOD_STICKERS = {}
 
@@ -114,14 +127,14 @@ SMODS.Sticker {
 		local st = {}
 		local clr = {}
 		-- initial stats and ranks
-		for _, keys in ipairs({ "speed", "stamina", "power", "guts", "wits" }) do
+		for _, keys in ipairs(HP_JTEM_STATS) do
 			table.insert(st, card.ability["hp_jtem_stats"][keys])
 			local r, c = hpot_get_rank_and_colour(card.ability["hp_jtem_stats"][keys] or 0)
 			table.insert(st, r)
 			table.insert(clr, c)
 		end
 		-- empty these, these will be used to indicate stat increases via tarots
-		for _, stat in ipairs({ "speed", "stamina", "power", "guts", "wits" }) do
+		for _, stat in ipairs(HP_JTEM_STATS) do
 			if G.hpot_training_consumable_highlighted and G.hpot_training_consumable_highlighted.ability.hpot_train_increase and G.hpot_training_consumable_highlighted.ability.hpot_train_increase[stat] then
 				local stats_to_increase = G.hpot_training_consumable_highlighted.ability.hpot_train_increase
 				local multiplier = (card.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"])
@@ -132,7 +145,7 @@ SMODS.Sticker {
 		end
 		clr[#clr + 1] = G.C.ORANGE -- +stat indicator
 		-- stat multipliers
-		for _, stat in ipairs({ "speed", "stamina", "power", "guts", "wits" }) do
+		for _, stat in ipairs(HP_JTEM_STATS) do
 			table.insert(st, (card.ability["hp_jtem_train_mult"][stat] - 1) * 100)
 		end
 		-- energy
@@ -193,7 +206,7 @@ SMODS.Sticker {
 
 		HP_MOOD_STICKERS[val] = HP_MOOD_STICKERS[val] or
 			Sprite(card.T.x, card.T.y, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["hpot_jtem_mood"],
-				{ x = (mood_to_index[val] or 3) - 1, y = 0 })
+				{ x = (mood_to_index[(val or "normal")]) - 1, y = 0 })
 		HP_MOOD_STICKERS[val].role.draw_major = card
 		HP_MOOD_STICKERS[val]:draw_shader('dissolve', 0, nil, nil, card.children.center, nil, nil, 0,
 			0.1 + (-8 * (card.T.h / 95) * card.T.scale), nil, 0.6)
@@ -386,7 +399,7 @@ end
 
 function hpot_training_tarot_loc_vars(self, info_queue, card)
 	local vars = {}
-	for _, value in ipairs({ "speed", "stamina", "power", "guts", "wits" }) do
+	for _, value in ipairs(HP_JTEM_STATS) do
 		if card.ability.hpot_train_increase[value] then
 			table.insert(vars, card.ability.hpot_train_increase[value])
 		end
@@ -394,6 +407,13 @@ function hpot_training_tarot_loc_vars(self, info_queue, card)
 	table.insert(vars, math.abs(card.ability.hpot_energy_change))
 	return { vars = vars }
 end
+
+local training_tarot_credits = {
+	art = {'Aikoyori'},
+	code = {'Haya'},
+	idea = {'Aikoyori', 'Haya'},
+	team = {'Jtem'}
+}
 
 SMODS.Consumable {
 	key = 'training_speed',
@@ -403,7 +423,8 @@ SMODS.Consumable {
 	config = { max_highlighted = 1, hpot_train_increase = { speed = 16, power = 8 }, hpot_energy_change = -15 },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 SMODS.Consumable {
@@ -414,7 +435,8 @@ SMODS.Consumable {
 	config = { max_highlighted = 1, hpot_train_increase = { stamina = 18, guts = 8 }, hpot_energy_change = -15 },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 SMODS.Consumable {
@@ -425,7 +447,8 @@ SMODS.Consumable {
 	config = { max_highlighted = 1, hpot_train_increase = { power = 12, stamina = 6 }, hpot_energy_change = -15 },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 SMODS.Consumable {
@@ -436,18 +459,20 @@ SMODS.Consumable {
 	config = { max_highlighted = 1, hpot_train_increase = { guts = 12, speed = 4, power = 4 }, hpot_energy_change = -18 },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 SMODS.Consumable {
 	key = 'training_wit',
 	set = 'Tarot',
 	atlas = 'jtem_training_tarots',
-	pos = { x = 4, y = 0 },
+	pos = { x = 0, y = 1 },
 	config = { max_highlighted = 1, hpot_train_increase = { wits = 10, speed = 6 }, hpot_energy_change = 5 },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 --#endregion
