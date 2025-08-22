@@ -253,3 +253,9 @@ function SMODS.showman(key)
 end
 
 
+SMODS.Joker {
+    key = "dupedshovel",
+    atlas = "jtem_jokers",
+    pos = {x=1,y=2},
+    rarity = 3,
+}
