@@ -67,7 +67,7 @@ end
 function G.UIDEF.hotpot_jtem_shop_delivery_btn()
     return {
         n = G.UIT.C,
-        config = { padding = 0.1, r = 0.05, w = 0.1, h = 0.1 },
+        config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
         nodes = {
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
             {
@@ -76,7 +76,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                     {
                         n = G.UIT.B,
                         config = {
-                            h = 12,
+                            h = 12.2,
                             w = 0.1
                         }
                     }
