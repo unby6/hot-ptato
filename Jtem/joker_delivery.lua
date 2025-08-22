@@ -199,21 +199,34 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 },
                 {
                     n = G.UIT.C,
-                    config = { padding = 0.2, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm" },
+                    config = { padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm" },
                     nodes = {
                         {
                             n = G.UIT.R,
                             config = {
                                 align = "cm",
+                                padding = 0.2,
+                                r = 0.2,
+                                colour = G.C.BLACK,
                             },
                             nodes = {
+                                {
+                                    n = G.UIT.C,
+                                    config = {
+                                        minw = 0.5,
+                                        align = "cm",
+                                    },
+                                    nodes = {
+                                        {n=G.UIT.T, config={text = localize{type = 'variable', key = 'ante_x_voucher', vars = {G.GAME.round_resets.ante}}, scale = 0.45, colour = G.C.L_BLACK, vert = true}},
+                                    }
+                                },
                                 {
                                     n = G.UIT.C,
                                     nodes = {
                                         {
                                             n = G.UIT.B,
                                             config = {
-                                                w = (8.2 - 5.5) / 2 - 0.2,
+                                                w = 0.4,
                                                 h = 1,
                                             }
                                         }
@@ -231,7 +244,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                         {
                                             n = G.UIT.B,
                                             config = {
-                                                w = (8.2 - 5.5) / 2 - 0.2,
+                                                w = 0.5,
                                                 h = 1,
                                             }
                                         }
@@ -249,7 +262,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 {
                     n = G.UIT.B,
                     config = {
-                        h = 0.5,
+                        h = 0.1,
                         w = 0.1
                     }
                 }
@@ -258,21 +271,78 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
         {
             n = G.UIT.R,
             config = {
-                padding = 0.1,
+                padding = 0.05,
             },
             nodes = {
                 {
                     n = G.UIT.C,
-                    config = { padding = 0.05, colour = G.C.UI.TRANSPARENT_DARK, r = 0.05 },
                     nodes = {
                         {
-                            n = G.UIT.O,
+                            n = G.UIT.B,
                             config = {
-                                object = G.hp_jtem_delivery_special_deals,
+                                h = 0.1,
+                                w = 0.05,
                             }
                         }
                     }
                 },
+                {
+                    n = G.UIT.C,
+                    config = { padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm" },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = {
+                                align = "cm",
+                                padding = 0.2,
+                                r = 0.2,
+                                colour = G.C.BLACK,
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.C,
+                                    config = {
+                                        minw = 0.5,
+                                        align = "cm",
+                                    },
+                                    nodes = {
+                                        {n=G.UIT.T, config={text = localize{type = 'variable', key = 'ante_x_voucher', vars = {G.GAME.round_resets.ante}}, scale = 0.45, colour = G.C.L_BLACK, vert = true}},
+                                    }
+                                },
+                                {
+                                    n = G.UIT.C,
+                                    nodes = {
+                                        {
+                                            n = G.UIT.B,
+                                            config = {
+                                                w = 0,
+                                                h = 1,
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    n = G.UIT.O,
+                                    config = {
+                                        object = G.hp_jtem_delivery_special_deals,
+                                    }
+                                },
+                                {
+                                    n = G.UIT.C,
+                                    nodes = {
+                                        {
+                                            n = G.UIT.B,
+                                            config = {
+                                                w = 0,
+                                                h = 1,
+                                            }
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
             }
         },
         {
@@ -567,7 +637,7 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                 definition = t3,
                 config = {
                     align = "bm",
-                    offset = { x = 0, y = -0.5 },
+                    offset = { x = 0, y = -0.4 },
                     major = card,
                     bond = 'Weak',
                     parent = card
@@ -637,13 +707,13 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
                 definition = t2,
                 config = {
                     align = "bm",
-                    offset = { x = 0, y = -0.3 },
+                    offset = { x = 0, y = -0.34 },
                     major = card,
                     bond = 'Weak',
                     parent = card
                 }
             }
-            card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.38
+            card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.425
             return true
         end)
     }))
@@ -654,9 +724,9 @@ function hotpot_jtem_init_extra_shops_area()
     G.hp_jtem_delivery_special_deals = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        5.6 * G.CARD_W,
+        9.45,
         1.15 * G.CARD_H,
-        { card_limit = 5, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W, lr_padding = 0.1 })
+        { card_limit = 4, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W, lr_padding = 0.1 })
     G.hp_jtem_delivery_queue = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
