@@ -11,155 +11,292 @@ end
 
 -- Checks if a card has a mood sticker.
 function hpot_has_mood(card)
-	for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
-		if card.ability and card.ability[sticker] then
-			return sticker
-		end
-	end
-	return nil
+	return (card.ability.hpot_jtem_mood or card.ability.hp_jtem_mood) and "hpot_jtem_mood" or nil
 end
 
 local index_to_mood = {
-    [1] = "awful",
-    [2] = "bad",
-    [3] = "normal",
-    [4] = "good",
-    [5] = "great",
-    -- lmaooo
+	"depressed",
+	"horrible",
+	"awful",
+	"bad",
+	"normal",
+	"good",
+	"great",
+	"hyper",
+	"trance",
+	-- lmaooo
 }
 
 local mood_to_index = {
-    ["awful"] = 1,
-    ["bad"] = 2,
-    ["normal"] = 3,
-    ["good"] = 4,
-    ["great"] = 5,
-    -- lmaooo
+	["depressed"] = 1,
+	["horrible"] = 2,
+	["awful"] = 3,
+	["bad"] = 4,
+	["normal"] = 5,
+	["good"] = 6,
+	["great"] = 7,
+	["hyper"] = 8,
+	["trance"] = 9,
+	-- lmaooo
 }
 
 local mood_to_multiply = {
-    ["awful"] = 0.8,
-    ["bad"] = 0.9,
-    ["normal"] = 1,
-    ["good"] = 1.1,
-    ["great"] = 1.2,
-    -- lmaooo
+	["depressed"] = 0.05,
+	["horrible"] = 0.3,
+	["awful"] = 0.8,
+	["bad"] = 0.9,
+	["normal"] = 1,
+	["good"] = 1.1,
+	["great"] = 1.2,
+	["hyper"] = 1.5,
+	["trance"] = 2,
+	-- lmaooo
 }
 
 -- changes mood
 function hot_mod_mood(card, mood_mod)
-    
+	G.E_MANAGER:add_event(Event{
+		func = function()
+			card.ability["hp_jtem_mood"] = index_to_mood[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]]+mood_mod, #index_to_mood))]
+			card:juice_up(0.5, 0.3)
+			-- TODO: sound
+			return true
+		end
+	})
+end
+
+function hpot_calc_failure_rate(energy)
+	-- energy with atlast 70 or above yields always success
+	if energy >= 70 then return 0 end
+	-- no one can save you
+	if energy <= 0 then return 1 end
+	if energy < 10 then return 0.99 end
+	local en = energy
+	return math.floor((1 - (en / 70))*100)/100
 end
 
 -- please adjust value later is this for debugging
 function hpot_get_rank_and_colour(score)
-	if score >= 18 then
-		return "UG", SMODS.Gradient["hpot_jtem_training_ug"]
-	elseif score >= 17 then
+	if score > 1200 then
+		return "UG", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1150 then
 		return "SS+", G.C.HP_JTEM.RANKS.SS
-	elseif score >= 16 then
-		return "SS+", G.C.HP_JTEM.RANKS.SS
-	elseif score >= 15 then
+	elseif score > 1100 then
+		return "SS", G.C.HP_JTEM.RANKS.SS
+	elseif score > 1050 then
 		return "S+", G.C.HP_JTEM.RANKS.S
-	elseif score >= 14 then
+	elseif score > 1000 then
 		return "S", G.C.HP_JTEM.RANKS.S
-	elseif score >= 13 then
+	elseif score > 800 then
 		return "A+", G.C.HP_JTEM.RANKS.A
-	elseif score >= 12 then
+	elseif score > 700 then
 		return "A", G.C.HP_JTEM.RANKS.A
-	elseif score >= 11 then
+	elseif score > 600 then
 		return "B+", G.C.HP_JTEM.RANKS.B
-	elseif score >= 10 then
+	elseif score > 500 then
 		return "B", G.C.HP_JTEM.RANKS.B
-	elseif score >= 9 then
+	elseif score > 450 then
 		return "C+", G.C.HP_JTEM.RANKS.C
-	elseif score >= 8 then
+	elseif score > 400 then
 		return "C", G.C.HP_JTEM.RANKS.C
-	elseif score >= 7 then
+	elseif score > 350 then
 		return "D+", G.C.HP_JTEM.RANKS.D
-	elseif score >= 6 then
+	elseif score > 300 then
 		return "D", G.C.HP_JTEM.RANKS.D
-	elseif score >= 5 then
+	elseif score > 250 then
 		return "E+", G.C.HP_JTEM.RANKS.E
-	elseif score >= 4 then
+	elseif score > 200 then
 		return "E", G.C.HP_JTEM.RANKS.E
-	elseif score >= 3 then
+	elseif score > 150 then
 		return "F+", G.C.HP_JTEM.RANKS.F
-	elseif score >= 2 then
+	elseif score > 100 then
 		return "F", G.C.HP_JTEM.RANKS.F
-	elseif score >= 1 then
+	elseif score > 50 then
 		return "G+", G.C.HP_JTEM.RANKS.G
 	end
 	return "G", G.C.HP_JTEM.RANKS.G
 end
+HP_JTEM_STATS = { "speed", "stamina", "power", "guts", "wits" }
 
 HP_MOOD_STICKERS = {}
+
+local function copy_table_to_table(tbl, obj, seen)
+	if type(obj) ~= "table" then
+		return obj
+	end
+	if seen and seen[obj] then
+		return seen[obj]
+	end
+	local s = seen or {}
+	local res = setmetatable(tbl or {}, getmetatable(obj))
+	s[obj] = res
+	for k, v in pairs(obj) do
+		res[copy_table_to_table(v, k, s)] = copy_table_to_table(copy_table_to_table(v, k, s), v, s)
+	end
+	return res
+end
+
+-- this part is for saving misc values for this stuff
+local card_init_val = Card.init
+function Card:init(x, y, w, h, _card, _center, _params)
+    local _c = card_init_val(self, x, y, w, h, _card, _center, _params)
+    self.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
+    return _c
+end
+
+local card_save_additional_props = Card.save
+function Card:save()
+    local st = card_save_additional_props(self)
+    st.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
+    return st
+end
+
+local card_load_additional_props = Card.load
+function Card:load(ct, oc)
+    local st = card_load_additional_props(self, ct, oc)
+    self.jp_jtem_orig_sell_cost = ct.jp_jtem_orig_sell_cost or 0
+    return st
+end
+
 
 -- Mood stickers
 SMODS.Sticker {
 	key = "jtem_mood",
-    rate = 0,
+	rate = 0,
 	atlas = "jtem_mood",
 	pos = { x = 2, y = 0 },
 	hpot_mood_sticker = true,
-	loc_vars = function (self, info_queue, card)
+	-- For people peeping in here, especially people who know UI code
+	-- I wanna see this separate as little ui block elements someday
+	-- Instead of one big description
+	loc_vars = function(self, info_queue, card)
 		local st = {}
-		for _,keys in ipairs({"speed","stamina","power","guts","wits"}) do
-			table.insert(st,{card.ability["hp_jtem_stats"][keys], hpot_get_rank_and_colour(card.ability["hp_jtem_stats"][keys] or 0)})
+		local clr = {}
+		-- initial stats and ranks
+		for _, keys in ipairs(HP_JTEM_STATS) do
+			table.insert(st, card.ability["hp_jtem_stats"][keys])
+			local r, c = hpot_get_rank_and_colour(card.ability["hp_jtem_stats"][keys] or 0)
+			table.insert(st, r)
+			table.insert(clr, c)
 		end
-        info_queue[#info_queue+1] = {
-            key = "hpot_jtem_training_status", 
-            set = "Other",
-            vars = {
-				st[1][1],
-				st[1][2],
-				st[2][1],
-				st[2][2],
-				st[3][1],
-				st[3][2],
-				st[4][1],
-				st[4][2],
-				st[5][1],
-				st[5][2],
-                colours = {
-					st[1][3],
-					st[2][3],
-					st[3][3],
-					st[4][3],
-					st[5][3],
-				}
-            } 
-        }
-        return { 
-            vars = { math.abs(mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"]) * 100 }, 
-            key = self.key .. "_" .. (card.ability.hp_jtem_mood or "normal")  }
-    end,
+		-- empty these, these will be used to indicate stat increases via tarots
+		for _, stat in ipairs(HP_JTEM_STATS) do
+			if G.hpot_training_consumable_highlighted and G.hpot_training_consumable_highlighted.ability.hpot_train_increase and G.hpot_training_consumable_highlighted.ability.hpot_train_increase[stat] then
+				local stats_to_increase = G.hpot_training_consumable_highlighted.ability.hpot_train_increase
+				local multiplier = (card.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"])
+				table.insert(st, (" +%d"):format(math.ceil(stats_to_increase[stat] * multiplier)))
+			else
+				table.insert(st, "") -- empty
+			end
+		end
+		clr[#clr + 1] = G.C.ORANGE -- +stat indicator
+		-- stat multipliers
+		for _, stat in ipairs(HP_JTEM_STATS) do
+			table.insert(st, (card.ability["hp_jtem_train_mult"][stat] - 1) * 100)
+		end
+		-- energy
+		table.insert(st, card.ability.hp_jtem_energy)
+		-- energy color
+		clr[#clr + 1] = card.ability.hp_jtem_energy <= 25 and G.C.RED or card.ability.hp_jtem_energy <= 50 and G.C.BLUE or
+		G.C.UI.TEXT_DARK
+		-- failure rate
+		if G.hpot_training_consumable_highlighted then
+			local fail_rate = hpot_calc_failure_rate(card.ability.hp_jtem_energy)
+			table.insert(st, " - " .. fail_rate*100 .. "% Failure")
+			-- failure rate color
+			clr[#clr + 1] = fail_rate >= 0.7 and G.C.RED or fail_rate >= 0.4 and G.C.ORANGE or G.C.UI.TEXT_DARK
+		else
+			table.insert(st, "")
+			clr[#clr + 1] = G.C.UI.TEXT_DARK
+		end
+		st.colours = clr
+		info_queue[#info_queue + 1] = {
+			key = "hpot_jtem_training_status",
+			set = "Other",
+			vars = st
+		}
+		return {
+			vars = { math.abs(1 - mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"]) * 100 },
+			key = self.key .. "_" .. (card.ability.hp_jtem_mood or "normal")
+		}
+	end,
 	apply = function(self, card, val)
-        card.ability[self.key] = val
-        card.ability["hp_jtem_mood_config"] = self.config
-        card.ability["hp_jtem_mood"] = "normal"
-        card.ability["hp_jtem_stats"] = {
-            speed = 0,
-            stamina = 1,
-            power = 2,
-            guts = 3,
-            wits = 4,
-        }
-    end,
-    draw = function (self, card, layer)
-        local val = card.ability["hp_jtem_mood"] or "normal"
-        
-        HP_MOOD_STICKERS[val] = HP_MOOD_STICKERS[val] or Sprite(card.T.x, card.T.y, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["hpot_jtem_mood"], { x = (mood_to_index[val] or 3) - 1, y = 0})
-        HP_MOOD_STICKERS[val].role.draw_major = card
-        HP_MOOD_STICKERS[val]:draw_shader('dissolve', 0, nil, nil, card.children.center, nil, nil, 0,
-            0.1 + (-8 * (card.T.h / 95) * card.T.scale), nil, 0.6)
-        HP_MOOD_STICKERS[val]:draw_shader('dissolve', nil, nil, nil, card.children.center, nil, nil, 0,
-            (-8 * (card.T.h / 95) * card.T.scale))
-    end,
+		card.ability[self.key] = val
+		card.ability["hp_jtem_mood_config"] = copy_table(self.config)
+		-- initial mood is normal
+		card.ability["hp_jtem_mood"] = "normal"
+		-- determines initial stats
+		card.ability["hp_jtem_stats"] = {
+			speed = 60 + math.floor(pseudorandom('hp_jtem_initial_speed') * 60) - 5,
+			stamina = 60 + math.floor(pseudorandom('hp_jtem_initial_stamina') * 60) - 5,
+			power = 60 + math.floor(pseudorandom('hp_jtem_initial_power') * 60) - 5,
+			guts = 60 + math.floor(pseudorandom('hp_jtem_initial_guts') * 60) - 5,
+			wits = 60 + math.floor(pseudorandom('hp_jtem_initial_wit') * 60) - 5,
+		}
+		-- determines training stat multiplier
+		-- only 2 can be chosen to be increased
+		card.ability["hp_jtem_train_mult"] = {
+			speed = 1, stamina = 1, power = 1, guts = 1, wits = 1
+		}
+		local rnd = copy_table(card.ability["hp_jtem_train_mult"])
+		for i = 1, 2 do -- 10% and 20% multiplier
+			local _, stat_key = pseudorandom_element(rnd, 'hp_jtem_train_stat')
+			rnd[stat_key] = nil
+			card.ability["hp_jtem_train_mult"][stat_key] = card.ability["hp_jtem_train_mult"][stat_key] + (i / 10)
+		end
+		-- energy
+		card.ability.hp_jtem_energy = 100
+		card.jp_jtem_orig_sell_cost = card.sell_cost
+
+		local stats = card.ability["hp_jtem_stats"]
+		hpot_jtem_with_deck_effects(card, function(c)
+			if stats.guts > 150 then
+				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
+			end
+		end)
+		if stats.wits and stats.wits > 150 then
+			card.sell_cost = card.jp_jtem_orig_sell_cost + (stats.guts-150) / 200
+		end
+		
+	end,
+	draw = function(self, card, layer)
+		local val = card.ability["hp_jtem_mood"] or "normal"
+
+		HP_MOOD_STICKERS[val] = HP_MOOD_STICKERS[val] or
+			Sprite(card.T.x, card.T.y, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["hpot_jtem_mood"],
+				{ x = (mood_to_index[(val or "normal")]) - 1, y = 0 })
+		HP_MOOD_STICKERS[val].role.draw_major = card
+		HP_MOOD_STICKERS[val]:draw_shader('dissolve', 0, nil, nil, card.children.center, nil, nil, 0,
+			0.1 + (-8 * (card.T.h / 95) * card.T.scale), nil, 0.6)
+		HP_MOOD_STICKERS[val]:draw_shader('dissolve', nil, nil, nil, card.children.center, nil, nil, 0,
+			(-8 * (card.T.h / 95) * card.T.scale))
+	end,
+	calculate = function(self, card, context)
+		local stats = card.ability["hp_jtem_stats"]
+		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card == card then
+			-- Speed checks
+			if stats.speed > 200 then
+				local speed = (stats.speed-200)
+				-- if stat is at least 1200 guarantee a retrig
+				local retriggers = math.floor(speed / 1000)
+				-- and the remainder gets calculated as chance
+				retriggers = retriggers + (pseudorandom('speed_repetition_check_'..G.GAME.round_resets.ante) < math.fmod(speed, 1000) and 1 or 0)
+				return {
+					repetitions = retriggers
+				}
+			end
+		end
+		if context.joker_main then
+			return {
+				xmult = 1 + ((stats.power/800)*100)/100,
+				xchips = 1 + ((stats.power/800)*100)/100
+			}
+		end
+	end,
 	badge_colour = HEX('ffcc11'),
 	hotpot_credits = {
-		art = { "Haya" },
-		idea = { "Aikoyori" },
+		art = { "Aikoyori" },
+		idea = { "Haya", "Aikoyori" },
 		code = { "Haya", "Aikoyori" },
 		team = { "Jtem" }
 	}
@@ -185,9 +322,9 @@ function G.FUNCS.hpot_start_training_joker(e)
 	local card = e.config.ref_table
 	G.CONTROLLER.locks.use = true
 	card:highlight(false)
-	G.E_MANAGER:add_event(Event{
+	G.E_MANAGER:add_event(Event {
 		trigger = 'after',
-		delay = 0.25*G.SPEEDFACTOR,
+		delay = 0.25 * G.SPEEDFACTOR,
 		func = function()
 			SMODS.Stickers["hpot_jtem_mood"]:apply(card, true)
 			-- This process is irreversible!
@@ -197,9 +334,9 @@ function G.FUNCS.hpot_start_training_joker(e)
 			return true
 		end
 	})
-	G.E_MANAGER:add_event(Event{
+	G.E_MANAGER:add_event(Event {
 		trigger = 'after',
-		delay = 0.4*G.SPEEDFACTOR,
+		delay = 0.4 * G.SPEEDFACTOR,
 		func = function()
 			G.CONTROLLER.locks.use = nil
 			return true
@@ -228,3 +365,226 @@ SMODS.DrawStep {
 		if self.children.hpot_train_button and self.highlighted then self.children.hpot_train_button:draw() end
 	end,
 }
+
+--#region Tarots
+
+function hpot_training_tarot_can_use(self, card)
+	local trainable_jokers = {}
+	for k, v in pairs(G.jokers.highlighted) do
+		if v.ability.hp_jtem_mood then
+			trainable_jokers[#trainable_jokers + 1] = v
+		end
+	end
+	return G.jokers and trainable_jokers and #trainable_jokers > 0 and
+		#trainable_jokers <= card.ability.max_highlighted
+end
+
+function hpot_training_tarot_use(self, card, area, copier)
+	local trainable_jokers = {}
+	for k, v in pairs(G.jokers.highlighted) do
+		if v.ability.hp_jtem_mood then
+			trainable_jokers[#trainable_jokers + 1] = v
+		end
+	end
+	local stats_to_increase = copy_table(card.ability.hpot_train_increase)
+	local energy_changed = 0
+	local success = true
+	local stats_increased = {}
+	local old_stats = {}
+	for i = 1, #trainable_jokers do
+		local joker = trainable_jokers[i]
+		if joker and hpot_has_mood(joker) then
+			old_stats[joker.sort_id] = copy_table(joker.ability["hp_jtem_stats"])
+			local stats = joker.ability["hp_jtem_stats"]
+			-- roll for luck!
+			local fail_rate = hpot_calc_failure_rate(joker.ability.hp_jtem_energy)
+			if pseudorandom('hpot_fail_train') < fail_rate and not card.ability.hpot_skip_fail_check then
+				-- Failure...
+				success = false
+				for k, v in pairs(stats_to_increase) do
+					stats_to_increase[k] = stats_to_increase[k] * -1.1
+				end
+			end
+			-- iterate through all available stats to increase
+			for stat, value in pairs(stats) do
+				local multiplier = (joker.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[joker.ability["hp_jtem_mood"] or "normal"])
+				if stats_to_increase[stat] then
+					stats_increased[stat] = math.ceil(stats_to_increase[stat] * multiplier)
+					stats[stat] = value + stats_increased[stat]
+				end
+			end
+			-- reduce energy if possible
+			if card.ability.hpot_energy_change and success then
+				energy_changed = card.ability.hpot_energy_change
+				if energy_changed < 0 then
+					energy_changed = math.ceil(energy_changed * (1 - math.min(stats.stamina / 800, 0.9)))
+				else
+					energy_changed = math.ceil(energy_changed * (1 + (stats.stamina / 1200)))
+				end
+				joker.ability.hp_jtem_energy = joker.ability.hp_jtem_energy + energy_changed
+			end
+		end
+	end
+	delay(0.6)
+	for i = 1, #trainable_jokers do
+		local joker = trainable_jokers[i]
+		if joker and hpot_has_mood(joker) then
+			G.E_MANAGER:add_event(Event {
+				trigger = 'after',
+				delay = 0.1,
+				func = function()
+					joker:juice_up(0.5, 0.3)
+					return true
+				end
+			})
+			card_eval_status_text(joker, 'extra', nil, nil, nil,
+				{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
+			for stat, value in pairs(stats_increased) do
+				-- oh my fucking god
+				value = tonumber(value)
+				card_eval_status_text(joker, 'extra', nil, nil, nil,
+					{ message = localize { type = 'variable', key = 'hotpot_train_' .. stat .. (value >= 0 and '_up' or '_down'), vars = { math.abs(value) } }, colour = (value >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
+			end
+			-- reduce energy if possible
+			if energy_changed then
+				card_eval_status_text(joker, 'extra', nil, nil, nil,
+					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
+			end
+			local stats = joker.ability["hp_jtem_stats"]
+			hpot_jtem_with_deck_effects(joker, function(c)
+				if stats.guts > 150 then
+					hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(150,old_stats[joker.sort_id].guts)-150)/1200)*100)/100)) })
+					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
+				end
+			end)
+			-- print(inspect(stats))
+			-- change joker sell cost
+			if stats.wits and stats.wits > 150 then
+				joker.sell_cost = joker.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50)
+			end
+			-- increase/decrease mood if possible
+			if card.ability.hpot_mood_change then
+				hot_mod_mood(joker, card.ability.hpot_mood_change * (success and 1 or -1))
+				card_eval_status_text(joker, 'extra', nil, nil, nil,
+					{ message = localize('hotpot_train_mood_'..(success and 'up' or 'down')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
+			end
+		end
+	end
+	G.hpot_training_consumable_highlighted = nil
+	delay(0.6)
+	G.E_MANAGER:add_event(Event{
+		func = function()
+			G.jokers:unhighlight_all()
+			return true
+		end
+	})
+end
+
+function hpot_training_tarot_loc_vars(self, info_queue, card)
+	local vars = {}
+	for _, value in ipairs(HP_JTEM_STATS) do
+		if card.ability.hpot_train_increase[value] then
+			table.insert(vars, card.ability.hpot_train_increase[value])
+		end
+	end
+	if card.ability.hpot_energy_change then
+		table.insert(vars, math.abs(card.ability.hpot_energy_change))
+	end
+	if card.ability.hpot_mood_change then
+		table.insert(vars, math.abs(card.ability.hpot_mood_change))
+	end
+	return { vars = vars }
+end
+
+local training_tarot_credits = {
+	art = {'Aikoyori'},
+	code = {'Haya'},
+	idea = {'Aikoyori', 'Haya'},
+	team = {'Jtem'}
+}
+
+SMODS.Consumable {
+	key = 'training_speed',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 0, y = 0 },
+	config = { max_highlighted = 1, hpot_train_increase = { speed = 16, power = 8 }, hpot_energy_change = -15 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+SMODS.Consumable {
+	key = 'training_stamina',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 1, y = 0 },
+	config = { max_highlighted = 1, hpot_train_increase = { stamina = 18, guts = 8 }, hpot_energy_change = -15 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+SMODS.Consumable {
+	key = 'training_power',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 2, y = 0 },
+	config = { max_highlighted = 1, hpot_train_increase = { power = 12, stamina = 6 }, hpot_energy_change = -15 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+SMODS.Consumable {
+	key = 'training_guts',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 3, y = 0 },
+	config = { max_highlighted = 1, hpot_train_increase = { guts = 12, speed = 4, power = 4 }, hpot_energy_change = -18 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+SMODS.Consumable {
+	key = 'training_wit',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 0, y = 1 },
+	config = { max_highlighted = 1, hpot_train_increase = { wits = 10, speed = 6 }, hpot_energy_change = 5 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+SMODS.Consumable {
+	key = 'training_rest',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 1, y = 1 },
+	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_energy_change = 50, hpot_skip_fail_check = true },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+SMODS.Consumable {
+	key = 'training_recreation',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 2, y = 1 },
+	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_mood_change = 1, hpot_skip_fail_check = true },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
+}
+
+--#endregion

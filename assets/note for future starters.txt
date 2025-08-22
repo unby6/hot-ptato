@@ -1,0 +1,18 @@
+hello this is aikoyori from jtem (i know i said i didn't do anything but shhhh)
+
+so i haveth this `assets_scaler.py` right here and it does all the scaling you need for 2x you just need to put everything in 1x 
+and everything will be scaled to 2x automatically without the ugly :( shadowy border
+
+all you need to do is install python, pillow and run the script
+
+to install python go to https://python.org and download latest release
+
+on Windows you should be able to just run
+`py -m pip install Pillow`
+to install Pillow. this is the imaging library that the script uses
+then run the script with
+`py ./assets_scaler.py`
+
+
+full credits to Firch of Bunco fame for this :3 (at least i think the script is from them i found it on balala server)
+signed - Aikoyori

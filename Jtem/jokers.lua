@@ -252,8 +252,129 @@ function SMODS.showman(key)
     return showman_ref(key)
 end
 
+SMODS.Joker {
+    key = "jtem_slop_live",
+    atlas = "jtem_slop_live",
+    pos = {x=0,y=0},
+    rarity = 3,
+    config = {
+        extras = {
+            xmult = 1.25,
+        }
+    },
+    loc_vars = function (self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extras.xmult,
+                1
+            }
+        }
+    end,
+    calculate = function (self,card,context)
+        if context.joker_main then
+            return {
+                xmult = card.ability.extras.xmult
+            }
+        end
+        if context.skip_blind and context.cardarea == G.jokers then
+            if #G.jokers.cards < G.jokers.config.card_limit then
+                return {
+                    func = function ()
+                        ---@type Card
+                        simple_add_event(
+                        function() 
+                            local _c = copy_card(card,nil,nil,nil,true)
+                            print(inspect(context))
+                            _c:add_to_deck()
+                            G.jokers:emplace(_c)
+                            return true
+                        end)
+                    end
+                }
+            end
+        end
+        if context.end_of_round and context.cardarea == G.jokers and G.GAME.current_round.hands_left == 1 then
+            return {
+                func = function ()
+                    ---@type Card[]
+                    local potential_jokers = {}
+                    for _, _jk in ipairs(G.jokers.cards) do
+                        ---@type Card
+                        _jk = _jk
+                        if _jk.config.center_key == card.config.center_key then
+                            if _jk.slop_live_removing then return end -- only destroy one copy
+                            table.insert(potential_jokers,_jk)
+                        end
+                    end
+                    local selected_joker = pseudorandom_element(potential_jokers,pseudoseed("hpot_jtem_slop_random"))
+                    if selected_joker then
+                        selected_joker.slop_live_removing = true
+                        simple_add_event(function() selected_joker:start_dissolve() return true end)
+                        local tg = Tag("tag_buffoon")
+                        add_tag(tg)
+                    end
+                end
+            }
+        end
+    end,
+    hotpot_credits = {
+        art = {'Aikoyori'},
+        code = {'Aikoyori'},
+        idea = {'Aikoyori'},
+        team = {'Jtem'}
+    }
+}
 
 SMODS.Joker {
+    key = 'empty_can',
+    atlas = "jtem_jokers",
+    pos = { x = 1, y = 2 },
+    config = { extra = { plincoin = 1 } },
+    pools = { Food = true },
+    rarity = 2,
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            ease_plincoins(card.ability.extra.plincoin)
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.plincoin).."", colour = G.C.MONEY})
+        end
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.plincoin } }
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Haya'},
+        idea = {'MissingNumber'},
+        team = {'Jtem'}
+    }
+}
+
+SMODS.Joker {
+    key = 'spam',
+    atlas = "jtem_jokers",
+    pos = { x = 2, y = 2 },
+    config = { extra = { eggs = 5 } },
+    rarity = 1,
+    pixel_size = { w = 71, h = 62 },
+    pools = { Food = true },
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval then
+            create_ads(card.ability.extra.eggs)
+            return {
+                message = "Spam!"
+            }
+        end
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.eggs } }
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Haya'},
+        idea = {'MissingNumber'},
+        team = {'Jtem'}
+    }
+}SMODS.Joker {
     key = "dupedshovel",
     atlas = "jtem_jokers",
     pos = {x=1,y=2},
