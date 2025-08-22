@@ -497,6 +497,10 @@ function hpot_training_tarot_loc_vars(self, info_queue, card)
 	return { vars = vars }
 end
 
+local hpot_training_pool_check = function (self, args)
+	return G.GAME.hpot_training_has_ever_been_done
+end
+
 local training_tarot_credits = {
 	art = {'Aikoyori'},
 	code = {'Haya'},
@@ -514,6 +518,7 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
 }
 
 SMODS.Consumable {
@@ -526,6 +531,7 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
 }
 
 SMODS.Consumable {
@@ -538,6 +544,7 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
 }
 
 SMODS.Consumable {
@@ -550,6 +557,7 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
 }
 
 SMODS.Consumable {
@@ -562,6 +570,7 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
 }
 
 SMODS.Consumable {
@@ -574,6 +583,7 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
 }
 
 SMODS.Consumable {
@@ -586,6 +596,49 @@ SMODS.Consumable {
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = training_tarot_credits,
+	in_pool = hpot_training_pool_check,
+}
+
+local list_of_training_cards = {
+    "c_hpot_training_speed",
+    "c_hpot_training_stamina",
+    "c_hpot_training_power",
+    "c_hpot_training_guts",
+    "c_hpot_training_wit",
+    "c_hpot_training_rest",
+    "c_hpot_training_recreation",
+}
+SMODS.Booster{
+    key = "training_pack",
+    set = "Booster",
+    config = { extra = 7, choose = 2 },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.choose,
+                card.ability.extra,
+            },
+        }
+    end,
+    atlas = 'jtem_trainingpack', pos = { x = 0, y = 0 },
+    group_key = "hotpot_training_pack",
+    cost = 8,
+    weight = 0.4,
+    draw_hand = true,
+    kind = "hotpot_training_pack",
+    create_card = function (self, card, i) 
+        return SMODS.create_card{ key = list_of_training_cards[i], area = G.pack_cards, skip_materialize = true, allow_duplicates = true }
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour({ new_colour = G.C.HP_JTEM.MISC.TRAIN_Y, special_colour = G.C.HP_JTEM.MISC.TRAIN_O, tertiary_colour = G.C.HP_JTEM.MISC.TRAIN_P, contrast = 4})
+    end,
+	in_pool = hpot_training_pool_check,
+	hotpot_credits = {
+		art = {'Aikoyori'},
+		code = {'Aikoyori'},
+		idea = {'Aikoyori', 'Haya'},
+		team = {'Jtem'}
+	}
 }
 
 --#endregion
