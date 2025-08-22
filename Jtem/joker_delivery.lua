@@ -106,14 +106,17 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
         },
         {
             n = G.UIT.R,
+            config = {
+                padding = 0.05,
+            },
             nodes = {
                 {
                     n = G.UIT.C,
-                    config = { padding = 0.1 },
+                    config = { padding = 0.1, minw = 2.8 },
                     nodes = {
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 1.2, shadow = true, button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true },
+                            config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1.2, shadow = true, button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
@@ -146,7 +149,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                         },
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true },
+                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
@@ -170,7 +173,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                         },
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 3, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_p2j', func = "hp_jtem_can_exchange_p2j", hover = true },
+                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hp_jtem_exchange_p2j', func = "hp_jtem_can_exchange_p2j", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
@@ -196,12 +199,44 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                 },
                 {
                     n = G.UIT.C,
-                    config = { padding = 0.2, colour = G.C.UI.TRANSPARENT_DARK, r = 0.05 },
+                    config = { padding = 0.2, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm" },
                     nodes = {
                         {
-                            n = G.UIT.O,
+                            n = G.UIT.R,
                             config = {
-                                object = G.hp_jtem_delivery_queue,
+                                align = "cm",
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.C,
+                                    nodes = {
+                                        {
+                                            n = G.UIT.B,
+                                            config = {
+                                                w = (8.2 - 5.5) / 2 - 0.2,
+                                                h = 1,
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    n = G.UIT.O,
+                                    config = {
+                                        object = G.hp_jtem_delivery_queue,
+                                    }
+                                },
+                                {
+                                    n = G.UIT.C,
+                                    nodes = {
+                                        {
+                                            n = G.UIT.B,
+                                            config = {
+                                                w = (8.2 - 5.5) / 2 - 0.2,
+                                                h = 1,
+                                            }
+                                        }
+                                    }
+                                },
                             }
                         }
                     }
@@ -222,6 +257,9 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
         },
         {
             n = G.UIT.R,
+            config = {
+                padding = 0.1,
+            },
             nodes = {
                 {
                     n = G.UIT.C,
@@ -471,7 +509,7 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
             }
             local t2 = {
                 n = G.UIT.ROOT,
-                config = { ref_table = card, minw = 2.1, maxw = 2.4, padding = 0.1, align = 'mc', colour = args.colour, shadow = true, r = 0.08, minh = 0.94 },
+                config = { ref_table = card, minw = 1.5, maxw = 2.8, padding = 0.1, align = 'mc', colour = args.colour, shadow = true, r = 0.08, minh = 0.94 },
                 nodes = {
                     {
                         n = G.UIT.R,
@@ -480,14 +518,14 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                                 n = G.UIT.C,
                                 config = {},
                                 nodes = {
-                                    { n = G.UIT.T, config = { font = SMODS.Fonts["hpot_plincoin"], text = localize("hotpot_cashback"), colour = G.C.WHITE, scale = 0.4 } }
+                                    { n = G.UIT.T, config = { font = SMODS.Fonts["hpot_plincoin"], text = localize("hotpot_cashback").." ", colour = G.C.WHITE, scale = 0.4, shadow = true, } }
                                 }
                             },
                             {
                                 n = G.UIT.C,
                                 config = {},
                                 nodes = {
-                                    { n = G.UIT.T, config = { font = args.font, text = localize("hotpot_cashback") .. ((args.symbol) .. number_format(math.ceil(card.hp_jtem_currency_bought_value * 0.5))), colour = G.C.WHITE, scale = 0.4 } }
+                                    { n = G.UIT.T, config = { font = args.font, text = ((args.symbol) .. number_format(math.ceil(card.hp_jtem_currency_bought_value * 0.5))), colour = G.C.WHITE, scale = 0.4, shadow = true } }
                                 }
                             },
                         }
@@ -564,7 +602,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
                         n = G.UIT.R,
                         config = { align = "cm", r = 0.1, minw = 1, minh = 0.2, emboss = 0.05, padding = 0.01 },
                         nodes = {
-                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.hp_delivery_obj.rounds_total, (card.hp_delivery_obj.rounds_total ~= 1 and localize("rounds_plural") or localize("rounds_singular")) } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
+                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.hp_delivery_obj.rounds_total } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
                         }
                     },
                     { n = G.UIT.R, nodes = { { n = G.UIT.B, config = { h = 0.2, w = 0.1 } } } },
@@ -622,7 +660,7 @@ function hotpot_jtem_init_extra_shops_area()
     G.hp_jtem_delivery_queue = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        3.3 * G.CARD_W,
+        5.5,
         1.15 * G.CARD_H,
         { card_limit = 2, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W })
     G.hp_jtem_delivery_queue.cards = G.hp_jtem_delivery_queue.cards or {}
