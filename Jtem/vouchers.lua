@@ -18,7 +18,7 @@ SMODS.Voucher {
 	atlas = "jtem_vouchers",
 	pos = { x = 0, y = 1 },
 	redeem = function(self, voucher)
-		G.GAME.hp_jtem_can_request_joker = true
+		G.GAME.hp_jtem_should_allow_custom_order = true
 	end,
 	hotpot_credits = {
         art = {'MissingNumber'},

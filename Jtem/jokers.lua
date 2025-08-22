@@ -358,13 +358,8 @@ SMODS.Joker {
     pixel_size = { w = 71, h = 62 },
     pools = { Food = true },
     calculate = function(self, card, context)
-        if context.end_of_round then
-            G.E_MANAGER:add_event(Event{
-                func = function()
-                    create_ads(card.ability.extra.eggs)
-                    return true
-                end
-            })
+        if context.end_of_round and context.main_eval then
+            create_ads(card.ability.extra.eggs)
             return {
                 message = "Spam!"
             }
