@@ -1181,6 +1181,14 @@ return {
                     "{C:dark_edition}Energy{} - {V:7}#21#{}/100{V:8}#22#"
                 },
             },
+            p_hpot_training_pack = {
+                name="Training Pack",
+                text={
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:jtem_crimson} Training cards{} to",
+                    "be used immediately",
+                },
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1439,6 +1447,7 @@ return {
             hotpot_train_failure = "Failure...",
             hotpot_train_mood_up = "Mood Up",
             hotpot_train_mood_down = "Mood Down",
+            hotpot_training_pack = "Training Pack",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
@@ -1476,6 +1485,7 @@ return {
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key",
             hpot_jtem_mood="Under Training",
+            hotpot_training_pack = "Training Pack",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

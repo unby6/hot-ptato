@@ -99,6 +99,13 @@ G.C.HP_JTEM = {
 		GUTS    = HEX("FFCD29"),
 		WITS    = HEX("5DF158"),
 	},
+	MISC = {
+		-- training card colours for reuse
+		TRAIN_Y = HEX("ffcf61"), -- yellow
+		TRAIN_O = HEX("ff9266"), -- orange
+		TRAIN_C = HEX("a92e79"), -- crimson
+		TRAIN_P = HEX("630d49"), -- purple
+	},
 	RANKS = {
 		G   = HEX("686868"), 
 		F   = HEX("7071AA"),
@@ -117,6 +124,7 @@ G.ARGS.LOC_COLOURS.jtem_stats_stamina = G.C.HP_JTEM.STATS.STAMINA
 G.ARGS.LOC_COLOURS.jtem_stats_power = G.C.HP_JTEM.STATS.POWER
 G.ARGS.LOC_COLOURS.jtem_stats_guts = G.C.HP_JTEM.STATS.GUTS
 G.ARGS.LOC_COLOURS.jtem_stats_wits = G.C.HP_JTEM.STATS.WITS
+G.ARGS.LOC_COLOURS.jtem_crimson = G.C.HP_JTEM.MISC.TRAIN_C
 
 SMODS.Gradient{
 	key = "jtem_training_ug",
