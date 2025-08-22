@@ -919,6 +919,59 @@ return {
                     "to {V:1}#2#{}",
                 },
             },
+            --#region Training Tarots
+            c_hpot_training_speed = {
+                name = "Speed",
+                text = {
+                    "{C:attention}+#1#{} Speed",
+                    "{C:attention}+#2#{} Power",
+                    "{C:red}-#3#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
+            c_hpot_training_stamina = {
+                name = "Stamina",
+                text = {
+                    "{C:attention}+#1#{} Stamina",
+                    "{C:attention}+#2#{} Guts",
+                    "{C:red}-#3#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
+            c_hpot_training_power = {
+                name = "Power",
+                text = {
+                    "{C:attention}+#2#{} Power",
+                    "{C:attention}+#1#{} Stamina",
+                    "{C:red}-#3#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
+            c_hpot_training_guts = {
+                name = "Guts",
+                text = {
+                    "{C:attention}+#3#{} Guts",
+                    "{C:attention}+#1#{} Speed",
+                    "{C:attention}+#2#{} Power",
+                    "{C:red}-#4#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
+            c_hpot_training_wit = {
+                name = "Wit",
+                text = {
+                    "{C:attention}+#2#{} Wit",
+                    "{C:attention}+#1#{} Speed",
+                    "{C:green}+#3#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
+            --#endregion
         },
         Other = {
             p_hpot_czech_normal = {
@@ -987,51 +1040,51 @@ return {
             hpot_jtem_mood_awful={
                 name="Awful",
                 text={
-                    "Multiply training",
+                    "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_bad={
                 name="Bad",
                 text={
-                    "Multiply training",
+                    "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_normal={
                 name="Normal",
                 text={
-                    "Multiply training",
-                    "results by {C:red}#1#%{}"
+                    "No effects",
                 },
             },
             hpot_jtem_mood_good={
                 name="Good",
                 text={
-                    "Multiply training",
+                    "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_great={
                 name="Great",
                 text={
-                    "Multiply training",
+                    "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_training_status={
                 name="Training",
                 text={
-                    "{C:jtem_stats_speed}Speed{} - {V:1}#1#{} - {V:1}#2#",
-                    "{s:0.8,C:inactive}Chance of this Joker retriggering",
-                    "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{} - {V:2}#4#",
-                    "{s:0.8,C:inactive}How long jokers train before needing to rest",
-                    "{C:jtem_stats_power}Power{} - {V:3}#5#{} - {V:3}#6#",
-                    "{s:0.8,C:inactive}Gives more (X)Chips & (X)Mult",
-                    "{C:jtem_stats_guts}Guts{} - {V:4}#7#{} - {V:4}#8#",
-                    "{s:0.8,C:inactive}Base Joker stats improvement",
-                    "{C:jtem_stats_wits}Wits{} - {V:5}#9#{} - {V:5}#10#",
-                    "{s:0.8,C:inactive}Improves sell cost of self",
+                    "{C:jtem_stats_speed}Speed{} - {V:1}#1#{}{V:6}#11#{} - {V:1}#2#",
+                    "{s:0.8,C:inactive}Chance of this Joker retriggering - +#16#%",
+                    "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{}{V:6}#12#{} - {V:2}#4#",
+                    "{s:0.8,C:inactive}How long jokers train before needing to rest - +#17#%",
+                    "{C:jtem_stats_power}Power{} - {V:3}#5#{}{V:6}#13#{} - {V:3}#6#",
+                    "{s:0.8,C:inactive}Gives more (X)Chips & (X)Mult - +#18#%",
+                    "{C:jtem_stats_guts}Guts{} - {V:4}#7#{}{V:6}#14#{} - {V:4}#8#",
+                    "{s:0.8,C:inactive}Base Joker stats improvement - +#19#%",
+                    "{C:jtem_stats_wits}Wits{} - {V:5}#9#{}{V:6}#15#{} - {V:5}#10#",
+                    "{s:0.8,C:inactive}Improves sell cost of self - +#20#%",
+                    "{C:dark_edition}Energy{} - {V:7}#21#{}/100{V:8}#22#"
                 },
             },
         },
@@ -1285,6 +1338,9 @@ return {
             hotpot_jukebox_default_music_title = "*",
 
             b_hpot_train = "TRAIN",
+
+            hotpot_train_success = "Success!",
+            hotpot_train_failure = "Failure...",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
@@ -1296,6 +1352,20 @@ return {
             hotpot_exchange_for_jx_line_1 = "Buy +͸#1#",
             hotpot_exchange_for_jx_line_2 = "for -#1##2#",
             hotpot_round_total_eta = "ETA: #1# #2#",
+
+            hotpot_train_speed_up = "Speed Up +#1#",
+            hotpot_train_stamina_up = "Stamina Up +#1#",
+            hotpot_train_power_up = "Power Up +#1#",
+            hotpot_train_guts_up = "Guts Up +#1#",
+            hotpot_train_wits_up = "Wit Up +#1#",
+            hotpot_train_energy_up = "Energy Up +#1#",
+
+            hotpot_train_speed_down = "Speed Down -#1#",
+            hotpot_train_stamina_down = "Stamina Down -#1#",
+            hotpot_train_power_down = "Power Down -#1#",
+            hotpot_train_guts_down = "Guts Down -#1#",
+            hotpot_train_wits_down = "Wit Down -#1#",
+            hotpot_train_energy_down = "Energy Down -#1#",
         },
 		v_text = {
 			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},

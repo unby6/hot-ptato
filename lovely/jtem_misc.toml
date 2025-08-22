@@ -157,7 +157,13 @@ pattern = '''self.children.use_button = UIBox{'''
 position = "before"
 match_indent = true
 payload = '''
-if self.ability.set == "Joker" and not self.ability.hpot_training_mode then
+G.hpot_training_consumable_highlighted = nil
+if self.ability.hpot_train_increase and self.highlighted and self.ability.consumeable then
+  -- set this as the highlighted consumeable
+  G.hpot_training_consumable_highlighted = self
+  --print("hi")
+end
+if self.ability.set == "Joker" and not self.ability.hp_jtem_mood then
   self.children.hpot_train_button = UIBox{
     definition = hpot_joker_train_button_definition(self), 
     config = {
@@ -176,6 +182,9 @@ pattern = '''self.children.use_button:remove()'''
 position = "before"
 match_indent = true
 payload = '''
+if self.ability.consumeable then
+  G.hpot_training_consumable_highlighted = nil
+end
 if self.children.hpot_train_button then
   self.children.hpot_train_button:remove()
   self.children.hpot_train_button = nil

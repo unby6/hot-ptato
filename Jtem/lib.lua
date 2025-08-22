@@ -3,6 +3,7 @@ function init_jtem(game)
 	game.spark_points = game.spark_points or 0
 	game.spark_points_display = game.spark_points_display or "0"
 	game.hpot_events_encountered = game.hpot_events_encountered or {}
+	G.hpot_training_consumable_highlighted = nil
 end
 
 -- For the splash text
