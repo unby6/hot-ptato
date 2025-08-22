@@ -476,7 +476,20 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                     {
                         n = G.UIT.R,
                         nodes = {
-                            { n = G.UIT.T, config = { font = args.font, text = localize("hotpot_cashback") .. ((args.symbol) .. number_format(math.ceil(card.hp_jtem_currency_bought_value * 0.5))), colour = G.C.WHITE, scale = 0.3 } }
+                            {
+                                n = G.UIT.C,
+                                config = {},
+                                nodes = {
+                                    { n = G.UIT.T, config = { font = SMODS.Fonts["hpot_plincoin"], text = localize("hotpot_cashback"), colour = G.C.WHITE, scale = 0.4 } }
+                                }
+                            },
+                            {
+                                n = G.UIT.C,
+                                config = {},
+                                nodes = {
+                                    { n = G.UIT.T, config = { font = args.font, text = localize("hotpot_cashback") .. ((args.symbol) .. number_format(math.ceil(card.hp_jtem_currency_bought_value * 0.5))), colour = G.C.WHITE, scale = 0.4 } }
+                                }
+                            },
                         }
                     },
                     { n = G.UIT.R, nodes = { { n = G.UIT.B, config = { h = 1, w = 0.1 } } } },
@@ -551,7 +564,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
                         n = G.UIT.R,
                         config = { align = "cm", r = 0.1, minw = 1, minh = 0.2, emboss = 0.05, padding = 0.01 },
                         nodes = {
-                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.hp_delivery_obj.rounds_total, (card.hp_delivery_obj.rounds_total ~= 1 and localize("rounds_plural") or localize("rounds_singular")) } }, colour = G.C.WHITE, scale = 0.2 } },
+                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.hp_delivery_obj.rounds_total, (card.hp_delivery_obj.rounds_total ~= 1 and localize("rounds_plural") or localize("rounds_singular")) } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
                         }
                     },
                     { n = G.UIT.R, nodes = { { n = G.UIT.B, config = { h = 0.2, w = 0.1 } } } },

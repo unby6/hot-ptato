@@ -1423,7 +1423,7 @@ return {
             hotpot_request_joker_line_2 = "a Joker",
             hotpot_delivery_order = "ORDER",
             hotpot_delivery_order_cancel = "CANCEL",
-            hotpot_cashback = "Refund: ",
+            hotpot_cashback = "΁",
             rounds_plural = "rounds",
             rounds_singular = "round",
 
@@ -1447,7 +1447,7 @@ return {
 
             hotpot_exchange_for_jx_line_1 = "Buy +͸#1#",
             hotpot_exchange_for_jx_line_2 = "for -#1##2#",
-            hotpot_round_total_eta = "ETA: #1# #2#",
+            hotpot_round_total_eta = "΀ #1# #2#",
 
             hotpot_train_speed_up = "Speed Up +#1#",
             hotpot_train_stamina_up = "Stamina Up +#1#",
