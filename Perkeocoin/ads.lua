@@ -32,6 +32,8 @@ HotPotato.Ads = {
         ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}},
         ad_labubu = {atlas = 'hpot_jtemads',pos = {x=2,y=1}},
         ad_4f6368 = {atlas = 'hpot_jtemads',pos = {x=0,y=2}},
+        ad_bts = {atlas = 'hpot_jtem_bts',pos = {x=0,y=0}, animated = true},
+        ad_again = {atlas = 'hpot_jtem_again',pos = {x=0,y=0}, animated = true},
         ad_beachday = {atlas = 'hpot_jtemads',pos = {x=3,y=2}},
         ad_astolfo = {atlas = 'hpot_jtemads',pos = {x=4,y=2}},
     },
