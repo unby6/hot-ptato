@@ -302,13 +302,18 @@ SMODS.Sticker {
 	}
 }
 
+function hpot_get_training_cost(card)
+    return 20000 * (G.GAME.hpot_training_cost_mult or 1)
+end
+
 G.FUNCS.hpot_can_train_joker = function(e)
 	---@type Card
 	local card = e.config.ref_table
 	if not ((G.play and #G.play.cards > 0) or
 			(G.CONTROLLER.locked) or
-			(G.GAME.STOP_USE and G.GAME.STOP_USE > 0)) then
-		e.config.colour = G.C.GREEN
+			(G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
+            (G.GAME.spark_points < hpot_get_training_cost(card)))  then
+		e.config.colour = G.C.CHIPS
 		e.config.button = 'hpot_start_training_joker'
 	else
 		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
@@ -321,6 +326,7 @@ function G.FUNCS.hpot_start_training_joker(e)
 	---@type Card
 	local card = e.config.ref_table
 	G.CONTROLLER.locks.use = true
+    ease_spark_points(-1 * hpot_get_training_cost(card))
 	card:highlight(false)
 	G.E_MANAGER:add_event(Event {
 		trigger = 'after',
@@ -347,11 +353,32 @@ end
 
 -- Jokers can have a 'TRAIN' button at the bottom when highlighted
 function hpot_joker_train_button_definition(card)
+    local args = generate_currency_string_args("joker_exchange")
 	return {
 		n = G.UIT.R,
-		config = { ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.3 * card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'hpot_start_training_joker', func = 'hpot_can_train_joker' },
+		config = { ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.4 * card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'hpot_start_training_joker', func = 'hpot_can_train_joker' },
 		nodes = {
-			{ n = G.UIT.T, config = { text = localize('b_hpot_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true } }
+            {
+                n = G.UIT.C,
+                config = { align = "cm" },
+                nodes = {
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm" },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = localize('b_hpot_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true } },
+                        }
+                    },
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm" },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = args.symbol, font = args.font, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
+                            { n = G.UIT.T, config = { text = number_format(hpot_get_training_cost(card)), colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
+                        }
+                    },
+                }
+            }
 		}
 	}
 end

@@ -168,7 +168,7 @@ if self.ability.set == "Joker" and not self.ability.hp_jtem_mood then
     definition = hpot_joker_train_button_definition(self), 
     config = {
       align = "bmi", 
-      offset ={x=0,y=0.45},
+      offset ={x=0,y=0.7},
       parent = self
     }
   }
