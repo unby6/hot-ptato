@@ -52,8 +52,8 @@ function hpot_calc_failure_rate(energy)
 	-- no one can save you
 	if energy <= 0 then return 1 end
 	if energy < 10 then return 0.99 end
-	local en = energy + 30
-	return math.floor((1 - (en / 100))*100)/100
+	local en = energy
+	return math.floor((1 - (en / 70))*100)/100
 end
 
 -- please adjust value later is this for debugging
@@ -99,6 +99,22 @@ function hpot_get_rank_and_colour(score)
 end
 
 HP_MOOD_STICKERS = {}
+
+local function copy_table_to_table(tbl, obj, seen)
+	if type(obj) ~= "table" then
+		return obj
+	end
+	if seen and seen[obj] then
+		return seen[obj]
+	end
+	local s = seen or {}
+	local res = setmetatable(tbl or {}, getmetatable(obj))
+	s[obj] = res
+	for k, v in pairs(obj) do
+		res[copy_table_to_table(v, k, s)] = copy_table_to_table(copy_table_to_table(v, k, s), v, s)
+	end
+	return res
+end
 
 -- Mood stickers
 SMODS.Sticker {
@@ -187,6 +203,13 @@ SMODS.Sticker {
 		end
 		-- energy
 		card.ability.hp_jtem_energy = 100
+
+		local stats = card.ability["hp_jtem_stats"]
+		hpot_jtem_with_deck_effects(card, function(c)
+			if stats.guts > 150 then
+				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
+			end
+		end)
 	end,
 	draw = function(self, card, layer)
 		local val = card.ability["hp_jtem_mood"] or "normal"
@@ -212,8 +235,8 @@ SMODS.Sticker {
 		end
 		if context.joker_main then
 			return {
-				xmult = 1 + (stats.power/500),
-				xchips = 1 + (stats.power/500)
+				xmult = 1 + ((stats.power/800)*100)/100,
+				xchips = 1 + ((stats.power/800)*100)/100
 			}
 		end
 	end,
@@ -314,9 +337,11 @@ function hpot_training_tarot_use(self, card, area, copier)
 	local energy_changed = 0
 	local success = true
 	local stats_increased = {}
+	local old_stats = {}
 	for i = 1, #trainable_jokers do
 		local joker = trainable_jokers[i]
 		if joker and hpot_has_mood(joker) then
+			old_stats[joker.sort_id] = copy_table(joker.ability["hp_jtem_stats"])
 			local stats = joker.ability["hp_jtem_stats"]
 			-- roll for luck!
 			local fail_rate = hpot_calc_failure_rate(joker.ability.hp_jtem_energy)
@@ -372,6 +397,13 @@ function hpot_training_tarot_use(self, card, area, copier)
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
 					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE) })
 			end
+			local stats = joker.ability["hp_jtem_stats"]
+			hpot_jtem_with_deck_effects(joker, function(c)
+				if stats.guts > 150 then
+					hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(150,old_stats[joker.sort_id].guts)-150)/1200)*100)/100)) })
+					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
+				end
+			end)
 		end
 	end
 	G.hpot_training_consumable_highlighted = nil
