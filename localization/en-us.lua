@@ -989,6 +989,22 @@ return {
                     "{C:attention}Training{} Joker"
                 }
             },
+            c_hpot_training_rest = {
+                name = "Rest",
+                text = {
+                    "{C:green}+#1#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
+            c_hpot_training_recreation = {
+                name = "Recreation",
+                text = {
+                    "{C:dark_edition}+#1#{} Mood",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
             --#endregion
         },
         Other = {
@@ -1359,6 +1375,8 @@ return {
 
             hotpot_train_success = "Success!",
             hotpot_train_failure = "Failure...",
+            hotpot_train_mood_up = "Mood Up",
+            hotpot_train_mood_down = "Mood Down",
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',

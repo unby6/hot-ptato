@@ -43,7 +43,14 @@ local mood_to_multiply = {
 
 -- changes mood
 function hot_mod_mood(card, mood_mod)
-
+	G.E_MANAGER:add_event(Event{
+		func = function()
+			card.ability["hp_jtem_mood"] = index_to_mood[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]]+mood_mod, 5))]
+			card:juice_up(0.5, 0.3)
+			-- TODO: sound
+			return true
+		end
+	})
 end
 
 function hpot_calc_failure_rate(energy)
@@ -345,7 +352,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			local stats = joker.ability["hp_jtem_stats"]
 			-- roll for luck!
 			local fail_rate = hpot_calc_failure_rate(joker.ability.hp_jtem_energy)
-			if pseudorandom('hpot_fail_train') < fail_rate then
+			if pseudorandom('hpot_fail_train') < fail_rate and not card.ability.hpot_skip_fail_check then
 				-- Failure...
 				success = false
 				for k, v in pairs(stats_to_increase) do
@@ -404,6 +411,12 @@ function hpot_training_tarot_use(self, card, area, copier)
 					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/1200)*100)/100) })
 				end
 			end)
+			-- increase/decrease mood if possible
+			if card.ability.hpot_mood_change then
+				hot_mod_mood(joker, card.ability.hpot_mood_change * (success and 1 or -1))
+				card_eval_status_text(joker, 'extra', nil, nil, nil,
+					{ message = localize('hotpot_train_mood_'..(success and 'up' or 'down')), colour = (success and G.C.FILTER or G.C.BLUE) })
+			end
 		end
 	end
 	G.hpot_training_consumable_highlighted = nil
@@ -423,7 +436,12 @@ function hpot_training_tarot_loc_vars(self, info_queue, card)
 			table.insert(vars, card.ability.hpot_train_increase[value])
 		end
 	end
-	table.insert(vars, math.abs(card.ability.hpot_energy_change))
+	if card.ability.hpot_energy_change then
+		table.insert(vars, math.abs(card.ability.hpot_energy_change))
+	end
+	if card.ability.hpot_mood_change then
+		table.insert(vars, math.abs(card.ability.hpot_mood_change))
+	end
 	return { vars = vars }
 end
 
@@ -477,6 +495,28 @@ SMODS.Consumable {
 	atlas = 'jtem_training_tarots',
 	pos = { x = 4, y = 0 },
 	config = { max_highlighted = 1, hpot_train_increase = { wits = 10, speed = 6 }, hpot_energy_change = 5 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars
+}
+
+SMODS.Consumable {
+	key = 'training_rest',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 0, y = 1 },
+	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_energy_change = 50, hpot_skip_fail_check = true },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars
+}
+
+SMODS.Consumable {
+	key = 'training_recreation',
+	set = 'Tarot',
+	atlas = 'jtem_training_tarots',
+	pos = { x = 1, y = 1 },
+	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_mood_change = 1, hpot_skip_fail_check = true },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars
