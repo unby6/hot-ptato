@@ -438,17 +438,17 @@ function hpot_training_tarot_use(self, card, area, copier)
 				end
 			})
 			card_eval_status_text(joker, 'extra', nil, nil, nil,
-				{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE) })
+				{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
 			for stat, value in pairs(stats_increased) do
 				-- oh my fucking god
 				value = tonumber(value)
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize { type = 'variable', key = 'hotpot_train_' .. stat .. (value >= 0 and '_up' or '_down'), vars = { math.abs(value) } }, colour = (value >= 0 and G.C.FILTER or G.C.BLUE) })
+					{ message = localize { type = 'variable', key = 'hotpot_train_' .. stat .. (value >= 0 and '_up' or '_down'), vars = { math.abs(value) } }, colour = (value >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
 			end
 			-- reduce energy if possible
 			if energy_changed then
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE) })
+					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
 			end
 			local stats = joker.ability["hp_jtem_stats"]
 			hpot_jtem_with_deck_effects(joker, function(c)
@@ -466,7 +466,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			if card.ability.hpot_mood_change then
 				hot_mod_mood(joker, card.ability.hpot_mood_change * (success and 1 or -1))
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize('hotpot_train_mood_'..(success and 'up' or 'down')), colour = (success and G.C.FILTER or G.C.BLUE) })
+					{ message = localize('hotpot_train_mood_'..(success and 'up' or 'down')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
 			end
 		end
 	end
@@ -571,7 +571,8 @@ SMODS.Consumable {
 	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_energy_change = 50, hpot_skip_fail_check = true },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 SMODS.Consumable {
@@ -582,7 +583,8 @@ SMODS.Consumable {
 	config = { max_highlighted = 1, hpot_train_increase = {}, hpot_mood_change = 1, hpot_skip_fail_check = true },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
-	loc_vars = hpot_training_tarot_loc_vars
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = training_tarot_credits,
 }
 
 --#endregion

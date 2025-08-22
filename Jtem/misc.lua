@@ -52,6 +52,23 @@ SMODS.Sound {
   path = "sfx_whistledown.ogg",
 }
 
+-- theres background noise since i took this while recording the game sound
+-- couldnt find this while looking through the game assets lmao
+SMODS.Sound {
+  key = "sfx_stat_up",
+  path = "sfx_stat_up.ogg",
+}
+
+SMODS.Sound {
+  key = "sfx_success",
+  path = "sfx_success.ogg",
+}
+
+SMODS.Sound {
+  key = "sfx_failure",
+  path = "sfx_failure.ogg",
+}
+
 SMODS.Atlas {
   key = "jtem_pkg",
   path = "Jtem/package_icon.png",
