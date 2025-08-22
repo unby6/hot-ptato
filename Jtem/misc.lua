@@ -183,6 +183,12 @@ SMODS.Atlas {
   px = 71,py = 95
 }
 
+SMODS.Atlas {
+  key = "jtem_trainingpack",
+  path = "Jtem/trainingpack.png",
+  px = 71,py = 95
+}
+
 SMODS.Font {
   key = "jtem_roboto_bold",
   path = "Roboto-Bold.ttf",
