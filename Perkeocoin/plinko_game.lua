@@ -361,7 +361,10 @@ function PlinkoGame.f.init_dummy_ball()
         local plinker = {"caino_plinker", "trib_plinker", "yorick_plinker", "chicot_plinker"}
         PlinkoUI.sprites.changed = plinker[(math.floor(choice / 20) + 1)]
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[plinker[(math.floor(choice / 20) + 1)]]
-    else
+    elseif choice == 42 then
+        PlinkoUI.sprites.changed = "jcoin"
+        PlinkoUI.sprites.jcoin = PlinkoUI.sprites.jcoin
+    end
          PlinkoUI.sprites.changed = nil
          PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
     end

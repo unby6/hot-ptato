@@ -132,6 +132,12 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+  key = "jtem_jcoin",
+  path = "Jtem/jcoin.png",
+  px = 40,py = 40,
+}
+
+SMODS.Atlas {
   key = "jtem_aikoshen1",
   path = "Ads/aikoshenad1.png",
   px = 179,py = 97,
