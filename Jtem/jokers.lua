@@ -416,3 +416,22 @@ SMODS.Joker {
         team = {'Jtem'}
     }
 }
+
+
+SMODS.Joker:take_ownership( "j_diet_cola",{
+    calculate = function(self, card, context)
+        if context.selling_self then
+            G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        if #G.consumeables.cards < G.consumeables.config.card_limit then
+                            SMODS.add_card{
+                                set = "bottlecap_Common",
+                                area = G.consumeables
+                            }
+                        end
+                        return true
+                    end)
+                }))
+        end
+    end,
+})
