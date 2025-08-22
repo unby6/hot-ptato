@@ -364,7 +364,7 @@ function PlinkoGame.f.init_dummy_ball()
     elseif choice == 42 then
         PlinkoUI.sprites.changed = "jcoin"
         PlinkoUI.sprites.jcoin = PlinkoUI.sprites.jcoin
-    end
+    else
          PlinkoUI.sprites.changed = nil
          PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
     end
