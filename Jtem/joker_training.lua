@@ -41,7 +41,7 @@ local mood_to_index = {
 }
 
 local mood_to_multiply = {
-	["depressed"] = -0.5,
+	["depressed"] = 0.05,
 	["horrible"] = 0.3,
 	["awful"] = 0.8,
 	["bad"] = 0.9,
@@ -57,7 +57,7 @@ local mood_to_multiply = {
 function hot_mod_mood(card, mood_mod)
 	G.E_MANAGER:add_event(Event{
 		func = function()
-			card.ability["hp_jtem_mood"] = index_to_mood[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]]+mood_mod, 5))]
+			card.ability["hp_jtem_mood"] = index_to_mood[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]]+mood_mod, #index_to_mood))]
 			card:juice_up(0.5, 0.3)
 			-- TODO: sound
 			return true
