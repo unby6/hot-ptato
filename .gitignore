@@ -1,3 +1,5 @@
 .luarc.json
 .lovelyignore
 .vscode/settings.json
+
+.DS_Store
