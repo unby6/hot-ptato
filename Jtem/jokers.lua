@@ -333,7 +333,7 @@ SMODS.Joker {
     pools = { Food = true },
     rarity = 2,
     calculate = function(self, card, context)
-        if context.using_consumeable then
+        if context.using_consumeable and (not G.plinko_rewards or context.area ~= G.plinko_rewards) then
             ease_plincoins(card.ability.extra.plincoin)
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.plincoin).."", colour = G.C.MONEY})
         end

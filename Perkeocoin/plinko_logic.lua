@@ -119,9 +119,7 @@ function PlinkoLogic.f.won_reward(reward_num)
       local card = G.play.cards[1]
       if card then
         card:use_consumeable()
-        for i = 1, #G.jokers.cards do
-          G.jokers.cards[i]:calculate_joker({using_consumeable = true, consumeable = G.play.cards[1]})
-        end
+        SMODS.calculate_context({using_consumeable = true, consumeable = card, area = G.plinko_rewards})
         card:start_dissolve({G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY}, true, 4)
         play_sound('hpot_bottlecap')
       end
