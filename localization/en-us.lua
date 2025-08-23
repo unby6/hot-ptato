@@ -1645,6 +1645,7 @@ return {
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
 
+            teamname_off_reference="Revived",
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
             hotpot_plinko_to_shop2 = "shop",
@@ -1689,7 +1690,7 @@ return {
             hotpot_exchange_option_2 = "A Giant Pile of ͸",
             hotpot_exchange_option_3 = "A Ton of ͸",
             hotpot_exchange_option_4 = "An Overfilled Box of ͸",
-            hotpot_exchange_option_5 = "A Cargo Load of ͸",
+            hotpot_exchange_option_5 = "A Cargo Load of ͸", 
             hotpot_exchange_option_plin_1 = "A Premium Pile of ͸",
             hotpot_exchange_option_plin_2 = "A Giant Premium Pile of ͸",
             hotpot_exchange_option_plin_3 = "A Premium Ton of ͸",
