@@ -190,3 +190,49 @@ if self.children.hpot_train_button then
   self.children.hpot_train_button = nil
 end
 '''
+
+# Add event scenario description for the collection
+[[patches]]
+[patches.pattern]
+target = '''functions/common_events.lua'''
+pattern = '''if first_pass and not (_c.set == 'Edition') and badges then'''
+position = 'before'
+payload = '''
+if first_pass and card and card.hpot_event_key then
+  local event = SMODS.EventScenarios[card.hpot_event_key]
+  local t = { key = card.hpot_event_key, set = 'EventScenarios' }
+  local res = {}
+  if event.loc_vars and type(event.loc_vars) == 'function' then
+    res = event:loc_vars(info_queue) or {}
+    t.vars = res.vars or {}
+    t.key = res.key or t.key
+    t.set = res.set or t.set
+  end
+  info_queue[#info_queue+1] = t
+end
+'''
+match_indent = true
+
+# Add EventScenarios as a set to be localized here
+[[patches]]
+[patches.pattern]
+target = '''functions/common_events.lua'''
+pattern = '''if _c.set == 'Other' then
+        localize{type = 'other', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}'''
+position = 'after'
+payload = '''
+elseif _c.set == 'EventScenarios' then
+  localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = specific_vars or _c.vars}
+'''
+match_indent = true
+
+# Why is this ipairs
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/ui.lua"]'''
+pattern = '''for _, tab in ipairs(object_tabs) do'''
+position = 'at'
+payload = '''
+for _, tab in pairs(object_tabs) do
+'''
+match_indent = true

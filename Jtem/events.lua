@@ -102,6 +102,64 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 	end,
 })
 
+local your_collection_tabs = HotPotato.custom_collection_tabs
+HotPotato.custom_collection_tabs = function()
+	return {
+		--your_collection_tabs and unpack(your_collection_tabs()),
+		UIBox_button({
+			button = 'your_collection_hpot_events',
+			id = 'your_collection_hpot_events',
+			label = { localize('k_events') },
+			minw = 5,
+			minh = 1
+		})
+	}
+end
+
+local function event_collection_ui()
+	return SMODS.card_collection_UIBox(G.P_CENTER_POOLS.EventScenarios, { 5, 5 }, {
+		snap_back = true,
+		hide_single_page = true,
+		collapse_single_page = true,
+		center = 'c_base',
+		h_mod = 1.18,
+		back_func = 'your_collection_other_gameobjects',
+		infotip = {
+			"Events are encountered after the Small Blind shop"
+		},
+		modify_card = function(card, center)
+			local temp_blind = AnimatedSprite(card.children.center.T.x, card.children.center.T.y, 1.3, 1.3, G.ANIMATION_ATLAS['hpot_event_default'], { x = 0, y = 0 })
+			temp_blind.states.click.can = false
+			temp_blind.states.drag.can = false
+			temp_blind.states.hover.can = true
+			card.children.center = temp_blind
+			temp_blind:set_role({major = card, role_type = 'Glued', draw_major = card})
+			card.set_sprites = function(...)
+				local args = {...}
+				if not args[1].animation then return end -- fix for debug unlock
+				local c = card.children.center
+				Card.set_sprites(...)
+				card.children.center = c
+			end
+			card.T.w = 1.3
+			card.T.h = 1.3
+			temp_blind:define_draw_steps({
+				{ shader = 'dissolve', shadow_height = 0.05 },
+				{ shader = 'dissolve' }
+			})
+			temp_blind.float = true
+			card.hpot_event_key = center.key
+		end,
+	})
+end
+
+G.FUNCS.your_collection_hpot_events = function()
+	G.SETTINGS.paused = true
+	G.FUNCS.overlay_menu {
+		definition = event_collection_ui()
+	}
+end
+
 -----------------
 
 function Game:update_hpot_event_select(dt)

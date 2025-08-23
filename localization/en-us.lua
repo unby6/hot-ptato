@@ -1313,16 +1313,77 @@ return {
                     "Nothing got stolen."
                 }
             },
+            hpot_postman_1 = {
+                text = {
+                    "Hello, boss!",
+                    " ",
+                    "Looks like one of your deliveries was",
+                    "supposed to arrive early than what was listed.",
+                    " ",
+                    "Sorry for the inconvenience."
+                }
+            },
+            hpot_voucher_1 = {
+                text = {
+                    "You stumble across a piece of paper",
+                    "while walking around.",
+                    " ",
+                    "Looks like a voucher.",
+                    "Take it?"
+                }
+            },
+            hpot_voucher_2 = {
+                text = {
+                    "You found #1#!",
+                    " ",
+                    "Hopefully this isn't something",
+                    "someone else lost..."
+                }
+            },
+            hpot_spam_1 = {
+                text = {
+                    "You just clicked on a spam email.",
+                    "Bring em hell, boys!"
+                }
+            }
         },
         EventScenarios = {
             hpot_test = {
                 name = "Test Event Name",
             },
             hpot_trade1 = {
-                name = "The Trader"
+                name = "The Trader",
+                text = {
+                    "Trade something...",
+                    "for something else..."
+                }
             },
             hpot_porch_pirate = {
-                name = "Ack! Porch Pirates!"
+                name = "Ack! Porch Pirates!",
+                text = {
+                    "Deal with those blasted",
+                    "package stealers!"
+                }
+            },
+            hpot_postman = {
+                name = "Early Delivery?",
+                text = {
+                    "Sorry for the",
+                    "inconvenience!"
+                }
+            },
+            hpot_voucher = {
+                name = "Lost Voucher",
+                text = {
+                    "Antimatter or Magic Trick.",
+                    "Call it."
+                }
+            },
+            hpot_spam_email = {
+                name = "Spam, Spam, Lovely Spam!",
+                text = {
+                    "It's all spam!"
+                }
             }
         },
     },
@@ -1417,6 +1478,7 @@ return {
             k_bottlecap = 'Bottlecap',
             b_key_cards = "Keys",
             k_key = "Key",
+            k_events = "Events",
 
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
@@ -1507,6 +1569,9 @@ return {
 
             hpot_porch_pirate_protect = "Protect",
             hpot_porch_pirate_leave = "Leave as is",
+
+            hpot_voucher_pick_up = "Pick it up",
+            hpot_voucher_leave = "Leave it",
         }
     }
 }
