@@ -589,6 +589,19 @@ return {
                     "{C:attention}1{} random {C:spades}Spade{} card",
                     "and add it to deck"
                 }
+            },
+            j_hpot_jtem_flash = {
+                name = "We are Jtem",
+                text = {
+                    "When a {C:attention}face{} card is scored",
+                    "gives one of the following {C:attention}randomly{}:",
+                    "MissingNumber : {C:mult}+#1#{} Mult",
+                    "Lexi : {X:mult,C:white} X#2# {} Mult",
+                    "Haya : {X:chips,C:white} X#3# {} Chips",
+                    "Aikoyori : {C:chips}+#4#{} Chips",
+                    "Squidguset : {C:money}+$#5#{}",
+                    "SleepyG11 : {C:attention}Balances {C:chips}Chips{} and {C:mult}Mult{}",
+                }
             }
         },
         Voucher = {

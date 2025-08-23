@@ -47,9 +47,13 @@ SMODS.Tag{
             local lock = tag.ID
             G.GAME.spark_points = G.GAME.spark_points or 0
             G.CONTROLLER.locks[lock] = true
-            tag:yep("+",G.C.BLUE,function ()
-                ease_spark_points(G.GAME.spark_points - tag.config.extras.give_jx * G.GAME.spark_points)
-            end)
+            if SMODS.pseudorandom_probability(tag,  "double_jx", tag.config.extras.odds, tag.config.extras.denom) then
+                tag:yep("+",G.C.BLUE,function ()
+                    ease_spark_points(G.GAME.spark_points - tag.config.extras.give_jx * G.GAME.spark_points)
+                end)
+            else
+                tag:nope()
+            end
             tag.triggered = true
             return true
         end 

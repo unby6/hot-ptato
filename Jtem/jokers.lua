@@ -422,6 +422,71 @@ SMODS.Joker {
 }
 
 
+SMODS.Joker {
+    key = "jtem_flash",
+    atlas = "jtem_jokers",
+    pos = {x=0,y=3},
+    rarity = 3,
+    cost = 9,
+    loc_vars = function (self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extras.fx[1].mult,
+                card.ability.extras.fx[2].xmult,
+                card.ability.extras.fx[3].xchips,
+                card.ability.extras.fx[4].chips,
+                card.ability.extras.fx[5].dollars,
+            }
+        }
+    end,
+    config = {
+        extras = {
+            fx = {
+                { mult = 8 }, -- missingnumber
+                { xmult = 1.25 }, -- lexi
+                { xchips = 1.25 }, -- paya
+                { chips = 25 }, -- aikoyori
+                { dollars = 3 }, -- squidguset
+                { balance = true }, -- sleepyg11}
+            }
+        },
+    },
+    set_ability = function (self, card, initial, delay_sprites)
+        local x = pseudorandom("hp_jtem_jflash",0,5)
+        card.ability.extras.person = x + 1
+        card.children.center:set_sprite_pos({ x = x, y = 3})
+    end,
+    blueprint_compat = true,
+    calculate = function(self, card, context)
+        if context.individual and context.other_card:is_face() and context.cardarea == G.play then
+            return {
+                func = function()
+                    local x = card.ability.extras.person
+                    repeat
+                        x = pseudorandom("hp_jtem_jflash",0,5)
+                    until x + 1 ~= card.ability.extras.person
+                    simple_add_event(
+                        function ()
+                            card.ability.extras.person = x + 1
+                            card.children.center:set_sprite_pos({ x = x, y = 3})
+                            card:juice_up(0.4, 0.4)
+                            return true
+                        end
+                    )
+                    local fx = card.ability.extras.fx[x + 1]
+                    SMODS.calculate_effect(fx, card)
+                end
+            }
+        end
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        code = {'Aikoyori'},
+        idea = {'MissingNumber','Aikoyori'},
+        team = {'Jtem'}
+    }
+}
+
 SMODS.Joker:take_ownership( "j_diet_cola",{
     calculate = function(self, card, context)
         if context.selling_self then
