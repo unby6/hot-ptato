@@ -19,15 +19,6 @@ SMODS.Atlas({
 	frames = 21,
 })
 
-SMODS.Atlas({
-	key = "hpot_event_default",
-	px = 34,
-	py = 34,
-	path = "Events/default.png",
-	atlas_table = "ANIMATION_ATLAS",
-	frames = 21,
-})
-
 local event_colour = HEX("A17CFF")
 
 ---@class EventData
@@ -153,6 +144,9 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 		G.P_CENTER_POOLS[self.set] = {}
 	end,
 
+    atlas = "hpot_event_default",
+    pos = { x = 0, y = 0, },
+
     -- Events basically added by me so..
     -- Haya my goat <3
     hotpot_credits = {
@@ -188,7 +182,7 @@ local function event_collection_ui()
 			"Events are encountered after the Small Blind shop"
 		},
 		modify_card = function(card, center)
-			local temp_blind = AnimatedSprite(card.children.center.T.x, card.children.center.T.y, 1.3, 1.3, G.ANIMATION_ATLAS['hpot_event_default'], { x = 0, y = 0 })
+			local temp_blind = AnimatedSprite(card.children.center.T.x, card.children.center.T.y, 1.3, 1.3, G.ANIMATION_ATLAS[center.atlas], center.pos)
 			temp_blind.states.click.can = false
 			temp_blind.states.drag.can = false
 			temp_blind.states.hover.can = true
