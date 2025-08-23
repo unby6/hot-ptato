@@ -19,6 +19,15 @@ SMODS.Atlas({
 	frames = 21,
 })
 
+SMODS.Atlas({
+	key = "hpot_event_default",
+	px = 34,
+	py = 34,
+	path = "Events/default.png",
+	atlas_table = "ANIMATION_ATLAS",
+	frames = 21,
+})
+
 local event_colour = HEX("A17CFF")
 
 ---@class EventData
