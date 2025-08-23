@@ -618,6 +618,8 @@ SMODS.EventScenario {
 	},
 }
 
+-- Free voucher yahoo
+
 SMODS.EventStep({
 	key = "voucher_1",
 	get_choices = function(self, event)
@@ -652,7 +654,6 @@ SMODS.EventStep({
 		}
 	end,
 })
-
 SMODS.EventStep({
 	key = 'voucher_2',
 	get_choices = function()
@@ -712,6 +713,8 @@ SMODS.EventScenario {
 	},
 }
 
+-- Spam
+
 SMODS.EventStep({
 	key = 'spam_1',
 	get_choices = function(self, event)
@@ -739,3 +742,79 @@ SMODS.EventScenario {
 		team = { "Jtem" },
 	},
 }
+
+-- Money game
+
+SMODS.EventStep({
+    key = "money_game_invest",
+    get_choices = function(self, event)
+        return {
+            {
+                key = "sell_diamonds",
+                button = function()
+                    SMODS.add_card({
+                        key = "j_rough_gem",
+                        stickers = { "rental" }
+                    })
+                    event.finish_scenario()
+                end,
+                func = function()
+                    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+                end,
+            },
+            {
+                key = "sell_rocks",
+                button = function()
+                    SMODS.add_card({
+                        key = "j_stone",
+                        stickers = { "eternal" }
+                    })
+                    event.finish_scenario()
+                end,
+                func = function()
+                    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+                end,
+            },
+            {
+                key = "sell_water_to_a_fish",
+                button = function()
+                    SMODS.add_card({
+                        key = "j_selzer",
+                        stickers = { "rental" }
+                    })
+                    event.finish_scenario()
+                end,
+                func = function()
+                    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+                end,
+            },
+            {
+                key = "sell_time_to_a_clock",
+                button = function()
+                    SMODS.add_card({
+                        key = "j_delayed_grat",
+                        stickers = { "perishable" }
+                    })
+                    event.finish_scenario()
+                end,
+                -- No check to prevent softlock
+            },
+        }
+    end,
+
+    start = function()
+        local card = Character("j_to_the_moon")
+        card.children.particles.colours = { G.C.MONEY, G.C.MONEY, G.C.MONEY }
+    end,
+    finish = function()
+        Remove()
+    end,
+})
+SMODS.EventScenario({
+    key = "money_game",
+    starting_step_key = "hpot_money_game_invest",
+
+    in_pool = function(self)
+        return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+    end,
+})

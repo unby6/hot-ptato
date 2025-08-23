@@ -1405,7 +1405,13 @@ return {
                     "You just clicked on a spam email.",
                     "Bring em hell, boys!"
                 }
-            }
+            },
+            hpot_money_game_invest = {
+                text = {
+                    "It's a monopoly. Invest inside some property.",
+                    "Start a corporation, make a logo, do it properly!"
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -1443,6 +1449,13 @@ return {
                 name = "Spam, Spam, Lovely Spam!",
                 text = {
                     "It's all spam!"
+                }
+            },
+            hpot_money_game = {
+                name = "Money Game",
+                text = {
+                    "She sells sea shells on a sea shore,",
+                    "but value of this shells will fall..."
                 }
             }
         },
@@ -1634,6 +1647,11 @@ return {
 
             hpot_voucher_pick_up = "Pick it up",
             hpot_voucher_leave = "Leave it",
+
+            hpot_money_game_invest_sell_diamonds = "Sell diamonds",
+            hpot_money_game_invest_sell_rocks = "Sell rocks",
+            hpot_money_game_invest_sell_water_to_a_fish = "Sell water to a fish",
+            hpot_money_game_invest_sell_time_to_a_clock = "Sell time to a clock",
         }
     }
 }
