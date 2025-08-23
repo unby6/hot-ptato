@@ -503,5 +503,13 @@ G.FUNCS.hide_plinko = function(e)
 
 end
 
+local ca_dref = CardArea.draw
+function CardArea:draw(...)
+	if self == G.hand and (G.STATE == G.STATES.PLINKO) then
+		return
+	end
+	return ca_dref(self, ...)
+end
+
 -- meow
 SMODS.Atlas{key = "stupidorb",path = "plinko/perkeocoin_stupidorb.png",px = 40,py = 40,}

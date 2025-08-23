@@ -21,6 +21,21 @@ SMODS.Atlas({
 
 local event_colour = HEX("A17CFF")
 
+---@class EventData
+---@field scenario SMODS.EventScenario|table Current scenario
+---@field previous_step? SMODS.EventStep|table Previous step
+---@field current_step SMODS.EventStep|table Current step
+---@field next_step? SMODS.EventStep|table Next step
+---@field ability table Table similar to `card.ability`, can be used for sroting data between steps
+---@field ui UIBox|table Main event ui
+---@field image_area UIBox|table Black box on left side of event ui, mainly for displaying cutscenes or images
+---@field text_area UIBox|table Container for all event text
+---@field choices_area UIBox|table Container for all event choices
+---@field display_lines fun(amount?: number, instant?: boolean) Display fixed amount of text lines (and place it in event queue)
+---@field get_image_center fun(w?: number, h?: number): x: number, y: number Center position of image area (including card wight and height)
+---@field start_step fun(key: string) Move to another step
+---@field finish_scenario fun() End event
+
 ---@class EventChoice
 ---@field key? string The key for the event.
 ---@field loc_vars? table List of variables for setting the choice's text.
@@ -31,11 +46,10 @@ local event_colour = HEX("A17CFF")
 
 SMODS.EventSteps = {}
 ---@class SMODS.EventStep: SMODS.GameObject
----@field get_choices fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario): EventChoice[] Function that returns a table of choices.
----@field load? fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario, previous_step: SMODS.EventStep|table|nil) Function that runs when this step is loaded.
----@field start? fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario, previous_step: SMODS.EventStep|table|nil) Function that runs when this step is started.
----@field finish? fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario, previous_step: SMODS.EventStep|table|nil) Function that runs when this step is finished.
----@field loc_vars? fun(self: SMODS.EventStep|table, info_queue: table): table? Provides control over displaying descriptions for this event step.
+---@field get_choices fun(self: SMODS.EventStep|table, event: EventData): EventChoice[] Function that returns a table of choices.
+---@field start? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is started.
+---@field finish? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is finished.
+---@field loc_vars? fun(self: SMODS.EventStep|table, event: EventData): table? Provides control over displaying descriptions for this event step.
 ---@overload fun(o: SMODS.EventStep): SMODS.EventStep
 SMODS.EventStep = SMODS.GameObject:extend({
 	obj_table = SMODS.EventSteps,
@@ -77,7 +91,6 @@ SMODS.EventStep = SMODS.GameObject:extend({
 		}
 	end,
 
-	load = function(self, scenario, previous_step) end,
 	start = function(self, scenario, previous_step, is_load) end,
 	finish = function(self, scenario, next_step) end,
 
@@ -94,7 +107,8 @@ SMODS.EventScenarios = {}
 ---@field get_weight? fun(self: SMODS.EventScenario|table): number Determines the weight of the scenario being chosen.
 ---@field weight? number Used if `get_weight` isn't specified.
 ---@field starting_step_key string The key to the desired step to start with for this scenario.
----@field loc_vars? fun(self: SMODS.EventScenario|table, info_queue: table): table? Provides control over displaying descriptions for this event scenario. `text` is only used for the collection.
+---@field loc_vars? fun(self: SMODS.EventScenario|table): table? Provides control over displaying descriptions for this event scenario. `text` is only used for the collection.
+---@field collection_loc_vars? fun(self: SMODS.EventScenario|table, info_queue: table): table?
 ---@overload fun(o: SMODS.EventScenario): SMODS.EventScenario
 SMODS.EventScenario = SMODS.GameObject:extend({
 	obj_table = SMODS.EventScenarios,
@@ -116,12 +130,27 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 		return self.weight
 	end,
 
+    loc_vars = function(self)
+        return {}
+    end,
+    collection_loc_vars = function(self, info_queue)
+        return {}
+    end,
+
 	inject = function(self)
 		SMODS.insert_pool(G.P_CENTER_POOLS[self.set], self)
 	end,
 	pre_inject_class = function(self)
 		G.P_CENTER_POOLS[self.set] = {}
 	end,
+
+    -- Events basically added by me so..
+    -- Haya my goat <3
+    hotpot_credits = {
+        idea = { "SleepyG11" },
+		code = { "SleepyG11", "Haya" },
+		team = { "Jtem" },
+	}
 })
 
 local your_collection_tabs = HotPotato.custom_collection_tabs
@@ -541,6 +570,7 @@ function Game:update_hpot_event(dt)
 end
 
 function hpot_event_start_scenario()
+    stop_use()
 	local scenario_key = get_next_hpot_event()
 	G.GAME.round_resets.hpot_event_encountered = true
 	local scenario = SMODS.EventScenarios[scenario_key]
@@ -550,10 +580,9 @@ function hpot_event_start_scenario()
 		G.GAME.hpot_events_encountered = {}
 	end
 	G.GAME.hpot_events_encountered[scenario.key] = (G.GAME.hpot_events_encountered[scenario.key] or 0) + 1
-	G.hpot_event_scenario = scenario
 
 	local event_ui = UIBox({
-		definition = G.UIDEF.hpot_event(),
+		definition = G.UIDEF.hpot_event(scenario),
 		config = {
 			align = "br",
 			major = G.ROOM_ATTACH,
@@ -564,10 +593,33 @@ function hpot_event_start_scenario()
 			},
 		},
 	})
+
 	G.hpot_event_ui = event_ui
 	G.hpot_event_ui_image_area = G.hpot_event_ui:get_UIE_by_ID("image_area")
 	G.hpot_event_ui_text_area = G.hpot_event_ui:get_UIE_by_ID("text_area")
 	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
+
+    G.hpot_event = {
+        scenario = scenario,
+
+        current_step = nil,
+        previous_step = nil,
+        next_step = nil,
+
+        ability = G.GAME.hpot_event_scenario_data,
+
+        ui = G.hpot_event_ui,
+        image_area = G.hpot_event_ui_image_area,
+        text_area = G.hpot_event_ui_text_area,
+        choices_area = G.hpot_event_ui_choices_area,
+
+        get_image_center = get_hpot_event_image_center,
+
+        display_lines = hpot_event_display_lines,
+
+        start_step = hpot_event_start_step,
+        finish_scenario = hpot_event_end_scenario,
+    }
 
 	SMODS.calculate_context({ hpot_event_scenario_start = true, scenario = G.hpot_event_scenario })
 
@@ -594,84 +646,80 @@ function hpot_event_start_scenario()
 	}))
 end
 function hpot_event_start_step(key)
-	local step = SMODS.EventSteps[key]
-	G.hpot_event_previous_step = G.hpot_event_current_step or nil
-	G.hpot_event_current_step = step
-	G.GAME.hpot_event_previous_step_key = G.hpot_event_previous_step and G.hpot_event_previous_step.key or nil
-	G.GAME.hpot_event_step_key = step.key
-
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			if G.hpot_event_previous_step then
-				G.hpot_event_previous_step:finish(G.hpot_event_scenario, G.hpot_event_current_step)
-				SMODS.calculate_context({
-					hpot_event_step_end = true,
-					scenario = G.hpot_event_scenario,
-					step = G.hpot_event_previous_step,
-				})
-			end
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					hpot_event_cleanup()
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							hpot_event_prepare_text_lines()
-							G.hpot_event_current_step:start(G.hpot_event_scenario, G.hpot_event_previous_step)
-							SMODS.calculate_context({
-								hpot_event_step_start = true,
-								scenario = G.hpot_event_scenario,
-								step = G.hpot_event_current_step,
-							})
-							G.E_MANAGER:add_event(Event({
-								func = function()
-									hpot_event_render_current_step()
-									return true
-								end,
-							}))
-							return true
-						end,
-					}))
-					return true
-				end,
-			}))
-			return true
-		end,
-	}))
+    if G.hpot_event then
+        local step = SMODS.EventSteps[key]
+        G.hpot_event.next_step = step
+    
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if G.hpot_event.previous_step then
+                    G.hpot_event.previous_step:finish(G.hpot_event)
+                    SMODS.calculate_context({
+                        hpot_event_step_end = true,
+                        event = G.hpot_event,
+                    })
+                end
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        hpot_event_cleanup()
+                        G.hpot_event.previous_step = G.hpot_event.current_step
+                        G.hpot_event.current_step = G.hpot_event.next_step
+                        G.hpot_event.next_step = nil
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                hpot_event_prepare_text_lines()
+                                G.hpot_event.current_step:start(G.hpot_event)
+                                SMODS.calculate_context({
+                                    hpot_event_step_start = true,
+                                    event = G.hpot_event,
+                                })
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        hpot_event_render_current_step()
+                                        return true
+                                    end,
+                                }))
+                                return true
+                            end,
+                        }))
+                        return true
+                    end,
+                }))
+                return true
+            end,
+        }))
+    end
 end
 function hpot_event_end_scenario()
-	stop_use()
-	if G.hpot_event_ui then
+	if G.hpot_event then
+        stop_use()
 		G.GAME.facing_hpot_event = nil
 
-		if G.hpot_event_current_step then
-			G.hpot_event_current_step:finish()
+		if G.hpot_event.current_step then
+			G.hpot_event.current_step:finish(G.hpot_event)
 			G.FUNCS.draw_from_hand_to_deck()
 			SMODS.calculate_context({
 				hpot_event_step_end = true,
-				scenario = G.hpot_event_scenario,
-				step = G.hpot_event_current_step,
+                event = G.hpot_event
 			})
 		end
 
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				SMODS.calculate_context({ hpot_event_scenario_end = true, scenario = G.hpot_event_scenario })
+				SMODS.calculate_context({ hpot_event_scenario_end = true, event = G.hpot_event })
 				G.E_MANAGER:add_event(Event({
 					trigger = "before",
 					delay = 0.2,
 					func = function()
-						G.hpot_event_ui.alignment.offset.y = G.ROOM.T.y + 21
+						G.hpot_event.ui.alignment.offset.y = G.ROOM.T.y + 21
 						return true
 					end,
 				}))
 				G.E_MANAGER:add_event(Event({
 					trigger = "immediate",
 					func = function()
-						G.hpot_event_ui:remove()
-						G.hpot_event_ui = nil
-						G.GAME.hpot_event_scenario_data = nil
-						G.GAME.hpot_event_scenario_key = nil
-						G.GAME.hpot_event_step_key = nil
+						G.hpot_event.ui:remove()
+                        G.hpot_event = nil
 						delay(0.3)
 						return true
 					end,
@@ -691,175 +739,177 @@ function hpot_event_end_scenario()
 end
 
 function hpot_event_cleanup()
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			set_element_object(G.hpot_event_ui_text_area, Moveable())
-			return true
-		end,
-	}))
-	delay(0.5)
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			set_element_object(G.hpot_event_ui_choices_area, Moveable())
-			return true
-		end,
-	}))
+    if G.hpot_event then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                set_element_object(G.hpot_event.text_area, Moveable())
+                return true
+            end,
+        }))
+        delay(0.5)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                set_element_object(G.hpot_event.choices_area, Moveable())
+                return true
+            end,
+        }))
+    end
 end
 function hpot_event_prepare_text_lines()
-	local scenario = G.hpot_event_scenario
-	local step = G.hpot_event_current_step
-
-	local text_objects = {}
-	-- Step text
-	local event_text_content = {}
-	localize({
-		type = "descriptions",
-		set = step.set,
-		key = step.key,
-		nodes = event_text_content,
-		vars = step:loc_vars() or {},
-		default_col = G.C.UI.TEXT_LIGHT,
-	})
-	local event_text_lines = {}
-	for _, line in ipairs(event_text_content) do
-		local text_object = UIBox({
-			definition = {
-				n = G.UIT.ROOT,
-				config = {
-					colour = G.C.CLEAR,
-				},
-				nodes = {
-					{
-						n = G.UIT.R,
-						config = { align = "c", minh = 0.35 },
-						nodes = line,
-					},
-				},
-			},
-			config = {},
-		})
-		text_object.states.visible = false
-		table.insert(text_objects, text_object)
-		table.insert(event_text_lines, {
-			n = G.UIT.R,
-			nodes = {
-				{
-					n = G.UIT.O,
-					config = {
-						object = text_object,
-					},
-				},
-			},
-		})
-	end
-
-	set_element_object(
-		G.hpot_event_ui_text_area,
-		UIBox({
-			definition = {
-				n = G.UIT.ROOT,
-				config = { colour = G.C.CLEAR },
-				nodes = {
-					{
-						n = G.UIT.C,
-						config = {
-							align = "cm",
-						},
-						nodes = event_text_lines,
-					},
-				},
-			},
-			config = {
-				parent = G.hpot_event_ui_text_area,
-			},
-		})
-	)
-
-	G.hpot_event_ui_text_objects = text_objects
-	G.hpot_event_ui_next_text_object = 1
+    if G.hpot_event then
+        local step = G.hpot_event.current_step
+    
+        local text_objects = {}
+        -- Step text
+        local event_text_content = {}
+        localize({
+            type = "descriptions",
+            set = step.set,
+            key = step.key,
+            nodes = event_text_content,
+            vars = step:loc_vars(G.hpot_event) or {},
+            default_col = G.C.UI.TEXT_LIGHT,
+        })
+        local event_text_lines = {}
+        for _, line in ipairs(event_text_content) do
+            local text_object = UIBox({
+                definition = {
+                    n = G.UIT.ROOT,
+                    config = {
+                        colour = G.C.CLEAR,
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = { align = "c", minh = 0.35 },
+                            nodes = line,
+                        },
+                    },
+                },
+                config = {},
+            })
+            text_object.states.visible = false
+            table.insert(text_objects, text_object)
+            table.insert(event_text_lines, {
+                n = G.UIT.R,
+                nodes = {
+                    {
+                        n = G.UIT.O,
+                        config = {
+                            object = text_object,
+                        },
+                    },
+                },
+            })
+        end
+    
+        set_element_object(
+            G.hpot_event.text_area,
+            UIBox({
+                definition = {
+                    n = G.UIT.ROOT,
+                    config = { colour = G.C.CLEAR },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = {
+                                align = "cm",
+                            },
+                            nodes = event_text_lines,
+                        },
+                    },
+                },
+                config = {},
+            })
+        )
+    
+        G.hpot_event_ui_text_objects = text_objects
+        G.hpot_event_ui_next_text_object = 1
+    end
 end
 function hpot_event_render_current_step()
-	local scenario = G.hpot_event_scenario
-	local step = G.hpot_event_current_step
-
-	-- Step buttons
-	local event_buttons_content = {}
-	local choices = step:get_choices(scenario)
-    for i = 1, math.ceil(#choices / 4) do
-        local buttons_in_column = {}
-        local j = i - 1
-        for k = j * 4 + 1, i * 4 do
-            local choice = choices[k]
-            if choice then
-                table.insert(buttons_in_column, G.UIDEF.hpot_event_choice_button(step, choice))
+    if G.hpot_event then
+        local step = G.hpot_event.current_step
+    
+        -- Step buttons
+        local event_buttons_content = {}
+        local choices = step:get_choices(G.hpot_event)
+        for i = 1, math.ceil(#choices / 4) do
+            local buttons_in_column = {}
+            local j = i - 1
+            for k = j * 4 + 1, i * 4 do
+                local choice = choices[k]
+                if choice then
+                    table.insert(buttons_in_column, G.UIDEF.hpot_event_choice_button(step, choice))
+                end
+            end
+            table.insert(event_buttons_content, {
+                n = G.UIT.C,
+                config = {
+                    padding = 0.075,
+                },
+                nodes = buttons_in_column
+            })
+        end
+    
+        local text_objects = G.hpot_event_ui_text_objects
+        for i = G.hpot_event_ui_next_text_object, #G.hpot_event_ui_text_objects do
+            local object = text_objects[i]
+            if object then
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.75,
+                    func = function()
+                        play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
+                        object.states.visible = true
+                        return true
+                    end,
+                }))
             end
         end
-        table.insert(event_buttons_content, {
-            n = G.UIT.C,
-            config = {
-                padding = 0.075,
-            },
-            nodes = buttons_in_column
-        })
+        delay(1)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
+                set_element_object(
+                    G.hpot_event.choices_area,
+                    UIBox({
+                        definition = {
+                            n = G.UIT.ROOT,
+                            config = { colour = G.C.CLEAR },
+                            nodes = event_buttons_content,
+                        },
+                        config = {},
+                    })
+                )
+                return true
+            end,
+        }))
     end
-
-	local text_objects = G.hpot_event_ui_text_objects
-	for i = G.hpot_event_ui_next_text_object, #G.hpot_event_ui_text_objects do
-		local object = text_objects[i]
-		if object then
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 0.75,
-				func = function()
-					play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
-					object.states.visible = true
-					return true
-				end,
-			}))
-		end
-	end
-	delay(1)
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
-			set_element_object(
-				G.hpot_event_ui_choices_area,
-				UIBox({
-					definition = {
-						n = G.UIT.ROOT,
-						config = { colour = G.C.CLEAR },
-						nodes = event_buttons_content,
-					},
-					config = {
-						parent = G.hpot_event_ui_choices_area,
-					},
-				})
-			)
-			return true
-		end,
-	}))
 end
 
 function hpot_event_display_lines(amount, no_delay)
-	amount = amount or 1
-	local text_objects = G.hpot_event_ui_text_objects
-	if text_objects and G.hpot_event_ui_next_text_object then
-		for i = G.hpot_event_ui_next_text_object, math.min(G.hpot_event_ui_next_text_object + amount - 1, #text_objects) do
-			local object = text_objects[i]
-			if object then
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = no_delay and 0 or 0.75,
-					func = function()
-						play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
-						object.states.visible = true
-						return true
-					end,
-				}))
-			end
-		end
-	end
-	G.hpot_event_ui_next_text_object = G.hpot_event_ui_next_text_object + amount
+    if G.hpot_event then
+        amount = amount or 1
+        local text_objects = G.hpot_event_ui_text_objects
+        if text_objects and G.hpot_event_ui_next_text_object then
+            for i = G.hpot_event_ui_next_text_object, math.min(G.hpot_event_ui_next_text_object + amount - 1, #text_objects) do
+                local object = text_objects[i]
+                if object then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = no_delay and 0 or 0.75,
+                        func = function()
+                            play_sound("paper1", math.random() * 0.2 + 0.9, 0.75)
+                            object.states.visible = true
+                            return true
+                        end,
+                    }))
+                end
+            end
+        end
+        G.hpot_event_ui_next_text_object = G.hpot_event_ui_next_text_object + amount
+    end
 end
 
 --
@@ -943,6 +993,7 @@ function G.FUNCS.hpot_event_execute_choice(e)
 	local choice_func = e.config.choice_func
 
 	if not choice_func or choice_func() then
+        stop_use()
 		choice_button()
 	end
 end
@@ -991,9 +1042,7 @@ function G.UIDEF.hpot_event_choice_button(step, choice)
 		},
 	}
 end
-function G.UIDEF.hpot_event()
-	local scenario = G.hpot_event_scenario
-
+function G.UIDEF.hpot_event(scenario)
 	local container_H = 5.6
 	local container_W = 14.9
 	local container_padding = 0.1
@@ -1016,7 +1065,7 @@ function G.UIDEF.hpot_event()
 		set = "EventScenarios",
 		key = scenario.key,
 		nodes = event_text_name,
-		vars = {},
+		vars = scenario:loc_vars(),
 		default_col = G.C.UI.TEXT_LIGHT,
 	})
 	local event_name_lines = {}
@@ -1219,9 +1268,14 @@ function force_hpot_event(key)
 end
 
 function get_hpot_event_image_center(card_w, card_h)
-    local x = G.hpot_event_ui_image_area.T.x + G.hpot_event_ui_image_area.T.w / 2 - (card_w or G.CARD_W) / 2
-    local y = G.hpot_event_ui_image_area.T.y + G.hpot_event_ui_image_area.T.h / 2 - (card_h or G.CARD_H) / 2
-    return x, y
+    if G.hpot_event then
+        local image_area = G.hpot_event.image_area
+        local x = image_area.T.x + image_area.T.w / 2 - (card_w or G.CARD_W) / 2
+        local y = image_area.T.y + image_area.T.h / 2 - (card_h or G.CARD_H) / 2
+        return x, y
+    else
+        return 0, 0
+    end
 end
 
 
@@ -1230,39 +1284,26 @@ end
 -- Scenario start
 -- {
 --     hpot_event_scenario_start = true,
---     scenario = scenario
+--     event = event
 -- }
 
 -- Scenario end
 -- {
 --     hpot_event_scenario_end = true,
---     scenario = scenario
+--     event = event
 -- }
 
 -- Step start
 -- {
 --     hpot_event_step_start = true,
---     scenario = scenario,
---     step = step
+--     event = event
 -- }
 
 -- Step end
 -- {
 --     hpot_event_step_end = true,
---     scenario = scenario,
---     step = step
+--     event = event
 -- }
 
 -- Variables
 -- G.GAME.round_resets.hpot_event_encountered - is event was encountered this ante
-
--- G.hpot_event_scenario - current scenario
--- G.hpot_event_current_step - current step
--- G.hpot_event_previous_step - previous step
-
--- G.hpot_event_ui - full event ui
--- G.hpot_event_ui_image_area - black box in left side of event ui, primarily for images or showing some cutscenes etc
-
--- Functions
--- hpot_event_start_step(key) - move scenario to next step
--- hpot_event_display_lines(amount, no_delay) - by default all lines displayed with small delay, this function allows to show each line separately by using event queue

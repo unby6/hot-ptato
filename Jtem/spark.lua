@@ -57,6 +57,10 @@ function create_UIBox_HUD()
 			n = G.UIT.R,
 			config = { align = "cm", id = 'row_spark' },
 			nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { minw = 0.13 }
+                },
 				{
 					n = G.UIT.C,
 					config = { align = "cm", padding = 0.05, minw = 3, minh = 0.6, colour = temp_col, emboss = 0.05, r = 0.1 },

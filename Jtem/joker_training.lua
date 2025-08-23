@@ -163,6 +163,28 @@ function Card:load(ct, oc)
     return st
 end
 
+---@alias TrainingStat
+---| "speed"
+---| "stamina"
+---| "power"
+---| "guts"
+---| "wit"
+
+---Calculates the stat multiplier.
+---@param card Card|table
+---@param stat TrainingStat|string
+---@return number
+function hpot_calc_stat_multiplier(card, stat)
+	local multiplier = (card.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"])
+	for _, joker in pairs(G.jokers.cards) do
+		local center = joker.config.center
+		if center and center.calc_training_mul then
+			multiplier = center:calc_training_mul(joker, card, multiplier, stat)
+		end
+	end
+	return multiplier
+end
+
 -- Mood stickers
 SMODS.Sticker {
 	key = "jtem_mood",
@@ -187,7 +209,7 @@ SMODS.Sticker {
 		for _, stat in ipairs(HP_JTEM_STATS) do
 			if G.hpot_training_consumable_highlighted and G.hpot_training_consumable_highlighted.ability.hpot_train_increase and G.hpot_training_consumable_highlighted.ability.hpot_train_increase[stat] then
 				local stats_to_increase = G.hpot_training_consumable_highlighted.ability.hpot_train_increase
-				local multiplier = (card.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"])
+				local multiplier = hpot_calc_stat_multiplier(card, stat)
 				table.insert(st, (" +%d"):format(math.ceil(stats_to_increase[stat] * multiplier)))
 			else
 				table.insert(st, "") -- empty
@@ -445,7 +467,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			end
 			-- iterate through all available stats to increase
 			for stat, value in pairs(stats) do
-				local multiplier = (joker.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[joker.ability["hp_jtem_mood"] or "normal"])
+				local multiplier = hpot_calc_stat_multiplier(joker, stat)
 				if stats_to_increase[stat] then
 					stats_increased[stat] = math.ceil(stats_to_increase[stat] * multiplier)
 					stats[stat] = value + stats_increased[stat]

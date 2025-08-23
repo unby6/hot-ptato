@@ -602,6 +602,13 @@ return {
                     "Squidguset : {C:money}+$#5#{}",
                     "SleepyG11 : {C:attention}Balances {C:chips}Chips{} and {C:mult}Mult{}",
                 }
+            },
+            j_hpot_silly = {
+                name = "Still in Love",
+                text = {
+                    "{C:attention}Doubles{} all incoming",
+                    "training values"
+                }
             }
         },
         Voucher = {
@@ -1387,7 +1394,7 @@ return {
             },
             hpot_voucher_2 = {
                 text = {
-                    "You found #1#!",
+                    "You found {C:attention}#1#{}!",
                     " ",
                     "Hopefully this isn't something",
                     "someone else lost..."
