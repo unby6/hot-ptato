@@ -825,6 +825,7 @@ SMODS.EventScenario({
 -- nigerian prince
 SMODS.EventStep {
 	key = "nigerian_prince_start",
+	hide_hand = true,
 	start = function(self, event)
 		local prince_man = Character("j_baron")
 		prince_man.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
@@ -859,6 +860,7 @@ SMODS.EventStep {
 
 SMODS.EventStep {
 	key = "nigerian_prince_reply",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
             {
@@ -888,6 +890,7 @@ SMODS.EventStep {
 }
 SMODS.EventStep {
 	key = "nigerian_prince_invested",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
             {
@@ -918,6 +921,7 @@ SMODS.EventStep {
 
 SMODS.EventStep {
 	key = "nigerian_prince_success",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
             {
