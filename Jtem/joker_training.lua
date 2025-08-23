@@ -1,5 +1,8 @@
 -- I did this so it can be used elsewhere
 
+-- Hey y'all, Haya from Paya here.
+-- Training is a mechanic for Jokers, intended to mimic Uma Musume's Career Mode.
+
 -- Default draw function for mood
 local function mood_draw(self, card, layer)
 end

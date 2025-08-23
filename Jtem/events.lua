@@ -21,7 +21,22 @@ SMODS.Atlas({
 
 local event_colour = HEX("A17CFF")
 
+---@class EventChoice
+---@field key? string The key for the event.
+---@field loc_vars? table List of variables for setting the choice's text.
+---@field text? table Choice text. Uses localization from `key` if unspecified and vice versa.
+---@field button? function Function to run when selecting this choice.
+---@field func? fun(): boolean Determines if the choice is selectable.
+---@field no_prefix? boolean Determines if `key` does not take the prefix of the current event scenario.
+
 SMODS.EventSteps = {}
+---@class SMODS.EventStep: SMODS.GameObject
+---@field get_choices fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario): EventChoice[] Function that returns a table of choices.
+---@field load? fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario, previous_step: SMODS.EventStep|table|nil) Function that runs when this step is loaded.
+---@field start? fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario, previous_step: SMODS.EventStep|table|nil) Function that runs when this step is started.
+---@field finish? fun(self: SMODS.EventStep|table, scenario: SMODS.EventScenario, previous_step: SMODS.EventStep|table|nil) Function that runs when this step is finished.
+---@field loc_vars? fun(self: SMODS.EventStep|table, info_queue: table): table? Provides control over displaying descriptions for this event step.
+---@overload fun(o: SMODS.EventStep): SMODS.EventStep
 SMODS.EventStep = SMODS.GameObject:extend({
 	obj_table = SMODS.EventSteps,
 	set = "EventSteps",
@@ -74,6 +89,13 @@ SMODS.EventStep = SMODS.GameObject:extend({
 })
 
 SMODS.EventScenarios = {}
+---@class SMODS.EventScenario: SMODS.GameObject
+---@field in_pool? fun(self: SMODS.EventScenario|table): boolean Determines if this scenario can be chosen.
+---@field get_weight? fun(self: SMODS.EventScenario|table): number Determines the weight of the scenario being chosen.
+---@field weight? number Used if `get_weight` isn't specified.
+---@field starting_step_key string The key to the desired step to start with for this scenario.
+---@field loc_vars? fun(self: SMODS.EventScenario|table, info_queue: table): table? Provides control over displaying descriptions for this event scenario. `text` is only used for the collection.
+---@overload fun(o: SMODS.EventScenario): SMODS.EventScenario
 SMODS.EventScenario = SMODS.GameObject:extend({
 	obj_table = SMODS.EventScenarios,
 	set = "EventScenarios",
@@ -105,7 +127,7 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 local your_collection_tabs = HotPotato.custom_collection_tabs
 HotPotato.custom_collection_tabs = function()
 	return {
-		--your_collection_tabs and unpack(your_collection_tabs()),
+		your_collection_tabs and next(your_collection_tabs()) and unpack(your_collection_tabs()) or nil,
 		UIBox_button({
 			button = 'your_collection_hpot_events',
 			id = 'your_collection_hpot_events',
