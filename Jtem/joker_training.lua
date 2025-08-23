@@ -657,6 +657,24 @@ SMODS.Consumable {
 	in_pool = hpot_training_pool_check,
 }
 
+SMODS.Consumable {
+	key = 'training_inspiration',
+	set = 'Spectral',
+	atlas = 'jtem_training_spectrals',
+	pos = { x = 0, y = 0 },
+	config = { max_highlighted = 1, hpot_train_increase = {speed = 12, stamina = 12, power = 12, guts = 12, wits = 12}, hpot_energy_change = -40 },
+	can_use = hpot_training_tarot_can_use,
+	use = hpot_training_tarot_use,
+	loc_vars = hpot_training_tarot_loc_vars,
+	hotpot_credits = {
+		art = {'Aikoyori'},
+		code = {'Aikoyori'},
+		idea = {'Haya'},
+		team = {'Jtem'}
+	},
+	in_pool = hpot_training_pool_check,
+}
+
 local list_of_training_cards = {
     "c_hpot_training_speed",
     "c_hpot_training_stamina",

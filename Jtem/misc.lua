@@ -97,12 +97,18 @@ SMODS.Atlas {
   px = 71,py = 95
 }
 
--- temporary- to be added actual art by aiko later
 SMODS.Atlas {
   key = "jtem_training_tarots",
   path = "Jtem/uma_tarots.png",
   px = 71,py = 95
 }
+
+SMODS.Atlas {
+  key = "jtem_training_spectrals",
+  path = "Jtem/training_spectral.png",
+  px = 71,py = 95
+}
+
 
 SMODS.Atlas {
   key = "jtem_vouchers",
