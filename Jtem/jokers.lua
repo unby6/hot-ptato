@@ -484,9 +484,18 @@ SMODS.Joker {
         },
     },
     set_ability = function (self, card, initial, delay_sprites)
-        local x = pseudorandom("hp_jtem_jflash",0,5)
-        card.ability.extras.person = x + 1
-        card.children.center:set_sprite_pos({ x = x, y = 3})
+        simple_add_event(
+            function()
+                local append = ""
+                if card.area and card.area.config.collection then
+                    append = "_collection"
+                end
+                local x = pseudorandom("hp_jtem_jflash"..append,0,5)
+                card.ability.extras.person = x + 1
+                card.children.center:set_sprite_pos({ x = x, y = 3})
+                return true
+            end
+        )
     end,
     blueprint_compat = true,
     calculate = function(self, card, context)
