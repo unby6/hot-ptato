@@ -47,8 +47,8 @@ local event_colour = HEX("A17CFF")
 SMODS.EventSteps = {}
 ---@class SMODS.EventStep: SMODS.GameObject
 ---@field get_choices fun(self: SMODS.EventStep|table, event: EventData): EventChoice[] Function that returns a table of choices.
----@field hide_hand boolean Should hide hand card area during this step
----@field hide_deck boolean Should hide deck during this step
+---@field hide_hand? boolean Should hide hand card area during this step
+---@field hide_deck? boolean Should hide deck during this step
 ---@field start? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is started.
 ---@field finish? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is finished.
 ---@field loc_vars? fun(self: SMODS.EventStep|table, event: EventData): table? Provides control over displaying descriptions for this event step.

@@ -155,6 +155,7 @@ HPJTTT = {
         "The Order of the Stone",
         "with 100% more shops",
         "It's about time!",
+        "Farming commits"
     }
 }
 
