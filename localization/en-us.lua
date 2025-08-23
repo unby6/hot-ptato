@@ -735,6 +735,19 @@ return {
                     "cards in your hand",
                 },
             },
+            c_hpot_training_inspiration = {
+                name = "Inspiration",
+                text = {
+                    "{C:attention}+#1#{} Speed",
+                    "{C:attention}+#2#{} Stamina",
+                    "{C:attention}+#3#{} Power",
+                    "{C:attention}+#4#{} Guts",
+                    "{C:attention}+#5#{} Wits",
+                    "{C:red}-#6#{} Energy",
+                    "to a selected",
+                    "{C:attention}Training{} Joker"
+                }
+            },
         },
         Tarot = {
             c_chariot_v2 = {
