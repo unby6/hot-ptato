@@ -145,9 +145,10 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 	end,
 
     -- Events basically added by me so..
+    -- Haya my goat <3
     hotpot_credits = {
         idea = { "SleepyG11" },
-		code = { "SleepyG11" },
+		code = { "SleepyG11", "Haya" },
 		team = { "Jtem" },
 	}
 })
