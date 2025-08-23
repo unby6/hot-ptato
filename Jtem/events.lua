@@ -645,6 +645,47 @@ function hpot_event_start_scenario()
 		end,
 	}))
 end
+function hpot_event_move_to_scenario(key)
+    if G.hpot_event then
+        stop_use()
+		G.GAME.facing_hpot_event = nil
+
+		if G.hpot_event.current_step then
+			G.hpot_event.current_step:finish(G.hpot_event)
+			G.FUNCS.draw_from_hand_to_deck()
+			SMODS.calculate_context({
+				hpot_event_step_end = true,
+                event = G.hpot_event
+			})
+		end
+
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				SMODS.calculate_context({ hpot_event_scenario_end = true, event = G.hpot_event })
+				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.2,
+					func = function()
+						G.hpot_event.ui.alignment.offset.y = G.ROOM.T.y + 21
+						return true
+					end,
+				}))
+				G.E_MANAGER:add_event(Event({
+					trigger = "immediate",
+					func = function()
+						G.hpot_event.ui:remove()
+                        G.hpot_event = nil
+						delay(0.3)
+						return true
+					end,
+				}))
+				force_hpot_event(key)
+                hpot_event_start_scenario()
+				return true
+			end,
+		}))
+	end
+end
 function hpot_event_start_step(key)
     if G.hpot_event then
         local step = SMODS.EventSteps[key]
@@ -1005,7 +1046,7 @@ function G.UIDEF.hpot_event_choice_button(step, choice)
 	local loc_txt = G.localization.misc.EventChoices[loc_key] or choice.text or "ERROR"
 	local localized = SMODS.localize_box(loc_parse_string(loc_txt), {
 		default_col = G.C.UI.TEXT_LIGHT,
-		vars = choice.loc_vars or {},
+		vars = choice.vars or choice.loc_vars or {},
 	})
 	return {
 		n = G.UIT.R,

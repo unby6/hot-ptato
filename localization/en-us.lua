@@ -1412,6 +1412,40 @@ return {
                     "Start a corporation, make a logo, do it properly!"
                 }
             },
+            hpot_food_trade_1 = {
+                text = {
+                    "Some jokers suspiciously looking on your food...",
+                    " ",
+                    "Hm, looks like they want say you something."
+                }
+            },
+            hpot_food_trade_2 = {
+                text = {
+                    "Look at me! I'm green venegable!",
+                    "And this food - is my family!",
+                    "I'll give you {C:attention}few tarot cards{}, please save them!",
+                },
+            },
+            hpot_food_trade_3 = {
+                text = {
+                    "{E:2}Food! Food! Food!{} {E:2,C:attention}MORE Food!{}",
+                    " ",
+                    "You have food? I have {C:attention}few plincoins{}! Give me {E:2}foooodd!{}",
+                },
+            },
+            hpot_food_trade_4 = {
+                text = {
+                    "Hey bud. I'm very {E:2}hungry{}.",
+                    "I'm so broke I can't buy anything.",
+                    "But maybe you're interested in this {C:mult}Rare bottlecap{}?",
+                },
+            },
+            hpot_food_trade_choose = {
+                text = {
+                    "All of them want your food.",
+                    "Who will be lucky today?"
+                }
+            }
         },
         EventScenarios = {
             hpot_test = {
@@ -1456,6 +1490,13 @@ return {
                 text = {
                     "She sells sea shells on a sea shore,",
                     "but value of this shells will fall..."
+                }
+            },
+            hpot_food_trade = {
+                name = "Food Trade",
+                text = {
+                    "All of them want your food.",
+                    "Who will be lucky today?"
                 }
             }
         },
@@ -1652,6 +1693,11 @@ return {
             hpot_money_game_invest_sell_rocks = "Sell rocks",
             hpot_money_game_invest_sell_water_to_a_fish = "Sell water to a fish",
             hpot_money_game_invest_sell_time_to_a_clock = "Sell time to a clock",
+
+            hpot_food_trade_listen = "Listen {C:attention}#1#{}",
+            hpot_food_trade_choose = "Feed {C:attention}#1#{}",
+            hpot_food_trade_think = "Think...",
+            hpot_food_trade_choose_ignore = "Ignore them",
         }
     }
 }
