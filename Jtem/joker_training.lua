@@ -257,7 +257,7 @@ SMODS.Sticker {
 		local stats = card.ability["hp_jtem_stats"]
 		hpot_jtem_with_deck_effects(card, function(c)
 			if stats.guts > 150 then
-				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/600)*100)/100) })
+				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
 			end
 		end)
 		if stats.wits and stats.wits > 150 then
@@ -496,8 +496,8 @@ function hpot_training_tarot_use(self, card, area, copier)
 			local stats = joker.ability["hp_jtem_stats"]
 			hpot_jtem_with_deck_effects(joker, function(c)
 				if stats.guts > 150 then
-					hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(150,old_stats[joker.sort_id].guts)-150)/600)*100)/100)) })
-					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/600)*100)/100) })
+					hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(150,old_stats[joker.sort_id].guts)-150)/200)*100)/100)) })
+					hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
 				end
 			end)
 			-- print(inspect(stats))
