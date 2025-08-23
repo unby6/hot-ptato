@@ -161,6 +161,15 @@ end
     ease_spark_points(G.GAME.hp_jtem_p2j_rate.to)
 ]]
 
+G.FUNCS.hp_can_open_full_jx_top_up = function(e)
+    if not G.STATES.SHOP then
+        e.config.button = nil
+        e.config.hover = false
+    else
+        e.config.button = 'hp_open_full_jx_top_up'
+        e.config.hover = true
+    end
+end
 G.FUNCS.hp_open_full_jx_top_up = function(e)
     G.SETTINGS.paused = true
     G.FUNCS.overlay_menu {
