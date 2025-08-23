@@ -589,6 +589,13 @@ return {
                     "{C:attention}1{} random {C:spades}Spade{} card",
                     "and add it to deck"
                 }
+            },
+            j_hpot_silly = {
+                name = "Still in Love",
+                text = {
+                    "{C:attention}Doubles{} all incoming",
+                    "training values"
+                }
             }
         },
         Voucher = {

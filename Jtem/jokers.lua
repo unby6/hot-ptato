@@ -8,6 +8,7 @@ SMODS.Joker {
     key = "jtemj",
     atlas = "jtem_jokers",
     config = {x_mult = 1.1},
+    blueprint_compat = true,
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.x_mult}}
     end,
@@ -23,6 +24,7 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = {x=1,y=0},
     config = {x_mult = 1.1},
+    blueprint_compat = true,
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.x_mult}}
     end,
@@ -38,6 +40,7 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = {x=2,y=0},
     config = {x_mult = 1.1},
+    blueprint_compat = true,
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.x_mult}}
     end,
@@ -54,6 +57,7 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = {x=3,y=0},
     config = {x_mult = 1.1},
+    blueprint_compat = true,
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.x_mult}}
     end,
@@ -70,6 +74,7 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = {x=4,y=0},
     config = {x_mult = 1.1},
+    blueprint_compat = true,
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.x_mult}}
     end,
@@ -87,6 +92,7 @@ SMODS.Joker {
     config = {extra = {gain = 0.1,per = 100,}},
     soul_pos = {x=1,y=1},
     rarity = 4,
+    blueprint_compat = true,
     loc_vars = function (self,info_queue,card)
         local save = G.PROFILES[G.SETTINGS.profile]
         return {vars = {
@@ -114,6 +120,7 @@ SMODS.Joker {
     pos = { x = 3, y = 1 },
     config = { extra = { retriggers = 1 } },
     rarity = 3,
+    blueprint_compat = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers } }
     end,
@@ -198,6 +205,7 @@ SMODS.Joker {
     pos = {x=0,y=2},
     rarity = 2,
     config = { extra = { xmult = 1, xmult_mod = 0.1, cion = 1 } },
+    blueprint_compat = true,
     calculate = function(self, card, context)
         if context.after and mult and hand_chips then
             for k, v in pairs(context.scoring_hand) do
@@ -332,6 +340,7 @@ SMODS.Joker {
     config = { extra = { plincoin = 1, consumeables = 2 } },
     pools = { Food = true },
     rarity = 2,
+    blueprint_compat = true,
     calculate = function(self, card, context)
         if context.using_consumeable and (not G.plinko_rewards or context.area ~= G.plinko_rewards) then
             card.ability.consumeables_used = (card.ability.consumeables_used or 0) + 1
@@ -419,6 +428,28 @@ SMODS.Joker {
         idea = {'Ornabug'},
         team = {'Jtem'}
     }
+}
+
+-- If the art for this isn't done by then someone else do it lmao
+-- still in love from umamusume
+SMODS.Joker {
+    key = 'silly',
+    atlas = "jtem_jokers",
+    pos = { x = 4, y = 2 },
+    rarity = 2,
+    blueprint_compat = true,
+    calc_training_mul = function(self, card, joker, mult, stat)
+        return mult * 2
+    end,
+    in_pool = function(self, args)
+        return G.GAME.hpot_training_has_ever_been_done
+    end,
+    hotpot_credits = {
+        art = {'???'},
+        code = {'Haya'},
+        idea = {'Haya'},
+        team = {'Jtem'}
+    },
 }
 
 
