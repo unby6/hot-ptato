@@ -346,11 +346,19 @@ local function s(t,a,b)t[a],t[b]=t[b],t[a]end
 function PlinkoGame.f.init_dummy_ball()
     PlinkoGame.f.remove_balls()
     PlinkoUI.f.init_sprites()
-    local choice = math.random(100)
+    local choice = G.GAME.plinko_force_choice or math.random(100)
+    PlinkoUI.sprites.is_stupid = nil
     if choice  == 69 or choice == 42 then
         PlinkoUI.sprites.changed = "stupid"
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.stupidorb
+        PlinkoUI.sprites.is_stupid = true
         --this following code added by JTEM for other orbs
+    elseif choice == 88 then
+        PlinkoUI.sprites.changed = "jcoin"
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.jcoin
+    elseif choice == 80 then
+        PlinkoUI.sprites.changed = "fisch"
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.fisch
     elseif  choice >= 90  then
         PlinkoUI.sprites.changed = "morb"
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.morb
@@ -361,9 +369,6 @@ function PlinkoGame.f.init_dummy_ball()
         local plinker = {"caino_plinker", "trib_plinker", "yorick_plinker", "chicot_plinker"}
         PlinkoUI.sprites.changed = plinker[(math.floor(choice / 20) + 1)]
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[plinker[(math.floor(choice / 20) + 1)]]
-    elseif choice == 42 then
-        PlinkoUI.sprites.changed = "jcoin"
-        PlinkoUI.sprites.jcoin = PlinkoUI.sprites.jcoin
     else
          PlinkoUI.sprites.changed = nil
          PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG

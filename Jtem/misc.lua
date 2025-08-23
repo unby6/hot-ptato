@@ -155,6 +155,18 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+  key = "jtem_fisch",
+  path = "Jtem/gorbfish.png",
+  px = 40,py = 40,
+}
+
+SMODS.Atlas {
+  key = "jtem_jxtag",
+  path = "Jtem/the_j.png",
+  px = 34,py = 34,
+}
+
+SMODS.Atlas {
   key = "jtem_aikoshen1",
   path = "Ads/aikoshenad1.png",
   px = 179,py = 97,
@@ -231,6 +243,32 @@ if not SMODS.ObjectTypes.Food then
     },
   }
 end
+
+-- mmm tag
+SMODS.Tag {
+    key = "jokerexchange",
+    atlas = "jtem_jxtag",
+    pos = { x = 0, y = 0 },
+    config = { jx = 25000 },
+    loc_vars = function(self, info_queue, tag)
+        return { vars = { tag.config.jx } }
+    end,
+    apply = function(self, tag, context)
+        if context.type == 'immediate' then
+            tag:yep('+', G.C.BLUE, function()
+                ease_spark_points(tag.config.jx)
+                return true
+            end)
+            tag.triggered = true
+        end
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        idea = {'MissingNumber'},
+        code = {'Haya'},
+        team = {'Jtem'}
+    },
+}
 
 -- more buttons!!!
 SMODS.draw_ignore_keys.hp_jtem_price_side = true

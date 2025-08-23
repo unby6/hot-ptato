@@ -528,6 +528,9 @@ function JTJukebox.MusicTab()
 										}
 									},
 									-- play butan
+									-- NOTE: Originally the plan here was to make this a collection button
+									-- where you would pick the music you want from the collection menu
+									-- to save time I just did this but if you wanna do that then ok
 									{
 										n = G.UIT.C,
 										config = { align = "cm", minh = 0.8, minw = 4, colour = G.C.GREEN, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_play' },

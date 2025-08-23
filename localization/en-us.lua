@@ -1242,6 +1242,12 @@ return {
                     "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                 },
             },
+            tag_hpot_jokerexchange = {
+                name = "JX Tag",
+                text = {
+                    "Get {C:blue,f:hpot_plincoin}͸{C:blue}#1#{}"
+                }
+            }
         },
         Edition = {
             e_hpot_psychedelic = {
