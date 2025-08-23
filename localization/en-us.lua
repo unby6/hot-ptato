@@ -1282,8 +1282,8 @@ return {
                     "then card is {C:red}debuffed"
                 }
             },
-            hpot_redirection = {
-                name = "Redirection",
+            hpot_redirect = {
+                name = "Redirect",
                 text = {
                     "When this card", 
                     "is going to be destroyed",
@@ -1293,8 +1293,8 @@ return {
             hpot_fragile = {
                 name = "Fragile",
                 text = {
-                    "{X:mult,C:white}X#2#{} Mult",
-                    "{C:red}Destroy this card",
+                    "{X:mult,C:white}X#1#{} Mult",
+                    "{C:red}Destroy{} this card",
                     "when another card",
                     "is destroyed"
                 }
@@ -1312,7 +1312,7 @@ return {
                     "{C:green}#1# in 2{} Chance to", 
                     "give a spore to {C:attention}adjacent{} cards",
                     "when in hand.",
-                    "C:red}Destroyed{} if adjacent cards",
+                    "{C:red}Destroyed{} if adjacent cards",
                     "all have spores"
                 }
             },
@@ -1806,7 +1806,7 @@ return {
             hpot_psychedelic = "Psychedelic",
             hpot_event = "Event",
             hpot_overclock = "Overclock",
-            hpot_redirection = "Redirection",
+            hpot_redirect = "Redirect",
             hpot_fragile = "Fragile",
             hpot_rage = "Rage",
             hpot_spore = "Spore"

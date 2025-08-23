@@ -1,14 +1,11 @@
-    SMODS.Sticker({
+SMODS.Sticker({
 	key = "overclock",
 	badge_colour = HEX("ff8686"),
 	calculate = function(self, card, context)
 		if
 			context.other_card == card
 			and not card.debuff
-			and (
-				(context.repetition)
-				or (context.retrigger_joker_check and not context.retrigger_joker)
-			)
+			and (context.repetition or (context.retrigger_joker_check and not context.retrigger_joker))
 		then
 			return {
 				repetitions = 1,
@@ -56,10 +53,18 @@ SMODS.Sticker({
 SMODS.Sticker({
 	key = "fragile",
 	badge_colour = HEX("ff8686"),
+	config = {
+		xmult = 2,
+	},
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = { self.config.xmult },
+		}
+	end,
 	calculate = function(self, card, context)
 		if context.joker_main or (context.main_scroing and context.cardarea == G.play) then
 			return {
-				xmult = 2,
+				xmult = self.config.xmult,
 			}
 		end
 		if context.hpot_destroy then
@@ -75,10 +80,7 @@ SMODS.Sticker({
 		if
 			context.other_card == card
 			and not card.debuff
-			and (
-				(context.repetition)
-				or (context.retrigger_joker_check and not context.retrigger_joker)
-			)
+			and (context.repetition or (context.retrigger_joker_check and not context.retrigger_joker))
 		then
 			local area = card.area
 			local rr = nil
@@ -106,10 +108,10 @@ SMODS.Sticker({
 SMODS.Sticker({
 	key = "spores",
 	badge_colour = HEX("ff8686"),
-    loc_vars = function(self, info_queue, center)
-		return{
-            vars = {(G.GAME.probabilities.normal or 1)}
-        }
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = { (G.GAME.probabilities.normal or 1) },
+		}
 	end,
 	calculate = function(self, card, context)
 		if
