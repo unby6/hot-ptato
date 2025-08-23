@@ -199,7 +199,8 @@ HPJTTT = {
         "\"what do you mean we ran out of ideas, we cant r- oh.\"",
         "Play [REDACTED].",
         "var titleText = \"Play Word Bomb!\"",
-        "for (var i = 0; i < array_length(HPJTTT.text); i++){show_debug_message(\"Fuck\")}"
+        "for (var i = 0; i < array_length(HPJTTT.text); i++){show_debug_message(\"Fuck\")}",
+        "Adversaries Purified."
     }
 }
 
