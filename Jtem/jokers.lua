@@ -445,7 +445,8 @@ SMODS.Joker {
         return G.GAME.hpot_training_has_ever_been_done
     end,
     hotpot_credits = {
-        art = {'???'},
+        -- ps I made this in 15 minutes - Aiko
+        art = {'Aikoyori'},
         code = {'Haya'},
         idea = {'Haya'},
         team = {'Jtem'}
