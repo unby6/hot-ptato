@@ -1634,6 +1634,21 @@ return {
             hotpot_train_mood_up = "Mood Up",
             hotpot_train_mood_down = "Mood Down",
             hotpot_training_pack = "Training Pack",
+
+            hotpot_exchange_title = "Top Up Your ͸s!",
+            hotpot_exchange_note = "*Prices are rounded to the nearest integer when charging for simplicity",
+            hotpot_exchange_option_1 = "A Pile of ͸",
+            hotpot_exchange_option_2 = "A Giant Pile of ͸",
+            hotpot_exchange_option_3 = "A Ton of ͸",
+            hotpot_exchange_option_4 = "An Overfilled Box of ͸",
+            hotpot_exchange_option_5 = "A Cargo Load of ͸",
+            hotpot_exchange_option_plin_1 = "A Premium Pile of ͸",
+            hotpot_exchange_option_plin_2 = "A Giant Premium Pile of ͸",
+            hotpot_exchange_option_plin_3 = "A Premium Ton of ͸",
+            hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
+            hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
+
+            
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
@@ -1642,8 +1657,8 @@ return {
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" },
 
-            hotpot_exchange_for_jx_line_1 = "Buy +͸#1#",
-            hotpot_exchange_for_jx_line_2 = "for -#1##2#",
+            hotpot_exchange_for_jx_line_1 = "Buy ͸",
+            hotpot_exchange_for_jx_line_2 = "for #1#",
             hotpot_round_total_eta = "΀ #1#",
 
             hotpot_train_speed_up = "Speed Up +#1#",
@@ -1659,6 +1674,8 @@ return {
             hotpot_train_guts_down = "Guts Down -#1#",
             hotpot_train_wits_down = "Wit Down -#1#",
             hotpot_train_energy_down = "Energy Down -#1#",
+
+            hotpot_exchange_bonus = " +#1# BONUS!",
         },
 		v_text = {
 			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},
