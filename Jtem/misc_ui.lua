@@ -162,7 +162,7 @@ end
 ]]
 
 G.FUNCS.hp_can_open_full_jx_top_up = function(e)
-    if not G.STATES.SHOP then
+    if not G.STATE == G.STATES.SHOP then
         e.config.button = nil
         e.config.hover = false
     else
