@@ -1,5 +1,16 @@
 G.STATES.JTEM_PANDEMONIUM = 2437856
 
+-- Hey y'all. Paya from Haya here.
+-- This ended up being unfinished due to laziness so if anyone wants to pick it up go ahead
+-- 
+-- I have not played Pressure Roblox. Will probably never do so maybe
+-- But if you have played it and know about the Pandemonium minigame
+-- then that is exactly what it is.
+--
+-- The general 'gist' has been implemented so far but only that
+-- Anyway uhhhh yeah see ya
+-- - Paya
+
 -- Transform pixels into game units:
 local function to_game_units(val)
 	return val / (G.TILESCALE * G.TILESIZE)
