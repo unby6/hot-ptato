@@ -224,6 +224,12 @@ SMODS.Atlas {
   px = 71,py = 95
 }
 
+SMODS.Atlas {
+  key = "jtem_jx_bundle",
+  path = "Jtem/jx_trade.png",
+  px = 81,py = 81,
+}
+
 SMODS.Font {
   key = "jtem_roboto_bold",
   path = "Roboto-Bold.ttf",

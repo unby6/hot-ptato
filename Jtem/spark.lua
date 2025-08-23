@@ -71,7 +71,7 @@ function create_UIBox_HUD()
 							nodes = {
 								{
 									n = G.UIT.C,
-									config = { align = "cm", r = 0.1, minw = 2.85, minh = 0.5, colour = temp_col2, padding = -0.8 * scale, id = 'spark_text_UI' },
+									config = { align = "cm", r = 0.1, minw = 2.85, minh = 0.5, colour = temp_col2, padding = -0.8 * scale, id = 'spark_text_UI', button = "hp_open_full_jx_top_up", hover = true },
 									nodes = {
 										{
 											n = G.UIT.C,

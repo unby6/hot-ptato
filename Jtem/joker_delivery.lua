@@ -165,7 +165,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                     config = { align = "cm" },
                                     nodes = { {
                                         n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$", G.GAME.hp_jtem_d2j_rate.from } }), scale = 0.3, colour = G.C.WHITE }
+                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$" } }), scale = 0.3, colour = G.C.WHITE }
                                     },
                                     }
                                 },
@@ -189,7 +189,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                     config = { align = "cm" },
                                     nodes = { {
                                         n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$", G.GAME.hp_jtem_p2j_rate.from } }), scale = 0.3, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$" } }), scale = 0.3, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
                                     },
                                     }
                                 },
@@ -360,7 +360,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
 end
 
 G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
-    if (G.GAME.hp_jtem_d2j_rate.from > G.GAME.dollars - G.GAME.bankrupt_at) then
+    if (0 > G.GAME.dollars - G.GAME.bankrupt_at) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -369,7 +369,7 @@ G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
-    if (G.GAME.hp_jtem_p2j_rate.from > G.GAME.plincoins) or not G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
+    if (0 > G.GAME.plincoins) or not G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -507,12 +507,16 @@ G.FUNCS.hp_jtem_can_cancel = function(e)
     return false
 end
 G.FUNCS.hp_jtem_exchange_d2j = function(e)
-    ease_dollars(-G.GAME.hp_jtem_d2j_rate.from)
-    ease_spark_points(G.GAME.hp_jtem_d2j_rate.to)
+    G.SETTINGS.paused = true
+    G.FUNCS.overlay_menu {
+        definition = G.UIDEF.hp_jtem_buy_jx("dollars")
+    }
 end
 G.FUNCS.hp_jtem_exchange_p2j = function(e)
-    ease_plincoins(-G.GAME.hp_jtem_p2j_rate.from)
-    ease_spark_points(G.GAME.hp_jtem_p2j_rate.to)
+    G.SETTINGS.paused = true
+    G.FUNCS.overlay_menu {
+        definition = G.UIDEF.hp_jtem_buy_jx("plincoin")
+    }
 end
 
 G.FUNCS.hp_jtem_order = function(e)
@@ -795,6 +799,7 @@ function Game:init_game_object()
     r.hp_jtem_special_offer_count = 3
     r.hp_jtem_should_allow_custom_order = false
     r.hp_jtem_should_allow_buying_jx_from_plincoin = false
+    r.jp_jtem_has_ever_bought_jx = false
     return r
 end
 
