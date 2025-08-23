@@ -1,0 +1,35 @@
+SMODS.Joker({
+	key = "sticker_master",
+	rarity = 2,
+	config = {
+		extra = {
+			mult = 5,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		if G.jokers and G.jokers.cards then
+			return {
+				vars = { hpt.mult, hpt.mult * sticker_check(G.jokers.cards) },
+			}
+		else
+			return {
+				vars = { hpt.mult, hpt.mult * 0 },
+			}
+		end
+	end,
+	calculate = function(self, card, context)
+		local hpt = card.ability.extra
+		if context.joker_main then
+			return {
+				mult = hpt.mult * sticker_check(G.jokers.cards),
+			}
+		end
+	end,
+	in_pool = function(self)
+		if G.jokers and G.jokers.cards and sticker_check(G.jokers.cards) > 0 then
+			return true
+		end
+		return false
+	end,
+})
