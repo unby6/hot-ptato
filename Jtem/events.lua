@@ -1237,9 +1237,9 @@ end
 --
 
 function get_next_hpot_event()
-	if G.hpot_event_scenario_forced_key then
-		local result = G.hpot_event_scenario_forced_key
-		G.hpot_event_scenario_forced_key = nil
+	if G.GAME.hpot_event_scenario_forced_key then
+		local result = G.GAME.hpot_event_scenario_forced_key
+		G.GAME.hpot_event_scenario_forced_key = nil
 		return result
 	end
 	local eligible_events = {}
@@ -1308,7 +1308,7 @@ end
 --
 
 function force_hpot_event(key)
-	G.hpot_event_scenario_forced_key = key
+	G.GAME.hpot_event_scenario_forced_key = key
 end
 
 function get_hpot_event_image_center(card_w, card_h)
