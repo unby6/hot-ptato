@@ -168,6 +168,8 @@ local moveon = function()
 end
 
 local Character = function(key, container_key, dx, dy)
+	dy = dy or 0
+	dx = dx or 0
     container_key = container_key or "jimbo_card"
 	local x, y = get_hpot_event_image_center()
     local card = Card_Character({
