@@ -57,5 +57,11 @@ SMODS.Tag{
             tag.triggered = true
             return true
         end 
-    end
+    end,
+    hotpot_credits = {
+        art = {'MissingNumber'},
+        idea = {'Aikoyori'},
+        code = {'Aikoyori'},
+        team = {'Jtem'}
+    },
 }
