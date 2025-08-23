@@ -19,15 +19,6 @@ SMODS.Atlas({
 	frames = 21,
 })
 
-SMODS.Atlas({
-	key = "hpot_event_default",
-	px = 34,
-	py = 34,
-	path = "Events/default.png",
-	atlas_table = "ANIMATION_ATLAS",
-	frames = 21,
-})
-
 local event_colour = HEX("A17CFF")
 
 ---@class EventData
@@ -153,6 +144,9 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 		G.P_CENTER_POOLS[self.set] = {}
 	end,
 
+    atlas = "hpot_event_default",
+    pos = { x = 0, y = 0, },
+
     -- Events basically added by me so..
     -- Haya my goat <3
     hotpot_credits = {
@@ -188,7 +182,7 @@ local function event_collection_ui()
 			"Events are encountered after the Small Blind shop"
 		},
 		modify_card = function(card, center)
-			local temp_blind = AnimatedSprite(card.children.center.T.x, card.children.center.T.y, 1.3, 1.3, G.ANIMATION_ATLAS['hpot_event_default'], { x = 0, y = 0 })
+			local temp_blind = AnimatedSprite(card.children.center.T.x, card.children.center.T.y, 1.3, 1.3, G.ANIMATION_ATLAS[center.atlas], center.pos)
 			temp_blind.states.click.can = false
 			temp_blind.states.drag.can = false
 			temp_blind.states.hover.can = true
@@ -654,6 +648,47 @@ function hpot_event_start_scenario()
 		end,
 	}))
 end
+function hpot_event_move_to_scenario(key)
+    if G.hpot_event then
+        stop_use()
+		G.GAME.facing_hpot_event = nil
+
+		if G.hpot_event.current_step then
+			G.hpot_event.current_step:finish(G.hpot_event)
+			G.FUNCS.draw_from_hand_to_deck()
+			SMODS.calculate_context({
+				hpot_event_step_end = true,
+                event = G.hpot_event
+			})
+		end
+
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				SMODS.calculate_context({ hpot_event_scenario_end = true, event = G.hpot_event })
+				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.2,
+					func = function()
+						G.hpot_event.ui.alignment.offset.y = G.ROOM.T.y + 21
+						return true
+					end,
+				}))
+				G.E_MANAGER:add_event(Event({
+					trigger = "immediate",
+					func = function()
+						G.hpot_event.ui:remove()
+                        G.hpot_event = nil
+						delay(0.3)
+						return true
+					end,
+				}))
+				force_hpot_event(key)
+                hpot_event_start_scenario()
+				return true
+			end,
+		}))
+	end
+end
 function hpot_event_start_step(key)
     if G.hpot_event then
         local step = SMODS.EventSteps[key]
@@ -1014,7 +1049,7 @@ function G.UIDEF.hpot_event_choice_button(step, choice)
 	local loc_txt = G.localization.misc.EventChoices[loc_key] or choice.text or "ERROR"
 	local localized = SMODS.localize_box(loc_parse_string(loc_txt), {
 		default_col = G.C.UI.TEXT_LIGHT,
-		vars = choice.loc_vars or {},
+		vars = choice.vars or choice.loc_vars or {},
 	})
 	return {
 		n = G.UIT.R,
@@ -1202,9 +1237,9 @@ end
 --
 
 function get_next_hpot_event()
-	if G.hpot_event_scenario_forced_key then
-		local result = G.hpot_event_scenario_forced_key
-		G.hpot_event_scenario_forced_key = nil
+	if G.GAME.hpot_event_scenario_forced_key then
+		local result = G.GAME.hpot_event_scenario_forced_key
+		G.GAME.hpot_event_scenario_forced_key = nil
 		return result
 	end
 	local eligible_events = {}
@@ -1273,7 +1308,7 @@ end
 --
 
 function force_hpot_event(key)
-	G.hpot_event_scenario_forced_key = key
+	G.GAME.hpot_event_scenario_forced_key = key
 end
 
 function get_hpot_event_image_center(card_w, card_h)

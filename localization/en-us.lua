@@ -1448,6 +1448,40 @@ return {
                     "Hopefully this is not a money laundering attempt by someone...",
                 }
             },
+            hpot_food_trade_1 = {
+                text = {
+                    "Some jokers suspiciously looking on your food...",
+                    " ",
+                    "Hm, looks like they want say you something."
+                }
+            },
+            hpot_food_trade_2 = {
+                text = {
+                    "Look at me! I'm green venegable!",
+                    "And this food - is my family!",
+                    "I'll give you {C:attention}few tarot cards{}, please save them!",
+                },
+            },
+            hpot_food_trade_3 = {
+                text = {
+                    "{E:2}Food! Food! Food!{} {E:2,C:attention}MORE Food!{}",
+                    " ",
+                    "You have food? I have {C:attention}few plincoins{}! Give me {E:2}foooodd!{}",
+                },
+            },
+            hpot_food_trade_4 = {
+                text = {
+                    "Hey bud. I'm very {E:2}hungry{}.",
+                    "I'm so broke I can't buy anything.",
+                    "But maybe you're interested in this {C:mult}Rare bottlecap{}?",
+                },
+            },
+            hpot_food_trade_choose = {
+                text = {
+                    "All of them want your food.",
+                    "Who will be lucky today?"
+                }
+            }
         },
         EventScenarios = {
             hpot_test = {
@@ -1498,6 +1532,13 @@ return {
                 name = "Nigerian Prince",
                 text = {
                     "Is it your time to finally get lucky?",
+                },
+            },
+            hpot_food_trade = {
+                name = "Food Trade",
+                text = {
+                    "All of them want your food.",
+                    "Who will be lucky today?"
                 }
             }
         },
@@ -1719,6 +1760,10 @@ return {
             hpot_nigerian_prince_invested_hp_prince_stop = "Stop Investing (End)",
             hpot_nigerian_prince_invested_hp_prince_invest_more = "Let's Go Gambling! ({C:blue,f:hpot_plincoin}-͸25,000{})",
             hpot_nigerian_prince_success_hp_prince_leave = "Move On (End)",
+            hpot_food_trade_listen = "Listen {C:attention}#1#{}",
+            hpot_food_trade_choose = "Feed {C:attention}#1#{}",
+            hpot_food_trade_think = "Think...",
+            hpot_food_trade_choose_ignore = "Ignore them",
         }
     }
 }

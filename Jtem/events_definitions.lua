@@ -167,24 +167,26 @@ local moveon = function()
 	}
 end
 
-local Character = function(key)
+local Character = function(key, container_key, dx, dy)
+    container_key = container_key or "jimbo_card"
 	local x, y = get_hpot_event_image_center()
-	local jimbo_card = Card_Character({
-		x = x,
-		y = y,
+    local card = Card_Character({
+		x = x + dx,
+		y = y + dy,
 		center = key,
 	})
-	G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
-	return jimbo_card
+	G.hpot_event_ui_image_area.children[container_key] = card
+	return card
 end
 
-local Remove = function()
-	local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+local Remove = function(character_key)
+    character_key = character_key or "jimbo_card"
+	local jimbo_card = G.hpot_event_ui_image_area.children[character_key]
 	if jimbo_card then
 		G.E_MANAGER:add_event(Event({
 			func = function()
 				jimbo_card:remove()
-				G.hpot_event_ui_image_area.children.jimbo_card = nil
+				G.hpot_event_ui_image_area.children[character_key] = nil
 				return true
 			end,
 		}))
@@ -940,4 +942,163 @@ SMODS.EventScenario({
 		code = { "Aikoyori" },
 		team = { "Jtem" },
 	},
+})
+-- Food for stuff trade
+-- Someone make good finish for this event
+local function get_food_joker()
+    for _, joker in ipairs(G.jokers.cards) do
+        local pools = joker.config.center.pools or {}
+        if pools.Food then return joker end
+    end
+end
+
+SMODS.EventStep({
+    key = "food_trade_1",
+    get_choices = function(self, event)
+        return {
+            {
+                key = "hpot_food_trade_listen",
+                no_prefix = true,
+                vars = { localize { type = 'name_text', key = "j_gluttenous_joker", set = "Joker", vars = {} } },
+                button = function()
+                    return event.start_step("hpot_food_trade_2")
+                end,
+            }
+        }
+    end,
+})
+SMODS.EventStep({
+    key = "food_trade_2",
+    get_choices = function(self, event)
+        return {
+            {
+                key = "hpot_food_trade_listen",
+                no_prefix = true,
+                vars = { localize { type = 'name_text', key = "j_hpot_greedybastard", set = "Joker", vars = {} } },
+                button = function()
+                    return event.start_step("hpot_food_trade_3")
+                end,
+            }
+        }
+    end,
+    start = function(self, event)
+        local glut = Character("j_gluttenous_joker", "glut", -G.CARD_W / 2, -G.CARD_H / 8)
+        glut.children.particles.colours = { { 0, 0, 0, 0 } }
+        event.display_lines(2, true)
+        glut:say_stuff(5)
+    end,
+})
+SMODS.EventStep({
+    key = "food_trade_3",
+    get_choices = function(self, event)
+        return {
+            {
+                key = "hpot_food_trade_listen",
+                no_prefix = true,
+                vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
+                button = function()
+                    return event.start_step("hpot_food_trade_4")
+                end,
+            }
+        }
+    end,
+    start = function(self, event)
+        local greedyb = Character("j_hpot_greedybastard", "greedyb", 0, G.CARD_H / 8)
+        greedyb.children.particles.colours = { { 0, 0, 0, 0 } }
+        event.display_lines(2, true)
+        greedyb:say_stuff(5)
+    end,
+})
+SMODS.EventStep({
+    key = "food_trade_4",
+    get_choices = function(self, event)
+        return {
+            {
+                key = "hpot_food_trade_think",
+                no_prefix = true,
+                button = function()
+                    return event.start_step("hpot_food_trade_choose")
+                end,
+            }
+        }
+    end,
+    start = function(self, event)
+        local vagabond = Character("j_vagabond", "vagabond", G.CARD_W / 2, -G.CARD_H / 8)
+        vagabond.children.particles.colours = { { 0, 0, 0, 0 } }
+        event.display_lines(2, true)
+        vagabond:say_stuff(5)
+    end,
+})
+SMODS.EventStep({
+    key = "food_trade_choose",
+    get_choices = function(self, event)
+        return {
+            {
+                key = "ignore",
+                button = function ()
+                    event.finish_scenario()
+                end
+            },
+            {
+                key = "hpot_food_trade_choose",
+                no_prefix = true,
+                vars = { localize { type = 'name_text', key = "j_gluttenous_joker", set = "Joker", vars = {} } },
+                button = function()
+                    SMODS.destroy_cards(get_food_joker())
+                    for i = 1, 2 do
+                        SMODS.add_card({
+                            key = "c_empress"
+                        })
+                    end
+                    event.finish_scenario()
+                end,
+                func = function()
+                    return get_food_joker() and G.consumeables and G.consumeables.config.card_limit - #G.consumeables.cards >= 2
+                end,
+            },
+            {
+                key = "hpot_food_trade_choose",
+                no_prefix = true,
+                vars = { localize { type = 'name_text', key = "j_hpot_greedybastard", set = "Joker", vars = {} } },
+                button = function()
+                    SMODS.destroy_cards(get_food_joker())
+                    ease_plincoins(4)
+                    event.finish_scenario()
+                end,
+                func = function()
+                    return get_food_joker()
+                end,
+            },
+            {
+                key = "hpot_food_trade_choose",
+                no_prefix = true,
+                vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
+                button = function()
+                    SMODS.destroy_cards(get_food_joker())
+                    SMODS.add_card({
+                        set = "bottlecap_Rare",
+                        area = G.consumeables,
+                    })
+                    event.finish_scenario()
+                end,
+                func = function()
+                    return get_food_joker() and G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit
+                end,
+            }
+        }
+    end,
+    finish = function()
+        Remove("glut")
+        Remove("greedyb")
+        Remove("vagabond")
+    end,
+})
+
+SMODS.EventScenario({
+    key = "food_trade",
+    starting_step_key = "hpot_food_trade_1",
+
+    in_pool = function(self)
+        return get_food_joker()
+    end,
 })
