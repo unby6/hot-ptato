@@ -1,3 +1,5 @@
+-- Main idea is use this type of cards for events specifically
+
 SMODS.Atlas {
     key = "jtem_imagine",
     path = "Jtem/imagine.png",

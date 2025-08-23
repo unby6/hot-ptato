@@ -48,6 +48,7 @@ SMODS.EventSteps = {}
 ---@class SMODS.EventStep: SMODS.GameObject
 ---@field get_choices fun(self: SMODS.EventStep|table, event: EventData): EventChoice[] Function that returns a table of choices.
 ---@field hide_hand boolean Should hide hand card area during this step
+---@field hide_deck boolean Should hide deck during this step
 ---@field start? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is started.
 ---@field finish? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is finished.
 ---@field loc_vars? fun(self: SMODS.EventStep|table, event: EventData): table? Provides control over displaying descriptions for this event step.
@@ -1292,8 +1293,11 @@ function CardArea:draw(...)
 		return
 	end
     if G.STATE == G.STATES.HOTPOT_EVENT then
-        local step = G.hpot_event and G.hpot_event.current_step
-        if step and step.hide_hand then
+        local step = G.hpot_event and G.hpot_event.current_step or {}
+        if self == G.hand and step.hide_hand then
+            return
+        end
+        if self == G.deck and step.hide_deck then
             return
         end
     end
