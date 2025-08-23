@@ -2,6 +2,7 @@
 SMODS.EventStep({
 	key = "nothing_1",
 	loc_txt = {
+        -- Loc key: G.localization.Descriptions.EventSteps.hpot_nothing_1
 		text = {
 			"Looks like there's nothing here...",
 		},
@@ -9,10 +10,15 @@ SMODS.EventStep({
 			go = "...Go?",
 		},
 	},
-	config = {},
+	config = {
+        -- Here you can specify all values you need for this step
+        extra = {},
+    },
 	get_choices = function()
 		return {
 			{
+                -- Loc key: G.localization.misc.EventChoices.hpot_nothing_1_go
+                -- <modprefix>_<stepkey>_<key>
 				key = "go",
 				button = hpot_event_end_scenario,
 			},
@@ -22,6 +28,11 @@ SMODS.EventStep({
 SMODS.EventScenario({
 	key = "nothing",
 	starting_step_key = "hpot_nothing_1",
+
+    loc_txt = {
+        -- Loc key: G.localization.Descriptions.EventScenarios.hpot_nothing
+        name = { "Nothing happened..." }
+    },
 
 	weight = 0,
 	in_pool = function()
@@ -54,6 +65,8 @@ SMODS.EventStep({
 				loc_vars = { self.config.extra.rich },
 				button = function()
 					ease_dollars(self.config.extra.gain_rich)
+                    -- Object which resets between event scenarios
+                    -- So you can use it to transfer data between steps, if you need
 					G.GAME.hpot_event_scenario_data.money_gain = self.config.extra.gain_rich
 					hpot_event_start_step("hpot_test_3")
 				end,

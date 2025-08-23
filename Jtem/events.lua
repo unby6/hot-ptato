@@ -1,3 +1,12 @@
+-- Hey, you, from another team!
+-- Here's an Event's, an special round where player should make choices to gain buffs/debuffs/rewards/get silly dialog etc.
+-- If you played games like Slay the Spire or Monster Train, this is (?) node event.
+-- They appear guaranteed after leaving shop after Small Blind.
+-- 
+-- While it's fully functional, unfortunately it's not developed well enough (in terms of content).
+-- I just don't have enough good ideas in my head to implement. But maybe YOU have!
+-- So, if you want' you can make some own events.
+
 G.STATES.HOTPOT_EVENT_SELECT = 198275827
 G.STATES.HOTPOT_EVENT = 198275828
 
@@ -9,6 +18,8 @@ SMODS.Atlas({
 	atlas_table = "ANIMATION_ATLAS",
 	frames = 21,
 })
+
+local event_colour = HEX("A17CFF")
 
 SMODS.EventSteps = {}
 SMODS.EventStep = SMODS.GameObject:extend({
@@ -62,8 +73,6 @@ SMODS.EventStep = SMODS.GameObject:extend({
 	inject = function() end,
 })
 
--- TODO: add card which will represent event in collection
--- Is it needed?
 SMODS.EventScenarios = {}
 SMODS.EventScenario = SMODS.GameObject:extend({
 	obj_table = SMODS.EventScenarios,
@@ -77,13 +86,6 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 		SMODS.process_loc_text(G.localization.descriptions.EventScenarios, self.key:lower(), self.loc_txt)
 	end,
 
-	atlas = "hpot_event_default",
-	pos = {
-		x = 0,
-		y = 0,
-	},
-	colour = "A17CFF",
-
 	weight = 5,
 	in_pool = function(self)
 		return true
@@ -94,7 +96,6 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 
 	inject = function(self)
 		SMODS.insert_pool(G.P_CENTER_POOLS[self.set], self)
-		self.colour = type(self.colour) == "string" and HEX(self.colour) or self.colour or G.C.BLIND.Big
 	end,
 	pre_inject_class = function(self)
 		G.P_CENTER_POOLS[self.set] = {}
@@ -130,9 +131,8 @@ function Game:update_hpot_event_select(dt)
 					trigger = "immediate",
 					func = function()
 						play_sound("cancel")
-						local scenario = SMODS.EventScenarios[G.GAME.round_resets.blind_choices.hpot_event]
 						G.hpot_event_select = UIBox({
-							definition = create_UIBox_hpot_event_select(scenario),
+							definition = create_UIBox_hpot_event_select(),
 							config = {
 								align = "bmi",
 								offset = { x = 0, y = G.ROOM.T.y + 29 },
@@ -155,7 +155,7 @@ function Game:update_hpot_event_select(dt)
 	end
 end
 
-function create_UIBox_hpot_event_choice(scenario)
+function create_UIBox_hpot_event_choice()
 	local disabled = false
 	local run_info = false
 
@@ -163,7 +163,10 @@ function create_UIBox_hpot_event_choice(scenario)
 		config = G.P_BLINDS[G.GAME.round_resets.blind_choices["Big"]],
 	}
 
-	blind_choice.animation = AnimatedSprite(0, 0, 1.4, 1.4, G.ANIMATION_ATLAS[scenario.atlas], scenario.pos)
+	blind_choice.animation = AnimatedSprite(0, 0, 1.4, 1.4, G.ANIMATION_ATLAS['hpot_event_default'], {
+		x = 0,
+		y = 0,
+	})
 	blind_choice.animation:define_draw_steps({
 		{ shader = "dissolve", shadow_height = 0.05 },
 		{ shader = "dissolve" },
@@ -177,7 +180,7 @@ function create_UIBox_hpot_event_choice(scenario)
 	})
 	local loc_name = localize({ type = "name_text", key = "hpot_event_encounter", set = "Other" })
 	local text_table = loc_target
-	local blind_col = scenario.colour
+	local blind_col = event_colour
 
 	local t = {
 		n = G.UIT.R,
@@ -382,17 +385,17 @@ function create_UIBox_hpot_event_choice(scenario)
 	}
 	return t
 end
-function create_UIBox_hpot_event_select(scenario)
+function create_UIBox_hpot_event_select()
 	local choice = UIBox({
 		definition = {
 			n = G.UIT.ROOT,
 			config = { align = "cm", colour = G.C.CLEAR },
 			nodes = {
 				UIBox_dyn_container(
-					{ create_UIBox_hpot_event_choice(scenario) },
+					{ create_UIBox_hpot_event_choice() },
 					false,
-					scenario.colour,
-					mix_colours(G.C.BLACK, scenario.colour, 0.8)
+					event_colour,
+					mix_colours(G.C.BLACK, event_colour, 0.8)
 				),
 			},
 		},
@@ -444,7 +447,7 @@ function Game:update_hpot_event(dt)
 end
 
 function hpot_event_start_scenario()
-	local scenario_key = G.GAME.round_resets.blind_choices.hpot_event or get_next_hpot_event()
+	local scenario_key = get_next_hpot_event()
 	G.GAME.round_resets.hpot_event_encountered = true
 	local scenario = SMODS.EventScenarios[scenario_key]
 	G.GAME.hpot_event_scenario_data = {}
@@ -1104,7 +1107,6 @@ end
 local r_bref = reset_blinds
 function reset_blinds(...)
 	r_bref(...)
-	G.GAME.round_resets.blind_choices.hpot_event = get_next_hpot_event()
 	G.GAME.round_resets.hpot_event_encountered = false
 end
 
@@ -1112,7 +1114,6 @@ local r_g_ref = SMODS.current_mod.reset_game_globals or function() end
 SMODS.current_mod.reset_game_globals = function(run_start)
 	r_g_ref(run_start)
 	if run_start then
-		G.GAME.round_resets.blind_choices.hpot_event = get_next_hpot_event()
 		G.GAME.round_resets.hpot_event_encountered = false
 	end
 end
@@ -1120,11 +1121,7 @@ end
 --
 
 function force_hpot_event(key)
-	if G.GAME.round_resets.hpot_event_encountered then
-		G.hpot_event_scenario_forced_key = key
-	else
-		G.GAME.round_resets.blind_choices.hpot_event = key
-	end
+	G.hpot_event_scenario_forced_key = key
 end
 
 function get_hpot_event_image_center(card_w, card_h)
@@ -1164,7 +1161,6 @@ end
 
 -- Variables
 -- G.GAME.round_resets.hpot_event_encountered - is event was encountered this ante
--- G.GAME.round_resets.blind_choices.hpot_event - event key in this ante
 
 -- G.hpot_event_scenario - current scenario
 -- G.hpot_event_current_step - current step
