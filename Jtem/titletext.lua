@@ -156,7 +156,13 @@ HPJTTT = {
         "The Order of the Stone",
         "with 100% more shops",
         "It's about time!",
-        "Farming commits"
+        "Farming commits",
+        "Play Fool's Gambit!",
+        "HPJTTT.text[#HPJTTT.text+1] = \"insert joke here\"",
+        "\"what do you mean we ran out of ideas, we cant r- oh.\"",
+        "Play [REDACTED].",
+        "var titleText = \"Play Word Bomb!\"",
+        "for (var i = 0; i < array_length(HPJTTT.text); i++){show_debug_message(\"Fuck\")}"
     }
 }
 
