@@ -226,6 +226,20 @@ elseif _c.set == 'EventScenarios' then
 '''
 match_indent = true
 
+# Add Event badge
+[[patches]]
+[patches.pattern]
+target = '''functions/UI_definitions.lua'''
+pattern = '''if AUT.badges then'''
+position = 'before'
+payload = '''
+if card.hpot_event_key then
+  badges[#badges + 1] = create_badge(localize("hpot_event", "labels"), SMODS.Gradients["hpot_event"])
+  SMODS.create_mod_badges(SMODS.EventScenarios[card.hpot_event_key], badges)
+end
+'''
+match_indent = true
+
 # Why is this ipairs
 [[patches]]
 [patches.pattern]

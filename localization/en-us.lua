@@ -1598,6 +1598,8 @@ return {
             key = "Key",
             hpot_jtem_mood="Under Training",
             hotpot_training_pack = "Training Pack",
+            hpot_psychedelic = "Psychedelic",
+            hpot_event = "Event",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
