@@ -1809,7 +1809,7 @@ return {
             hpot_redirect = "Redirect",
             hpot_fragile = "Fragile",
             hpot_rage = "Rage",
-            hpot_spore = "Spore"
+            hpot_spores = "Spore"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
