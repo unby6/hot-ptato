@@ -182,6 +182,20 @@ G.FUNCS.your_collection_hpot_events = function()
 	}
 end
 
+SMODS.Gradient {
+	key = 'event',
+	colours = {
+		G.C.RED,
+		G.C.ORANGE,
+		G.C.YELLOW,
+		G.C.GREEN,
+		G.C.BLUE,
+		G.C.PURPLE,
+	},
+	cycle = 6,
+	interpolation = 'linear'
+}
+
 -----------------
 
 function Game:update_hpot_event_select(dt)

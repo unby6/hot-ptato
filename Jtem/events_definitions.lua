@@ -235,7 +235,7 @@ SMODS.EventStep({
 	end,
 	finish = function(self)
 
-	end,
+	end
 })
 
 SMODS.EventStep {
@@ -272,6 +272,11 @@ SMODS.EventStep {
 SMODS.EventScenario {
 	key = "trade1",
 	starting_step_key = "hpot_pelter",
+	hotpot_credits = {
+		idea = { "Squidguset" },
+		code = { "Squidguset", "SleepyG11" },
+		team = { "Jtem" },
+	}
 }
 
 -- Porch Pirates
@@ -483,6 +488,11 @@ SMODS.EventStep({
 SMODS.EventScenario {
 	key = "porch_pirate",
 	starting_step_key = "hpot_porch_pirate_1",
+	hotpot_credits = {
+		idea = { "Haya" },
+		code = { "Haya", "SleepyG11" },
+		team = { "Jtem" },
+	},
 	in_pool = function()
 		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0
 	end
@@ -606,7 +616,12 @@ SMODS.EventScenario {
 	in_pool = function()
 		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0 and G.jokers and
 		#G.jokers.cards < G.jokers.config.card_limit
-	end
+	end,
+	hotpot_credits = {
+		idea = { "MissingNumber" },
+		code = { "Haya", "SleepyG11" },
+		team = { "Jtem" },
+	},
 }
 
 SMODS.EventStep({
@@ -696,6 +711,11 @@ SMODS.EventStep({
 SMODS.EventScenario {
 	key = "voucher",
 	starting_step_key = "hpot_voucher_1",
+	hotpot_credits = {
+		idea = { "MissingNumber" },
+		code = { "Haya", "SleepyG11" },
+		team = { "Jtem" },
+	},
 }
 
 SMODS.EventStep({
@@ -719,4 +739,9 @@ SMODS.EventStep({
 SMODS.EventScenario {
 	key = "spam_email",
 	starting_step_key = "hpot_spam_1",
+	hotpot_credits = {
+		idea = { "MissingNumber" },
+		code = { "Haya", "SleepyG11" },
+		team = { "Jtem" },
+	},
 }
