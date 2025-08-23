@@ -270,7 +270,7 @@ SMODS.EventScenario {
 	starting_step_key = "hpot_pelter",
 	hotpot_credits = {
 		idea = { "Squidguset" },
-		code = { "Squidguset", "SleepyG11" },
+		code = { "Squidguset" },
 		team = { "Jtem" },
 	}
 }
@@ -486,7 +486,7 @@ SMODS.EventScenario {
 	starting_step_key = "hpot_porch_pirate_1",
 	hotpot_credits = {
 		idea = { "Haya" },
-		code = { "Haya", "SleepyG11" },
+		code = { "Haya" },
 		team = { "Jtem" },
 	},
 	in_pool = function()
@@ -495,6 +495,7 @@ SMODS.EventScenario {
 }
 
 -- Taxes
+-- Not finished
 
 local function taxcalc(d)
 	d = d or 0
@@ -1105,4 +1106,10 @@ SMODS.EventScenario({
     in_pool = function(self)
         return get_food_joker()
     end,
+
+    hotpot_credits = {
+		idea = { "MissingNumber" },
+		code = { "SleepyG11" },
+		team = { "Jtem" },
+	},
 })
