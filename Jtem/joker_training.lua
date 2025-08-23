@@ -214,7 +214,7 @@ SMODS.Sticker {
 		clr[#clr + 1] = card.ability.hp_jtem_energy <= 25 and G.C.RED or card.ability.hp_jtem_energy <= 50 and G.C.BLUE or
 		G.C.UI.TEXT_DARK
 		-- failure rate
-		if G.hpot_training_consumable_highlighted then
+		if G.hpot_training_consumable_highlighted and G.hpot_training_consumable_highlighted.ability and not G.hpot_training_consumable_highlighted.ability.hpot_skip_fail_check then
 			local fail_rate = hpot_calc_failure_rate(card.ability.hp_jtem_energy)
 			table.insert(st, " - " .. fail_rate*100 .. "% Failure")
 			-- failure rate color
