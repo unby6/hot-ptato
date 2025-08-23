@@ -1,11 +1,18 @@
 return {
     descriptions = {
         Back = {
+            b_hpot_lime = {
+                name = "Lime Deck",
+                text = {
+                    "Start with",
+                    "extra {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}"
+                }
+            },
             b_hpot_domn = {
                 name = "The Deck of Many Names",
                 text = {
                     "(Replace text during final teams turn)",
-                    "This is meant to be a deck that","every team adds ideas to",
+                    "This is meant to be a deck that", "every team adds ideas to",
                     "go ham, deck is at Jtem/deck.lua"
                 }
             }
@@ -617,6 +624,22 @@ return {
                 }
             }
         },
+        Sleeve = {
+            sleeve_hpot_lime = {
+                name = "Lime Sleeve",
+                text = {
+                    "Start with",
+                    "extra {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}"
+                }
+            },
+            sleeve_hpot_lime_alt = {
+                name = "Lime Sleeve",
+                text = {
+                    "Start run with the",
+                    "{C:red,T:v_hpot_currency_exchange}#1#{} Voucher"
+                }
+            }
+        },
         Voucher = {
             v_hpot_currency_exchange = {
                 ['name'] = 'Currency Exchange',
@@ -665,7 +688,7 @@ return {
         },
         Spectral = {
             c_hpot_arcade_machine = {
-                 name = "Arcade Machine",
+                name = "Arcade Machine",
                 text = {
                     "Add a {C:hpot_plincoin}Plincoin Seal{}",
                     "to {C:attention}#1#{} selected",
@@ -1165,71 +1188,71 @@ return {
                     "Choices, choices, choices..."
                 }
             },
-            hpot_jtem_mood_depressed={
-                name="Depressed",
-                text={
+            hpot_jtem_mood_depressed = {
+                name = "Depressed",
+                text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_horrible={
-                name="Horrible",
-                text={
+            hpot_jtem_mood_horrible = {
+                name = "Horrible",
+                text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_awful={
-                name="Awful",
-                text={
+            hpot_jtem_mood_awful = {
+                name = "Awful",
+                text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_bad={
-                name="Bad",
-                text={
+            hpot_jtem_mood_bad = {
+                name = "Bad",
+                text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_normal={
-                name="Normal",
-                text={
+            hpot_jtem_mood_normal = {
+                name = "Normal",
+                text = {
                     "No effects",
                 },
             },
-            hpot_jtem_mood_good={
-                name="Good",
-                text={
+            hpot_jtem_mood_good = {
+                name = "Good",
+                text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_great={
-                name="Great",
-                text={
+            hpot_jtem_mood_great = {
+                name = "Great",
+                text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_hyper={
-                name="Hyper",
-                text={
+            hpot_jtem_mood_hyper = {
+                name = "Hyper",
+                text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_mood_trance={
-                name="Trance",
-                text={
+            hpot_jtem_mood_trance = {
+                name = "Trance",
+                text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
-            hpot_jtem_training_status={
-                name="Training",
-                text={
+            hpot_jtem_training_status = {
+                name = "Training",
+                text = {
                     "{C:jtem_stats_speed}Speed{} - {V:1}#1#{}{V:6}#11#{} - {V:1}#2#",
                     "{s:0.8,C:inactive}Improves Chance of this Joker retriggering - +#16#%",
                     "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{}{V:6}#12#{} - {V:2}#4#",
@@ -1244,8 +1267,8 @@ return {
                 },
             },
             p_hpot_training_pack = {
-                name="Training Pack",
-                text={
+                name = "Training Pack",
+                text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:jtem_crimson} Training cards{} to",
                     "be used immediately",
@@ -1310,13 +1333,13 @@ return {
             },
             hpot_test_2 = {
                 text = {
-			        "Well, that was... {C:mult}unfortunate{}",
+                    "Well, that was... {C:mult}unfortunate{}",
                 }
             },
             hpot_test_3 = {
                 text = {
-			        "Congratultions! Yoy got {C:money}FREE #1#${}!",
-			        "Now, {s:1.5}GO AWAY!{}",
+                    "Congratultions! Yoy got {C:money}FREE #1#${}!",
+                    "Now, {s:1.5}GO AWAY!{}",
                     "{E:1,s:3,C:mult}AND NEVER COME BACK!"
                 }
             },
@@ -1327,14 +1350,14 @@ return {
                 }
             },
             hpot_tradedreams = {
-                text = {'"Oh wow, I like this one! Thanks, have some {C:attention}Hand Size{}"'}
+                text = { '"Oh wow, I like this one! Thanks, have some {C:attention}Hand Size{}"' }
             },
             hpot_tradeduck = {
                 text = {
                     '"How\'d you know I like knives?"',
                     '"..."',
                     '"What do you mean its a duck?"'
-            }
+                }
             },
             hpot_taxman = {
                 text = {
@@ -1697,7 +1720,7 @@ return {
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
-            
+
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
@@ -1726,17 +1749,17 @@ return {
 
             hotpot_exchange_bonus = " +#1# BONUS!",
         },
-		v_text = {
-			ch_c_hpot_reduce_select_size = {"All consumables can affect {C:attention}1{} less card"},
-            ch_c_hpot_plinko_4ever = {"{C:attention}Forced plinko{} in all shop areas"},
-            ch_c_hpot_plinko_4ever_2 = {"Playing plinko does not require {C:hpot_plincoin}Plincoins"}
-		},
+        v_text = {
+            ch_c_hpot_reduce_select_size = { "All consumables can affect {C:attention}1{} less card" },
+            ch_c_hpot_plinko_4ever = { "{C:attention}Forced plinko{} in all shop areas" },
+            ch_c_hpot_plinko_4ever_2 = { "Playing plinko does not require {C:hpot_plincoin}Plincoins" }
+        },
         labels = {
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key",
-            hpot_jtem_mood="Under Training",
+            hpot_jtem_mood = "Under Training",
             hotpot_training_pack = "Training Pack",
             hpot_psychedelic = "Psychedelic",
             hpot_event = "Event",
@@ -1765,7 +1788,8 @@ return {
             hpot_nigerian_prince_reply_hp_prince_ignore = "Ghost Him (End)",
             hpot_nigerian_prince_reply_hp_prince_invest = "I'm in! ({C:blue,f:hpot_plincoin}-͸25,000{})",
             hpot_nigerian_prince_invested_hp_prince_stop = "Stop Investing (End)",
-            hpot_nigerian_prince_invested_hp_prince_invest_more = "Let's Go Gambling! ({C:blue,f:hpot_plincoin}-͸25,000{})",
+            hpot_nigerian_prince_invested_hp_prince_invest_more =
+            "Let's Go Gambling! ({C:blue,f:hpot_plincoin}-͸25,000{})",
             hpot_nigerian_prince_success_hp_prince_leave = "Move On (End)",
             hpot_food_trade_listen = "Listen {C:attention}#1#{}",
             hpot_food_trade_choose = "Feed {C:attention}#1#{}",
