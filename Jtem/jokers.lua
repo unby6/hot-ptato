@@ -4,6 +4,8 @@ SMODS.Atlas {
     px = 71, py = 95
 }
 
+-- if future teams dont like the long joker feel free to remove
+
 SMODS.Joker {
     key = "jtemj",
     atlas = "jtem_jokers",
