@@ -106,6 +106,11 @@ SMODS.Sticker({
 SMODS.Sticker({
 	key = "spores",
 	badge_colour = HEX("ff8686"),
+    loc_vars = function(self, info_queue, center)
+		return{
+            vars = {(G.GAME.probabilities.normal or 1)}
+        }
+	end,
 	calculate = function(self, card, context)
 		if
 			context.joker_main
