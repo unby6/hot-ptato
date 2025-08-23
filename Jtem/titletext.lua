@@ -193,7 +193,13 @@ HPJTTT = {
         "GALILEO! galileo! GALILEO! galileo! Galileo Figaro!",
         "- .... . / .-.. --- -. --. / .- -. -.. / ... .... --- .-. - / --- ..-. / .. - -.-.--",
         "King Dragon sends his regards.",
-        "0800303 30080 883 003 3 08 3 8 8 8 3 0 038"
+        "0800303 30080 883 003 3 08 3 8 8 8 3 0 038",
+        "Play Fool's Gambit!",
+        "HPJTTT.text[#HPJTTT.text+1] = \"insert joke here\"",
+        "\"what do you mean we ran out of ideas, we cant r- oh.\"",
+        "Play [REDACTED].",
+        "var titleText = \"Play Word Bomb!\"",
+        "for (var i = 0; i < array_length(HPJTTT.text); i++){show_debug_message(\"Fuck\")}"
     }
 }
 
