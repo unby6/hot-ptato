@@ -438,4 +438,4 @@ SMODS.Joker:take_ownership( "j_diet_cola",{
                 }))
         end
     end,
-})
+}, true)
