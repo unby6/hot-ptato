@@ -620,6 +620,21 @@ return {
                     "Joker {C:attention}of choice{} for",
                     "delivery once every ante"
                 }
+            },
+            v_hpot_cargo_size_upgrade = {
+                name = "Cargo Size Upgrade",
+                text = {
+                    "{C:attention}+#1#{} Special Delivery offers",
+                    "{C:red,E:1}All your current deals will be refreshed{}",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} slots{C:inactive})",
+                }
+            },
+            v_hpot_delivery_fleet_upgrade = {
+                name = "Delivery Fleet Upgrade",
+                text = {
+                    "{C:attention}+#1#{} Delivery Queue size",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive} slots)",
+                }
             }
         },
         Spectral = {
