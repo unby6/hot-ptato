@@ -5,6 +5,7 @@ if HPJTTT then return end
 HPJTTT = {
     chosen = 1,
     text = {
+        -- patch target
         "Also try Nubby's Number Factory!",
         "HotPot Edition",
         "Joker Poker",
