@@ -47,6 +47,7 @@ local event_colour = HEX("A17CFF")
 SMODS.EventSteps = {}
 ---@class SMODS.EventStep: SMODS.GameObject
 ---@field get_choices fun(self: SMODS.EventStep|table, event: EventData): EventChoice[] Function that returns a table of choices.
+---@field hide_hand boolean Should hide hand card area during this step
 ---@field start? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is started.
 ---@field finish? fun(self: SMODS.EventStep|table, event: EventData) Function that runs when this step is finished.
 ---@field loc_vars? fun(self: SMODS.EventStep|table, event: EventData): table? Provides control over displaying descriptions for this event step.
@@ -146,6 +147,8 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 
     atlas = "hpot_event_default",
     pos = { x = 0, y = 0, },
+
+    hide_hand = false,
 
     -- Events basically added by me so..
     -- Haya my goat <3
@@ -1288,6 +1291,12 @@ function CardArea:draw(...)
 	if self == G.hand and (G.STATE == G.STATES.HOTPOT_EVENT_SELECT) then
 		return
 	end
+    if G.STATE == G.STATES.HOTPOT_EVENT then
+        local step = G.hpot_event and G.hpot_event.current_step
+        if step and step.hide_hand then
+            return
+        end
+    end
 	return ca_dref(self, ...)
 end
 
