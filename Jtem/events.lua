@@ -77,6 +77,9 @@ SMODS.EventStep = SMODS.GameObject:extend({
 		extra = {},
 	},
 
+    hide_hand = false,
+    hide_deck = false,
+
 	get_choices = function(self, scenario)
 		return {
 			{
@@ -148,8 +151,6 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 
     atlas = "hpot_event_default",
     pos = { x = 0, y = 0, },
-
-    hide_hand = false,
 
     -- Events basically added by me so..
     -- Haya my goat <3
