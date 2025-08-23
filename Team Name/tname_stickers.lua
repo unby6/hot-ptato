@@ -29,6 +29,7 @@ SMODS.Sticker({
 		end
 
 		if context.end_of_round and context.main_eval then
+			if card.ability.over_tally == nil then card.ability.over_tally = G.GAME.overclock_timer - 1 end
 			if card.ability.over_tally > 1 then
 				card.ability.over_tally = card.ability.over_tally - 1
 				card_eval_status_text(card, "extra", nil, nil, nil, {
@@ -265,7 +266,7 @@ SMODS.Sticker({
 
 SMODS.Sticker({
 	key = "cannibal",
-	badge_colour = HEX("a6605d"),
+	badge_colour = HEX("009cfd"),
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = {},
@@ -294,11 +295,16 @@ SMODS.Sticker({
 			)
 		end
 	end,
+		atlas = "tname_stickers",
+	pos = {
+		x = 3,
+		y = 1,
+	},
 })
 
 SMODS.Sticker({
 	key = "binary",
-	badge_colour = HEX("217c06"),
+	badge_colour = HEX("85a6ac"),
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = {},
@@ -326,4 +332,9 @@ SMODS.Sticker({
 			end
 		end
 	end,
+		atlas = "tname_stickers",
+	pos = {
+		x = 3,
+		y = 0,
+	},
 })
