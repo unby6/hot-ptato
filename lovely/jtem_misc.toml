@@ -163,7 +163,7 @@ if self.ability.hpot_train_increase and self.highlighted and self.ability.consum
   G.hpot_training_consumable_highlighted = self
   --print("hi")
 end
-if self.ability.set == "Joker" and not self.ability.hp_jtem_mood then
+if self.ability.set == "Joker" and not self.ability.hp_jtem_mood and G.jokers and self.area == G.jokers then
   self.children.hpot_train_button = UIBox{
     definition = hpot_joker_train_button_definition(self), 
     config = {
