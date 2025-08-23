@@ -1245,7 +1245,13 @@ return {
             tag_hpot_jokerexchange = {
                 name = "JX Tag",
                 text = {
-                    "Get {C:blue,f:hpot_plincoin}͸{C:blue}#1#{}"
+                    "Get {C:blue,f:hpot_plincoin}͸{C:blue}#1#{} immediately"
+                }
+            },
+            tag_hpot_double_jx = {
+                name = "Double JX",
+                text = {
+                    "{C:green}#1# in #2# chance{} to {C:white,X:blue,f:hpot_plincoin} ͸X#3# {} immediately"
                 }
             }
         },
