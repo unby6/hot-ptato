@@ -481,16 +481,16 @@ function hpot_training_tarot_use(self, card, area, copier)
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
 					{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
 			end
+			-- reduce energy if possible
+			if energy_changed and energy_changed ~= 0 then
+				card_eval_status_text(joker, 'extra', nil, nil, nil,
+					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat"..(energy_changed >= 0 and '_up' or '_down') })
+			end
 			for stat, value in pairs(stats_increased) do
 				-- oh my fucking god
 				value = tonumber(value)
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize { type = 'variable', key = 'hotpot_train_' .. stat .. (value >= 0 and '_up' or '_down'), vars = { math.abs(value) } }, colour = (value >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
-			end
-			-- reduce energy if possible
-			if energy_changed and energy_changed ~= 0 then
-				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
+					{ message = localize { type = 'variable', key = 'hotpot_train_' .. stat .. (value >= 0 and '_up' or '_down'), vars = { math.abs(value) } }, colour = (value >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat"..(value >= 0 and '_up' or '_down') })
 			end
 			-- change joker stats
 			local stats = joker.ability["hp_jtem_stats"]

@@ -60,6 +60,11 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
+  key = "sfx_stat_down",
+  path = "sfx_stat_down.ogg",
+}
+
+SMODS.Sound {
   key = "sfx_success",
   path = "sfx_success.ogg",
 }
