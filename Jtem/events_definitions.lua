@@ -14,13 +14,13 @@ SMODS.EventStep({
 		-- Here you can specify all values you need for this step
 		extra = {},
 	},
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				-- Loc key: G.localization.misc.EventChoices.hpot_nothing_1_go
 				-- <modprefix>_<stepkey>_<key>
 				key = "go",
-				button = hpot_event_end_scenario,
+				button = event.finish_scenario,
 			},
 		}
 	end,
@@ -53,12 +53,12 @@ SMODS.EventStep({
 		},
 	},
 
-	get_choices = function(self)
+	get_choices = function(self, event)
 		return {
 			{
 				key = "lose",
 				button = function()
-					hpot_event_start_step("hpot_test_2")
+					event.start_step("hpot_test_2")
 				end,
 			},
 			{
@@ -68,8 +68,8 @@ SMODS.EventStep({
 					ease_dollars(self.config.extra.gain_rich)
 					-- Object which resets between event scenarios
 					-- So you can use it to transfer data between steps, if you need
-					G.GAME.hpot_event_scenario_data.money_gain = self.config.extra.gain_rich
-					hpot_event_start_step("hpot_test_3")
+					event.ability = self.config.extra.gain_rich
+					event.start_step("hpot_test_3")
 				end,
 				func = function()
 					return G.GAME.dollars >= self.config.extra.rich
@@ -79,36 +79,36 @@ SMODS.EventStep({
 				key = "gain",
 				button = function()
 					ease_dollars(self.config.extra.gain)
-					G.GAME.hpot_event_scenario_data.money_gain = self.config.extra.gain
-					hpot_event_start_step("hpot_test_3")
+					event.ability = self.config.extra.gain
+					event.start_step("hpot_test_3")
 				end,
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
-		hpot_event_display_lines(2, true)
+	start = function(self, event)
+		event.display_lines(2, true)
 		delay(1)
-		local x, y = get_hpot_event_image_center()
+		local x, y = event.get_image_center()
 		local jimbo_card = Card_Character({
 			x = x,
 			y = y,
 			center = G.P_CENTERS.j_joker,
 		})
-		G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
-		hpot_event_display_lines(1, true)
+		event.image_area.children.jimbo_card = jimbo_card
+		event.display_lines(1, true)
 		jimbo_card:say_stuff(3)
 		delay(1)
-		hpot_event_display_lines(1, true)
+		event.display_lines(1, true)
 		jimbo_card:say_stuff(2)
 		G.FUNCS.draw_from_deck_to_hand(3)
 	end,
-	finish = function(self)
-		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+	finish = function(self, event)
+		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					jimbo_card:remove()
-					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					event.image_area.children.jimbo_card = nil
 					return true
 				end,
 			}))
@@ -117,12 +117,12 @@ SMODS.EventStep({
 })
 SMODS.EventStep({
 	key = "test_2",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
 				no_prefix = true,
-				button = hpot_event_end_scenario,
+				button = event.finish_scenario,
 			},
 		}
 	end,
@@ -134,17 +134,17 @@ SMODS.EventStep({
 })
 SMODS.EventStep({
 	key = "test_3",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
 				no_prefix = true,
-				button = hpot_event_end_scenario,
+				button = event.finish_scenario,
 			},
 		}
 	end,
-	loc_vars = function(self)
-		return { G.GAME.hpot_event_scenario_data.money_gain }
+	loc_vars = function(self, event)
+		return { event.ability.money_gain }
 	end,
 })
 
@@ -195,12 +195,12 @@ end
 
 SMODS.EventStep({
 	key = "pelter",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_multi_tradenone",
 				no_prefix = true,
-				button = hpot_event_end_scenario,
+				button = event.finish_scenario,
 			},
 			{
 				key = "hpot_multi_tradecard",
@@ -212,7 +212,7 @@ SMODS.EventStep({
 				button = function()
 					SMODS.find_card("c_hpot_imag_stars")[1]:start_dissolve()
 					G.hand:change_size(1)
-					hpot_event_start_step("hpot_tradedreams")
+					event.start_step("hpot_tradedreams")
 				end,
 			},
 			{
@@ -225,17 +225,11 @@ SMODS.EventStep({
 				button = function()
 					SMODS.find_card("c_hpot_imag_duck")[1]:start_dissolve()
 					G.consumeables:change_size(1)
-					hpot_event_start_step("hpot_tradeduck")
+					event.start_step("hpot_tradeduck")
 				end,
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
-
-	end,
-	finish = function(self)
-
-	end
 })
 
 SMODS.EventStep {
@@ -245,10 +239,10 @@ SMODS.EventStep {
 			moveon()
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 		Character("c_hpot_imag_stars")
 	end,
-	finish = function(self)
+	finish = function(self, event)
 		Remove()
 	end,
 }
@@ -260,10 +254,10 @@ SMODS.EventStep {
 			moveon()
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 		Character("c_hpot_imag_duck")
 	end,
-	finish = function(self)
+	finish = function(self, event)
 		Remove()
 	end,
 
@@ -283,18 +277,18 @@ SMODS.EventScenario {
 
 SMODS.EventStep({
 	key = "porch_pirate_1",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
 				no_prefix = true,
 				button = function()
-					hpot_event_start_step("hpot_porch_pirate_2")
+					event.start_step("hpot_porch_pirate_2")
 				end,
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 		local pirate_card = Character("j_swashbuckler")
 		pirate_card.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
 		pirate_card.states.collide.can = false
@@ -308,7 +302,7 @@ SMODS.EventStep({
 			end,
 		}))
 	end,
-	finish = function(self) end,
+	finish = function(self, event) end,
 })
 SMODS.EventStep({
 	key = "porch_pirate_2",
@@ -317,14 +311,14 @@ SMODS.EventStep({
 			remove = 10,
 		},
 	},
-	get_choices = function(self)
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_porch_pirate_protect",
 				no_prefix = true,
 				button = function()
 					ease_dollars(-self.config.extra.remove)
-					hpot_event_start_step("hpot_porch_pirate_good")
+					event.start_step("hpot_porch_pirate_good")
 				end,
 			},
 			{
@@ -332,9 +326,9 @@ SMODS.EventStep({
 				no_prefix = true,
 				button = function()
 					if pseudorandom('fuck_you') < 0.5 then
-						hpot_event_start_step("hpot_porch_pirate_bad")
+						event.start_step("hpot_porch_pirate_bad")
 					else
-						hpot_event_start_step("hpot_porch_pirate_phew")
+						event.start_step("hpot_porch_pirate_phew")
 					end
 				end,
 			},
@@ -343,15 +337,15 @@ SMODS.EventStep({
 	loc_vars = function(self)
 		return { self.config.extra.remove }
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 	end,
-	finish = function(self)
+	finish = function(self, event)
 		Remove()
 	end,
 })
 SMODS.EventStep({
 	key = "porch_pirate_good",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
@@ -360,7 +354,7 @@ SMODS.EventStep({
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 		if not G.hp_jtem_delivery_queue then
 			hotpot_jtem_init_extra_shops_area()
 			hotpot_delivery_refresh_card()
@@ -377,13 +371,13 @@ SMODS.EventStep({
 				delivery_obj.extras = delivery_obj.extras or {}
 				delivery_obj.extras.eternal = true
 			end
-			local x, y = get_hpot_event_image_center()
+			local x, y = event.get_image_center()
 			local jimbo_card = Card_Character({
 				x = x,
 				y = y,
 				center = delivery.config.center.key,
 			})
-			G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
+            event.image_area.children.jimbo_card = jimbo_card
 			hpot_event_display_lines(1, true)
 			delay(1)
 			G.E_MANAGER:add_event(Event {
@@ -396,13 +390,13 @@ SMODS.EventStep({
 			})
 		end
 	end,
-	finish = function(self)
-		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+	finish = function(self, event)
+		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					jimbo_card:remove()
-					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					event.image_area.children.jimbo_card = nil
 					return true
 				end,
 			}))
@@ -411,16 +405,16 @@ SMODS.EventStep({
 })
 SMODS.EventStep({
 	key = "porch_pirate_bad",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
 				no_prefix = true,
-				button = hpot_event_end_scenario,
+				button = event.finish_scenario,
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 		-- make sure the queue exists first
 		if not G.hp_jtem_delivery_queue then
 			hotpot_jtem_init_extra_shops_area()
@@ -441,13 +435,13 @@ SMODS.EventStep({
 				end
 			end
 			remove = {}
-			local x, y = get_hpot_event_image_center()
+			local x, y = event.get_image_center()
 			local jimbo_card = Card_Character({
 				x = x,
 				y = y,
 				center = delivery.config.center.key,
 			})
-			G.hpot_event_ui_image_area.children.jimbo_card = jimbo_card
+			event.image_area.children.jimbo_card = jimbo_card
 			hpot_event_display_lines(2, true)
 			delay(1)
 			jimbo_card:say_stuff(3)
@@ -461,13 +455,13 @@ SMODS.EventStep({
 			delivery:remove()
 		end
 	end,
-	finish = function(self)
-		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+	finish = function(self, event)
+		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					jimbo_card:remove()
-					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					event.image_area.children.jimbo_card = nil
 					return true
 				end,
 			}))
@@ -481,7 +475,7 @@ SMODS.EventStep({
 			moveon()
 		}
 	end,
-	start = function(self, scenario, previous_step) end,
+	start = function(self, event) end,
 	finish = function(self) end,
 })
 
@@ -549,7 +543,7 @@ SMODS.EventStep {
 
 SMODS.EventStep({
 	key = "postman_1",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
@@ -577,12 +571,12 @@ SMODS.EventStep({
 							end
 						end
 					end
-					hpot_event_end_scenario()
+					event.finish_scenario()
 				end,
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 		local pirate_card = Character("j_shortcut")
 		pirate_card.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
 		pirate_card.states.collide.can = false
@@ -596,13 +590,13 @@ SMODS.EventStep({
 			end,
 		}))
 	end,
-	finish = function(self)
-		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+	finish = function(self, event)
+		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					jimbo_card:remove()
-					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					event.image_area.children.jimbo_card = nil
 					return true
 				end,
 			}))
@@ -617,7 +611,7 @@ SMODS.EventScenario {
 		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0 and G.jokers and
 		#G.jokers.cards < G.jokers.config.card_limit
 	end,
-	hotpot_credits = {
+    hotpot_credits = {
 		idea = { "MissingNumber" },
 		code = { "Haya", "SleepyG11" },
 		team = { "Jtem" },
@@ -626,7 +620,7 @@ SMODS.EventScenario {
 
 SMODS.EventStep({
 	key = "voucher_1",
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_voucher_pick_up",
@@ -641,12 +635,12 @@ SMODS.EventStep({
 					end
 					if next(valid) then
 						local vouch = pseudorandom_element(valid, 'vouch_'..G.GAME.round_resets.ante)
-						G.GAME.hpot_event_scenario_data.voucher = vouch
+						event.ability.voucher = vouch
 						G.GAME.hpot_voucher_taken = G.GAME.hpot_event_scenario_data.voucher
 						--print(G.GAME.hpot_event_scenario_data.voucher)
-						hpot_event_start_step('hpot_voucher_2')
+						event.start_step('hpot_voucher_2')
 					else
-						hpot_event_end_scenario()
+						event.finish_scenario()
 					end
 				end,
 			},
@@ -670,11 +664,11 @@ SMODS.EventStep({
 			},
 		}
 	end,
-	loc_vars = function(self)
-		return { localize { type = 'name_text', key = G.GAME.hpot_event_scenario_data.voucher, set = "Voucher", vars = {} } }
+	loc_vars = function(self, event)
+		return { localize { type = 'name_text', key = event.ability.voucher, set = "Voucher", vars = {} } }
 	end,
-	start = function(self, scenario, previous_step)
-		local pirate_card = Character(G.GAME.hpot_event_scenario_data.voucher)
+	start = function(self, event)
+		local pirate_card = Character(event.ability.voucher)
 		pirate_card.children.particles.colours = { G.C.VOUCHER, G.C.SET.Voucher, G.C.SECONDARY_SET.Voucher }
 		pirate_card.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
@@ -694,13 +688,13 @@ SMODS.EventStep({
 			end
 		})
 	end,
-	finish = function(self, scenario, previous_step)
-		local jimbo_card = G.hpot_event_ui_image_area.children.jimbo_card
+	finish = function(self, event)
+		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					jimbo_card:remove()
-					G.hpot_event_ui_image_area.children.jimbo_card = nil
+					event.image_area.children.jimbo_card = nil
 					return true
 				end,
 			}))
@@ -720,18 +714,18 @@ SMODS.EventScenario {
 
 SMODS.EventStep({
 	key = 'spam_1',
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
 				no_prefix = true,
-				button = hpot_event_end_scenario,
+				button = event.finish_scenario,
 			},
 		}
 	end,
-	start = function(self, scenario, previous_step)
+	start = function(self, event)
 	end,
-	finish = function(self, scenario, previous_step)
+	finish = function(self, event)
 		create_ads(pseudorandom('spam_spam_lovely_spam!_'..G.GAME.round_resets.ante, 10, 25))
 	end
 })

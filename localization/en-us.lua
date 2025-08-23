@@ -1381,7 +1381,7 @@ return {
             },
             hpot_voucher_2 = {
                 text = {
-                    "You found #1#!",
+                    "You found {C:attention}#1#{}!",
                     " ",
                     "Hopefully this isn't something",
                     "someone else lost..."

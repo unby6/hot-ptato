@@ -202,8 +202,8 @@ if first_pass and card and card.hpot_event_key then
   local event = SMODS.EventScenarios[card.hpot_event_key]
   local t = { key = card.hpot_event_key, set = 'EventScenarios' }
   local res = {}
-  if event.loc_vars and type(event.loc_vars) == 'function' then
-    res = event:loc_vars(info_queue) or {}
+  if event.collection_loc_vars and type(event.collection_loc_vars) == 'function' then
+    res = event:collection_loc_vars(info_queue) or {}
     t.vars = res.vars or {}
     t.key = res.key or t.key
     t.set = res.set or t.set
