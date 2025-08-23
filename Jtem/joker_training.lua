@@ -2,15 +2,11 @@
 
 -- Hey y'all, Haya from Paya here.
 -- Training is a mechanic for Jokers, intended to mimic Uma Musume's Career Mode.
-
--- Default draw function for mood
-local function mood_draw(self, card, layer)
-end
-
--- Default apply function for mood (copies config table)
-local function mood_apply(self, card, val)
-	card.ability[self.key] = val and copy_table(self.config) or nil
-end
+-- Jokers can start training via a simple button, and this process is irreversible.
+-- With this, specific Tarot cards can increase the stats of this Joker.
+--
+-- Yes this is a poor excuse to add umamusume to this fucking mod fuck you
+-- also hi bepis if youre seeing this, :) (please improve the ui thx)
 
 -- Checks if a card has a mood sticker.
 function hpot_has_mood(card)
@@ -56,7 +52,9 @@ local mood_to_multiply = {
 	-- lmaooo
 }
 
--- changes mood
+-- Changes the current mood of a Joker.
+---@param card Card|table
+---@param mood_mod number
 function hot_mod_mood(card, mood_mod)
 	G.E_MANAGER:add_event(Event{
 		func = function()
@@ -68,6 +66,9 @@ function hot_mod_mood(card, mood_mod)
 	})
 end
 
+--- Calculates the failure rate given the energy.
+---@param energy number
+---@return integer
 function hpot_calc_failure_rate(energy)
 	-- energy with atlast 70 or above yields always success
 	if energy >= 70 then return 0 end
@@ -78,7 +79,10 @@ function hpot_calc_failure_rate(energy)
 	return math.floor((1 - (en / 70))*100)/100
 end
 
--- please adjust value later is this for debugging
+--- Returns the rank name and the color given the score.
+--- @param score number
+--- @return string
+--- @return table|SMODS.Gradient
 function hpot_get_rank_and_colour(score)
 	if score > 1900 then
 		return "US", SMODS.Gradients["hpot_jtem_training_ug"]
@@ -137,22 +141,6 @@ HP_JTEM_STATS = { "speed", "stamina", "power", "guts", "wits" }
 
 HP_MOOD_STICKERS = {}
 
-local function copy_table_to_table(tbl, obj, seen)
-	if type(obj) ~= "table" then
-		return obj
-	end
-	if seen and seen[obj] then
-		return seen[obj]
-	end
-	local s = seen or {}
-	local res = setmetatable(tbl or {}, getmetatable(obj))
-	s[obj] = res
-	for k, v in pairs(obj) do
-		res[copy_table_to_table(v, k, s)] = copy_table_to_table(copy_table_to_table(v, k, s), v, s)
-	end
-	return res
-end
-
 -- this part is for saving misc values for this stuff
 local card_init_val = Card.init
 function Card:init(x, y, w, h, _card, _center, _params)
@@ -174,7 +162,6 @@ function Card:load(ct, oc)
     self.jp_jtem_orig_sell_cost = ct.jp_jtem_orig_sell_cost or 0
     return st
 end
-
 
 -- Mood stickers
 SMODS.Sticker {
@@ -252,6 +239,7 @@ SMODS.Sticker {
 		}
 		-- determines training stat multiplier
 		-- only 2 can be chosen to be increased
+		-- one is 20% and one is 10%
 		card.ability["hp_jtem_train_mult"] = {
 			speed = 1, stamina = 1, power = 1, guts = 1, wits = 1
 		}
@@ -265,6 +253,7 @@ SMODS.Sticker {
 		card.ability.hp_jtem_energy = 100
 		card.jp_jtem_orig_sell_cost = card.sell_cost
 
+		-- this probably isnt needed but idk
 		local stats = card.ability["hp_jtem_stats"]
 		hpot_jtem_with_deck_effects(card, function(c)
 			if stats.guts > 150 then
@@ -304,6 +293,7 @@ SMODS.Sticker {
 			end
 		end
 		if context.joker_main then
+			-- TODO: Probably nerf this????
 			return {
 				xmult = 1 + ((stats.power/800)*100)/100,
 				xchips = 1 + ((stats.power/800)*100)/100
@@ -319,6 +309,9 @@ SMODS.Sticker {
 	}
 }
 
+--- Gets the default training cost.
+---@param card Card|table
+---@return number
 function hpot_get_training_cost(card)
     return 20000 * (G.GAME.hpot_training_cost_mult or 1)
 end
@@ -404,6 +397,8 @@ SMODS.draw_ignore_keys.hpot_train_button = true
 
 --#region Tarots
 
+---@param self SMODS.Consumable|table
+---@param card Card|table
 function hpot_training_tarot_can_use(self, card)
 	local trainable_jokers = {}
 	for k, v in pairs(G.jokers.highlighted) do
@@ -415,6 +410,10 @@ function hpot_training_tarot_can_use(self, card)
 		#trainable_jokers <= card.ability.max_highlighted
 end
 
+---@param self SMODS.Consumable|table
+---@param card Card|table
+---@param area CardArea|table
+---@param copier Card|table|nil
 function hpot_training_tarot_use(self, card, area, copier)
 	local trainable_jokers = {}
 	for k, v in pairs(G.jokers.highlighted) do
@@ -427,9 +426,11 @@ function hpot_training_tarot_use(self, card, area, copier)
 	local success = true
 	local stats_increased = {}
 	local old_stats = {}
+	-- Actual stat changing
 	for i = 1, #trainable_jokers do
 		local joker = trainable_jokers[i]
 		if joker and hpot_has_mood(joker) then
+			-- For comparison later down the line...
 			old_stats[joker.sort_id] = copy_table(joker.ability["hp_jtem_stats"])
 			local stats = joker.ability["hp_jtem_stats"]
 			-- roll for luck!
@@ -437,6 +438,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			if pseudorandom('hpot_fail_train') < fail_rate and not card.ability.hpot_skip_fail_check then
 				-- Failure...
 				success = false
+				-- Reverse stat increases
 				for k, v in pairs(stats_to_increase) do
 					stats_to_increase[k] = stats_to_increase[k] * -1.1
 				end
@@ -449,7 +451,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 					stats[stat] = value + stats_increased[stat]
 				end
 			end
-			-- reduce energy if possible
+			-- reduce energy if possible, only if successful
 			if card.ability.hpot_energy_change and success then
 				energy_changed = card.ability.hpot_energy_change
 				if energy_changed < 0 then
@@ -462,6 +464,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 		end
 	end
 	delay(0.6)
+	-- Messages
 	for i = 1, #trainable_jokers do
 		local joker = trainable_jokers[i]
 		if joker and hpot_has_mood(joker) then
@@ -473,6 +476,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 					return true
 				end
 			})
+			-- Success! or Failure...
 			if not card.ability.hpot_skip_fail_check then
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
 					{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
@@ -488,6 +492,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
 					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
 			end
+			-- change joker stats
 			local stats = joker.ability["hp_jtem_stats"]
 			hpot_jtem_with_deck_effects(joker, function(c)
 				if stats.guts > 150 then
@@ -518,6 +523,10 @@ function hpot_training_tarot_use(self, card, area, copier)
 	})
 end
 
+---@param self SMODS.Consumable|table
+---@param info_queue table
+---@param card Card|table
+---@return table
 function hpot_training_tarot_loc_vars(self, info_queue, card)
 	local vars = {}
 	for _, value in ipairs(HP_JTEM_STATS) do
@@ -544,6 +553,18 @@ local training_tarot_credits = {
 	idea = {'Aikoyori', 'Haya'},
 	team = {'Jtem'}
 }
+
+-- All of these consumables below are for training specific stats.
+-- `hpot_train_increase`: List of stats to increase to what value.
+-- Valid stats to increase are:
+-- 		speed - Likelyhood to retrigger
+--		stamina - Reduces energy used when training
+--		power - Additional XChips and XMult
+-- 		guts - Base Joker value multiplier
+-- 		wits - Sell value
+-- `hpot_energy_change`: How much energy to gain/drain.
+-- `hpot_mood_change`: How much mood to gain/drain.
+-- `hpot_skip_fail_check`: Skips the failure check. Also doesn't show the "Success!" or "Failure..." text.
 
 SMODS.Consumable {
 	key = 'training_speed',
