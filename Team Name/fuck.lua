@@ -3,6 +3,7 @@ HPTN = {
     is_shitfuck = true
 }
 SMODS.Atlas{key = "teamname_shitfuck", path = "Team Name/shitfuck.png", px = 71, py = 95}
+SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, py = 95}
 SMODS.Joker:take_ownership('j_joker',
     {
     atlas = "teamname_shitfuck",

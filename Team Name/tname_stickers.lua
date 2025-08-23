@@ -16,6 +16,12 @@ SMODS.Sticker({
 			SMODS.debuff_card(card, true, card.config.center.key) -- source
 		end
 	end,
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 SMODS.Sticker({
@@ -48,6 +54,12 @@ SMODS.Sticker({
 			end
 		end
 	end,
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 SMODS.Sticker({
@@ -71,6 +83,12 @@ SMODS.Sticker({
 			SMODS.destroy_cards(card)
 		end
 	end,
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 SMODS.Sticker({
@@ -103,6 +121,12 @@ SMODS.Sticker({
 			}
 		end
 	end,
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 SMODS.Sticker({
@@ -165,6 +189,12 @@ SMODS.Sticker({
 			card.just_spored = nil
 		end
 	end,
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 SMODS.Sticker({
@@ -187,18 +217,24 @@ SMODS.Sticker({
 				end
 			end
 
-			destroy_tab[#destroy_tab+1] = card
+			destroy_tab[#destroy_tab + 1] = card
 
-			if area.cards[rr+1] then
-				destroy_tab[#destroy_tab+1] = area.cards[rr+1]	
+			if area.cards[rr + 1] then
+				destroy_tab[#destroy_tab + 1] = area.cards[rr + 1]
 			end
-			if area.cards[rr-1] then
-				destroy_tab[#destroy_tab+1] = area.cards[rr-1]
+			if area.cards[rr - 1] then
+				destroy_tab[#destroy_tab + 1] = area.cards[rr - 1]
 			end
 
 			SMODS.destroy_cards(destroy_tab)
 		end
 	end,
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "Revo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 local remove_old = Card.remove
