@@ -77,7 +77,21 @@ end
 
 -- please adjust value later is this for debugging
 function hpot_get_rank_and_colour(score)
-	if score > 1200 then
+	if score > 1900 then
+		return "US", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1800 then
+		return "UA", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1700 then
+		return "UB", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1600 then
+		return "UC", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1500 then
+		return "UD", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1400 then
+		return "UE", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1300 then
+		return "UF", SMODS.Gradients["hpot_jtem_training_ug"]
+	elseif score > 1200 then
 		return "UG", SMODS.Gradients["hpot_jtem_training_ug"]
 	elseif score > 1150 then
 		return "SS+", G.C.HP_JTEM.RANKS.SS
@@ -385,15 +399,6 @@ end
 
 SMODS.draw_ignore_keys.hpot_train_button = true
 
-SMODS.DrawStep {
-	key = 'train_button',
-	order = -30,
-	func = function(self)
-		--Draw any tags/buttons
-		if self.children.hpot_train_button and self.highlighted then self.children.hpot_train_button:draw() end
-	end,
-}
-
 --#region Tarots
 
 function hpot_training_tarot_can_use(self, card)
@@ -465,8 +470,10 @@ function hpot_training_tarot_use(self, card, area, copier)
 					return true
 				end
 			})
-			card_eval_status_text(joker, 'extra', nil, nil, nil,
-				{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
+			if not card.ability.hpot_skip_fail_check then
+				card_eval_status_text(joker, 'extra', nil, nil, nil,
+					{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
+			end
 			for stat, value in pairs(stats_increased) do
 				-- oh my fucking god
 				value = tonumber(value)
@@ -474,7 +481,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 					{ message = localize { type = 'variable', key = 'hotpot_train_' .. stat .. (value >= 0 and '_up' or '_down'), vars = { math.abs(value) } }, colour = (value >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
 			end
 			-- reduce energy if possible
-			if energy_changed then
+			if energy_changed and energy_changed ~= 0 then
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
 					{ message = localize { type = 'variable', key = 'hotpot_train_energy' .. (energy_changed >= 0 and '_up' or '_down'), vars = { math.abs(energy_changed) } }, colour = (energy_changed >= 0 and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
 			end

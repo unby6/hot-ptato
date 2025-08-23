@@ -20,6 +20,10 @@ SMODS.Challenge {
 			{ id = "tag_voucher" },
 			{ id = "tag_uncommon" },
 			{ id = "tag_rare" },
+			{ id = "tag_foil" },
+			{ id = "tag_holo" },
+			{ id = "tag_polychrome" },
+			{ id = "tag_negative" }
 		}
 	}
 }
