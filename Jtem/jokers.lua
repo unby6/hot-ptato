@@ -535,3 +535,25 @@ SMODS.Joker:take_ownership( "j_diet_cola",{
         end
     end,
 }, true)
+
+
+SMODS.Joker {
+    key = 'jtem_special_week',
+    atlas = "jtem_special_week",
+    pos = { x = 0, y = 0 },
+    soul_pos = { x = 1, y = 0 },
+    rarity = 4,
+    blueprint_compat = true,
+    calc_training_mul = function(self, card, joker, mult, stat)
+        return mult * 4
+    end,
+    in_pool = function(self, args)
+        return G.GAME.hpot_training_has_ever_been_done
+    end,
+    hotpot_credits = {
+        art = {'Aikoyori'},
+        code = {'Aikoyori'},
+        idea = {'Haya'},
+        team = {'Jtem'}
+    },
+}

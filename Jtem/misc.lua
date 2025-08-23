@@ -230,6 +230,12 @@ SMODS.Atlas {
   px = 81,py = 81,
 }
 
+SMODS.Atlas {
+  key = "jtem_special_week",
+  path = "Jtem/special_week.png",
+  px = 71,py = 95
+}
+
 SMODS.Font {
   key = "jtem_roboto_bold",
   path = "Roboto-Bold.ttf",

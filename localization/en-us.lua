@@ -609,6 +609,12 @@ return {
                     "{C:attention}Doubles{} all incoming",
                     "training values"
                 }
+            },
+            j_hpot_jtem_special_week = {
+                name = "{f:5}スペーシャルウィーク{} (Special Week)",
+                text = {
+                    "Training can {C:attention}never fail{}",
+                }
             }
         },
         Voucher = {
