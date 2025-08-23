@@ -71,7 +71,7 @@ end
 ---@return integer
 function hpot_calc_failure_rate(energy)
 	-- if special week is here then no failure
-	if next(SMODS.find_joker("hpot_jtem_special_weel")) then return 0 end
+if next(SMODS.find_card("j_hpot_jtem_special_week")) then return 0 end
 	-- energy with atlast 70 or above yields always success
 	if energy >= 70 then return 0 end
 	-- no one can save you

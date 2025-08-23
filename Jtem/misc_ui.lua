@@ -67,7 +67,7 @@ local function hp_jtem_buy_jx_individual( b_type, index )
             },
             { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
             },
-            { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
+        { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
                     {
                         n = G.UIT.T,
                         config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
