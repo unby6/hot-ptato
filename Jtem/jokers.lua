@@ -329,21 +329,25 @@ SMODS.Joker {
     key = 'empty_can',
     atlas = "jtem_jokers",
     pos = { x = 1, y = 2 },
-    config = { extra = { plincoin = 1 } },
+    config = { extra = { plincoin = 1, consumeables = 2 } },
     pools = { Food = true },
     rarity = 2,
     calculate = function(self, card, context)
         if context.using_consumeable and (not G.plinko_rewards or context.area ~= G.plinko_rewards) then
-            ease_plincoins(card.ability.extra.plincoin)
-            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.plincoin).."", colour = G.C.MONEY})
+            card.ability.consumeables_used = (card.ability.consumeables_used or 0) + 1
+            if card.ability.consumeables_used >= card.ability.extra.consumeables then
+                card.ability.consumeables_used = 0
+                ease_plincoins(card.ability.extra.plincoin)
+                card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.plincoin).."", colour = G.C.MONEY})
+            end
         end
     end,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.plincoin } }
+        return { vars = { card.ability.extra.plincoin, card.ability.extra.consumeables } }
     end,
     hotpot_credits = {
         art = {'MissingNumber'},
-        code = {'Haya'},
+        code = {'Haya, SleepyG11'},
         idea = {'MissingNumber'},
         team = {'Jtem'}
     }

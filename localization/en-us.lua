@@ -568,8 +568,8 @@ return {
             j_hpot_empty_can = {
                 name = "Empty Can",
                 text = {
-                    "Gives {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} whenever a",
-                    "consumable is used"
+                    "Gives {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} for every",
+                    "{C:attention}#2#{} consumables used"
                 }
             },
             j_hpot_spam = {
