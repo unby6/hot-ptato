@@ -1,6 +1,22 @@
+SMODS.Atlas({
+	key = "tname_stickers",
+	path = "Team Name/tname_stickers.png",
+	px = 71,
+	py = 95,
+})
+
 SMODS.Sticker({
 	key = "overclock",
-	badge_colour = HEX("ff8686"),
+	badge_colour = HEX("fdaf57"),
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) },
+		}
+	end,
+	apply = function(self, card, val)
+		card.ability.hpot_overclock = true
+		card.ability.over_tally = G.GAME.overclock_timer
+	end,
 	calculate = function(self, card, context)
 		if
 			context.other_card == card
@@ -13,20 +29,35 @@ SMODS.Sticker({
 		end
 
 		if context.end_of_round and context.main_eval then
-			SMODS.debuff_card(card, true, card.config.center.key) -- source
+			if card.ability.over_tally > 1 then
+				card.ability.over_tally = card.ability.over_tally - 1
+				card_eval_status_text(card, "extra", nil, nil, nil, {
+					message = localize({
+						type = "variable",
+						key = "a_remaining",
+						vars = {
+							card.ability.over_tally,
+						},
+					}),
+					colour = G.C.FILTER,
+					delay = 0.45,
+				})
+			else
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_debuffed") })
+				SMODS.debuff_card(card, true, card.config.center.key) -- source
+			end
 		end
 	end,
-	hotpot_credits = {
-		art = { "No Art" },
-		idea = { "Corobo" },
-		code = { "Revo" },
-		team = { "Team Name" },
+	atlas = "tname_stickers",
+	pos = {
+		x = 1,
+		y = 1,
 	},
 })
 
 SMODS.Sticker({
 	key = "redirect",
-	badge_colour = HEX("ff8686"),
+	badge_colour = HEX("b7a2fd"),
 	calculate = function(self, card, context)
 		if context.hpot_destroy and context.hpot_destroyed == card then
 			local tab = {}
@@ -38,7 +69,7 @@ SMODS.Sticker({
 			end
 
 			for i = 1, #area.cards do
-				if area.cards[i] ~= card then
+				if area.cards[i] ~= card and not SMODS.is_eternal(area.cards[i]) then
 					tab[#tab + 1] = area.cards[i]
 				end
 			end
@@ -50,21 +81,20 @@ SMODS.Sticker({
 				local acard = copy_card(card)
 				acard:add_to_deck()
 				area:emplace(acard)
-				SMODS.calculate_effect({ message = "Redirect!" }, acard)
+				SMODS.calculate_effect({ message = localize("hpot_redirect_ex") }, acard)
 			end
 		end
 	end,
-	hotpot_credits = {
-		art = { "No Art" },
-		idea = { "GoldenLeaf" },
-		code = { "Revo" },
-		team = { "Team Name" },
+	atlas = "tname_stickers",
+	pos = {
+		x = 0,
+		y = 0,
 	},
 })
 
 SMODS.Sticker({
 	key = "fragile",
-	badge_colour = HEX("ff8686"),
+	badge_colour = HEX("b7d5d8"),
 	config = {
 		xmult = 2,
 	},
@@ -83,17 +113,16 @@ SMODS.Sticker({
 			SMODS.destroy_cards(card)
 		end
 	end,
-	hotpot_credits = {
-		art = { "No Art" },
-		idea = { "GoldenLeaf" },
-		code = { "Revo" },
-		team = { "Team Name" },
+	atlas = "tname_stickers",
+	pos = {
+		x = 2,
+		y = 0,
 	},
 })
 
 SMODS.Sticker({
 	key = "rage",
-	badge_colour = HEX("ff8686"),
+	badge_colour = HEX("fd5f55"),
 	calculate = function(self, card, context)
 		if
 			context.other_card == card
@@ -121,17 +150,16 @@ SMODS.Sticker({
 			}
 		end
 	end,
-	hotpot_credits = {
-		art = { "No Art" },
-		idea = { "GoldenLeaf" },
-		code = { "Revo" },
-		team = { "Team Name" },
+	atlas = "tname_stickers",
+	pos = {
+		x = 1,
+		y = 0,
 	},
 })
 
 SMODS.Sticker({
 	key = "spores",
-	badge_colour = HEX("ff8686"),
+	badge_colour = HEX("4bc292"),
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = { (G.GAME.probabilities.normal or 1) },
@@ -162,7 +190,7 @@ SMODS.Sticker({
 						area.cards[rr - 1].ability.hpot_spores = true
 						area.cards[rr - 1]:juice_up()
 						area.cards[rr - 1].just_spored = true
-						SMODS.calculate_effect({ message = "Infected!" }, area.cards[rr - 1])
+						SMODS.calculate_effect({ message = localize("hpot_infected_ex") }, area.cards[rr - 1])
 					end
 				end
 			end
@@ -175,7 +203,7 @@ SMODS.Sticker({
 						area.cards[rr + 1].ability.hpot_spores = true
 						area.cards[rr + 1]:juice_up()
 						area.cards[rr + 1].just_spored = true
-						SMODS.calculate_effect({ message = "Infected!" }, area.cards[rr + 1])
+						SMODS.calculate_effect({ message = localize("hpot_infected_ex") }, area.cards[rr + 1])
 					end
 				end
 			end
@@ -189,17 +217,16 @@ SMODS.Sticker({
 			card.just_spored = nil
 		end
 	end,
-	hotpot_credits = {
-		art = { "No Art" },
-		idea = { "Corobo" },
-		code = { "Revo" },
-		team = { "Team Name" },
+	atlas = "tname_stickers",
+	pos = {
+		x = 0,
+		y = 1,
 	},
 })
 
 SMODS.Sticker({
 	key = "nuke",
-	badge_colour = HEX("ff8686"),
+	badge_colour = HEX("a2615e"),
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = { (G.GAME.probabilities.normal or 1) },
@@ -229,10 +256,74 @@ SMODS.Sticker({
 			SMODS.destroy_cards(destroy_tab)
 		end
 	end,
-	hotpot_credits = {
-		art = { "No Art" },
-		idea = { "Revo" },
-		code = { "Revo" },
-		team = { "Team Name" },
+	atlas = "tname_stickers",
+	pos = {
+		x = 2,
+		y = 1,
 	},
+})
+
+SMODS.Sticker({
+	key = "cannibal",
+	badge_colour = HEX("a6605d"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.setting_blind then
+			local stickers = {}
+			for k, v in pairs(SMODS.Stickers) do
+				if (card.ability[k] or card[k]) and k ~= "hpot_cannibal" then
+					stickers[#stickers + 1] = k
+				end
+			end
+
+			local remove = pseudorandom_element(stickers)
+
+			card:juice_up()
+			SMODS.Stickers[remove]:apply(card, false)
+			card_eval_status_text(
+				card,
+				"extra",
+				nil,
+				nil,
+				nil,
+				{ message = ("-" .. localize({ type = "name_text", key = remove, set = "Other" })) }
+			)
+		end
+	end,
+})
+
+SMODS.Sticker({
+	key = "binary",
+	badge_colour = HEX("217c06"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.setting_blind then
+			local stickers, remove_stickers = {}, {}
+			for k, v in pairs(SMODS.Stickers) do
+				if k ~= "hpot_binary" then
+					if card.ability[k] or card[k] then
+						remove_stickers[#remove_stickers + 1] = k
+					elseif k ~= "binary" then
+						stickers[#stickers + 1] = k
+					end
+				end
+			end
+
+			for i = 1, #remove_stickers do
+				SMODS.Stickers[remove_stickers[i]]:apply(card, false)
+			end
+
+			for i = 1, #stickers do
+				SMODS.Stickers[stickers[i]]:apply(card, true)
+			end
+		end
+	end,
 })

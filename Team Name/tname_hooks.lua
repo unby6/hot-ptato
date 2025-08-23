@@ -8,3 +8,11 @@ function Card:remove()
 	end
 	return remove_old(self)
 end
+
+
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+	local ret = igo(self)
+	ret.overclock_timer = 3
+	return ret
+end

@@ -1285,9 +1285,8 @@ return {
             hpot_overclock = {
                 name = "Overclock",
                 text = {
-                    "Card {C:attention}Retriggers{}", 
-                    "when triggered until end of round",
-                    "then card is {C:red}debuffed"
+                    "{C:attention}Retriggers{} for","{C:attention}#1#{} Rounds.",
+                    "{C:inactive}({C:attention}#2#{C:inactive} Remaining)"
                 }
             },
             hpot_redirect = {
@@ -1331,6 +1330,26 @@ return {
                     "is selected, {C:green}#1# in 6{}",
                     "Chance to {C:red}Destroy{} self and",
                     "adjacent cards"
+                }
+            },
+            hpot_cannibal = {
+                name = "Cannibal",
+                text = {
+                    "When a {C:attention}Blind",
+                    "is selected, {C:red}remove",
+                    "a {C:dark_edition}Random Sticker",
+                    "from this card",
+                    "{C:inactive}(Cannibal excluded)"
+                }
+            },
+             hpot_binary = {
+                name = "Binary",
+                text = {
+                    "When a {C:attention}Blind",
+                    "is selected, {C:attention}Swap{}",
+                    "unequipped and equipped",
+                    "stickers.",
+                    "{C:inactive}(Binary excluded)"
                 }
             },
         },
@@ -1779,6 +1798,9 @@ return {
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
+            hpot_infected_ex = "Infected!",
+            hpot_redirect_ex = "Redirect!"
+
 
         },
         v_dictionary = {
@@ -1827,7 +1849,9 @@ return {
             hpot_fragile = "Fragile",
             hpot_rage = "Rage",
             hpot_spores = "Spore",
-            hpot_nuke = "Nuke"
+            hpot_nuke = "Nuke",
+            hpot_cannibal = "Cannibal",
+            hpot_binary = "Binary",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
