@@ -622,6 +622,14 @@ return {
                 text = {
                     "Training can {C:attention}never fail{}",
                 }
+            },
+            j_hpot_sticker_master = {
+                name = "Sticker Master",
+                text = {
+                    "{C:mult}+#1#{} Mult for",
+                    "each sticker on","your jokers",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+                }
             }
         },
         Sleeve = {
@@ -1316,6 +1324,15 @@ return {
                     "all have spores"
                 }
             },
+            hpot_nuke = {
+                name = "Nuke",
+                text = {
+                    "When a {C:attention}Blind",
+                    "is selected, {C:green}#1# in 6{}",
+                    "Chance to {C:red}Destroy{} self and",
+                    "adjacent cards"
+                }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1809,7 +1826,8 @@ return {
             hpot_redirect = "Redirect",
             hpot_fragile = "Fragile",
             hpot_rage = "Rage",
-            hpot_spores = "Spore"
+            hpot_spores = "Spore",
+            hpot_nuke = "Nuke"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

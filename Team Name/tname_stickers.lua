@@ -167,6 +167,40 @@ SMODS.Sticker({
 	end,
 })
 
+SMODS.Sticker({
+	key = "nuke",
+	badge_colour = HEX("ff8686"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = { (G.GAME.probabilities.normal or 1) },
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.setting_blind and pseudorandom("tname_nuke") < G.GAME.probabilities.normal / 6 then
+			local destroy_tab = {}
+
+			local area = card.area
+			local rr = nil
+			for i = 1, #area.cards do
+				if area.cards[i] == card then
+					rr = i
+				end
+			end
+
+			destroy_tab[#destroy_tab+1] = card
+
+			if area.cards[rr+1] then
+				destroy_tab[#destroy_tab+1] = area.cards[rr+1]	
+			end
+			if area.cards[rr-1] then
+				destroy_tab[#destroy_tab+1] = area.cards[rr-1]
+			end
+
+			SMODS.destroy_cards(destroy_tab)
+		end
+	end,
+})
+
 local remove_old = Card.remove
 function Card:remove()
 	if self.added_to_deck or (self.area and (self.area == G.hand or self.area == G.deck)) then --guys idfk what im doing please help me im begging please aaaaaaaaaaaaaaaaaaaaaa
