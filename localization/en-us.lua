@@ -1274,6 +1274,48 @@ return {
                     "be used immediately",
                 },
             },
+            hpot_overclock = {
+                name = "Overclock",
+                text = {
+                    "Card {C:attention}Retriggers{}", 
+                    "when triggered until end of round",
+                    "then card is {C:red}debuffed"
+                }
+            },
+            hpot_redirection = {
+                name = "Redirection",
+                text = {
+                    "When this card", 
+                    "is going to be destroyed",
+                    "{C:red}destroy{} another card instead."
+                }
+            },
+            hpot_fragile = {
+                name = "Fragile",
+                text = {
+                    "{X:mult,C:white}X#2#{} Mult",
+                    "{C:red}Destroy this card",
+                    "when another card",
+                    "is destroyed"
+                }
+            },
+            hpot_rage = {
+                name = "Rage",
+                text = {
+                    "{C:attention}Retrigger{} this card.",
+                    "{C:red}destroys{} adjecent cards"
+                }
+            },
+            hpot_spores = {
+                name = "Spore",
+                text = {
+                    "{C:green}#1# in 2{} Chance to", 
+                    "give a spore to {C:attention}adjacent{} cards",
+                    "when in hand.",
+                    "C:red}Destroyed{} if adjacent cards",
+                    "all have spores"
+                }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1763,6 +1805,11 @@ return {
             hotpot_training_pack = "Training Pack",
             hpot_psychedelic = "Psychedelic",
             hpot_event = "Event",
+            hpot_overclock = "Overclock",
+            hpot_redirection = "Redirection",
+            hpot_fragile = "Fragile",
+            hpot_rage = "Rage",
+            hpot_spore = "Spore"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
