@@ -143,6 +143,13 @@ SMODS.EventScenario = SMODS.GameObject:extend({
 	pre_inject_class = function(self)
 		G.P_CENTER_POOLS[self.set] = {}
 	end,
+
+    -- Events basically added by me so..
+    hotpot_credits = {
+        idea = { "SleepyG11" },
+		code = { "SleepyG11" },
+		team = { "Jtem" },
+	}
 })
 
 local your_collection_tabs = HotPotato.custom_collection_tabs

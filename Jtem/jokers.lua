@@ -356,7 +356,7 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         art = {'MissingNumber'},
-        code = {'Haya, SleepyG11'},
+        code = {'Haya", "SleepyG11'},
         idea = {'MissingNumber'},
         team = {'Jtem'}
     }
