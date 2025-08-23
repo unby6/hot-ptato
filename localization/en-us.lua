@@ -1412,6 +1412,42 @@ return {
                     "Start a corporation, make a logo, do it properly!"
                 }
             },
+            hpot_nigerian_prince_start = {
+                text = {
+                    "{s:0.8}One cold night, you receive a message from {E:1,C:red,s:0.8}an unknown number",
+                    "{s:0.8}The message reads:",
+                    "{f:hpot_jtem_roboto_bold}Hello, to whoever is reading this message",
+                    "{f:hpot_jtem_roboto_bold}I have an {s:1.2,f:hpot_jtem_roboto_bold,E:1,C:green}investment opportunity{f:hpot_jtem_roboto_bold} for you.",
+                    "{f:hpot_jtem_roboto_bold}that will actually triple your money",
+                    "{f:hpot_jtem_roboto_bold}- signed, A Nigerian Prince",
+                    "{s:0.8}You are skeptical as to if this is real or not."
+                }
+            },
+            hpot_nigerian_prince_reply = {
+                text = {
+                    "{s:0.8}Like magic, a new message shows up before you",
+                    "{f:hpot_jtem_roboto_bold}Let us get right to the point.",
+                    "{f:hpot_jtem_roboto_bold}I will take {f:hpot_plincoin,E:1,C:blue}͸25,000{f:hpot_jtem_roboto_bold} from you.",
+                    "{f:hpot_jtem_roboto_bold}and then I will flip a coin. If it lands on Head,",
+                    "{f:hpot_jtem_roboto_bold}I will give you triple of the amount of {f:hpot_plincoin,C:blue}͸{} you have left",
+                    "{f:hpot_jtem_roboto_bold}but if it lands on Tail,{f:hpot_jtem_roboto_bold,C:red} those {f:hpot_plincoin,E:1,C:blue}͸25,000{f:hpot_jtem_roboto_bold,C:red} are all mine",
+                    "{f:hpot_jtem_roboto_bold}Sounds Good?",
+                    "{f:hpot_jtem_roboto_bold}- signed, Nigerian Prince",
+                }
+            },
+            hpot_nigerian_prince_invested = {
+                text = {
+                    "You paid {f:hpot_plincoin,C:blue}͸25,000{} but nothing seemingly happened.",
+                    "There {C:attention}is{} a button that appears on the chat that says \"Try Again\"",
+                }
+            },
+            hpot_nigerian_prince_success = {
+                text = {
+                    "You won! The Prince does not respond anymore.",
+                    "Let's move on before anything else happens",
+                    "Hopefully this is not a money laundering attempt by someone...",
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -1456,6 +1492,12 @@ return {
                 text = {
                     "She sells sea shells on a sea shore,",
                     "but value of this shells will fall..."
+                }
+            },
+            hpot_nigerian_prince = {
+                name = "Nigerian Prince",
+                text = {
+                    "Is it your time to finally get lucky?",
                 }
             }
         },
@@ -1669,6 +1711,14 @@ return {
             hpot_money_game_invest_sell_rocks = "Sell rocks",
             hpot_money_game_invest_sell_water_to_a_fish = "Sell water to a fish",
             hpot_money_game_invest_sell_time_to_a_clock = "Sell time to a clock",
+
+            hpot_nigerian_prince_start_hp_prince_ignore = "Ignore (End)",
+            hpot_nigerian_prince_start_hp_prince_reply = '"What are the details?"',
+            hpot_nigerian_prince_reply_hp_prince_ignore = "Ghost Him (End)",
+            hpot_nigerian_prince_reply_hp_prince_invest = "I'm in! ({C:blue,f:hpot_plincoin}-͸25,000{})",
+            hpot_nigerian_prince_invested_hp_prince_stop = "Stop Investing (End)",
+            hpot_nigerian_prince_invested_hp_prince_invest_more = "Let's Go Gambling! ({C:blue,f:hpot_plincoin}-͸25,000{})",
+            hpot_nigerian_prince_success_hp_prince_leave = "Move On (End)",
         }
     }
 }

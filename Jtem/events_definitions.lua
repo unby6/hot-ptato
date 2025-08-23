@@ -818,3 +818,126 @@ SMODS.EventScenario({
         return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
     end,
 })
+
+
+-- nigerian prince
+SMODS.EventStep {
+	key = "nigerian_prince_start",
+	start = function(self, event)
+		local prince_man = Character("j_baron")
+		prince_man.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
+		prince_man.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				prince_man.T.scale = prince_man.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hp_prince_ignore",
+                button = function()
+                    event.finish_scenario()
+                end,
+            },
+            {
+                key = "hp_prince_reply",
+                button = function()
+					event.start_step('hpot_nigerian_prince_reply')
+                end,
+            },
+		}
+	end
+}
+
+SMODS.EventStep {
+	key = "nigerian_prince_reply",
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hp_prince_ignore",
+                button = function()
+                    event.finish_scenario()
+                end,
+            },
+            {
+                key = "hp_prince_invest",
+                button = function()
+					local success = pseudorandom("hpot_nigerian_prince_invest") > 0.5
+					ease_spark_points(-25000)
+					if success then
+						ease_spark_points(G.GAME.spark_points * 3)
+						event.start_step('hpot_nigerian_prince_success')
+					else
+						event.start_step('hpot_nigerian_prince_invested')
+					end
+                end,
+                func = function()
+        			return G.GAME.spark_points > 25000
+                end,
+            },
+		}
+	end
+}
+SMODS.EventStep {
+	key = "nigerian_prince_invested",
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hp_prince_stop",
+                button = function()
+                    event.finish_scenario()
+                end,
+            },
+            {
+                key = "hp_prince_invest_more",
+                button = function()
+					local success = pseudorandom("hpot_nigerian_prince_invest") > 0.5
+					ease_spark_points(-25000)
+					if success then
+						ease_spark_points(G.GAME.spark_points * 3)
+						event.start_step('hpot_nigerian_prince_success')
+					else
+						event.start_step('hpot_nigerian_prince_invested')
+					end
+                end,
+                func = function()
+        			return G.GAME.spark_points > 25000
+                end,
+            },
+		}
+	end
+}
+
+SMODS.EventStep {
+	key = "nigerian_prince_success",
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hp_prince_leave",
+                button = function()
+                    event.finish_scenario()
+                end,
+            },
+		}
+	end
+}
+
+SMODS.EventScenario({
+    key = "nigerian_prince",
+    starting_step_key = "hpot_nigerian_prince_start",
+
+    in_pool = function(self)
+        return true
+    end,
+	hotpot_credits = {
+		idea = { "Aikoyori" },
+		code = { "Aikoyori" },
+		team = { "Jtem" },
+	},
+})
