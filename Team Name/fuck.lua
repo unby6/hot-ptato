@@ -53,3 +53,17 @@ SMODS.Joker:take_ownership('j_joker',
     },
     false
 )
+local ref = G.FUNCS.can_buy
+function G.FUNCS.can_buy(e)
+    if e.config.ref_table.credits then
+	    if (not HPTN.check_if_enough_credits(e.config.ref_table.credits)) and (e.config.ref_table.credits > 0) then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.ORANGE
+            e.config.button = 'buy_from_shop'
+        end
+    else
+        return ref(e)
+    end
+end
