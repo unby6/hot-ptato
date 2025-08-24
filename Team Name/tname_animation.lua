@@ -147,3 +147,17 @@ function format_hpot_anim(anim)
     new_anim.t = anim.t
     return new_anim
 end
+
+
+
+
+
+
+
+
+SMODS.Atlas {
+  key = "TeamNameAnims1",
+  path = "Team Name/TeamNameAnims1.png",
+  px = 71,
+  py = 95
+}
