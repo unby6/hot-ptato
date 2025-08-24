@@ -137,3 +137,16 @@ payload = '''
 '''
 match_indent = true
 times = 1
+
+
+# So it doesn't show nil.. i think?
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = "local temp_profile = {"
+position = 'after'
+payload = '''
+        TNameCredits = 0,
+'''
+match_indent = true
+times = 1
