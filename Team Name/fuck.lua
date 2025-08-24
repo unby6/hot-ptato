@@ -1,7 +1,18 @@
 -- Fucking global thing to hold FUCKING EVERYTHING TEAM NAME
 HPTN = {
-    is_shitfuck = true
+    is_shitfuck = true,
 }
+function HPTN.ease_credits(amount)
+    G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits + amount
+    G:save_progress()
+end
+function HPTN.check_if_enough_credits(cost)
+    local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
+    if (credits - cost) >= 0 then
+        return true
+    end
+    return false
+end
 SMODS.Atlas{key = "teamname_shitfuck", path = "Team Name/shitfuck.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, py = 95}
 SMODS.Joker:take_ownership('j_joker',
