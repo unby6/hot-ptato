@@ -1,10 +1,16 @@
-function sticker_check(area)
+function sticker_check(area, sticker) -- make "sticker" a table check?
 	local amount = 0
 	for k, v in pairs(area) do
 		if v and v.ability then
-			for l, b in pairs(SMODS.Stickers) do
-				if v.ability[l] or v[l] then
+			if sticker then
+				if v.ability[sticker] or v[sticker] then
 					amount = amount + 1
+				end
+			else
+				for l, b in pairs(SMODS.Stickers) do
+					if v.ability[l] or v[l] then
+						amount = amount + 1
+					end
 				end
 			end
 		else
