@@ -55,6 +55,7 @@ SMODS.Tag{
                 tag:nope()
             end
             tag.triggered = true
+            G.CONTROLLER.locks[lock] = nil
             return true
         end 
     end,
