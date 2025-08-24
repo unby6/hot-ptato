@@ -630,7 +630,15 @@ return {
                     "each sticker on","your jokers",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
-            }
+            },
+            j_hpot_power_plant = {
+                name = "Power Plant",
+                text = {
+                    "{C:mult}+#1#{} Mult for",
+                    "each sticker on","your jokers",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

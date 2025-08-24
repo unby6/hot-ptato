@@ -46,7 +46,7 @@ SMODS.Joker({
 })
 
 SMODS.Joker({
-	key = "sticker_master",
+	key = "power_plant",
 	rarity = 2,
 	config = {
 		extra = {
@@ -62,28 +62,27 @@ SMODS.Joker({
 		local hpt = card.ability.extra
 		if G.jokers and G.jokers.cards then
 			return {
-				vars = { hpt.mult, hpt.mult * sticker_check(G.jokers.cards) },
+				vars = { hpt.dollars, hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium") },
 			}
 		else
 			return {
-				vars = { hpt.mult, hpt.mult * 0 },
+				vars = { hpt.dollars, hpt.dollars * 0 },
 			}
 		end
 	end,
-	calculate = function(self, card, context)
+
+	calc_dollar_bonus = function(self,card)
 		local hpt = card.ability.extra
-		if context.joker_main then
-			return {
-				mult = hpt.mult * sticker_check(G.jokers.cards),
-			}
-		end
+		return hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
 	end,
+
 	in_pool = function(self)
-		if G.jokers and G.jokers.cards and sticker_check(G.jokers.cards) > 0 then
+		if G.jokers and G.jokers.cards and sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium") > 0 then
 			return true
 		end
 		return false
 	end,
+
     hotpot_credits = {
         art = {"No Art"},
         idea = {"Corobo"},

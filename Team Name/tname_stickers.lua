@@ -368,3 +368,42 @@ SMODS.Sticker({
 		end
 	end,
 })
+
+SMODS.Sticker({
+	key = "uranium",
+	badge_colour = HEX("85a6ac"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = { (G.GAME.probabilities.normal or 1) },
+		}
+	end,
+	calculate = function(self, card, context)
+		if
+			context.joker_main
+			or (context.main_scoring and (context.cardarea == G.play or context.cardarea == G.hand))
+				and pseudorandom("hpot_uranium") < G.GAME.probabilities.normal / 4
+		then
+			local r = nil
+			local l = nil
+
+			local area = card.area
+			local rr = nil
+			for i = 1, #area.cards do
+				if area.cards[i] == card then
+					rr = i
+				end
+			end
+
+			if area.cards[rr - 1] and not area.cards[rr - 1].debuff then
+				card_eval_status_text(area.cards[rr - 1], "extra", nil, nil, nil, { message = localize("k_debuffed") })
+				SMODS.debuff_card(area.cards[rr - 1], true, card.config.center.key)
+			end
+
+			if area.cards[rr + 1] and not area.cards[rr + 1].debuff then
+				card_eval_status_text(area.cards[rr + 1], "extra", nil, nil, nil, { message = localize("k_debuffed") })
+				SMODS.debuff_card(area.cards[rr + 1], true, card.config.center.key)
+			end
+
+		end
+	end,
+})
