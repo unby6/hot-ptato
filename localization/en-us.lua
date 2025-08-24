@@ -1377,7 +1377,14 @@ return {
                 text = {
                     "During scoring",
                     "has a {C:green}#1# in 4{} Chance",
-                    "to {Cred}debuff{} adjacent cards"
+                    "to {C:red}debuff{} adjacent cards"
+                }
+            },
+            hpot_spinning = {
+                name = "Spinning",
+                text = {
+                    "Card flips",
+                    "when clicked on"
                 }
             },
         },
@@ -1882,6 +1889,7 @@ return {
             hpot_binary = "Binary",
             hpot_mail = "Mail",
             hpot_uranium = "Uranium",
+            hpot_spinning = "Spinning"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

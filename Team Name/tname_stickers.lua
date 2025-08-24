@@ -407,3 +407,9 @@ SMODS.Sticker({
 		end
 	end,
 })
+
+
+SMODS.Sticker({
+	key = "spinning",
+	badge_colour = HEX("85a6ac"),
+})
