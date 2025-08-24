@@ -19,7 +19,16 @@ end
 local click_old = Card.click
 function Card:click()
 	local ret = click_old(self)
-	if self and self.ability.hpot_spinning and self.highlighted == true then
+	local can_spin = nil
+	if G.your_collection then
+		for i = 1, #G.your_collection do
+			if self and self.area and (self.area == G.your_collection[i]) then
+				can_spin = true
+			end
+		end
+	end
+	if self and self.ability.hpot_spinning and (self.highlighted == true or can_spin) then
+		play_sound("hpot_sfx_tname_flip")
 		self:flip()
 	end
 	return ret

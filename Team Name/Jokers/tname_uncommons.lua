@@ -48,6 +48,8 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "power_plant",
 	rarity = 2,
+	cost = 0,
+	credits = 5,
 	config = {
 		extra = {
 			dollars = 2
