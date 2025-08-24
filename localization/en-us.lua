@@ -1799,9 +1799,9 @@ return {
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
             hpot_infected_ex = "Infected!",
-            hpot_redirect_ex = "Redirect!"
+            hpot_redirect_ex = "Redirect!",
 
-
+            hotpot_disable_animations = "Disable Animations"
         },
         v_dictionary = {
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',

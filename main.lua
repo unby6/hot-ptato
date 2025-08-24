@@ -175,3 +175,35 @@ HotPotato.extra_tabs = function ()
 	}
 end
 --#endregion
+
+if not HotPotatoConfig then HotPotatoConfig = {} end
+HotPotatoConfig = SMODS.current_mod.config
+
+local hpotConfigTab = function()
+    hpot_nodes = {}
+    config = { n = G.UIT.R, config = { align = "tm", padding = 0 }, nodes = { { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} } } }
+    hpot_nodes[#hpot_nodes + 1] = config
+    hpot_nodes[#hpot_nodes + 1] = create_toggle({
+        label = localize("hotpot_disable_animations"),
+        active_colour = HEX("40c76d"),
+        ref_table = HotPotatoConfig,
+        ref_value = "animations_disabled",
+        callback = function()
+        end,
+    })
+    return {
+        n = G.UIT.ROOT,
+        config = {
+            emboss = 0.05,
+            minh = 6,
+            r = 0.1,
+            minw = 10,
+            align = "cm",
+            padding = 0.2,
+            colour = G.C.BLACK,
+        },
+        nodes = hpot_nodes,
+    }
+end
+
+HotPotato.config_tab = phantaConfigTab
