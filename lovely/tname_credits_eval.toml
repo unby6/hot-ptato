@@ -29,6 +29,66 @@ end
 match_indent = true
 times = 1
 
+# now you gotta SELL em
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+  if card.area and card.area.config.type == 'joker' then
+    sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.C, config={align = "tm"}, nodes={
+          {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+          }},
+          {n=G.UIT.R, config={align = "cm"}, nodes={
+            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+          }}
+        }}
+      }},
+    }}
+  end'''
+position = 'at'
+payload = '''
+  if card.area and card.area.config.type == 'joker' then
+  if card.config.center.credits then
+    sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.C, config={align = "tm"}, nodes={
+          {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+          }},
+          {n=G.UIT.R, config={align = "cm"}, nodes={
+            {n=G.UIT.T, config={text = "c.",colour = G.C.WHITE, scale = 0.4, shadow = true}},
+            {n=G.UIT.T, config={text = (card.config.center.credits/2).."",colour = G.C.WHITE, scale = 0.55, shadow = true}}
+          }}
+        }}
+      }},
+    }}
+	else
+	sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+      {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.C, config={align = "tm"}, nodes={
+          {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+          }},
+          {n=G.UIT.R, config={align = "cm"}, nodes={
+            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+          }}
+        }}
+      }},
+    }}
+	end
+  end
+'''
+match_indent = true
+times = 1
+
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
@@ -51,6 +111,29 @@ payload = '''
 if self.config and self.config.center and self.config.center.credits and not G.GAME.DefineBoosterState then
 	HPTN.ease_credits(-self.config.center.credits)
 elseif self.cost > 0 then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+    G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+        ease_dollars(self.sell_cost)
+        self:start_dissolve({G.C.GOLD})
+        delay(0.3)
+'''
+position = 'at'
+payload = '''
+    G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
+	    if self.config.center.credits then
+		HPTN.ease_credits(self.config.center.credits/2)
+		else
+        ease_dollars(self.sell_cost)
+		end
+        self:start_dissolve({G.C.GOLD})
+        delay(0.3)
 '''
 match_indent = true
 times = 1

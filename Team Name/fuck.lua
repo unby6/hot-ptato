@@ -67,3 +67,18 @@ function G.FUNCS.can_buy(e)
         return ref(e)
     end
 end
+
+G.FUNCS.can_sell_card = function(e)
+    if e.config.ref_table:can_sell_card() then 
+        if e.config.ref_table.config.center.credits then
+        e.config.colour = G.C.BLUE
+        e.config.button = 'sell_card'
+        else
+        e.config.colour = G.C.GREEN
+        e.config.button = 'sell_card'
+        end
+    else
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+    end
+end
