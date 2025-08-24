@@ -1844,6 +1844,8 @@ return {
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
 
+            hpot_credit_text = "Credits:",
+
             hotpot_disable_animations = "Disable Animations"
         },
         v_dictionary = {
