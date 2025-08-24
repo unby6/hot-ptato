@@ -53,11 +53,6 @@ SMODS.Joker({
 			dollars = 2
 		},
 	},
-	atlas = "tname_jokers",
-	pos = {
-		x = 0,
-		y = 0
-	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 		if G.jokers and G.jokers.cards then
