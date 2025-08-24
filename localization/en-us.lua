@@ -1342,7 +1342,7 @@ return {
                     "{C:inactive}(Cannibal excluded)"
                 }
             },
-             hpot_binary = {
+            hpot_binary = {
                 name = "Binary",
                 text = {
                     "When a {C:attention}Blind",
@@ -1350,6 +1350,23 @@ return {
                     "unequipped and equipped",
                     "stickers.",
                     "{C:inactive}(Binary excluded)"
+                }
+            },
+            hpot_mail = {
+                name = "Mail",
+                text = {
+                    "{C:attention}Selling{} this",
+                    "card {C:attention}creates{}",
+                    "another card of",
+                    "the same type"
+                }
+            },
+            hpot_bomb = {
+                name = "Bomb",
+                text = {
+                    "Apply every",
+                    "sticker to this",
+                    "card"
                 }
             },
         },
@@ -1852,6 +1869,8 @@ return {
             hpot_nuke = "Nuke",
             hpot_cannibal = "Cannibal",
             hpot_binary = "Binary",
+            hpot_mail = "Mail",
+            hpot_bomb = "Bomb"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

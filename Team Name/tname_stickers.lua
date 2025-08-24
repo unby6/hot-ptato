@@ -29,7 +29,9 @@ SMODS.Sticker({
 		end
 
 		if context.end_of_round and context.main_eval then
-			if card.ability.over_tally == nil then card.ability.over_tally = G.GAME.overclock_timer - 1 end
+			if card.ability.over_tally == nil then
+				card.ability.over_tally = G.GAME.overclock_timer - 1
+			end
 			if card.ability.over_tally > 1 then
 				card.ability.over_tally = card.ability.over_tally - 1
 				card_eval_status_text(card, "extra", nil, nil, nil, {
@@ -295,7 +297,7 @@ SMODS.Sticker({
 			)
 		end
 	end,
-		atlas = "tname_stickers",
+	atlas = "tname_stickers",
 	pos = {
 		x = 3,
 		y = 1,
@@ -311,7 +313,7 @@ SMODS.Sticker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.setting_blind then
+		if context.starting_shop then
 			local stickers, remove_stickers = {}, {}
 			for k, v in pairs(SMODS.Stickers) do
 				if k ~= "hpot_binary" then
@@ -332,9 +334,67 @@ SMODS.Sticker({
 			end
 		end
 	end,
-		atlas = "tname_stickers",
+	atlas = "tname_stickers",
 	pos = {
 		x = 3,
 		y = 0,
 	},
+})
+
+SMODS.Sticker({
+	key = "mail",
+	badge_colour = HEX("85a6ac"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.selling_card and context.card == card then
+			local _set, _area
+
+			if card and card.ability and card.ability.set then
+				_set = card.ability.set
+			end
+
+			if card and card.area then
+				_area = card.area
+			end
+
+			SMODS.add_card({
+				set = _set,
+				area = _area,
+			})
+		end
+	end,
+})
+
+SMODS.Sticker({
+	key = "bomb",
+	badge_colour = HEX("fdaf57"),
+	apply = function(self, card, val)
+		card.ability.hpot_bomb = true
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.5,
+			func = function()
+				local stop = nil
+				if card and card.area and G.your_collection then
+					for i = 1, #G.your_collection do
+						if card.area == G.your_collection[i] then
+							stop = true
+						end
+					end
+					if not stop then
+						for k, v in pairs(SMODS.Stickers) do
+							if k ~= "hpot_bomb" then
+								SMODS.Stickers[k]:apply(card, true)
+							end
+						end
+					end
+				end
+				return true
+			end,
+		}))
+	end,
 })
