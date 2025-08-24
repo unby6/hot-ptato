@@ -18,7 +18,8 @@ SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, 
 SMODS.Joker:take_ownership('j_joker',
     {
     atlas = "teamname_shitfuck",
-	cost = 120,
+    credits = 120,
+	cost = 0,
     loc_txt = {name = "Joker", text = {"{C:attention}Revives{} one character"}},
     loc_vars = function (self, info_queue, card)
         return { vars = {} }

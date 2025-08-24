@@ -1,0 +1,56 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -10
+
+# Handle buying cards that require ~~pyrox~~ CREDITS
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''local t2 = card.ability.set == 'Voucher' and {'''
+position = 'before'
+payload = '''
+if card.config and card.config.center and card.config.center.credits then
+	t1 = {
+		n = G.UIT.ROOT,
+		config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
+		nodes = {
+			{
+				n = G.UIT.R,
+				config = { align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03 },
+				nodes = {
+					{ n = G.UIT.O, config = { object = DynaText({ string = { { prefix = 'c.', ref_table = card.config.center, ref_value = 'credits' } }, colours = { G.C.BLUE }, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5 }) } },
+				}
+			}
+		}
+	}
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''if c1.cost ~= 0 then'''
+position = 'at'
+payload = '''
+if c1.config and c1.config.center and c1.config.center.credits then
+	HPTN.ease_credits(-c1.config.center.credits)
+elseif c1.cost ~= 0 then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if self.cost > 0 then '''
+position = 'at'
+payload = '''
+if self.config and self.config.center and self.config.center.credits and not G.GAME.DefineBoosterState then
+	HPTN.ease_credits(-self.config.center.credits)
+elseif self.cost > 0 then
+'''
+match_indent = true
+times = 1
