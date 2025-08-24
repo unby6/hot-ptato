@@ -1321,7 +1321,7 @@ return {
                 name = "Rage",
                 text = {
                     "{C:attention}Retrigger{} this card.",
-                    "{C:red}destroys{} adjecent cards"
+                    "{C:red}destroys{} adjacent cards"
                 }
             },
             hpot_spores = {
@@ -1370,6 +1370,14 @@ return {
                     "card {C:attention}creates{}",
                     "another card of",
                     "the same type"
+                }
+            },
+            hpot_uranium = {
+                name = "Uranium",
+                text = {
+                    "During scoring",
+                    "has a {C:green}#1# in 4{} Chance",
+                    "to {Cred}debuff{} adjacent cards"
                 }
             },
         },
@@ -1873,6 +1881,7 @@ return {
             hpot_cannibal = "Cannibal",
             hpot_binary = "Binary",
             hpot_mail = "Mail",
+            hpot_uranium = "Uranium",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
