@@ -338,3 +338,21 @@ SMODS.Sticker({
 		y = 0,
 	},
 })
+
+SMODS.Sticker({
+	key = "bee_movie",
+	badge_colour = HEX("85a6ac"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = {},
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main or (context.main_scoring and context.cardarea == G.play) then
+			return{
+				xmult = 10
+			}
+		end
+	end,
+})
+
