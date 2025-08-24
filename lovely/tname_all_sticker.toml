@@ -1,0 +1,26 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# some help from Cryptid 
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.GAME.starting_deck_size = #G.playing_cards"
+position = "before"
+payload = '''
+ if G.GAME.modifiers.hpot_all_sticker then
+     local tab = {}
+     for k, v in pairs(SMODS.Stickers) do
+        if k ~= "pinned" and k ~= "hpot_nuke" and k~= "hpot_jtem_mood" then
+            tab[#tab+1] = k
+        end
+      end
+      for k, v in pairs(G.playing_cards) do
+          local k = pseudorandom_element(tab)
+          SMODS.Stickers[k]:apply(v,true)
+      end
+ end
+'''
+match_indent = true
