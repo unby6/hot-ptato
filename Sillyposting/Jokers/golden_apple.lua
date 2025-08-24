@@ -7,14 +7,22 @@ SMODS.Joker {
     end,
     rarity = 2,
     cost = 5,
-    pos = { x = 2, y = 1 },
+    pos = { x = 0, y = 0 },
+    hpot_anim = {
+        { xrange = { first = 0, last = 11 }, y = 0, t = 0.1 },
+        { xrange = { first = 0, last = 3 }, y = 1, t = 0.1 }
+    },
+    pos_extra = { x = 4, y = 1 },
+    hpot_anim_extra = {
+        { xrange = { first = 4, last = 11 }, y = 1, t = 0.15 }
+    },
     pools = { Food = true },
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'jtem_jokers',
+    atlas = 'TeamNameAnims1',
     calculate = function (self, card, context)
         if context.using_consumeable and context.consumeable.ability.max_highlighted and not context.blueprint then
             card.ability.extra.uses_left = card.ability.extra.uses_left - 1

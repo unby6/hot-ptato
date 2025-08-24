@@ -337,8 +337,16 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = 'empty_can',
-    atlas = "jtem_jokers",
-    pos = { x = 1, y = 2 },
+    atlas = "TeamNameAnims1",
+    pos = { x = 0, y = 2 },
+    hpot_anim = {
+        { xrange = { first = 0, last = 5 }, y = 2, t = 0.1 }
+    },
+    pos_extra = { x = 6, y = 2 },
+    hpot_anim_extra = {
+        { x = 6, y = 2, t = 4 },
+        { xrange = { first = 7, last = 11 }, y = 2, t = 0.1 },
+    },
     config = { extra = { plincoin = 1, consumeables = 2 } },
     pools = { Food = true },
     rarity = 2,
