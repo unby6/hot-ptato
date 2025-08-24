@@ -1361,14 +1361,6 @@ return {
                     "the same type"
                 }
             },
-            hpot_bomb = {
-                name = "Bomb",
-                text = {
-                    "Apply every",
-                    "sticker to this",
-                    "card"
-                }
-            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1870,7 +1862,6 @@ return {
             hpot_cannibal = "Cannibal",
             hpot_binary = "Binary",
             hpot_mail = "Mail",
-            hpot_bomb = "Bomb"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

@@ -368,33 +368,3 @@ SMODS.Sticker({
 		end
 	end,
 })
-
-SMODS.Sticker({
-	key = "bomb",
-	badge_colour = HEX("fdaf57"),
-	apply = function(self, card, val)
-		card.ability.hpot_bomb = true
-		G.E_MANAGER:add_event(Event({
-			trigger = "before",
-			delay = 0.5,
-			func = function()
-				local stop = nil
-				if card and card.area and G.your_collection then
-					for i = 1, #G.your_collection do
-						if card.area == G.your_collection[i] then
-							stop = true
-						end
-					end
-					if not stop then
-						for k, v in pairs(SMODS.Stickers) do
-							if k ~= "hpot_bomb" then
-								SMODS.Stickers[k]:apply(card, true)
-							end
-						end
-					end
-				end
-				return true
-			end,
-		}))
-	end,
-})
