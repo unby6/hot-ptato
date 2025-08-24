@@ -14,7 +14,7 @@ SMODS.Sticker({
 		}
 	end,
 	apply = function(self, card, val)
-		card.ability.hpot_overclock = true
+		card.ability.hpot_overclock = val
 		card.ability.over_tally = G.GAME.overclock_timer
 	end,
 	calculate = function(self, card, context)
@@ -313,14 +313,14 @@ SMODS.Sticker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.starting_shop then
+		if context.setting_blind then
 			local stickers, remove_stickers = {}, {}
 			for k, v in pairs(SMODS.Stickers) do
 				if k ~= "hpot_binary" then
-					if card.ability[k] or card[k] then
-						remove_stickers[#remove_stickers + 1] = k
-					elseif k ~= "binary" then
-						stickers[#stickers + 1] = k
+					if not card.ability[k] and not card[k] then
+						stickers[#stickers+1] = k
+					else
+						remove_stickers[#remove_stickers+1] = k
 					end
 				end
 			end
