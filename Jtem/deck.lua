@@ -15,8 +15,20 @@ local deck = SMODS.Back {
     atlas = "jtemdatlas",
     shader = "jtem_deckshader",
     apply = function (self)
-    -- this runs at the start of a run
 
+        -- Team Name's Addition
+        local tab = {}
+        for k, v in pairs(SMODS.Stickers) do
+            if k ~= "pinned" and k ~= "hpot_nuke" and k~= "hpot_jtem_mood" then
+                tab[#tab+1] = k
+            end
+        end
+
+        for k, v in pairs(G.playing_cards) do
+            local k = pseudorandom_element(tab)
+            SMODS.Stickers[k]:apply(v,true)
+        end
+        -- end
     end,
     calculate = function (self, back, context)
         
