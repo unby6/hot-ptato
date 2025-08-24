@@ -21,9 +21,9 @@ function sticker_check(area, sticker) -- make "sticker" a table check?
 end
 
 function poll_sticker(guaranteed, card)
-	local stickers = {} 
-	for k, v in pairs(SMODS.Stickers) do 
-		if card ~= nil then  -- check if a card is specified
+	local stickers = {}
+	for k, v in pairs(SMODS.Stickers) do
+		if card ~= nil then -- check if a card is specified
 			if not card.ability[k] and not card[k] then -- check if the card has the stickers
 				stickers[#stickers + 1] = k
 			end
@@ -42,13 +42,24 @@ function poll_sticker(guaranteed, card)
 	end
 end
 
-
-function add_tables(tables)  -- yet again, there is probably a better way to do this but im lazy to find how
+function add_tables(tables) -- yet again, there is probably a better way to do this but im lazy to find how
 	local ful_tab = {}
 	for i = 1, #tables do
 		for i2 = 1, #tables[i] do
-			ful_tab[#ful_tab+1] = tables[i][i2]
+			ful_tab[#ful_tab + 1] = tables[i][i2]
 		end
 	end
 	return ful_tab
+end
+
+function HPTN.ease_credits(amount)
+	G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits + amount
+	G:save_progress()
+end
+function HPTN.check_if_enough_credits(cost)
+	local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
+	if (credits - cost) >= 0 then
+		return true
+	end
+	return false
 end
