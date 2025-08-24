@@ -1387,6 +1387,14 @@ return {
                     "when clicked on"
                 }
             },
+            hpot_cfour = {
+                name = "C4",
+                text = {
+                    "{C:red}Destroy{} this card",
+                    "when another card",
+                    "{C:attention}with C4{} is destroyed"
+                }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -1889,7 +1897,8 @@ return {
             hpot_binary = "Binary",
             hpot_mail = "Mail",
             hpot_uranium = "Uranium",
-            hpot_spinning = "Spinning"
+            hpot_spinning = "Spinning",
+            hpot_cfour = "C4",
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

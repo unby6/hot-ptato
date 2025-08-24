@@ -413,3 +413,18 @@ SMODS.Sticker({
 	key = "spinning",
 	badge_colour = HEX("85a6ac"),
 })
+
+SMODS.Sticker({
+	key = "cfour",
+	badge_colour = HEX("b7d5d8"),
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = { },
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.hpot_destroy and context.hpot_destroyed.ability.hpot_cfour then
+			SMODS.destroy_cards(card)
+		end
+	end,
+})
