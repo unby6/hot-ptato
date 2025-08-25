@@ -655,6 +655,13 @@ return {
                     "Permits access to a {C:attention}secret{} place..."
                 }
             },
+            j_hpot_space_ape = {
+                name = "Space Ape",
+                text = {
+                    "{C:inactive}\"Ratatam, ratatam, ratatam!!\"", 
+                    "{C:inactive}\"We are the space apes!\""
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

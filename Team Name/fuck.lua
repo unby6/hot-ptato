@@ -1,7 +1,6 @@
 -- Fucking global thing to hold FUCKING EVERYTHING TEAM NAME
 HPTN = {
     is_shitfuck = true,
-    off_secret_ending = false,
 }
 
 SMODS.Sound {

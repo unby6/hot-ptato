@@ -29,7 +29,7 @@ SMODS.Joker:take_ownership('j_joker',
         end
     end,
     hotpot_credits = {
-        art = {'GoldenLeaf'},
+        art = {'Mortis Ghost'},
         idea = {"GoldenLeaf"},
         code = {'GoldenLeaf'},
         team = {'Team Name'}
@@ -85,14 +85,62 @@ SMODS.Joker({
 	rarity = "hpot_creditable",
 	cost = 0,
 	credits = 5000,
-	add_to_deck = function (self, card, from_debuff)
-        HPTN.off_secret_ending = true
-    end,
-	remove_from_deck = function (self, card, from_debuff)
-        HPTN.off_secret_ending = false
+	calculate = function (self, card, context)
+		if G.GAME.blind.config.blind and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown and HPTN.is_shitfuck then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.4,
+            func = function()
+                local _first_dissolve = nil
+                for _, joker in pairs(G.jokers.cards) do
+                        joker:start_dissolve(nil, _first_dissolve)
+                        _first_dissolve = true
+                end
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+		G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                SMODS.add_card({key = "j_hpot_space_ape"})
+                SMODS.add_card({key = "j_hpot_space_ape"})
+                SMODS.add_card({key = "j_hpot_space_ape"})
+                SMODS.add_card({key = "j_hpot_space_ape"})
+                SMODS.add_card({key = "j_hpot_space_ape"})
+                return true
+            end
+        }))
+		HPTN.is_shitfuck = false
+		end
 	end,
     hotpot_credits = {
         art = {"No Art"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
+
+
+SMODS.Joker({
+	key = "space_ape",
+	atlas = "tname_jokers",
+	pos = {
+		x = 1,
+		y = 0
+	},
+	rarity = "hpot_creditable",
+	cost = 0,
+	credits = 0,
+	no_collection = true,
+	in_pool = function(self, args) return false end,
+	add_to_deck = function (self, card, from_debuff)
+        SMODS.Stickers["eternal"]:apply(card, true)
+    end,
+    hotpot_credits = {
+        art = {"Mortis Ghost"},
         idea = {"GoldenLeaf"},
         code = {"GoldenLeaf"},
         team = {"Team Name"}
