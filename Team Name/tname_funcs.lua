@@ -196,6 +196,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
         end, { trigger = "after", delay = 0 })
         play_sound("hpot_sfx_whistledown", nil, 0.25)
     end
+end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
     local config = config or {}
