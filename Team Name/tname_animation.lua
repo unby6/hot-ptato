@@ -168,3 +168,9 @@ SMODS.Atlas {
   px = 113,py = 57,
   frames = 4, atlas_table = 'ANIMATION_ATLAS'
 }
+
+SMODS.Atlas{
+    key = "tname_shop_reforge",
+    path = "Team Name/shop_button.png",
+    px = 34, py = 34,
+}

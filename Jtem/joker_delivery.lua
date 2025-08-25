@@ -93,7 +93,8 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
                 loc_txt = "hotpot_go_reforge",
-                button = "hotpot_tname_toggle_reforge"
+                button = "hotpot_tname_toggle_reforge",
+                atlas = "hpot_tname_shop_reforge"
             },
             {
                 n = G.UIT.R,
@@ -122,7 +123,9 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
             },
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
                 loc_txt = "hotpot_delivery_back",
-                button = "hotpot_tname_toggle_reforge"
+                button = "hotpot_tname_toggle_reforge",
+                atlas = "hpot_tname_shop_reforge",
+                pos = {x = 1, y = 0}
             },
         }
     }
