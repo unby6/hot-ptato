@@ -136,18 +136,26 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 				UIBox_button{
 					label = {localize("hotpot_reforge_credits")},
 					button = "hotpot_tname_toggle_reforge",
-					colour = G.C.GREEN
+					colour = G.C.PURPLE
 				},
 				UIBox_button{
 					label = {localize("hotpot_reforge_dollars")},
 					button = "hotpot_tname_toggle_reforge",
+                    func = 'can_reforge_with_dollars',
 					colour = G.C.GOLD
 				},
 				UIBox_button{
 					label = {localize("hotpot_reforge_joker_exchange")},
 					button = "hotpot_tname_toggle_reforge",
-					colour = G.C.BLUE
-				}
+                    func = 'can_reforge_with_joker_exchange',
+					colour = G.C.BLUE,
+				},
+                UIBox_button{
+					label = {localize("hotpot_reforge_plincoins")},
+					button = "hotpot_tname_toggle_reforge",
+                    func = 'can_reforge_with_plincoins',
+					colour = SMODS.Gradients["hpot_plincoin"],
+				},
 			}},
 			{n = G.UIT.C, config = {minw = 0.1}},
 			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
@@ -196,6 +204,36 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
         play_sound("hpot_sfx_whistledown", nil, 0.25)
     end
 end
+
+function G.FUNCS.can_reforge_with_dollars(e)
+    if not G.GAME.used_vouchers["v_hpot_ref_dollars"] then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.GOLD
+            e.config.button = 'hotpot_tname_toggle_reforge'
+        end
+    end
+
+function G.FUNCS.can_reforge_with_joker_exchange(e)
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.BLUE
+            e.config.button = 'hotpot_tname_toggle_reforge'
+        end
+    end
+    
+    function G.FUNCS.can_reforge_with_plincoins(e)
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = SMODS.Gradients["hpot_plincoin"]
+            e.config.button = 'hotpot_tname_toggle_reforge'
+        end
+    end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
     local config = config or {}
