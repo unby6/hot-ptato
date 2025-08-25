@@ -128,7 +128,7 @@ position = 'at'
 payload = '''
     G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
 	    if self.config.center.credits then
-		HPTN.ease_credits(self.config.center.credits/2)
+		HPTN.ease_credits(math.floor(self.config.center.credits/2))
 		else
         ease_dollars(self.sell_cost)
 		end

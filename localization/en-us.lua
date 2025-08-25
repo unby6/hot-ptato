@@ -642,6 +642,13 @@ return {
                     "{C:inactive}(Currently {C:money}+$#2#{C:inactive})"
                 }
             },
+            j_hpot_grand_finale = {
+                name = "Grand Finale",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}plastic{}.",
+                    "{C:inactive}({C:attention}+#1#{C:inactive} Joker Slots)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
@@ -1874,6 +1881,8 @@ return {
             hotpot_disable_animations = "Disable Animations"
         },
         v_dictionary = {
+            k_hpot_creditable = "Creditable",
+
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
             hotpot_art = { "Art: #1#" },
             hotpot_code = { "Code: #1#" },
@@ -1909,6 +1918,7 @@ return {
             ch_c_hpot_plinko_4ever_2 = { "Playing plinko does not require {C:hpot_plincoin}Plincoins" }
         },
         labels = {
+            k_hpot_creditable = "Creditable",
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
             hpot_plincoin_seal = "Plincoin Seal",
