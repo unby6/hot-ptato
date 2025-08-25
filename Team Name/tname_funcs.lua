@@ -155,19 +155,30 @@ function UIBox_adv_button (args)
                 ref_value = vv.ref_value,
                 colour = vv.colour or args.text_col or G.C.WHITE,
                 scale = args.text_scale or vv.scale or 0.3,
+                font = (vv.font and SMODS.Fonts[vv.font]) or (args.font and SMODS.Fonts[args.font])
             }}
             table.insert(line.nodes,text)
         end
         table.insert(texts,line)
     end
 
-    return {n = G.UIT[args.type], config = {minw = args.w, minh = args.h, align = "cm", colour = args.colour, func = args.func, button = args.button, r = 0.1, hover = true}, nodes = texts
+    return {n = G.UIT[args.type], config = {
+        minw = args.w,
+        minh = args.h,
+        align = "cm",
+        colour = args.colour,
+        func = args.func, button =
+        args.button,
+        r = 0.1,
+        hover = true},
+        nodes = texts
     }
 end
 
 
 
 G.UIDEF.hotpot_tname_reforge_section = function ()
+    G.reforge_area = CardArea(0,0,1,1,{})
 	return 
 	{n = G.UIT.R, config = {minw = 3, minh = 5.5, colour = G.C.CLEAR}, nodes = {}},
 	{n = G.UIT.R, config = {minw = 3, minh = 9, colour = G.C.CLEAR, align = "cm"}, nodes = {
@@ -188,13 +199,13 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
                     colour = G.C.GOLD
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_joker_exchange")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
                     text_scale = 0.5,
                     button = 'can_reforge_with_joker_exchange',
                     colour = G.C.BLUE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_plincoins")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
                     text_scale = 0.5,
                     button = 'can_reforge_with_plincoins',
                     colour = SMODS.Gradients["hpot_plincoin"]
@@ -203,7 +214,8 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 			{n = G.UIT.C, config = {minw = 0.1}},
 			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
 				{n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "tm", padding = 0.1}, nodes = {
-					{n = G.UIT.T, config = {text = "REFORGE CARD", colour = G.C.GREY, scale = 0.4, align = "tm"}}
+					{n = G.UIT.T, config = {text = "REFORGE CARD", colour = G.C.GREY, scale = 0.4, align = "tm"}},
+                    {n = G.UIT.O, config = {object = G.reforge_area}}
 				}},
 			}},
 		}}

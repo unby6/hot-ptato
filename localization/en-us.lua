@@ -1864,8 +1864,8 @@ return {
 
             hotpot_reforge_credits = "c", -- 50
             hotpot_reforge_dollars = "$", -- 10
-            hotpot_reforge_joker_exchange = "JE", -- 10 K
-            hotpot_reforge_plincoins = "Pk", -- 2
+            hotpot_reforge_joker_exchange = "͸", -- 10 K
+            hotpot_reforge_plincoins = "$", -- 2
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
 
