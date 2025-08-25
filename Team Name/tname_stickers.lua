@@ -6,6 +6,8 @@ SMODS.Atlas({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "overclock",
 	badge_colour = HEX("fdaf57"),
 	loc_vars = function(self, info_queue, card)
@@ -59,6 +61,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "redirect",
 	badge_colour = HEX("b7a2fd"),
 	calculate = function(self, card, context)
@@ -96,6 +100,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "fragile",
 	badge_colour = HEX("b7d5d8"),
 	config = {
@@ -124,6 +130,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "rage",
 	badge_colour = HEX("fd5f55"),
 	calculate = function(self, card, context)
@@ -161,6 +169,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "spores",
 	badge_colour = HEX("4bc292"),
 	loc_vars = function(self, info_queue, center)
@@ -228,6 +238,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "nuke",
 	badge_colour = HEX("a2615e"),
 	loc_vars = function(self, info_queue, center)
@@ -267,6 +279,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "cannibal",
 	badge_colour = HEX("009cfd"),
 	loc_vars = function(self, info_queue, center)
@@ -305,6 +319,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "binary",
 	badge_colour = HEX("85a6ac"),
 	loc_vars = function(self, info_queue, center)
@@ -342,6 +358,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "mail",
 	badge_colour = HEX("85a6ac"),
 	loc_vars = function(self, info_queue, center)
@@ -370,6 +388,8 @@ SMODS.Sticker({
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "uranium",
 	badge_colour = HEX("85a6ac"),
 	loc_vars = function(self, info_queue, center)
@@ -410,11 +430,15 @@ SMODS.Sticker({
 
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "spinning",
 	badge_colour = HEX("85a6ac"),
 })
 
 SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
 	key = "cfour",
 	badge_colour = HEX("b7d5d8"),
 	loc_vars = function(self, info_queue, center)
