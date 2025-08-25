@@ -297,6 +297,7 @@ SMODS.Sticker({
 				end
 			end
 
+		if #stickers > 0 then
 			local remove = pseudorandom_element(stickers)
 
 			card:juice_up()
@@ -310,6 +311,7 @@ SMODS.Sticker({
 				{ message = ("-" .. localize({ type = "name_text", key = remove, set = "Other" })) }
 			)
 		end
+	end
 	end,
 	atlas = "tname_stickers",
 	pos = {
