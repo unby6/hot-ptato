@@ -1857,10 +1857,10 @@ return {
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
-            hotpot_reforge_credits = "50 Credits",
-            hotpot_reforge_dollars = "10 Dollars",
-            hotpot_reforge_joker_exchange = "10.000 Joker Exchange",
-            hotpot_reforge_plincoins = "2 Plincoins",
+            hotpot_reforge_credits = "c", -- 50
+            hotpot_reforge_dollars = "$", -- 10
+            hotpot_reforge_joker_exchange = "JE", -- 10 K
+            hotpot_reforge_plincoins = "Pk", -- 2
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
 

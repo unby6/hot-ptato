@@ -55,7 +55,7 @@ end
 
 
 function HPTN.ease_credits(amount, instant)
-
+    amount = amount or 0
   local function _mod(mod)  -- Taken from ease_plincoins()
         local dollar_UI = G.HUD:get_UIE_by_ID('credits_UI_text')
         mod = mod or 0
@@ -70,18 +70,20 @@ function HPTN.ease_credits(amount, instant)
 		G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
     
         dollar_UI.config.object:update()
-        G.HUD:recalculate()
-        --Popup text next to the chips in UI showing number of chips gained/lost
-        attention_text({
-          text = text..tostring(math.abs(mod)),
-          scale = 0.8, 
-          hold = 0.7,
-          cover = dollar_UI.parent,
-          cover_colour = col,
-          align = 'cm',
-          })
-        --Play a chip sound
-        play_sound('coin1')
+        if amount ~= 0 then
+            G.HUD:recalculate()
+            --Popup text next to the chips in UI showing number of chips gained/lost
+            attention_text({
+            text = text..tostring(math.abs(mod)),
+            scale = 0.8, 
+            hold = 0.7,
+            cover = dollar_UI.parent,
+            cover_colour = col,
+            align = 'cm',
+            })
+            --Play a chip sound
+            play_sound('coin1')
+        end
     end
 
 	if instant then
@@ -124,6 +126,46 @@ end
 
 -- Reforge menu
 
+--- Custom function to make buttons:tm:
+---@param args {label:{}[],w:number,h:number,colour:table,text_scale:number,text_col:table,font:string,func:string,button:string,type:"R"|"C"}
+---@return table node The button node
+function UIBox_adv_button (args)
+    args = args or {}
+    args.label = args.label or { -- HORRID EXAMPLE ON HOW TO SET THESE UP !!!
+        {
+            {"ERROR"},{" NO TEXT"}
+        }
+    }
+    args.w = args.w or 2.7
+    args.h = args.h or 0.9
+    args.colour = args.colour or G.C.RED
+    args.text_scale = args.text_scale or 0.3
+    args.text_col = args.text_col or G.C.WHITE
+    args.font = args.font or nil
+    if not args.type and (args.type ~= "R" or args.type ~= "C") then args.type = "R" end
+
+    local texts = {}
+
+    for _,v in ipairs(args.label) do
+        local line = {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR, minw = 0.2, minh = 0.2}, nodes = {}}
+        for kk,vv in pairs(v) do
+            local text = {n = G.UIT.T, config = {
+                text = vv[1] or vv.string,
+                ref_table = vv.ref_table,
+                ref_value = vv.ref_value,
+                colour = vv.colour or args.text_col or G.C.WHITE,
+                scale = args.text_scale or vv.scale or 0.3,
+            }}
+            table.insert(line.nodes,text)
+        end
+        table.insert(texts,line)
+    end
+
+    return {n = G.UIT[args.type], config = {minw = args.w, minh = args.h, align = "cm", colour = args.colour, func = args.func, button = args.button, r = 0.1, hover = true}, nodes = texts
+    }
+end
+
+
 
 G.UIDEF.hotpot_tname_reforge_section = function ()
 	return 
@@ -133,29 +175,30 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 			{n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
 				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
 				{n = G.UIT.R, config = {minh = 0.2}},
-				UIBox_button{
-					label = {localize("hotpot_reforge_credits")},
-					button = "hotpot_tname_toggle_reforge",
-					colour = G.C.PURPLE
-				},
-				UIBox_button{
-					label = {localize("hotpot_reforge_dollars")},
-					button = "hotpot_tname_toggle_reforge",
-                    func = 'can_reforge_with_dollars',
-					colour = G.C.GOLD
-				},
-				UIBox_button{
-					label = {localize("hotpot_reforge_joker_exchange")},
-					button = "hotpot_tname_toggle_reforge",
-                    func = 'can_reforge_with_joker_exchange',
-					colour = G.C.BLUE,
-				},
-                UIBox_button{
-					label = {localize("hotpot_reforge_plincoins")},
-					button = "hotpot_tname_toggle_reforge",
-                    func = 'can_reforge_with_plincoins',
-					colour = SMODS.Gradients["hpot_plincoin"],
-				},
+				UIBox_adv_button{
+                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    text_scale = 0.5,
+                    button = 'hotpot_tname_toggle_reforge',
+                    colour = G.C.PURPLE
+                },
+                UIBox_adv_button{
+                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    text_scale = 0.5,
+                    button = 'can_reforge_with_dollars',
+                    colour = G.C.GOLD
+                },
+                UIBox_adv_button{
+                    label = {{{localize("hotpot_reforge_joker_exchange")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    text_scale = 0.5,
+                    button = 'can_reforge_with_joker_exchange',
+                    colour = G.C.BLUE
+                },
+                UIBox_adv_button{
+                    label = {{{localize("hotpot_reforge_plincoins")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    text_scale = 0.5,
+                    button = 'can_reforge_with_plincoins',
+                    colour = SMODS.Gradients["hpot_plincoin"]
+                },
 			}},
 			{n = G.UIT.C, config = {minw = 0.1}},
 			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
