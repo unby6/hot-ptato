@@ -19,7 +19,7 @@ SMODS.Voucher {
         team = {'Team Name'}
     }
 }
---[[
+
 SMODS.Voucher {
 	key = 'digital_promotion', --i cant think of anything else
 	pos = { x = 1, y = 0 },
@@ -35,4 +35,4 @@ SMODS.Voucher {
         idea = {'GoldenLeaf'},
         team = {'Team Name'}
     }
-}]]
+}

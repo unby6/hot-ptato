@@ -47,7 +47,7 @@ SMODS.Joker:take_ownership('j_joker',
 G.FUNCS.can_sell_card = function(e)
     if e.config.ref_table:can_sell_card() then 
         if e.config.ref_table.config.center.credits then
-        e.config.colour = G.C.BLUE
+        e.config.colour = G.C.PURPLE
         e.config.button = 'sell_card'
         else
         e.config.colour = G.C.GREEN

@@ -60,7 +60,7 @@ function HPTN.ease_credits(amount, instant)
         local dollar_UI = G.HUD:get_UIE_by_ID('credits_UI_text')
         mod = mod or 0
         local text = '+'
-        local col = G.C.BLUE
+        local col = G.C.PURPLE
         if mod < 0 then
             text = '-'
             col = G.C.RED
@@ -152,8 +152,12 @@ function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet
                 --Add the far left text and context first:
                 local left_text = {}
                 if config.name == 'credits' then
-                  table.insert(left_text, {n=G.UIT.T, config={text = config.credits, font = config.font, scale = 0.8*scale, colour = G.C.BLUE, shadow = true, juice = true}})
-                  table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_credits_cashout', vars = {G.GAME.credits_cashout or 0}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
+                  table.insert(left_text, {n=G.UIT.T, config={text = config.credits, font = config.font, scale = 0.8*scale, colour = G.C.PURPLE, shadow = true, juice = true}})
+                  if G.GAME.modifiers.hands_to_credits then
+                    table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_credits_cashout2', vars = {(G.GAME.credits_cashout or 0), (G.GAME.credits_cashout2 or 0)}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
+                  else
+                    table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_credits_cashout', vars = {G.GAME.credits_cashout or 0}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
+                  end
                 elseif string.find(config.name, 'joker') then
                   table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
                 end
@@ -176,7 +180,7 @@ function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet
                 func = function()
                     G.round_eval:add_child(
                             {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={
-                                {n=G.UIT.O, config={object = DynaText({string = "c",colours = {G.C.BLUE}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
+                                {n=G.UIT.O, config={object = DynaText({string = "c",colours = {G.C.PURPLE}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
                             }},
                             G.round_eval:get_UIE_by_ID('dollar_'..config.name))
 
@@ -197,7 +201,7 @@ function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet
                                 dollar_row = dollar_row+1
                         end
 
-                        local r = {n=G.UIT.T, config={text = "c", colour = G.C.BLUE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
+                        local r = {n=G.UIT.T, config={text = "c", colour = G.C.PURPLE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
                         play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
                         
                         if config.name == 'blind1' then 

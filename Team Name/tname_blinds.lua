@@ -1,0 +1,1 @@
+-- credits blind that makes you lose credits when a card is scored

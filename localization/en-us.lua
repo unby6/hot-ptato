@@ -1891,6 +1891,7 @@ return {
             hotpot_exchange_bonus = " +#1# BONUS!",
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
+            hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)'
         },
         v_text = {
             ch_c_hpot_reduce_select_size = { "All consumables can affect {C:attention}1{} less card" },
