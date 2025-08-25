@@ -15,6 +15,7 @@ HPTN.Modification = SMODS.GameObject:extend({
 	unlocked = true,
 	discovered = true,
 	config = {},
+	morality = "GOOD",
 	class_prefix = "modif",
 	needs_enable_flag = true,
 	draw = function(self, card)
@@ -169,6 +170,7 @@ end
 HPTN.Modification({
 	key = "ruthless",
 	atlas = "tname_stickers",
+	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         -- brrr
@@ -179,6 +181,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "greedy",
 	atlas = "tname_stickers",
+	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.post_trigger and context.other_joker == card then
@@ -190,6 +193,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "jumpy",
 	atlas = "tname_stickers",
+	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.post_trigger and context.other_joker == card then
@@ -201,6 +205,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "invested",
 	atlas = "tname_stickers",
+	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.end_of_round then
@@ -213,8 +218,9 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	key = "magnefied",
+	key = "magnified",
 	atlas = "tname_stickers",
+	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
@@ -224,6 +230,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "damaged",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.post_trigger and context.other_card == card then
@@ -237,6 +244,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "old",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
@@ -246,6 +254,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "supported",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
@@ -255,6 +264,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "dozing",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
@@ -262,8 +272,9 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	key = "smuged",
+	key = "smudged",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.post_trigger and context.other_joker == card then
@@ -275,6 +286,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "depreciating",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.end_of_round then
@@ -289,6 +301,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "legendary ",
 	atlas = "tname_stickers",
+	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
@@ -298,6 +311,7 @@ HPTN.Modification({
 HPTN.Modification({
 	key = "dying",
 	atlas = "tname_stickers",
+	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
