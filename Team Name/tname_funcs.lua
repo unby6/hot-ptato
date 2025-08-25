@@ -180,13 +180,19 @@ function UIBox_adv_button (args)
 end
 
 
-
 G.UIDEF.hotpot_tname_reforge_section = function ()
-    G.reforge_area = CardArea(0,0,1,1,{})
+    G.reforge_area = CardArea(
+        0,
+        0,
+        1, 
+        1, 
+        {card_limit = 1, type = "shop", highlight_limit = 1}
+    )
 	return 
 	{n = G.UIT.R, config = {minw = 3, minh = 5.5, colour = G.C.CLEAR}, nodes = {}},
 	{n = G.UIT.R, config = {minw = 3, minh = 9, colour = G.C.CLEAR, align = "cm"}, nodes = {
 		{n = G.UIT.R, config = {align = "cm", minw = 2, minh = 3}, nodes = {
+
 			{n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
 				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
 				{n = G.UIT.R, config = {minh = 0.2}},
@@ -219,16 +225,77 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
                     colour = SMODS.Gradients["hpot_plincoin"]
                 },
 			}},
+
 			{n = G.UIT.C, config = {minw = 0.1}},
+
 			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
-				{n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "tm", padding = 0.1}, nodes = {
-					{n = G.UIT.T, config = {text = "REFORGE CARD", colour = G.C.GREY, scale = 0.4, align = "tm"}},
+                {n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "cm", padding = 0.1}, nodes = {
                     {n = G.UIT.O, config = {object = G.reforge_area}}
 				}},
 			}},
-		}}
+		}},
+        {n = G.UIT.R, config = {minh = 0.2}},
+        
+            UIBox_adv_button{
+                label = {{{"Place"}}},
+                text_scale = 0.5,
+                button = 'reforge_place',
+                func = "place_return_reforge",
+                colour = G.C.GREEN
+            },
+             UIBox_adv_button{
+                label = {{{"Return"}}},
+                text_scale = 0.5,
+                button = 'reforge_return',
+                func = "return_place_reforge",
+                colour = G.C.RED
+            },
 	}},
 	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}}
+end
+
+function HPTN.move_card(card, _area)
+    local area = card.area
+	if not card.getting_sliced then	
+		area:remove_card(card)
+		_area:emplace(card)
+    end
+end
+
+function G.FUNCS.return_place_reforge(e)
+if G.reforge_area and G.reforge_area.cards then
+    if #G.reforge_area.cards <= 0 then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.RED
+            e.config.button = 'reforge_return'
+        end
+    end
+end
+
+function G.FUNCS.place_return_reforge(e)
+    if (G.jokers and G.jokers.highlighted and #G.jokers.highlighted <= 0) or (G.reforge_area and #G.reforge_area.cards > 0) then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.GREEN
+            e.config.button = 'reforge_place'
+        end
+    end
+
+G.FUNCS.reforge_place = function ()
+    if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
+        HPTN.move_card(G.jokers.highlighted[1], G.reforge_area)
+        G.GAME.ref_placed = true
+    end
+end
+
+G.FUNCS.reforge_return = function ()
+    if G.reforge_area and G.reforge_area.cards then
+        HPTN.move_card(G.reforge_area.cards[1], G.jokers)
+        G.GAME.ref_placed = nil
+    end
 end
 
 G.FUNCS.hotpot_tname_toggle_reforge = function ()
@@ -269,7 +336,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
 end
 
 function G.FUNCS.can_reforge_with_creds(e)
-    if G.PROFILES[G.SETTINGS.profile].TNameCredits < G.GAME.cost_credits then
+    if G.PROFILES[G.SETTINGS.profile].TNameCredits < G.GAME.cost_credits or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -279,17 +346,17 @@ function G.FUNCS.can_reforge_with_creds(e)
     end
 
 function G.FUNCS.can_reforge_with_dollars(e)
-    if not G.GAME.used_vouchers["v_hpot_ref_dollars"] or G.GAME.dollars < G.GAME.cost_dollars then
+    if not G.GAME.used_vouchers["v_hpot_ref_dollars"] or G.GAME.dollars < G.GAME.cost_dollars or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
-        else
+    else
             e.config.colour = G.C.GOLD
             e.config.button = 'hotpot_tname_toggle_reforge'
         end
     end
 
 function G.FUNCS.can_reforge_with_joker_exchange(e)
-    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.spark_points < G.GAME.cost_sparks then
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.spark_points < G.GAME.cost_sparks or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -299,7 +366,7 @@ function G.FUNCS.can_reforge_with_joker_exchange(e)
     end
     
 function G.FUNCS.can_reforge_with_plincoins(e)
-    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.plincoins < G.GAME.cost_plincoins then
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.plincoins < G.GAME.cost_plincoins or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
