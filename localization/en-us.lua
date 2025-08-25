@@ -1862,7 +1862,7 @@ return {
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
-            hotpot_reforge_credits = "c", -- 50
+            hotpot_reforge_credits = "c.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
