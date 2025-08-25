@@ -126,7 +126,6 @@ end
 
 
 G.UIDEF.hotpot_tname_reforge_section = function ()
-	print("hi chat")
 	return 
 	{n = G.UIT.R, config = {minw = 3, minh = 5.5, colour = G.C.CLEAR}, nodes = {}},
 	{n = G.UIT.R, config = {minw = 3, minh = 9, colour = G.C.CLEAR, align = "cm"}, nodes = {
