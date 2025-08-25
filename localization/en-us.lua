@@ -1819,6 +1819,7 @@ return {
             hotpot_spark_points = "Joker Exchange",
             hotpot_delivery = "Deliveries",
             hotpot_delivery_back = "Back to Shop",
+            hotpot_go_reforge = "Reforge",
             hotpot_request_joker_line_1 = "Request",
             hotpot_request_joker_line_2 = "a Joker",
             hotpot_request_joker_line_3 = "Once every ante",
@@ -1856,6 +1857,9 @@ return {
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
+            hotpot_reforge_credits = "Use C",
+            hotpot_reforge_dollars = "Use $",
+            hotpot_reforge_joker_exchange = "Use JE",
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
 

@@ -122,6 +122,81 @@ G.FUNCS.credits_UI_set = function(e)
 end
 
 
+-- Reforge menu
+
+
+G.UIDEF.hotpot_tname_reforge_section = function ()
+	print("hi chat")
+	return 
+	{n = G.UIT.R, config = {minw = 3, minh = 5.5, colour = G.C.CLEAR}, nodes = {}},
+	{n = G.UIT.R, config = {minw = 3, minh = 9, colour = G.C.CLEAR, align = "cm"}, nodes = {
+		{n = G.UIT.R, config = {align = "cm", minw = 2, minh = 3}, nodes = {
+			{n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
+				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
+				{n = G.UIT.R, config = {minh = 0.2}},
+				UIBox_button{
+					label = {localize("hotpot_reforge_credits")},
+					button = "hotpot_tname_toggle_reforge",
+					colour = G.C.GREEN
+				},
+				UIBox_button{
+					label = {localize("hotpot_reforge_dollars")},
+					button = "hotpot_tname_toggle_reforge",
+					colour = G.C.GOLD
+				},
+				UIBox_button{
+					label = {localize("hotpot_reforge_joker_exchange")},
+					button = "hotpot_tname_toggle_reforge",
+					colour = G.C.BLUE
+				}
+			}},
+			{n = G.UIT.C, config = {minw = 0.1}},
+			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
+				{n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "tm", padding = 0.1}, nodes = {
+					{n = G.UIT.T, config = {text = "REFORGE CARD", colour = G.C.GREY, scale = 0.4, align = "tm"}}
+				}},
+			}},
+		}}
+	}},
+	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}}
+end
+
+G.FUNCS.hotpot_tname_toggle_reforge = function ()
+    if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
+    stop_use()
+    local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
+    if not G.HP_TNAME_REFORGE_VISIBLE then
+		ease_background_colour({new_colour = G.C.BLACK, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
+        G.shop.alignment.offset.y = -35
+        G.HP_TNAME_REFORGE_VISIBLE = true
+		simple_add_event(function()
+            sign_sprite.pinch.y = true
+            delay(0.5)
+            simple_add_event(function()
+                sign_sprite.atlas = G.ANIMATION_ATLAS["hpot_tname_shop_sign"]
+                sign_sprite.pinch.y = false
+                return true
+            end)
+            return true
+        end, { trigger = "after", delay = 0 })
+        play_sound("hpot_sfx_whistleup", nil, 0.25)
+    else
+        ease_background_colour_blind(G.STATES.SHOP)
+        G.shop.alignment.offset.y = -5.3
+        G.HP_TNAME_REFORGE_VISIBLE = false
+		simple_add_event(function()
+            sign_sprite.pinch.y = true
+            delay(0.5)
+            simple_add_event(function()
+                sign_sprite.atlas = G.ANIMATION_ATLAS["shop_sign"]
+                sign_sprite.pinch.y = false
+                return true
+            end)
+            return true
+        end, { trigger = "after", delay = 0 })
+        play_sound("hpot_sfx_whistledown", nil, 0.25)
+    end
+end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
     local config = config or {}
