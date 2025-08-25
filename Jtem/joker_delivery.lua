@@ -9,6 +9,7 @@
 ---@alias Jtem.CurrencyType
 ---| "dollars"          -- Traditional dollars
 ---| "plincoin"
+---| "credits"
 ---| "joker_exchange"
 
 --- Delivery object.
@@ -489,7 +490,7 @@ function G.FUNCS.hotpot_jtem_delivery_request_item(e)
     }
 end
 
-local currencies = { "dollars", "joker_exchange", "plincoin" }
+local currencies = { "dollars", "joker_exchange", "plincoin", "credits" }
 local function hpot_create_joker_from_amazon(card, center)
     -- factors are more fucked when requesting
     local should_spawn_with_rental = pseudorandom("hpjtem_delivery_rental") < 0.3 and true
@@ -497,13 +498,40 @@ local function hpot_create_joker_from_amazon(card, center)
     local should_spawn_with_perishable = center.perishable_compat and
         pseudorandom("hpjtem_delivery_perishable") < 0.3 and not should_spawn_with_eternal
     local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
-    local price_factor = currency == "joker_exchange" and 12942 or currency == "plincoin" and 0.75 or 0.5
+    local price_factor = 0.5
+    if currency == "joker_exchange" then
+        price_factor = 12942 
+    elseif currency == "plincoin" then
+        price_factor = 0.75
+    elseif currency == "credits" then
+        price_factor = 20
+    end
+    local credits = currency == "credits"
     local plincoin = currency == "plincoin"
     local jx = currency == "joker_exchange"
     -- TODO: Needs tweaking. This isn't free joker simulator :V
     local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.52 + 0.84
     price_factor = price_factor * (should_spawn_with_eternal and 0.9 or 1) * (should_spawn_with_rental and 0.6 or 1) *
         (should_spawn_with_perishable and 0.6 or 1) * 1.5
+    if center.credits then
+    hotpot_jtem_add_to_offers(center.key, {
+        price = { currency = currency, value = math.ceil(center.credits/7 * price_factor * random_price_factor) },
+        rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
+            (should_spawn_with_rental and 0.6 or 1) * (should_spawn_with_rental and 0.5 or 1) *
+            (plincoin and 2 or 1) * 1.5,
+        extras = {
+            rental = should_spawn_with_rental,
+            eternal = should_spawn_with_eternal,
+            perishable = should_spawn_with_perishable,
+            perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
+        },
+        create_card_args = {
+            hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
+                (not jx and poll_edition("hpjtem_delivery_edition")),
+            no_edition = jx or credits
+        }
+    })
+else
     hotpot_jtem_add_to_offers(center.key, {
         price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
         rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
@@ -518,9 +546,10 @@ local function hpot_create_joker_from_amazon(card, center)
         create_card_args = {
             hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
                 (not jx and poll_edition("hpjtem_delivery_edition")),
-            no_edition = jx
+            no_edition = jx or credits
         }
     })
+end
     -- cannot order again until the end of this ante
     G.GAME.hp_jtem_already_requested_this_ante = true
     hotpot_delivery_refresh_card()
@@ -821,8 +850,8 @@ function Game:init_game_object()
             rounds_passed - rounds waited for delivery
             rounds_total - rounds that you would have to wait in total
             price - cost in case of refunds (is a table now lol)
-                price.value and price.currency - should be self explanatory (ok so currency at the moment has 3,
-                    dollars, plincoin, and joker exchange (internally spark_points) )
+                price.value and price.currency - should be self explanatory (ok so currency at the moment has 4,
+                    dollars, plincoin, credits, and joker exchange (internally spark_points) )
             extras - other attributes that should apply to card ability directly, for example eternal, rental
     ]]
     ---@type Jtem.Delivery[]
@@ -881,6 +910,7 @@ end
 function get_currency_amount(currency)
     currency = currency or "dollars"
     value = value or 0
+    if currency == "credits" then return G.PROFILES[G.SETTINGS.profile].TNameCredits end
     if currency == "dollars" then return G.GAME.dollars end
     if currency == "plincoin" then return G.GAME.plincoins end
     if currency == "joker_exchange" then return G.GAME.spark_points end
@@ -889,6 +919,7 @@ end
 function ease_currency(currency, value, instant)
     currency = currency or "dollars"
     value = value or 0
+    if currency == "credits" then HPTN.ease_credits(value, instant) end
     if currency == "dollars" then ease_dollars(value, instant) end
     if currency == "plincoin" then ease_plincoins(value, instant) end
     if currency == "joker_exchange" then ease_spark_points(value, instant) end
@@ -897,6 +928,7 @@ end
 
 function generate_currency_string_args(currency)
     currency = currency or "dollars"
+    if currency == "credits" then return { colour = G.C.PURPLE, symbol = "c.", font = G.LANG.font } end
     if currency == "dollars" then return { colour = G.C.MONEY, symbol = "$", font = G.LANG.font } end
     if currency == "plincoin" then
         return {
@@ -981,14 +1013,40 @@ function hotpot_jtem_generate_special_deals(deals)
         local should_spawn_with_perishable = center.perishable_compat and
             pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
         local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
-        local price_factor = currency == "joker_exchange" and 7331 or currency == "plincoin" and 0.3 or 0.8
+        local price_factor = 0.8
+        if currency == "joker_exchange" then
+            price_factor = 7331
+        elseif currency == "plincoin" then
+            price_factor = 0.3
+        elseif currency == "credits" then
+            price_factor = 10
+        end
+        local credits = currency == "credits"
         local plincoin = currency == "plincoin"
         local jx = currency == "joker_exchange"
         -- add factor of 0.87 to 1.15
         local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) *
             (should_spawn_with_perishable and 0.3 or 1)
-        if center then
+        if center and center.credits then
+            hotpot_jtem_add_to_offers(center.key, {
+                price = { currency = currency, value = math.ceil(center.credits/7 * price_factor * random_price_factor) },
+                rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1) *
+                    (should_spawn_with_rental and 0.3 or 1) * (should_spawn_with_rental and 0.5 or 1) *
+                    (plincoin and 2 or 1),
+                extras = {
+                    rental = should_spawn_with_rental,
+                    eternal = should_spawn_with_eternal,
+                    perishable = should_spawn_with_perishable,
+                    perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
+                },
+                create_card_args = {
+                    hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
+                        (not jx and poll_edition("hpjtem_delivery_edition")),
+                    no_edition = jx or credits
+                }
+            })
+        else
             hotpot_jtem_add_to_offers(center.key, {
                 price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
                 rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1) *
@@ -1003,7 +1061,7 @@ function hotpot_jtem_generate_special_deals(deals)
                 create_card_args = {
                     hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
                         (not jx and poll_edition("hpjtem_delivery_edition")),
-                    no_edition = jx
+                    no_edition = jx or credits
                 }
             })
         end

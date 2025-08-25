@@ -24,3 +24,5 @@ hotpot_credits = {
 
 
 Best of luck with your time, and most importantly, have fun! If any problems come up, please contact Astra and it will be looked into as soon as possible
+### message from team name
+pls dont add more currencies :(
