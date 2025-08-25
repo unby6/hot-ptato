@@ -14,6 +14,10 @@ Game.init_game_object = function(self)
 	local ret = igo(self)
 	ret.overclock_timer = 3
 	ret.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
+	ret.credits_cashout = 2
+	ret.credits_cashout2 = 1
+	ret.current_round.credits = 0
+	ret.current_round.credits2 = 0
 	return ret
 end
 

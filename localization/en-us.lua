@@ -703,7 +703,15 @@ return {
                     "{C:attention}+#1#{} Delivery Queue size",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive} slots)",
                 }
-            }
+            },
+            v_hpot_digital_payment = {
+                name = "Digital Payment",
+                text = {
+                    "Earn no interest.",
+                    "gain {C:blue}+#2#{} Credits{}",
+                    "for each interest you'd earn"
+                }
+            },
         },
         Spectral = {
             c_hpot_arcade_machine = {
@@ -1874,6 +1882,8 @@ return {
             hotpot_train_energy_down = "Energy Down -#1#",
 
             hotpot_exchange_bonus = " +#1# BONUS!",
+
+            hotpot_credits_cashout = 'Credits (#1# per interest)',
         },
         v_text = {
             ch_c_hpot_reduce_select_size = { "All consumables can affect {C:attention}1{} less card" },
