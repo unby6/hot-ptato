@@ -161,3 +161,10 @@ SMODS.Atlas {
   px = 71,
   py = 95
 }
+
+SMODS.Atlas {
+  key = "tname_shop_sign",
+  path = "Team Name/reforge_sign.png",
+  px = 113,py = 57,
+  frames = 4, atlas_table = 'ANIMATION_ATLAS'
+}

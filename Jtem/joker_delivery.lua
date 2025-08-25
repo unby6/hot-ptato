@@ -25,18 +25,39 @@ function G.UIDEF.hotpot_jtem_delivery_section()
 end
 
 -- like in React, I made stuff I reuse into buttons
+---<br>Patched to support custom non-hardcoded buttons.\
+---`loc_txt` - String pointing towards `misc/dictionary` in the localization files.\
+---`button` - String pointing towards a function in G.FUNCS['button'].\
+---`atlas` - String pointing towards an atlas file in G.ASSET_ATLAS['atlas'].\
+---`pos = {x, y} - Array of 2 numbers pointing towards the position of the sprite in the `atlas` provided.
+---@param btntype? string|{loc_txt:string,button:string,atlas:string,pos:{x:integer,y:integer}}
+---@return table
 function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
-    local btnx, localized
-    if btntype == "to_delivery" or not btntype then
-        localized = "hotpot_delivery"
-        btnx = 0
-    elseif btntype == "back_from_delivery" then
-        localized = "hotpot_delivery_back"
-        btnx = 1
+    local btnx = 0
+    local btny = 0 
+    local localized = "hotpot_delivery"
+    local func = "hotpot_jtem_toggle_delivery"
+    local atlas = "hpot_jtem_pkg"
+    -- Wrapper to prevent crashes due to use of the original function
+    if type(btntype) == "string" or not btntype then
+        if btntype == "to_delivery" or not btntype then
+            localized = "hotpot_delivery"
+            btnx = 0
+
+        elseif btntype == "back_from_delivery" then
+            localized = "hotpot_delivery_back"
+            btnx = 1
+        end
+    elseif type(btntype) == "table" then
+        localized = btntype.loc_txt or "hotpot_delivery"
+        func = btntype.button or "hotpot_jtem_toggle_delivery"
+        atlas = btntype.atlas or "hpot_jtem_pkg"
+        btnx = btntype.pos and btntype.pos.x or 0
+        btny = btntype.pos and btntype.pos.y or 0
     end
     return {
         n = G.UIT.R,
-        config = { colour = G.C.RED, padding = 0.05, r = 0.02, w = 0.1, h = 0.1, shadow = true, button = 'hotpot_jtem_toggle_delivery', hover = true },
+        config = { colour = G.C.RED, padding = 0.05, r = 0.02, w = 0.1, h = 0.1, shadow = true, button = func, hover = true },
         nodes = {
             {
                 n = G.UIT.R,
@@ -45,7 +66,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
                     {
                         n = G.UIT.O,
                         config = {
-                            object = Sprite(0, 0, 0.5, 0.5, G.ASSET_ATLAS['hpot_jtem_pkg'], { x = btnx, y = 0 })
+                            object = Sprite(0, 0, 0.5, 0.5, G.ASSET_ATLAS[atlas], { x = btnx, y = btny })
                         }
                     },
                 }
@@ -70,7 +91,24 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
         config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
         nodes = {
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+                loc_txt = "hotpot_go_reforge",
+                button = "hotpot_tname_toggle_reforge"
+            },
             {
+                n = G.UIT.R,
+                nodes = {
+                    {
+                        n = G.UIT.B,
+                        config = {
+                            h = 9.5,
+                            w = 0.1
+                        }
+                    }
+                }
+            },
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
+                        {
                 n = G.UIT.R,
                 nodes = {
                     {
@@ -82,7 +120,10 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                     }
                 }
             },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+                loc_txt = "hotpot_delivery_back",
+                button = "hotpot_tname_toggle_reforge"
+            },
         }
     }
 end
@@ -356,7 +397,8 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                     }
                 }
             }
-        }
+        },
+        G.UIDEF.hotpot_tname_reforge_section()
 end
 
 G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
@@ -1127,6 +1169,7 @@ local next_round_button_for_delivery_area_destruction = G.FUNCS.toggle_shop
 function G.FUNCS.toggle_shop(e)
     G.HP_SHOP_CREATED_CARDS = nil
     G.HP_JTEM_DELIVERY_VISIBLE = false
+    G.HP_TNAME_REFORGE_VISIBLE = false
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals, true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue, true)
     return next_round_button_for_delivery_area_destruction(e)
