@@ -3,6 +3,15 @@ HPTN = {
     is_shitfuck = true,
 }
 
+SMODS.Sound {
+  key = "tname_losecred",
+  path = "sfx_creditslose.ogg",
+}
+SMODS.Sound {
+  key = "tname_gaincred",
+  path = "sfx_creditsgain.ogg",
+}
+
 SMODS.Atlas{key = "teamname_shitfuck", path = "Team Name/shitfuck.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, py = 95}
 SMODS.Joker:take_ownership('j_joker',

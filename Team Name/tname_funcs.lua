@@ -82,7 +82,11 @@ function HPTN.ease_credits(amount, instant)
             align = 'cm',
             })
             --Play a chip sound
-            play_sound('coin1')
+            if amount > 0 then
+            play_sound("hpot_tname_gaincred")
+            else
+            play_sound("hpot_tname_losecred")
+            end
         end
     end
 
