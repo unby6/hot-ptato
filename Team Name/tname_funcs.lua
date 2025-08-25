@@ -20,26 +20,124 @@ function sticker_check(area, sticker) -- make "sticker" a table check?
 	return amount
 end
 
+--- Polls a random sticker from the set of stickers according to a uniform distribution.
+---
+--- @param guaranteed number A multiplier on the chance of receiving any sticker. Defaults to a 100% chance (value = 1) if not specified.
+---
+--- @param card table|nil The card to consider. If it's provided, the stickers that the card has (if it has any) are excluded from the sticker pool.
 function poll_sticker(guaranteed, card)
+	guaranteed = guaranteed 
+
 	local stickers = {}
+	local ability = card and card.ability or nil
+	
 	for k, v in pairs(SMODS.Stickers) do
-		if card ~= nil then -- check if a card is specified
-			if not card.ability[k] and not card[k] then -- check if the card has the stickers
-				stickers[#stickers + 1] = k
-			end
-		else -- return all stickers if a card is not specified
-			stickers[#stickers + 1] = v
+		-- Check if the current sticker is on the current card (if the current card exists)
+		if card and (ability[k] or card[k]) then
+			goto poll_sticker_skip
+		end
+		
+		-- Append the sticker to the array
+		stickers[#stickers + 1] = v
+		
+		::poll_sticker_skip::
+	end
+	
+	-- Check if chance to get sticker is met
+	local random_value = pseudorandom("poll_sticker")
+	if #stickers > 0 and random_value < guaranteed then
+		local chosen_one = pseudorandom_element(stickers)
+		if pseudorandom("poll_sticker_rate") < tonumber(chosen_one.rate) then
+			return chosen_one.key
 		end
 	end
-	local chosen_one = pseudorandom_element(stickers)
-	if not guaranteed then
-		if not (pseudorandom("poll_sticker") < tonumber(chosen_one.rate)) then
-			chosen_one = nil
+	
+	return nil
+end
+
+---Polls a random modification from the set of modifications according to their weighted probabilities.
+---
+---@param guaranteed number A multiplier on the chance of receiving any modification. Defaults to a 20% chance (value = 1/5) to give a modification if not specified.
+---
+---@param card table|nil The card to consider. If it's provided, the modification that the card has (if it does) is excluded from the modification pool.
+---
+---@param morality table|nil A table specifying which categories of modifications are eligible. The fields `GOOD`, `BAD`, and `MISC` are all booleans. Defaults to all fields being true if not specified.
+---
+---@param odds table|nil A table specifying relative odds for each morality category. The fields `GOOD`, `BAD`, and `MISC` are all numbers which are normalized across enabled categories to sum to 100% (value = 1).
+---  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified.
+function poll_modification(guaranteed, card, morality, odds)
+	guaranteed = guaranteed or 1/5
+	card = card or nil
+	
+	morality = morality or {} -- Target for which kind of modifications we're targetting specifically
+	morality.GOOD = (morality.GOOD == nil) and true or morality.GOOD
+	morality.BAD = (morality.BAD == nil) and true or morality.BAD
+	morality.MISC = (morality.MISC == nil) and true or morality.MISC
+	
+	odds = odds or {}
+	odds.GOOD = odds.GOOD or 1/2 -- Odds for a good modification
+	odds.BAD = odds.BAD or 1/2 -- Odds for a bad modification
+	odds.MISC = odds.MISC or 0 -- Odds for any modification that slips through the cracks
+
+	-- Make sure the odds add up to 100% no matter what
+	local sanity_sum = (morality.GOOD and odds.GOOD) + (morality.BAD and odds.BAD) + (morality.MISC and odds.MISC)
+	if sanity_sum ~= 1 then
+		if sanity_sum == 0 then -- If there are no odds
+			odds.GOOD = 1/2
+			odds.BAD = 1/2
+			odds.MISC = (morality.GOOD or morality.bad) and 0 or 1
+		end 
+		
+		-- Normalize the odds
+		sanity_sum = (morality.GOOD and odds.GOOD) + (morality.BAD and odds.BAD) + (morality.MISC and odds.MISC)
+		
+		odds.GOOD = odds.GOOD / sanity_sum
+		odds.BAD = odds.BAD / sanity_sum
+		odds.MISC = odds.MISC / sanity_sum
+	end
+
+	local good_modifications = {}
+	local bad_modifications = {}
+	local misc_modifications = {}
+	
+	local ability = card and card.ability or nil
+	for k, v in pairs(HPTN.Modifications) do
+		if card and ability[k] then
+			goto poll_modification_skip
+		end
+	
+		if v.morality == "GOOD" then
+			good_modifications[#good_modifications + 1] = v
+		elseif v.morality == "BAD" then
+			bad_modifications[#bad_modifications + 1] = v
+		else
+			misc_modifications[#misc_modifications + 1] = v
+		end
+		
+		::poll_modification_skip::
+	end
+	
+	local random_value = pseudorandom("poll_modification")
+	
+	if morality.GOOD then
+		if random_value < odds.GOOD * guaranteed then
+			return pseudorandom_element(good_modifications)
+		end
+		random_value = random_value - odds.GOOD * guaranteed
+	end
+	if morality.BAD then
+		if random_value < odds.BAD * guaranteed then
+			return pseudorandom_element(bad_modifications)
+		end
+		random_value = random_value - odds.BAD * guaranteed
+	end
+	if morality.MISC then
+		if random_value < odds.MISC * guaranteed then
+			return pseudorandom_element(misc_modifications)
 		end
 	end
-	if chosen_one then
-		return chosen_one.key
-	end
+
+	return nil
 end
 
 function add_tables(tables) -- yet again, there is probably a better way to do this but im lazy to find how
