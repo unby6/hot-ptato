@@ -649,6 +649,12 @@ return {
                     "{C:inactive}({C:attention}+#1#{C:inactive} Joker Slots)"
                 }
             },
+            j_hpot_aries_card = {
+                name = "Aries Card",
+                text = {
+                    "Permits access to a {C:attention}secret{} place..."
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

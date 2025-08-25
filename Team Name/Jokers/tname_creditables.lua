@@ -79,3 +79,23 @@ SMODS.Joker({
     }
 })
 
+
+SMODS.Joker({
+	key = "aries_card",
+	rarity = "hpot_creditable",
+	cost = 0,
+	credits = 5000,
+	add_to_deck = function (self, card, from_debuff)
+        HPTN.off_secret_ending = true
+    end,
+	remove_from_deck = function (self, card, from_debuff)
+        HPTN.off_secret_ending = false
+	end,
+    hotpot_credits = {
+        art = {"No Art"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
+
