@@ -708,8 +708,9 @@ return {
                 name = "Digital Payment",
                 text = {
                     "Earn no interest.",
-                    "gain {C:blue}+#2#{} Credits{}",
-                    "for each interest you'd earn"
+                    "gain {C:blue}+#1#{} Credits{}",
+                    "for each interest",
+                    "you would earn"
                 }
             },
         },

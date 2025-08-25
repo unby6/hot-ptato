@@ -59,10 +59,10 @@ function HPTN.ease_credits(amount, instant)
   local function _mod(mod)  -- Taken from ease_plincoins()
         local dollar_UI = G.HUD:get_UIE_by_ID('credits_UI_text')
         mod = mod or 0
-        local text = '+c.'
+        local text = '+'
         local col = G.C.BLUE
         if mod < 0 then
-            text = '-c.'
+            text = '-'
             col = G.C.RED
         end
 
