@@ -159,6 +159,7 @@ end
 -- Add optional features here
 HotPotato.optional_features = {
 	retrigger_joker = true,
+	post_trigger = true,
 }
 HotPotato.extra_tabs = function ()
 	return {

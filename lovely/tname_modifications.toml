@@ -1,0 +1,56 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''-- TARGET: evaluate your own general effects'''
+position = 'after'
+payload = '''
+for q, a in ipairs(HPTN.Modification.obj_buffer) do
+ local modi = HPTN.Modifications[a]
+  local modif = card:calculate_modification(context, a)
+    if modif then
+     ret[modi] = modif
+    end
+end
+'''
+match_indent = true
+
+# generate_UIBox_ability_table()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.sticker or ((self.sticker_run and self.sticker_run~='NONE') and G.SETTINGS.run_stake_stickers)  then loc_vars = loc_vars or {}; loc_vars.sticker=(self.sticker or self.sticker_run) end"
+position = "before"
+match_indent = true
+payload = '''
+for k, v in ipairs(HPTN.Modification.obj_buffer) do
+	if self.ability[v] and not HPTN.Modifications[v].hide_badge then
+        badges[#badges+1] = v
+    end
+end'''
+
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v == 'eternal' then*"
+match_indent = true
+position = "before"
+payload = '''
+local sticker = HPTN.Modifications[v]
+if sticker then
+    local t = { key = v, set = 'Modification' }
+    local res = {}
+    if sticker.loc_vars and type(sticker.loc_vars) == 'function' then
+        res = sticker:loc_vars(info_queue, card) or {}
+        t.vars = res.vars or {}
+        t.key = res.key or t.key
+        t.set = res.set or t.set
+    end
+    info_queue[#info_queue+1] = t
+end'''

@@ -1,3 +1,7 @@
+function HPTN.process_loc_text()
+	G.localization.descriptions.Modification = G.localization.descriptions.Modification or {}
+end
+
 HPTN.Modifications = {}
 HPTN.Modification = SMODS.GameObject:extend({
 	required_params = { "key" },
@@ -17,6 +21,10 @@ HPTN.Modification = SMODS.GameObject:extend({
 		local x_offset = (card.T.w / 71) * card.T.scale
 		G.shared_stickers[self.key].role.draw_major = card
 		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, nil, card.children.center, nil, nil, x_offset)
+	end,
+	process_loc_text = function(self)
+		SMODS.process_loc_text(G.localization.descriptions[self.set], self.key, self.loc_txt)
+		SMODS.process_loc_text(G.localization.misc.labels, self.key, self.loc_txt, "label")
 	end,
 	register = function(self)
 		if self.registered then
@@ -42,6 +50,10 @@ HPTN.Modification = SMODS.GameObject:extend({
 				end
 			end
 		end
+        SMODS.calculate_context({
+			hpot_mod_apply = true,
+			hpot_mod_applied = self,
+		})
 	end,
 	loc_vars = function(self)
 		return {}
@@ -151,13 +163,143 @@ G.FUNCS.your_collection_hpot_modifications = function()
 	})
 end
 
+
+-- Modifications 
+
 HPTN.Modification({
-	key = "mod_1",
+	key = "ruthless",
 	atlas = "tname_stickers",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-		if context.setting_blind then
-			print("working")
-		end
+        -- brrr
+	end,
+})
+
+
+HPTN.Modification({
+	key = "greedy",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        if context.post_trigger and context.other_joker == card then
+           SMODS.calculate_effect({dollars = 2}, card)
+        end
+	end,
+})
+
+HPTN.Modification({
+	key = "jumpy",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        if context.post_trigger and context.other_joker == card then
+           SMODS.calculate_effect({x_mult = 1.1}, card)
+        end
+	end,
+})
+
+HPTN.Modification({
+	key = "invested",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        if context.end_of_round then
+            if card.set_cost then 
+                card.ability.extra_value = (card.ability.extra_value or 0) + 1
+                card:set_cost()
+            end
+        end
+	end,
+})
+
+HPTN.Modification({
+	key = "magnefied",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        --brrr
+	end,
+})
+
+HPTN.Modification({
+	key = "damaged",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        if context.post_trigger and context.other_card == card then
+            if pseudorandom("damaged") < G.GAME.probabilities.normal / 5 then
+                SMODS.destroy_cards(card)
+            end
+        end
+	end,
+})
+
+HPTN.Modification({
+	key = "old",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        --brrr
+	end,
+})
+
+HPTN.Modification({
+	key = "supported",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        --brrr
+	end,
+})
+
+HPTN.Modification({
+	key = "dozing",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        --brrr
+	end,
+})
+
+HPTN.Modification({
+	key = "smuged",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        if context.post_trigger and context.other_joker == card then
+           SMODS.calculate_effect({x_mult = 0.9}, card)
+        end
+	end,
+})
+
+HPTN.Modification({
+	key = "depreciating",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        if context.end_of_round then
+            if card.set_cost then 
+                card.ability.extra_value = (card.ability.extra_value or 0) - 1
+                card:set_cost()
+            end
+        end
+	end,
+})
+
+HPTN.Modification({
+	key = "legendary ",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        --brrr
+	end,
+})
+
+HPTN.Modification({
+	key = "dying",
+	atlas = "tname_stickers",
+	pos = { x = 0, y = 0 },
+	calculate = function(self, card, context)
+        --brrr
 	end,
 })

@@ -191,27 +191,31 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
 				{n = G.UIT.R, config = {minh = 0.2}},
 				UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits"}}},
                     text_scale = 0.5,
                     button = 'hotpot_tname_toggle_reforge',
+                    func = "can_reforge_with_creds",
                     colour = G.C.PURPLE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.GAME, ref_value = "cost_dollars"}}},
                     text_scale = 0.5,
-                    button = 'can_reforge_with_dollars',
+                    button = 'hotpot_tname_toggle_reforge',
+                    func = "can_reforge_with_dollars",
                     colour = G.C.GOLD
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_sparks"}}},
                     text_scale = 0.5,
-                    button = 'can_reforge_with_joker_exchange',
+                    button = 'hotpot_tname_toggle_reforge',
+                    func = "can_reforge_with_joker_exchange",
                     colour = G.C.BLUE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.PROFILES[G.SETTINGS.profile], ref_value = "TNameCredits"}}},
+                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_plincoins"}}},
                     text_scale = 0.5,
-                    button = 'can_reforge_with_plincoins',
+                    button = 'hotpot_tname_toggle_reforge',
+                    func = "can_reforge_with_plincoins",
                     colour = SMODS.Gradients["hpot_plincoin"]
                 },
 			}},
@@ -264,8 +268,18 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
     end
 end
 
+function G.FUNCS.can_reforge_with_creds(e)
+    if G.PROFILES[G.SETTINGS.profile].TNameCredits < G.GAME.cost_credits then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.PURPLE
+            e.config.button = 'hotpot_tname_toggle_reforge'
+        end
+    end
+
 function G.FUNCS.can_reforge_with_dollars(e)
-    if not G.GAME.used_vouchers["v_hpot_ref_dollars"] then
+    if not G.GAME.used_vouchers["v_hpot_ref_dollars"] or G.GAME.dollars < G.GAME.cost_dollars then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -275,7 +289,7 @@ function G.FUNCS.can_reforge_with_dollars(e)
     end
 
 function G.FUNCS.can_reforge_with_joker_exchange(e)
-    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] then
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.spark_points < G.GAME.cost_sparks then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -285,7 +299,7 @@ function G.FUNCS.can_reforge_with_joker_exchange(e)
     end
     
 function G.FUNCS.can_reforge_with_plincoins(e)
-    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] then
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.plincoins < G.GAME.cost_plincoins then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -390,4 +404,10 @@ function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet
       -- might cause issues. Dollars cashout adds up everything and sends "bottom" cashout. Might need similar implementation if more plincoin cashouts are added - im leaving this in
       G.GAME.current_round.credits = G.GAME.current_round.credits + config.credits
 
+end
+
+
+function HPTN.perc(mod, perc)
+	local per = (mod / 100)* perc
+	return per
 end

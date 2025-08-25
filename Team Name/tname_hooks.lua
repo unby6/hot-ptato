@@ -17,6 +17,10 @@ Game.init_game_object = function(self)
 	ret.credits_cashout = 2
 	ret.credits_cashout2 = 2
 	ret.current_round.credits = 0
+	ret.cost_credits = 150
+	ret.cost_dollars = 5
+	ret.cost_sparks = 10000
+	ret.cost_plincoins = 2
 	return ret
 end
 
