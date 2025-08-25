@@ -243,6 +243,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
                 colour = G.C.GREEN,
                 type = "C"
             },
+            {n = G.UIT.C, config = {align = "cm", padding = 0.1}},
             UIBox_adv_button{
                 label = {{{"Return"}}},
                 text_scale = 0.5,
