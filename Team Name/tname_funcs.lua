@@ -268,7 +268,7 @@ function G.FUNCS.can_reforge_with_joker_exchange(e)
         end
     end
     
-    function G.FUNCS.can_reforge_with_plincoins(e)
+function G.FUNCS.can_reforge_with_plincoins(e)
     if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil

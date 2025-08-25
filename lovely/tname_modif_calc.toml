@@ -1,0 +1,21 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''-- TARGET: evaluate your own general effects'''
+position = 'after'
+payload = '''
+for q, a in ipairs(HPTN.Modification.obj_buffer) do
+ local modi = HPTN.Modifications[a]
+  local modif = card:calculate_modification(context, a)
+    if modif then
+     ret[modi] = modif
+    end
+end
+'''
+match_indent = true

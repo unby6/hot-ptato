@@ -171,7 +171,14 @@ HotPotato.custom_collection_tabs = function()
 			label = { localize('k_events') },
 			minw = 5,
 			minh = 1
-		})
+		}),
+		UIBox_button({
+        	button = 'your_collection_hpot_modifications',
+        	id = 'your_collection_hpot_modifications',
+        	label = { "Modifications" },
+        	minw = 5,
+        	minh = 1
+        }),
 	}
 end
 

@@ -1705,6 +1705,11 @@ return {
                     "All of them want your food.",
                     "Who will be lucky today?"
                 }
+            },
+        },
+        Modification = {
+            modif_hpot_mod_1 = {
+                name = "f"
             }
         },
     },
@@ -1924,6 +1929,8 @@ return {
             hpot_uranium = "Uranium",
             hpot_spinning = "Spinning",
             hpot_cfour = "C4",
+
+            modif_hpot_mod_1 = "Mod 1"
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
