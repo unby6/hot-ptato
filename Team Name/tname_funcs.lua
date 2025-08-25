@@ -293,7 +293,7 @@ end
 
 G.FUNCS.reforge_return = function ()
     if G.reforge_area and G.reforge_area.cards then
-        HPTN.move_card(G.reforge_area.cards[1], G.jokers)
+            HPTN.move_card(G.reforge_area.cards[1], G.jokers)
         G.GAME.ref_placed = nil
     end
 end
@@ -318,6 +318,10 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
         end, { trigger = "after", delay = 0 })
         play_sound("hpot_sfx_whistleup", nil, 0.25)
     else
+        if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
+            HPTN.move_card(G.reforge_area.cards[1], G.jokers)
+            G.GAME.ref_placed = nil
+        end
         ease_background_colour_blind(G.STATES.SHOP)
         G.shop.alignment.offset.y = -5.3
         G.HP_TNAME_REFORGE_VISIBLE = false
