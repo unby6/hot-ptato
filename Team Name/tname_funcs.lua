@@ -182,11 +182,8 @@ end
 
 G.UIDEF.hotpot_tname_reforge_section = function ()
     G.reforge_area = CardArea(
-        0,
-        0,
-        1, 
-        1, 
-        {card_limit = 1, type = "shop", highlight_limit = 1}
+        0, 0, 1, 1,
+        {card_limit = 1, type = "shop", highlight_limit = 0}
     )
 	return 
 	{n = G.UIT.R, config = {minw = 3, minh = 5.5, colour = G.C.CLEAR}, nodes = {}},
@@ -230,26 +227,32 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 
 			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
                 {n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "cm", padding = 0.1}, nodes = {
-                    {n = G.UIT.O, config = {object = G.reforge_area}}
+                    {n = G.UIT.R, config = {align = "tm"}, nodes = {{n = G.UIT.T, config = {text = "PLACE CARD TO REFORGE", colour = G.C.GREY, scale = 0.4, align = "tm"}}}},
+                    {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.reforge_area, align = "cm"}}}},
 				}},
 			}},
 		}},
         {n = G.UIT.R, config = {minh = 0.2}},
-        
+        {n = G.UIT.R, config = {align = "cm"}, nodes = {
             UIBox_adv_button{
                 label = {{{"Place"}}},
                 text_scale = 0.5,
+                w = 3, h = 1,
                 button = 'reforge_place',
                 func = "place_return_reforge",
-                colour = G.C.GREEN
+                colour = G.C.GREEN,
+                type = "C"
             },
-             UIBox_adv_button{
+            UIBox_adv_button{
                 label = {{{"Return"}}},
                 text_scale = 0.5,
+                w = 3, h = 1,
                 button = 'reforge_return',
                 func = "return_place_reforge",
-                colour = G.C.RED
+                colour = G.C.RED,
+                type = "C"
             },
+        }}
 	}},
 	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}}
 end
@@ -293,8 +296,10 @@ end
 
 G.FUNCS.reforge_return = function ()
     if G.reforge_area and G.reforge_area.cards then
-        HPTN.move_card(G.reforge_area.cards[1], G.jokers)
-        G.GAME.ref_placed = nil
+        if #G.reforge_area.cards > 0 then
+            HPTN.move_card(G.reforge_area.cards[1], G.jokers)
+            G.GAME.ref_placed = nil
+        end
     end
 end
 
@@ -321,6 +326,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
         ease_background_colour_blind(G.STATES.SHOP)
         G.shop.alignment.offset.y = -5.3
         G.HP_TNAME_REFORGE_VISIBLE = false
+        G.FUNCS.reforge_return()
 		simple_add_event(function()
             sign_sprite.pinch.y = true
             delay(0.5)
