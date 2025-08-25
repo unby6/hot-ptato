@@ -1432,7 +1432,13 @@ return {
                 text = {
                     "{C:green}#1# in #2# chance{} to {C:white,X:blue,f:hpot_plincoin} ͸X#3# {} immediately"
                 }
-            }
+            },
+            tag_hpot_credits_tag = {
+                name = "Digitalism",
+                text = {
+                    "Gain {C:blue}+#1#{} Credits immediately"
+                }
+            },
         },
         Edition = {
             e_hpot_psychedelic = {
