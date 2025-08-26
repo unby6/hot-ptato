@@ -212,20 +212,6 @@ function ready_to_reforge(card)
         card.ability.reforge_sparks = 0
         card.ability.reforge_plincoins = 0
     end
-
-    if card.saved_last_reforge then
-        card.ability.reforge_dollars = card.ability.reforge_dollars_default
-        card.ability.reforge_credits = card.ability.reforge_credits_default
-        card.ability.reforge_sparks = card.ability.reforge_sparks_default
-        card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
-
-        card.saved_last_reforge = false
-
-        card.ability.reforge_dollars_default = nil
-        card.ability.reforge_credits_default = nil
-        card.ability.reforge_sparks_default = nil
-        card.ability.reforge_plincoins_default = nil
-    end
 end
 
 --- @param card table|nil to update the card's values
@@ -244,6 +230,20 @@ function update_reforge_cost(card)
     G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
     G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
     G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
+
+    if card.saved_last_reforge then
+        card.ability.reforge_dollars = card.ability.reforge_dollars_default
+        card.ability.reforge_credits = card.ability.reforge_credits_default
+        card.ability.reforge_sparks = card.ability.reforge_sparks_default
+        card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
+
+        card.saved_last_reforge = false
+
+        card.ability.reforge_dollars_default = nil
+        card.ability.reforge_credits_default = nil
+        card.ability.reforge_sparks_default = nil
+        card.ability.reforge_plincoins_default = nil
+    end
 end
 
 -- reseting the reforge cost
