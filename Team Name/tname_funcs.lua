@@ -161,8 +161,7 @@ end
 function reforge_card(card)
 	if not card then return nil end
 
-	local reforge_money_v2_voucher_acquired = G.GAME.used_vouchers["internship"] -- Reforging no longer increases costs
-	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["masters"] -- Reforging can never result in a bad modifier
+	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["v_hpot_masters"] -- Reforging can never result in a bad modifier
 	
 	local chance = 1 -- 100% chance to get a modification when you reforge
 	-- card param is given by the parameter to this function
@@ -215,34 +214,38 @@ function ready_to_reforge(card)
 end
 
 --- @param card table|nil to update the card's values
-function set_card_reforge(card)
+function set_card_reforge(card, currency)
     card = card or G.reforge_area.cards[1]
-    card.ability.reforge_dollars = card.ability.reforge_dollars + reforge_cost(card)
-    card.ability.reforge_credits = card.ability.reforge_credits + convert_currency(reforge_cost(card), "DOLLAR", "CREDIT")
-    card.ability.reforge_sparks = card.ability.reforge_sparks + convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
-    card.ability.reforge_plincoins = card.ability.reforge_plincoins + convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
+    card.ability.reforge_dollars = reforge_cost(card)
+    card.ability.reforge_credits = convert_currency(reforge_cost(card), "DOLLAR", "CREDIT")
+    card.ability.reforge_sparks = convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
+    card.ability.reforge_plincoins = convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
 end
 
 --- @param card table|nil Card to use to update the costs
 function update_reforge_cost(card)
     card = card or G.reforge_area.cards[1]
-    G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
-    G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
-    G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
-    G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
+    if not G.GAME.used_vouchers["v_hpot_cuttingcost"] then
+        G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
+        G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
+        G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
+        G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
 
-    if card.saved_last_reforge then
-        card.ability.reforge_dollars = card.ability.reforge_dollars_default
-        card.ability.reforge_credits = card.ability.reforge_credits_default
-        card.ability.reforge_sparks = card.ability.reforge_sparks_default
-        card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
+        if card.saved_last_reforge then
+            card.ability.reforge_dollars = card.ability.reforge_dollars_default
+            card.ability.reforge_credits = card.ability.reforge_credits_default
+            card.ability.reforge_sparks = card.ability.reforge_sparks_default
+            card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
 
-        card.saved_last_reforge = false
+            card.saved_last_reforge = false
 
-        card.ability.reforge_dollars_default = nil
-        card.ability.reforge_credits_default = nil
-        card.ability.reforge_sparks_default = nil
-        card.ability.reforge_plincoins_default = nil
+            card.ability.reforge_dollars_default = nil
+            card.ability.reforge_credits_default = nil
+            card.ability.reforge_sparks_default = nil
+            card.ability.reforge_plincoins_default = nil
+        end
+    else
+        reset_reforge_cost()
     end
 end
 
@@ -277,13 +280,6 @@ end
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
 function reforge_discounts()
 	local total = 0
-	
-	local reforge_money_v1_voucher_acquired = G.GAME.used_vouchers["costcutting"] -- Reduces cost of reforging by $2
-	
-	if reforge_money_v1_voucher_acquired then
-		total = total + 2
-	end
-	
 	return total
 end
 
@@ -300,20 +296,20 @@ function convert_currency(amount, starting_currency, ending_currency)
 	local credit_to_plincoin  = 15
 	local sparkle_to_plincoin = 12495
 	
-	if     starting_currency == "DOLLAR"  then money = money * dollar_to_plincoin
-	elseif starting_currency == "CREDIT"  then money = money * credit_to_plincoin
-	elseif starting_currency == "SPARKLE" then money = money * sparkle_to_plincoin
-	elseif starting_currency ~= "PLINCOIN" then return nil end
+	if     ending_currency == "DOLLAR"  then money = money * dollar_to_plincoin
+	elseif ending_currency == "CREDIT"  then money = money * credit_to_plincoin
+	elseif ending_currency == "SPARKLE" then money = money * sparkle_to_plincoin
+	elseif ending_currency ~= "PLINCOIN" then return nil end
 	
 	-- Next, convert from plincoin into the desired currency.
 	local plincoin_to_dollar  = 1 / dollar_to_plincoin
 	local plincoin_to_credit  = 1 / credit_to_plincoin
 	local plincoin_to_sparkle = 1 / sparkle_to_plincoin
 	
-	if     ending_currency == "DOLLAR"  then money = money * plincoin_to_dollar
-	elseif ending_currency == "CREDIT"  then money = money * plincoin_to_credit
-	elseif ending_currency == "SPARKLE" then money = money * plincoin_to_sparkle
-	elseif ending_currency ~= "PLINCOIN" then return nil end
+	if     starting_currency == "DOLLAR"  then money = money * plincoin_to_dollar
+	elseif starting_currency == "CREDIT"  then money = money * plincoin_to_credit
+	elseif starting_currency == "SPARKLE" then money = money * plincoin_to_sparkle
+	elseif starting_currency ~= "PLINCOIN" then return nil end
 	
 	return math.ceil(money)
 end

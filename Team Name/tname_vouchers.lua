@@ -68,3 +68,35 @@ SMODS.Voucher {
         team = {'Team Name'}
     }
 }
+
+SMODS.Voucher {
+	key = 'cuttingcost',
+	pos = { x = 2, y = 0 },
+    loc_vars = function (self, info_queue, card)
+		return {
+			vars = {
+				(G.GAME.credits_cashout or 0)
+			}
+		}
+	end,
+	hotpot_credits = {
+        art = {'No Art'},
+        code = {'Revo'},
+        idea = {'Corobo'},
+        team = {'Team Name'}
+    }
+}
+
+SMODS.Voucher {
+	key = 'masters',
+	pos = { x = 3, y = 0 },
+	requires = {
+		'v_hpot_cuttingcost'
+	},
+	hotpot_credits = {
+        art = {'No Art'},
+        code = {'Revo'},
+        idea = {'Corobo'},
+        team = {'Team Name'}
+    }
+}
