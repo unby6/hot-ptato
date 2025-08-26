@@ -28,9 +28,9 @@ end
 -- like in React, I made stuff I reuse into buttons
 ---<br>Patched to support custom non-hardcoded buttons.\
 ---`loc_txt` - String pointing towards `misc/dictionary` in the localization files.\
----`button` - String pointing towards a function in G.FUNCS['button'].\
----`atlas` - String pointing towards an atlas file in G.ASSET_ATLAS['atlas'].\
----`pos = {x, y} - Array of 2 numbers pointing towards the position of the sprite in the `atlas` provided.
+---`button` - String pointing towards a function in `G.FUNCS[button]`.\
+---`atlas` - String pointing towards an atlas file in `G.ASSET_ATLAS[atlas].`\
+---`pos = {x, y}` - Array of 2 numbers pointing towards the position of the sprite in the `atlas` provided.
 ---@param btntype? string|{loc_txt:string,button:string,atlas:string,pos:{x:integer,y:integer}}
 ---@return table
 function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
