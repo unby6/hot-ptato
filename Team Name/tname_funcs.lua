@@ -391,30 +391,30 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
 				{n = G.UIT.R, config = {minh = 0.2}},
 				UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits"}}},
+                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits_inflated"}}},
                     text_scale = 0.5,
-                    button = 'hotpot_tname_toggle_reforge',
+                    button = 'reforge_with_credits',
                     func = "can_reforge_with_creds",
                     colour = G.C.PURPLE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.GAME, ref_value = "cost_dollars"}}},
+                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.GAME, ref_value = "cost_dollars_inflated"}}},
                     text_scale = 0.5,
-                    button = 'hotpot_tname_toggle_reforge',
+                    button = 'reforge_with_dollars',
                     func = "can_reforge_with_dollars",
                     colour = G.C.GOLD
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_sparks"}}},
+                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_sparks_inflated"}}},
                     text_scale = 0.5,
-                    button = 'hotpot_tname_toggle_reforge',
+                    button = 'reforge_with_sparks',
                     func = "can_reforge_with_joker_exchange",
                     colour = G.C.BLUE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_plincoins"}}},
+                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_plincoins_inflated"}}},
                     text_scale = 0.5,
-                    button = 'hotpot_tname_toggle_reforge',
+                    button = 'reforge_with_plincoins',
                     func = "can_reforge_with_plincoins",
                     colour = SMODS.Gradients["hpot_plincoin"]
                 },
@@ -487,8 +487,14 @@ function G.FUNCS.place_return_reforge(e)
 
 G.FUNCS.reforge_place = function ()
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
-        HPTN.move_card(G.jokers.highlighted[1], G.reforge_area)
+        local c = G.jokers.highlighted[1]
+        HPTN.move_card(c, G.reforge_area)
         G.GAME.ref_placed = true
+
+        c.ability.reforge_c = 0
+        c.ability.reforge_d = 0
+        c.ability.reforge_jx = 0
+        c.ability.reforge_p = 0
     end
 end
 
@@ -549,7 +555,7 @@ function G.FUNCS.can_reforge_with_creds(e)
             e.config.button = nil
         else
             e.config.colour = G.C.PURPLE
-            e.config.button = 'hotpot_tname_toggle_reforge'
+            e.config.button = 'reforge_with_credits'
         end
     end
 
@@ -559,7 +565,7 @@ function G.FUNCS.can_reforge_with_dollars(e)
             e.config.button = nil
     else
             e.config.colour = G.C.GOLD
-            e.config.button = 'hotpot_tname_toggle_reforge'
+            e.config.button = 'reforge_with_dollars'
         end
     end
 
@@ -569,7 +575,7 @@ function G.FUNCS.can_reforge_with_joker_exchange(e)
             e.config.button = nil
         else
             e.config.colour = G.C.BLUE
-            e.config.button = 'hotpot_tname_toggle_reforge'
+            e.config.button = 'reforge_with_sparks'
         end
     end
     
@@ -579,9 +585,25 @@ function G.FUNCS.can_reforge_with_plincoins(e)
             e.config.button = nil
         else
             e.config.colour = SMODS.Gradients["hpot_plincoin"]
-            e.config.button = 'hotpot_tname_toggle_reforge'
+            e.config.button = 'reforge_with_plincoins'
         end
     end
+
+G.FUNCS.reforge_with_credits = function ()
+    HPTN.ease_credits(-G.GAME.cost_credits)
+end
+
+G.FUNCS.reforge_with_dollars = function ()
+    ease_dollars(-G.GAME.cost_dollars)
+end
+
+G.FUNCS.reforge_with_sparks = function ()
+    ease_spark_points(-G.GAME.cost_sparks)
+end
+
+G.FUNCS.reforge_with_plincoins = function ()
+    ease_plincoins(-G.GAME.cost_plincoins)
+end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
     local config = config or {}
