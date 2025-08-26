@@ -2,21 +2,53 @@ function HPTN.process_loc_text()
 	G.localization.descriptions.Modification = G.localization.descriptions.Modification or {}
 end
 
+SMODS.Atlas({
+	key = "tname_modifs",
+	path = "Team Name/tname_modifs.png",
+	px = 71,
+	py = 95,
+})
+
+--- did i do this right? idk
+
+---@class HPTN.Modification: SMODS.GameObject
+---@field obj_buffer? Modifications|string[] Array of keys to all objects registered to this class. 
+---@field obj_table? table<Modifications|string, HPTN.Modifications|table> Table of objects registered to this class. 
+---@field super? SMODS.GameObject|table Parent class. 
+---@field atlas? string Key to the center's atlas. 
+---@field pos? table|{x: integer, y: integer} Position of the center's sprite. 
+---@field morality? string use to define if effect is good or bad. 
+---@field hide_badge? boolean Sets if the badge shows up on the card. 
+---@field badge_colour? table HEX color the badge uses. 
+---@field sets? string[] Array of keys to pools that this modification is allowed to be applied on. 
+---@field needs_enabled_flag? boolean Sets whether the modification requires `G.GAME.modifiers["enable_"..key]` to be `true` before it can be applied. 
+---@field check_duplicate_register? fun(self: HPTN.Modifications|table): boolean? Ensures objects already registered will not register. 
+---@field check_duplicate_key? fun(self: HPTN.Modifications|table): boolean? Ensures objects with duplicate keys will not register. Checked on `__call` but not `take_ownership`. For take_ownership, the key must exist. 
+---@field register? fun(self: HPTN.Modifications|table) Registers the object. 
+---@field inject? fun(self: HPTN.Modifications|table, i?: number) Called during `inject_class`. Injects the object into the game. 
+---@field loc_vars? fun(self: HPTN.Modifications|table, info_queue: table, card: Card|table): table? Provides control over displaying descriptions and tooltips of the modification's tooltip. 
+---@field calculate? fun(self: HPTN.Modifications|table, card: Card|table, context: CalcContext|table): table?, boolean?  Calculates effects based on parameters in `context`. See [SMODS calculation](https://github.com/Steamodded/smods/wiki/calculate_functions) docs for details. 
+---@field apply? fun(self: HPTN.Modifications|table, card: Card|table, val: any) Handles applying and removing the modification. By default, sets `card.ability[self.key] = val`. 
+---@field draw? fun(self: HPTN.Modifications|table, card: Card|table, layer: string) Draws the sprite and shader of the modification. 
+---@overload fun(self: SHPTN.Modifications): HPTN.Modifications
+
+
 HPTN.Modifications = {}
 HPTN.Modification = SMODS.GameObject:extend({
 	required_params = { "key" },
 	set = "Modification",
-	atlas = "tname_stickers",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	obj_table = HPTN.Modifications,
 	obj_buffer = {},
-	badge_colour = HEX("FFFFFF"),
+	badge_colour = HEX("6c867d"),
 	sets = { Joker = true },
 	unlocked = true,
 	discovered = true,
 	config = {},
 	morality = "GOOD",
 	class_prefix = "modif",
+	hide_badge = false,
 	needs_enable_flag = true,
 	draw = function(self, card)
 		local x_offset = (card.T.w / 71) * card.T.scale
@@ -168,10 +200,9 @@ end
 -- Modifications 
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "ruthless",
-	atlas = "tname_stickers",
 	morality = "GOOD",
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         -- brrr
 	end,
@@ -179,8 +210,8 @@ HPTN.Modification({
 
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "greedy",
-	atlas = "tname_stickers",
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -191,8 +222,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "jumpy",
-	atlas = "tname_stickers",
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -203,8 +234,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "invested",
-	atlas = "tname_stickers",
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -218,8 +249,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "magnified",
-	atlas = "tname_stickers",
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -228,8 +259,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "damaged",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -242,8 +273,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "old",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -252,8 +283,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "supported",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -262,8 +293,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "dozing",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -272,8 +303,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "smudged",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -284,8 +315,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "depreciating",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -299,8 +330,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "legendary ",
-	atlas = "tname_stickers",
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
@@ -309,8 +340,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
+	atlas = "tname_modifs",
 	key = "dying",
-	atlas = "tname_stickers",
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
