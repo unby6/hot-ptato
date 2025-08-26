@@ -104,6 +104,12 @@ SMODS.Sticker({
 		x = 0,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -134,6 +140,12 @@ SMODS.Sticker({
 		x = 2,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -173,6 +185,12 @@ SMODS.Sticker({
 		x = 1,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -242,6 +260,12 @@ SMODS.Sticker({
 		x = 0,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -283,6 +307,12 @@ SMODS.Sticker({
 		x = 2,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "Revo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -325,6 +355,12 @@ SMODS.Sticker({
 		x = 3,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -364,6 +400,12 @@ SMODS.Sticker({
 		x = 3,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -399,6 +441,12 @@ SMODS.Sticker({
 		x = 1,
 		y = 2,
 	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -445,6 +493,12 @@ SMODS.Sticker({
 		x = 2,
 		y = 2,
 	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 
@@ -458,6 +512,12 @@ SMODS.Sticker({
 		x = 0,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -480,4 +540,10 @@ SMODS.Sticker({
 		x = 3,
 		y = 2,
 	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
