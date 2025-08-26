@@ -690,21 +690,21 @@ G.FUNCS.reforge_with_dollars = function ()
     ease_dollars(-G.GAME.cost_dollars)
     set_card_reforge()
     update_reforge_cost()
-    eforge_card(G.reforge_area.cards[1])
+    reforge_card(G.reforge_area.cards[1])
 end
 
 G.FUNCS.reforge_with_sparks = function ()
     ease_spark_points(-G.GAME.cost_sparks)
     set_card_reforge()
     update_reforge_cost()
-    eforge_card(G.reforge_area.cards[1])
+    reforge_card(G.reforge_area.cards[1])
 end
 
 G.FUNCS.reforge_with_plincoins = function ()
     ease_plincoins(-G.GAME.cost_plincoins)
     set_card_reforge()
     update_reforge_cost()
-    eforge_card(G.reforge_area.cards[1])
+    reforge_card(G.reforge_area.cards[1])
 end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
