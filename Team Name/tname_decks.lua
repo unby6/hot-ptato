@@ -25,3 +25,9 @@ function Game:start_run(args)
     G.GAME.plincoins = G.GAME.plincoins or 0
     G.GAME.plincoins = G.GAME.plincoins + starting_plincoins
 end
+
+SMODS.Back {
+    key = 'minimal',
+    atlas = 'TeamNameDecks',
+    pos = { x = 1, y = 0 }
+}
