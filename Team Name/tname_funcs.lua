@@ -391,28 +391,28 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
 				{n = G.UIT.R, config = {minh = 0.2}},
 				UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits_inflated"}}},
+                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits"}}},
                     text_scale = 0.5,
                     button = 'reforge_with_credits',
                     func = "can_reforge_with_creds",
                     colour = G.C.PURPLE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.GAME, ref_value = "cost_dollars_inflated"}}},
+                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.GAME, ref_value = "cost_dollars"}}},
                     text_scale = 0.5,
                     button = 'reforge_with_dollars',
                     func = "can_reforge_with_dollars",
                     colour = G.C.GOLD
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_sparks_inflated"}}},
+                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_sparks"}}},
                     text_scale = 0.5,
                     button = 'reforge_with_sparks',
                     func = "can_reforge_with_joker_exchange",
                     colour = G.C.BLUE
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_plincoins_inflated"}}},
+                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_plincoins"}}},
                     text_scale = 0.5,
                     button = 'reforge_with_plincoins',
                     func = "can_reforge_with_plincoins",
