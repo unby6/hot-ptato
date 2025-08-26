@@ -4,6 +4,7 @@ SMODS.Voucher {
 	pos = { x = 0, y = 0 },
 	redeem = function(self, voucher)
 		G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin = true
+		G.GAME.hp_jtem_should_allow_buying_jx_from_credits = true
 	end,
 	hotpot_credits = {
         art = {'MissingNumber'},

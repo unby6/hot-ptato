@@ -1887,11 +1887,18 @@ return {
             hotpot_exchange_option_3 = "A Ton of ͸",
             hotpot_exchange_option_4 = "An Overfilled Box of ͸",
             hotpot_exchange_option_5 = "A Cargo Load of ͸", 
+
             hotpot_exchange_option_plin_1 = "A Premium Pile of ͸",
             hotpot_exchange_option_plin_2 = "A Giant Premium Pile of ͸",
             hotpot_exchange_option_plin_3 = "A Premium Ton of ͸",
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
+
+            hotpot_exchange_option_cred_1 = "A Small Pile of ͸",
+            hotpot_exchange_option_cred_2 = "A Normal Pile of ͸",
+            hotpot_exchange_option_cred_3 = "More of ͸",
+            hotpot_exchange_option_cred_4 = "A Box of ͸",
+            hotpot_exchange_option_cred_5 = "A Load of ͸",
 
             hotpot_reforge_credits = "c.", -- 50
             hotpot_reforge_dollars = "$", -- 10

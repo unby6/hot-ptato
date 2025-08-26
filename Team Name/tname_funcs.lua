@@ -225,11 +225,17 @@ end
 --- @param card table|nil Card to use to update the costs
 function update_reforge_cost(card)
     card = card or G.reforge_area.cards[1]
-    if not G.GAME.used_vouchers["v_hpot_cuttingcost"] then
+    if not G.GAME.used_vouchers["v_hpot_intership"] then
         G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
         G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
         G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
         G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
+    else
+        G.GAME.cost_dollars = card.ability.reforge_dollars
+        G.GAME.cost_credits = card.ability.reforge_credits
+        G.GAME.cost_sparks =  card.ability.reforge_sparks
+        G.GAME.cost_plincoins = card.ability.reforge_plincoins
+    end
 
         if card.saved_last_reforge then
             card.ability.reforge_dollars = card.ability.reforge_dollars_default
@@ -244,9 +250,6 @@ function update_reforge_cost(card)
             card.ability.reforge_sparks_default = nil
             card.ability.reforge_plincoins_default = nil
         end
-    else
-        reset_reforge_cost()
-    end
 end
 
 -- reseting the reforge cost
@@ -280,6 +283,10 @@ end
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
 function reforge_discounts()
 	local total = 0
+
+    if G.GAME.used_vouchers["v_hpot_costcutting"] then
+        total = total + 2
+    end
 	return total
 end
 
