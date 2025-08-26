@@ -173,13 +173,15 @@ function reforge_card(card)
 	local new_modification = poll_modification(chance, card, morality, odds)
 	
 	if old_modification then
-		card.ability[old_modification] = nil
+		HPTN.Modifications[old_modification]:apply(card,false)
 	end
 	if new_modification then
-		card.ability[new_modification.key] = new_modification.value
+		HPTN.Modifications[new_modification.key]:apply(card,true)
 		card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
 	end
 end
+
+
 
 --- Checks the amount of money it would cost to reforge a given card, in dollars.
 ---
@@ -193,6 +195,60 @@ function reforge_cost(card)
 	local cost_final = cost_initial - discount
 
 	return cost_final
+end
+
+
+-- not needed
+--- @param card table|nil Card to give reforge values
+function ready_to_reforge(card)
+    card = card or G.reforge_area.cards[1]
+    if not card.ready_for_reforging then
+    
+        card.ready_for_reforging = true
+
+        card.ability.reforge_dollars = 0
+        card.ability.reforge_credits = 0
+        card.ability.reforge_sparks = 0
+        card.ability.reforge_plincoins = 0
+    end
+end
+
+--- @param card table|nil to update the card's values
+function set_card_reforge(card)
+    card = card or G.reforge_area.cards[1]
+    card.ability.reforge_dollars = card.ability.reforge_dollars + reforge_cost(card)
+    card.ability.reforge_credits = card.ability.reforge_credits + convert_currency(reforge_cost(card), "DOLLAR", "CREDIT")
+    card.ability.reforge_sparks = card.ability.reforge_sparks + convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
+    card.ability.reforge_plincoins = card.ability.reforge_plincoins + convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
+end
+
+--- @param card table|nil Card to use to update the costs
+function update_reforge_cost(card)
+    card = card or G.reforge_area.cards[1]
+    G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
+    G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
+    G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
+    G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
+end
+
+-- reseting the reforge cost
+function reset_reforge_cost()
+    G.GAME.cost_dollars = G.GAME.cost_dollar_default 
+    G.GAME.cost_credits =  G.GAME.cost_credit_default 
+    G.GAME.cost_sparks =  G.GAME.cost_spark_default 
+    G.GAME.cost_plincoins = G.GAME.cost_plincoin_default 
+end
+
+-- save final values
+
+-- not needed (?)
+--- @param card table|nil to save the card's values
+function final_ability_values(card)
+    card = card or G.reforge_area.cards[1]
+    card.ability.reforge_dollars = G.GAME.cost_dollars - G.GAME.cost_dollar_default 
+    card.ability.reforge_credits = G.GAME.cost_credits - G.GAME.cost_credit_default 
+    card.ability.reforge_sparks = G.GAME.cost_sparks - G.GAME.cost_spark_default 
+    card.ability.reforge_plincoins = G.GAME.cost_plincoins - G.GAME.cost_plincoin_default 
 end
 
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
@@ -490,19 +546,18 @@ G.FUNCS.reforge_place = function ()
         local c = G.jokers.highlighted[1]
         HPTN.move_card(c, G.reforge_area)
         G.GAME.ref_placed = true
-
-        c.ability.reforge_c = 0
-        c.ability.reforge_d = 0
-        c.ability.reforge_jx = 0
-        c.ability.reforge_p = 0
+        ready_to_reforge()
+        update_reforge_cost()
     end
 end
 
 G.FUNCS.reforge_return = function ()
     if G.reforge_area and G.reforge_area.cards then
         if #G.reforge_area.cards > 0 then
+            final_ability_values()
             HPTN.move_card(G.reforge_area.cards[1], G.jokers)
             G.GAME.ref_placed = nil
+            reset_reforge_cost()
         end
     end
 end
@@ -528,8 +583,11 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
         play_sound("hpot_sfx_whistleup", nil, 0.25)
     else
         if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
-            HPTN.move_card(G.reforge_area.cards[1], G.jokers)
+            local acard = G.reforge_area.cards[1]
+            final_ability_values()
+            HPTN.move_card(acard, G.jokers)
             G.GAME.ref_placed = nil
+            reset_reforge_cost()
         end
         ease_background_colour_blind(G.STATES.SHOP)
         G.shop.alignment.offset.y = -5.3
@@ -591,18 +649,30 @@ function G.FUNCS.can_reforge_with_plincoins(e)
 
 G.FUNCS.reforge_with_credits = function ()
     HPTN.ease_credits(-G.GAME.cost_credits)
+    set_card_reforge()
+    update_reforge_cost()
+    reforge_card(G.reforge_area.cards[1])
 end
 
 G.FUNCS.reforge_with_dollars = function ()
     ease_dollars(-G.GAME.cost_dollars)
+    set_card_reforge()
+    update_reforge_cost()
+    eforge_card(G.reforge_area.cards[1])
 end
 
 G.FUNCS.reforge_with_sparks = function ()
     ease_spark_points(-G.GAME.cost_sparks)
+    set_card_reforge()
+    update_reforge_cost()
+    eforge_card(G.reforge_area.cards[1])
 end
 
 G.FUNCS.reforge_with_plincoins = function ()
     ease_plincoins(-G.GAME.cost_plincoins)
+    set_card_reforge()
+    update_reforge_cost()
+    eforge_card(G.reforge_area.cards[1])
 end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
