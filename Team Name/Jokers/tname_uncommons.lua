@@ -55,6 +55,8 @@ SMODS.Joker({
 			dollars = 2
 		},
 	},
+	pos = {x=5,y=0},
+	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 		if G.jokers and G.jokers.cards then
@@ -81,7 +83,7 @@ SMODS.Joker({
 	end,
 
     hotpot_credits = {
-        art = {"No Art"},
+        art = {"GhostSalt"},
         idea = {"Corobo"},
         code = {"Revo"},
         team = {"Team Name"}

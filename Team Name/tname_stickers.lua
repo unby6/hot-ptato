@@ -58,6 +58,13 @@ SMODS.Sticker({
 		x = 1,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
+
 })
 
 SMODS.Sticker({
@@ -387,6 +394,11 @@ SMODS.Sticker({
 			})
 		end
 	end,
+	atlas = "tname_stickers",
+	pos = {
+		x = 1,
+		y = 2,
+	},
 })
 
 SMODS.Sticker({
@@ -428,6 +440,11 @@ SMODS.Sticker({
 
 		end
 	end,
+		atlas = "tname_stickers",
+	pos = {
+		x = 2,
+		y = 2,
+	},
 })
 
 
@@ -436,6 +453,11 @@ SMODS.Sticker({
 	rate = 0.05,
 	key = "spinning",
 	badge_colour = HEX("85a6ac"),
+		atlas = "tname_stickers",
+	pos = {
+		x = 0,
+		y = 1,
+	},
 })
 
 SMODS.Sticker({
@@ -453,4 +475,9 @@ SMODS.Sticker({
 			SMODS.destroy_cards(card)
 		end
 	end,
+	atlas = "tname_stickers",
+	pos = {
+		x = 3,
+		y = 2,
+	},
 })

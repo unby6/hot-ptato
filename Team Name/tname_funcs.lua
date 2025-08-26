@@ -687,6 +687,7 @@ G.FUNCS.reforge_with_credits = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 G.FUNCS.reforge_with_dollars = function ()
@@ -694,6 +695,7 @@ G.FUNCS.reforge_with_dollars = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 G.FUNCS.reforge_with_sparks = function ()
@@ -701,6 +703,7 @@ G.FUNCS.reforge_with_sparks = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 G.FUNCS.reforge_with_plincoins = function ()
@@ -708,6 +711,7 @@ G.FUNCS.reforge_with_plincoins = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)

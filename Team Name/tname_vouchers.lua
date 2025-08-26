@@ -43,7 +43,7 @@ SMODS.Voucher {
     loc_vars = function (self, info_queue, card)
 		return {
 			vars = {
-				(G.GAME.credits_cashout or 0)
+				(G.GAME.credits_cashout or 2)
 			}
 		}
 	end,
@@ -58,6 +58,13 @@ SMODS.Voucher {
 SMODS.Voucher {
 	key = 'ref_joker_exc',
 	pos = { x = 3, y = 0 },
+	loc_vars = function (self, info_queue, card)
+		return {
+			vars = {
+				(G.GAME.credits_cashout2 or 2)
+			}
+		}
+	end,
 	requires = {
 		'v_hpot_ref_dollars'
 	},

@@ -739,9 +739,33 @@ return {
                 name = "Digital Payment",
                 text = {
                     "Earn no interest.",
-                    "gain {C:blue}+#1#{} Credits{}",
+                    "gain {C:purple}+#1#{} Credits{}",
                     "for each interest",
                     "you would earn"
+                }
+            },
+            v_hpot_digital_promotion = {
+                name = "Digital Promotion",
+                text = {
+                    "Earn no hand money.",
+                    "gain {C:purple}+#1#{} Credits{}",
+                    "for each spare hand",
+                    "you would earn"
+                }
+            },
+            v_hpot_ref_dollars = {
+                name = "Golden Anvil",
+                text = {
+                    "{C:money}Dollars{} can",
+                    "be used to reforge"
+                }
+            },
+            v_hpot_ref_joker_exc = {
+                name = "Premium Anvil",
+               text = {
+                    "{C:hpot_plincoin}Plincoins{} and",
+                    "{C:blue}Joker Exchange{} can",
+                    "be used to reforge"
                 }
             },
         },
