@@ -22,11 +22,11 @@ end
 
 --- Polls a random sticker from the set of stickers according to a uniform distribution.
 ---
---- @param guaranteed number A multiplier on the chance of receiving any sticker. Defaults to a 100% chance (value = 1) if not specified.
+--- @param guaranteed boolean Controls whether or not you are guaranteed to get a sticker.
 ---
 --- @param card table|nil The card to consider. If it's provided, the stickers that the card has (if it has any) are excluded from the sticker pool.
 function poll_sticker(guaranteed, card)
-	guaranteed = guaranteed 
+	guaranteed = guaranteed or false
 
 	local stickers = {}
 	local ability = card and card.ability or nil
@@ -43,30 +43,29 @@ function poll_sticker(guaranteed, card)
 		::poll_sticker_skip::
 	end
 	
+	if #stickers == 0 then return nil end
+	
 	-- Check if chance to get sticker is met
-	local random_value = pseudorandom("poll_sticker")
-	if #stickers > 0 and random_value < guaranteed then
-		local chosen_one = pseudorandom_element(stickers)
-		if pseudorandom("poll_sticker_rate") < tonumber(chosen_one.rate) then
-			return chosen_one.key
-		end
+	local candidate = pseudorandom_element(stickers)
+	if guaranteed or pseudorandom("poll_sticker_rate") < tonumber(candidate.rate) then
+		return candidate.key
 	end
 	
 	return nil
 end
 
----Polls a random modification from the set of modifications according to their weighted probabilities.
+--- Polls a random modification from the set of modifications according to their weighted probabilities.
 ---
----@param guaranteed number A multiplier on the chance of receiving any modification. Defaults to a 20% chance (value = 1/5) to give a modification if not specified.
+--- @param chance number A multiplier on the chance of receiving any modification. Defaults to a 20% chance (value = 1/5) to give a modification if not specified.
 ---
----@param card table|nil The card to consider. If it's provided, the modification that the card has (if it does) is excluded from the modification pool.
+--- @param card table|nil The card to consider. If it's provided, the modification that the card has (if it does) is excluded from the modification pool.
 ---
----@param morality table|nil A table specifying which categories of modifications are eligible. The fields `GOOD`, `BAD`, and `MISC` are all booleans. Defaults to all fields being true if not specified.
+--- @param morality table|nil A table specifying which categories of modifications are eligible. The fields `GOOD`, `BAD`, and `MISC` are all booleans. Defaults to all fields being true if not specified.
 ---
----@param odds table|nil A table specifying relative odds for each morality category. The fields `GOOD`, `BAD`, and `MISC` are all numbers which are normalized across enabled categories to sum to 100% (value = 1).
+--- @param odds table|nil A table specifying relative odds for each morality category. The fields `GOOD`, `BAD`, and `MISC` are all numbers which are normalized across enabled categories to sum to 100% (value = 1).
 ---  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified.
-function poll_modification(guaranteed, card, morality, odds)
-	guaranteed = guaranteed or 1/5
+function poll_modification(chance, card, morality, odds)
+	chance = chance or 1/5
 	card = card or nil
 	
 	morality = morality or {} -- Target for which kind of modifications we're targetting specifically
@@ -85,7 +84,7 @@ function poll_modification(guaranteed, card, morality, odds)
 		if sanity_sum == 0 then -- If there are no odds
 			odds.GOOD = 1/2
 			odds.BAD = 1/2
-			odds.MISC = (morality.GOOD or morality.bad) and 0 or 1
+			odds.MISC = (morality.GOOD or morality.BAD) and 0 or 1
 		end 
 		
 		-- Normalize the odds
@@ -119,25 +118,125 @@ function poll_modification(guaranteed, card, morality, odds)
 	
 	local random_value = pseudorandom("poll_modification")
 	
-	if morality.GOOD then
-		if random_value < odds.GOOD * guaranteed then
+	if morality.GOOD and #good_modifications > 0 then
+		if random_value < odds.GOOD * chance then
 			return pseudorandom_element(good_modifications)
 		end
-		random_value = random_value - odds.GOOD * guaranteed
+		random_value = random_value - odds.GOOD * chance
 	end
-	if morality.BAD then
-		if random_value < odds.BAD * guaranteed then
+	if morality.BAD and #bad_modifications > 0 then
+		if random_value < odds.BAD * chance then
 			return pseudorandom_element(bad_modifications)
 		end
-		random_value = random_value - odds.BAD * guaranteed
+		random_value = random_value - odds.BAD * chance
 	end
-	if morality.MISC then
-		if random_value < odds.MISC * guaranteed then
+	if morality.MISC and #misc_modifications > 0 then
+		if random_value < odds.MISC * chance then
 			return pseudorandom_element(misc_modifications)
 		end
 	end
 
 	return nil
+end
+
+--- Gets the key for the modification of a card, located in card.ability.
+---
+--- @param card table|nil The card to consider for modification inquiry.
+function get_modification(card)
+	if not card then return nil end
+	
+	local ability = card.ability
+	for k, v in pairs(HPTN.Modifications) do
+		if ability[k] then
+			return k
+		end
+	end
+	
+	return nil
+end
+
+--- Reforges a card, replacing its current modification (if it has one) with its new one.
+---
+--- @param card table|nil The card to consider for reforging.
+function reforge_card(card)
+	if not card then return nil end
+
+	local reforge_money_v2_voucher_acquired = G.GAME.used_vouchers["internship"] -- Reforging no longer increases costs
+	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["masters"] -- Reforging can never result in a bad modifier
+	
+	local chance = 1 -- 100% chance to get a modification when you reforge
+	-- card param is given by the parameter to this function
+	local morality = reforge_degree_v2_voucher_acquired and { GOOD = true, BAD = false, MISC = false } or { GOOD = true, BAD = true, MISC = true }
+	local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1/2, BAD = 1/2, MISC = 0 } or { GOOD = 1, BAD = 0, MISC = 0 }
+	
+	local old_modification = get_modification(card)
+	local new_modification = poll_modification(chance, card, morality, odds)
+	
+	if old_modification then
+		card.ability[old_modification] = nil
+	end
+	if new_modification then
+		card.ability[new_modification.key] = new_modification.value
+		card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
+	end
+end
+
+--- Checks the amount of money it would cost to reforge a given card, in dollars.
+---
+--- @param card table|nil The card to consider for reforging.
+function reforge_cost(card)
+	if not card then return nil end
+	
+	local cost_initial = (card.ability.reforge_count or 0) + (card.ability.sell_cost or 0)
+	
+	local discount = reforge_discounts()
+	local cost_final = cost_initial - discount
+
+	return cost_final
+end
+
+--- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
+function reforge_discounts()
+	local total = 0
+	
+	local reforge_money_v1_voucher_acquired = G.GAME.used_vouchers["costcutting"] -- Reduces cost of reforging by $2
+	
+	if reforge_money_v1_voucher_acquired then
+		total = total + 2
+	end
+	
+	return total
+end
+
+--- Converts currency from one type into another type.
+---
+--- @param amount number The amount of money in the original starting currency.
+--- @param starting_currency string The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
+--- @param ending_currency string The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
+function convert_currency(amount, starting_currency, ending_currency)
+	local money = amount
+
+	-- First, convert everything into plincoin, the least valuable of all of the currencies.
+	local dollar_to_plincoin  = 3
+	local credit_to_plincoin  = 15
+	local sparkle_to_plincoin = 12495
+	
+	if     starting_currency == "DOLLAR"  then money = money * dollar_to_plincoin
+	elseif starting_currency == "CREDIT"  then money = money * credit_to_plincoin
+	elseif starting_currency == "SPARKLE" then money = money * sparkle_to_plincoin
+	elseif starting_currency ~= "PLINCOIN" then return nil end
+	
+	-- Next, convert from plincoin into the desired currency.
+	local plincoin_to_dollar  = 1 / dollar_to_plincoin
+	local plincoin_to_credit  = 1 / credit_to_plincoin
+	local plincoin_to_sparkle = 1 / sparkle_to_plincoin
+	
+	if     ending_currency == "DOLLAR"  then money = money * plincoin_to_dollar
+	elseif ending_currency == "CREDIT"  then money = money * plincoin_to_credit
+	elseif ending_currency == "SPARKLE" then money = money * plincoin_to_sparkle
+	elseif ending_currency ~= "PLINCOIN" then return nil end
+	
+	return math.ceil(money)
 end
 
 function add_tables(tables) -- yet again, there is probably a better way to do this but im lazy to find how
