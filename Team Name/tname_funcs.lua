@@ -176,6 +176,7 @@ function reforge_card(card)
 		HPTN.Modifications[old_modification]:apply(card,false)
 	end
 	if new_modification then
+        card:juice_up()
 		HPTN.Modifications[new_modification.key]:apply(card,true)
 		card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
 	end
@@ -197,7 +198,7 @@ function reforge_cost(card)
 	return cost_final
 end
 
-
+-- 5 am 
 -- not needed
 --- @param card table|nil Card to give reforge values
 function ready_to_reforge(card)
@@ -210,6 +211,20 @@ function ready_to_reforge(card)
         card.ability.reforge_credits = 0
         card.ability.reforge_sparks = 0
         card.ability.reforge_plincoins = 0
+    end
+
+    if card.saved_last_reforge then
+        card.ability.reforge_dollars = card.ability.reforge_dollars_default
+        card.ability.reforge_credits = card.ability.reforge_credits_default
+        card.ability.reforge_sparks = card.ability.reforge_sparks_default
+        card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
+
+        card.saved_last_reforge = false
+
+        card.ability.reforge_dollars_default = nil
+        card.ability.reforge_credits_default = nil
+        card.ability.reforge_sparks_default = nil
+        card.ability.reforge_plincoins_default = nil
     end
 end
 
@@ -245,10 +260,18 @@ end
 --- @param card table|nil to save the card's values
 function final_ability_values(card)
     card = card or G.reforge_area.cards[1]
+    
+    card.ability.reforge_dollars_default = card.ability.reforge_dollars
+    card.ability.reforge_credits_default = card.ability.reforge_credits
+    card.ability.reforge_sparks_default = card.ability.reforge_sparks
+    card.ability.reforge_plincoins_default = card.ability.reforge_plincoins
+
     card.ability.reforge_dollars = G.GAME.cost_dollars - G.GAME.cost_dollar_default 
     card.ability.reforge_credits = G.GAME.cost_credits - G.GAME.cost_credit_default 
     card.ability.reforge_sparks = G.GAME.cost_sparks - G.GAME.cost_spark_default 
     card.ability.reforge_plincoins = G.GAME.cost_plincoins - G.GAME.cost_plincoin_default 
+
+    card.saved_last_reforge = true
 end
 
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
