@@ -135,7 +135,6 @@ match_indent = true
 
 # We add the mod badge to mood stickers
 # Taken from Paperback
-
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -144,12 +143,9 @@ position = "before"
 match_indent = true
 payload = '''
 if card and card.ability then
-  for k, v in pairs(SMODS.Stickers) do
-    local st = tostring(k)
-    if string.find(st, "hpot") then
-      local key = k
-      SMODS.create_mod_badges(SMODS.Stickers[key], badges)
-    end
+  local key = hpot_has_mood(card)
+  if key then
+    SMODS.create_mod_badges(SMODS.Stickers[key], badges)
   end
 end
 '''
