@@ -8,6 +8,17 @@ return {
                     "extra {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}"
                 }
             },
+            b_hpot_minimal = {
+                name = "Minimal Deck",
+                text = {
+                    "Start with a deck consisting of",
+                    "a {C:attention}King{}, {C:attention}Queen{} and {C:attention}Jack{} of {C:diamonds}Diamonds{},",
+                    "a {C:attention}10{}, {C:attention}9{} and {C:attention}8{} of {C:hearts}Hearts{},",
+                    "a {C:attention}7{}, {C:attention}6{} and {C:attention}5{} of {C:spades}Spades{},",
+                    "a {C:attention}4{}, {C:attention}3{} and {C:attention}2{} of {C:clubs}clubs{},",
+                    "and an {C:attention}Ace{} of a {C:attention}random suit{}"
+                }
+            },
             b_hpot_domn = {
                 name = "The Deck of Many Names",
                 text = {
