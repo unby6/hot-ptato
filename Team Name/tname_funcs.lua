@@ -267,8 +267,8 @@ end
 --- Converts currency from one type into another type.
 ---
 --- @param amount number The amount of money in the original starting currency.
---- @param starting_currency string The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
---- @param ending_currency string The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
+--- @param starting_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
+--- @param ending_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 function convert_currency(amount, starting_currency, ending_currency)
 	local money = amount
 
@@ -386,6 +386,15 @@ end
 --- Custom function to make buttons:tm:
 ---@param args {label:{}[],w:number,h:number,colour:table,text_scale:number,text_col:table,font:string,func:string,button:string,type:"R"|"C"}
 ---@return table node The button node
+---`label = {{{"Word 1"},{"Word 2"}...},{"New line"}...}` - The button's label text. It is highly customizable, supporting raw text `strings`, `ref_table` + `ref_value` combinations, custom `font`, `colour` and `scale`.\
+---`w = 2.7, h = 0.9` - Minimum **width** and **height** of the button.\
+---`colour = G.C.RED` - Colour of the button.\
+---`text_scale = 0.3` - Default text scale. Can be overwritten in each text component.\
+---`text_col = G.C.WHITE` - Default text colour. Can be overwritten in each text component.\
+---`font = nil` - Default font. Can be overwritten in each text component.\
+---`type = C` - Defines how to align the buttons.\
+---`func` - Function to run in `G.FUNCS[func]` every frame the button is present.\
+---`button` - Function to run `G.FUNCS.[button]` when the button is pressed.
 function UIBox_adv_button (args)
     args = args or {}
     args.label = args.label or { -- HORRID EXAMPLE ON HOW TO SET THESE UP !!!
@@ -580,7 +589,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
             end)
             return true
         end, { trigger = "after", delay = 0 })
-        play_sound("hpot_sfx_whistleup", nil, 0.25)
+        play_sound("hpot_sfx_whistleup", 1.3, 0.25)
     else
         if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
             local acard = G.reforge_area.cards[1]
@@ -603,7 +612,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
             end)
             return true
         end, { trigger = "after", delay = 0 })
-        play_sound("hpot_sfx_whistledown", nil, 0.25)
+        play_sound("hpot_sfx_whistledown", 1.3, 0.25)
     end
 end
 
