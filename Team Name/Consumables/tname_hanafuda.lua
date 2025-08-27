@@ -5,7 +5,7 @@ SMODS.ConsumableType({
 	secondary_colour = G.C.RED,
 	shop_rate = nil,
 })
--- TODO:add localization
+
 function highlight_jokers_hand(val, jokers_only, hand_only)
 	local joker_check, hand_check, check
 	if jokers_only then
