@@ -84,3 +84,21 @@ function G.FUNCS.can_buy(e)
 	end
 end
 
+
+local can_open_old = G.FUNCS.can_open
+function G.FUNCS.can_open(e)
+ if e.config.ref_table.config.center.credits then
+		if
+			(not HPTN.check_if_enough_credits(e.config.ref_table.config.center.credits))
+			and e.config.ref_table.config.center.credits
+		then
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			e.config.colour = G.C.ORANGE
+			e.config.button = "use_card"
+		end
+	else
+		return can_open_old(e)
+	end
+end
