@@ -660,6 +660,34 @@ return {
                     "{C:inactive}({C:attention}+#1#{C:inactive} Joker Slots)"
                 }
             },
+            j_hpot_grand_diagonal = {
+                name = "Grand Diagonal",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}metal{}.",
+                    "{C:inactive}({C:attention}+#1#{C:inactive} Consumable Slots)"
+                }
+            },
+            j_hpot_grand_spectral = {
+                name = "Grand Spectral",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}smoke{}.",
+                    "{C:inactive}(Turns all tarots in shop to {C:attention}Spectral{C:inactive} Cards)"
+                }
+            },
+            j_hpot_grand_brachial = {
+                name = "Grand Brachial",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}meat{}.",
+                    "{C:inactive}(Copy both the leftmost and rightmost Jokers.)"
+                }
+            },
+            j_hpot_grand_chocolatier = {
+                name = "Grand Chocolatier",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}sugar{}.",
+                    "{C:inactive}({C:white,X:mult}X#1#{C:inactive} Mult)"
+                }
+            },
             j_hpot_aries_card = {
                 name = "Aries Card",
                 text = {
