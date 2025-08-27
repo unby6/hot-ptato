@@ -55,7 +55,7 @@ SMODS.Joker({
 			dollars = 2
 		},
 	},
-	pos = {x=5,y=0},
+	pos = {x=6,y=0},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
