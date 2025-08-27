@@ -3,12 +3,31 @@ HPTN = {
     is_shitfuck = true,
 }
 
+SMODS.Sound {
+  key = "music_tname_off",
+  path = "music_tname_off.ogg",
+  pitch = 1,
+  select_music_track = function (self)
+    local bool = false
+    if G.jokers then
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i].config.center.rarity == "hpot_creditable" then
+                bool = true
+            end
+        end
+    end
+    if bool then
+      return 999999
+    end
+  end
+}
+
 SMODS.Rarity{
     key = "creditable",
     loc_txt = {name = "Creditable"},
     pools = {Joker = true},
     badge_colour = G.C.PURPLE,
-    default_weight = 0.25
+    default_weight = 0.05
 }
 SMODS.Atlas{key = "teamname_shitfuck", path = "Team Name/shitfuck.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, py = 95}
