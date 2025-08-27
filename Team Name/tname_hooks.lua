@@ -41,6 +41,8 @@ Game.init_game_object = function(self)
 	ret.cost_spark_default = 125000
 	ret.cost_plincoin_default = 10
 
+	ret.sticker_timer = 0
+
 	return ret
 end
 

@@ -27,7 +27,7 @@ HPTN.Modifications = {}
 HPTN.Modification = SMODS.GameObject:extend({
 	required_params = { "key" },
 	set = "Modification",
-	atlas = "tname_modifs_anim",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
@@ -44,18 +44,18 @@ HPTN.Modification = SMODS.GameObject:extend({
 	hide_badge = false,
 	needs_enable_flag = true,
 		draw = function(self, card)
-		local timer = (G.TIMERS.REAL * 8) 
+		--[[local timer = (G.TIMERS.REAL * 8) 
 		local frames = 8
-		local real_timer = (math.floor(timer) - 1) % frames + 1
+		local real_timer = (math.floor(timer) - 1) % frames + 1]]
 
 		local x_offset = (card.T.w / 71) * card.T.scale
 
 		G.shared_stickers[self.key].role.draw_major = card
 		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, nil, card.children.center, nil, nil, x_offset)
 
-		self.sticker_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas], self.pos)
+		--[[self.sticker_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas], self.pos)
 		self.sticker_sprite.sprite_pos.x = real_timer
-		G.shared_stickers[self.key] = self.sticker_sprite
+		G.shared_stickers[self.key] = self.sticker_sprite]]
 		
 	end,
 	register = function(self)
@@ -200,7 +200,7 @@ end
 -- Modifications
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	key = "ruthless",
 	morality = "GOOD",
@@ -213,7 +213,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -221,7 +221,7 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
@@ -235,7 +235,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -243,7 +243,7 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
@@ -257,7 +257,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -265,7 +265,7 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
@@ -282,7 +282,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -290,7 +290,7 @@ HPTN.Modification({
 })
 
 --[[HPTN.Modification({  %150 Mult Chip output
-	    atlas = "tname_modifs_anim",
+	    atlas = "tname_modifs",
     pos = { x = 0, y = 0 },
     hpot_anim = {
         { xrange = { first = 0, last = 8 }, y = 2, t = 0.1 }
@@ -305,7 +305,7 @@ HPTN.Modification({
 			end
 		end
 	end,hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -313,8 +313,8 @@ HPTN.Modification({
 })]]
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
-	pos = { x = 0, y = 0 },
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -334,7 +334,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -342,7 +342,7 @@ HPTN.Modification({
 })
 
 --[[HPTN.Modification({  %60 Mult Chip output
-	    atlas = "tname_modifs_anim",
+	    atlas = "tname_modifs",
     pos = { x = 0, y = 0 },
     hpot_anim = {
         { xrange = { first = 0, last = 8 }, y = 2, t = 0.1 }
@@ -353,7 +353,7 @@ HPTN.Modification({
 	calculate = function(self, card, context)
         --brrr
 	end,hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -361,7 +361,7 @@ HPTN.Modification({
 })]]
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
+	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
@@ -375,7 +375,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -383,8 +383,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
-	pos = { x = 0, y = 0 },
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -412,7 +412,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -420,8 +420,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
-	pos = { x = 0, y = 0 },
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -475,7 +475,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -483,8 +483,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
-	pos = { x = 0, y = 0 },
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -497,7 +497,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -505,8 +505,8 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs_anim",
-	pos = { x = 0, y = 0 },
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -522,7 +522,7 @@ HPTN.Modification({
 		end
 	end,
 	hotpot_credits = {
-		art = { "Corobo" },
+		art = { "Revo" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },

@@ -181,3 +181,10 @@ SMODS.Atlas({
 	px = 71,
 	py = 95,
 })
+
+SMODS.Atlas({
+	key = "tname_modifs",
+	path = "Team Name/tname_modifs_single.png",
+	px = 71,
+	py = 95,
+})

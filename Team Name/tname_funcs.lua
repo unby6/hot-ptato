@@ -166,7 +166,7 @@ function reforge_card(card)
 	local chance = 1 -- 100% chance to get a modification when you reforge
 	-- card param is given by the parameter to this function
 	local morality = reforge_degree_v2_voucher_acquired and { GOOD = true, BAD = false, MISC = false } or { GOOD = true, BAD = true, MISC = true }
-	local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1/2, BAD = 1/2, MISC = 0 } or { GOOD = 1, BAD = 0, MISC = 0 }
+	local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1, BAD = 0, MISC = 0 } or { GOOD = 1/2, BAD = 1/2, MISC = 0 }
 	
 	local old_modification = get_modification(card)
 	local new_modification = poll_modification(chance, card, morality, odds)
