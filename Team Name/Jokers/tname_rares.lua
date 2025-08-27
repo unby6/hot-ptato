@@ -67,12 +67,8 @@ SMODS.Joker {
 					if context.ending_shop and G.consumeables.cards[1] then
 						local target_card_key = G.consumeables.cards[1].config.center.key
 						if target_card_key ~= nil then
-							FG.FUNCS.card_eval_status_text{
-								card = card,
-								message = "k_duplicated_ex",
-								mode = "localize",
-								category = "dictionary"
-							}
+							card_eval_status_text(card, "extra", nil, nil, nil,
+							{ message = localize("k_duplicated_ex","dictionary"), colour = G.C.ORANGE })
 							for i=1, fuck["Jogla"][1] do
 								local new_card = SMODS.add_card{
 									key = target_card_key,
