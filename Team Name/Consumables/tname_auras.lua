@@ -266,7 +266,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			max = 20,
+			max = 45,
             credits = 1.1
 		},
 	},
