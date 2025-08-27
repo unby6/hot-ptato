@@ -1,9 +1,4 @@
-SMODS.Atlas({
-	key = "tname_modifs",
-	path = "Team Name/tname_modifs.png",
-	px = 71,
-	py = 95,
-})
+
 
 --- did i do this right? idk
 
@@ -32,8 +27,11 @@ HPTN.Modifications = {}
 HPTN.Modification = SMODS.GameObject:extend({
 	required_params = { "key" },
 	set = "Modification",
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
 	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	obj_table = HPTN.Modifications,
 	obj_buffer = {},
 	sets = { Joker = true },
@@ -192,7 +190,11 @@ end
 -- Modifications
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "ruthless",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -212,11 +214,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "greedy",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card then
 			SMODS.calculate_effect({ dollars = 2 }, card)
@@ -231,11 +236,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "jumpy",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card and #G.play.cards > 0 then
 			SMODS.calculate_effect({ x_mult = 1.1 }, card)
@@ -250,11 +258,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "invested",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
 		if context.end_of_round then
 			if card.set_cost then
@@ -272,11 +283,14 @@ HPTN.Modification({
 })
 
 --[[HPTN.Modification({  %150 Mult Chip output
-	atlas = "tname_modifs",
+	    atlas = "tname_modifs_anim",
+    pos = { x = 0, y = 0 },
+    hpot_anim = {
+        { xrange = { first = 0, last = 8 }, y = 2, t = 0.1 }
+    },
 	key = "magnified",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         if context.post_trigger and context.other_card == card then
 			for k, v in pairs(context.other_ret) do
@@ -292,11 +306,14 @@ HPTN.Modification({
 })]]
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "damaged",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
-	pos = { x = 0, y = 0 },
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = { (G.GAME.probabilities.normal or 1) },
@@ -318,11 +335,14 @@ HPTN.Modification({
 })
 
 --[[HPTN.Modification({  %60 Mult Chip output
-	atlas = "tname_modifs",
+	    atlas = "tname_modifs_anim",
+    pos = { x = 0, y = 0 },
+    hpot_anim = {
+        { xrange = { first = 0, last = 8 }, y = 2, t = 0.1 }
+    },
 	key = "old",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
 	end,hotpot_credits = {
@@ -334,11 +354,14 @@ HPTN.Modification({
 })]]
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "supported",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card then
 			SMODS.calculate_effect({ xmult = HPTN.perc(mult, 10) }, card)
@@ -353,11 +376,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "dozing",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
-	pos = { x = 0, y = 0 },
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = { (G.GAME.probabilities.normal or 1) },
@@ -387,11 +413,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "hyper",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
-	pos = { x = 0, y = 0 },
 	apply = function(self, card, val)
 		card.ability[self.key] = val
 		if val and self.config and next(self.config) then
@@ -447,11 +476,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "smudged",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card and #G.play and G.play.cards > 0 then
 			SMODS.calculate_effect({ x_mult = 0.9 }, card)
@@ -466,11 +498,14 @@ HPTN.Modification({
 })
 
 HPTN.Modification({
-	atlas = "tname_modifs",
+	atlas = "tname_modifs_anim",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
 	key = "depreciating",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
-	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
 		if context.end_of_round then
 			if card.set_cost then

@@ -28,12 +28,21 @@ end
 local update_ref = Game.update
 function Game:update(dt)
     if not HotPotatoConfig["animations_disabled"] then
+        
         for k, v in pairs(G.P_CENTERS) do
             if not v.default_pos then v.default_pos = v.pos end
             if not v.default_pos_extra then v.default_pos_extra = v.pos_extra end
             handle_hpot_anim(v, dt)
             handle_hpot_anim_extra(v, dt)
         end
+
+        for k, v in pairs(HPTN.Modifications) do
+            if not v.default_pos then v.default_pos = v.pos end
+            if not v.default_pos_extra then v.default_pos_extra = v.pos_extra end
+            handle_hpot_anim(v, dt)
+            handle_hpot_anim_extra(v, dt)
+        end
+
     else
         for k, v in pairs(G.P_CENTERS) do
             if not v.default_pos then v.default_pos = v.pos end
@@ -174,3 +183,10 @@ SMODS.Atlas{
     path = "Team Name/shop_button.png",
     px = 34, py = 34,
 }
+
+SMODS.Atlas({
+	key = "tname_modifs_anim",
+	path = "Team Name/tname_modifs.png",
+	px = 71,
+	py = 95,
+})
