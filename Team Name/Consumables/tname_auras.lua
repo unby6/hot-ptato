@@ -6,9 +6,16 @@ SMODS.ConsumableType({
 	shop_rate = nil,
 })
 
+SMODS.Atlas{key = "tname_auras", path = "Team Name/tname_auras.png", px = 71, py = 95}
+
 SMODS.Consumable({
 	key = "justice",
 	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 0,
+		y = 0
+	},
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "GoldenLeaf" },
@@ -52,6 +59,11 @@ SMODS.Consumable({
 SMODS.Consumable({
 	key = "fear",
 	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 1,
+		y = 0
+	},
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "GoldenLeaf" },
@@ -110,6 +122,11 @@ SMODS.Consumable({
 SMODS.Consumable({
 	key = "perception",
 	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 2,
+		y = 0
+	},
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "GoldenLeaf" },
