@@ -7,14 +7,10 @@ SMODS.ConsumableType({
 })
 
 function highlight_jokers_hand(val, jokers_only, hand_only)
-	local joker_check, hand_check, check
-	if jokers_only then
-		joker_check = true
-	elseif hand_only then
-		hand_check = true
-	else
-		check = true
-	end
+	local joker_check, hand_check, check = nil, nil, nil
+
+	local ret = false
+
 	if G.jokers and G.jokers.highlighted and (#G.jokers.highlighted <= val and #G.jokers.highlighted > 0) then
 		joker_check = true
 		check = true
@@ -25,15 +21,19 @@ function highlight_jokers_hand(val, jokers_only, hand_only)
 		check = true
 	end
 
-	if jokers_only and joker_check then
-		return true
-	elseif hand_only and hand_check then
-		return true
+	if jokers_only then
+		if joker_check then
+			ret = true
+		end
+	elseif hand_only then
+		if hand_check then
+			ret = true
+		end
 	elseif check then
-		return true
-	else
-		return false
+		ret = true
 	end
+
+	return ret
 end
 
 -- PINE

@@ -9,6 +9,12 @@ function Card:remove()
 	return remove_old(self)
 end
 
+local use_old = Card.use_consumeable
+function Card:use_consumeable(area, copier)
+	self.hpot_cons_used = true
+	return use_old(self, area, copier)
+end
+
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
 	local ret = igo(self)

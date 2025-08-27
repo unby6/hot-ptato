@@ -131,7 +131,7 @@ SMODS.Sticker({
 				xmult = self.config.xmult,
 			}
 		end
-		if context.hpot_destroy then
+		if context.hpot_destroy and context.hpot_destroyed and not context.hpot_destroyed.hpot_cons_used then
 			SMODS.destroy_cards(card)
 		end
 	end,
@@ -531,7 +531,7 @@ SMODS.Sticker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.hpot_destroy and context.hpot_destroyed.ability.hpot_cfour then
+		if context.hpot_destroy and context.hpot_destroyed.ability.hpot_cfour and not context.hpot_destroyed.hpot_cons_used then
 			SMODS.destroy_cards(card)
 		end
 	end,
