@@ -240,14 +240,6 @@ SMODS.Booster({
 	config = { extra = 7, choose = 3 },
 	group_key = "k_arcana_pack",
 	draw_hand = true,
-	loc_txt = { -- Localization files scary
-		name = "Ultra Arcana Pack",
-		text = {
-			"Choose #1# of up to",
-			"#2# Tarot cards to",
-			"be used immediately",
-		},
-	},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
@@ -281,14 +273,6 @@ SMODS.Booster({
 	pos = { x = 0, y = 0 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_celestial_pack",
-	loc_txt = { -- Localization files scary
-		name = "Ultra Celestial Pack",
-		text = {
-			"Choose #1# of up to",
-			"#2# Planet cards to",
-			"be used immediately",
-		},
-	},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
@@ -322,14 +306,6 @@ SMODS.Booster({
 	pos = { x = 0, y = 0 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_standard_pack",
-	loc_txt = { -- Localization files scary
-		name = "Ultra Standard Pack",
-		text = {
-			"Choose #1# of up to",
-			"#2# Playing cards to",
-			"add to your deck",
-		},
-	},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
@@ -368,14 +344,6 @@ SMODS.Booster({
 	config = { extra = 7, choose = 3 },
 	group_key = "k_spectral_pack",
 	draw_hand = true,
-	loc_txt = { -- Localization files scary
-		name = "Ultra Spectral Pack",
-		text = {
-			"Choose #1# of up to",
-			"#2# Spectral cards to",
-			"be used immediately",
-		},
-	},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
@@ -410,13 +378,6 @@ SMODS.Booster({
 	pos = { x = 0, y = 0 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_buffoon_pack",
-	loc_txt = { -- Localization files scary
-		name = "Ultra Buffoon Pack",
-		text = {
-			"Choose #1# of up to",
-			"#2# joker cards",
-		},
-	},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {

@@ -1658,6 +1658,15 @@ return {
                 }
             },
 
+            p_hpot_hanafuda_ultra_1 = {
+                name = 'Ultra Hanafuda Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:red} Hanafuda{} cards to",
+                    'be used immediately',
+                }
+            },
+
             p_hpot_auras_normal_1 = {
                 name = 'Aura Pack',
                 text = {
@@ -1693,6 +1702,62 @@ return {
                     'be used immediately',
                 }
             },
+
+            p_hpot_auras_ultra_1 = {
+                name = 'Ultra Aura Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:grey} Aura{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            -- vanilla ultra packs
+
+            p_hpot_ultra_arcana = {
+		        name = "Ultra Arcana Pack",
+		        text = {
+			        "Choose #1# of up to",
+			        "#2# Tarot cards to",
+			        "be used immediately",
+		        },
+            },
+
+            p_hpot_ultra_celestial = {
+		        name = "Ultra Celestial Pack",
+		        text = {
+			        "Choose #1# of up to",
+			        "#2# Planet cards to",
+			        "be used immediately",
+		        },
+            },
+
+            p_hpot_ultra_standard = {
+		        name = "Ultra Standard Pack",
+		        text = {
+			        "Choose #1# of up to",
+			        "#2# Playing cards to",
+			        "add to your deck",
+		        },
+            },
+
+            p_hpot_ultra_spectral = {
+		        name = "Ultra Spectral Pack",
+		        text = {
+			        "Choose #1# of up to",
+			        "#2# Spectral cards to",
+			        "be used immediately",
+		        },
+            },
+
+            p_hpot_ultra_buffoon = {
+		        name = "Ultra Buffoon Pack",
+		        text = {
+			        "Choose #1# of up to",
+			        "#2# joker cards",
+		        },
+            },
+
             --
             hpot_plincoin_seal = {
                 name = "Plincoin Seal",
