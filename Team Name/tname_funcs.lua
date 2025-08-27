@@ -63,7 +63,7 @@ end
 --- @param morality table|nil A table specifying which categories of modifications are eligible. The fields `GOOD`, `BAD`, and `MISC` are all booleans. Defaults to all fields being true if not specified.
 ---
 --- @param odds table|nil A table specifying relative odds for each morality category. The fields `GOOD`, `BAD`, and `MISC` are all numbers which are normalized across enabled categories to sum to 100% (value = 1).
----  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified.
+---  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified
 function poll_modification(chance, card, morality, odds)
 	chance = chance or 1/5
 	card = card or nil
