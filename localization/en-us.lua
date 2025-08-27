@@ -40,8 +40,8 @@ return {
             c_hpot_tenacity = {
                 name = "Aura of Tenacity",
                 text = {
-                    "{C:red}Destroy all Jokers,{},",
-                    "{C:purple}X#2#c.{C:inactive} (Max of #1#)"
+                    "{C:red}Destroy all Jokers{},",
+                    "{X:purple,C:white}X#2#c.{C:inactive} (Max of #1#)"
                 }
             },
         },
