@@ -54,6 +54,7 @@ SMODS.Consumable({
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
+		info_queue[#info_queue + 1] = { key = "hpot_fragile", set = "Other", vars = {SMODS.Stickers["hpot_fragile"].config.xmult} }
 		return {
 			vars = { hpt.high },
 		}
@@ -92,6 +93,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+	info_queue[#info_queue + 1] = { key = "hpot_fragile", set = "Other", vars = {SMODS.Stickers["hpot_fragile"].config.xmult} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -131,6 +133,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_uranium", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -170,6 +173,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_uranium", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -211,6 +215,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_redirect", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -250,6 +255,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_redirect", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -289,6 +295,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_cannibal", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -328,6 +335,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_cannibal", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -369,6 +377,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_sporess", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -382,11 +391,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_spore"]:apply(G.jokers.highlighted[i], true)
+				SMODS.Stickers["hpot_spores"]:apply(G.jokers.highlighted[i], true)
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_spore"]:apply(G.hand.highlighted[i], true)
+				SMODS.Stickers["hpot_spores"]:apply(G.hand.highlighted[i], true)
 			end
 		end
 	end,
@@ -408,6 +417,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_spores", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -421,11 +431,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_spore"]:apply(G.jokers.highlighted[i], true)
+				SMODS.Stickers["hpot_spores"]:apply(G.jokers.highlighted[i], true)
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_spore"]:apply(G.hand.highlighted[i], true)
+				SMODS.Stickers["hpot_spores"]:apply(G.hand.highlighted[i], true)
 			end
 		end
 	end,
@@ -447,6 +457,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_cfour", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -486,6 +497,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_cfour", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -527,6 +539,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_overclock", set = "Other", vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -566,6 +579,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_overclock", set = "Other", vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -605,6 +619,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_rage", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -644,6 +659,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_rage", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -685,6 +701,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_spinning", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -724,6 +741,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_spinning", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -763,6 +781,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_binary", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -802,6 +821,7 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "hpot_binary", set = "Other", vars = {} }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
