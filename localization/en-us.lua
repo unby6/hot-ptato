@@ -1854,7 +1854,7 @@ return {
                 }
             },
             bl_hpot_holed = {
-                name = "The Holed",
+                name = "Holed Harmonica",
                 text = {
                     "Disable every",
                     "Non-Stickered Joker"
