@@ -44,7 +44,7 @@ SMODS.Joker({
         team = {"Team Name"}
     }
 })
-
+-- fixed this btw
 SMODS.Joker({
 	key = "power_plant",
 	rarity = 2,
