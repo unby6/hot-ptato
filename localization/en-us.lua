@@ -1,5 +1,79 @@
 return {
     descriptions = {
+        hanafuda = {
+            c_hpot_pine_1 = {
+                name = "Plain Pine",
+                text = {
+                    "Apply {C:attention}Fragile{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_pine_2 = {
+                name = "Pine Ribbon",
+                text = {
+                    "Apply {C:attention}Fragile{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_pine_3 = {
+                name = "Pine Animal",
+                text = {
+                    "Apply {C:attention}Uranium{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_pine_4 = {
+                name = "Bright Pine",
+                text = {
+                    "Apply {C:attention}Uranium{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_willow_1 = {
+                name = "Plain Willow",
+                text = {
+                    "Apply {C:attention}Redirect{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_willow_2 = {
+                name = "Willow Ribbon",
+                text = {
+                    "Apply {C:attention}Redirect{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_willow_3 = {
+                name = "Willow Animal",
+                text = {
+                    "Apply {C:attention}Cannibal{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_willow_4 = {
+                name = "Bright Willow",
+                text = {
+                    "Apply {C:attention}Cannibal{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_sakura_1 = {
+                name = "Plain Sakura",
+                text = {
+                    "Apply {C:attention}Spore{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_sakura_2 = {
+                name = "Sakura Ribbon",
+                text = {
+                    "Apply {C:attention}Spore{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_sakura_3 = {
+                name = "Sakura Animal",
+                text = {
+                    "Apply {C:attention}C4{} sticker to #1# selected cards"
+                }
+            },
+            c_hpot_sakura_4 = {
+                name = "Bright Sakura",
+                text = {
+                    "Apply {C:attention}C4{} sticker to #1# selected cards"
+                }
+            },
+        },
         Back = {
             b_hpot_lime = {
                 name = "Lime Deck",
