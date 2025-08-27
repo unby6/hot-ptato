@@ -86,6 +86,7 @@ HPTN.Modification = SMODS.GameObject:extend({
         SMODS.calculate_context({
 			hpot_mod_apply = true,
 			hpot_mod_applied = self,
+			hpot_mod_applied_to = card
 		})
 	end,
 	loc_vars = function(self)
@@ -94,6 +95,8 @@ HPTN.Modification = SMODS.GameObject:extend({
 	pre_inject_class = function(self)
 		G.P_CENTER_POOLS[self.set] = {}
 	end,
+	applied = function(self, card)
+	end
 })
 
 SMODS.DrawStep({
@@ -204,7 +207,9 @@ HPTN.Modification({
 	key = "ruthless",
 	morality = "GOOD",
 	calculate = function(self, card, context)
-        -- brrr
+		if context.post_trigger and context.other_card == card then
+        	SMODS.calculate_effect({xmult = HPTN.perc(mult, 20)}, card)
+		end
 	end,
 })
 
@@ -215,7 +220,7 @@ HPTN.Modification({
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_joker == card then
+        if context.post_trigger and context.other_card == card then
            SMODS.calculate_effect({dollars = 2}, card)
         end
 	end,
@@ -227,7 +232,7 @@ HPTN.Modification({
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_joker == card then
+        if context.post_trigger and context.other_card == card then
            SMODS.calculate_effect({x_mult = 1.1}, card)
         end
 	end,
@@ -248,15 +253,19 @@ HPTN.Modification({
 	end,
 })
 
-HPTN.Modification({
+--[[HPTN.Modification({  %150 Mult Chip output
 	atlas = "tname_modifs",
 	key = "magnified",
 	morality = "GOOD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        --brrr
+        if context.post_trigger and context.other_card == card then
+			for k, v in pairs(context.other_ret) do
+				print(k, v)
+			end
+		end
 	end,
-})
+})]]
 
 HPTN.Modification({
 	atlas = "tname_modifs",
@@ -272,7 +281,7 @@ HPTN.Modification({
 	end,
 })
 
-HPTN.Modification({
+--[[HPTN.Modification({  %60 Mult Chip output
 	atlas = "tname_modifs",
 	key = "old",
 	morality = "BAD",
@@ -280,7 +289,7 @@ HPTN.Modification({
 	calculate = function(self, card, context)
         --brrr
 	end,
-})
+})]]
 
 HPTN.Modification({
 	atlas = "tname_modifs",
@@ -288,18 +297,80 @@ HPTN.Modification({
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        --brrr
+       	if context.post_trigger and context.other_card == card then
+        	SMODS.calculate_effect({xmult = HPTN.perc(mult, 10)}, card)
+		end
 	end,
 })
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	key = "dozing",
+	key = "dozing",	
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        --brrr
+		if context.setting_blind and not card.prevent_trigger and pseudorandom("dozing") < G.GAME.probabilities.normal / 3 then
+			card.prevent_trigger = true
+		end
+
+		if context.leaving_shop and card.prevent_trigger then
+			card.prevent_trigger = nil
+		end
 	end,
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	key = "hyper",	
+	morality = "BAD",
+	pos = { x = 0, y = 0 },
+	apply = function(self, card, val)
+		card.ability[self.key] = val
+		if val and self.config and next(self.config) then
+			card.ability[self.key] = {}
+			for k, v in pairs(self.config) do
+				if type(v) == "table" then
+					card.ability[self.key][k] = copy_table(v)
+				else
+					card.ability[self.key][k] = v
+				end
+			end
+		end
+        SMODS.calculate_context({
+			hpot_mod_apply = true,
+			hpot_mod_applied = self,
+			hpot_mod_applied_to = card
+		})
+
+		card.ability.hpot_trig = true
+	end,
+	calculate = function(self,card,context)
+
+		local fucking_kys
+
+		fucking_kys = fucking_kys
+
+		if context.starting_shop then
+			if card.ability.hpot_trig then
+				card.prevent_trigger = true
+				SMODS.calculate_effect({message = "Trigger Disabled!"}, card)
+				card.ability.hpot_trig = nil
+			else
+				card.ability.hpot_trig = true
+			end
+		end
+
+		if context.end_of_round and card.prevent_trigger then
+			card.prevent_trigger = nil
+			SMODS.calculate_effect({message = "Trigger Enabled!"}, card)
+		end
+
+		if context.retrigger_joker_check and not context.retrigger_joker and not card.prevent_trigger then
+			return{
+				repetitions = 1
+			}
+		end
+	end
 })
 
 HPTN.Modification({
@@ -308,7 +379,7 @@ HPTN.Modification({
 	morality = "BAD",
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_joker == card then
+        if context.post_trigger and context.other_card == card then
            SMODS.calculate_effect({x_mult = 0.9}, card)
         end
 	end,
@@ -326,25 +397,5 @@ HPTN.Modification({
                 card:set_cost()
             end
         end
-	end,
-})
-
-HPTN.Modification({
-	atlas = "tname_modifs",
-	key = "legendary ",
-	morality = "GOOD",
-	pos = { x = 0, y = 0 },
-	calculate = function(self, card, context)
-        --brrr
-	end,
-})
-
-HPTN.Modification({
-	atlas = "tname_modifs",
-	key = "dying",
-	morality = "BAD",
-	pos = { x = 0, y = 0 },
-	calculate = function(self, card, context)
-        --brrr
 	end,
 })

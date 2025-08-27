@@ -2154,8 +2154,11 @@ return {
             },
         },
         Modification = {
-            modif_hpot_mod_1 = {
-                name = "f"
+            modif_hpot_ruthless = {
+                name = "Ruthless",
+                text = {
+                    
+                }
             }
         },
     },
