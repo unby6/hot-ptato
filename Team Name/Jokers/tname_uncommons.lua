@@ -46,6 +46,68 @@ SMODS.Joker({
 })
 
 SMODS.Joker({
+	key = "missing_texture",
+	rarity = 2,
+	atlas = "tname_jokers",
+	pos = {
+		x = 2,
+		y = 2
+	},
+    config = { extra = { max = 25, min = -40 } },
+    loc_vars = function(self, info_queue, card)
+        local r_mults = {}
+		local jank = ""
+        for i = card.ability.extra.min, card.ability.extra.max do
+			if i < 0 then
+				jank = " - "
+			else
+				jank = " + " 
+			end
+            r_mults[#r_mults + 1] = jank..math.abs(i)
+        end
+        local loc_mult = {string = ' ' .. (localize('k_credits')) .. ' ', colour = G.C.PURPLE}
+        main_start = {
+            { n = G.UIT.O, config = { object = DynaText({ string = r_mults, colours = { G.C.PURPLE }, pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0 }) } },
+            {
+                n = G.UIT.O,
+                config = {
+                    object = DynaText({
+                        string = {
+                            { string = 'pseudorand', colour = G.C.JOKER_GREY }, { string = "Oops! the ", colour = G.C.JOKER_GREY }, { string = "game crashed.", colour = G.C.JOKER_GREY }, { string = "..index a nil v..", colour = G.C.JOKER_GREY },
+                            loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult,
+                            loc_mult, loc_mult, loc_mult, loc_mult },
+                        colours = { G.C.UI.TEXT_DARK },
+                        pop_in_rate = 9999999,
+                        silent = true,
+                        random_element = true,
+                        pop_delay = 0.2011,
+                        scale = 0.32,
+                        min_cycle_time = 0
+                    })
+                }
+            },
+        }
+        return { main_start = main_start }
+    end,
+	calculate = function(self, card, context)
+		local fuck = pseudorandom("fuck", card.ability.extra.min, card.ability.extra.max)
+		if context.joker_main then
+			HPTN.ease_credits(fuck, false)
+			return {
+				message = "+c."..fuck,
+				colour = G.C.PURPLE
+			}
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"Revo"},
+        code = {"Revo"},
+        team = {"Team Name"}
+    }
+})
+-- fixed this btw
+SMODS.Joker({
 	key = "power_plant",
 	rarity = 2,
 	cost = 0,
@@ -55,6 +117,8 @@ SMODS.Joker({
 			dollars = 2
 		},
 	},
+	pos = {x=6,y=0},
+	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 		if G.jokers and G.jokers.cards then
@@ -81,7 +145,7 @@ SMODS.Joker({
 	end,
 
     hotpot_credits = {
-        art = {"No Art"},
+        art = {"GhostSalt"},
         idea = {"Corobo"},
         code = {"Revo"},
         team = {"Team Name"}

@@ -58,6 +58,13 @@ SMODS.Sticker({
 		x = 1,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
+
 })
 
 SMODS.Sticker({
@@ -97,6 +104,12 @@ SMODS.Sticker({
 		x = 0,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -118,7 +131,7 @@ SMODS.Sticker({
 				xmult = self.config.xmult,
 			}
 		end
-		if context.hpot_destroy then
+		if context.hpot_destroy and context.hpot_destroyed and not context.hpot_destroyed.hpot_cons_used then
 			SMODS.destroy_cards(card)
 		end
 	end,
@@ -127,6 +140,12 @@ SMODS.Sticker({
 		x = 2,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -166,6 +185,12 @@ SMODS.Sticker({
 		x = 1,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -235,6 +260,12 @@ SMODS.Sticker({
 		x = 0,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -276,6 +307,12 @@ SMODS.Sticker({
 		x = 2,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "Revo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -318,6 +355,12 @@ SMODS.Sticker({
 		x = 3,
 		y = 1,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -357,6 +400,12 @@ SMODS.Sticker({
 		x = 3,
 		y = 0,
 	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -387,6 +436,17 @@ SMODS.Sticker({
 			})
 		end
 	end,
+	atlas = "tname_stickers",
+	pos = {
+		x = 1,
+		y = 2,
+	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -428,6 +488,17 @@ SMODS.Sticker({
 
 		end
 	end,
+		atlas = "tname_stickers",
+	pos = {
+		x = 2,
+		y = 2,
+	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 
@@ -436,6 +507,17 @@ SMODS.Sticker({
 	rate = 0.05,
 	key = "spinning",
 	badge_colour = HEX("85a6ac"),
+		atlas = "tname_stickers",
+	pos = {
+		x = 0,
+		y = 1,
+	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })
 
 SMODS.Sticker({
@@ -449,8 +531,19 @@ SMODS.Sticker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.hpot_destroy and context.hpot_destroyed.ability.hpot_cfour then
+		if context.hpot_destroy and context.hpot_destroyed.ability.hpot_cfour and not context.hpot_destroyed.hpot_cons_used then
 			SMODS.destroy_cards(card)
 		end
 	end,
+	atlas = "tname_stickers",
+	pos = {
+		x = 3,
+		y = 2,
+	},
+	hotpot_credits = {
+		art = { "GhostSalt" },
+		idea = { "Corobo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
 })

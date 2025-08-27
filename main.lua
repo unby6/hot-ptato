@@ -173,10 +173,6 @@ HotPotato.extra_tabs = function ()
 			label = "Jukebox",
 			tab_definition_function = JTJukebox.MusicTab
 		},
-		{
-			label = "Credit",
-			tab_definition_function = G.UIDEF.tname_credits
-		}
 	}
 end
 --#endregion

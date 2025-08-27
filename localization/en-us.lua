@@ -1,11 +1,348 @@
 return {
     descriptions = {
+        auras = {
+            c_hpot_justice = {
+                name = "Aura of Justice",
+                text = {
+                    "{C:red}-#1# Joker Slots{},",
+                    "{C:purple}+#2# Credits"
+                }
+            },
+            c_hpot_fear = {
+                name = "Aura of Fear",
+                text = {
+                    "{C:attention}All current jokers{} gain",
+                    "{C:red}negative{} stickers,",
+                    "{C:purple}+c.#1#{} for each sticker added"
+                }
+            },
+            c_hpot_perception = {
+                name = "Aura of Perception",
+                text = {
+                    "{C:red}Permanently remove {C:blue}all hands but #1#{},",
+                    "{C:purple}+c.#2#{} for each hand removed"
+                }
+            },
+            c_hpot_greatness = {
+                name = "Aura of Greatness",
+                text = {
+                    "{C:red}Remove {}all dollars,",
+                    "{C:purple}+c.#1#{} for each dollar removed"
+                }
+            },
+            c_hpot_clairvoyance = {
+                name = "Aura of Clairvoyance",
+                text = {
+                    "{C:red}Remove #1# Consumable Slots{},",
+                    "{C:purple}+c.#2#{} for each Consumable Slot removed"
+                }
+            },
+            c_hpot_tenacity = {
+                name = "Aura of Tenacity",
+                text = {
+                    "{C:red}Destroy all Jokers{},",
+                    "{X:purple,C:white}X#2#c.{C:inactive} (Max of #1#)"
+                }
+            },
+            c_hpot_lunacy = {
+                name = "Aura of Lunacy",
+                text = {
+                    "{C:purple}+#1#c.{C:inactive}"
+                }
+            },
+            c_hpot_power = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Credits{},",
+                    "{C:attention}Create a negative copy of leftmost Joker{}",
+                    "for every {C:purple}#1# Credits{} removed.",
+                    "{C:inactive}(Currently +#2# Copies.)"
+                }
+            },
+        },
+        hanafuda = {
+            c_hpot_pine_1 = {
+                name = "Plain Pine",
+                text = {
+                    "Apply {C:attention}Fragile{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_pine_2 = {
+                name = "Pine Ribbon",
+                text = {
+                    "Apply {C:attention}Fragile{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_pine_3 = {
+                name = "Pine Animal",
+                text = {
+                    "Apply {C:attention}Uranium{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_pine_4 = {
+                name = "Bright Pine",
+                text = {
+                    "Apply {C:attention}Uranium{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_willow_1 = {
+                name = "Plain Willow",
+                text = {
+                    "Apply {C:attention}Redirect{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_willow_2 = {
+                name = "Willow Ribbon",
+                text = {
+                    "Apply {C:attention}Redirect{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_willow_3 = {
+                name = "Willow Animal",
+                text = {
+                    "Apply {C:attention}Cannibal{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_willow_4 = {
+                name = "Bright Willow",
+                text = {
+                    "Apply {C:attention}Cannibal{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_sakura_1 = {
+                name = "Plain Sakura",
+                text = {
+                    "Apply {C:attention}Spore{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_sakura_2 = {
+                name = "Sakura Ribbon",
+                text = {
+                    "Apply {C:attention}Spore{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_sakura_3 = {
+                name = "Sakura Animal",
+                text = {
+                    "Apply {C:attention}C4{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_sakura_4 = {
+                name = "Bright Sakura",
+                text = {
+                    "Apply {C:attention}C4{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_paulownia_1 = {
+                name = "Plain Paulownia",
+                text = {
+                    "Apply {C:attention}Overclock{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_paulownia_2 = {
+                name = "Paulownia Ribbon",
+                text = {
+                    "Apply {C:attention}Overclock{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_paulownia_3 = {
+                name = "Paulownia Animal",
+                text = {
+                    "Apply {C:attention}Rage{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_paulownia_4 = {
+                name = "Bright Paulownia",
+                text = {
+                    "Apply {C:attention}Rage{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_peony_1 = {
+                name = "Plain Peony",
+                text = {
+                    "Apply {C:attention}Spinning{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_peony_2 = {
+                name = "Peony Ribbon",
+                text = {
+                    "Apply {C:attention}Spinning{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_peony_3 = {
+                name = "Peony Animal",
+                text = {
+                    "Apply {C:attention}Binary{} sticker to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_peony_4 = {
+                name = " Bright Peony",
+                text = {
+                    "Apply {C:attention}Binary{} sticker to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_maple_1 = {
+                name = "Plain Maple",
+                text = {
+                    "Give {C:money}$#1#{} per Joker owned"
+                }
+            },
+            c_hpot_maple_2 = {
+                name = "Maple Ribbon",
+                text = {
+                    "Give {C:money}$#1#{} per Joker owned"
+                }
+            },
+            c_hpot_maple_3 = {
+                name = "Maple Animal",
+                text = {
+                    "Give {C:money}$#1#{} per Joker owned"
+                }
+            },
+            c_hpot_maple_4 = {
+                name = " Bright Maple",
+                text = {
+                    "Give {C:money}$#1#{} per Joker owned"
+                }
+            },
+            c_hpot_chrysanthemum_1 = {
+                name = "Plain Chrysanthemum",
+                text = {
+                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Joker"
+                }
+            },
+            c_hpot_chrysanthemum_2 = {
+                name = "Chrysanthemum Ribbon",
+                text = {
+                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Jokers"
+                }
+            },
+            c_hpot_chrysanthemum_3 = {
+                name = "Chrysanthemum Animal",
+                text = {
+                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Jokers"
+                }
+            },
+            c_hpot_chrysanthemum_4 = {
+                name = " Bright Chrysanthemum",
+                text = {
+                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Jokers"
+                }
+            },
+            c_hpot_susuki_1 = {
+                name = "Plain Susuki",
+                text = {
+                    "Apply {C:attention}#1# random sticker{} on selected card"
+                }
+            },
+            cc_hpot_susuki_2 = {
+                name = "Susuki Ribbon",
+                text = {
+                    "Apply {C:attention}#1# random stickers{} on selected card"
+                }
+            },
+            c_hpot_susuki_3 = {
+                name = "Susuki Animal",
+                text = {
+                    "Apply {C:attention}#1# random stickers{} on selected card"
+                }
+            },
+            c_hpot_susuki_4 = {
+                name = " Bright Susuki",
+                text = {
+                    "Apply {C:attention}#1# random stickers{} on selected card"
+                }
+            },
+            c_hpot_iris_1 = {
+                name = "Plain Iris",
+                text = {
+                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
+                }
+            },
+            cc_hpot_iris_2 = {
+                name = "Iris Ribbon",
+                text = {
+                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
+                }
+            },
+            c_hpot_iris_3 = {
+                name = "Iri Animal",
+                text = {
+                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
+                }
+            },
+            c_hpot_iris_4 = {
+                name = " Bright Iris",
+                text = {
+                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
+                }
+            },
+            c_hpot_wisteria_1 = {
+                name = "Plain Wisteria",
+                text = {
+                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected card"
+                }
+            },
+            cc_hpot_wisteria_2 = {
+                name = "Wisteria Ribbon",
+                text = {
+                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_wisteria_3 = {
+                name = "Wisteria Animal",
+                text = {
+                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_wisteria_4 = {
+                name = " Bright Wisteria",
+                text = {
+                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_bush_clover_1 = {
+                name = "Plain Bush Clover",
+                text = {
+                    "Give {C:attention}#1# negative{} Hanafuda card"
+                }
+            },
+            c_hpot_bush_clover_2 = {
+                name = "Bush Clover Ribbon",
+                text = {
+                    "Give {C:attention}#1# negative{} Hanafuda cards"
+                }
+            },
+            c_hpot_bush_clover_3 = {
+                name = "Bush Clover Animal",
+                text = {
+                    "Give {C:attention}#1# negative{} Hanafuda cards"
+                }
+            },
+            c_hpot_bush_clover_4 = {
+                name = " Bright Bush Clover",
+                text = {
+                    "Give {C:attention}#1# negative{} Hanafuda cards"
+                }
+            },
+        },
         Back = {
             b_hpot_lime = {
                 name = "Lime Deck",
                 text = {
                     "Start with",
                     "extra {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}"
+                }
+            },
+            b_hpot_minimal = {
+                name = "Minimal Deck",
+                text = {
+                    "Start with a deck consisting of",
+                    "a {C:attention}King{}, {C:attention}Queen{} and {C:attention}Jack{} of {C:diamonds}Diamonds{},",
+                    "a {C:attention}10{}, {C:attention}9{} and {C:attention}8{} of {C:hearts}Hearts{},",
+                    "a {C:attention}7{}, {C:attention}6{} and {C:attention}5{} of {C:spades}Spades{},",
+                    "a {C:attention}4{}, {C:attention}3{} and {C:attention}2{} of {C:clubs}clubs{},",
+                    "and an {C:attention}Ace{} of a {C:attention}random suit{}"
                 }
             },
             b_hpot_domn = {
@@ -649,6 +986,34 @@ return {
                     "{C:inactive}({C:attention}+#1#{C:inactive} Joker Slots)"
                 }
             },
+            j_hpot_grand_diagonal = {
+                name = "Grand Diagonal",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}metal{}.",
+                    "{C:inactive}({C:attention}+#1#{C:inactive} Consumable Slots)"
+                }
+            },
+            j_hpot_grand_spectral = {
+                name = "Grand Spectral",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}smoke{}.",
+                    "{C:inactive}(Turns all tarots in shop to {C:attention}Spectral{C:inactive} Cards)"
+                }
+            },
+            j_hpot_grand_brachial = {
+                name = "Grand Brachial",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}meat{}.",
+                    "{C:inactive}(Copy both the leftmost and rightmost Jokers.)"
+                }
+            },
+            j_hpot_grand_chocolatier = {
+                name = "Grand Chocolatier",
+                text = {
+                    "A {C:attention}bizarre{} object, associated with {C:edition}sugar{}.",
+                    "{C:inactive}({C:white,X:mult}X#1#{C:inactive} Mult)"
+                }
+            },
             j_hpot_aries_card = {
                 name = "Aries Card",
                 text = {
@@ -661,6 +1026,39 @@ return {
                     "{C:inactive}\"Ratatam, ratatam, ratatam!!\"", 
                     "{C:inactive}\"We are the space apes!\""
                 }
+            },
+            j_hpot_missing_texture = {
+                name = "Missing Texture",
+                text = {
+                    ""
+                }
+            },
+            j_hpot_tname_postcard = {
+                name = "Postcard",
+                text = {{
+                    "This Joker changes its",
+                    "{C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
+                },
+                {"Corobo Ability:",
+                "{X:mult,C:white}X#4#{} Mult, {X:mult,C:white}+X#5#{} Mult",
+                "per scored card."
+                },
+                {"GhostSalt Ability:"},
+                {"GoldenLeaf Ability:",
+                "{C:purple}+c.#2#{} when hand played"
+                },
+                {"Jogla Ability:",
+                "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
+                "of the {C:attention}leftmost{} consumable",
+                "when {C:attention}ending{} shop."
+                },
+                {"Revo Ability:",
+                "Each Played {C:spades}Spades{} suit is",
+                "retriggered {C:attention}#6#{} times."
+                },
+                {"Violet Ability:"}
+            }
             },
         },
         Sleeve = {
@@ -698,6 +1096,7 @@ return {
                 name = "Exchange Rate",
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
+                    "and {C:purple}credits",
                     "for {C:blue}Joker Exchange"
                 }
             },
@@ -728,9 +1127,33 @@ return {
                 name = "Digital Payment",
                 text = {
                     "Earn no interest.",
-                    "gain {C:blue}+#1#{} Credits{}",
+                    "gain {C:purple}+#1#{} Credits{}",
                     "for each interest",
                     "you would earn"
+                }
+            },
+            v_hpot_digital_promotion = {
+                name = "Digital Promotion",
+                text = {
+                    "Earn no hand money.",
+                    "gain {C:purple}+#1#{} Credits{}",
+                    "for each spare hand",
+                    "you would earn"
+                }
+            },
+            v_hpot_ref_dollars = {
+                name = "Golden Anvil",
+                text = {
+                    "{C:money}Dollars{} can",
+                    "be used to reforge"
+                }
+            },
+            v_hpot_ref_joker_exc = {
+                name = "Premium Anvil",
+               text = {
+                    "{C:hpot_plincoin}Plincoins{} and",
+                    "{C:blue}Joker Exchange{} can",
+                    "be used to reforge"
                 }
             },
         },
@@ -1476,7 +1899,21 @@ return {
                     "Lose {f:hpot_plincoin}${}1 when",
                     "hand is played"
                 }
-            }
+            },
+            bl_hpot_holed = {
+                name = "Holed Harmonica",
+                text = {
+                    "Disable every",
+                    "Non-Stickered Joker"
+                }
+            },
+            bl_hpot_credential = {
+                name = "The Credential",
+                text = {
+                    "Lose 5 Credits when",
+                    "hand is played"
+                }
+            },
         },
         EventSteps = {
             hpot_test_1 = {
@@ -1727,10 +2164,70 @@ return {
                 }
             },
         },
+
         Modification = {
-            modif_hpot_mod_1 = {
-                name = "f"
-            }
+            modif_hpot_ruthless = {
+                name = "Ruthless",
+                text = {
+                    "{X:mult,C:white}X%20{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_greedy = {
+                name = "Greedy",
+                text = {
+                    "{C:money}+$2{C:green} if triggered"
+                }
+            },
+            modif_hpot_jumpy = {
+                name = "Jumpy",
+                text = {
+                    "{X:mult,C:white}X1.1{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_invested = {
+                name = "Invested",
+                text = {
+                   "{C:money}+$1{C:green} sell value at the end of a round"
+                }
+            },
+            modif_hpot_damaged = {
+                name = "Damaged",
+                text = {
+                   "{C:dark_edition}#1# in 2 Chance to self-destruct when triggered"
+                }
+            },
+            modif_hpot_supported = {
+                name = "Supported",
+                text = {
+                    "{X:mult,C:white}X%10{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_dozing = {
+                name = "Dozing",
+                text = {
+                    "{C:dark_edition}#1# in 3 Chance to not trigger for a round"
+                }
+            },
+            modif_hpot_hyper = {
+                name = "Hyper",
+                text = {
+                    "{C:dark_edition}Never trigger for one round",
+                    "{C:green}Always retrigger the next round",
+                    "{C:inactive}(and repeat)"
+                }
+            },
+            modif_hpot_smudged = {
+                name = "Smudged",
+                text = {
+                    "{X:mult,C:white}X0.9{C:dark_edition} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_depreciating = {
+                name = "Depreciating",
+                text = {
+                   "{C:money}-$1{C:dark_edition} sell value at the end of a round"
+                }
+            },
         },
     },
     misc = {
@@ -1817,6 +2314,10 @@ return {
             }
         },
         dictionary = {
+            b_hanafuda_cards = 'Hanafuda Cards',
+            k_hanafuda = 'Hanafuda',
+            b_auras_cards = 'Auras',
+            k_auras = 'Aura',
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
@@ -1829,6 +2330,7 @@ return {
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
 
+            k_credits="Credits",
             teamname_off_reference="Revived",
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
@@ -1876,16 +2378,24 @@ return {
             hotpot_exchange_option_3 = "A Ton of ͸",
             hotpot_exchange_option_4 = "An Overfilled Box of ͸",
             hotpot_exchange_option_5 = "A Cargo Load of ͸", 
+
             hotpot_exchange_option_plin_1 = "A Premium Pile of ͸",
             hotpot_exchange_option_plin_2 = "A Giant Premium Pile of ͸",
             hotpot_exchange_option_plin_3 = "A Premium Ton of ͸",
             hotpot_exchange_option_plin_4 = "A Premium Overfilled Box of ͸",
             hotpot_exchange_option_plin_5 = "A Premium Cargo Load of ͸",
 
+            hotpot_exchange_option_cred_1 = "A Small Pile of ͸",
+            hotpot_exchange_option_cred_2 = "A Normal Pile of ͸",
+            hotpot_exchange_option_cred_3 = "More of ͸",
+            hotpot_exchange_option_cred_4 = "A Box of ͸",
+            hotpot_exchange_option_cred_5 = "A Load of ͸",
+
             hotpot_reforge_credits = "c.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
+            k_changedperson = "Changed!",
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
 
@@ -1934,6 +2444,8 @@ return {
             k_hpot_creditable = "Creditable",
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
+            auras = "Aura",
+            hanafuda = "Hanafuda Card",
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key",
             hpot_jtem_mood = "Under Training",
@@ -1953,7 +2465,17 @@ return {
             hpot_spinning = "Spinning",
             hpot_cfour = "C4",
 
-            modif_hpot_mod_1 = "Mod 1"
+            modif_hpot_ruthless = "Ruthless",
+            modif_hpot_greedy = "Greedy",
+            modif_hpot_jumpy = "Jumpy",
+            modif_hpot_invested = "Invested",
+            modif_hpot_damaged = "Damaged",
+            modif_hpot_supported = "Supported",
+            modif_hpot_dozing = "Dozing",
+            modif_hpot_hyper = "Hyper",
+            modif_hpot_smudged = "Smudged",
+            modif_hpot_depreciating = "Depreciating",
+
         },
         EventChoices = {
             hpot_general_move_on = "Move on",

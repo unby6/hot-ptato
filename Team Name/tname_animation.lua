@@ -174,3 +174,17 @@ SMODS.Atlas{
     path = "Team Name/shop_button.png",
     px = 34, py = 34,
 }
+
+SMODS.Atlas({
+	key = "tname_modifs_anim",
+	path = "Team Name/tname_modifs.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "tname_modifs",
+	path = "Team Name/tname_modifs_single.png",
+	px = 71,
+	py = 95,
+})

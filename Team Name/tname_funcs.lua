@@ -63,7 +63,7 @@ end
 --- @param morality table|nil A table specifying which categories of modifications are eligible. The fields `GOOD`, `BAD`, and `MISC` are all booleans. Defaults to all fields being true if not specified.
 ---
 --- @param odds table|nil A table specifying relative odds for each morality category. The fields `GOOD`, `BAD`, and `MISC` are all numbers which are normalized across enabled categories to sum to 100% (value = 1).
----  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified.
+---  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified
 function poll_modification(chance, card, morality, odds)
 	chance = chance or 1/5
 	card = card or nil
@@ -161,13 +161,12 @@ end
 function reforge_card(card)
 	if not card then return nil end
 
-	local reforge_money_v2_voucher_acquired = G.GAME.used_vouchers["internship"] -- Reforging no longer increases costs
-	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["masters"] -- Reforging can never result in a bad modifier
+	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["v_hpot_masters"] -- Reforging can never result in a bad modifier
 	
 	local chance = 1 -- 100% chance to get a modification when you reforge
 	-- card param is given by the parameter to this function
 	local morality = reforge_degree_v2_voucher_acquired and { GOOD = true, BAD = false, MISC = false } or { GOOD = true, BAD = true, MISC = true }
-	local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1/2, BAD = 1/2, MISC = 0 } or { GOOD = 1, BAD = 0, MISC = 0 }
+	local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1, BAD = 0, MISC = 0 } or { GOOD = 1/2, BAD = 1/2, MISC = 0 }
 	
 	local old_modification = get_modification(card)
 	local new_modification = poll_modification(chance, card, morality, odds)
@@ -215,35 +214,42 @@ function ready_to_reforge(card)
 end
 
 --- @param card table|nil to update the card's values
-function set_card_reforge(card)
+function set_card_reforge(card, currency)
     card = card or G.reforge_area.cards[1]
-    card.ability.reforge_dollars = card.ability.reforge_dollars + reforge_cost(card)
-    card.ability.reforge_credits = card.ability.reforge_credits + convert_currency(reforge_cost(card), "DOLLAR", "CREDIT")
-    card.ability.reforge_sparks = card.ability.reforge_sparks + convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
-    card.ability.reforge_plincoins = card.ability.reforge_plincoins + convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
+    card.ability.reforge_dollars = reforge_cost(card)
+    card.ability.reforge_credits = convert_currency(reforge_cost(card), "DOLLAR", "CREDIT")
+    card.ability.reforge_sparks = convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
+    card.ability.reforge_plincoins = convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
 end
 
 --- @param card table|nil Card to use to update the costs
 function update_reforge_cost(card)
     card = card or G.reforge_area.cards[1]
-    G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
-    G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
-    G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
-    G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
-
-    if card.saved_last_reforge then
-        card.ability.reforge_dollars = card.ability.reforge_dollars_default
-        card.ability.reforge_credits = card.ability.reforge_credits_default
-        card.ability.reforge_sparks = card.ability.reforge_sparks_default
-        card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
-
-        card.saved_last_reforge = false
-
-        card.ability.reforge_dollars_default = nil
-        card.ability.reforge_credits_default = nil
-        card.ability.reforge_sparks_default = nil
-        card.ability.reforge_plincoins_default = nil
+    if not G.GAME.used_vouchers["v_hpot_intership"] then
+        G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
+        G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
+        G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
+        G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
+    else
+        G.GAME.cost_dollars = card.ability.reforge_dollars
+        G.GAME.cost_credits = card.ability.reforge_credits
+        G.GAME.cost_sparks =  card.ability.reforge_sparks
+        G.GAME.cost_plincoins = card.ability.reforge_plincoins
     end
+
+        if card.saved_last_reforge then
+            card.ability.reforge_dollars = card.ability.reforge_dollars_default
+            card.ability.reforge_credits = card.ability.reforge_credits_default
+            card.ability.reforge_sparks = card.ability.reforge_sparks_default
+            card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
+
+            card.saved_last_reforge = false
+
+            card.ability.reforge_dollars_default = nil
+            card.ability.reforge_credits_default = nil
+            card.ability.reforge_sparks_default = nil
+            card.ability.reforge_plincoins_default = nil
+        end
 end
 
 -- reseting the reforge cost
@@ -277,13 +283,10 @@ end
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
 function reforge_discounts()
 	local total = 0
-	
-	local reforge_money_v1_voucher_acquired = G.GAME.used_vouchers["costcutting"] -- Reduces cost of reforging by $2
-	
-	if reforge_money_v1_voucher_acquired then
-		total = total + 2
-	end
-	
+
+    if G.GAME.used_vouchers["v_hpot_costcutting"] then
+        total = total + 2
+    end
 	return total
 end
 
@@ -293,27 +296,28 @@ end
 --- @param starting_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 --- @param ending_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 function convert_currency(amount, starting_currency, ending_currency)
-	local money = amount
-
-	-- First, convert everything into plincoin, the least valuable of all of the currencies.
+	local money = amount or 0
+    starting_currency = starting_currency or "PLINCOIN"
+    ending_currency = ending_currency or "PLINCOIN"
+	-- First, convert everything into plincoin, the MOST valuable of all of the currencies.
 	local dollar_to_plincoin  = 3
 	local credit_to_plincoin  = 15
 	local sparkle_to_plincoin = 12495
 	
-	if     starting_currency == "DOLLAR"  then money = money * dollar_to_plincoin
-	elseif starting_currency == "CREDIT"  then money = money * credit_to_plincoin
-	elseif starting_currency == "SPARKLE" then money = money * sparkle_to_plincoin
-	elseif starting_currency ~= "PLINCOIN" then return nil end
+	if     ending_currency == "DOLLAR"  then money = money * dollar_to_plincoin
+	elseif ending_currency == "CREDIT"  then money = money * credit_to_plincoin
+	elseif ending_currency == "SPARKLE" then money = money * sparkle_to_plincoin
+	elseif ending_currency ~= "PLINCOIN" then return nil end
 	
 	-- Next, convert from plincoin into the desired currency.
 	local plincoin_to_dollar  = 1 / dollar_to_plincoin
 	local plincoin_to_credit  = 1 / credit_to_plincoin
 	local plincoin_to_sparkle = 1 / sparkle_to_plincoin
 	
-	if     ending_currency == "DOLLAR"  then money = money * plincoin_to_dollar
-	elseif ending_currency == "CREDIT"  then money = money * plincoin_to_credit
-	elseif ending_currency == "SPARKLE" then money = money * plincoin_to_sparkle
-	elseif ending_currency ~= "PLINCOIN" then return nil end
+	if     starting_currency == "DOLLAR"  then money = money * plincoin_to_dollar
+	elseif starting_currency == "CREDIT"  then money = money * plincoin_to_credit
+	elseif starting_currency == "SPARKLE" then money = money * plincoin_to_sparkle
+	elseif starting_currency ~= "PLINCOIN" then return nil end
 	
 	return math.ceil(money)
 end
@@ -329,7 +333,7 @@ function add_tables(tables) -- yet again, there is probably a better way to do t
 end
 
 
-
+-- probably shouldve made this a global function but whatever
 function HPTN.ease_credits(amount, instant)
     amount = amount or 0
   local function _mod(mod)  -- Taken from ease_plincoins()
@@ -684,6 +688,7 @@ G.FUNCS.reforge_with_credits = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 G.FUNCS.reforge_with_dollars = function ()
@@ -691,6 +696,7 @@ G.FUNCS.reforge_with_dollars = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 G.FUNCS.reforge_with_sparks = function ()
@@ -698,6 +704,7 @@ G.FUNCS.reforge_with_sparks = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 G.FUNCS.reforge_with_plincoins = function ()
@@ -705,6 +712,7 @@ G.FUNCS.reforge_with_plincoins = function ()
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
 end
 
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)

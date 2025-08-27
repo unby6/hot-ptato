@@ -10,6 +10,8 @@ local function hp_jtem_buy_jx_individual( b_type, index )
     local am
     if b_type == "plincoin" then
         am = "p2j"
+    elseif b_type == "credits" then
+        am = "c2j"
     else
         am = "d2j"
     end
@@ -18,7 +20,10 @@ local function hp_jtem_buy_jx_individual( b_type, index )
     local price = st.from * price_mult[1]
     local price_display = st.from * price_mult[1] - 0.01
     local gives_out = st.to * price_mult[2]
-    local first_time_bonus = gives_out * price_mult[3]
+    local first_time_bonus = 0
+    if not G.GAME.jp_jtem_has_ever_bought_jx then
+        first_time_bonus = gives_out * price_mult[3]
+    end
     local args = generate_currency_string_args(b_type)
 
     local numbertext = {
@@ -46,7 +51,8 @@ local function hp_jtem_buy_jx_individual( b_type, index )
             }
         })
     end
-    
+
+if b_type == "credits" then
     return {
         n = G.UIT.C,
         config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
@@ -54,15 +60,15 @@ local function hp_jtem_buy_jx_individual( b_type, index )
             { n = G.UIT.R, config = { align = "cm" }, nodes = {
                     {
                         n = G.UIT.O,
-                        config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "plincoin" and 1 or 0})}
-                    }
+                        config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "credits" and 2 or 0})}
+                    },
                 }
             },
             { n = G.UIT.R, config = { align = "cm" }, nodes = {
                     {
                         n = G.UIT.T,
-                        config = { text = localize("hotpot_exchange_option_"..(b_type == "plincoin" and "plin_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
-                    }
+                        config = { text = localize("hotpot_exchange_option_"..(b_type == "credits" and "cred_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
+                    },
                 }
             },
             { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
@@ -76,6 +82,37 @@ local function hp_jtem_buy_jx_individual( b_type, index )
             },
         }
     }
+else
+    return {
+        n = G.UIT.C,
+        config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
+        nodes = {
+            { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                    {
+                        n = G.UIT.O,
+                        config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "plincoin" and 1 or 0})}
+                    },
+                }
+            },
+            { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = { text = localize("hotpot_exchange_option_"..(b_type == "plincoin" and "plin_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
+                    },
+                }
+            },
+            { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
+            },
+        { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
+                    }
+                }
+            },
+        }
+    }
+end
 end
 
 G.FUNCS.hpot_can_buy_jx_screen = function (e)
@@ -118,6 +155,9 @@ G.UIDEF.hp_jtem_buy_jx = function (mode)
     if (mode == "plincoin" or (mode == "both")) and G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
         table.insert(nds, hp_jtem_buy_jx_row( "plincoin" ))
     end
+    if (mode == "credits") and G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
+        table.insert(nds, hp_jtem_buy_jx_row( "credits" ))
+    end
     local ret = {
         n = G.UIT.C,
         config = { colour = G.C.UI.TRANSPARENT_DARK , minw = 6.5, minh = 3.5, r = 0.15, padding = 0.1, align = "tm" },
@@ -148,7 +188,7 @@ G.UIDEF.hp_jtem_buy_jx = function (mode)
                 }
             },
             
-        }
+        },
     }
     return create_UIBox_generic_options({ contents = {ret}})
 end
@@ -175,4 +215,4 @@ G.FUNCS.hp_open_full_jx_top_up = function(e)
     G.FUNCS.overlay_menu {
         definition = G.UIDEF.hp_jtem_buy_jx("both")
     }
-end
+end 

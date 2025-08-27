@@ -1,3 +1,4 @@
+-- these arent really balanced so feel free to rebalance them :)
 SMODS.Joker:take_ownership('j_joker',
     {
     atlas = "teamname_shitfuck",
@@ -41,11 +42,16 @@ SMODS.Joker:take_ownership('j_joker',
 SMODS.Joker({
 	key = "grand_finale",
 	rarity = "hpot_creditable",
+	atlas = "tname_jokers",
+	pos = {
+		x = 0,
+		y = 1
+	},
 	cost = 0,
-	credits = 300,
+	credits = 500,
 	config = {
 		extra = {
-			slots = 2
+			slots = 3
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -72,18 +78,178 @@ SMODS.Joker({
         }))
 	end,
     hotpot_credits = {
-        art = {"No Art"},
+        art = {"GoldenLeaf"},
         idea = {"GoldenLeaf"},
         code = {"GoldenLeaf"},
         team = {"Team Name"}
     }
 })
 
+SMODS.Joker({
+	key = "grand_diagonal",
+	rarity = "hpot_creditable",
+	atlas = "tname_jokers",
+	pos = {
+		x = 1,
+		y = 1
+	},
+	cost = 0,
+	credits = 500,
+	config = {
+		extra = {
+			slots = 2
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.slots } }
+	end,
+	add_to_deck = function (self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if G.consumeables then
+                    G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+                end
+                return true
+            end,
+        }))
+    end,
+	remove_from_deck = function (self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if G.consumeables then
+                    G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+                end
+                return true
+            end,
+        }))
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
+
+SMODS.Joker({
+	key = "grand_spectral",
+	rarity = "hpot_creditable",
+	atlas = "tname_jokers",
+	pos = {
+		x = 2,
+		y = 1
+	},
+	add_to_deck = function (self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+				local a = G.GAME.tarot_rate
+                G.GAME.tarot_rate = G.GAME.spectral_rate
+				G.GAME.spectral_rate = a
+                return true
+            end,
+        }))
+    end,
+	remove_from_deck = function (self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+				local a = G.GAME.tarot_rate
+                G.GAME.tarot_rate = G.GAME.spectral_rate
+				G.GAME.spectral_rate = a
+                return true
+            end,
+        }))
+	end,
+	cost = 0,
+	credits = 500,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
+
+SMODS.Joker({
+	key = "grand_brachial",
+	rarity = "hpot_creditable",
+	atlas = "tname_jokers",
+	pos = {
+		x = 0,
+		y = 2
+	},
+	cost = 0,
+	credits = 500,
+    calculate = function(self, card, context)
+		local ret = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
+		local ret2 = SMODS.blueprint_effect(card, G.jokers.cards[#G.jokers.cards], context)
+		local etr = nil
+        if ret then
+            if ret2 then
+                ret.extra = ret2 
+            end
+        etr = ret
+        elseif ret2 then
+            etr = ret2
+        else
+            etr = nil 
+        end
+
+    if etr then
+        return etr 
+    else
+        return nil, true
+    end
+    end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
+
+SMODS.Joker({
+	key = "grand_chocolatier",
+	rarity = "hpot_creditable",
+	atlas = "tname_jokers",
+	pos = {
+		x = 1,
+		y = 2
+	},
+	cost = 0,
+	credits = 500,
+	config = {
+		extra = {
+			xmult = 7
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.xmult } }
+	end,
+	calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
 
 SMODS.Joker({
 	key = "aries_card",
 	rarity = "hpot_creditable",
 	cost = 0,
+	atlas = "tname_jokers",
+	pos = {
+		x = 2,
+		y = 0
+	},
 	credits = 5000,
 	calculate = function (self, card, context)
 		if G.GAME.blind.config.blind and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown and HPTN.is_shitfuck then
@@ -91,12 +257,9 @@ SMODS.Joker({
             trigger = 'before',
             delay = 0.4,
             func = function()
-                local _first_dissolve = nil
                 for _, joker in pairs(G.jokers.cards) do
-                        joker:start_dissolve(nil, _first_dissolve)
-                        _first_dissolve = true
+                        joker:start_dissolve(nil, true)
                 end
-                card:juice_up(0.3, 0.5)
                 return true
             end
         }))
@@ -116,7 +279,7 @@ SMODS.Joker({
 		end
 	end,
     hotpot_credits = {
-        art = {"No Art"},
+        art = {"GoldenLeaf"},
         idea = {"GoldenLeaf"},
         code = {"GoldenLeaf"},
         team = {"Team Name"}

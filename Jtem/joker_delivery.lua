@@ -128,7 +128,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                 atlas = "hpot_tname_shop_reforge",
                 pos = {x = 1, y = 0}
             },
-        }
+        },
     }
 end
 
@@ -136,6 +136,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
     -- dollars to jx
     G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
     G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
+    G.GAME.hp_jtem_c2j_rate = G.GAME.hp_jtem_c2j_rate or { from = 1, to = 833 }
     return
         {
             n = G.UIT.R,
@@ -235,6 +236,30 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                     nodes = { {
                                         n = G.UIT.T,
                                         config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$" } }), scale = 0.3, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                    },
+                                    }
+                                },
+                            }
+                        },
+                                                {
+                            n = G.UIT.R,
+                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
+                            nodes = {
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm" },
+                                    nodes = { {
+                                        n = G.UIT.T,
+                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_c2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                    },
+                                    }
+                                },
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm" },
+                                    nodes = { {
+                                        n = G.UIT.T,
+                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "c." } }), scale = 0.3, colour = G.C.WHITE }
                                     },
                                     }
                                 },
@@ -423,6 +448,15 @@ G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
         e.config.button = 'hp_jtem_exchange_p2j'
     end
 end
+G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
+    if (0 > G.PROFILES[G.SETTINGS.profile].TNameCredits) or not G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.BLUE
+        e.config.button = 'hp_jtem_exchange_c2j'
+    end
+end
 G.FUNCS.hp_jtem_can_order = function(e)
     local _c = e.config.ref_table
     if (_c.hp_jtem_currency_bought_value > get_currency_amount(_c.hp_jtem_currency_bought) - (_c.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
@@ -590,6 +624,12 @@ G.FUNCS.hp_jtem_exchange_p2j = function(e)
     G.SETTINGS.paused = true
     G.FUNCS.overlay_menu {
         definition = G.UIDEF.hp_jtem_buy_jx("plincoin")
+    }
+end
+G.FUNCS.hp_jtem_exchange_c2j = function(e)
+    G.SETTINGS.paused = true
+    G.FUNCS.overlay_menu {
+        definition = G.UIDEF.hp_jtem_buy_jx("credits")
     }
 end
 
@@ -779,6 +819,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
             }
             G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
             G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
+            G.GAME.hp_jtem_c2j_rate = G.GAME.hp_jtem_c2j_rate or { from = 1, to = 833 }
 
 
             card.children.hp_jtem_price_side = UIBox {
@@ -870,6 +911,8 @@ function Game:init_game_object()
     r.hp_jtem_d2j_rate = { from = 1, to = 5000 }
     -- p2j is plincoin to joker exchange
     r.hp_jtem_p2j_rate = { from = 1, to = 32000 }
+    -- c2j is credits to joker exchange
+    r.hp_jtem_pcj_rate = { from = 1, to = 833 }
     r.hp_jtem_special_offer_count = 3
     r.hp_jtem_should_allow_custom_order = false
     r.hp_jtem_should_allow_buying_jx_from_plincoin = false

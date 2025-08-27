@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)'''
+position = 'at'
+payload = '''function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append, extra)'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''        while center == 'UNAVAILABLE' do'''
+position = 'at'
+payload = '''        while center == 'UNAVAILABLE' or center.credits or (center.config and center.config.credits) do'''
+match_indent = true
