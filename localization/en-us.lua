@@ -1016,7 +1016,11 @@ return {
                 {"GoldenLeaf Ability:",
                 "{C:purple}+c.#2#{} when hand played"
                 },
-                {"Jogla Ability:"},
+                {"Jogla Ability:",
+                "Creates {C:attention}#2#{C:dark_edition} negative{} copies",
+                "of the {C:attention}leftmost{} consumable",
+                "when {C:attention}ending{} shop."
+                },
                 {"Revo Ability:"},
                 {"Violet Ability:"}
             }

@@ -31,11 +31,11 @@ SMODS.Joker {
 	credits = 300,
     config = {
         extra = {
-            functions = { 
+            functions = { -- values for your stuff, like card.ability.extra[whatever]
 				Corobo = {0},
 				GhostSalt = {0},
 				GoldenLeaf = {20},
-				Jogla = {0}, 
+				Jogla = {2}, 
 				Revo = {0}, 
 				Violet = {0}, 
 				person = 1
@@ -46,7 +46,8 @@ SMODS.Joker {
         return {
             vars = {
                 getcurrentperson(card.ability.extra.functions.person),
-                card.ability.extra.functions.GoldenLeaf[1]
+                card.ability.extra.functions.GoldenLeaf[1],
+				card.ability.extra.functions["Jogla"][1]
             }
         }
     end,
@@ -62,7 +63,25 @@ SMODS.Joker {
 						return{message = "Added!"}
 					end
 				end,
-				Jogla = function(self,card,context)end,
+				Jogla = function(self,card,context)
+					if context.ending_shop and G.consumeables.cards[1] then
+						local target_card_key = G.consumeables.cards[1].config.center.key
+						if target_card_key ~= nil then
+							FG.FUNCS.card_eval_status_text{
+								card = card,
+								message = "k_duplicated_ex",
+								mode = "localize",
+								category = "dictionary"
+							}
+							for i=1, fuck["Jogla"][1] do
+								local new_card = SMODS.add_card{
+									key = target_card_key,
+									edition = "e_negative"
+								}
+							end
+						end
+					end
+				end,
 				Revo =function(self,card,context)end,
 				Violet = function(self,card,context)end,
 		}
