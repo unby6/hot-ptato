@@ -22,10 +22,14 @@ SMODS.Sound {
   end
 }
 
+SMODS.ObjectType({
+  key = "CreditablePool"
+})
+
 SMODS.Rarity{
     key = "creditable",
     loc_txt = {name = "Creditable"},
-    pools = {Joker = true},
+    pools = {CreditablePool = true},
     badge_colour = G.C.PURPLE,
     default_weight = 0.05
 }

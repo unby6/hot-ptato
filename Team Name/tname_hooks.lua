@@ -45,6 +45,8 @@ Game.init_game_object = function(self)
 
 	ret.current_team_name_member = 1
 
+	ret.creditable_rate = 100
+
 	return ret
 end
 

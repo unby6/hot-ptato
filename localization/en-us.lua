@@ -1754,7 +1754,7 @@ return {
 		        name = "Ultra Buffoon Pack",
 		        text = {
 			        "Choose {C:attention}#1#{} of up to",
-			        "{C:attention}#2#{} joker cards",
+			        "{C:attention}#2#{} Joker cards",
 		        },
             },
 
