@@ -14,7 +14,7 @@ local function getcurrentperson(num)
 		return "Violet"
 	end
 end
-local function getposfromname(name)
+local function getposfromname(name) -- UNUSED LMFAOOOO
 	name = name or "Corobo"
 	if name == "Corobo" then
 		return 1
