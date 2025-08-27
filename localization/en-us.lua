@@ -30,6 +30,13 @@ return {
                     "{C:purple}+c.#1#{} for each dollar removed"
                 }
             },
+            c_hpot_clairvoyance = {
+                name = "Aura of Clairvoyance",
+                text = {
+                    "{C:red}Remove #1# Consumable Slots{},",
+                    "{C:purple}+c.#2#{} for each Consumable Slot removed"
+                }
+            },
         },
         hanafuda = {
             c_hpot_pine_1 = {
