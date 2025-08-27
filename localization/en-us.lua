@@ -37,6 +37,13 @@ return {
                     "{C:purple}+c.#2#{} for each Consumable Slot removed"
                 }
             },
+            c_hpot_tenacity = {
+                name = "Aura of Tenacity",
+                text = {
+                    "{C:red}Destroy all Jokers,{},",
+                    "{C:purple}X#2#c.{C:inactive} (Max of #1#)"
+                }
+            },
         },
         hanafuda = {
             c_hpot_pine_1 = {
