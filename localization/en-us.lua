@@ -14,6 +14,13 @@ return {
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
             },
+            c_hpot_perception = {
+                name = "Aura of Perception",
+                text = {
+                    "{C:red}Permanently remove {C:blue}all hands but #1#{},",
+                    "{C:purple}+c.#2#{} for each hand removed"
+                }
+            },
         },
         hanafuda = {
             c_hpot_pine_1 = {

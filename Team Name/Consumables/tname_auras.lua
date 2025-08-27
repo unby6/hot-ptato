@@ -106,3 +106,50 @@ SMODS.Consumable({
         end
 	end,
 })
+
+SMODS.Consumable({
+	key = "perception",
+	set = "auras",
+	hotpot_credits = {
+		art = { "No Art" },
+		idea = { "GoldenLeaf" },
+		code = { "GoldenLeaf" },
+		team = { "Team Name" },
+	},
+	config = {
+		extra = {
+			leavinghands = 1,
+            credits = 20
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		return {
+			vars = { hpt.leavinghands, hpt.credits },
+		}
+	end,
+	can_use = function(self, card)
+		if G.GAME.round_resets.hands <= card.ability.extra.leavinghands then
+			return false
+		else
+			return true
+		end
+	end,
+	use = function(self, card, area, copier)
+		local hpt = card.ability.extra
+		local fuck = G.GAME.round_resets.hands
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.hands = hpt.leavinghands
+				ease_hands_played(-(fuck - hpt.leavinghands))
+                return true
+            end,
+        }))
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                HPTN.ease_credits((fuck - hpt.leavinghands) * hpt.credits, false)
+                return true
+            end,
+        }))
+	end,
+})
