@@ -4,13 +4,15 @@ return {
             c_hpot_justice = {
                 name = "Aura of Justice",
                 text = {
-                    "{C:red}-#1# Joker Slots{}, {C:purple}+#2# Credits"
+                    "{C:red}-#1# Joker Slots{},",
+                    "{C:purple}+#2# Credits"
                 }
             },
             c_hpot_fear = {
                 name = "Aura of Fear",
                 text = {
-                    "{C:attention}All current jokers{} gain {C:red}negative{} stickers,",
+                    "{C:attention}All current jokers{} gain",
+                    "{C:red}negative{} stickers,",
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
             },
@@ -992,7 +994,8 @@ return {
             j_hpot_tname_postcard = {
                 name = "Postcard",
                 text = {{
-                    "This Joker changes its {C:attention}recipient{} every round...",
+                    "This Joker changes its",
+                    "{C:attention}recipient{} every round...",
                     "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
                 },
                 {"Corobo Ability:"},
