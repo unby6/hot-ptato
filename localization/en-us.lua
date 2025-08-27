@@ -1,5 +1,20 @@
 return {
     descriptions = {
+        auras = {
+            c_hpot_justice = {
+                name = "Aura of Justice",
+                text = {
+                    "{C:red}-#1# Joker Slots{}, {C:purple}+#2# Credits"
+                }
+            },
+            c_hpot_fear = {
+                name = "Aura of Fear",
+                text = {
+                    "{C:attention}All current jokers{} gain {C:red}negative{} stickers,",
+                    "{C:purple}+c.#1#{} for each sticker added"
+                }
+            },
+        },
         hanafuda = {
             c_hpot_pine_1 = {
                 name = "Plain Pine",
@@ -2148,6 +2163,8 @@ return {
         dictionary = {
             b_hanafuda_cards = 'Hanafuda Cards',
             k_hanafuda = 'Hanafuda',
+            b_auras_cards = 'Auras',
+            k_auras = 'Aura',
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
@@ -2272,6 +2289,7 @@ return {
             k_hpot_creditable = "Creditable",
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
+            auras = "Aura",
             hanafuda = "Hanafuda Card",
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key",
