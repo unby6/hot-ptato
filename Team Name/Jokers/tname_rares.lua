@@ -25,7 +25,7 @@ SMODS.Joker {
 				GhostSalt = {0},
 				GoldenLeaf = {20},
 				Jogla = {2}, 
-				Revo = {0}, 
+				Revo = {rep = 2}, 
 				Violet = {0}, 
 				person = 1
             }
@@ -39,6 +39,7 @@ SMODS.Joker {
 				card.ability.extra.functions["Jogla"][1],
 				card.ability.extra.functions.Corobo.a,
 				card.ability.extra.functions.Corobo.b,
+				card.ability.extra.functions.Revo.rep
             }
         }
     end,
@@ -80,7 +81,13 @@ SMODS.Joker {
 						end
 					end
 				end,
-				Revo =function(self,card,context)end,
+				Revo = function(self,card,context)
+					if context.repetition and context.other_card:is_suit("Spades") then
+						return{
+							repetitions = 2
+						}
+					end
+				end,
 				Violet = function(self,card,context)end,
 		}
 		if context.end_of_round and context.cardarea == G.jokers then

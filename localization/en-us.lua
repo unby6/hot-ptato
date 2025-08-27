@@ -1053,7 +1053,10 @@ return {
                 "of the {C:attention}leftmost{} consumable",
                 "when {C:attention}ending{} shop."
                 },
-                {"Revo Ability:"},
+                {"Revo Ability:",
+                "Each Played {C:spades}Spades{} suit is",
+                "retriggered {C:attention}#6#{} times."
+                },
                 {"Violet Ability:"}
             }
             },

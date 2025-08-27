@@ -1,6 +1,7 @@
 
 SMODS.Voucher {
 	key = 'digital_payment',
+	atlas = "tname_vouchers",
 	pos = { x = 0, y = 0 },
     loc_vars = function (self, info_queue, card)
 		return {
@@ -13,7 +14,7 @@ SMODS.Voucher {
 		G.GAME.modifiers.interest_to_credits = true
 	end,
 	hotpot_credits = {
-        art = {'No Art'},
+        art = {'GhostSalt'},
         code = {'Revo'},
         idea = {'GoldenLeaf'},
         team = {'Team Name'}
@@ -22,7 +23,15 @@ SMODS.Voucher {
 
 SMODS.Voucher {
 	key = 'digital_promotion', --i cant think of anything else
+	atlas = "tname_vouchers",
 	pos = { x = 1, y = 0 },
+	    loc_vars = function (self, info_queue, card)
+		return {
+			vars = {
+				(G.GAME.credits_cashout2 or 0)
+			}
+		}
+	end,
 	redeem = function(self, voucher)
 		G.GAME.modifiers.hands_to_credits = true
 	end,
@@ -30,7 +39,7 @@ SMODS.Voucher {
 		'v_hpot_digital_payment'
 	},
 	hotpot_credits = {
-        art = {'No Art'},
+        art = {'GhostSalt'},
         code = {'Revo'},
         idea = {'GoldenLeaf'},
         team = {'Team Name'}
