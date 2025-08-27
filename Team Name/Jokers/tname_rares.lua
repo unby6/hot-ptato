@@ -14,20 +14,12 @@ local function getcurrentperson(num)
 		return "Violet"
 	end
 end
-local function getposfromname(name) -- UNUSED LMFAOOOO
-	name = name or "Corobo"
-	if name == "Corobo" then
-		return 1
-	elseif name == "GhostSalt" then
-		return 2
-	elseif name == "GoldenLeaf" then
-		return 3
-	elseif name == "Jogla" then
-		return 4
-	elseif name == "Revo" then
-		return  5
+local function uniquerandom(origival)
+    local result = pseudorandom("fuck",1,6)
+	if origival ~= result then
+		return result
 	else
-		return 6
+		return uniquerandom(origival)
 	end
 end
 SMODS.Joker {
@@ -38,7 +30,7 @@ SMODS.Joker {
     cost = 0,
 	credits = 300,
     config = {
-        extras = {
+        extra = {
             functions = { 
 				Corobo = {0},
 				GhostSalt = {0},
@@ -53,14 +45,14 @@ SMODS.Joker {
     loc_vars = function (self, info_queue, card)
         return {
             vars = {
-                getcurrentperson(card.ability.extras.functions.person), -- current person
-                card.ability.extras.functions.GoldenLeaf[1]
+                getcurrentperson(card.ability.extra.functions.person),
+                card.ability.extra.functions.GoldenLeaf[1]
             }
         }
     end,
     blueprint_compat = true,
     calculate = function(self, card, context)
-		local fuck = card.ability.extras.functions
+		local fuck = card.ability.extra.functions
 		local funcs = {
 				Corobo = function(self,card,context)end, 
 				GhostSalt = function(self,card,context)end, 
@@ -70,12 +62,12 @@ SMODS.Joker {
 						return{message = "Added!"}
 					end
 				end,
-				Jogla = function(self,card,context)end, -- jogla
-				Revo =function(self,card,context)end, -- revo
-				Violet = function(self,card,context)end, -- violet
+				Jogla = function(self,card,context)end,
+				Revo =function(self,card,context)end,
+				Violet = function(self,card,context)end,
 		}
 		if context.end_of_round and context.cardarea == G.jokers then
-			fuck.person = pseudorandom("fuck",1,6)
+			fuck.person = uniquerandom(fuck.person)
 			card.children.center:set_sprite_pos{x = fuck.person-1, y = 0}
 			return {
 				message =localize("k_changedperson"),

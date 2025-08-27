@@ -991,6 +991,12 @@ return {
                     "{C:inactive}\"We are the space apes!\""
                 }
             },
+            j_hpot_missing_texture = {
+                name = "Missing Texture",
+                text = {
+                    ""
+                }
+            },
             j_hpot_tname_postcard = {
                 name = "Postcard",
                 text = {{
@@ -2203,6 +2209,7 @@ return {
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
 
+            k_credits="Credits",
             teamname_off_reference="Revived",
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
