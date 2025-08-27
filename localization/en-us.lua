@@ -1025,8 +1025,11 @@ return {
                     "{C:attention}recipient{} every round...",
                     "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
                 },
-                {"Corobo Ability:"},
-                {"GhostSalt Abiliy:"},
+                {"Corobo Ability:",
+                "{X:mult,C:white}X#4#{} Mult, {C:mult}+#3#{} Mult",
+                "per scored card."
+                },
+                {"GhostSalt Ability:"},
                 {"GoldenLeaf Ability:",
                 "{C:purple}+c.#2#{} when hand played"
                 },

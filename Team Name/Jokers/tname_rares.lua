@@ -1,18 +1,7 @@
 local function getcurrentperson(num)
+	local array = {"Corobo", "GhostSalt", "GoldenLeaf", "Jogla", "Revo", "Violet"}
 	num = num or 1
-	if num == 1 then
-		return "Corobo"
-	elseif num == 2 then
-		return "GhostSalt"
-	elseif num == 3 then
-		return "GoldenLeaf"
-	elseif num == 4 then
-		return "Jogla"
-	elseif num == 5 then
-		return "Revo" 
-	else
-		return "Violet"
-	end
+	return array[num]
 end
 local function uniquerandom(origival)
     local result = pseudorandom("fuck",1,6)
@@ -32,7 +21,7 @@ SMODS.Joker {
     config = {
         extra = {
             functions = { -- values for your stuff, like card.ability.extra[whatever]
-				Corobo = {0},
+				Corobo = {a = 1, b = 0.1},
 				GhostSalt = {0},
 				GoldenLeaf = {20},
 				Jogla = {2}, 
@@ -47,7 +36,9 @@ SMODS.Joker {
             vars = {
                 getcurrentperson(card.ability.extra.functions.person),
                 card.ability.extra.functions.GoldenLeaf[1],
-				card.ability.extra.functions["Jogla"][1]
+				card.ability.extra.functions["Jogla"][1],
+				card.ability.extra.functions.Corobo.a,
+				card.ability.extra.functions.Corobo.b,
             }
         }
     end,
@@ -55,7 +46,18 @@ SMODS.Joker {
     calculate = function(self, card, context)
 		local fuck = card.ability.extra.functions
 		local funcs = {
-				Corobo = function(self,card,context)end, 
+				Corobo = function(self,card,context)
+					if context.individual and context.cardarea == G.play then
+						SMODS.scale_card(card, {
+							ref_table = card.ability.extra.functions.Corobo,
+						    ref_value = "a",
+							scalar_value = "b",
+						})
+					end
+					if context.joker_main then
+						return{xmult = fuck.Corobo[1]}
+					end
+				end, 
 				GhostSalt = function(self,card,context)end, 
 				GoldenLeaf = function (self, card, context) 
 					if context.joker_main then
