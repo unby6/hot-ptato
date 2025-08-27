@@ -1852,6 +1852,13 @@ return {
                     "Lose {f:hpot_plincoin}${}1 when",
                     "hand is played"
                 }
+            },
+            bl_hpot_holed = {
+                name = "The Holed",
+                text = {
+                    "Disable every",
+                    "Non-Stickered Joker"
+                }
             }
         },
         EventSteps = {
