@@ -6,6 +6,7 @@ SMODS.Sound {
 SMODS.Sound {
   key = "music_reforge",
   path = "music_reforge_menu.ogg",
+  pitch = 1,
   select_music_track = function (self)
     if G.HP_TNAME_REFORGE_VISIBLE and G.STATE == G.STATES.SHOP then
       return 1349

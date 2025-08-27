@@ -1880,6 +1880,8 @@ return {
             }
         },
         dictionary = {
+            b_hanafuda_cards = 'Hanafuda Cards',
+            k_hanafuda = 'Hanafuda',
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
@@ -2004,6 +2006,7 @@ return {
             k_hpot_creditable = "Creditable",
             bottlecap = "Bottle Cap",
             czech = "Cheque Card",
+            hanafuda = "Hanafuda Card",
             hpot_plincoin_seal = "Plincoin Seal",
             key = "Key",
             hpot_jtem_mood = "Under Training",
