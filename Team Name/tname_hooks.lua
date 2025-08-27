@@ -15,6 +15,13 @@ function Card:use_consumeable(area, copier)
 	return use_old(self, area, copier)
 end
 
+local joker_calc_old = Card.calculate_joker
+function Card:calculate_joker(context)
+	if self and not self.prevent_trigger then
+		return joker_calc_old(self, context)
+	end
+end
+
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
 	local ret = igo(self)
