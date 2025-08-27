@@ -1,6 +1,6 @@
 SMODS.ConsumableType({
 	key = "auras",
-	collection_rows = { 4, 2},
+	collection_rows = { 4, 4},
 	primary_colour = G.C.GREY,
 	secondary_colour = G.C.GREY,
 	shop_rate = nil,
@@ -320,5 +320,48 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		HPTN.ease_credits(hpt.credits, false)
+	end,
+})
+SMODS.Consumable({
+	key = "power",
+	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 3,
+		y = 1
+	},
+	config = {
+		extra = {
+            credits = 50
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		return {
+			vars = { hpt.credits , math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits/hpt.credits)}
+		}
+	end,
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "GoldenLeaf" },
+		team = { "Team Name" },
+	},
+	can_use = function(self, card)
+		return ((#G.jokers.cards > 0) and (G.PROFILES[G.SETTINGS.profile].TNameCredits > 0))
+	end,
+	use = function(self, card, area, copier)
+		local hpt = card.ability.extra
+		local a = math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits/hpt.credits)
+		HPTN.ease_credits(-G.PROFILES[G.SETTINGS.profile].TNameCredits, false)
+		local target_card_key = G.jokers.cards[1].config.center.key
+		if target_card_key ~= nil then
+			for i=1, a do
+				SMODS.add_card{
+					key = target_card_key,
+					edition = "e_negative"
+				}
+			end
+		end
 	end,
 })

@@ -50,6 +50,15 @@ return {
                     "{C:purple}+#1#c.{C:inactive}"
                 }
             },
+            c_hpot_power = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Credits{},",
+                    "{C:attention}Create a negative copy of leftmost Joker{}",
+                    "for every {C:purple}#1# Credits{} removed.",
+                    "{C:inactive}(Currently +#2# Copies.)"
+                }
+            },
         },
         hanafuda = {
             c_hpot_pine_1 = {
