@@ -78,7 +78,7 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         art = {'GhostSalt'},
-        code = {'Aikoyori', "Goldenleaf"},
+        code = {"Goldenleaf"},
         idea = {'Team Name (Collectively)'},
         team = {'Team Name'}
     }
