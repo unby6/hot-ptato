@@ -21,6 +21,6 @@ SMODS.Blind {
         art = {"GoldenLeaf"},
         code = {"GoldenLeaf"},
         idea = {"GoldenLeaf"},
-        team = {"Sillyposting"}
+        team = {"Team Name"}
     }
 }
