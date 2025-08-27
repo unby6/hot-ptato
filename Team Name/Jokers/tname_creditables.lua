@@ -1,3 +1,4 @@
+-- these arent really balanced so feel free to rebalance them :)
 SMODS.Joker:take_ownership('j_joker',
     {
     atlas = "teamname_shitfuck",
