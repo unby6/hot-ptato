@@ -1902,7 +1902,14 @@ return {
                     "Disable every",
                     "Non-Stickered Joker"
                 }
-            }
+            },
+            bl_hpot_credential = {
+                name = "The Credential",
+                text = {
+                    "Lose 5 Credits when",
+                    "hand is played"
+                }
+            },
         },
         EventSteps = {
             hpot_test_1 = {
