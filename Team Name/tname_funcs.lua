@@ -332,7 +332,7 @@ function add_tables(tables) -- yet again, there is probably a better way to do t
 end
 
 
-
+-- probably shouldve made this a global function but whatever
 function HPTN.ease_credits(amount, instant)
     amount = amount or 0
   local function _mod(mod)  -- Taken from ease_plincoins()
