@@ -34,7 +34,7 @@ SMODS.Joker {
     loc_vars = function (self, info_queue, card)
         return {
             vars = {
-                getcurrentperson(card.ability.extra.functions.person),
+                getcurrentperson((G.GAME.current_team_name_member or 1)),
                 card.ability.extra.functions.GoldenLeaf[1],
 				card.ability.extra.functions["Jogla"][1],
 				card.ability.extra.functions.Corobo.a,
@@ -91,10 +91,10 @@ SMODS.Joker {
 				Violet = function(self,card,context)end,
 		}
 		if context.end_of_round and context.cardarea == G.jokers then
-			fuck.person = uniquerandom(fuck.person)
+			fuck.person = G.GAME.current_team_name_member
 			card.children.center:set_sprite_pos{x = fuck.person-1, y = 0}
 			return {
-				message =localize("k_changedperson"),
+				message = localize("k_changedperson"),
 				colour = G.C.ATTENTION
 			}
 		end

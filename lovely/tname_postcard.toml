@@ -1,0 +1,23 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+# fuck hooks patches all the way
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+position = 'after'
+pattern = '''function reset_ancient_card()'''
+payload = '''
+local team_name_members = {}
+for k, v in pairs({ 1, 2, 3, 4, 5, 6 }) do
+	if G.GAME.current_team_name_member ~= v then
+		team_name_members[#team_name_members + 1] = v
+	end
+end
+local team_member = pseudorandom_element(team_name_members)
+G.GAME.current_team_name_member = team_member
+G.P_CENTERS.j_hpot_tname_postcard.pos.x = G.GAME.current_team_name_member - 1
+'''
+match_indent = false

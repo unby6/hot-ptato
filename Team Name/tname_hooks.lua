@@ -33,7 +33,7 @@ Game.init_game_object = function(self)
 
 	ret.cost_credits = 150
 	ret.cost_dollars = 30
-	ret.cost_sparks = 125000 
+	ret.cost_sparks = 125000
 	ret.cost_plincoins = 10
 
 	ret.cost_credit_default = 150
@@ -41,7 +41,9 @@ Game.init_game_object = function(self)
 	ret.cost_spark_default = 125000
 	ret.cost_plincoin_default = 10
 
-	ret.sticker_timer = 0
+	--ret.sticker_timer = 0
+
+	ret.current_team_name_member = 1
 
 	return ret
 end
@@ -66,15 +68,19 @@ end
 
 local ref = G.FUNCS.can_buy
 function G.FUNCS.can_buy(e)
-    if e.config.ref_table.config.center.credits then
-	    if (not HPTN.check_if_enough_credits(e.config.ref_table.config.center.credits)) and (e.config.ref_table.config.center.credits) then
-            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-            e.config.button = nil
-        else
-            e.config.colour = G.C.ORANGE
-            e.config.button = 'buy_from_shop'
-        end
-    else
-        return ref(e)
-    end
+	if e.config.ref_table.config.center.credits then
+		if
+			(not HPTN.check_if_enough_credits(e.config.ref_table.config.center.credits))
+			and e.config.ref_table.config.center.credits
+		then
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			e.config.colour = G.C.ORANGE
+			e.config.button = "buy_from_shop"
+		end
+	else
+		return ref(e)
+	end
 end
+
