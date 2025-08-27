@@ -2,7 +2,7 @@
 HPTN = {
     is_shitfuck = true,
 }
-
+-- awesome lua file name
 SMODS.Sound {
   key = "music_tname_off",
   path = "music_tname_off.ogg",
