@@ -30,7 +30,7 @@ SMODS.Joker {
     cost = 0,
 	credits = 300,
     config = {
-        extras = {
+        extra = {
             functions = { 
 				Corobo = {0},
 				GhostSalt = {0},
@@ -45,14 +45,14 @@ SMODS.Joker {
     loc_vars = function (self, info_queue, card)
         return {
             vars = {
-                getcurrentperson(card.ability.extras.functions.person),
-                card.ability.extras.functions.GoldenLeaf[1]
+                getcurrentperson(card.ability.extra.functions.person),
+                card.ability.extra.functions.GoldenLeaf[1]
             }
         }
     end,
     blueprint_compat = true,
     calculate = function(self, card, context)
-		local fuck = card.ability.extras.functions
+		local fuck = card.ability.extra.functions
 		local funcs = {
 				Corobo = function(self,card,context)end, 
 				GhostSalt = function(self,card,context)end, 
