@@ -30,7 +30,7 @@ match_indent = true
 payload = '''
 for k, v in ipairs(HPTN.Modification.obj_buffer) do
 	if self.ability[v] and not HPTN.Modifications[v].hide_badge then
-        badges[1] = v
+        badges[#badges+1] = v
     end
 end'''
 
@@ -77,8 +77,20 @@ position = 'before'
 payload = '''
 for k, v in pairs(HPTN.Modifications) do
   if card.ability[k] then
-    badges[1] = SMODS.create_mod_badges(HPTN.Modifications[k], badges)
+    SMODS.create_mod_badges(HPTN.Modifications[k], badges)
   end
 end
 '''
 match_indent = true
+
+# get_badge_colour()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = 'return G.BADGE_COL[key] or {1, 0, 0, 1}'
+position = 'before'
+match_indent = true
+payload = '''
+for k, v in pairs(HPTN.Modifications) do
+    G.BADGE_COL[k] = v.badge_colour
+end'''

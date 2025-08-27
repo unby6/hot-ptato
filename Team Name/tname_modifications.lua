@@ -1,4 +1,3 @@
-
 SMODS.Atlas({
 	key = "tname_modifs",
 	path = "Team Name/tname_modifs.png",
@@ -9,26 +8,25 @@ SMODS.Atlas({
 --- did i do this right? idk
 
 ---@class HPTN.Modification: SMODS.GameObject
----@field obj_buffer? Modifications|string[] Array of keys to all objects registered to this class. 
----@field obj_table? table<Modifications|string, HPTN.Modifications|table> Table of objects registered to this class. 
----@field super? SMODS.GameObject|table Parent class. 
----@field atlas? string Key to the center's atlas. 
----@field pos? table|{x: integer, y: integer} Position of the center's sprite. 
----@field morality? string use to define if effect is good or bad. 
----@field hide_badge? boolean Sets if the badge shows up on the card. 
----@field badge_colour? table HEX color the badge uses. 
----@field sets? string[] Array of keys to pools that this modification is allowed to be applied on. 
----@field needs_enabled_flag? boolean Sets whether the modification requires `G.GAME.modifiers["enable_"..key]` to be `true` before it can be applied. 
----@field check_duplicate_register? fun(self: HPTN.Modifications|table): boolean? Ensures objects already registered will not register. 
----@field check_duplicate_key? fun(self: HPTN.Modifications|table): boolean? Ensures objects with duplicate keys will not register. Checked on `__call` but not `take_ownership`. For take_ownership, the key must exist. 
----@field register? fun(self: HPTN.Modifications|table) Registers the object. 
----@field inject? fun(self: HPTN.Modifications|table, i?: number) Called during `inject_class`. Injects the object into the game. 
----@field loc_vars? fun(self: HPTN.Modifications|table, info_queue: table, card: Card|table): table? Provides control over displaying descriptions and tooltips of the modification's tooltip. 
----@field calculate? fun(self: HPTN.Modifications|table, card: Card|table, context: CalcContext|table): table?, boolean?  Calculates effects based on parameters in `context`. See [SMODS calculation](https://github.com/Steamodded/smods/wiki/calculate_functions) docs for details. 
----@field apply? fun(self: HPTN.Modifications|table, card: Card|table, val: any) Handles applying and removing the modification. By default, sets `card.ability[self.key] = val`. 
----@field draw? fun(self: HPTN.Modifications|table, card: Card|table, layer: string) Draws the sprite and shader of the modification. 
+---@field obj_buffer? Modifications|string[] Array of keys to all objects registered to this class.
+---@field obj_table? table<Modifications|string, HPTN.Modifications|table> Table of objects registered to this class.
+---@field super? SMODS.GameObject|table Parent class.
+---@field atlas? string Key to the center's atlas.
+---@field pos? table|{x: integer, y: integer} Position of the center's sprite.
+---@field morality? string use to define if effect is good or bad.
+---@field hide_badge? boolean Sets if the badge shows up on the card.
+---@field badge_colour? table HEX color the badge uses.
+---@field sets? string[] Array of keys to pools that this modification is allowed to be applied on.
+---@field needs_enabled_flag? boolean Sets whether the modification requires `G.GAME.modifiers["enable_"..key]` to be `true` before it can be applied.
+---@field check_duplicate_register? fun(self: HPTN.Modifications|table): boolean? Ensures objects already registered will not register.
+---@field check_duplicate_key? fun(self: HPTN.Modifications|table): boolean? Ensures objects with duplicate keys will not register. Checked on `__call` but not `take_ownership`. For take_ownership, the key must exist.
+---@field register? fun(self: HPTN.Modifications|table) Registers the object.
+---@field inject? fun(self: HPTN.Modifications|table, i?: number) Called during `inject_class`. Injects the object into the game.
+---@field loc_vars? fun(self: HPTN.Modifications|table, info_queue: table, card: Card|table): table? Provides control over displaying descriptions and tooltips of the modification's tooltip.
+---@field calculate? fun(self: HPTN.Modifications|table, card: Card|table, context: CalcContext|table): table?, boolean?  Calculates effects based on parameters in `context`. See [SMODS calculation](https://github.com/Steamodded/smods/wiki/calculate_functions) docs for details.
+---@field apply? fun(self: HPTN.Modifications|table, card: Card|table, val: any) Handles applying and removing the modification. By default, sets `card.ability[self.key] = val`.
+---@field draw? fun(self: HPTN.Modifications|table, card: Card|table, layer: string) Draws the sprite and shader of the modification.
 ---@overload fun(self: SHPTN.Modifications): HPTN.Modifications
-
 
 HPTN.Modifications = {}
 HPTN.Modification = SMODS.GameObject:extend({
@@ -76,10 +74,10 @@ HPTN.Modification = SMODS.GameObject:extend({
 				end
 			end
 		end
-        SMODS.calculate_context({
+		SMODS.calculate_context({
 			hpot_mod_apply = true,
 			hpot_mod_applied = self,
-			hpot_mod_applied_to = card
+			hpot_mod_applied_to = card,
 		})
 	end,
 	loc_vars = function(self)
@@ -88,8 +86,7 @@ HPTN.Modification = SMODS.GameObject:extend({
 	pre_inject_class = function(self)
 		G.P_CENTER_POOLS[self.set] = {}
 	end,
-	applied = function(self, card)
-	end
+	applied = function(self, card) end,
 })
 
 SMODS.DrawStep({
@@ -192,8 +189,7 @@ G.FUNCS.your_collection_hpot_modifications = function()
 	})
 end
 
-
--- Modifications 
+-- Modifications
 
 HPTN.Modification({
 	atlas = "tname_modifs",
@@ -203,10 +199,16 @@ HPTN.Modification({
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card then
 			if mult > 0 then
-        		SMODS.calculate_effect({xmult = HPTN.perc(mult, 20)}, card)
+				SMODS.calculate_effect({ xmult = HPTN.perc(mult, 20) }, card)
 			end
 		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
@@ -216,10 +218,16 @@ HPTN.Modification({
 	badge_colour = HEX("4bc292"),
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_card == card then
-           SMODS.calculate_effect({dollars = 2}, card)
-        end
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ dollars = 2 }, card)
+		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
@@ -229,10 +237,16 @@ HPTN.Modification({
 	badge_colour = HEX("4bc292"),
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_card == card and #G.play.cards > 0 then
-           SMODS.calculate_effect({x_mult = 1.1}, card)
-        end
+		if context.post_trigger and context.other_card == card and #G.play.cards > 0 then
+			SMODS.calculate_effect({ x_mult = 1.1 }, card)
+		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
@@ -242,13 +256,19 @@ HPTN.Modification({
 	badge_colour = HEX("4bc292"),
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.end_of_round then
-            if card.set_cost then 
-                card.ability.extra_value = (card.ability.extra_value or 0) + 1
-                card:set_cost()
-            end
-        end
+		if context.end_of_round then
+			if card.set_cost then
+				card.ability.extra_value = (card.ability.extra_value or 0) + 1
+				card:set_cost()
+			end
+		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 --[[HPTN.Modification({  %150 Mult Chip output
@@ -263,7 +283,12 @@ HPTN.Modification({
 				print(k, v)
 			end
 		end
-	end,
+	end,hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })]]
 
 HPTN.Modification({
@@ -273,17 +298,23 @@ HPTN.Modification({
 	badge_colour = G.C.DARK_EDITION,
 	pos = { x = 0, y = 0 },
 	loc_vars = function(self, info_queue, card)
-		return{
-			vars = {(G.GAME.probabilities.normal or 1)}
+		return {
+			vars = { (G.GAME.probabilities.normal or 1) },
 		}
 	end,
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_card == card then
-            if pseudorandom("damaged") < G.GAME.probabilities.normal / 5 then
-                SMODS.destroy_cards(card)
-            end
-        end
+		if context.post_trigger and context.other_card == card then
+			if pseudorandom("damaged") < G.GAME.probabilities.normal / 5 then
+				SMODS.destroy_cards(card)
+			end
+		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 --[[HPTN.Modification({  %60 Mult Chip output
@@ -294,7 +325,12 @@ HPTN.Modification({
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
         --brrr
-	end,
+	end,hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })]]
 
 HPTN.Modification({
@@ -304,39 +340,55 @@ HPTN.Modification({
 	badge_colour = HEX("4bc292"),
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-       	if context.post_trigger and context.other_card == card then
-        	SMODS.calculate_effect({xmult = HPTN.perc(mult, 10)}, card)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ xmult = HPTN.perc(mult, 10) }, card)
 		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	key = "dozing",	
+	key = "dozing",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	pos = { x = 0, y = 0 },
 	loc_vars = function(self, info_queue, card)
-		return{
-			vars = {(G.GAME.probabilities.normal or 1)}
+		return {
+			vars = { (G.GAME.probabilities.normal or 1) },
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.setting_blind and not card.prevent_trigger and pseudorandom("dozing") < G.GAME.probabilities.normal / 3 then
+		if
+			context.setting_blind
+			and not card.prevent_trigger
+			and pseudorandom("dozing") < G.GAME.probabilities.normal / 3
+		then
 			card.prevent_trigger = true
-			SMODS.calculate_effect({message = "Trigger Disabled!"}, card)
+			SMODS.calculate_effect({ message = "Trigger Disabled!" }, card)
 		end
 
 		if context.leaving_shop and card.prevent_trigger then
 			card.prevent_trigger = nil
-			SMODS.calculate_effect({message = "Trigger Enabled!"}, card)
+			SMODS.calculate_effect({ message = "Trigger Enabled!" }, card)
 		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	key = "hyper",	
+	key = "hyper",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	pos = { x = 0, y = 0 },
@@ -352,16 +404,15 @@ HPTN.Modification({
 				end
 			end
 		end
-        SMODS.calculate_context({
+		SMODS.calculate_context({
 			hpot_mod_apply = true,
 			hpot_mod_applied = self,
-			hpot_mod_applied_to = card
+			hpot_mod_applied_to = card,
 		})
 
 		card.ability.hpot_trig = true
 	end,
-	calculate = function(self,card,context)
-
+	calculate = function(self, card, context)
 		local fucking_kys
 
 		fucking_kys = fucking_kys
@@ -369,7 +420,7 @@ HPTN.Modification({
 		if context.starting_shop then
 			if card.ability.hpot_trig then
 				card.prevent_trigger = true
-				SMODS.calculate_effect({message = "Trigger Disabled!"}, card)
+				SMODS.calculate_effect({ message = "Trigger Disabled!" }, card)
 				card.ability.hpot_trig = nil
 			else
 				card.ability.hpot_trig = true
@@ -378,15 +429,21 @@ HPTN.Modification({
 
 		if context.end_of_round and card.prevent_trigger then
 			card.prevent_trigger = nil
-			SMODS.calculate_effect({message = "Trigger Enabled!"}, card)
+			SMODS.calculate_effect({ message = "Trigger Enabled!" }, card)
 		end
 
 		if context.retrigger_joker_check and not context.retrigger_joker and not card.prevent_trigger then
-			return{
-				repetitions = 1
+			return {
+				repetitions = 1,
 			}
 		end
-	end
+	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
@@ -396,10 +453,16 @@ HPTN.Modification({
 	badge_colour = G.C.DARK_EDITION,
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.post_trigger and context.other_card == card and #G.play and G.play.cards > 0 then
-           SMODS.calculate_effect({x_mult = 0.9}, card)
-        end
+		if context.post_trigger and context.other_card == card and #G.play and G.play.cards > 0 then
+			SMODS.calculate_effect({ x_mult = 0.9 }, card)
+		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })
 
 HPTN.Modification({
@@ -409,11 +472,17 @@ HPTN.Modification({
 	badge_colour = G.C.DARK_EDITION,
 	pos = { x = 0, y = 0 },
 	calculate = function(self, card, context)
-        if context.end_of_round then
-            if card.set_cost then 
-                card.ability.extra_value = (card.ability.extra_value or 0) - 1
-                card:set_cost()
-            end
-        end
+		if context.end_of_round then
+			if card.set_cost then
+				card.ability.extra_value = (card.ability.extra_value or 0) - 1
+				card:set_cost()
+			end
+		end
 	end,
+	hotpot_credits = {
+		art = { "Corobo" },
+		idea = { "Corobo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
 })

@@ -2458,7 +2458,7 @@ return {
             modif_hpot_greedy = "Greedy",
             modif_hpot_jumpy = "Jumpy",
             modif_hpot_invested = "Invested",
-            modif_hpot_damaged = "Damadged",
+            modif_hpot_damaged = "Damaged",
             modif_hpot_supported = "Supported",
             modif_hpot_dozing = "Dozing",
             modif_hpot_hyper = "Hyper",
