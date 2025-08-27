@@ -1717,8 +1717,8 @@ return {
             p_hpot_ultra_arcana = {
 		        name = "Ultra Arcana Pack",
 		        text = {
-			        "Choose #1# of up to",
-			        "#2# Tarot cards to",
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:tarot}Tarot{} cards to",
 			        "be used immediately",
 		        },
             },
@@ -1726,8 +1726,8 @@ return {
             p_hpot_ultra_celestial = {
 		        name = "Ultra Celestial Pack",
 		        text = {
-			        "Choose #1# of up to",
-			        "#2# Planet cards to",
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:planet}Planet{} cards to",
 			        "be used immediately",
 		        },
             },
@@ -1735,8 +1735,8 @@ return {
             p_hpot_ultra_standard = {
 		        name = "Ultra Standard Pack",
 		        text = {
-			        "Choose #1# of up to",
-			        "#2# Playing cards to",
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:attention}Playing{} cards to",
 			        "add to your deck",
 		        },
             },
@@ -1744,8 +1744,8 @@ return {
             p_hpot_ultra_spectral = {
 		        name = "Ultra Spectral Pack",
 		        text = {
-			        "Choose #1# of up to",
-			        "#2# Spectral cards to",
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:spectral}Spectral{} cards to",
 			        "be used immediately",
 		        },
             },
@@ -1753,8 +1753,8 @@ return {
             p_hpot_ultra_buffoon = {
 		        name = "Ultra Buffoon Pack",
 		        text = {
-			        "Choose #1# of up to",
-			        "#2# joker cards",
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} joker cards",
 		        },
             },
 
