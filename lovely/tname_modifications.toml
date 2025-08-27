@@ -30,7 +30,7 @@ match_indent = true
 payload = '''
 for k, v in ipairs(HPTN.Modification.obj_buffer) do
 	if self.ability[v] and not HPTN.Modifications[v].hide_badge then
-        badges[#badges+1] = v
+        badges[1] = v
     end
 end'''
 
@@ -54,3 +54,31 @@ if sticker then
     end
     info_queue[#info_queue+1] = t
 end'''
+
+# Add Modifications as a set to be localized here
+[[patches]]
+[patches.pattern]
+target = '''functions/common_events.lua'''
+pattern = '''if _c.set == 'Other' then
+        localize{type = 'other', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}'''
+position = 'after'
+payload = '''
+elseif _c.set == 'Modification' then
+  localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = specific_vars or _c.vars}
+'''
+match_indent = true
+
+# Add Modification badge
+[[patches]]
+[patches.pattern]
+target = '''functions/UI_definitions.lua'''
+pattern = '''if AUT.badges then'''
+position = 'before'
+payload = '''
+for k, v in pairs(HPTN.Modifications) do
+  if card.ability[k] then
+    badges[1] = SMODS.create_mod_badges(HPTN.Modifications[k], badges)
+  end
+end
+'''
+match_indent = true

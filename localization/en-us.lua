@@ -2153,13 +2153,70 @@ return {
                 }
             },
         },
+
         Modification = {
             modif_hpot_ruthless = {
                 name = "Ruthless",
                 text = {
-                    
+                    "{X:mult,C:white}X%20{C:green} Mult if triggered during scoring"
                 }
-            }
+            },
+            modif_hpot_greedy = {
+                name = "Greedy",
+                text = {
+                    "{C:money}+$2{C:green} if triggered"
+                }
+            },
+            modif_hpot_jumpy = {
+                name = "Jumpy",
+                text = {
+                    "{X:mult,C:white}X1.1{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_invested = {
+                name = "Invested",
+                text = {
+                   "{C:money}+$1{C:green} sell value at the end of a round"
+                }
+            },
+            modif_hpot_damaged = {
+                name = "Damaged",
+                text = {
+                   "{C:dark_edition}#1# in 2 Chance to self-destruct when triggered"
+                }
+            },
+            modif_hpot_supported = {
+                name = "Supported",
+                text = {
+                    "{X:mult,C:white}X%10{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_dozing = {
+                name = "Dozing",
+                text = {
+                    "{C:dark_edition}#1# in 3 Chance to not trigger for a round"
+                }
+            },
+            modif_hpot_hyper = {
+                name = "Hyper",
+                text = {
+                    "{C:dark_edition}Never trigger for one round",
+                    "{C:green}Always retrigger the next round",
+                    "{C:inactive}(and repeat)"
+                }
+            },
+            modif_hpot_smudged = {
+                name = "Smudged",
+                text = {
+                    "{X:mult,C:white}X0.9{C:dark_edition} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_depreciating = {
+                name = "Depreciating",
+                text = {
+                   "{C:money}-$1{C:dark_edition} sell value at the end of a round"
+                }
+            },
         },
     },
     misc = {
@@ -2397,7 +2454,17 @@ return {
             hpot_spinning = "Spinning",
             hpot_cfour = "C4",
 
-            modif_hpot_mod_1 = "Mod 1"
+            modif_hpot_ruthless = "Ruthless",
+            modif_hpot_greedy = "Greedy",
+            modif_hpot_jumpy = "Jumpy",
+            modif_hpot_invested = "Invested",
+            modif_hpot_damaged = "Damadged",
+            modif_hpot_supported = "Supported",
+            modif_hpot_dozing = "Dozing",
+            modif_hpot_hyper = "Hyper",
+            modif_hpot_smudged = "Smudged",
+            modif_hpot_depreciating = "Depreciating",
+
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
