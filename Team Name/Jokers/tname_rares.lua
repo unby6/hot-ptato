@@ -55,7 +55,7 @@ SMODS.Joker {
 						})
 					end
 					if context.joker_main then
-						return{xmult = fuck.Corobo[1]}
+						return{xmult = fuck.Corobo.a}
 					end
 				end, 
 				GhostSalt = function(self,card,context)end, 
