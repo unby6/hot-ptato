@@ -1906,8 +1906,8 @@ return {
             bl_hpot_credential = {
                 name = "The Credential",
                 text = {
-                    "Lose 1 Credit",
-                    "for each card played"
+                    "Lose 5 Credits when",
+                    "hand is played"
                 }
             },
         },
