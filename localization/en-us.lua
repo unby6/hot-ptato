@@ -1026,7 +1026,7 @@ return {
                     "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
                 },
                 {"Corobo Ability:",
-                "{X:mult,C:white}X#4#{} Mult, {C:mult}+#3#{} Mult",
+                "{X:mult,C:white}X#4#{} Mult, {X:mult,C:white}+X#5#{} Mult",
                 "per scored card."
                 },
                 {"GhostSalt Ability:"},
@@ -1034,7 +1034,7 @@ return {
                 "{C:purple}+c.#2#{} when hand played"
                 },
                 {"Jogla Ability:",
-                "Creates {C:attention}#2#{C:dark_edition} negative{} copies",
+                "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
                 "of the {C:attention}leftmost{} consumable",
                 "when {C:attention}ending{} shop."
                 },
