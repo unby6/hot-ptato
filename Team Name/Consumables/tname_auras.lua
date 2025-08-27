@@ -206,3 +206,85 @@ SMODS.Consumable({
 		HPTN.ease_credits(math.floor(hpt.credits * g), false)
 	end,
 })
+
+SMODS.Consumable({
+	key = "clairvoyance",
+	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 0,
+		y = 1
+	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "GoldenLeaf" },
+		team = { "Team Name" },
+	},
+	config = {
+		extra = {
+			slots = 2,
+            credits = 30
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		return {
+			vars = { hpt.slots, hpt.credits },
+		}
+	end,
+	can_use = function(self, card)
+		return G.consumeables.config.card_limit - card.ability.extra.slots >= 0
+	end,
+	use = function(self, card, area, copier)
+		local hpt = card.ability.extra
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if G.consumeables then
+                    G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+                end
+				HPTN.ease_credits(hpt.slots * hpt.credits)
+                return true
+            end,
+        }))
+	end,
+})
+
+SMODS.Consumable({
+	key = "tenacity",
+	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 1,
+		y = 1
+	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "GoldenLeaf" },
+		team = { "Team Name" },
+	},
+	config = {
+		extra = {
+			max = 20,
+            credits = 1.1
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		return {
+			vars = { hpt.max, hpt.credits },
+		}
+	end,
+	can_use = function(self, card)
+		return #G.jokers.cards > 0
+	end,
+	use = function(self, card, area, copier)
+        for _, joker in pairs(G.jokers.cards) do
+            joker:start_dissolve(nil, true)
+        end
+		local hpt = card.ability.extra
+		local retval = math.min(hpt.max, 0.1*G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		HPTN.ease_credits(retval, false)
+	end,
+})
