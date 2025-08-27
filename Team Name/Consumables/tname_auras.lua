@@ -17,7 +17,7 @@ SMODS.Consumable({
 		y = 0
 	},
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GoldenLeaf" },
 		idea = { "GoldenLeaf" },
 		code = { "GoldenLeaf" },
 		team = { "Team Name" },
@@ -65,7 +65,7 @@ SMODS.Consumable({
 		y = 0
 	},
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GoldenLeaf" },
 		idea = { "GoldenLeaf" },
 		code = { "GoldenLeaf" },
 		team = { "Team Name" },
@@ -128,7 +128,7 @@ SMODS.Consumable({
 		y = 0
 	},
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GoldenLeaf" },
 		idea = { "GoldenLeaf" },
 		code = { "GoldenLeaf" },
 		team = { "Team Name" },
@@ -168,5 +168,41 @@ SMODS.Consumable({
                 return true
             end,
         }))
+	end,
+})
+
+SMODS.Consumable({
+	key = "greatness",
+	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 3,
+		y = 0
+	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "GoldenLeaf" },
+		team = { "Team Name" },
+	},
+	config = {
+		extra = {
+            credits = 1.5
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		return {
+			vars = { hpt.credits },
+		}
+	end,
+	can_use = function(self, card)
+		return G.GAME.dollars ~= 0
+	end,
+	use = function(self, card, area, copier)
+		local hpt = card.ability.extra
+		local g = G.GAME.dollars
+        ease_dollars(-G.GAME.dollars, true)
+		HPTN.ease_credits(math.floor(hpt.credits * g), false)
 	end,
 })

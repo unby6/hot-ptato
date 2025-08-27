@@ -23,6 +23,13 @@ return {
                     "{C:purple}+c.#2#{} for each hand removed"
                 }
             },
+            c_hpot_greatness = {
+                name = "Aura of Greatness",
+                text = {
+                    "{C:red}Remove {}all dollars,",
+                    "{C:purple}+c.#1#{} for each dollar removed"
+                }
+            },
         },
         hanafuda = {
             c_hpot_pine_1 = {
