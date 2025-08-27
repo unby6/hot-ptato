@@ -44,6 +44,12 @@ return {
                     "{X:purple,C:white}X#2#c.{C:inactive} (Max of #1#)"
                 }
             },
+            c_hpot_lunacy = {
+                name = "Aura of Lunacy",
+                text = {
+                    "{C:purple}+#1#c.{C:inactive}"
+                }
+            },
         },
         hanafuda = {
             c_hpot_pine_1 = {

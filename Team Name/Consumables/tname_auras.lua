@@ -284,7 +284,41 @@ SMODS.Consumable({
             joker:start_dissolve(nil, true)
         end
 		local hpt = card.ability.extra
-		local retval = math.min(hpt.max, 0.1*G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		local retval = math.min(hpt.max, (hpt.credits - 1)*G.PROFILES[G.SETTINGS.profile].TNameCredits)
 		HPTN.ease_credits(retval, false)
+	end,
+})
+
+SMODS.Consumable({
+	key = "lunacy",
+	set = "auras",
+	atlas = "tname_auras",
+	pos = {
+		x = 2,
+		y = 1
+	},
+	hotpot_credits = {
+		art = { "GoldenLeaf" },
+		idea = { "GoldenLeaf" },
+		code = { "GoldenLeaf" },
+		team = { "Team Name" },
+	},
+	config = {
+		extra = {
+            credits = 1
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+		return {
+			vars = { hpt.credits },
+		}
+	end,
+	can_use = function(self, card)
+		return true
+	end,
+	use = function(self, card, area, copier)
+		local hpt = card.ability.extra
+		HPTN.ease_credits(hpt.credits, false)
 	end,
 })
