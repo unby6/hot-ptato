@@ -296,7 +296,7 @@ end
 --- @param starting_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 --- @param ending_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 function convert_currency(amount, starting_currency, ending_currency)
-	local money = amount
+	local money = amount or 0
 
 	-- First, convert everything into plincoin, the least valuable of all of the currencies.
 	local dollar_to_plincoin  = 3
