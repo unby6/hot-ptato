@@ -989,6 +989,22 @@ return {
                     "{C:inactive}\"We are the space apes!\""
                 }
             },
+            j_hpot_tname_postcard = {
+                name = "Postcard",
+                text = {{
+                    "This Joker changes its {C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
+                },
+                {"Corobo Ability:"},
+                {"GhostSalt Abiliy:"},
+                {"GoldenLeaf Ability:",
+                "{C:purple}+c.#2#{} when hand played"
+                },
+                {"Jogla Ability:"},
+                {"Revo Ability:"},
+                {"Violet Ability:"}
+            }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
@@ -2248,6 +2264,7 @@ return {
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
+            k_changedperson = "Changed!",
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
 
