@@ -1759,3 +1759,4 @@ SMODS.Consumable({
 		end
 	end,
 })
+

@@ -828,3 +828,31 @@ end
 function Card:apply_sticker_calc(sticker, card)
     sticker:applied(self, card)
 end
+
+
+-- wheel wheel
+--[[G.FUNCS.show_wheel = function(e)
+  stop_use()
+
+  hide_shop()
+ 
+  G.STATE = G.STATES.WHEEL
+  G.STATE_COMPLETE = false
+
+  
+end]]
+
+G.FUNCS.change_page_jx = function ()
+    if G.GAME.first_page_stuff_and_shit then
+        G.GAME.first_page_stuff_and_shit = nil
+        G.FUNCS.exit_overlay_menu()
+        G.FUNCS.hp_open_full_jx_top_up()
+    else
+        G.GAME.first_page_stuff_and_shit = true
+        G.FUNCS.exit_overlay_menu()
+            G.SETTINGS.paused = true
+            G.FUNCS.overlay_menu {
+                definition = G.UIDEF.hp_jtem_buy_jx("credits")
+            }
+    end
+end

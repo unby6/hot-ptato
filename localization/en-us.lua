@@ -2621,6 +2621,7 @@ return {
             hotpot_plinko_to_shop2 = "shop",
             hotpot_plinko_to_plinko1 = "Let's go",
             hotpot_plinko_to_plinko2 = "gambling!",
+            -- hotpot_shop_to_wheel = "Wheel",
             hotpot_plinko_cost1 = "Cost up after",
             hotpot_plinko_cost2 = " play(s)",
             hotpot_plinko_reset1 = "Cost reset in",
@@ -2794,7 +2795,7 @@ return {
             hpot_nigerian_prince_reply_hp_prince_invest = "I'm in! ({C:blue,f:hpot_plincoin}-͸25,000{})",
             hpot_nigerian_prince_invested_hp_prince_stop = "Stop Investing (End)",
             hpot_nigerian_prince_invested_hp_prince_invest_more =
-            "Let's Go Gambling! ({C:blue,f:hpot_plincoin}-͸25,000{})",
+            "Plinko ({C:blue,f:hpot_plincoin}-͸25,000{})",
             hpot_nigerian_prince_success_hp_prince_leave = "Move On (End)",
             hpot_food_trade_listen = "Listen {C:attention}#1#{}",
             hpot_food_trade_choose = "Feed {C:attention}#1#{}",

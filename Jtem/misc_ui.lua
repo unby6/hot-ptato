@@ -158,7 +158,89 @@ G.UIDEF.hp_jtem_buy_jx = function (mode)
     if (mode == "credits") and G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
         table.insert(nds, hp_jtem_buy_jx_row( "credits" ))
     end
-    local ret = {
+    local ret
+if G.GAME.used_vouchers["v_hpot_exchange_rate"] then
+if G.GAME.first_page_stuff_and_shit then
+     ret = {
+        n = G.UIT.C,
+        config = { colour = G.C.UI.TRANSPARENT_DARK , minw = 6.5, minh = 3.5, r = 0.15, padding = 0.1, align = "tm" },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = {align = "cm", padding = 0.2},
+                nodes = {
+                    { n = G.UIT.O, config = { 
+                        object = 
+                            DynaText({ string = {localize('hotpot_exchange_title')}, font = SMODS.Fonts.hpot_plincoin, float = true, colours = {G.C.BLUE}, shadow = true}) 
+                        }
+                    },
+                }
+            },
+            {
+                n = G.UIT.R,
+                nodes = nds
+            },
+            {
+                n = G.UIT.R,
+                config = {align = "cm", padding = 0.2},
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = { text = localize("hotpot_exchange_note"), scale = 0.4, colour = G.C.GREY }
+                    }
+                }
+            },
+            UIBox_adv_button{
+                    label = {{{"Go to Page 1"}}},
+                    text_scale = 0.7,
+                    button = 'change_page_jx',
+                    colour = G.C.UI.TRANSPARENT_DARK
+            },
+            
+        },
+    }
+else
+    ret = {
+        n = G.UIT.C,
+        config = { colour = G.C.UI.TRANSPARENT_DARK , minw = 6.5, minh = 3.5, r = 0.15, padding = 0.1, align = "tm" },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = {align = "cm", padding = 0.2},
+                nodes = {
+                    { n = G.UIT.O, config = { 
+                        object = 
+                            DynaText({ string = {localize('hotpot_exchange_title')}, font = SMODS.Fonts.hpot_plincoin, float = true, colours = {G.C.BLUE}, shadow = true}) 
+                        }
+                    },
+                }
+            },
+            {
+                n = G.UIT.R,
+                nodes = nds
+            },
+            {
+                n = G.UIT.R,
+                config = {align = "cm", padding = 0.2},
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = { text = localize("hotpot_exchange_note"), scale = 0.4, colour = G.C.GREY }
+                    }
+                }
+            },
+            UIBox_adv_button{
+                    label = {{{"Go to Page 2"}}},
+                    text_scale = 0.7,
+                    button = 'change_page_jx',
+                    colour = G.C.UI.TRANSPARENT_DARK
+            },
+            
+        },
+    }
+end
+else
+       ret = {
         n = G.UIT.C,
         config = { colour = G.C.UI.TRANSPARENT_DARK , minw = 6.5, minh = 3.5, r = 0.15, padding = 0.1, align = "tm" },
         nodes = {
@@ -190,6 +272,7 @@ G.UIDEF.hp_jtem_buy_jx = function (mode)
             
         },
     }
+end
     return create_UIBox_generic_options({ contents = {ret}})
 end
 
@@ -212,7 +295,13 @@ G.FUNCS.hp_can_open_full_jx_top_up = function(e)
 end
 G.FUNCS.hp_open_full_jx_top_up = function(e)
     G.SETTINGS.paused = true
-    G.FUNCS.overlay_menu {
-        definition = G.UIDEF.hp_jtem_buy_jx("both")
-    }
+    if not G.GAME.first_page_stuff_and_shit then
+        G.FUNCS.overlay_menu {
+            definition = G.UIDEF.hp_jtem_buy_jx("both")
+        }
+    else
+        G.FUNCS.overlay_menu {
+            definition = G.UIDEF.hp_jtem_buy_jx("credits")
+        }
+    end
 end 
