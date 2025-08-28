@@ -24,3 +24,60 @@ payload = '''
  end
 '''
 match_indent = true
+
+# unreleated but this patch is ONLY and ONLY for blunder, which is a blunder
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+            card.ability[self.key] = val
+            if val and self.config and next(self.config) then
+                card.ability[self.key] = {}
+                for k, v in pairs(self.config) do
+                    if type(v) == 'table' then
+                        card.ability[self.key][k] = copy_table(v)
+                    else
+                        card.ability[self.key][k] = v
+                    end
+                end
+            end
+        end
+'''
+position = 'before'
+payload = '''
+	if val == false and card.ability[self.key] then
+        card = card
+        if self and self.removed then
+        card:remove_sticker_calc(self, card)
+        end
+        SMODS.calculate_context({sticker_removed = true, other_sticker = self, other_card = card})
+    else
+        card = card
+        if self and self.applied then
+        card:apply_sticker_calc(self, card)
+        end
+        SMODS.calculate_context({sticker_applied = true, other_sticker = self, other_card = card})
+    end
+'''
+match_indent = false
+
+
+# Add mod badge
+# Apparently, this is taken from Papeback
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "badges.mod_set = nil"
+position = "before"
+payload = '''
+for k, v in pairs(SMODS.Stickers) do
+  if card and card.ability and k ~= "hpot_jtem_mood" and card.ability[k] and G.your_collection then
+    for i = 1, #G.your_collection do
+        if card.area == G.your_collection[i] then
+            SMODS.create_mod_badges(SMODS.Stickers[k], badges)
+        end
+    end
+  end
+end
+'''
+match_indent = true

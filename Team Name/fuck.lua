@@ -1,3 +1,5 @@
+-- note for future teams, there is context.sticker_removed and context.sticker_applied if you want to use them. more info on tname_all_sticker.toml
+
 -- Fucking global thing to hold FUCKING EVERYTHING TEAM NAME
 HPTN = {
     is_shitfuck = true,
@@ -38,6 +40,7 @@ SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, 
 SMODS.Atlas{key = "tname_jokers2", path = "Team Name/tname_jokers2.png", px = 71, py = 95} -- 2 joker atlases. Wow. just wow.
 SMODS.Atlas{key = "tname_vouchers", path = "Team Name/TeamNameVouchers.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_boosters", path = "Team Name/tname_boosters.png", px = 71, py = 95}
+SMODS.Atlas{key = "tname_tags", path = "Team Name/tname_tags.png", px = 34, py = 34}
 
 G.FUNCS.can_sell_card = function(e)
     if e.config.ref_table:can_sell_card() then 

@@ -1990,6 +1990,13 @@ return {
                     "{C:attention}with C4{} is destroyed"
                 }
             },
+            hpot_blunder = {
+                name = "Blunder",
+                text = {
+                    "Card {C:red}Cannot{}",
+                    "trigger"
+                }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -2020,7 +2027,7 @@ return {
                 }
             },
             tag_hpot_credits_tag = {
-                name = "Digitalism",
+                name = "Creditable Tag",
                 text = {
                     "Gain {C:blue}+#1#{} Credits",
                     "immediately"
@@ -2038,6 +2045,14 @@ return {
                 text = {
                     "Gives a free",
                     "{C:attention}Mega Aura Pack{}",
+                }
+            },
+            tag_hpot_credit_econ = {
+                name = "Economy Tag?",
+                text = {
+                    "Doubles your",
+                    "{C:purle}Credits{}",
+                    "{C:inactive}(Max of #1#)"
                 }
             },
         },
@@ -2561,7 +2576,12 @@ return {
 
             hpot_credit_text = "Credits:",
 
-            hotpot_disable_animations = "Disable Animations"
+            hotpot_disable_animations = "Disable Animations",
+
+            k_place_card_text = "PLACE JOKER TO REFORGE",
+            k_place_button = "Place",
+            k_return_button = "Return",
+            k_reforge_big = "REFORGE",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -2624,6 +2644,7 @@ return {
             hpot_uranium = "Uranium",
             hpot_spinning = "Spinning",
             hpot_cfour = "C4",
+            hpot_blunder = "Blunder",
 
             modif_hpot_ruthless = "Ruthless",
             modif_hpot_greedy = "Greedy",

@@ -547,3 +547,27 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	}
 })
+
+SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.05,
+	key = "blunder",
+	badge_colour = HEX("ff3636"),
+	applied = function(self, card)
+		card.prevent_trigger = true
+	end,
+	removed = function(self, card)
+		card.prevent_trigger = false
+	end,
+	atlas = "tname_stickers",
+	pos = {
+		x = 0,
+		y = 3,
+	},
+	hotpot_credits = {
+		art = { "Revo" },
+		idea = { "Violet" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
+})
