@@ -510,7 +510,7 @@ SMODS.Sticker({
 		atlas = "tname_stickers",
 	pos = {
 		x = 0,
-		y = 1,
+		y = 2,
 	},
 	hotpot_credits = {
 		art = { "GhostSalt" },

@@ -235,7 +235,7 @@ return {
                     "Apply {C:attention}#1# random sticker{} on selected card"
                 }
             },
-            cc_hpot_susuki_2 = {
+            c_hpot_susuki_2 = {
                 name = "Susuki Ribbon",
                 text = {
                     "Apply {C:attention}#1# random stickers{} on selected card"
@@ -259,14 +259,14 @@ return {
                     "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
                 }
             },
-            cc_hpot_iris_2 = {
+            c_hpot_iris_2 = {
                 name = "Iris Ribbon",
                 text = {
                     "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
                 }
             },
             c_hpot_iris_3 = {
-                name = "Iri Animal",
+                name = "Iris Animal",
                 text = {
                     "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
                 }
@@ -283,7 +283,7 @@ return {
                     "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected card"
                 }
             },
-            cc_hpot_wisteria_2 = {
+            c_hpot_wisteria_2 = {
                 name = "Wisteria Ribbon",
                 text = {
                     "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
@@ -1620,6 +1620,145 @@ return {
                     [3] = 'be used immediately',
                 }
             },
+
+            --tname booster ??!?
+            p_hpot_hanafuda_normal_1 = {
+                name = 'Hanafuda Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:red} Hanafuda{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_hanafuda_normal_2 = {
+                name = 'Hanafuda Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:red} Hanafuda{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_hanafuda_jumbo_1 = {
+                name = 'Jumbo Hanafuda Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:red} Hanafuda{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_hanafuda_mega_1 = {
+                name = 'Mega Hanafuda Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:red} Hanafuda{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_hanafuda_ultra_1 = {
+                name = 'Ultra Hanafuda Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:red} Hanafuda{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_auras_normal_1 = {
+                name = 'Aura Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:grey} Aura{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_auras_normal_2 = {
+                name = 'Aura Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:grey} Aura{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_auras_jumbo_1 = {
+                name = 'Jumbo Aura Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:grey} Aura{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_auras_mega_1 = {
+                name = 'Mega Aura Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:grey} Aura{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_auras_ultra_1 = {
+                name = 'Ultra Aura Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2#{C:grey} Aura{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            -- vanilla ultra packs
+
+            p_hpot_ultra_arcana = {
+		        name = "Ultra Arcana Pack",
+		        text = {
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:tarot}Tarot{} cards to",
+			        "be used immediately",
+		        },
+            },
+
+            p_hpot_ultra_celestial = {
+		        name = "Ultra Celestial Pack",
+		        text = {
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:planet}Planet{} cards to",
+			        "be used immediately",
+		        },
+            },
+
+            p_hpot_ultra_standard = {
+		        name = "Ultra Standard Pack",
+		        text = {
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:attention}Playing{} cards to",
+			        "add to your deck",
+		        },
+            },
+
+            p_hpot_ultra_spectral = {
+		        name = "Ultra Spectral Pack",
+		        text = {
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} {C:spectral}Spectral{} cards to",
+			        "be used immediately",
+		        },
+            },
+
+            p_hpot_ultra_buffoon = {
+		        name = "Ultra Buffoon Pack",
+		        text = {
+			        "Choose {C:attention}#1#{} of up to",
+			        "{C:attention}#2#{} Joker cards",
+		        },
+            },
+
+            --
             hpot_plincoin_seal = {
                 name = "Plincoin Seal",
                 text = {
@@ -2336,6 +2475,8 @@ return {
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
+            k_hpot_auras_packs = "Aura Pack",
+            k_hpot_hanafuda_packs = "Hanafuda Pack",
             b_bottlecap_cards = 'Bottlecaps',
             k_bottlecap = 'Bottlecap',
             b_key_cards = "Keys",

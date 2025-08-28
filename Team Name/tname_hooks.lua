@@ -45,6 +45,8 @@ Game.init_game_object = function(self)
 
 	ret.current_team_name_member = 1
 
+	ret.creditable_rate = 0.06
+
 	return ret
 end
 
@@ -84,3 +86,18 @@ function G.FUNCS.can_buy(e)
 	end
 end
 
+local can_open_old = G.FUNCS.can_open
+function G.FUNCS.can_open(e)
+	local card = e.config.ref_table.config.center
+	if card.credits then
+		if (not HPTN.check_if_enough_credits(card.credits)) and card.credits then
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			e.config.colour = G.C.GREEN
+			e.config.button = "use_card"
+		end
+	else
+		return can_open_old(e)
+	end
+end
