@@ -26,7 +26,7 @@ SMODS.Joker {
 				GoldenLeaf = {20},
 				Jogla = {2}, 
 				Revo = {rep = 2}, 
-				Violet = {0}, 
+				Violet = {1}, 
 				person = 1
             }
         },
@@ -39,7 +39,8 @@ SMODS.Joker {
 				card.ability.extra.functions["Jogla"][1],
 				card.ability.extra.functions.Corobo.a,
 				card.ability.extra.functions.Corobo.b,
-				card.ability.extra.functions.Revo.rep
+				card.ability.extra.functions.Revo.rep,
+				card.ability.extra.functions.Violet[1]
             }
         }
     end,
@@ -88,7 +89,38 @@ SMODS.Joker {
 						}
 					end
 				end,
-				Violet = function(self,card,context)end,
+				Violet = function(self,card,context)
+					if context.before then
+						local CArda, CArdb
+						local cardLock = false
+						for k, v in ipairs(G.play.cards) do
+							if v:is_suit("Hearts") then
+								if not cardLock then
+									CArda = v
+									cardLock = true
+								end
+							end
+							if v:is_suit("Spades") then
+								CArdb = v
+							end
+						end
+						if CArda and CArda ~= nil then
+							CArda:flip()
+							local a = SMODS.change_base(CArda, "Spades")
+							CArda:flip()
+						end
+						if CArdb and CArdb ~= nil then
+							CArdb:flip()
+							local a = SMODS.change_base(CArdb, "Hearts")
+							CArdb:flip()
+						end
+					end
+					if context.individual then
+						if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Spades") then
+							return {dollars = card.ability.extra.functions.Violet}
+						end
+					end
+				end,
 		}
 		if context.end_of_round and context.cardarea == G.jokers then
 			fuck.person = G.GAME.current_team_name_member

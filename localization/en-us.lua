@@ -1057,7 +1057,11 @@ return {
                 "Each Played {C:spades}Spades{} suit is",
                 "retriggered {C:attention}#6#{} times."
                 },
-                {"Violet Ability:"}
+                {"Violet Ability:",
+                "The first played {C:hearts}Heart{} suit card turns into a {C:spades}Spade{}.",
+                "The last played {C:spades}Spade{} suit card turns into a {C:hearts}Heart{}.",
+                "Gain {C:money}$#7#{} every time a {C:spades}Spade{} or {C:hearts}Heart{} card is scored."
+                }
             }
             },
         },
