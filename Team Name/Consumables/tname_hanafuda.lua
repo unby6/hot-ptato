@@ -39,6 +39,8 @@ end
 -- PINE
 SMODS.Consumable({
 	key = "pine_1",
+	atlas = "tname_hanafuda",
+	pos = { x = 0, y = 0 },
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -54,7 +56,8 @@ SMODS.Consumable({
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
-		info_queue[#info_queue + 1] = { key = "hpot_fragile", set = "Other", vars = {SMODS.Stickers["hpot_fragile"].config.xmult} }
+		info_queue[#info_queue + 1] =
+			{ key = "hpot_fragile", set = "Other", vars = { SMODS.Stickers["hpot_fragile"].config.xmult } }
 		return {
 			vars = { hpt.high },
 		}
@@ -79,6 +82,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "pine_2",
+	atlas = "tname_hanafuda",
+	pos = { x = 0, y = 1 },
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -93,7 +98,8 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-	info_queue[#info_queue + 1] = { key = "hpot_fragile", set = "Other", vars = {SMODS.Stickers["hpot_fragile"].config.xmult} }
+		info_queue[#info_queue + 1] =
+			{ key = "hpot_fragile", set = "Other", vars = { SMODS.Stickers["hpot_fragile"].config.xmult } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -119,6 +125,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "pine_3",
+	atlas = "tname_hanafuda",
+	pos = { x = 0, y = 2 },
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -133,7 +141,8 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "hpot_uranium", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
+		info_queue[#info_queue + 1] =
+			{ key = "hpot_uranium", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -159,6 +168,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "pine_4",
+	atlas = "tname_hanafuda",
+	pos = { x = 0, y = 3 },
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -173,7 +184,8 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "hpot_uranium", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
+		info_queue[#info_queue + 1] =
+			{ key = "hpot_uranium", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -377,7 +389,8 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "hpot_sporess", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
+		info_queue[#info_queue + 1] =
+			{ key = "hpot_sporess", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -417,7 +430,8 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "hpot_spores", set = "Other", vars = {(G.GAME.probabilities.normal or 1)} }
+		info_queue[#info_queue + 1] =
+			{ key = "hpot_spores", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -539,7 +553,11 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "hpot_overclock", set = "Other", vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) } }
+		info_queue[#info_queue + 1] = {
+			key = "hpot_overclock",
+			set = "Other",
+			vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) },
+		}
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -579,7 +597,11 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "hpot_overclock", set = "Other", vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) } }
+		info_queue[#info_queue + 1] = {
+			key = "hpot_overclock",
+			set = "Other",
+			vars = { G.GAME.overclock_timer, (card.ability.over_tally or G.GAME.overclock_timer) },
+		}
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
