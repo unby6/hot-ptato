@@ -43,13 +43,19 @@ SMODS.Joker {
 				card.ability.extra.functions.Revo.rep,
 				card.ability.extra.functions.Violet[1]
             }
-			ret = card.children.center:set_sprite_pos{x = G.GAME.current_team_name_member-1, y = 0}
-		return{key = key, vars = vars, ret}
+		return{key = key, vars = vars}
     end,
 
     blueprint_compat = true,
     calculate = function(self, card, context)
 		local fuck = card.ability.extra.functions
+		if context.end_of_round then
+			card.children.center:set_sprite_pos{x = G.GAME.current_team_name_member-1, y = 0}
+			return {
+				message = localize("k_changedperson"),
+				colour = G.C.ATTENTION
+			}
+		end
 		local funcs = {
 				Corobo = function(self,card,context)
 					if context.individual and context.cardarea == G.play then
@@ -127,13 +133,6 @@ SMODS.Joker {
 					end
 				end,
 		}
-
-		if context.end_of_round and context.cardarea == G.jokers and context.main_eval then
-			return {
-				message = localize("k_changedperson"),
-				colour = G.C.ATTENTION
-			}
-		end
 		return funcs[getcurrentperson(G.GAME.current_team_name_member)](self, card, context)
 
     end,
