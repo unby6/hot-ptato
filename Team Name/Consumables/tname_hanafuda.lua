@@ -1035,6 +1035,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
+			reforge_card(random_joker, true)
 		end
 	end,
 })
@@ -1067,6 +1068,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
+			reforge_card(random_joker, true)
 		end
 	end,
 })
@@ -1099,6 +1101,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
+			reforge_card(random_joker, true)
 		end
 	end,
 })
@@ -1131,6 +1134,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
+			reforge_card(random_joker, true)
 		end
 	end,
 })

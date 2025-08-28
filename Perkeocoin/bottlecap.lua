@@ -1551,8 +1551,8 @@ SMODS.Consumable { --Sticker Bomb (change this to use poll_sticker() )
     name = 'Sticker Bomb',
     key = 'cap_sticker_bomb',
     set = 'bottlecap',
-    atlas = 'capatlas',
-    pos = { x = 1, y = 1 },
+    atlas = 'tname_caps',
+    pos = { x = 0, y = 0 },
     config = {
         extra = {
             ['Bad'] = 'Nothing!!! #MyNothing',
@@ -1634,8 +1634,8 @@ SMODS.Consumable { --Modificatio
     name = 'Cap Modification',
     key = 'cap_modif',
     set = 'bottlecap',
-    atlas = 'capatlas',
-    pos = { x = 1, y = 1 },
+    atlas = 'tname_caps',
+    pos = { x = 2, y = 0 },
     config = {
         extra = {
             ['Bad'] = 'GOOD',
@@ -1687,6 +1687,7 @@ SMODS.Consumable { --Modificatio
         if can_use then
             local random_joker = pseudorandom_element(G.jokers.cards)
             poll_modification(1, random_joker, nil, { [card.ability.extra.chosen] = 0 })
+            reforge_card(random_joker, true)
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             attention_text({
@@ -1712,8 +1713,8 @@ SMODS.Consumable { --Credit
     name = 'Credits',
     key = 'cap_credits',
     set = 'bottlecap',
-    atlas = 'capatlas',
-    pos = { x = 3, y = 0 },
+    atlas = 'tname_caps',
+    pos = { x = 1, y = 0 },
     config = {
         extra = {
             ['Common'] = 5,
@@ -1766,10 +1767,10 @@ SMODS.Consumable { --Credit
 
 SMODS.Consumable { -- Team Name Consumable
     name = 'Team Name Consumable',
-    key = 'cap_tname_consumable',
+    key = 'cap_tname_consumables',
     set = 'bottlecap',
-    atlas = 'capatlas',
-    pos = { x = 3, y = 1 },
+    atlas = 'tname_caps',
+    pos = { x = 3, y = 0 },
     config = {
         extra = {
             ['Common'] = 'hanafuda',
@@ -1799,10 +1800,6 @@ SMODS.Consumable { -- Team Name Consumable
         local color = G.C.BLUE
         if card.ability.extra.chosen == 'Uncommon' then
             color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
         end
  		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
  	end,

@@ -498,6 +498,32 @@ return {
                     [2] = "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)"
                 }
             },
+            c_hpot_cap_modif = {
+                name = 'Modification',
+                text = {
+                    "A random joker gains",
+                    "a random {C:dark_edititon} #1# {C:attention}Modification{}"
+                }
+            },
+            c_hpot_cap_sticker_bomb = {
+                name = 'Sticker Overload',
+                text = {
+                    "Apply a {C:dark_edition}Random Sticker",
+                    "to all jokers"
+                }
+            },
+            c_hpot_cap_credits = {
+                name = 'Credits',
+                text = {
+                    "{C:purple}+#1#{} Credits"
+                }
+            },
+            c_hpot_tname_consumables = {
+                name = 'Team Name Consumables',
+                text = {
+                    "Create a {C:attention}#1#{} Card"
+                }
+            },
         },
         imaginary = {
             c_hpot_imag_stars = {
@@ -1828,6 +1854,17 @@ return {
                     "when scored",
                 },
             },
+
+            --tname insert hehe
+            hpot_hanafuda_seal = {
+                name = "Dark Pink Seal",
+                text = {
+                    "Gives a random",
+                    "{C:red}Hanafuda{} Card",
+                    "when scored",
+                },
+            },
+            --
             highlight_mod_warning = {
                 name = "Notice",
                 text = {

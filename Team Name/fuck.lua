@@ -41,6 +41,8 @@ SMODS.Atlas{key = "tname_vouchers", path = "Team Name/TeamNameVouchers.png", px 
 SMODS.Atlas{key = "tname_boosters", path = "Team Name/tname_boosters.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_tags", path = "Team Name/tname_tags.png", px = 34, py = 34}
 SMODS.Atlas{key = "tname_hanafuda", path = "Team Name/TeamNameHanafuda.png", px = 71, py = 95}
+SMODS.Atlas{key = "tname_seals", path = "Team Name/tname_seals.png", px = 71, py = 95}
+SMODS.Atlas{key = "tname_caps", path = "Team Name/tname_caps.png", px = 34, py = 34}
 
 G.FUNCS.can_sell_card = function(e)
     if e.config.ref_table:can_sell_card() then 

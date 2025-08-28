@@ -158,7 +158,7 @@ end
 --- Reforges a card, replacing its current modification (if it has one) with its new one.
 ---
 --- @param card table|nil The card to consider for reforging.
-function reforge_card(card)
+function reforge_card(card, free)
 	if not card then return nil end
 
 	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["v_hpot_masters"] -- Reforging can never result in a bad modifier
@@ -177,7 +177,9 @@ function reforge_card(card)
 	if new_modification then
         card:juice_up()
 		HPTN.Modifications[new_modification.key]:apply(card,true)
-		card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
+        if not free then
+		    card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
+        end
 	end
 end
 
