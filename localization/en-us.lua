@@ -1879,7 +1879,22 @@ return {
             tag_hpot_credits_tag = {
                 name = "Digitalism",
                 text = {
-                    "Gain {C:blue}+#1#{} Credits immediately"
+                    "Gain {C:blue}+#1#{} Credits",
+                    "immediately"
+                }
+            },
+            tag_hpot_mega_hanafuda = {
+                name = "Hanafuda Tag",
+                text = {
+                    "Gives a free",
+                    "{C:attention}Mega Hanafuda Pack{}",
+                }
+            },
+            tag_hpot_mega_auras = {
+                name = "Aura Tag",
+                text = {
+                    "Gives a free",
+                    "{C:attention}Mega Aura Pack{}",
                 }
             },
         },
