@@ -480,7 +480,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 		{n = G.UIT.R, config = {align = "cm", minw = 2, minh = 3}, nodes = {
 
 			{n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
-				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = "REFORGE", colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
+				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = localize("k_reforge_big"), colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
 				{n = G.UIT.R, config = {minh = 0.2}},
 				UIBox_adv_button{
                     label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits"}}},
@@ -516,7 +516,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 
 			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
                 {n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "cm", padding = 0.1}, nodes = {
-                    {n = G.UIT.R, config = {align = "tm"}, nodes = {{n = G.UIT.T, config = {text = "PLACE CARD TO REFORGE", colour = G.C.GREY, scale = 0.4, align = "tm"}}}},
+                    {n = G.UIT.R, config = {align = "tm"}, nodes = {{n = G.UIT.T, config = {text = localize("k_place_card_text"), colour = G.C.GREY, scale = 0.4, align = "tm"}}}},
                     {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.reforge_area, align = "cm"}}}},
 				}},
 			}},
@@ -524,7 +524,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
         {n = G.UIT.R, config = {minh = 0.2}},
         {n = G.UIT.R, config = {align = "cm"}, nodes = {
             UIBox_adv_button{
-                label = {{{"Place"}}},
+                label = {{{localize("k_place_button")}}},
                 text_scale = 0.5,
                 w = 3, h = 1,
                 button = 'reforge_place',
@@ -534,7 +534,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
             },
             {n = G.UIT.C, config = {align = "cm", padding = 0.1}},
             UIBox_adv_button{
-                label = {{{"Return"}}},
+                label = {{{localize("k_return_button")}}},
                 text_scale = 0.5,
                 w = 3, h = 1,
                 button = 'reforge_return',
@@ -817,4 +817,12 @@ end
 function HPTN.perc(mod, perc)
 	local per = (mod / 100)* perc
 	return per
+end
+
+function Card:remove_sticker_calc(sticker, card)
+    sticker:removed(self, card)
+end
+
+function Card:apply_sticker_calc(sticker, card)
+    sticker:applied(self, card)
 end
