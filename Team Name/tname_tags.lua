@@ -39,8 +39,8 @@ SMODS.Tag{
         return true
     end,
     hotpot_credits = {
-        art = {'No Art'},
-        idea = {'Revo'},
+        art = {'GoldenLeaf'},
+        idea = {'GoldenLeaf'},
         code = {'Jogla'},
         team = {'Team Name'}
     },
@@ -64,8 +64,8 @@ SMODS.Tag{
         return true
     end,
     hotpot_credits = {
-        art = {'No Art'},
-        idea = {'Revo'},
+        art = {'GoldenLeaf'},
+        idea = {'GoldenLeaf'},
         code = {'Jogla'},
         team = {'Team Name'}
     },
