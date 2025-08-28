@@ -1545,3 +1545,306 @@ SMODS.Consumable { --Duplicate
         end
     end
 }
+
+
+SMODS.Consumable { --Sticker Bomb (change this to use poll_sticker() )
+    name = 'Sticker Bomb',
+    key = 'cap_sticker_bomb',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 1, y = 1 },
+    config = {
+        extra = {
+            ['Bad'] = 'Nothing!!! #MyNothing',
+            chosen = 'Bad'
+        }
+    },
+    hotpot_credits = {
+        art = {'NA'},
+        code = {'Revo'},
+        team = {'Team Name'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {}}
+    end,
+
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.BLACK, G.C.WHITE, 1 )
+ 	end,
+
+    can_use = function(self, card)
+        if G.jokers and #G.jokers.cards > 0 then
+            for k, v in ipairs(G.jokers.cards) do
+                if not (v.ability.rental) or (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) or (not v.ability.eternal and not v.ability.perishable and v.config.center.eternal_compat) then
+                    return true
+                end
+            end
+        end
+        return false
+    end,
+
+    use = function(self, card, area, copier)
+        local can_use = false
+        if G.jokers and #G.jokers.cards > 0 then
+            can_use = true
+        end
+        if can_use then
+            local choices = {}
+            for k, v in pairs(SMODS.Stickers) do
+                if k ~= "hpot_jtem_mood" then
+                    choices[#choices+1] = k
+                end
+            end
+
+            for i = 1, #G.jokers.cards do
+                local stickertype = pseudorandom_element(choices, pseudoseed('stickercap'))
+                SMODS.Stickers[stickertype]:apply(G.jokers.cards[i],true)
+            end
+            
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Modificatio
+    name = 'Cap Modification',
+    key = 'cap_modif',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 1, y = 1 },
+    config = {
+        extra = {
+            ['Bad'] = 'GOOD',
+            ['Common'] = "BAD",
+            chosen = 'Common'
+        }
+    },
+    hotpot_credits = {
+        art = {'NA'},
+        code = {'Revo'},
+        team = {'Team Name'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen]}}
+    end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
+    can_use = function(self, card)
+        if G.jokers and #G.jokers.cards > 0 then
+            for k, v in ipairs(G.jokers.cards) do
+                return true
+            end
+        end
+        return false
+    end,
+
+    use = function(self, card, area, copier)
+        local can_use = false
+        if G.jokers and #G.jokers.cards > 0 then
+            can_use = true
+        end
+        if can_use then
+            local random_joker = pseudorandom_element(G.jokers.cards)
+            poll_modification(1, random_joker, nil, { [card.ability.extra.chosen] = 0 })
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
+
+SMODS.Consumable { --Credit
+    name = 'Credits',
+    key = 'cap_credits',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 3, y = 0 },
+    config = {
+        extra = {
+            ['Common'] = 5,
+            ['Uncommon'] = 10,
+            ['Rare'] = 15,
+            ['Bad'] = -10,
+            chosen = 'Common'
+        }
+    },
+    hotpot_credits = {
+        art = {'NA'},
+        code = {'Revo'},
+        team = {'Team Name'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Bad'] = true
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen]}}
+    end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
+    can_use = function(self, card)
+        return true
+    end,
+
+    use = function(self, card, area, copier)
+        HPTN.ease_credits(card.ability.extra[card.ability.extra.chosen])
+    end
+}
+
+SMODS.Consumable { -- Team Name Consumable
+    name = 'Team Name Consumable',
+    key = 'cap_tname_consumable',
+    set = 'bottlecap',
+    atlas = 'capatlas',
+    pos = { x = 3, y = 1 },
+    config = {
+        extra = {
+            ['Common'] = 'hanafuda',
+            ['Uncommon'] = 'auras',
+            chosen = 'Common'
+        }
+    },
+        hotpot_credits = {
+        art = {'NA'},
+        code = {'Revo'},
+        team = {'Team Name'}
+    },
+    display_size = { h = 34, w = 34},
+    unlocked = true,
+    discovered = true,
+    cost = 3,
+    pools = {
+        ['bottlecap'] = true,
+        ['bottlecap_Common'] = true,
+        ['bottlecap_Uncommon'] = true,
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
+    end,
+
+    set_badges = function(self, card, badges)
+        local color = G.C.BLUE
+        if card.ability.extra.chosen == 'Uncommon' then
+            color = G.C.GREEN
+        elseif card.ability.extra.chosen == 'Rare' then
+            color = G.C.RED
+        elseif card.ability.extra.chosen == 'Bad' then
+            color = G.C.BLACK
+        end
+ 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
+ 	end,
+
+    can_use = function(self, card)
+        return (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or (card.area == G.consumeables)
+    end,
+
+    use = function(self, card, area, copier)
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            for i=1, G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer) do
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                func = (function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function() 
+                            local _card = SMODS.create_card{set = card.ability.extra[card.ability.extra.chosen],area = G.consumeables, key_append = 'consumablecap'}
+                            _card:add_to_deck()
+                            G.consumeables:emplace(_card)
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end}))                         
+                    return true
+                end)}))
+            end
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            attention_text({
+                text = localize('k_nope_ex'),
+                scale = 1.3, 
+                hold = 1.4,
+                major = card,
+                backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                silent = true
+                })
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end
+}
