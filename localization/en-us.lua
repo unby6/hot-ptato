@@ -518,7 +518,7 @@ return {
                     "{C:purple}+#1#{} Credits"
                 }
             },
-            c_hpot_tname_consumables = {
+            c_hpot_cap_tname_consumables = {
                 name = 'Team Name Consumables',
                 text = {
                     "Create a {C:attention}#1#{} Card"
