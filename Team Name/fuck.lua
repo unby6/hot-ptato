@@ -23,6 +23,14 @@ SMODS.Sound {
   end
 }
 
+SMODS.Sound {
+  key = "music_amen",
+  path = "music_amen.ogg",
+  pitch = 1,
+  select_music_track = function (self)
+  end
+}
+
 SMODS.ObjectType({
   key = "CreditablePool"
 })
