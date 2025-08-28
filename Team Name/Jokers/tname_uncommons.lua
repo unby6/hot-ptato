@@ -152,3 +152,52 @@ SMODS.Joker({
     }
 })
 
+SMODS.Joker({
+	key = "sticker_dealer",
+	rarity = 2,
+	config = {
+		extra = {
+			xmult = 1,
+			xmultg = 0.1
+		},
+	},
+	atlas = "tname_jokers",
+	pos = {
+		x = 0,
+		y = 0
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+			return {
+				vars = { hpt.xmult, hpt.xmultg},
+			}
+	end,
+	calculate = function(self, card, context)
+		local hpt = card.ability.extra
+		if context.setting_blind then
+			local rr = nil
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					rr = i
+				end
+			end
+
+			local _card =  pseudorandom_element({1,-1},pseudoseed("sticker_dealer"))
+			local k = pseudorandom_element(SMODS.Stickers,pseudoseed("sticker_dealer"))
+			if G.jokers.cards[rr + (_card)] then
+				SMODS.Stickers[k.key]:apply(G.jokers.cards[rr + (_card)], true)
+
+				hpt.xmult = hpt.xmult + hpt.xmultg
+				return{
+					message = localize("k_upgrade_ex")
+				}
+			end
+		end
+	end,
+    hotpot_credits = {
+        art = {"NA"},
+        idea = {"Revo"},
+        code = {"Revo"},
+        team = {"Team Name"}
+    }
+})

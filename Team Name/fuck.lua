@@ -1,4 +1,3 @@
--- note for future teams, there is context.sticker_removed and context.sticker_applied if you want to use them. more info on tname_all_sticker.toml
 
 -- Fucking global thing to hold FUCKING EVERYTHING TEAM NAME
 HPTN = {

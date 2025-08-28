@@ -968,6 +968,23 @@ return {
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
+            j_hpot_sticker_dealer = {
+                name = "Sticker Addict",
+                text = {
+                    {
+                    "When a {C:attention}Blind{}",
+                    "is selected, randomly",
+                    "apply a {C:dark_edition}Random Sticker{}",
+                    "to the card on the right",
+                    "or on the left.",
+                    },
+                    {
+                    "Gains {X:mult,C:white}X#2#{} Mult",
+                    "per sticker applied.",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+                    },
+                }
+            },
             j_hpot_power_plant = {
                 name = "Power Plant",
                 text = {
@@ -1033,7 +1050,7 @@ return {
                     ""
                 }
             },
-            j_hpot_tname_postcard = {
+                        j_hpot_tname_postcard_1 = {
                 name = "Postcard",
                 text = {{
                     "This Joker changes its",
@@ -1044,25 +1061,65 @@ return {
                 "{X:mult,C:white}X#4#{} Mult, {X:mult,C:white}+X#5#{} Mult",
                 "per scored card."
                 },
-                {"GhostSalt Ability:"},
-                {"GoldenLeaf Ability:",
-                "{C:purple}+c.#2#{} when hand played"
+                }
+            },
+            j_hpot_tname_postcard_2 = {
+                name = "Postcard",
+                text = {
+                    {"This Joker changes its",
+                    "{C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
+                    {"GhostSalt Ability:"},
                 },
-                {"Jogla Ability:",
-                "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
-                "of the {C:attention}leftmost{} consumable",
-                "when {C:attention}ending{} shop."
+            },
+            j_hpot_tname_postcard_3 = {
+                name = "Postcard",
+                text = {
+                    {"This Joker changes its",
+                    "{C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
+                    {"GoldenLeaf Ability:",
+                    "{C:purple}+c.#2#{} when hand played"
+                    },
                 },
-                {"Revo Ability:",
-                "Each Played {C:spades}Spades{} suit is",
-                "retriggered {C:attention}#6#{} times."
+            },
+            j_hpot_tname_postcard_4 = {
+                name = "Postcard",
+                text = {
+                    {"This Joker changes its",
+                    "{C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
+                    {"Jogla Ability:",
+                    "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
+                    "of the {C:attention}leftmost{} consumable",
+                    "when {C:attention}ending{} shop."
+                    },
                 },
-                {"Violet Ability:",
+            },
+            j_hpot_tname_postcard_5 = {
+                name = "Postcard",
+                text = {
+                    {"This Joker changes its",
+                    "{C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
+                    {"Revo Ability:",
+                        "Each Played {C:spades}Spades{} suit is",
+                        "retriggered {C:attention}#6#{} times."
+                    },
+                },
+            },
+            j_hpot_tname_postcard_6 = {
+                name = "Postcard",
+                text = {
+                    {"This Joker changes its",
+                    "{C:attention}recipient{} every round...",
+                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
+                    {"Violet Ability:",
                 "The first played {C:hearts}Heart{} suit card turns into a {C:spades}Spade{}.",
                 "The last played {C:spades}Spade{} suit card turns into a {C:hearts}Heart{}.",
                 "Gain {C:money}$#7#{} every time a {C:spades}Spade{} or {C:hearts}Heart{} card is scored."
                 }
-            }
+                },
             },
         },
         Sleeve = {

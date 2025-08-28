@@ -31,10 +31,11 @@ SMODS.Joker {
             }
         },
     },
-    loc_vars = function (self, info_queue, card)
-        return {
-            vars = {
-                getcurrentperson((G.GAME.current_team_name_member or 1)),
+	loc_vars = function(self, info_queue, card)
+        local key, vars, ret
+            key = (self.key .. "_" .. G.GAME.current_team_name_member)
+            vars = { 
+				getcurrentperson((G.GAME.current_team_name_member or 1)),
                 card.ability.extra.functions.GoldenLeaf[1],
 				card.ability.extra.functions["Jogla"][1],
 				card.ability.extra.functions.Corobo.a,
@@ -42,8 +43,10 @@ SMODS.Joker {
 				card.ability.extra.functions.Revo.rep,
 				card.ability.extra.functions.Violet[1]
             }
-        }
+			ret = card.children.center:set_sprite_pos{x = G.GAME.current_team_name_member-1, y = 0}
+		return{key = key, vars = vars, ret}
     end,
+
     blueprint_compat = true,
     calculate = function(self, card, context)
 		local fuck = card.ability.extra.functions
@@ -90,7 +93,7 @@ SMODS.Joker {
 					end
 				end,
 				Violet = function(self,card,context)
-					if context.before then
+					if context.initial_scoring_step then
 						local CArda, CArdb
 						local cardLock = false
 						for k, v in ipairs(G.play.cards) do
@@ -117,20 +120,22 @@ SMODS.Joker {
 					end
 					if context.individual then
 						if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Spades") then
-							return {dollars = card.ability.extra.functions.Violet}
+							return {
+								dollars = card.ability.extra.functions.Violet
+							}
 						end
 					end
 				end,
 		}
-		if context.end_of_round and context.cardarea == G.jokers then
-			fuck.person = G.GAME.current_team_name_member
-			card.children.center:set_sprite_pos{x = fuck.person-1, y = 0}
+
+		if context.end_of_round and context.cardarea == G.jokers and context.main_eval then
 			return {
 				message = localize("k_changedperson"),
 				colour = G.C.ATTENTION
 			}
 		end
-		return funcs[getcurrentperson(fuck.person)](self, card, context)
+		return funcs[getcurrentperson(G.GAME.current_team_name_member)](self, card, context)
+
     end,
     hotpot_credits = {
         art = {'GhostSalt'},
