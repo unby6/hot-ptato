@@ -162,7 +162,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                     nodes = {
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1.2, shadow = true, button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true },
+                            config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
@@ -195,7 +195,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                         },
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true },
+                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
@@ -219,7 +219,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                         },
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hp_jtem_exchange_p2j', func = "hp_jtem_can_exchange_p2j", hover = true },
+                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_p2j', func = "hp_jtem_can_exchange_p2j", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
@@ -243,7 +243,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                         },
                                                 {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
+                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
                             nodes = {
                                 {
                                     n = G.UIT.R,
