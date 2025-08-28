@@ -2023,7 +2023,7 @@ return {
                 }
             },
             tag_hpot_credits_tag = {
-                name = "Digitalism",
+                name = "Creditable Tag",
                 text = {
                     "Gain {C:blue}+#1#{} Credits",
                     "immediately"
@@ -2041,6 +2041,14 @@ return {
                 text = {
                     "Gives a free",
                     "{C:attention}Mega Aura Pack{}",
+                }
+            },
+            tag_hpot_credit_econ = {
+                name = "Economy Tag?",
+                text = {
+                    "Doubles your",
+                    "{C:purle}Credits{}",
+                    "{C:inactive}(Max of #1#)"
                 }
             },
         },
