@@ -47,11 +47,15 @@ position = 'before'
 payload = '''
 	if val == false and card.ability[self.key] then
         card = card
+        if self and self.removed then
         card:remove_sticker_calc(self, card)
+        end
         SMODS.calculate_context({sticker_removed = true, other_sticker = self, other_card = card})
     else
         card = card
+        if self and self.applied then
         card:apply_sticker_calc(self, card)
+        end
         SMODS.calculate_context({sticker_applied = true, other_sticker = self, other_card = card})
     end
 '''
