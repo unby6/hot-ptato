@@ -9,6 +9,9 @@ SMODS.Joker:take_ownership('j_joker',
     loc_vars = function (self, info_queue, card)
         return { vars = {} }
     end,
+    pools = {
+        CreditablePool = true
+    },
     config = {},
     calculate = function (self, card, context)
         local ck = math.random(56, 98)
@@ -54,6 +57,9 @@ SMODS.Joker({
 			slots = 3
 		},
 	},
+        pools = {
+        CreditablePool = true
+    },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.slots } }
 	end,
@@ -100,6 +106,9 @@ SMODS.Joker({
 			slots = 2
 		},
 	},
+        pools = {
+        CreditablePool = true
+    },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.slots } }
 	end,
@@ -139,6 +148,9 @@ SMODS.Joker({
 		x = 2,
 		y = 1
 	},
+        pools = {
+        CreditablePool = true
+    },
 	add_to_deck = function (self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -177,6 +189,9 @@ SMODS.Joker({
 		x = 0,
 		y = 2
 	},
+        pools = {
+        CreditablePool = true
+    },
 	cost = 0,
 	credits = 500,
     calculate = function(self, card, context)
@@ -223,6 +238,9 @@ SMODS.Joker({
 			xmult = 7
 		},
 	},
+    pools = {
+        CreditablePool = true
+    },
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.xmult } }
 	end,
@@ -250,6 +268,9 @@ SMODS.Joker({
 		x = 2,
 		y = 0
 	},
+        pools = {
+        CreditablePool = true
+    },
 	credits = 5000,
 	calculate = function (self, card, context)
 		if G.GAME.blind.config.blind and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown and HPTN.is_shitfuck then
@@ -294,6 +315,9 @@ SMODS.Joker({
 		x = 1,
 		y = 0
 	},
+        pools = {
+        CreditablePool = true
+    },
 	rarity = "hpot_creditable",
 	cost = 0,
 	credits = 0,

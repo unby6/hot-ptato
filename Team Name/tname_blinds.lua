@@ -1,4 +1,3 @@
--- credits blind that makes you lose credits when a card is scored
 
 SMODS.Atlas({ key = "TeamNameBlinds", path = "Team Name/tname_blinds.png", px = 34, py = 34, atlas_table = "ANIMATION_ATLAS", frames = 21})
 SMODS.Atlas({ key = "Fuck", path = "Team Name/tname_blinds2.png", px = 34, py = 34, atlas_table = "ANIMATION_ATLAS", frames = 21})

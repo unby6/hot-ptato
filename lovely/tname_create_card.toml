@@ -18,11 +18,3 @@ pattern = '''        while center == 'UNAVAILABLE' do'''
 position = 'at'
 payload = '''        while center == 'UNAVAILABLE' or center.credits or (center.config and center.config.credits) do'''
 match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = "type = 'Joker', val = G.GAME.joker_rate},"
-position = 'after'
-payload = '''type = 'CreditablePool', val = G.GAME.creditable_rate},'''
-match_indent = false

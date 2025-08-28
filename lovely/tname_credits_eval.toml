@@ -150,3 +150,16 @@ payload = '''
 '''
 match_indent = true
 times = 1
+
+# fuck my life
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+  for _, v in ipairs({'''
+position = 'after'
+payload = '''
+{type = 'CreditablePool', val = G.GAME.creditable_rate},
+'''
+match_indent = true
+times = 1
