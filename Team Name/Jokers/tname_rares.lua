@@ -49,11 +49,12 @@ SMODS.Joker {
     blueprint_compat = true,
     calculate = function(self, card, context)
 		local fuck = card.ability.extra.functions
-		if context.end_of_round then
+		if context.starting_shop then
 			card.children.center:set_sprite_pos{x = G.GAME.current_team_name_member-1, y = 0}
 			return {
 				message = localize("k_changedperson"),
-				colour = G.C.ATTENTION
+				colour = G.C.ATTENTION,
+				card = card
 			}
 		end
 		local funcs = {
