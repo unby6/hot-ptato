@@ -394,9 +394,16 @@ SMODS.EventStep({
 			})
 		end
 	end,
+	
 	finish = function(self, event)
 		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
+			G.E_MANAGER:add_event(Event {
+				func = function()
+					jimbo_card.children.card:start_dissolve()
+					return true
+				end
+			})
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					jimbo_card:remove()
