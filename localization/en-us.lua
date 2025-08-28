@@ -2054,6 +2054,21 @@ return {
                     "trigger"
                 }
             },
+            hpot_book = {
+                name = "Book Move",
+                text = {
+                    "When a {C:attention}Blind",
+                    "is selected, add a random",
+                    "{C:attention}Playing Card{} to your deck",
+                }
+            },
+            hpot_brilliant = {
+                name = "Brilliant",
+                text = {
+                    "{C:attention}Retrigger{} this",
+                    "card {C:attention}#1#{} times"
+                }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -2702,6 +2717,8 @@ return {
             hpot_spinning = "Spinning",
             hpot_cfour = "C4",
             hpot_blunder = "Blunder",
+            hpot_book = "Book",
+            hpot_brilliant = "Brilliant",
 
             modif_hpot_ruthless = "Ruthless",
             modif_hpot_greedy = "Greedy",

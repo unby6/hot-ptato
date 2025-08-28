@@ -550,23 +550,73 @@ SMODS.Sticker({
 
 SMODS.Sticker({
 	needs_enable_flag = false,
-	rate = 0.05,
-	key = "blunder",
-	badge_colour = HEX("ff3636"),
-	applied = function(self, card)
-		card.prevent_trigger = true
-	end,
-	removed = function(self, card)
-		card.prevent_trigger = false
+	rate = 0.03,
+	key = "book",
+	badge_colour = HEX("d9c57d"),
+	calculate = function(self,card,context)
+		if context.setting_blind then
+			local _rank, _suit, _edition, _seal, _enhancement, _sticker = pseudorandom_element(SMODS.Ranks).card_key, pseudorandom_element(SMODS.Suits).key, poll_edition(), SMODS.poll_seal(), SMODS.poll_enhancement(), poll_sticker()
+			local acard =
+			SMODS.add_card{
+				set = "Playing Card",
+				area = G.deck,
+				rank = _rank,
+				suit = _suit,
+				edition = _edition,
+				seal = _seal,
+				enhancement = _enhancement
+			}
+			if _sticker then
+				SMODS.Stickers[_sticker]:apply(acard,true)
+			end
+		end
 	end,
 	atlas = "tname_stickers",
 	pos = {
-		x = 0,
+		x = 1,
 		y = 3,
 	},
 	hotpot_credits = {
 		art = { "Revo" },
-		idea = { "Violet" },
+		idea = { "Revo" },
+		code = { "Revo"},
+		team = { "Team Name" }
+	}
+})
+
+SMODS.Sticker({
+	needs_enable_flag = false,
+	rate = 0.01,
+	key = "brilliant",
+	badge_colour = HEX("7dd4d9"),
+	config = {
+		timer = 2
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { self.config.timer},
+		}
+	end,
+	calculate = function(self, card, context)
+		if
+			context.other_card == card
+			and not card.debuff
+			and (context.repetition or (context.retrigger_joker_check and not context.retrigger_joker))
+			or (context.main_scoring and context.cardarea == G.play)
+		then
+			return {
+				repetitions = self.config.timer,
+			}
+		end
+	end,
+	atlas = "tname_stickers",
+	pos = {
+		x = 2,
+		y = 3,
+	},
+	hotpot_credits = {
+		art = { "Revo" },
+		idea = { "Revo" },
 		code = { "Revo"},
 		team = { "Team Name" }
 	}
