@@ -97,3 +97,56 @@ payload = '''
 '''
 match_indent = false
 
+# fix a stupid crash caused by smods (i hope)(im begging)(please?)
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+self:handle_card_limit(card.ability.card_limit, card.ability.extra_slots_used)
+'''
+payload = '''
+  if card and card.ability then
+    self:handle_card_limit(card.ability.card_limit, card.ability.extra_slots_used)
+  end
+'''
+
+# fuck everything
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+        if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type ~= 'deck' and not stay_flipped then
+        card:flip()
+    end
+'''
+payload = '''
+if card then
+    if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type ~= 'deck' and not stay_flipped then
+        card:flip()
+    end
+  end
+'''
+
+# NIL CHECKS
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+    card:set_card_area(self)
+    self:set_ranks()
+    self:align_cards()
+'''
+payload = '''
+  if card then
+    card:set_card_area(self)
+  end
+    self:set_ranks()
+    self:align_cards()
+'''
+

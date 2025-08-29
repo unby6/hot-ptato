@@ -518,8 +518,6 @@ function grant_wheel_reward(_area, reward_num)
 
      	set_wheel(true)
 
-      G.E_MANAGER:add_event(Event({ func = function() save_run()
-return true end}))
       return true
     end
   }))
