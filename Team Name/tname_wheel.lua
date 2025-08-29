@@ -267,6 +267,9 @@ SMODS.Arrow({
 		x = 0,
 		y = 0,
 	},
+  inject = function(self)
+    SMODS.Center.inject(self)
+  end
 	 
 	
 })
