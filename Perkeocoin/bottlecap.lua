@@ -1693,7 +1693,7 @@ in_pool = function(self, args)
     end
 }
 
-SMODS.Consumable { --Modificatio
+SMODS.Consumable { --Modification
 in_pool = function(self, args)
 		return true, { allow_duplicates = true }
 	end,
@@ -1704,8 +1704,8 @@ in_pool = function(self, args)
     pos = { x = 2, y = 0 },
     config = {
         extra = {
-            ['Bad'] = 'GOOD',
-            ['Common'] = "BAD",
+            ['Bad'] = 'BAD',
+            ['Common'] = "GOOD",
             chosen = 'Common'
         }
     },

@@ -502,7 +502,7 @@ return {
                 name = 'Modification',
                 text = {
                     "A random joker gains",
-                    "a random {C:dark_edititon} #1# {C:attention}Modification{}"
+                    "a random {C:dark_edititon}#1# {C:attention}Modification{}"
                 }
             },
             c_hpot_cap_sticker_bomb = {
@@ -2701,7 +2701,8 @@ return {
             k_reforge_big = "REFORGE",
 
             wheel_button_1 = "The",
-            wheel_button_2 = "Arrow"
+            wheel_button_2 = "Arrow",
+            wheel_spin_button1 = "Spin"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

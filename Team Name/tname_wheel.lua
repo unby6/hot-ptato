@@ -8,22 +8,24 @@
 -- dont mind the G.GAME ones please i was to lazy to change them to use Wheel{}
 Wheel = {
   STATE = {
-    SPUN = nil,
-    IDLE = true
+    SPUN = nil,  -- is spinning 
+    IDLE = true  -- is idle
   },
-  should_spin = true,
-  Price = 15,
-  Price_default = 15,
-  ResetCheck = 0,
-  a = 0,
-  KeepVval = 0,
-  Increase = 15,
-  cost_up = 2,
-  ante_left = 1,
-  default_ante_left = 1,
-  default_cost_up = 2
+  should_spin = true, -- should it spin?
+  Price = 15,  -- price
+  Price_default = 15, -- reset price
+  ResetCheck = 0, -- used for something below check there
+  a = 0,  -- same thing as ResetCheck
+  KeepVval = 0, -- save G.GAME.vval here cause it caused some issues
+  Increase = 15, -- to incrase with
+  cost_up = 2, -- when to up the cost (round)
+  ante_left = 1, -- when to reset the cost (ante)
+  default_ante_left = 1, --resets
+  default_cost_up = 2 --resets
 }
-G.FUNCS.show_wheel = function(e)
+
+
+G.FUNCS.show_wheel = function(e) -- taken from plinko files
   stop_use()
 
   hide_shop()
@@ -74,7 +76,7 @@ function G.UIDEF.wheel()
         {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
 
-    local use_ante = Wheel.ante_left > 0
+    local use_ante = Wheel.ante_left > 0 
     local play_dollars = not not G.GAME.plinko_dollars_cost
 
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
@@ -102,7 +104,7 @@ function G.UIDEF.wheel()
                           {n=G.UIT.C, config={align = "cm", focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Spin", scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = localize("wheel_spin_button1"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
@@ -202,7 +204,7 @@ function G.UIDEF.wheel()
 end
 
 
-function update_wheel(dt)
+function update_wheel(dt) -- talen from plinko so idk
     if not G.STATE_COMPLETE then
         stop_use()
         ease_background_colour_blind(G.STATES.WHEEL)
@@ -243,7 +245,7 @@ end
 
 
 
-SMODS.Arrow = SMODS.Joker:extend({
+SMODS.Arrow = SMODS.Joker:extend({ -- the arrow
 	rarity = 1,
 	unlocked = true,
 	discovered = true,
@@ -268,14 +270,14 @@ SMODS.Arrow({
 		y = 0,
 	},
   inject = function(self)
-    SMODS.Center.inject(self)
+    SMODS.Center.inject(self) -- i placed this in the wrong spot
   end
 	 
 	
 })
 
 -- was from JoyousSpring (originally)
-local cardarea_align_cards_ref = CardArea.align_cards
+local cardarea_align_cards_ref = CardArea.align_cards  -- <- i dont understand how i made this work either 
 function CardArea:align_cards()
 	cardarea_align_cards_ref(self)
 	if G.GAME.should_rotate then
@@ -334,7 +336,7 @@ function CardArea:align_cards()
 	end
 
 
--- remove after ( for testing )
+-- remove after ( for testing ) ( i did not remove and its not indeed being used by the main code)
 function set_wheel(no_arrow, vval_only)
   if not G.GAME.vval then
 		G.GAME.vval = math.random(1, 63)
@@ -372,13 +374,13 @@ end
 
 end
 
-function in_between(num1, num2, numB)
+function in_between(num1, num2, numB) -- simple function
 	if numB >= num1 and numB < num2 then
 		return true
 	end
 end
 
-function reset_wheel() 
+function reset_wheel()  -- reset EVERYTHING :D
 	G.GAME.should_rotate = nil
 	G.GAME.wheel_card = nil
 	G.GAME.rotating = nil
@@ -390,7 +392,7 @@ function reset_wheel()
   Wheel.STATE.SPUN = nil
 end
 
---[[function change_wheel()
+--[[function change_wheel() was used for testing originally
 	if G.wheel_area.cards[1] then
 		SMODS.destroy_cards(G.wheel_area.cards[1])
 	end
@@ -398,13 +400,13 @@ end
 end]]
 
 
-function spin_wheel(fake)
-  
+function spin_wheel(fake) -- spinning the wheel
+
   play_sound("card1")
 
   set_wheel(true,true)
 
-  Wheel.STATE.IDLE = nil
+  Wheel.STATE.IDLE = nil -- set states
   Wheel.STATE.SPUN = true
 
   if fake then
@@ -413,7 +415,7 @@ function spin_wheel(fake)
     G.GAME.fake_rotate = nil
   end
 
-	G.GAME.rotating = true
+	G.GAME.rotating = true -- start the rotation
 
 	local event
 	event = Event {
@@ -430,7 +432,7 @@ function spin_wheel(fake)
 	G.E_MANAGER:add_event(event)
 end
 
-function wheel_reward(reward)
+function wheel_reward(reward) -- grant reward acording to the position
 	if reward == "reward_1" then
 		grant_wheel_reward(G.wheel_area3, 1)
 	elseif reward == "reward_2" then
@@ -482,6 +484,7 @@ function generate_wheel_rewards(_area)
 end
 
 
+-- granting the wheel (from plinko as well)
 function grant_wheel_reward(_area, reward_num)
   assert(type(reward_num) == "number", "won_reward must be called with a number")
 
@@ -526,6 +529,7 @@ function grant_wheel_reward(_area, reward_num)
 end
 
 
+-- removing existing rewards
 function remove_wheel_rewards()
 	local wheel_areas2 = {
 		G.wheel_area,
@@ -546,6 +550,8 @@ function remove_wheel_rewards()
   end
 
 
+
+  -- simple button functions
   G.FUNCS.can_hide_wheel = function(e)
   if Wheel.STATE.SPUN then
       e.config.colour = G.C.UI.BACKGROUND_INACTIVE
@@ -585,13 +591,13 @@ function spin_for_real_this_time(t)
     t = 3
   end
 	if Wheel.a >= t then
-    set_wheel()
-		spin_wheel()
-    Wheel.should_spin = nil
-		Wheel.a = 0
+    set_wheel()  -- set the wheel correctly 
+		spin_wheel() -- spin it
+    Wheel.should_spin = nil -- its spining so it shouldnt spin
+		Wheel.a = 0 -- set to 0 to restart
 	else
-		spin_wheel(true)
-		Wheel.a = Wheel.a + 1
+		spin_wheel(true) -- fake one (doesnt grant rewards)
+		Wheel.a = Wheel.a + 1 -- add 1 for the next spin
 	end
 
 	local event
@@ -603,9 +609,9 @@ function spin_for_real_this_time(t)
 		timer = "UPTIME",
 		func = function()
       if Wheel.should_spin then
-			  spin_for_real_this_time(3)
+			  spin_for_real_this_time(3) -- rerun itself
       else
-        aftermath()
+        aftermath() --aftermath lol
       end
 			return true
 		end,
@@ -614,17 +620,17 @@ function spin_for_real_this_time(t)
 end
 
 function aftermath()
-  Wheel.should_spin = true
+  Wheel.should_spin = true -- make it able to spin
 end
 
 
 function wheel_reset_cost()
 
-  Wheel.Price = Wheel.Price_default
+  Wheel.Price = Wheel.Price_default -- reset te wheel cost
 
 end
 
-function wheel_ante_up(mod)
+function wheel_ante_up(mod) -- check if ante went up 
   Wheel.ante_left = math.max(0, Wheel.ante_left - mod)
 
   if Wheel.ante_left <= 0 then
@@ -660,6 +666,7 @@ G.FUNCS.hide_wheel = function(e)
 
 end
 
+--idk 
 local ca_dref = CardArea.draw
 function CardArea:draw(...)
 	if self == G.hand and (G.STATE == G.STATES.WHEEL) then
