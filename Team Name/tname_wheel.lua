@@ -27,12 +27,9 @@ G.FUNCS.show_wheel = function(e)
   stop_use()
 
   hide_shop()
-  
  
   G.STATE = G.STATES.WHEEL
   G.STATE_COMPLETE = false
-
-  set_wheel()
 
   
 end
@@ -230,6 +227,7 @@ function update_wheel(dt)
                             local nosave_plinko = nil
                             -- Back to shop button
                             G.CONTROLLER:snap_to({node = G.wheel:get_UIE_by_ID('shop_button')})
+                            set_wheel()
 
                             return true
                         end
