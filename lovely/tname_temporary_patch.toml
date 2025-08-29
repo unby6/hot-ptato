@@ -1,0 +1,38 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -9
+
+# TEMPORARY PATCH! REMOVE IF YOU FIND THE FIX!
+# i couldnt find a fix for this as i didnt know what was causing the issue, so im leaving it here. the only thing i can think of that
+# the game tries to create an arrow in the shop? 
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''
+          for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+            local new_shop_card = create_card_for_shop(G.shop_jokers)
+            G.shop_jokers:emplace(new_shop_card)
+            new_shop_card:juice_up()
+          end
+'''
+payload = '''
+--
+    for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+            local new_shop_card = create_card_for_shop(G.shop_jokers)
+
+          if not new_shop_card then
+            new_shop_card = SMODS.create_card{set = "Joker", area = G.shop_jokers}
+            G.shop_jokers:emplace(new_shop_card)
+            create_shop_card_ui(new_shop_card)
+            new_shop_card:juice_up()
+          else
+            G.shop_jokers:emplace(new_shop_card)
+            new_shop_card:juice_up()
+          end
+
+          end
+--
+'''
+match_indent = false
