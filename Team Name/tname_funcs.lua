@@ -410,8 +410,6 @@ G.FUNCS.credits_UI_set = function(e)
 end
 
 
-
-
 function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
     local config = config or {}
     local width = G.round_eval.T.w - 0.51

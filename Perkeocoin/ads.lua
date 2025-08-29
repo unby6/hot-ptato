@@ -22,6 +22,8 @@ HotPotato.Ads = {
         ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
         ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
         ad_indiepaketphoenix = {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true},
+        -- Team Name
+        ad_tname = {atlas = "hpot_tname_ads",pos = {x=0,y=0}}
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
