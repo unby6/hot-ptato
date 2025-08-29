@@ -72,3 +72,28 @@ payload = '''
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''
+ assert(pool, ("Attempted to insert object \"%s\" into an empty pool."):format(center.key or "UNKNOWN"))
+'''
+position = 'before'
+payload = '''
+	if pool and center then
+'''
+match_indent = false
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''
+table.insert(pool, center)
+'''
+position = 'after'
+payload = '''
+	end
+'''
+match_indent = false
+
