@@ -1341,3 +1341,57 @@ SMODS.EventScenario {
 		return sticker_check(G.jokers.cards) > 0 
 	end
 }
+
+
+-- Nuclear Explosion
+
+SMODS.EventStep({
+	key = "nuclear_explosion_1",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = function()
+
+				if SMODS.find_card("j_hpot_power_plant") then
+					SMODS.find_card("j_hpot_power_plant")[1]:start_dissolve()
+				end
+
+				local suits = {}
+				for k, v in pairs(G.playing_cards) do
+					if not suits[v.base.suit] then
+						suits[#suits+1] = v.base.suit
+					end
+				end
+				local random_suit = pseudorandom_element(suits)
+				for k, v in pairs(G.playing_cards) do
+					if v.base.suit == random_suit then
+						SMODS.Stickers["hpot_uranium"]:apply(v,true)
+					end
+				end
+
+				event.finish_scenario()
+			end,
+			},
+		}
+	end,
+	start = function(self, event)
+		event.display_lines(1, true)
+		delay(1)
+		event.display_lines(2, true)
+	end,
+})
+
+SMODS.EventScenario {
+	key = "nuclear_explosion",
+	starting_step_key = "hpot_nuclear_explosion_1",
+	hotpot_credits = {
+		idea = { "Revo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
+	in_pool = function()
+		return #SMODS.find_card("j_hpot_power_plant") > 0
+	end
+}

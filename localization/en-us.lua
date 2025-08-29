@@ -2494,7 +2494,16 @@ return {
                 text = {
                     "Come Again!"
                 }
-            }
+            },
+
+            hpot_nuclear_explosion_1 = {
+                text = {
+                    "Your Power Plant blew up!",
+                    " ",
+                    "Why do you have a power plant anyway?",
+                    "{C:inactive}(Check your deck!)"
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -2559,6 +2568,19 @@ return {
                 text = {
                     "Looks like he's homeless.",
                     "Is it worth it?"
+                }
+            },
+            hpot_sticker_master_e = {
+                name = "Sticker Shop",
+                text = {
+                    "Could use some help.",
+                    "This please seems nice.."
+                }
+            },
+            hpot_nuclear_explosion = {
+                name = "Nuclear Explosion",
+                text = {
+                    "Hazzard Alert!"
                 }
             },
         },
@@ -2714,8 +2736,8 @@ return {
         dictionary = {
             b_hanafuda_cards = 'Hanafuda Cards',
             k_hanafuda = 'Hanafuda',
-            b_auras_cards = 'Auras',
-            k_auras = 'Aura',
+            b_aura_cards = 'Auras',
+            k_aura = 'Aura',
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
