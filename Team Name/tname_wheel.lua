@@ -399,6 +399,8 @@ end]]
 
 
 function spin_wheel(fake)
+  
+  play_sound("card1")
 
   set_wheel(true,true)
 
