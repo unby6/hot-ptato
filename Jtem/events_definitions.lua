@@ -1122,3 +1122,123 @@ SMODS.EventScenario({
 		team = { "Jtem" },
 	},
 })
+
+
+
+
+-- Team Name Event
+
+
+SMODS.EventStep({
+	key = "currency_exchange_1",
+
+	config = {
+		extra = {
+			
+		},
+	},
+
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_exchange_credits_to_dollars",
+				no_prefix = true,
+				loc_vars = { convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR") },
+				button = function()
+					HPTN.ease_credits(-G.GAME.credits_text)
+					ease_dollars(convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR"))
+					event.ability = convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR")
+					event.start_step("hpot_currency_exchange_success")
+				end,
+				func = function()
+					return convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR") > 0
+				end,
+			},
+			{
+				key = "hpot_exchange_plincoins_to_dollars",
+				no_prefix = true,
+				loc_vars = { convert_currency(G.GAME.plincoins, "PLINCOIN", "DOLLAR") },
+				button = function()
+					ease_plincoins(-G.GAME.plincoins)
+					ease_dollars(convert_currency(G.GAME.plincoins, "PLINCOIN", "DOLLAR"))
+					event.ability = convert_currency(G.GAME.plincoins, "PLINCOIN", "DOLLAR")
+					event.start_step("hpot_currency_exchange_success")
+				end,
+				func = function()
+					return convert_currency(G.GAME.plincoins, "PLINCOIN", "DOLLAR") > 0
+				end,
+			},
+			{
+				key = "hpot_exchange_sparks_to_dollars",
+				no_prefix = true,
+				loc_vars = { convert_currency(G.GAME.spark_points, "SPARKLE", "DOLLAR") },
+				button = function()
+					ease_spark_points(-G.GAME.spark_points)
+					ease_dollars(convert_currency(G.GAME.spark_points, "SPARKLE", "DOLLAR"))
+					event.ability = convert_currency(G.GAME.spark_points, "SPARKLE", "DOLLAR")
+					event.start_step("hpot_currency_exchange_success")
+				end,
+				func = function()
+					return convert_currency(G.GAME.spark_points, "SPARKLE", "DOLLAR") > 0
+				end,
+			},
+			{
+                key = "hpot_ignore_or_something",
+				no_prefix = true,
+                button = function()
+                    event.finish_scenario()
+                end,
+            },
+		}
+	end,
+	start = function(self, event)
+		event.display_lines(2, true)
+		delay(1)
+		local x, y = event.get_image_center()
+		local card_sharp_card = Character("j_card_sharp")
+		event.image_area.children.jimbo_card = card_sharp_card
+		event.display_lines(1, true)
+		delay(1)
+		event.display_lines(1, true)
+	end,
+})
+SMODS.EventStep({
+	key = "currency_exchange_success",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		event.display_lines(1, true)
+	end,
+	finish = function(self, event)
+		local card_sharp_card = event.image_area.children.jimbo_card
+		if card_sharp_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					card_sharp_card:remove()
+					event.image_area.children.jimbo_card = nil
+					return true
+				end,
+			}))
+		end
+	end,
+})
+
+SMODS.EventScenario {
+	key = "currency_exchange",
+	starting_step_key = "hpot_currency_exchange_1",
+	hotpot_credits = {
+		idea = { "Revo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
+	in_pool = function()
+		return G.GAME.dollars < 5
+	end
+}

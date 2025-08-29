@@ -2463,7 +2463,30 @@ return {
                     "All of them want your food.",
                     "Who will be lucky today?"
                 }
-            }
+            },
+
+            hpot_currency_exchange_1 = {
+                text = {
+                    "A man approaches you.",
+                    "His Pockets look full.",
+                    " ",
+                    "Do you wish to exchange your other currencies to dollars?",
+                }
+            },
+            hpot_currency_exchange_success = {
+                text = {
+                    "Plessure doing bussiness with you.",
+                }
+            },
+
+            hpot_reforge_master_1 = {
+                text = {
+                    "A man approaches you.",
+                    "His Pockets look full.",
+                    " ",
+                    "Do you wish to exchange your other currencies to dollars?",
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -2521,6 +2544,13 @@ return {
                 text = {
                     "All of them want your food.",
                     "Who will be lucky today?"
+                }
+            },
+            hpot_currency_exchange = {
+                name = "Mysterious Man",
+                text = {
+                    "Looks like he's homeless.",
+                    "Is it worth it?"
                 }
             },
         },
@@ -2883,6 +2913,11 @@ return {
             hpot_food_trade_choose = "Feed {C:attention}#1#{}",
             hpot_food_trade_think = "Think...",
             hpot_food_trade_choose_ignore = "Ignore them",
+
+            hpot_exchange_credits_to_dollars = "Credits > Dollars",
+            hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
+            hpot_exchange_sparks_to_dollars = "Joker Exchange to Dollars",
+            hpot_ignore_or_something = "Ignore",
         }
     }
 }
