@@ -62,7 +62,7 @@ target = 'functions/misc_functions.lua'
 position = 'at'
 pattern = '''STATE = G.STATE,'''
 payload = '''
-STATE = G.STATE == G.STATES.PLINKO and G.STATES.SHOP or G.STATE,
+STATE = G.STATE == G.STATES.PLINKO and G.STATES.SHOP or G.STATE or STATE = G.STATE == G.STATES.WHEEL,
 '''
 match_indent = true
 
@@ -201,12 +201,12 @@ payload = '''
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "evil and", scale = 0.4, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = localize("wheel_button_1"), scale = 0.4, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "fucked up", scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = localize("wheel_button_2"), scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }}
                           }}

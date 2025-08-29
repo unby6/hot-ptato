@@ -2,17 +2,26 @@
 -- feel free to play arround with it and try to make it better (please)
 -- i cant code :pensive:
 
+-- mostly copied from plinko btw
 
+
+-- dont mind the G.GAME ones please i was to lazy to change them to use Wheel{}
 Wheel = {
   STATE = {
     SPUN = nil,
     IDLE = true
   },
   should_spin = true,
-  Price = 5,
+  Price = 15,
+  Price_default = 15,
   ResetCheck = 0,
   a = 0,
-  KeepVval = 0
+  KeepVval = 0,
+  Increase = 15,
+  cost_up = 2,
+  ante_left = 1,
+  default_ante_left = 1,
+  default_cost_up = 2
 }
 G.FUNCS.show_wheel = function(e)
   stop_use()
@@ -27,6 +36,7 @@ end
 
 --copy pasted plinko
 function G.UIDEF.wheel()
+  -- pain
      G.wheel_area = CardArea(
         0, 0, 1, 1,
         {card_limit = 1, type = "consumeable", highlight_limit = 0}
@@ -64,7 +74,7 @@ function G.UIDEF.wheel()
         {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
 
-    local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
+    local use_ante = Wheel.ante_left > 0
     local play_dollars = not not G.GAME.plinko_dollars_cost
 
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
@@ -77,12 +87,12 @@ function G.UIDEF.wheel()
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Return to", scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = localize("hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Shop", scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = localize("hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }}
                           }},
@@ -92,7 +102,7 @@ function G.UIDEF.wheel()
                           {n=G.UIT.C, config={align = "cm", focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Incomplete", scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = "Spin", scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
@@ -104,7 +114,7 @@ function G.UIDEF.wheel()
                           }}
                         }},
 
-                        play_dollars and {n=G.UIT.R, config={id= "plinko_dollars", align = "cm", minw = 2.8, minh = 1.3, r=0.15, padding = 0.07, colour = G.C.GREEN, button = 'start_plinko_dollars', func = 'can_plinko_dollars', hover = true,shadow = true}, nodes = {
+                     --[[   play_dollars and {n=G.UIT.R, config={id= "plinko_dollars", align = "cm", minw = 2.8, minh = 1.3, r=0.15, padding = 0.07, colour = G.C.GREEN, button = 'start_plinko_dollars', func = 'can_plinko_dollars', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.C, config={align = "cm", }, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
@@ -118,28 +128,28 @@ function G.UIDEF.wheel()
                               -------------------
                             }} or nil
                           }}
-                        }} or nil,
+                        }} or nil,]]
 
 
                         -- 
                         -- PLINKO INFO
                         -- 
 
-                        {n=G.UIT.R, config={align = "cm", id="plinko_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
+                        {n=G.UIT.R, config={align = "cm", id="wheel_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
                           {n=G.UIT.C, config={align = "cm", }, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Incomplete", scale = 0.75, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = localize("hotpot_plinko_cost1"), scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.9, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_cost_up_in', suffix = "Incomplete"}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                              {n=G.UIT.O, config={object = DynaText({string = {{ref_table = Wheel, ref_value = 'cost_up', suffix = " " ..  localize("hotpot_plinko_cost2")}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
                               -------------------
                               }}
                             }},
                           }} or nil,
-                           {n=G.UIT.R, config={align = "cm", id="plinko_reset", minw = 2.8, r=0.15, minh = 1.3}, nodes = {
+                           {n=G.UIT.R, config={align = "cm", id="wheel_reset", minw = 2.8, r=0.15, minh = 1.3}, nodes = {
                             {n=G.UIT.C, config={align = "cm", }, nodes={
                               {n=G.UIT.R, config={align = "cm", maxw = 1.9}, nodes={
                                 -------------------
@@ -148,7 +158,7 @@ function G.UIDEF.wheel()
                               }},
                               {n=G.UIT.R, config={align = "cm", maxw = 1.9, minw = 1}, nodes={
                                 -------------------
-                                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME.current_round.plinko_cost_reset, ref_value = use_ante and 'ante_left' or 'rounds_left', suffix = use_ante and localize('hotpot_plinko_reset2_ante') or localize('hotpot_plinko_reset2_round')}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
+                                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = Wheel, ref_value = use_ante and 'ante_left' or 'rounds_left', suffix = use_ante and localize('hotpot_plinko_reset2_ante') or localize('hotpot_plinko_reset2_round')}}, maxw = 1.35, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true,spacing = 2, bump = false, scale = 0.75}), }},
                                 -------------------
                                 }}
                               }},
@@ -158,21 +168,21 @@ function G.UIDEF.wheel()
                     }},
 
                     {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2}, nodes={
-                      {n=G.UIT.R, config={id = "plinking_area", align = "cm", colour = G.C.BLACK, }, nodes={
+                      {n=G.UIT.R, config={id = "wheeling_area", align = "cm", colour = G.C.BLACK, }, nodes={
                         
-                            {n=G.UIT.C, config={id = "plinking_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
+                            {n=G.UIT.C, config={id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area4, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area7, align = "cl"}}}},
 
                             }},
-                            {n=G.UIT.C, config={id = "plinking_area2", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
+                            {n=G.UIT.C, config={id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area2, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area5, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area8, align = "cl"}}}},
 
                             }},
-                            {n=G.UIT.C, config={id = "plinking_area3", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
+                            {n=G.UIT.C, config={id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area3, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area6, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area9, align = "cl"}}}},
@@ -277,7 +287,7 @@ function CardArea:align_cards()
 				if G.GAME.rotating then
 
 					G.E_MANAGER:add_event(Event({
-						trigger = "immediate",
+						trigger = "after",
 						delay = 1,
 						func = function()
 
@@ -385,8 +395,6 @@ end]]
 
 
 function spin_wheel(fake)
-
-  print("spinning")
 
   set_wheel(true,true)
 
@@ -561,17 +569,24 @@ G.FUNCS.hide_wheel = function(e)
 end
 
   G.FUNCS.can_wheel_spin = function(e)
-  if Wheel.STATE.SPUN then
-      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-      e.config.button = nil
-  else
+  if Wheel.STATE.IDLE and HPTN.check_if_enough_credits(Wheel.Price) then
       e.config.colour = G.C.PURPLE
       e.config.button = 'wheel_spin'
+  else
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
   end
 end
 
 G.FUNCS.wheel_spin = function(e)
   HPTN.ease_credits(-Wheel.Price)
+
+  if Wheel.cost_up == 1 then
+    Wheel.Price = Wheel.Price + Wheel.Increase
+    Wheel.cost_up = Wheel.default_cost_up
+  else
+    Wheel.cost_up = Wheel.cost_up - 1
+  end
   
   spin_for_real_this_time(3)
 
@@ -610,4 +625,27 @@ end
 
 function aftermath()
   Wheel.should_spin = true
+end
+
+
+function wheel_reset_cost()
+
+  Wheel.Price = Wheel.Price_default
+
+end
+
+function wheel_ante_up(mod)
+  Wheel.ante_left = math.max(0, Wheel.ante_left - mod)
+
+  if Wheel.ante_left <= 0 then
+    wheel_reset_cost()
+  end
+
+  Wheel.ante_left = Wheel.default_ante_left
+end
+
+local ea = ease_ante
+function ease_ante(mod)
+  ea(mod)
+  wheel_ante_up(mod)
 end

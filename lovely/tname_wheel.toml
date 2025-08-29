@@ -40,19 +40,6 @@ elseif state == G.STATES.WHEEL then
 '''
 match_indent = true
 
-# TEMPORARY PATCH (probably not temporary)
-# some fuckery happens when loading back into run while quit during plinko
-# save_run
-[[patches]]
-[patches.pattern]
-target = 'functions/misc_functions.lua'
-position = 'at'
-pattern = '''STATE = G.STATE,'''
-payload = '''
-STATE = G.STATE == G.STATES.WHEEL and G.STATES.SHOP or G.STATE,
-'''
-match_indent = true
-
 # Game:draw
 [[patches]]
 [patches.pattern]
@@ -61,4 +48,27 @@ position = 'after'
 pattern = '''(self.config.type == 'hand' and state == G.STATES.SMODS_BOOSTER_OPENED) or'''
 payload = '''
 (self.config.type == 'hand' and G.STATE == G.STATES.WHEEL) or'''
+match_indent = true
+
+# Stop shop from re-appearing after consumable was used
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'before'
+pattern = '''
+G.shop.alignment.offset.y = G.shop.alignment.offset.py'''
+payload = '''
+if G.STATE ~= G.STATES.WHEEL then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'after'
+pattern = '''
+G.shop.alignment.offset.py = nil'''
+payload = '''
+end
+'''
 match_indent = true

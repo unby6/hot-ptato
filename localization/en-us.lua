@@ -2692,6 +2692,9 @@ return {
             k_place_button = "Place",
             k_return_button = "Return",
             k_reforge_big = "REFORGE",
+
+            wheel_button_1 = "The",
+            wheel_button_2 = "Arrow"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
