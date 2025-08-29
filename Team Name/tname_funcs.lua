@@ -829,9 +829,9 @@ function Card:apply_sticker_calc(sticker, card)
     sticker:applied(self, card)
 end
 
-
--- wheel wheel
---[[G.FUNCS.show_wheel = function(e)
+-- REMOVE HERE
+--  wheel wheel
+G.FUNCS.show_wheel = function(e)
   stop_use()
 
   hide_shop()
@@ -840,7 +840,7 @@ end
   G.STATE_COMPLETE = false
 
   
-end]]
+end
 
 G.FUNCS.change_page_jx = function ()
     if G.GAME.first_page_stuff_and_shit then
@@ -856,3 +856,6 @@ G.FUNCS.change_page_jx = function ()
             }
     end
 end
+
+
+
