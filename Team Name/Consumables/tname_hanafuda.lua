@@ -51,7 +51,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -180,7 +180,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -225,7 +225,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -267,7 +267,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -309,7 +309,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 2,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -351,7 +351,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -395,7 +395,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -523,7 +523,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -568,7 +568,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -614,7 +614,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -702,7 +702,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -746,7 +746,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -872,7 +872,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -916,7 +916,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 5,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -952,7 +952,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 2,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -988,7 +988,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 3,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1024,7 +1024,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 4,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1062,7 +1062,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1132,7 +1132,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 3,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1167,7 +1167,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 4,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1204,7 +1204,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1288,7 +1288,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 3,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1330,7 +1330,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 4,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1374,7 +1374,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1444,7 +1444,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 3,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1479,7 +1479,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 4,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1516,7 +1516,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1608,7 +1608,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 3,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1654,7 +1654,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 4,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1702,7 +1702,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 1,
+			high = 3,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1778,7 +1778,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 3,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -1816,7 +1816,7 @@ SMODS.Consumable({
 
 	config = {
 		extra = {
-			high = 4,
+			high = 1,
 		},
 	},
 	loc_vars = function(self, info_queue, card)

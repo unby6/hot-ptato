@@ -62,267 +62,335 @@ return {
         },
         Hanafuda = {
             c_hpot_pine_1 = {
-                name = "Plain Pine",
+                name = "Crane (Pine)",
                 text = {
-                    "Apply {C:attention}Fragile{} sticker to {C:attention}#1#{} selected card"
+                    "Apply {C:attention}Fragile{} stickers",
+                    "to {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_pine_2 = {
-                name = "Pine Ribbon",
+                name = "Poetry Ribbon (Pine)",
                 text = {
-                    "Apply {C:attention}Fragile{} sticker to {C:attention}#1#{} selected cards"
+                    "Apply {C:attention}Fragile{} stickers",
+                    "to {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_pine_3 = {
-                name = "Pine Animal",
+                name = "Pine Plain",
                 text = {
-                    "Apply {C:attention}Uranium{} sticker to {C:attention}#1#{} selected card"
+                    "Apply a {C:attention}Uranium{} sticker",
+                    "to {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_pine_4 = {
-                name = "Bright Pine",
+                name = "Pine Plain",
                 text = {
-                    "Apply {C:attention}Uranium{} sticker to {C:attention}#1#{} selected cards"
+                    "Apply a {C:attention}Uranium{} sticker",
+                    "to {C:attention}#1#{} selected card"
                 }
             },
-            c_hpot_willow_1 = {
-                name = "Plain Willow",
-                text = {
-                    "Apply {C:attention}Redirect{} sticker to {C:attention}#1#{} selected card"
-                }
-            },
-            c_hpot_willow_2 = {
-                name = "Willow Ribbon",
-                text = {
-                    "Apply {C:attention}Redirect{} sticker to {C:attention}#1#{} selected cards"
-                }
-            },
-            c_hpot_willow_3 = {
-                name = "Willow Animal",
-                text = {
-                    "Apply {C:attention}Cannibal{} sticker to {C:attention}#1#{} selected card"
-                }
-            },
-            c_hpot_willow_4 = {
-                name = "Bright Willow",
-                text = {
-                    "Apply {C:attention}Cannibal{} sticker to {C:attention}#1#{} selected cards"
-                }
-            },
+
+
+
+            -- PLUM BLOSSOM IS MISSING??
+
+
+
             c_hpot_sakura_1 = {
-                name = "Plain Sakura",
+                name = "Curtain (Cherry Blossom)",
                 text = {
-                    "Apply {C:attention}Spore{} sticker to {C:attention}#1#{} selected card"
+                    "Apply {C:attention}Spore{} stickers",
+                    "to {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_sakura_2 = {
-                name = "Sakura Ribbon",
+                name = "Poetry Ribbon (Cherry Blossom)",
                 text = {
-                    "Apply {C:attention}Spore{} sticker to {C:attention}#1#{} selected cards"
+                    "Apply {C:attention}Spore{} stickers",
+                    "to {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_sakura_3 = {
-                name = "Sakura Animal",
+                name = "Cherry Blossom Plain",
                 text = {
-                    "Apply {C:attention}C4{} sticker to {C:attention}#1#{} selected card"
+                    "Apply a {C:attention}C4{} sticker",
+                    "to {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_sakura_4 = {
-                name = "Bright Sakura",
+                name = "Cherry Blossom Plain",
                 text = {
-                    "Apply {C:attention}C4{} sticker to {C:attention}#1#{} selected cards"
+                    "Apply a {C:attention}C4{} sticker",
+                    "to {C:attention}#1#{} selected card"
                 }
             },
-            c_hpot_paulownia_1 = {
-                name = "Plain Paulownia",
-                text = {
-                    "Apply {C:attention}Overclock{} sticker to {C:attention}#1#{} selected card"
-                }
-            },
-            c_hpot_paulownia_2 = {
-                name = "Paulownia Ribbon",
-                text = {
-                    "Apply {C:attention}Overclock{} sticker to {C:attention}#1#{} selected cards"
-                }
-            },
-            c_hpot_paulownia_3 = {
-                name = "Paulownia Animal",
-                text = {
-                    "Apply {C:attention}Rage{} sticker to {C:attention}#1#{} selected card"
-                }
-            },
-            c_hpot_paulownia_4 = {
-                name = "Bright Paulownia",
-                text = {
-                    "Apply {C:attention}Rage{} sticker to {C:attention}#1#{} selected cards"
-                }
-            },
-            c_hpot_peony_1 = {
-                name = "Plain Peony",
-                text = {
-                    "Apply {C:attention}Spinning{} sticker to {C:attention}#1#{} selected card"
-                }
-            },
-            c_hpot_peony_2 = {
-                name = "Peony Ribbon",
-                text = {
-                    "Apply {C:attention}Spinning{} sticker to {C:attention}#1#{} selected cards"
-                }
-            },
-            c_hpot_peony_3 = {
-                name = "Peony Animal",
-                text = {
-                    "Apply {C:attention}Binary{} sticker to {C:attention}#1#{} selected card"
-                }
-            },
-            c_hpot_peony_4 = {
-                name = " Bright Peony",
-                text = {
-                    "Apply {C:attention}Binary{} sticker to {C:attention}#1#{} selected cards"
-                }
-            },
-            c_hpot_maple_1 = {
-                name = "Plain Maple",
-                text = {
-                    "Give {C:money}$#1#{} per Joker owned"
-                }
-            },
-            c_hpot_maple_2 = {
-                name = "Maple Ribbon",
-                text = {
-                    "Give {C:money}$#1#{} per Joker owned"
-                }
-            },
-            c_hpot_maple_3 = {
-                name = "Maple Animal",
-                text = {
-                    "Give {C:money}$#1#{} per Joker owned"
-                }
-            },
-            c_hpot_maple_4 = {
-                name = " Bright Maple",
-                text = {
-                    "Give {C:money}$#1#{} per Joker owned"
-                }
-            },
-            c_hpot_chrysanthemum_1 = {
-                name = "Plain Chrysanthemum",
-                text = {
-                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Joker"
-                }
-            },
-            c_hpot_chrysanthemum_2 = {
-                name = "Chrysanthemum Ribbon",
-                text = {
-                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Jokers"
-                }
-            },
-            c_hpot_chrysanthemum_3 = {
-                name = "Chrysanthemum Animal",
-                text = {
-                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Jokers"
-                }
-            },
-            c_hpot_chrysanthemum_4 = {
-                name = " Bright Chrysanthemum",
-                text = {
-                    "Give a random {C:attention}Good modification{} to {C:attention}#1#{} selected Jokers"
-                }
-            },
-            c_hpot_susuki_1 = {
-                name = "Plain Susuki",
-                text = {
-                    "Apply {C:attention}#1# random sticker{} on selected card"
-                }
-            },
-            c_hpot_susuki_2 = {
-                name = "Susuki Ribbon",
-                text = {
-                    "Apply {C:attention}#1# random stickers{} on selected card"
-                }
-            },
-            c_hpot_susuki_3 = {
-                name = "Susuki Animal",
-                text = {
-                    "Apply {C:attention}#1# random stickers{} on selected card"
-                }
-            },
-            c_hpot_susuki_4 = {
-                name = " Bright Susuki",
-                text = {
-                    "Apply {C:attention}#1# random stickers{} on selected card"
-                }
-            },
-            c_hpot_iris_1 = {
-                name = "Plain Iris",
-                text = {
-                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
-                }
-            },
-            c_hpot_iris_2 = {
-                name = "Iris Ribbon",
-                text = {
-                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
-                }
-            },
-            c_hpot_iris_3 = {
-                name = "Iris Animal",
-                text = {
-                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
-                }
-            },
-            c_hpot_iris_4 = {
-                name = " Bright Iris",
-                text = {
-                    "Gain {C:attention}$#1#{} of sell value at the end of round if not used"
-                }
-            },
+
             c_hpot_wisteria_1 = {
-                name = "Plain Wisteria",
+                name = "Cuckoo (Wisteria)",
                 text = {
-                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected card"
+                    "Remove {C:attention}negative{} modifications",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_wisteria_2 = {
-                name = "Wisteria Ribbon",
+                name = "Plain Ribbon (Wisteria)",
                 text = {
-                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
+                    "Remove {C:attention}negative{} modifications",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_wisteria_3 = {
-                name = "Wisteria Animal",
+                name = "Wisteria Plain",
                 text = {
-                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
+                    "Remove {C:attention}negative{} modifications",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_wisteria_4 = {
-                name = " Bright Wisteria",
+                name = "Wisteria Plain",
                 text = {
-                    "Remove {C:attention}negative{} modifications on {C:attention}#1#{} selected cards"
+                    "Remove {C:attention}negative{} modifications",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
-            c_hpot_bush_clover_1 = {
-                name = "Plain Bush Clover",
+            
+            c_hpot_iris_1 = {
+                name = "Bridge (Iris)",
                 text = {
-                    "Give {C:attention}#1# negative{} Hanafuda card"
+                    "Gains {C:attention}$#1#{} of",
+                    "sell value at",
+                    "end of round"
+                }
+            },
+            c_hpot_iris_2 = {
+                name = "Plain Ribbon (Iris)",
+                text = {
+                    "Gains {C:attention}$#1#{} of",
+                    "sell value at",
+                    "end of round"
+                }
+            },
+            c_hpot_iris_3 = {
+                name = "Iris Plain",
+                text = {
+                    "Gains {C:attention}$#1#{} of",
+                    "sell value at",
+                    "end of round"
+                }
+            },
+            c_hpot_iris_4 = {
+                name = "Iris Plain",
+                text = {
+                    "Gains {C:attention}$#1#{} of",
+                    "sell value at",
+                    "end of round"
+                }
+            },
+
+            c_hpot_peony_1 = {
+                name = "Butterflies (Peony)",
+                text = {
+                    "Apply {C:attention}Spinning{} stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_peony_2 = {
+                name = "Blue Ribbon (Peony)",
+                text = {
+                    "Apply {C:attention}Spinning{} stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_peony_3 = {
+                name = "Peony Plain",
+                text = {
+                    "Apply a {C:attention}Binary{} sticker",
+                    "to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_peony_4 = {
+                name = "Peony Plain",
+                text = {
+                    "Apply a {C:attention}Binary{} sticker",
+                    "to {C:attention}#1#{} selected card"
+                }
+            },
+
+            c_hpot_bush_clover_1 = {
+                name = "Boar (Bush Clover)",
+                text = {
+                    "Creates {C:attention}#1#{} {C:dark_edition}Negative{}",
+                    "{C:hanafuda}Hanafuda{} cards"
                 }
             },
             c_hpot_bush_clover_2 = {
-                name = "Bush Clover Ribbon",
+                name = "Plain Ribbon (Bush Clover)",
                 text = {
-                    "Give {C:attention}#1# negative{} Hanafuda cards"
+                    "Creates {C:attention}#1#{} {C:dark_edition}Negative{}",
+                    "{C:hanafuda}Hanafuda{} cards"
                 }
             },
             c_hpot_bush_clover_3 = {
-                name = "Bush Clover Animal",
+                name = "Bush Clover Plain",
                 text = {
-                    "Give {C:attention}#1# negative{} Hanafuda cards"
+                    "Creates {C:attention}#1#{} {C:dark_edition}Negative{}",
+                    "{C:hanafuda}Hanafuda{} card"
                 }
             },
             c_hpot_bush_clover_4 = {
-                name = " Bright Bush Clover",
+                name = "Bush Clover Plain",
                 text = {
-                    "Give {C:attention}#1# negative{} Hanafuda cards"
+                    "Creates {C:attention}#1#{} {C:dark_edition}Negative{}",
+                    "{C:hanafuda}Hanafuda{} card"
+                }
+            },
+
+            c_hpot_susuki_1 = {
+                name = "Full Moon (Susuki Grass)",
+                text = {
+                    "Apply random stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_susuki_2 = {
+                name = "Geese (Susuki Grass)",
+                text = {
+                    "Apply random stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_susuki_3 = {
+                name = "Susuki Grass Plain",
+                text = {
+                    "Apply a random sticker",
+                    "to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_susuki_4 = {
+                name = "Susuki Grass Plain",
+                text = {
+                    "Apply a random sticker",
+                    "to {C:attention}#1#{} selected card"
+                }
+            },
+            
+            c_hpot_chrysanthemum_1 = {
+                name = "Sake (Chrysanthemum)",
+                text = {
+                    "Give a random",
+                    "{C:attention}Good modification{} to",
+                    "{C:attention}#1#{} selected Jokers"
+                }
+            },
+            c_hpot_chrysanthemum_2 = {
+                name = "Blue Ribbon (Chrysanthemum)",
+                text = {
+                    "Give a random",
+                    "{C:attention}Good modification{} to",
+                    "{C:attention}#1#{} selected Jokers"
+                }
+            },
+            c_hpot_chrysanthemum_3 = {
+                name = "Chrysanthemum Plain",
+                text = {
+                    "Give a random",
+                    "{C:attention}Good modification{} to",
+                    "{C:attention}#1#{} selected Joker"
+                }
+            },
+            c_hpot_chrysanthemum_4 = {
+                name = "Chrysanthemum Plain",
+                text = {
+                    "Give a random",
+                    "{C:attention}Good modification{} to",
+                    "{C:attention}#1#{} selected Joker"
+                }
+            },
+
+            c_hpot_maple_1 = {
+                name = "Deer (Maple)",
+                text = {
+                    "Earn {C:money}$#1#{} for",
+                    "every owned {C:attention}Joker{}"
+                }
+            },
+            c_hpot_maple_2 = {
+                name = "Blue Ribbon (Maple)",
+                text = {
+                    "Earn {C:money}$#1#{} for",
+                    "every owned {C:attention}Joker{}"
+                }
+            },
+            c_hpot_maple_3 = {
+                name = "Maple Plain",
+                text = {
+                    "Earn {C:money}$#1#{} for",
+                    "every owned {C:attention}Joker{}"
+                }
+            },
+            c_hpot_maple_4 = {
+                name = "Maple Plain",
+                text = {
+                    "Earn {C:money}$#1#{} for",
+                    "every owned {C:attention}Joker{}"
+                }
+            },
+
+            c_hpot_willow_1 = {
+                name = "Rain Man (Willow)",
+                text = {
+                    "Apply {C:attention}Redirect{} stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_willow_2 = {
+                name = "Swallow (Willow)",
+                text = {
+                    "Apply {C:attention}Redirect{} stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_willow_3 = {
+                name = "Plain Ribbon (Willow)",
+                text = {
+                    "Apply {C:attention}Cannibal{} stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_willow_4 = {
+                name = "Willow Plain",
+                text = {
+                    "Apply {C:attention}Cannibal{} sticker",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+
+            c_hpot_paulownia_1 = {
+                name = "Phoenix (Paulownia)",
+                text = {
+                    "Apply {C:attention}Overclock{} stickers",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_hpot_paulownia_2 = {
+                name = "Paulownia Plain",
+                text = {
+                    "Apply an {C:attention}Overclock{} sticker",
+                    "to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_paulownia_3 = {
+                name = "Paulownia Plain",
+                text = {
+                    "Apply a {C:attention}Rage{} sticker",
+                    "to {C:attention}#1#{} selected card"
+                }
+            },
+            c_hpot_paulownia_4 = {
+                name = "Paulownia Plain",
+                text = {
+                    "Apply a {C:attention}Rage{} sticker",
+                    "to {C:attention}#1#{} selected card"
                 }
             },
         },
