@@ -48,7 +48,8 @@ SMODS.Voucher {
 
 SMODS.Voucher {
 	key = 'ref_dollars',
-	pos = { x = 2, y = 0 },
+	pos = { x = 0, y = 1 },
+		atlas = "tname_vouchers",
     loc_vars = function (self, info_queue, card)
 		return {
 			vars = {
@@ -57,7 +58,7 @@ SMODS.Voucher {
 		}
 	end,
 	hotpot_credits = {
-        art = {'No Art'},
+        art = {'GhostSalt'},
         code = {'Revo'},
         idea = {'Revo'},
         team = {'Team Name'}
@@ -66,7 +67,8 @@ SMODS.Voucher {
 
 SMODS.Voucher {
 	key = 'ref_joker_exc',
-	pos = { x = 3, y = 0 },
+	pos = { x = 1, y = 1 },
+		atlas = "tname_vouchers",
 	loc_vars = function (self, info_queue, card)
 		return {
 			vars = {
@@ -78,7 +80,7 @@ SMODS.Voucher {
 		'v_hpot_ref_dollars'
 	},
 	hotpot_credits = {
-        art = {'No Art'},
+        art = {'GhostSalt'},
         code = {'Revo'},
         idea = {'Revo'},
         team = {'Team Name'}
