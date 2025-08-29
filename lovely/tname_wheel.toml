@@ -150,3 +150,16 @@ payload = '''
     self:align_cards()
 '''
 
+# all 3 above are for the similar crashes
+
+
+# Remove wheel when closing the run and what not
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''if self.shop then self.shop:remove(); self.shop = nil end'''
+payload = '''
+if self.wheel then self.wheel:remove(); self.wheel = nil end
+'''
+match_indent = true

@@ -554,22 +554,6 @@ function remove_wheel_rewards()
   end
 end
 
-G.FUNCS.hide_wheel = function(e)
-  stop_use()
-
-  G.STATE = G.STATES.SHOP
-  G.STATE_COMPLETE = false
-  ease_background_colour_blind(G.STATE)
-  show_shop()
-
-  G.wheel.alignment.offset.y = G.ROOM.T.y + 29
-
-  G.E_MANAGER:add_event(Event({func = function()
-      if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end
-  return true end }))
-
-end
-
   G.FUNCS.can_wheel_spin = function(e)
   if Wheel.STATE.IDLE and HPTN.check_if_enough_credits(Wheel.Price) then
       e.config.colour = G.C.PURPLE
@@ -654,3 +638,30 @@ function ease_ante(mod)
   wheel_ante_up(mod)
 end
 
+
+
+
+-- Clicked back to shop
+G.FUNCS.hide_wheel = function(e)
+  stop_use()
+
+  G.STATE = G.STATES.SHOP
+  G.STATE_COMPLETE = false
+  ease_background_colour_blind(G.STATE)
+  show_shop()
+
+  G.wheel.alignment.offset.y = G.ROOM.T.y + 29
+
+  G.E_MANAGER:add_event(Event({func = function()
+      if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end
+  return true end }))
+
+end
+
+local ca_dref = CardArea.draw
+function CardArea:draw(...)
+	if self == G.hand and (G.STATE == G.STATES.WHEEL) then
+		return
+	end
+	return ca_dref(self, ...)
+end
