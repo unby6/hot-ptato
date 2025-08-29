@@ -287,7 +287,7 @@ function CardArea:align_cards()
 				if G.GAME.rotating then
 
 					G.E_MANAGER:add_event(Event({
-						trigger = "immediate",
+						trigger = "after",
 						delay = 1,
 						func = function()
 

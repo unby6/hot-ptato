@@ -40,19 +40,6 @@ elseif state == G.STATES.WHEEL then
 '''
 match_indent = true
 
-# TEMPORARY PATCH (probably not temporary)
-# some fuckery happens when loading back into run while quit during plinko
-# save_run
-[[patches]]
-[patches.pattern]
-target = 'functions/misc_functions.lua'
-position = 'at'
-pattern = '''STATE = G.STATE,'''
-payload = '''
-STATE = G.STATE == G.STATES.WHEEL and G.STATES.SHOP or G.STATE,
-'''
-match_indent = true
-
 # Game:draw
 [[patches]]
 [patches.pattern]
