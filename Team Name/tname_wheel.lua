@@ -3,24 +3,45 @@
 -- i cant code :pensive:
 
 
+Wheel = {
+  STATE = {
+    SPUN = nil,
+    IDLE = true
+  },
+  should_spin = true,
+  Price = 5,
+  ResetCheck = 0,
+  a = 0,
+  KeepVval = 0
+}
+G.FUNCS.show_wheel = function(e)
+  stop_use()
+
+  hide_shop()
+ 
+  G.STATE = G.STATES.WHEEL
+  G.STATE_COMPLETE = false
+
+  
+end
 
 --copy pasted plinko
 function G.UIDEF.wheel()
      G.wheel_area = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area2 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area3 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area4 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area5 = CardArea(
         0, 0, 1, 1,
@@ -28,19 +49,19 @@ function G.UIDEF.wheel()
     )
      G.wheel_area6 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area7 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area8 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
      G.wheel_area9 = CardArea(
         0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
+        {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
 
     local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
@@ -52,22 +73,22 @@ function G.UIDEF.wheel()
                     {n=G.UIT.C, config={align = "tm"}, nodes={
                     {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
                       {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
-                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = 'hide_plinko', func = 'can_hide_plinko', hover = true,shadow = true}, nodes = {
+                        {n=G.UIT.R,config={id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r=0.15,colour = G.C.RED, one_press = false, button = 'hide_wheel', func = 'can_hide_wheel', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Incomplete", scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = "Return to", scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = "Incomplete", scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                              {n=G.UIT.T, config={text = "Shop", scale = 0.4, colour = G.C.WHITE, shadow = true}}
                               -------------------
                             }}
                           }},
                         }},
 
-                        {n=G.UIT.R, config={id= "plinko_plincoins", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r=0.15, padding = 0.07, colour = G.C.MONEY, button = 'start_plinko', func = 'can_plinko', hover = true,shadow = true}, nodes = {
+                        {n=G.UIT.R, config={id= "wheel_credits", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r=0.15, padding = 0.07, colour = G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true,shadow = true}, nodes = {
                           {n=G.UIT.C, config={align = "cm", focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
@@ -76,8 +97,8 @@ function G.UIDEF.wheel()
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, scale = 0.7, colour = G.C.WHITE, shadow = true}},
-                              {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text = "c.", scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={ref_table = Wheel, ref_value = 'Price', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }} or nil
                           }}
@@ -87,7 +108,7 @@ function G.UIDEF.wheel()
                           {n=G.UIT.C, config={align = "cm", }, nodes={
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                               -------------------
-                              {n=G.UIT.T, config={text ="Incomplete", scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                              {n=G.UIT.T, config={text ="Spin", scale = 0.7, colour = G.C.WHITE, shadow = true}},
                               -------------------
                             }},
                             {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
@@ -196,6 +217,7 @@ function update_wheel(dt)
                             local nosave_plinko = nil
                             -- Back to shop button
                             G.CONTROLLER:snap_to({node = G.wheel:get_UIE_by_ID('shop_button')})
+                            set_wheel()
 
                             return true
                         end
@@ -239,24 +261,16 @@ SMODS.Arrow({
 	
 })
 
-
 -- was from JoyousSpring (originally)
 local cardarea_align_cards_ref = CardArea.align_cards
 function CardArea:align_cards()
 	cardarea_align_cards_ref(self)
 	if G.GAME.should_rotate then
-		if not G.GAME.wheel_reset then
-			G.GAME.wheel_reset = true
-		end
-		if not G.GAME.vval then
-			G.GAME.vval = math.random(1, 63)
-			G.GAME.winning_vval = (G.GAME.vval / 10)
-		end
 		if self == G.wheel_area5 then
 			for k, card in ipairs(self.cards) do
-			if G.GAME.keep_rotation then
-				card.T.r = G.GAME.keep_rotation
-			end
+				if G.GAME.keep_rotation then
+					card.T.r = G.GAME.keep_rotation
+				end
 				if not G.GAME.wheel_card then
 					G.GAME.wheel_card = card
 				end
@@ -273,6 +287,7 @@ function CardArea:align_cards()
 
 								if math.ceil(card.T.r*10) == G.GAME.vval then
 									G.GAME.keep_rotation = card.T.r
+                if not G.GAME.fake_rotate then
 									if in_between(0.1, 0.89, G.GAME.keep_rotation) then
 										wheel_reward("reward_1")
 									elseif in_between(0.89, 2.3, G.GAME.keep_rotation) then
@@ -290,27 +305,36 @@ function CardArea:align_cards()
 									elseif in_between(5.8, 6.3, G.GAME.keep_rotation) then
 										wheel_reward("reward_8")
 									end
+                end
 										
 									G.GAME.rotating = nil
+									end
 								end
-							end
-							return true
-						end,
-					}))
+								return true
+							end,
+						}))
+					end
 				end
 			end
 		end
 	end
-end
 
 
 -- remove after ( for testing )
-function set_wheel(no_arrow)
-	if not no_arrow then
-		SMODS.add_card{key = "j_hpot_the_arrow", area = G.wheel_area5}
+function set_wheel(no_arrow, vval_only)
+  if not G.GAME.vval then
+		G.GAME.vval = math.random(1, 63)
+		G.GAME.winning_vval = (G.GAME.vval / 10)
+		Wheel.KeepVval = G.GAME.vval
+	end
+  G.GAME.should_rotate = true
+if not vval_only then
+	if not no_arrow and (G.wheel_area5 and #G.wheel_area5.cards == 0) then
+		local card = SMODS.add_card({ key = "j_hpot_the_arrow", area = G.wheel_area5 })
+		card.no_ui = true
 	end
 
-		local wheel_areas2 = {
+	local wheel_areas2 = {
 		G.wheel_area,
 		G.wheel_area2,
 		G.wheel_area3,
@@ -326,6 +350,12 @@ function set_wheel(no_arrow)
 			generate_wheel_rewards(v)
 		end
 	end
+
+	if not G.GAME.wheel_reset then
+		G.GAME.wheel_reset = true
+	end
+end
+
 end
 
 function in_between(num1, num2, numB)
@@ -340,6 +370,10 @@ function reset_wheel()
 	G.GAME.rotating = nil
 	G.GAME.vval = nil
 	G.GAME.keep_rotation = nil
+  G.GAME.fake_rotate = nil
+
+  Wheel.STATE.IDLE = true
+  Wheel.STATE.SPUN = nil
 end
 
 --[[function change_wheel()
@@ -350,8 +384,21 @@ end
 end]]
 
 
-function spin_wheel()
-	G.GAME.should_rotate = true
+function spin_wheel(fake)
+
+  print("spinning")
+
+  set_wheel(true,true)
+
+  Wheel.STATE.IDLE = nil
+  Wheel.STATE.SPUN = true
+
+  if fake then
+    G.GAME.fake_rotate = true
+  else
+    G.GAME.fake_rotate = nil
+  end
+
 	G.GAME.rotating = true
 
 	local event
@@ -371,21 +418,21 @@ end
 
 function wheel_reward(reward)
 	if reward == "reward_1" then
-		grant_wheel_reward(G.wheel_area, 1)
-	elseif reward == "reward_2" then
-		grant_wheel_reward(G.wheel_area2, 1)
-	elseif reward == "reward_3" then
 		grant_wheel_reward(G.wheel_area3, 1)
-	elseif reward == "reward_4" then
-		grant_wheel_reward(G.wheel_area4, 1)
-	elseif reward == "reward_5" then
+	elseif reward == "reward_2" then
 		grant_wheel_reward(G.wheel_area6, 1)
-	elseif reward == "reward_6" then
-		grant_wheel_reward(G.wheel_area7, 1)
-	elseif reward == "reward_7" then
-		grant_wheel_reward(G.wheel_area8, 1)
-	elseif reward == "reward_8" then
+	elseif reward == "reward_3" then
 		grant_wheel_reward(G.wheel_area9, 1)
+	elseif reward == "reward_4" then
+		grant_wheel_reward(G.wheel_area8, 1)
+	elseif reward == "reward_5" then
+		grant_wheel_reward(G.wheel_area7, 1)
+	elseif reward == "reward_6" then
+		grant_wheel_reward(G.wheel_area6, 1)
+	elseif reward == "reward_7" then
+		grant_wheel_reward(G.wheel_area4, 1)
+	elseif reward == "reward_8" then
+		grant_wheel_reward(G.wheel_area, 1)
 	end
 end
 
@@ -415,6 +462,7 @@ function generate_wheel_rewards(_area)
 	else
 		card:set_edition()
 	end
+  card.states.click.can = false
 	card.ability.extra.chosen = rarity
 	_area:emplace(card)
 end
@@ -485,3 +533,81 @@ function remove_wheel_rewards()
 	end
   end
 
+
+  G.FUNCS.can_hide_wheel = function(e)
+  if Wheel.STATE.SPUN then
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+  else
+      e.config.colour = G.C.RED
+      e.config.button = 'hide_wheel'
+  end
+end
+
+G.FUNCS.hide_wheel = function(e)
+  stop_use()
+
+  G.STATE = G.STATES.SHOP
+  G.STATE_COMPLETE = false
+  ease_background_colour_blind(G.STATE)
+  show_shop()
+
+  G.wheel.alignment.offset.y = G.ROOM.T.y + 29
+
+  G.E_MANAGER:add_event(Event({func = function()
+      if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end
+  return true end }))
+
+end
+
+  G.FUNCS.can_wheel_spin = function(e)
+  if Wheel.STATE.SPUN then
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+  else
+      e.config.colour = G.C.PURPLE
+      e.config.button = 'wheel_spin'
+  end
+end
+
+G.FUNCS.wheel_spin = function(e)
+  HPTN.ease_credits(-Wheel.Price)
+  
+  spin_for_real_this_time(3)
+
+end
+
+function spin_for_real_this_time(t)
+	t = t or 3
+	if Wheel.a >= t then
+    set_wheel()
+		spin_wheel()
+    Wheel.should_spin = nil
+		Wheel.a = 0
+	else
+		spin_wheel(true)
+		Wheel.a = Wheel.a + 1
+	end
+
+	local event
+	event = Event({
+		blockable = false,
+		blocking = false,
+		trigger = "after",
+		delay = 2,
+		timer = "UPTIME",
+		func = function()
+      if Wheel.should_spin then
+			  spin_for_real_this_time(3)
+      else
+        aftermath()
+      end
+			return true
+		end,
+	})
+	G.E_MANAGER:add_event(event)
+end
+
+function aftermath()
+  Wheel.should_spin = true
+end

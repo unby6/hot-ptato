@@ -47,6 +47,9 @@ However, note that you will have to manually set the chosen rarity once it's cre
 ]]
 
 SMODS.Consumable { --Money
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Money',
     key = 'cap_money',
     set = 'bottlecap',
@@ -103,6 +106,9 @@ SMODS.Consumable { --Money
 }
 
 SMODS.Consumable { --Plincoin
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Plincoin',
     key = 'cap_plincoin',
     set = 'bottlecap',
@@ -159,6 +165,9 @@ SMODS.Consumable { --Plincoin
 }
 
 SMODS.Consumable { --Edition
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Edition',
     key = 'cap_edition',
     set = 'bottlecap',
@@ -249,6 +258,9 @@ SMODS.Consumable { --Edition
 }
 
 SMODS.Consumable { --Perkeo
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Perkeo',
     key = 'cap_perkeo',
     set = 'bottlecap',
@@ -321,6 +333,9 @@ SMODS.Consumable { --Perkeo
 }
 
 SMODS.Consumable { --Joker
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Joker',
     key = 'cap_joker',
     set = 'bottlecap',
@@ -394,6 +409,9 @@ SMODS.Consumable { --Joker
 }
 
 SMODS.Consumable { --Wheel
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Wheel',
     key = 'cap_wheel',
     set = 'bottlecap',
@@ -471,6 +489,9 @@ SMODS.Consumable { --Wheel
 }
 
 SMODS.Consumable { --Sticker
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Sticker',
     key = 'cap_sticker',
     set = 'bottlecap',
@@ -585,6 +606,9 @@ SMODS.Consumable { --Sticker
 }
 
 SMODS.Consumable { --Anti-Joker 
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Anti-Joker',
     key = 'cap_anti_joker',
     set = 'bottlecap',
@@ -664,6 +688,9 @@ SMODS.Consumable { --Anti-Joker
 }
 
 SMODS.Consumable { --Tag
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Tag',
     key = 'cap_tag',
     set = 'bottlecap',
@@ -737,6 +764,9 @@ SMODS.Consumable { --Tag
 }
 
 SMODS.Consumable { --Hands
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Hands',
     key = 'cap_hands',
     set = 'bottlecap',
@@ -795,6 +825,9 @@ SMODS.Consumable { --Hands
 }
 
 SMODS.Consumable { --Discards
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Discards',
     key = 'cap_discards',
     set = 'bottlecap',
@@ -853,6 +886,9 @@ SMODS.Consumable { --Discards
 }
 
 SMODS.Consumable { --Pack
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Pack',
     key = 'cap_pack',
     set = 'bottlecap',
@@ -936,6 +972,9 @@ SMODS.Consumable { --Pack
 }
 
 SMODS.Consumable { --Capitalism
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Capitalism',
     key = 'cap_italism',
     set = 'bottlecap',
@@ -984,6 +1023,9 @@ SMODS.Consumable { --Capitalism
 }
 
 SMODS.Consumable { --Inflation
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Inflation',
     key = 'cap_inflation',
     set = 'bottlecap',
@@ -1026,6 +1068,9 @@ SMODS.Consumable { --Inflation
 }
 
 SMODS.Consumable { --Emperor
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Emperor',
     key = 'cap_emperor',
     set = 'bottlecap',
@@ -1119,6 +1164,9 @@ SMODS.Consumable { --Emperor
 }
 
 SMODS.Consumable { --Consumable
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Consumable',
     key = 'cap_consumable',
     set = 'bottlecap',
@@ -1206,6 +1254,9 @@ SMODS.Consumable { --Consumable
 }
 
 SMODS.Consumable { --Voucher
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Voucher',
     key = 'cap_voucher',
     set = 'bottlecap',
@@ -1327,6 +1378,9 @@ SMODS.Consumable { --Voucher
 }
 
 SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE 
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Perkeo?',
     key = 'cap_perkeo_quip',
     set = 'bottlecap',
@@ -1407,6 +1461,9 @@ SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE
 }
 
 SMODS.Consumable { --Venture Capital
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Venture Capital',
     key = 'cap_venture',
     set = 'bottlecap',
@@ -1481,6 +1538,9 @@ SMODS.Consumable { --Venture Capital
 }
 
 SMODS.Consumable { --Duplicate
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Duplicate',
     key = 'cap_duplicate',
     set = 'bottlecap',
@@ -1548,6 +1608,9 @@ SMODS.Consumable { --Duplicate
 
 
 SMODS.Consumable { --Sticker Bomb (change this to use poll_sticker() )
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Sticker Bomb',
     key = 'cap_sticker_bomb',
     set = 'bottlecap',
@@ -1631,6 +1694,9 @@ SMODS.Consumable { --Sticker Bomb (change this to use poll_sticker() )
 }
 
 SMODS.Consumable { --Modificatio
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Cap Modification',
     key = 'cap_modif',
     set = 'bottlecap',
@@ -1710,6 +1776,9 @@ SMODS.Consumable { --Modificatio
 }
 
 SMODS.Consumable { --Credit
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Credits',
     key = 'cap_credits',
     set = 'bottlecap',
@@ -1766,6 +1835,9 @@ SMODS.Consumable { --Credit
 }
 
 SMODS.Consumable { -- Team Name Consumable
+in_pool = function(self, args)
+		return true, { allow_duplicates = true }
+	end,
     name = 'Team Name Consumable',
     key = 'cap_tname_consumables',
     set = 'bottlecap',
