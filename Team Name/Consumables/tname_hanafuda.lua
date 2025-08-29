@@ -43,7 +43,7 @@ SMODS.Consumable({
 	pos = { x = 0, y = 0 },
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -86,7 +86,7 @@ SMODS.Consumable({
 	pos = { x = 0, y = 1 },
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -129,7 +129,7 @@ SMODS.Consumable({
 	pos = { x = 0, y = 2 },
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -172,7 +172,7 @@ SMODS.Consumable({
 	pos = { x = 0, y = 3 },
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -217,7 +217,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -259,7 +259,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -301,7 +301,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -343,7 +343,7 @@ SMODS.Consumable({
 	key = "willow_4",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -387,7 +387,7 @@ SMODS.Consumable({
 		pos = {x = 2, y = 0},
 	atlas = "tname_hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -430,7 +430,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -473,7 +473,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -515,7 +515,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -560,7 +560,7 @@ SMODS.Consumable({
 	set = "hanafuda",
 	
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -606,7 +606,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -652,7 +652,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -694,7 +694,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -738,7 +738,7 @@ SMODS.Consumable({
 	pos = {x = 5, y = 0},
 	atlas = "tname_hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -780,7 +780,7 @@ SMODS.Consumable({
 	pos = {x = 5, y = 1},
 	atlas = "tname_hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -822,7 +822,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -864,7 +864,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -908,7 +908,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -944,7 +944,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -980,7 +980,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1016,7 +1016,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1054,7 +1054,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1089,7 +1089,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1124,7 +1124,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1159,7 +1159,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1196,7 +1196,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1238,7 +1238,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1280,7 +1280,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1322,7 +1322,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1366,7 +1366,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1401,7 +1401,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1436,7 +1436,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1471,7 +1471,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1508,7 +1508,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1554,7 +1554,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1600,7 +1600,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1646,7 +1646,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1694,7 +1694,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1732,7 +1732,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1770,7 +1770,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -1808,7 +1808,7 @@ SMODS.Consumable({
 	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
-		art = { "No Art" },
+		art = { "GhostSalt" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },
