@@ -213,6 +213,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "willow_1",
+	pos = {x = 10, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -253,6 +255,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "willow_2",
+		pos = {x = 10, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -293,6 +297,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "willow_3",
+		pos = {x = 10, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -332,6 +338,8 @@ SMODS.Consumable({
 })
 
 SMODS.Consumable({
+		pos = {x = 10, y = 3},
+	atlas = "tname_hanafuda",
 	key = "willow_4",
 	set = "hanafuda",
 	hotpot_credits = {
@@ -376,6 +384,8 @@ SMODS.Consumable({
 SMODS.Consumable({
 	key = "sakura_1",
 	set = "hanafuda",
+		pos = {x = 2, y = 0},
+	atlas = "tname_hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "Corobo" },
@@ -416,6 +426,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "sakura_2",
+			pos = {x = 2, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -457,6 +469,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "sakura_3",
+			pos = {x = 2, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -497,6 +511,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "sakura_4",
+			pos = {x = 2, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -539,7 +555,10 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "paulownia_1",
+	pos = {x = 11, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
+	
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "Corobo" },
@@ -583,6 +602,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "paulownia_2",
+	pos = {x = 11, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -627,6 +648,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "paulownia_3",
+	pos = {x = 11, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -667,6 +690,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "paulownia_4",
+	pos = {x = 11, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -710,6 +735,8 @@ SMODS.Consumable({
 SMODS.Consumable({
 	key = "peony_1",
 	set = "hanafuda",
+	pos = {x = 5, y = 0},
+	atlas = "tname_hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "Corobo" },
@@ -750,6 +777,8 @@ SMODS.Consumable({
 SMODS.Consumable({
 	key = "peony_2",
 	set = "hanafuda",
+	pos = {x = 5, y = 1},
+	atlas = "tname_hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
 		idea = { "Corobo" },
@@ -789,6 +818,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "peony_3",
+	pos = {x = 5, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -829,6 +860,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "peony_4",
+	pos = {x = 5, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -871,6 +904,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "maple_1",
+	pos = {x = 9, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -905,6 +940,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "maple_2",
+	pos = {x = 9, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -939,6 +976,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "maple_3",
+	pos = {x = 9, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -973,6 +1012,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "maple_4",
+	pos = {x = 9, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1009,6 +1050,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "chrysanthemum_1",
+	pos = {x = 8, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1042,6 +1085,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "chrysanthemum_2",
+	pos = {x = 8, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1075,6 +1120,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "chrysanthemum_3",
+	pos = {x = 8, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1108,6 +1155,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "chrysanthemum_4",
+	pos = {x = 8, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1143,6 +1192,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "susuki_1",
+	pos = {x = 7, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1183,6 +1234,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "susuki_2",
+	pos = {x = 7, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1223,6 +1276,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "susuki_3",
+	pos = {x = 7, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1263,6 +1318,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "susuki_4",
+	pos = {x = 7, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1305,6 +1362,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "iris_1",
+	pos = {x = 4, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1338,6 +1397,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "iris_2",
+	pos = {x = 4, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1371,6 +1432,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "iris_3",
+	pos = {x = 4, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1404,6 +1467,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "iris_4",
+	pos = {x = 4, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1439,6 +1504,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "wisteria_1",
+	pos = {x = 3, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1483,6 +1550,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "wisteria_2",
+	pos = {x = 3, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1527,6 +1596,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "wisteria_3",
+	pos = {x = 3, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1571,6 +1642,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "wisteria_4",
+	pos = {x = 3, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1617,6 +1690,8 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "bush_clover_1",
+	pos = {x = 6, y = 0},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1653,6 +1728,8 @@ SMODS.Consumable({
 })
 SMODS.Consumable({
 	key = "bush_clover_2",
+	pos = {x = 6, y = 1},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1689,6 +1766,8 @@ SMODS.Consumable({
 })
 SMODS.Consumable({
 	key = "bush_clover_3",
+	pos = {x = 6, y = 2},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
@@ -1725,6 +1804,8 @@ SMODS.Consumable({
 })
 SMODS.Consumable({
 	key = "bush_clover_4",
+	pos = {x = 6, y = 3},
+	atlas = "tname_hanafuda",
 	set = "hanafuda",
 	hotpot_credits = {
 		art = { "No Art" },
