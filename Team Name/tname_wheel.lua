@@ -21,7 +21,10 @@ Wheel = {
   cost_up = 2, -- when to up the cost (round)
   ante_left = 1, -- when to reset the cost (ante)
   default_ante_left = 1, --resets
-  default_cost_up = 2 --resets
+  default_cost_up = 2, --resets
+  ARROWS = { -- the arrows yippe
+
+  }
 }
 
 
@@ -244,8 +247,7 @@ function update_wheel(dt) -- talen from plinko so idk
 end
 
 
-
-SMODS.Arrow = SMODS.Joker:extend({ -- the arrow
+SMODS.Arrow = SMODS.Joker:extend({ -- the arrow thingy
 	rarity = 1,
 	unlocked = true,
 	discovered = true,
@@ -256,25 +258,29 @@ SMODS.Arrow = SMODS.Joker:extend({ -- the arrow
 	required_params = {
 		"key",
 	},
+    inject = function(self)
+    SMODS.Center.inject(self) -- ~i placed this in the wrong spot~  not anymore
+
+    Wheel.ARROWS[#Wheel.ARROWS+1] = self
+  end
 })
 
+
+
+for i = 1, 10 do 
 SMODS.Arrow({
-	key = "the_arrow",
+	key = "the_arrow_" .. i,
 	atlas = "tname_wheels",
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
 	no_collection = true,
 	pos = {
-		x = 0,
+		x = (i-1),
 		y = 0,
 	},
-  inject = function(self)
-    SMODS.Center.inject(self) -- i placed this in the wrong spot
-  end
-	 
-	
 })
+end
 
 -- was from JoyousSpring (originally)
 local cardarea_align_cards_ref = CardArea.align_cards  -- <- i dont understand how i made this work either 
@@ -346,7 +352,8 @@ function set_wheel(no_arrow, vval_only)
   G.GAME.should_rotate = true
 if not vval_only then
 	if not no_arrow and (G.wheel_area5 and #G.wheel_area5.cards == 0) then
-		local card = SMODS.add_card({ key = "j_hpot_the_arrow", area = G.wheel_area5 })
+    local k = pseudorandom_element(Wheel.ARROWS).key
+		local card = SMODS.add_card({ key = k, area = G.wheel_area5 })
 		card.no_ui = true
 	end
 
@@ -444,9 +451,9 @@ function wheel_reward(reward) -- grant reward acording to the position
 	elseif reward == "reward_5" then
 		grant_wheel_reward(G.wheel_area7, 1)
 	elseif reward == "reward_6" then
-		grant_wheel_reward(G.wheel_area6, 1)
-	elseif reward == "reward_7" then
 		grant_wheel_reward(G.wheel_area4, 1)
+	elseif reward == "reward_7" then
+		grant_wheel_reward(G.wheel_area2, 1)
 	elseif reward == "reward_8" then
 		grant_wheel_reward(G.wheel_area, 1)
 	end
@@ -651,6 +658,9 @@ end
 
 -- Clicked back to shop
 G.FUNCS.hide_wheel = function(e)
+
+  SMODS.destroy_cards(G.wheel_area5.cards) -- destroy arrow 
+
   stop_use()
 
   G.STATE = G.STATES.SHOP
