@@ -27,7 +27,7 @@ SMODS.Sound {
   key = "music_hanafuda",
   path = "music_hanafuda.ogg",
   select_music_track = function (self)
-    if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "hanafuda", 0, true) ~= nil and not G.STATE == G.STATES.SHOP then
+    if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "hanafuda", 0, true) ~= nil then
       return 1339
       end
   end
@@ -36,7 +36,7 @@ SMODS.Sound {
   key = "music_aura",
   path = "music_aura.ogg",
   select_music_track = function (self)
-    if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "auras", 0, true) ~= nil and not G.STATE == G.STATES.SHOP then
+    if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "auras", 0, true) ~= nil then
       return 1339
     end
   end

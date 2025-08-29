@@ -388,7 +388,7 @@ function HPTN.ease_credits(amount, instant)
 end
 
 function HPTN.set_credits(amount)
-	G.PROFILES[G.SETTINGS.profile].TNameCredits =  amount
+	G.PROFILES[G.SETTINGS.profile].TNameCredits = amount
 	G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
 end
 
