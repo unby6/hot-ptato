@@ -1,6 +1,6 @@
 return {
     descriptions = {
-        auras = {
+        Aura = {
             c_hpot_justice = {
                 name = "Aura of Justice",
                 text = {
@@ -60,7 +60,7 @@ return {
                 }
             },
         },
-        hanafuda = {
+        Hanafuda = {
             c_hpot_pine_1 = {
                 name = "Plain Pine",
                 text = {
