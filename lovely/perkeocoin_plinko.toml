@@ -62,7 +62,7 @@ target = 'functions/misc_functions.lua'
 position = 'at'
 pattern = '''STATE = G.STATE,'''
 payload = '''
-STATE = (G.STATE == G.STATES.PLINKO and G.STATES.SHOP) or G.STATES == G.STATES.WHEEL and G.STATES.SHOP) or G.STATE,
+STATE = (G.STATE == G.STATES.PLINKO and G.STATES.SHOP) or (G.STATES == G.STATES.WHEEL and G.STATES.SHOP) or G.STATE,
 '''
 match_indent = true
 

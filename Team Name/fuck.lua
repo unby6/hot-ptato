@@ -46,6 +46,9 @@ SMODS.Sound {
   path = "music_amen.ogg",
   pitch = 1,
   select_music_track = function (self)
+    if G.STATE == G.STATES.WHEEL then
+      return 1349
+    end
   end
 }
 
