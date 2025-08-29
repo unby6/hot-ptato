@@ -1126,8 +1126,10 @@ SMODS.EventScenario({
 
 
 
--- Team Name Event
+-- Team Name Events
 
+
+-- Mysterious Man
 
 SMODS.EventStep({
 	key = "currency_exchange_1",
@@ -1240,5 +1242,102 @@ SMODS.EventScenario {
 	},
 	in_pool = function()
 		return G.GAME.dollars < 5
+	end
+}
+
+-- Sticker Master
+
+SMODS.EventStep({
+	key = "sticker_master_1",
+
+	config = {
+		extra = {
+			cost = 5
+		},
+	},
+
+	get_choices = function(self, event)
+	return {
+		{
+			key = "hpot_remove_stickers",
+			no_prefix = true,
+			loc_vars = { self.config.extra.cost },
+			button = function()
+				ease_plincoins(-self.config.extra.cost)
+				for k, card in pairs(G.jokers.cards) do
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						func = function()
+							card:juice_up()
+							remove_all_stickers(card)
+							return true
+						end,
+					}))
+				end
+				event.start_step("hpot_sticker_success")
+			end,
+			func = function()
+				return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= 3
+			end,
+		},
+		{
+			key = "hpot_ignore_or_something",
+			no_prefix = true,
+			button = function()
+				event.finish_scenario()
+			end,
+		},
+	}
+	end,
+	start = function(self, event)
+	event.display_lines(1, true)
+		delay(2)
+		local x, y = event.get_image_center()
+		local cc = Character("j_hpot_sticker_master")
+		event.image_area.children.jimbo_card = cc
+		event.display_lines(2, true)
+		delay(2)
+		event.display_lines(2, true)
+	end,
+})
+
+SMODS.EventStep({
+	key = "sticker_success",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		event.display_lines(1, true)
+	end,
+	finish = function(self, event)
+		local card_sharp_card = event.image_area.children.jimbo_card
+		if card_sharp_card then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					card_sharp_card:remove()
+					event.image_area.children.jimbo_card = nil
+					return true
+				end,
+			}))
+		end
+	end,
+})
+
+SMODS.EventScenario {
+	key = "sticker_master_e",
+	starting_step_key = "hpot_sticker_master_1",
+	hotpot_credits = {
+		idea = { "Revo" },
+		code = { "Revo" },
+		team = { "Team Name" },
+	},
+	in_pool = function()
+		return sticker_check(G.jokers.cards) > 0 
 	end
 }

@@ -20,6 +20,21 @@ function sticker_check(area, sticker) -- make "sticker" a table check?
 	return amount
 end
 
+function remove_all_stickers(card)
+    if card then
+        for k, v in pairs(SMODS.Stickers) do
+            if card.ability[k] or card[k] then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        SMODS.Stickers[k]:apply(card,false)
+                    return true
+                end
+                }))
+            end
+        end
+    end
+end
 --- Polls a random sticker from the set of stickers according to a uniform distribution.
 ---
 --- @param guaranteed boolean Controls whether or not you are guaranteed to get a sticker.

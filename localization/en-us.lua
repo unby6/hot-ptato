@@ -2479,14 +2479,22 @@ return {
                 }
             },
 
-            hpot_reforge_master_1 = {
+            hpot_sticker_master_1 = {
                 text = {
-                    "A man approaches you.",
-                    "His Pockets look full.",
+                    "You want to get rid of your stickers so you enter a shop",
                     " ",
-                    "Do you wish to exchange your other currencies to dollars?",
+                    '"Welcome! I can clear any sticker"',
+                    '"from your jokers!"',
+                    " ",
+                    '"for a some cash of course."'
                 }
             },
+
+            hpot_sticker_success = {
+                text = {
+                    "Come Again!"
+                }
+            }
         },
         EventScenarios = {
             hpot_test = {
@@ -2918,6 +2926,8 @@ return {
             hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
             hpot_exchange_sparks_to_dollars = "Joker Exchange to Dollars",
             hpot_ignore_or_something = "Ignore",
+
+            hpot_remove_stickers = "Remove (#1# Plincoins)"
         }
     }
 }
