@@ -44,6 +44,13 @@ SMODS.Sound {
   end
 }
 SMODS.Sound {
+  key = "music_windows95",
+  pitch = 1,
+  path = "music_windows95.ogg",
+  select_music_track = function (self)
+  end
+}
+SMODS.Sound {
   key = "music_amen",
   path = "music_amen.ogg",
   pitch = 1,
