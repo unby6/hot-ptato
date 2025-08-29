@@ -990,7 +990,7 @@ return {
                 name = "Sticker Master",
                 text = {
                     "{C:mult}+#1#{} Mult for",
-                    "each sticker on","your jokers",
+                    "each sticker on", "your jokers",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
@@ -998,16 +998,16 @@ return {
                 name = "Sticker Addict",
                 text = {
                     {
-                    "When a {C:attention}Blind{}",
-                    "is selected, randomly",
-                    "apply a {C:dark_edition}Random Sticker{}",
-                    "to the card on the right",
-                    "or on the left.",
+                        "When a {C:attention}Blind{}",
+                        "is selected, randomly",
+                        "apply a {C:dark_edition}Random Sticker{}",
+                        "to the card on the right",
+                        "or on the left.",
                     },
                     {
-                    "Gains {X:mult,C:white}X#2#{} Mult",
-                    "per sticker applied.",
-                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+                        "Gains {X:mult,C:white}X#2#{} Mult",
+                        "per sticker applied.",
+                        "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
                     },
                 }
             },
@@ -1066,7 +1066,7 @@ return {
             j_hpot_space_ape = {
                 name = "Space Ape",
                 text = {
-                    "{C:inactive}\"Ratatam, ratatam, ratatam!!\"", 
+                    "{C:inactive}\"Ratatam, ratatam, ratatam!!\"",
                     "{C:inactive}\"We are the space apes!\""
                 }
             },
@@ -1076,59 +1076,66 @@ return {
                     ""
                 }
             },
-                        j_hpot_tname_postcard_1 = {
+            j_hpot_tname_postcard_1 = {
                 name = "Postcard",
-                text = {{
+                text = { {
                     "This Joker changes its",
                     "{C:attention}recipient{} every round...",
                     "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
                 },
-                {"Corobo Ability:",
-                "{X:mult,C:white}X#4#{} Mult, {X:mult,C:white}+X#5#{} Mult",
-                "per scored card."
-                },
+                    { "Corobo Ability:",
+                        "{X:mult,C:white}X#4#{} Mult, {X:mult,C:white}+X#5#{} Mult",
+                        "per scored card."
+                    },
                 }
             },
             j_hpot_tname_postcard_2 = {
                 name = "Postcard",
                 text = {
-                    {"This Joker changes its",
-                    "{C:attention}recipient{} every round...",
-                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
-                    {"GhostSalt Ability:"},
+                    {
+                        "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"
+                    },
+                    {
+                        "GhostSalt Ability:",
+                        "Cards in your",
+                        "consumable area",
+                        "give {C:white,X:mult}X#8#{} Mult"
+                    },
                 },
             },
             j_hpot_tname_postcard_3 = {
                 name = "Postcard",
                 text = {
-                    {"This Joker changes its",
-                    "{C:attention}recipient{} every round...",
-                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
-                    {"GoldenLeaf Ability:",
-                    "{C:purple}+c.#2#{} when hand played"
+                    { "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
+                    { "GoldenLeaf Ability:",
+                        "{C:purple}+c.#2#{} when hand played"
                     },
                 },
             },
             j_hpot_tname_postcard_4 = {
                 name = "Postcard",
                 text = {
-                    {"This Joker changes its",
-                    "{C:attention}recipient{} every round...",
-                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
-                    {"Jogla Ability:",
-                    "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
-                    "of the {C:attention}leftmost{} consumable",
-                    "when {C:attention}ending{} shop."
+                    { "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
+                    { "Jogla Ability:",
+                        "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
+                        "of the {C:attention}leftmost{} consumable",
+                        "when {C:attention}ending{} shop."
                     },
                 },
             },
             j_hpot_tname_postcard_5 = {
                 name = "Postcard",
                 text = {
-                    {"This Joker changes its",
-                    "{C:attention}recipient{} every round...",
-                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
-                    {"Revo Ability:",
+                    { "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
+                    { "Revo Ability:",
                         "Each Played {C:spades}Spades{} suit is",
                         "retriggered {C:attention}#6#{} times."
                     },
@@ -1137,14 +1144,14 @@ return {
             j_hpot_tname_postcard_6 = {
                 name = "Postcard",
                 text = {
-                    {"This Joker changes its",
-                    "{C:attention}recipient{} every round...",
-                    "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})"},
-                    {"Violet Ability:",
-                "The first played {C:hearts}Heart{} suit card turns into a {C:spades}Spade{}.",
-                "The last played {C:spades}Spade{} suit card turns into a {C:hearts}Heart{}.",
-                "Gain {C:money}$#7#{} every time a {C:spades}Spade{} or {C:hearts}Heart{} card is scored."
-                }
+                    { "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
+                    { "Violet Ability:",
+                        "The first played {C:hearts}Heart{} suit card turns into a {C:spades}Spade{}.",
+                        "The last played {C:spades}Spade{} suit card turns into a {C:hearts}Heart{}.",
+                        "Gain {C:money}$#7#{} every time a {C:spades}Spade{} or {C:hearts}Heart{} card is scored."
+                    }
                 },
             },
         },
@@ -1237,7 +1244,7 @@ return {
             },
             v_hpot_ref_joker_exc = {
                 name = "Premium Anvil",
-               text = {
+                text = {
                     "{C:hpot_plincoin}Plincoins{} and",
                     "{C:blue}Joker Exchange{} can",
                     "be used to reforge"
@@ -1802,47 +1809,47 @@ return {
             -- vanilla ultra packs
 
             p_hpot_ultra_arcana = {
-		        name = "Ultra Arcana Pack",
-		        text = {
-			        "Choose {C:attention}#1#{} of up to",
-			        "{C:attention}#2#{} {C:tarot}Tarot{} cards to",
-			        "be used immediately",
-		        },
+                name = "Ultra Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:tarot}Tarot{} cards to",
+                    "be used immediately",
+                },
             },
 
             p_hpot_ultra_celestial = {
-		        name = "Ultra Celestial Pack",
-		        text = {
-			        "Choose {C:attention}#1#{} of up to",
-			        "{C:attention}#2#{} {C:planet}Planet{} cards to",
-			        "be used immediately",
-		        },
+                name = "Ultra Celestial Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:planet}Planet{} cards to",
+                    "be used immediately",
+                },
             },
 
             p_hpot_ultra_standard = {
-		        name = "Ultra Standard Pack",
-		        text = {
-			        "Choose {C:attention}#1#{} of up to",
-			        "{C:attention}#2#{} {C:attention}Playing{} cards to",
-			        "add to your deck",
-		        },
+                name = "Ultra Standard Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:attention}Playing{} cards to",
+                    "add to your deck",
+                },
             },
 
             p_hpot_ultra_spectral = {
-		        name = "Ultra Spectral Pack",
-		        text = {
-			        "Choose {C:attention}#1#{} of up to",
-			        "{C:attention}#2#{} {C:spectral}Spectral{} cards to",
-			        "be used immediately",
-		        },
+                name = "Ultra Spectral Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:spectral}Spectral{} cards to",
+                    "be used immediately",
+                },
             },
 
             p_hpot_ultra_buffoon = {
-		        name = "Ultra Buffoon Pack",
-		        text = {
-			        "Choose {C:attention}#1#{} of up to",
-			        "{C:attention}#2#{} Joker cards",
-		        },
+                name = "Ultra Buffoon Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} Joker cards",
+                },
             },
 
             --
@@ -1985,14 +1992,14 @@ return {
             hpot_overclock = {
                 name = "Overclock",
                 text = {
-                    "{C:attention}Retriggers{} for","{C:attention}#1#{} Rounds.",
+                    "{C:attention}Retriggers{} for", "{C:attention}#1#{} Rounds.",
                     "{C:inactive}({C:attention}#2#{C:inactive} Remaining)"
                 }
             },
             hpot_redirect = {
                 name = "Redirect",
                 text = {
-                    "When this card", 
+                    "When this card",
                     "is going to be destroyed",
                     "{C:red}destroy{} another card instead."
                 }
@@ -2016,7 +2023,7 @@ return {
             hpot_spores = {
                 name = "Spore",
                 text = {
-                    "{C:green}#1# in 2{} Chance to", 
+                    "{C:green}#1# in 2{} Chance to",
                     "give a spore to {C:attention}adjacent{} cards",
                     "when in hand.",
                     "{C:red}Destroyed{} if adjacent cards",
@@ -2469,13 +2476,13 @@ return {
             modif_hpot_invested = {
                 name = "Invested",
                 text = {
-                   "{C:money}+$1{C:green} sell value at the end of a round"
+                    "{C:money}+$1{C:green} sell value at the end of a round"
                 }
             },
             modif_hpot_damaged = {
                 name = "Damaged",
                 text = {
-                   "{C:dark_edition}#1# in 2 Chance to self-destruct when triggered"
+                    "{C:dark_edition}#1# in 2 Chance to self-destruct when triggered"
                 }
             },
             modif_hpot_supported = {
@@ -2507,7 +2514,7 @@ return {
             modif_hpot_depreciating = {
                 name = "Depreciating",
                 text = {
-                   "{C:money}-$1{C:dark_edition} sell value at the end of a round"
+                    "{C:money}-$1{C:dark_edition} sell value at the end of a round"
                 }
             },
         },
@@ -2614,8 +2621,8 @@ return {
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
 
-            k_credits="Credits",
-            teamname_off_reference="Revived",
+            k_credits = "Credits",
+            teamname_off_reference = "Revived",
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
             hotpot_plinko_to_shop2 = "shop",
@@ -2662,7 +2669,7 @@ return {
             hotpot_exchange_option_2 = "A Giant Pile of ͸",
             hotpot_exchange_option_3 = "A Ton of ͸",
             hotpot_exchange_option_4 = "An Overfilled Box of ͸",
-            hotpot_exchange_option_5 = "A Cargo Load of ͸", 
+            hotpot_exchange_option_5 = "A Cargo Load of ͸",
 
             hotpot_exchange_option_plin_1 = "A Premium Pile of ͸",
             hotpot_exchange_option_plin_2 = "A Giant Premium Pile of ͸",
