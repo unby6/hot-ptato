@@ -1,0 +1,54 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Game:update
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
+payload = '''
+if self.STATE == self.STATES.WHEEL then
+  update_wheel(dt)
+end
+
+'''
+match_indent = true
+
+
+# ease_background_colour_blind
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+position = 'before'
+pattern = '''elseif state == G.STATES.TAROT_PACK then'''
+payload = '''
+elseif state == G.STATES.WHEEL then
+    ease_colour(G.C.DYN_UI.MAIN, mix_colours(G.C.MONEY, G.C.BLACK, 0.9))
+'''
+match_indent = true
+
+# TEMPORARY PATCH (probably not temporary)
+# some fuckery happens when loading back into run while quit during plinko
+# save_run
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+position = 'at'
+pattern = '''STATE = G.STATE,'''
+payload = '''
+STATE = G.STATE == G.STATES.WHEEL and G.STATES.SHOP or G.STATE,
+'''
+match_indent = true
+
+# Game:draw
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+position = 'after'
+pattern = '''(self.config.type == 'hand' and state == G.STATES.SMODS_BOOSTER_OPENED) or'''
+payload = '''
+(self.config.type == 'hand' and G.STATE == G.STATES.WHEEL) or'''
+match_indent = true
