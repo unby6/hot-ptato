@@ -290,10 +290,11 @@ function CardArea:align_cards()
 				if G.GAME.rotating then
 
 					G.E_MANAGER:add_event(Event({
-						trigger = "after",
+						trigger = "immediate",
 						delay = 1,
 						func = function()
 
+              if not G.GAME.vval then G.GAME.vval = Wheel.KeepVval end
 							for i = 1, G.GAME.vval+0.1 do
 
 								card.T.r = card.T.r + 0.1
