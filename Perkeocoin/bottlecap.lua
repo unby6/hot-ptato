@@ -1845,8 +1845,8 @@ in_pool = function(self, args)
     pos = { x = 3, y = 0 },
     config = {
         extra = {
-            ['Common'] = 'hanafuda',
-            ['Uncommon'] = 'auras',
+            ['Common'] = 'Hanafuda',
+            ['Uncommon'] = 'Aura',
             chosen = 'Common'
         }
     },

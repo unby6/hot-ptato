@@ -1,5 +1,5 @@
 SMODS.ConsumableType({
-	key = "auras",
+	key = "Aura",
 	collection_rows = { 4, 4},
 	primary_colour = G.C.GREY,
 	secondary_colour = G.C.GREY,
@@ -10,7 +10,7 @@ SMODS.Atlas{key = "tname_auras", path = "Team Name/tname_auras.png", px = 71, py
 
 SMODS.Consumable({
 	key = "justice",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 0,
@@ -58,7 +58,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "fear",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 1,
@@ -121,7 +121,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "perception",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 2,
@@ -173,7 +173,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "greatness",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 3,
@@ -209,7 +209,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "clairvoyance",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 0,
@@ -252,7 +252,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "tenacity",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 1,
@@ -291,7 +291,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
 	key = "lunacy",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 2,
@@ -324,7 +324,7 @@ SMODS.Consumable({
 })
 SMODS.Consumable({
 	key = "power",
-	set = "auras",
+	set = "Aura",
 	atlas = "tname_auras",
 	pos = {
 		x = 3,

@@ -9,7 +9,7 @@ SMODS.Booster({
     draw_hand = true,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "hanafuda",
+			set = "Hanafuda",
 			skip_materialize = true,
 		})
 	end,
@@ -32,7 +32,7 @@ SMODS.Booster({
     draw_hand = true,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "hanafuda",
+			set = "Hanafuda",
 			skip_materialize = true,
 		})
 	end,
@@ -55,7 +55,7 @@ SMODS.Booster({
     draw_hand = true,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "hanafuda",
+			set = "Hanafuda",
 			skip_materialize = true,
 		})
 	end,
@@ -78,7 +78,7 @@ SMODS.Booster({
     draw_hand = true,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "hanafuda",
+			set = "Hanafuda",
 			skip_materialize = true,
 		})
 	end,
@@ -101,7 +101,7 @@ SMODS.Booster({
 	create_card = function(self, card)
 		return 
 			SMODS.create_card({
-				set = "hanafuda",
+				set = "Hanafuda",
 				skip_materialize = true,
 			})
 		
@@ -126,7 +126,7 @@ SMODS.Booster({
 	weight = 0.6,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "auras",
+			set = "Aura",
 			skip_materialize = true,
 		})
 	end,
@@ -148,7 +148,7 @@ SMODS.Booster({
 	weight = 0.6,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "auras",
+			set = "Aura",
 			skip_materialize = true,
 		})
 	end,
@@ -170,7 +170,7 @@ SMODS.Booster({
 	weight = 0.3,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "auras",
+			set = "Aura",
 			skip_materialize = true,
 		})
 	end,
@@ -192,7 +192,7 @@ SMODS.Booster({
 	weight = 0.11,
 	create_card = function(self, card, i)
 		return SMODS.create_card({
-			set = "auras",
+			set = "Aura",
 			skip_materialize = true,
 		})
 	end,
@@ -215,7 +215,7 @@ SMODS.Booster({
 	create_card = function(self, card)
 		return 
 			SMODS.create_card({
-				set = "auras",
+				set = "Aura",
 				skip_materialize = true,
 			})
 		

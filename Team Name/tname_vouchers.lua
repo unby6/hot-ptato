@@ -87,6 +87,9 @@ SMODS.Voucher {
     }
 }
 
+
+-- scrapped vouchers
+
 --[[SMODS.Voucher {
 	key = 'costcutting',
 	pos = { x = 2, y = 0 },

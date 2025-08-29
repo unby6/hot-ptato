@@ -612,7 +612,7 @@ function spin_for_real_this_time(t)
 		blockable = false,
 		blocking = false,
 		trigger = "after",
-		delay = 2,
+		delay = 2, -- adjust this to change the speed of the arrow but 2 seems ideal
 		timer = "UPTIME",
 		func = function()
       if Wheel.should_spin then
