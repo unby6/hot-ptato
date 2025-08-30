@@ -12,7 +12,7 @@ SMODS.Sound {
 function G.FUNCS.nxkclick()
     local save = G.PROFILES[G.SETTINGS.profile]
     save.JtemNXkilled = (save.JtemNXkilled or 0) + (save.JtemNXplus or 1)
-    save.JtemNXneeded = math.floor(15^((0.2*(save.JtemNXplus or 1))+1))
+    save.JtemNXneeded = math.floor(HPTN.nxkoofactor^((0.2*(save.JtemNXplus or 1))+1))
     play_sound("hpot_nxkill", nil, 0.25)
     G:save_progress()
 end
