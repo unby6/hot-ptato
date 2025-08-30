@@ -2,6 +2,8 @@
 -- feel free to play arround with it and try to make it better (please)
 -- i cant code :pensive:
 
+-- PLEASE DO MORE WITH WHEEL I BEG
+
 -- mostly copied from plinko btw
 
 
