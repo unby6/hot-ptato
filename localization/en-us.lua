@@ -1256,7 +1256,7 @@ return {
                 }
             },
             j_hpot_nxkoo_joker = {
-                name = "Miracle",
+                name = "Halo",
                 text = {
                     "Change the base of",
                     "the requirement scaling for an ",

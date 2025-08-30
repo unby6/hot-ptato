@@ -2,7 +2,7 @@
 SMODS.Joker({
 	key = "nxkoo_joker",
 	rarity = 1,
-	pos = {x=10,y=0},
+	pos = {x=0,y=1},
 	atlas = "tname_jokers2",
 	add_to_deck = function (self, card, from_debuff)
 		local a = HPTN.nxkoofactor
