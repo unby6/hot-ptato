@@ -236,3 +236,40 @@ SMODS.Joker({
         team = {"Team Name"}
     }
 })
+
+SMODS.Joker({
+	key = "graveyard",
+	rarity = 3,
+	config = {
+		extra = {
+			xmultg = 0.5,
+			xmult = 1,
+			destroyed = 0
+		},
+	},
+	pos = {x=1,y=1},
+	atlas = "tname_jokers2",
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+			return {
+				vars = { hpt.xmultg, hpt.xmult + hpt.xmultg * hpt.destroyed},
+			}
+	end,
+	calculate = function(self, card, context)
+		local hpt = card.ability.extra
+		if context.joker_type_destroyed then
+			hpt.destroyed = hpt.destroyed + 1
+		end
+		if context.joker_main then
+			return {
+				xmult = hpt.xmult + hpt.xmultg * hpt.destroyed
+			}
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})

@@ -1264,6 +1264,13 @@ return {
                     "from {X:edition,C:white}15{} to from {X:edition,C:white}10{}",
                 }
             },
+            j_hpot_graveyard = {
+                name = "Graveyard",
+                text = {
+                    "{X:mult,C:white}+#1#X{} Mult per joker destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
