@@ -1267,7 +1267,7 @@ return {
             j_hpot_graveyard = {
                 name = "Graveyard",
                 text = {
-                    "{X:mult,C:white}+#1#X{} Mult per joker destroyed",
+                    "{X:mult,C:white}+X#1#{} Mult per joker destroyed",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
