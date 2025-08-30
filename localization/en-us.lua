@@ -2804,6 +2804,7 @@ return {
 
             k_credits = "Credits",
             teamname_off_reference = "Revived",
+            teamname_replaced = "Replaced!",
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
             hotpot_plinko_to_shop2 = "shop",
