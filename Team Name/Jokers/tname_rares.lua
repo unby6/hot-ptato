@@ -186,3 +186,52 @@ SMODS.Joker({
         team = {"Team Name"}
     }
 })
+local function g(x)
+	if x then
+		return "Active"
+	else
+		return "Inactive"
+	end
+end
+SMODS.Joker({
+	key = "sunset",
+	rarity = 3,
+	config = {
+		extra = {
+			suit = 'Hearts',
+			availability = true
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+			return {
+				vars = { hpt.suit , g(hpt.availability)},
+			}
+	end,
+	pos = {x=11,y=0},
+	atlas = "tname_jokers2",
+	calculate = function(self, card, context)
+		local bool = false
+		if context.scoring_hand then
+		    for k, v in ipairs(context.full_hand) do
+				if v:is_suit(card.ability.extra.suit) then
+					bool = true
+					break
+				end
+		    end
+	    end
+		if bool and card.ability.extra.availability and context.joker_main then
+			SMODS.add_card{set = "Hanafuda"}
+			card.ability.extra.availability = false
+		end
+		if context.end_of_round then
+			card.ability.extra.availability = true
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})

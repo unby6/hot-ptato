@@ -1247,6 +1247,14 @@ return {
                     "Replace all consumables with {V:1}Aura Cards{}"
                 }
             },
+            j_hpot_sunset = {
+                name = "Sunset",
+                text = {
+                    "If played hand contains a card with {C:attention}#1#{} suit,",
+                    "Create a {C:red}Hanafuda{} Card.",
+                    "{C:inactive}(Only works once per round, currently #2#.)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
