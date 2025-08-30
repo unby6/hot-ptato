@@ -66,8 +66,6 @@ SMODS.Joker {
 						ref_value = "a",
 						scalar_value = "b",
 					})
-				end
-				if context.joker_main then
 					return { xmult = fuck.Corobo.a }
 				end
 			end,
