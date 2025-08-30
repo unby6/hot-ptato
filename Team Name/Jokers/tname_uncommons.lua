@@ -101,8 +101,8 @@ SMODS.Joker({
 	end,
     hotpot_credits = {
         art = {"GoldenLeaf"},
-        idea = {"Revo"},
-        code = {"Revo"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
         team = {"Team Name"}
     }
 })
@@ -161,11 +161,8 @@ SMODS.Joker({
 			xmultg = 0.1
 		},
 	},
-	atlas = "tname_jokers",
-	pos = {
-		x = 0,
-		y = 0
-	},
+	pos = {x=7,y=0},
+	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 			return {
@@ -195,7 +192,7 @@ SMODS.Joker({
 		end
 	end,
     hotpot_credits = {
-        art = {"NA"},
+        art = {"GoldenLeaf"},
         idea = {"Revo"},
         code = {"Revo"},
         team = {"Team Name"}

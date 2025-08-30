@@ -59,8 +59,8 @@ SMODS.Sound {
   end
 }
 SMODS.Sound {
-  key = "music_amen",
-  path = "music_amen.ogg",
+  key = "music_casino",
+  path = "music_casino.ogg",
   pitch = 1,
   select_music_track = function (self)
     if G.STATE == G.STATES.WHEEL then

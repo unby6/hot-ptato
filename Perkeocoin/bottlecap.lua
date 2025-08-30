@@ -1623,7 +1623,7 @@ in_pool = function(self, args)
         }
     },
     hotpot_credits = {
-        art = {'NA'},
+        art = {'Revo'},
         code = {'Revo'},
         team = {'Team Name'}
     },
@@ -1710,7 +1710,7 @@ in_pool = function(self, args)
         }
     },
     hotpot_credits = {
-        art = {'NA'},
+        art = {'Revo'},
         code = {'Revo'},
         team = {'Team Name'}
     },
@@ -1794,7 +1794,7 @@ in_pool = function(self, args)
         }
     },
     hotpot_credits = {
-        art = {'NA'},
+        art = {'Revo'},
         code = {'Revo'},
         team = {'Team Name'}
     },
@@ -1851,7 +1851,7 @@ in_pool = function(self, args)
         }
     },
         hotpot_credits = {
-        art = {'NA'},
+        art = {'Revo'},
         code = {'Revo'},
         team = {'Team Name'}
     },
