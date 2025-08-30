@@ -130,6 +130,8 @@ SMODS.Tag({
 SMODS.Tag {
     key = "psychedelic_tag",
     min_ante = 2,
+	atlas = "tname_tags",
+    pos = {x = 4, y = 0},
     loc_vars = function(self, info_queue, tag)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_hpot_psychedelic
     end,

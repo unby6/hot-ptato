@@ -26,3 +26,8 @@ SMODS.Sound {
   key = "tname_reforge",
   path = "sfx_reforge.ogg",
 }
+
+
+HPTN.C = {
+	BROWN = HEX("916400"),
+}

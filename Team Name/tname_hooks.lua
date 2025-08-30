@@ -109,6 +109,11 @@ function Game:start_run(args)
 	if G.jokers and G.jokers.config then
 		G.jokers.config.highlighted_limit = G.jokers.config.highlighted_limit + 2 -- set the joker highlight limit to 3 cause its needed by some hanafudas
 	end
+
+	if G.GAME.modifiers.YOU_LOSE then
+		G.STATE = G.STATES.GAME_OVER
+		G.STATE_COMPLETE = false
+	end
 end
 
 local profile_old = G.UIDEF.profile_option -- for the dynamically updating profile credits amount
