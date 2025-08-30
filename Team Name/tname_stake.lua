@@ -19,7 +19,7 @@ SMODS.Stake{
         G.GAME.modifiers.YOU_LOSE = true
     end,
     hotpot_credits = {
-		art = { "Goldenleaf" },
+		art = { "GoldenLeaf" },
 		idea = { "Corobo" },
 		code = { "Revo" },
 		team = { "Team Name" },

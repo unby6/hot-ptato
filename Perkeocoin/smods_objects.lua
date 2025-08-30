@@ -336,7 +336,25 @@ SMODS.Joker{ --TV Dinner
             mult_mod = 4
         }
     },
-    pos = { x = 0, y = 1 },
+    pos = { x = 0, y = 3 },
+    hpot_anim = {
+        { xrange = { first = 0, last = 9 }, y = 3, t = 0.1 }
+    },
+    pos_extra = { x = 0, y = 4 },
+    hpot_anim_extra = {
+        { x = 0, y = 4, t = 0.075 },
+        { x = 1, y = 4, t = 0.125 },
+        { x = 2, y = 4, t = 0.175 },
+        { x = 3, y = 4, t = 0.3 },
+        { x = 2, y = 4, t = 0.175 },
+        { x = 1, y = 4, t = 0.125 },
+        { x = 0, y = 4, t = 0.075 },
+        { x = 4, y = 4, t = 0.125 },
+        { x = 5, y = 4, t = 0.175 },
+        { x = 6, y = 4, t = 0.3 },
+        { x = 5, y = 4, t = 0.175 },
+        { x = 4, y = 4, t = 0.125 }
+    },
     cost = 6,
     rarity = 1,
     pools = { Food = true },
@@ -345,7 +363,7 @@ SMODS.Joker{ --TV Dinner
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'perkeocoinjokers',
+    atlas = "TeamNameAnims1",
 
     hotpot_credits = {
         art = {'Omegaflowey18'},
