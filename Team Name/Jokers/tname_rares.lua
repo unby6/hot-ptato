@@ -259,6 +259,9 @@ SMODS.Joker({
 		local hpt = card.ability.extra
 		if context.joker_type_destroyed then
 			hpt.destroyed = hpt.destroyed + 1
+			return{
+					message = localize("k_upgrade_ex")
+				}
 		end
 		if context.joker_main then
 			return {
