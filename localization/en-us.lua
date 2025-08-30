@@ -2316,6 +2316,14 @@ return {
                     "{C:inactive}(Max of #1#)"
                 }
             },
+            tag_hpot_psychedelic_tag = {
+                name = "Psychedelic Tag",
+                text = {
+                    "Next base edition shop",
+                    "{C:attention}Joker{} is free and",
+                    "becomes {C:dark_edition}Psychedelic"
+                }
+            },
         },
         Edition = {
             e_hpot_psychedelic = {
