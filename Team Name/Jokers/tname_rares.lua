@@ -3,14 +3,6 @@ local function getcurrentperson(num)
 	num = num or 1
 	return array[num]
 end
-local function uniquerandom(origival)
-	local result = pseudorandom("fuck", 1, 6)
-	if origival ~= result then
-		return result
-	else
-		return uniquerandom(origival)
-	end
-end
 SMODS.Joker {
 	key = "tname_postcard",
 	atlas = "tname_jokers2",
