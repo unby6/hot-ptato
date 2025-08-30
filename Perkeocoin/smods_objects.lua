@@ -1515,7 +1515,7 @@ SMODS.Booster {
     kind = 'hpot_czech',
     group_key = 'k_hpot_czech_pack',
     hotpot_credits = {
-        art = {'NA'},
+        art = {'GoldenLeaf'},
         code = {'Revo'},
         team = {"Team Name"}
     },
