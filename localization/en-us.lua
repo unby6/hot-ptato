@@ -1232,6 +1232,14 @@ return {
                     {"{C:purple}+#2#c.{} for each hand played this round."}
                 }
             },
+            j_hpot_jankman = {
+                name = "JankMan",
+                text = {
+                    "{C:inactive}hahahahaha, im jankman!",
+                    "{X:mult,C:white}+#1#X{} Mult per sticker on this joker.",
+                    "{C:inactive}(Currently{X:mult,C:white}X#2#{C:inactive} Mult)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

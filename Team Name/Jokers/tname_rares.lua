@@ -146,3 +146,43 @@ SMODS.Joker {
 		team = { 'Team Name' }
 	}
 }
+
+SMODS.Joker({
+	key = "jankman",
+	rarity = 3,
+	config = {
+		extra = {
+			xmultg = 0.5,
+			xmult = 1,
+			stickers = 0
+		},
+	},
+	pos = {x=9,y=0},
+	atlas = "tname_jokers2",
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+			return {
+				vars = { hpt.xmultg, hpt.xmult + hpt.xmultg * hpt.stickers},
+			}
+	end,
+	calculate = function(self, card, context)
+		local hpt = card.ability.extra
+		hpt.stickers = 0
+        for k, _ in pairs(SMODS.Stickers) do
+            if card.ability[k] == true then
+                hpt.stickers = hpt.stickers + 1
+            end
+        end
+		if context.joker_main then
+			return {
+				xmult = hpt.xmult + hpt.xmultg * hpt.stickers
+			}
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
