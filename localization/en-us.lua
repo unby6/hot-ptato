@@ -1255,6 +1255,13 @@ return {
                     "{C:inactive}(Only works once per round, currently #2#.)"
                 }
             },
+            j_hpot_nxkoo_joker = {
+                name = "Miracle",
+                text = {
+                    "Change the base of the requirement scaling for an Nxkoo unkill",
+                    "from {X:edition,C:white}15{} to from {X:edition,C:white}10{}",
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
