@@ -1331,6 +1331,14 @@ return {
                     "card in your hand",
                 }
             },
+            c_hpot_blossom = {
+                name = "Blossom",
+                text = {
+                    "Add a {V:1}Dark Pink Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "card in your hand",
+                }
+            },
             c_hpot_arcade_machine_p = {
                 name = "Arcade Machine",
                 text = {

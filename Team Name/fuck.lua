@@ -81,6 +81,7 @@ SMODS.Rarity{
     default_weight = 0.05
 }
 SMODS.Atlas{key = "teamname_shitfuck", path = "Team Name/shitfuck.png", px = 71, py = 95}
+SMODS.Atlas{key = "tname_spectrals", path = "Team Name/tname_spectrals.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_jokers", path = "Team Name/tname_jokers.png", px = 71, py = 95}
 SMODS.Atlas{key = "tname_jokers2", path = "Team Name/tname_jokers2.png", px = 71, py = 95} -- 2 joker atlases. Wow. just wow.
 SMODS.Atlas{key = "tname_vouchers", path = "Team Name/TeamNameVouchers.png", px = 71, py = 95}
