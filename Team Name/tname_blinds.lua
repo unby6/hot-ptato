@@ -34,7 +34,9 @@ SMODS.Blind {
 				func = function()
 					for _, joker in pairs(G.jokers.cards) do
                         local jokero = G.P_CENTER_POOLS.Joker[pseudorandom("j",1,#G.P_CENTER_POOLS.Joker)].key
+                        local fuck = jokero.config.extra
                         joker:set_ability(jokero)
+                        joker.ability.extra = copy_table(fuck)
 					end
 					return true
 				end,
