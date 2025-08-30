@@ -1,6 +1,8 @@
 SMODS.Stake{
     key = "wooden",
     colour = HPTN.C.BROWN,
+    atlas = "tname_stakes",
+    pos = {x = 0, y = 0},
     applied_stakes = { "gold" },
     shiny = false,
     unlocked = false,
