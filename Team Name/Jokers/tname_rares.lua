@@ -188,9 +188,9 @@ SMODS.Joker({
 })
 local function g(x)
 	if x then
-		return "Active"
+		return localize("teamname_active")
 	else
-		return "Inactive"
+		return localize("teamname_inactive")
 	end
 end
 SMODS.Joker({
@@ -230,7 +230,7 @@ SMODS.Joker({
 	end,
     hotpot_credits = {
         art = {"GoldenLeaf"},
-        idea = {"GoldenLeaf"},
+        idea = {"Revo"},
         code = {"GoldenLeaf"},
         team = {"Team Name"}
     }
