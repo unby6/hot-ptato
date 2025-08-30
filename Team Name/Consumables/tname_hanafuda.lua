@@ -3,8 +3,10 @@ SMODS.ConsumableType({
 	collection_rows = { 4, 4, 4 },
 	primary_colour = G.C.RED,
 	secondary_colour = G.C.RED,
-	shop_rate = nil,
+	shop_rate = 0.09,
 })
+
+-- currecntly hanafuda cards cannot apply to both jokers and hand cards
 
 function highlight_jokers_hand(val, jokers_only, hand_only)
 	local joker_check, hand_check, check = nil, nil, nil
@@ -34,6 +36,11 @@ function highlight_jokers_hand(val, jokers_only, hand_only)
 	end
 
 	return ret
+end
+
+function unhighlight_hj()
+	G.jokers:unhighlight_all()
+	G.hand:unhighlight_all()
 end
 
 -- PINE
@@ -77,6 +84,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_fragile"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -120,6 +128,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_fragile"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -163,6 +172,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_uranium"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -206,6 +216,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_uranium"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -250,6 +261,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_redirect"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -292,6 +304,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_redirect"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -334,6 +347,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_cannibal"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -376,6 +390,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_cannibal"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -400,7 +415,7 @@ SMODS.Consumable({
 	},
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] =
-			{ key = "hpot_sporess", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
+			{ key = "hpot_spores", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -421,6 +436,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_spores"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -464,6 +480,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_spores"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -506,6 +523,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_cfour"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -548,6 +566,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_cfour"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -597,6 +616,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_overclock"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -643,6 +663,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_overclock"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -685,6 +706,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_rage"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -727,6 +749,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_rage"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -771,6 +794,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_spinning"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -813,6 +837,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_spinning"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -855,6 +880,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_binary"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -897,6 +923,7 @@ SMODS.Consumable({
 				SMODS.Stickers["hpot_binary"]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1080,6 +1107,7 @@ SMODS.Consumable({
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
 			reforge_card(random_joker, true)
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1113,8 +1141,9 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(random_joker, true)
+			reforge_card(G.jokers.highlighted[i], true)
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1148,8 +1177,9 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(random_joker, true)
+			reforge_card(G.jokers.highlighted[i], true)
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1183,8 +1213,9 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
 			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(random_joker, true)
+			reforge_card(G.jokers.highlighted[i], true)
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1229,6 +1260,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1271,6 +1303,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1313,6 +1346,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1355,6 +1389,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1532,7 +1567,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local modif, modif2
 		local remove = {}
-		for i = 1, #G.jokres.highlighted do
+		for i = 1, #G.jokers.highlighted do
 			modif = get_modification(G.jokers.highlighted[i])
 			if modif.morality == "BAD" then
 				remove[#remove + 1] = G.jokers.highlighted[i]
@@ -1545,6 +1580,7 @@ SMODS.Consumable({
 				HPTN.Modifications[modif2]:apply(remove[i], false)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1578,7 +1614,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local modif, modif2
 		local remove = {}
-		for i = 1, #G.jokres.highlighted do
+		for i = 1, #G.jokers.highlighted do
 			modif = get_modification(G.jokers.highlighted[i])
 			if modif.morality == "BAD" then
 				remove[#remove + 1] = G.jokers.highlighted[i]
@@ -1591,6 +1627,7 @@ SMODS.Consumable({
 				HPTN.Modifications[modif2]:apply(remove[i], false)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1624,7 +1661,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local modif, modif2
 		local remove = {}
-		for i = 1, #G.jokres.highlighted do
+		for i = 1, #G.jokers.highlighted do
 			modif = get_modification(G.jokers.highlighted[i])
 			if modif.morality == "BAD" then
 				remove[#remove + 1] = G.jokers.highlighted[i]
@@ -1637,6 +1674,7 @@ SMODS.Consumable({
 				HPTN.Modifications[modif2]:apply(remove[i], false)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
@@ -1670,7 +1708,7 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local modif, modif2
 		local remove = {}
-		for i = 1, #G.jokres.highlighted do
+		for i = 1, #G.jokers.highlighted do
 			modif = get_modification(G.jokers.highlighted[i])
 			if modif.morality == "BAD" then
 				remove[#remove + 1] = G.jokers.highlighted[i]
@@ -1683,6 +1721,7 @@ SMODS.Consumable({
 				HPTN.Modifications[modif2]:apply(remove[i], false)
 			end
 		end
+		unhighlight_hj()
 	end,
 })
 
