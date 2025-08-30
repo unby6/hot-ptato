@@ -2,6 +2,7 @@
 -- Fucking global thing to hold FUCKING EVERYTHING TEAM NAME
 HPTN = {
     is_shitfuck = true,
+    Profile = G.SETTINGS.profile
 }
 -- awesome lua file name
 SMODS.Sound {

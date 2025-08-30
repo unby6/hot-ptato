@@ -106,3 +106,15 @@ payload = '''
   G.UIDEF.tname_credits(),
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+function G.UIDEF.profile_option(_profile)
+'''
+position = "after"
+payload = '''
+  HPTN.Profile = _profile
+'''
+match_indent = true

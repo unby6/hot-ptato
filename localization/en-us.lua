@@ -2833,7 +2833,9 @@ return {
 
             wheel_button_1 = "The",
             wheel_button_2 = "Arrow",
-            wheel_spin_button1 = "Spin"
+            wheel_spin_button1 = "Spin",
+
+            you_have = "You have "
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

@@ -5,7 +5,8 @@ priority = -9
 
 # TEMPORARY PATCH! REMOVE IF YOU FIND THE FIX!
 # i couldnt find a fix for this as i didnt know what was causing the issue, so im leaving it here. the only thing i can think of that
-# the game tries to create an arrow in the shop? 
+# the game tries to create an arrow in the shop? (check tname_wheel.lua its SMODS.Arrow)
+# im not really sure.
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'

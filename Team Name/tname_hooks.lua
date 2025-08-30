@@ -110,3 +110,10 @@ function Game:start_run(args)
 		G.jokers.config.highlighted_limit = G.jokers.config.highlighted_limit + 1
 	end
 end
+
+local profile_old = G.UIDEF.profile_option
+function G.UIDEF.profile_option(_profile)
+	local ret = profile_old(_profile)
+	HPTN.Profile = _profile
+	return ret
+end
