@@ -453,7 +453,7 @@ HPTN.Modification({
 
 		fucking_kys = fucking_kys
 
-		if context.starting_shop then
+		if context.starting_shop and not (G.STATE == G.STATES.WHEEL or G.STATES.PLINKO) then
 			if card.ability.hpot_trig then
 				card.prevent_trigger = true
 				SMODS.calculate_effect({ message = "Trigger Disabled!" }, card)

@@ -2075,6 +2075,7 @@ return {
                 name = "Overclock",
                 text = {
                     "{C:attention}Retriggers{} for", "{C:attention}#1#{} Rounds.",
+                    "{C:red}debuff{} afterwards.",
                     "{C:inactive}({C:attention}#2#{C:inactive} Remaining)"
                 }
             },
