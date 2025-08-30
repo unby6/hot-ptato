@@ -186,6 +186,7 @@ SMODS.Joker({
         team = {"Team Name"}
     }
 })
+-- this is really stupid
 local function g(x)
 	if x then
 		return localize("teamname_active")
