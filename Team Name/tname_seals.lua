@@ -10,7 +10,7 @@ SMODS.Seal {
         if context.main_scoring and context.cardarea == G.play then
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 SMODS.add_card{
-                    set = "hanafuda"
+                    set = "Hanafuda"
                 }
             else
                 return{

@@ -2998,7 +2998,7 @@ return {
             hpot_food_trade_think = "Think...",
             hpot_food_trade_choose_ignore = "Ignore them",
 
-            hpot_exchange_credits_to_dollars = "Credits > Dollars",
+            hpot_exchange_credits_to_dollars = "Credits to Dollars",
             hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
             hpot_exchange_sparks_to_dollars = "Joker Exchange to Dollars",
             hpot_ignore_or_something = "Ignore",
