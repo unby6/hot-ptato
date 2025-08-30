@@ -177,7 +177,7 @@ SMODS.Joker({
 				if G.jokers.cards[i] == card then
 					rr = i
 				end
-			end
+			end 
 
 			local _card =  pseudorandom_element({1,-1},pseudoseed("sticker_dealer"))
 			local k = pseudorandom_element(SMODS.Stickers,pseudoseed("sticker_dealer"))
