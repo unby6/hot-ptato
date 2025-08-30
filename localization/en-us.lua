@@ -2813,7 +2813,7 @@ return {
             k_credits = "Credits",
             teamname_off_reference = "Revived",
             teamname_replaced = "Replaced!",
-            teamname_active = "active",
+            teamname_active = "active", -- im pretty sure balala already has these built in but whatever
             teamname_inactive = "inactive",
             hotpot_plinko_play = "Play",
             hotpot_plinko_to_shop1 = "Back to",
