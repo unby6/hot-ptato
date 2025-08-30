@@ -278,7 +278,7 @@ function G.FUNCS.can_reforge_with_plincoins(e)
 
 G.FUNCS.reforge_with_credits = function ()
     HPTN.ease_credits(-G.GAME.cost_credits)
-    set_card_reforge()
+    set_card_reforge() -- 
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
     play_sound("hpot_tname_reforge")

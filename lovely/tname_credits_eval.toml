@@ -63,7 +63,7 @@ payload = '''
           }},
           {n=G.UIT.R, config={align = "cm"}, nodes={
             {n=G.UIT.T, config={text = "c.",colour = G.C.WHITE, scale = 0.4, shadow = true}},
-            {n=G.UIT.T, config={text = (card.config.center.credits/2).."",colour = G.C.WHITE, scale = 0.55, shadow = true}}
+             {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
           }}
         }}
       }},
@@ -88,6 +88,51 @@ payload = '''
 '''
 match_indent = true
 times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if self.area and ((self.area == G.jokers) or (self.area == G.consumeables)) then
+            self.bypass_lock = true
+            self.bypass_discovery_center = true
+            self.bypass_discovery_ui = true
+        end
+        self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost'''
+position = 'at'
+payload = '''
+if self.area and ((self.area == G.jokers) or (self.area == G.consumeables)) then
+            self.bypass_lock = true
+            self.bypass_discovery_center = true
+            self.bypass_discovery_ui = true
+        end
+        if not self.config.center.credits then
+          self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
+        else
+          self.sell_cost_label = self.facing == 'back' and '?' or (self.config.center.credits / 2)
+        end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+    if self.area and self.ability.couponed and (self.area == G.shop_jokers or self.area == G.shop_booster) then self.cost = 0 end
+    self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost'''
+position = 'at'
+payload = '''
+    if self.area and self.ability.couponed and (self.area == G.shop_jokers or self.area == G.shop_booster) then self.cost = 0 end
+     if not self.config.center.credits then
+          self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
+        else
+          self.sell_cost_label = self.facing == 'back' and '?' or (self.config.center.credits / 2)
+        end
+'''
+match_indent = true
+times = 1
+
 
 [[patches]]
 [patches.pattern]
@@ -163,4 +208,5 @@ payload = '''
 '''
 match_indent = true
 times = 1
+
 

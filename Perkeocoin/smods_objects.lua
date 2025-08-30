@@ -1500,6 +1500,34 @@ SMODS.Booster {
     end,
 }
 
+-- tname compat stuff yee
+
+SMODS.Booster {
+    name = 'Ultra Czech Pack',
+    key = 'czech_ultra_1',
+    config = { choose = 3, extra = 7 },
+    discovered = true,
+    cost = 0,
+    credits = 100,
+    weight = 0.4,
+    kind = 'hpot_czech',
+    group_key = 'k_hpot_czech_pack',
+    hotpot_credits = {
+        art = {'NA'},
+        code = {'Revo'},
+        team = {"Team Name"}
+    },
+    create_card = function(self, card)
+        return SMODS.create_card{
+			set = "Czech",
+			skip_materialize = true
+		}
+    end,
+    ease_background_colour = function(self)
+        ease_background_colour_blind(G.STATES.CZECH_PACK)
+    end,
+}
+
 
 -- VOUCHERS
 

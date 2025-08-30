@@ -1785,8 +1785,19 @@ return {
                     [3] = 'be used immediately',
                 }
             },
+            
 
             --tname booster ??!?
+
+            p_hpot_czech_ultra_1 = {
+                ['name'] = 'Ultra Cheque Pack',
+                ['text'] = {
+                    [1] = 'Choose {C:attention}#1#{} of up to',
+                    [2] = '{C:attention}#2#{C:hpot_czech} Cheque{} cards to',
+                    [3] = 'be used immediately',
+                }
+            },
+
             p_hpot_hanafuda_normal_1 = {
                 name = 'Hanafuda Pack',
                 text = {
