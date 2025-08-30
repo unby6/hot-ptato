@@ -1258,7 +1258,9 @@ return {
             j_hpot_nxkoo_joker = {
                 name = "Miracle",
                 text = {
-                    "Change the base of the requirement scaling for an Nxkoo unkill",
+                    "Change the base of",
+                    "the requirement scaling for an ",
+                    "Nxkoo unkill",
                     "from {X:edition,C:white}15{} to from {X:edition,C:white}10{}",
                 }
             },
