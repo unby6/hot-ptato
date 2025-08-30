@@ -241,3 +241,31 @@ SMODS.Joker({
         team = {"Team Name"}
     }
 })
+
+SMODS.Joker({
+	key = "aurae_joker",
+	rarity = 2,
+	loc_vars = function(self, info_queue, card)
+			return {
+				vars = { colours = {G.C.GREY}},
+			}
+	end,
+	pos = {x=10,y=0},
+	atlas = "tname_jokers2",
+	calculate = function(self, card, context)
+		if context.ending_shop and G.consumeables.cards[1] then
+			for k,v in pairs(G.consumeables.cards) do
+				if v.ability.set ~= "Aura" then
+					v:start_dissolve(nil, true)
+					SMODS.add_card{set = "Aura"}
+				end
+			end
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})

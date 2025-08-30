@@ -1240,6 +1240,13 @@ return {
                     "{C:inactive}(Currently{X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
+            j_hpot_aurae_joker = {
+                name = "Aurae Joker",
+                text = {
+                    "At the {C:attention}end of shop{},",
+                    "Replace all consumables with {V:1}Aura Cards{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
