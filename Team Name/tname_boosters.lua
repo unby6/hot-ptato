@@ -94,7 +94,8 @@ SMODS.Booster({
 	key = "hanafuda_ultra_1",
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 4, y = 0 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_hpot_hanafuda_packs",
     draw_hand = true,
@@ -107,7 +108,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -209,7 +210,8 @@ SMODS.Booster({
 	weight = 0.025,
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 4, y = 1 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_hpot_auras_packs",
 	create_card = function(self, card)
@@ -221,7 +223,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Revo" },
 		team = { "Team Name" },
@@ -236,7 +238,8 @@ SMODS.Booster({
 	kind = "Arcana",
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 3, y = 2 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_arcana_pack",
 	draw_hand = true,
@@ -258,7 +261,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Violet" }, -- <- this is the one to blame for the awful code
 		team = { "Team Name" },
@@ -270,7 +273,8 @@ SMODS.Booster({
 	kind = "Celestial",
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 4, y = 2 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_celestial_pack",
 	loc_vars = function(self, info_queue, card)
@@ -291,7 +295,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Violet" }, -- <- this is the one to blame for the awful code
 		team = { "Team Name" },
@@ -303,7 +307,8 @@ SMODS.Booster({
 	kind = "Standard",
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 0, y = 3 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_standard_pack",
 	loc_vars = function(self, info_queue, card)
@@ -327,7 +332,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Violet" }, -- <- this is the one to blame for the awful code
 		team = { "Team Name" },
@@ -340,7 +345,8 @@ SMODS.Booster({
 	kind = "Spectral",
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 2, y = 2 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_spectral_pack",
 	draw_hand = true,
@@ -362,7 +368,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Violet" }, -- <- this is the one to blame for the awful code
 		team = { "Team Name" },
@@ -375,7 +381,8 @@ SMODS.Booster({
 	kind = "Buffoon",
 	cost = 0,
 	credits = 100,
-	pos = { x = 0, y = 0 },
+	atlas = "tname_boosters",
+	pos = { x = 1, y = 2 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_buffoon_pack",
 	loc_vars = function(self, info_queue, card)
@@ -396,7 +403,7 @@ SMODS.Booster({
 		
 	end,
 	hotpot_credits = {
-		art = { "N/A" },
+		art = { "GoldenLeaf" },
 		idea = { "Revo" },
 		code = { "Violet" }, -- <- this is the one to blame for the awful code
 		team = { "Team Name" },

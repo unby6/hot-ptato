@@ -1502,9 +1502,11 @@ SMODS.Booster {
 
 -- tname compat stuff yee
 
+SMODS.Atlas{key = "tname_boosters_sharp", path = "Team Name/tname_boosters.png", px = 71, py = 95}
 SMODS.Booster {
     name = 'Ultra Czech Pack',
     key = 'czech_ultra_1',
+    atlas = 'tname_boosters_sharp', pos = {x=0,y=2},
     config = { choose = 3, extra = 7 },
     discovered = true,
     cost = 0,
