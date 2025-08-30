@@ -2286,6 +2286,14 @@ return {
                     "hand is played"
                 }
             },
+            bl_hpot_bluescreen = {
+                name = "Bluescreen",
+                text = {
+                    "Randomizes Jokers when",
+                    "hand is played",
+                    "(Only appears on ante 10.)"
+                }
+            },
         },
         EventSteps = {
             hpot_test_1 = {

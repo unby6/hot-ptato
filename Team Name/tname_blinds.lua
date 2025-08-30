@@ -1,6 +1,7 @@
 
 SMODS.Atlas({ key = "TeamNameBlinds", path = "Team Name/tname_blinds.png", px = 34, py = 34, atlas_table = "ANIMATION_ATLAS", frames = 21})
 SMODS.Atlas({ key = "Fuck", path = "Team Name/tname_blinds2.png", px = 34, py = 34, atlas_table = "ANIMATION_ATLAS", frames = 21})
+SMODS.Atlas({ key = "err", path = "Team Name/tname_blinds3.png", px = 34, py = 34, atlas_table = "ANIMATION_ATLAS", frames = 26})
 SMODS.Blind {
     key = "holed",
     atlas = "TeamNameBlinds",
@@ -15,6 +16,44 @@ SMODS.Blind {
         end
         return true
     end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+}
+
+SMODS.Blind {
+    calculate = function(self, blind, context)
+        if not blind.disabled and context.press_play then
+            
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.4,
+				func = function()
+					for _, joker in pairs(G.jokers.cards) do
+                        local jokero = G.P_CENTER_POOLS.Joker[pseudorandom("j",1,#G.P_CENTER_POOLS.Joker)].key
+                        joker:set_ability(jokero)
+					end
+					return true
+				end,
+			}))
+        end
+    end,
+    boss = {},
+    key = "bluescreen",
+    atlas = "err",
+    pos = { x= 0, y = 0 },
+    dollars = 8,
+    mult = 1.5,
+    in_pool = function (self)
+        if G.GAME.round_resets.ante == 10 then
+            return true
+        end
+        return false
+    end,
+    boss_colour = HEX("0049ff"),
     hotpot_credits = {
         art = {"GoldenLeaf"},
         code = {"GoldenLeaf"},

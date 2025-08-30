@@ -49,6 +49,13 @@ SMODS.Sound {
   pitch = 1,
   path = "music_windows95.ogg",
   select_music_track = function (self)
+    if G.GAME.blind then
+      local blind = G.GAME.blind -- current blind
+      local key = blind.config.blind.key
+      if key == "bl_hpot_bluescreen" then
+        return 1e39
+      end
+    end
   end
 }
 SMODS.Sound {
