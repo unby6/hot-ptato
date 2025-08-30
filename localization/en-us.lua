@@ -1271,6 +1271,14 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
+            j_hpot_leek = {
+                name = "Leek Hotpot",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult",
+                    "{X:mult,C:white}-X#2#{} after each played hand",
+                    "{X:mult,C:white}+X#3#{} after each joker destroyed",
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

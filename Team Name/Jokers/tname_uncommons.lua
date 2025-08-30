@@ -243,6 +243,55 @@ SMODS.Joker({
 })
 
 SMODS.Joker({
+	key = "leek",
+	rarity = 2,
+	config = {
+		extra = {
+			xmult = 2,
+			xmultm = 0.2,
+			xmultg = 0.3
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+			return {
+				vars = { hpt.xmult, hpt.xmultm,hpt.xmultg,},
+			}
+	end,
+	pos = {x=2,y=1},
+	atlas = "tname_jokers2",
+	calculate = function(self, card, context)
+		local hpt = card.ability.extra
+		if context.joker_type_destroyed then
+			SMODS.scale_card(card, {
+				ref_table = hpt,
+				ref_value = "xmult",
+				scalar_value = "xmultm",
+				operation = "-"
+			})
+		end
+		if context.press_play then
+			SMODS.scale_card(card, {
+				ref_table = hpt,
+				ref_value = "xmult",
+				scalar_value = "xmultm",
+			})
+		end
+		if context.joker_main then
+			return {
+				xmult = hpt.xmult + hpt.xmultg * hpt.destroyed
+			}
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
+
+SMODS.Joker({
 	key = "aurae_joker",
 	rarity = 2,
 	loc_vars = function(self, info_queue, card)
