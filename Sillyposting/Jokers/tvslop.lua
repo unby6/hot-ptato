@@ -4,8 +4,27 @@ SMODS.Joker {
     loc_vars = function (self, info_queue, card)
         return { vars = { card.ability.extra.xmult } }
     end,
-    atlas = "SillypostingJokers",
-    pos = { x = 4, y = 0 },
+    atlas = "TeamNameAnims1",
+    pos = { x = 7, y = 4 },
+    hpot_anim = {
+        { xrange = { first = 7, last = 9 }, y = 4, t = 0.1 },
+        { xrange = { first = 7, last = 11 }, y = 5, t = 0.1 }
+    },
+    pos_extra = { x = 0, y = 5 },
+    hpot_anim_extra = {
+        { x = 0, y = 5, t = 0.075 },
+        { x = 1, y = 5, t = 0.125 },
+        { x = 2, y = 5, t = 0.175 },
+        { x = 3, y = 5, t = 0.3 },
+        { x = 2, y = 5, t = 0.175 },
+        { x = 1, y = 5, t = 0.125 },
+        { x = 0, y = 5, t = 0.075 },
+        { x = 4, y = 5, t = 0.125 },
+        { x = 5, y = 5, t = 0.175 },
+        { x = 6, y = 5, t = 0.3 },
+        { x = 5, y = 5, t = 0.175 },
+        { x = 4, y = 5, t = 0.125 }
+    },
     rarity = 1,
     cost = 4,
     pools = { Food = true },
