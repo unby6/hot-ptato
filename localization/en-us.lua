@@ -1225,6 +1225,13 @@ return {
                     }
                 },
             },
+            j_hpot_credits_ex = {
+                name = "Credits EX",
+                text = {
+                    {"{X:mult,C:white}X#1#{} Mult"},
+                    {"{C:purple}+#2#c.{} for each hand played this round."}
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

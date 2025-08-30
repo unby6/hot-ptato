@@ -198,3 +198,46 @@ SMODS.Joker({
         team = {"Team Name"}
     }
 })
+
+SMODS.Joker({
+	key = "credits_ex",
+	rarity = 2,
+	config = {
+		extra = {
+			xmult = 0.5,
+			credits = 10,
+			hands = 0
+		},
+	},
+	pos = {x=8,y=0},
+	atlas = "tname_jokers2",
+	loc_vars = function(self, info_queue, card)
+		local hpt = card.ability.extra
+			return {
+				vars = { hpt.xmult, hpt.credits},
+			}
+	end,
+	calculate = function(self, card, context)
+		local hpt = card.ability.extra
+		if context.end_of_round then
+			HPTN.ease_credits(hpt.credits * hpt.hands)
+		end
+		if context.setting_blind then
+			hpt.hands = 0
+		end
+		if context.press_play then
+			hpt.hands = hpt.hands + 1
+		end
+		if context.joker_main then
+			return {
+				xmult = hpt.xmult,
+			}
+		end
+	end,
+    hotpot_credits = {
+        art = {"GoldenLeaf"},
+        idea = {"GoldenLeaf"},
+        code = {"GoldenLeaf"},
+        team = {"Team Name"}
+    }
+})
