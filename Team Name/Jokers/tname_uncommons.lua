@@ -258,6 +258,7 @@ SMODS.Joker({
 				if v.ability.set ~= "Aura" then
 					v:start_dissolve(nil, true)
 					SMODS.add_card{set = "Aura"}
+					return{message = localize("teamname_replaced")}
 				end
 			end
 		end
