@@ -2902,6 +2902,8 @@ return {
             hpot_book = "Book",
             hpot_brilliant = "Brilliant",
 
+            hpot_hanafuda_seal = "Dark Pink Seal",
+
             modif_hpot_ruthless = "Ruthless",
             modif_hpot_greedy = "Greedy",
             modif_hpot_jumpy = "Jumpy",

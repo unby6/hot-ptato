@@ -29,9 +29,6 @@ HPTN.Modification = SMODS.GameObject:extend({
 	set = "Modification",
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	obj_table = HPTN.Modifications,
 	obj_buffer = {},
 	sets = { Joker = true },
@@ -82,7 +79,7 @@ HPTN.Modification = SMODS.GameObject:extend({
 				end
 			end
 		end
-		SMODS.calculate_context({
+		SMODS.calculate_context({ -- unused
 			hpot_mod_apply = true,
 			hpot_mod_applied = self,
 			hpot_mod_applied_to = card,
@@ -97,7 +94,7 @@ HPTN.Modification = SMODS.GameObject:extend({
 	applied = function(self, card) end,
 })
 
-SMODS.DrawStep({
+SMODS.DrawStep({ -- drawstep like stickers
 	key = "modifications",
 	order = 40,
 	func = function(self, layer)
@@ -144,7 +141,8 @@ SMODS.DrawStep({
 	conditions = { vortex = false, facing = "front" },
 })
 
-function HPTN.modif_apply(modif, card)
+-- check smods stickers stuff for more info on these
+function HPTN.modif_apply(modif, card) 
 	local sticker = HPTN.Modifications[modif]
 	sticker:apply(card, true)
 	SMODS.enh_cache:write(card, nil)
@@ -169,6 +167,8 @@ function Card:calculate_modification(context, key)
 		end
 	end
 end
+
+-- the ui page
 
 local function mod_ui()
 	local mods = {}

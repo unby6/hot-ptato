@@ -9,13 +9,13 @@ function Card:remove()
 	return remove_old(self)
 end
 
-local use_old = Card.use_consumeable
+local use_old = Card.use_consumeable  -- for the fragile sticker so it doesnt get destroyed while using a consumable
 function Card:use_consumeable(area, copier)
 	self.hpot_cons_used = true
 	return use_old(self, area, copier)
 end
 
-local joker_calc_old = Card.calculate_joker
+local joker_calc_old = Card.calculate_joker -- preventing joker triggers
 function Card:calculate_joker(context)
 	if self and not self.prevent_trigger then
 		return joker_calc_old(self, context)
@@ -50,7 +50,7 @@ Game.init_game_object = function(self)
 	return ret
 end
 
-local click_old = Card.click
+local click_old = Card.click -- clicked cards with "spinning" spins
 function Card:click()
 	local ret = click_old(self)
 	local can_spin = nil
@@ -68,7 +68,7 @@ function Card:click()
 	return ret
 end
 
-local ref = G.FUNCS.can_buy
+local ref = G.FUNCS.can_buy -- credits buyable thingy hook
 function G.FUNCS.can_buy(e)
 	if e.config.ref_table.config.center.credits then
 		if
@@ -86,7 +86,7 @@ function G.FUNCS.can_buy(e)
 	end
 end
 
-local can_open_old = G.FUNCS.can_open
+local can_open_old = G.FUNCS.can_open -- same for boosters
 function G.FUNCS.can_open(e)
 	local card = e.config.ref_table.config.center
 	if card.credits then
@@ -107,11 +107,11 @@ local start_run_old = Game.start_run
 function Game:start_run(args)
 	start_run_old(self, args)
 	if G.jokers and G.jokers.config then
-		G.jokers.config.highlighted_limit = G.jokers.config.highlighted_limit + 1
+		G.jokers.config.highlighted_limit = G.jokers.config.highlighted_limit + 1 -- set the joker highlight limit to 2 cause its needed by some hanafudas
 	end
 end
 
-local profile_old = G.UIDEF.profile_option
+local profile_old = G.UIDEF.profile_option -- for the dynamically updating profile credits amount
 function G.UIDEF.profile_option(_profile)
 	local ret = profile_old(_profile)
 	HPTN.Profile = _profile

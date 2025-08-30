@@ -232,9 +232,9 @@ end
 
 --- @param card table|nil to update the card's values
 function set_card_reforge(card, currency)
-    card = card or G.reforge_area.cards[1]
-    card.ability.reforge_dollars = reforge_cost(card)
-    card.ability.reforge_credits = convert_currency(reforge_cost(card), "DOLLAR", "CREDIT")
+    card = card or G.reforge_area.cards[1] 
+    card.ability.reforge_dollars = reforge_cost(card) -- get the reforge cost
+    card.ability.reforge_credits = convert_currency(reforge_cost(card), "DOLLAR", "CREDIT") -- convert the reforge cost to other currencties and set the card abilities accordingly
     card.ability.reforge_sparks = convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
     card.ability.reforge_plincoins = convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
 end
@@ -242,27 +242,27 @@ end
 --- @param card table|nil Card to use to update the costs
 function update_reforge_cost(card)
     card = card or G.reforge_area.cards[1]
-    if not G.GAME.used_vouchers["v_hpot_intership"] then
-        G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars
+    if not G.GAME.used_vouchers["v_hpot_intership"] then -- discarded voucher feel free to add it
+        G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars -- update the price with card's ability table
         G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
         G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
         G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
     else
-        G.GAME.cost_dollars = card.ability.reforge_dollars
+        G.GAME.cost_dollars = card.ability.reforge_dollars -- if the voucher exists stop updating
         G.GAME.cost_credits = card.ability.reforge_credits
         G.GAME.cost_sparks =  card.ability.reforge_sparks
         G.GAME.cost_plincoins = card.ability.reforge_plincoins
     end
 
-        if card.saved_last_reforge then
+        if card.saved_last_reforge then -- update the card values if there is a last saved table (i dont remember why i added this but there were issues)
             card.ability.reforge_dollars = card.ability.reforge_dollars_default
             card.ability.reforge_credits = card.ability.reforge_credits_default
             card.ability.reforge_sparks = card.ability.reforge_sparks_default
             card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
 
-            card.saved_last_reforge = false
+            card.saved_last_reforge = false -- set last reforged to false
 
-            card.ability.reforge_dollars_default = nil
+            card.ability.reforge_dollars_default = nil -- set the saved value table to nil
             card.ability.reforge_credits_default = nil
             card.ability.reforge_sparks_default = nil
             card.ability.reforge_plincoins_default = nil
@@ -270,7 +270,7 @@ function update_reforge_cost(card)
 end
 
 -- reseting the reforge cost
-function reset_reforge_cost()
+function reset_reforge_cost() -- reset the cost to defults
     G.GAME.cost_dollars = G.GAME.cost_dollar_default 
     G.GAME.cost_credits =  G.GAME.cost_credit_default 
     G.GAME.cost_sparks =  G.GAME.cost_spark_default 
@@ -281,7 +281,7 @@ end
 
 -- not needed (?)
 --- @param card table|nil to save the card's values
-function final_ability_values(card)
+function final_ability_values(card) -- save the card's final values ( so it scales / resets probably iirc )
     card = card or G.reforge_area.cards[1]
     
     card.ability.reforge_dollars_default = card.ability.reforge_dollars
@@ -298,10 +298,10 @@ function final_ability_values(card)
 end
 
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
-function reforge_discounts()
+function reforge_discounts() -- unused
 	local total = 0
 
-    if G.GAME.used_vouchers["v_hpot_costcutting"] then
+    if G.GAME.used_vouchers["v_hpot_costcutting"] then -- discarded voucher feel free to add it 
         total = total + 2
     end
 	return total
@@ -524,21 +524,21 @@ function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet
 end
 
 
-function HPTN.perc(mod, perc)
+function HPTN.perc(mod, perc) -- get precentage
 	local per = (mod / 100)* perc
 	return per
 end
 
-function Card:remove_sticker_calc(sticker, card)
+function Card:remove_sticker_calc(sticker, card) -- for blunder sticker
     sticker:removed(self, card)
 end
 
-function Card:apply_sticker_calc(sticker, card)
+function Card:apply_sticker_calc(sticker, card) -- for blunder sticker
     sticker:applied(self, card)
 end
 
 
-G.FUNCS.change_page_jx = function ()
+G.FUNCS.change_page_jx = function () -- why the fuck is this here ???
     if G.GAME.first_page_stuff_and_shit then
         G.GAME.first_page_stuff_and_shit = nil
         G.FUNCS.exit_overlay_menu()

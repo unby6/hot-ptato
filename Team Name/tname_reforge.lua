@@ -137,7 +137,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
 	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}}
 end
 
-function HPTN.move_card(card, _area)
+function HPTN.move_card(card, _area) -- Moving cards from one area to another easily
     local area = card.area
 	if not card.getting_sliced then	
 		area:remove_card(card)
@@ -158,7 +158,7 @@ if G.reforge_area and G.reforge_area.cards then
 end
 
 function G.FUNCS.place_return_reforge(e)
-    if (G.jokers and G.jokers.highlighted and #G.jokers.highlighted <= 0) or (G.reforge_area and #G.reforge_area.cards > 0) then
+    if (G.jokers and G.jokers.highlighted and #G.jokers.highlighted <= 0) or (G.reforge_area and #G.reforge_area.cards > 0) then -- what the fuck 
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -172,23 +172,23 @@ G.FUNCS.reforge_place = function ()
         local c = G.jokers.highlighted[1]
         HPTN.move_card(c, G.reforge_area)
         G.GAME.ref_placed = true
-        ready_to_reforge()
-        update_reforge_cost()
+        ready_to_reforge() -- give the card the dependencies 
+        update_reforge_cost() -- update the reforge cost incase the card has already been reforged
     end
 end
 
 G.FUNCS.reforge_return = function ()
     if G.reforge_area and G.reforge_area.cards then
         if #G.reforge_area.cards > 0 then
-            final_ability_values()
+            final_ability_values() -- save the final table (not needed pobably)
             HPTN.move_card(G.reforge_area.cards[1], G.jokers)
             G.GAME.ref_placed = nil
-            reset_reforge_cost()
+            reset_reforge_cost() -- reset the cost to default
         end
     end
 end
 
-G.FUNCS.hotpot_tname_toggle_reforge = function ()
+G.FUNCS.hotpot_tname_toggle_reforge = function () -- takn from deliveries
     if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
     stop_use()
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
@@ -233,6 +233,8 @@ G.FUNCS.hotpot_tname_toggle_reforge = function ()
     end
 end
 
+
+-- self explanatory
 function G.FUNCS.can_reforge_with_creds(e)
     if G.PROFILES[G.SETTINGS.profile].TNameCredits < G.GAME.cost_credits or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
@@ -272,6 +274,7 @@ function G.FUNCS.can_reforge_with_plincoins(e)
             e.config.button = 'reforge_with_plincoins'
         end
     end
+--
 
 G.FUNCS.reforge_with_credits = function ()
     HPTN.ease_credits(-G.GAME.cost_credits)
