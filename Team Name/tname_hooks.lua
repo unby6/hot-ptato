@@ -117,3 +117,12 @@ function G.UIDEF.profile_option(_profile)
 	HPTN.Profile = _profile
 	return ret
 end
+
+
+-- prolly best to remove this but it caused a crash
+local is_eternal_old = SMODS.is_eternal
+function SMODS.is_eternal(card, trigger)
+	if card and card.ability then
+		return is_eternal_old(card, trigger)
+	end
+end
