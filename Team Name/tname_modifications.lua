@@ -492,7 +492,7 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card and #G.play and G.play.cards > 0 then
+		if context.post_trigger and context.other_card == card and G.play and #G.play.cards > 0 then
 			SMODS.calculate_effect({ x_mult = 0.9 }, card)
 		end
 	end,
