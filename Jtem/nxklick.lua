@@ -23,7 +23,7 @@ function G.FUNCS.nxkrepr()
     save.JtemNXkilled = 0
     save.JtemNXplus = (save.JtemNXplus or 1) + 1
     play_sound("hpot_nxunkill")
-    save.JtemNXneeded = math.floor(15^((0.2*(save.JtemNXplus or 1))+1))
+    save.JtemNXneeded = math.floor(HPTN.nxkoofactor^((0.2*(save.JtemNXplus or 1))+1))
     G:save_progress()
     end
 end
@@ -32,7 +32,7 @@ end
 function G.UIDEF.nxclicker()
     local save = G.PROFILES[G.SETTINGS.profile]
     save.JtemNXplus = (save.JtemNXplus or 1)
-    save.JtemNXneeded = math.floor(15^((0.2*(save.JtemNXplus or 1))+1))
+    save.JtemNXneeded = math.floor(HPTN.nxkoofactor^((0.2*(save.JtemNXplus or 1))+1))
     return {n = G.UIT.ROOT, config = {
 					colour = G.C.CLEAR
 				}, nodes = {
