@@ -468,7 +468,7 @@ HPTN.Modification({
 			SMODS.calculate_effect({ message = "Trigger Enabled!" }, card)
 		end
 
-		if if context.retrigger_joker_check and not context.retrigger_joker and not card.prevent_trigger and context.other_card == card then then
+		if context.retrigger_joker_check and not context.retrigger_joker and not card.prevent_trigger and context.other_card == card then
 			return {
 				repetitions = 1,
 			}
