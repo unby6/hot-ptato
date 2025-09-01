@@ -9,7 +9,13 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult } }
     end,
     rarity = 1,
-    cost = 4,
+    cost = 5,
+    hotpot_credits = {
+        art = {"Nobody yet"},
+        idea = {"i forgor"},
+        code = {"PokéRen"},
+        team = {"Team :)"}
+    },
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_face() then
             if context.other_card.debuff then
