@@ -1287,6 +1287,15 @@ return {
                     "gives {C:mult}+#1#{} mult{}"
                 }
             },
+            j_hpot_emoticon = {
+                name = "Emoticon",
+                text = {
+                    "{C:attention}Face{} cards give",
+                    "{X:mult,C:white}X#1#{} Mult when {C:attention}scored{},",
+                    "but are not considered",
+                    "{C:attention}face{} cards otherwise"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
