@@ -1279,6 +1279,14 @@ return {
                     "{X:mult,C:white}+X#3#{} after each joker destroyed",
                 }
             },
+            j_hpot_upsidedownsmiley = {
+                name = "Upside-down Smiley Face",
+                text = {
+                    "Each {C:attention}face{} card",
+                    "held in hand",
+                    "gives {C:mult}+#1#{} mult{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
