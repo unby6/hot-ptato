@@ -10,11 +10,13 @@ SMODS.Joker {
     end,
     rarity = 2,
     cost = 6,
+    atlas = "smiley_jokers",
+    pos = {x=1,y=0},
     hotpot_credits = {
-        art = {"Nobody yet"},
+        art = {"RGBeet"},
         idea = {"PokéRen"},
         code = {"PokéRen"},
-        team = {"Team :)"}
+        team = {":)"}
     },
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face(false,{ignore_emoticon = true}) then
