@@ -1296,6 +1296,13 @@ return {
                     "{C:attention}face{} cards otherwise"
                 }
             },
+            j_hpot_onemillionifstatements = {
+                name = "1 Million If Statements",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult if current Mult is {C:attention}even{}",
+                    "{X:chips,C:white}X#2#{} Chips if current Chips is {C:attention}even{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
