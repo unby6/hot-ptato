@@ -1296,6 +1296,13 @@ return {
                     "{C:attention}face{} cards otherwise"
                 }
             },
+            j_hpot_ifstatements = {
+                name = "1000000 If Statements",
+                text = {
+                    "{X:chips,C:white}X#1#{} Chips if current {C:chips}Chips{} are odd",
+                    "{X:mult,C:white}X#1#{} Mult if current {C:mult}Mult{} is odd",
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
