@@ -35,11 +35,13 @@ Game.init_game_object = function(self)
 	ret.cost_dollars = 30
 	ret.cost_sparks = 125000
 	ret.cost_plincoins = 10
+	ret.cost_cryptocurrency= 2
 
 	ret.cost_credit_default = 150
 	ret.cost_dollar_default = 30
 	ret.cost_spark_default = 125000
 	ret.cost_plincoin_default = 10
+	ret.cost_cryptocurrency_default = 2
 
 	--ret.sticker_timer = 0
 

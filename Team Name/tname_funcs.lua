@@ -227,6 +227,7 @@ function ready_to_reforge(card)
         card.ability.reforge_credits = 0
         card.ability.reforge_sparks = 0
         card.ability.reforge_plincoins = 0
+        card.ability.reforge_cryptocurrency = 0
     end
 end
 
@@ -237,6 +238,7 @@ function set_card_reforge(card, currency)
     card.ability.reforge_credits = convert_currency(reforge_cost(card), "DOLLAR", "CREDIT") -- convert the reforge cost to other currencties and set the card abilities accordingly
     card.ability.reforge_sparks = convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
     card.ability.reforge_plincoins = convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
+    card.ability.reforge_cryptocurrency = convert_currency(reforge_cost(card), "DOLLAR", "CRYPTOCURRENCY")
 end
 
 --- @param card table|nil Card to use to update the costs
@@ -246,19 +248,23 @@ function update_reforge_cost(card)
         G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars -- update the price with card's ability table
         G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
         G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
+        card.ability.reforge_plincoins = card.ability.reforge_plincoins or 10
         G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
+        G.GAME.cost_cryptocurrency = G.GAME.cost_cryptocurrency + card.ability.reforge_cryptocurrency
     else
         G.GAME.cost_dollars = card.ability.reforge_dollars -- if the voucher exists stop updating
         G.GAME.cost_credits = card.ability.reforge_credits
         G.GAME.cost_sparks =  card.ability.reforge_sparks
-        G.GAME.cost_plincoins = card.ability.reforge_plincoins
+        G.GAME.cost_plincoins = card.ability.reforge_plincoins  or card.ability.reforge_plincoins_default
+        G.GAME.cost_cryptocurrency = card.ability.reforge_cryptocurrency
     end
 
         if card.saved_last_reforge then -- update the card values if there is a last saved table (i dont remember why i added this but there were issues)
             card.ability.reforge_dollars = card.ability.reforge_dollars_default
             card.ability.reforge_credits = card.ability.reforge_credits_default
             card.ability.reforge_sparks = card.ability.reforge_sparks_default
-            card.ability.reforge_plincoins = card.ability.reforge_plincoins_default
+            card.ability.reforge_plincoins = card.ability.reforge_plincoins_default or 10
+            card.ability.reforge_cryptocurrency = card.ability.reforge_cryptocurrency_default
 
             card.saved_last_reforge = false -- set last reforged to false
 
@@ -266,6 +272,7 @@ function update_reforge_cost(card)
             card.ability.reforge_credits_default = nil
             card.ability.reforge_sparks_default = nil
             card.ability.reforge_plincoins_default = nil
+            card.ability.reforge_cryptocurrency_default = nil
         end
 end
 
@@ -275,6 +282,7 @@ function reset_reforge_cost() -- reset the cost to defults
     G.GAME.cost_credits =  G.GAME.cost_credit_default 
     G.GAME.cost_sparks =  G.GAME.cost_spark_default 
     G.GAME.cost_plincoins = G.GAME.cost_plincoin_default 
+    G.GAME.cost_cryptocurrency = G.GAME.cost_cryptocurrency_default
 end
 
 -- save final values
@@ -288,11 +296,13 @@ function final_ability_values(card) -- save the card's final values ( so it scal
     card.ability.reforge_credits_default = card.ability.reforge_credits
     card.ability.reforge_sparks_default = card.ability.reforge_sparks
     card.ability.reforge_plincoins_default = card.ability.reforge_plincoins
+    card.ability.reforge_cryptocurrency_default = card.ability.reforge_cryptocurrency
 
     card.ability.reforge_dollars = G.GAME.cost_dollars - G.GAME.cost_dollar_default 
     card.ability.reforge_credits = G.GAME.cost_credits - G.GAME.cost_credit_default 
     card.ability.reforge_sparks = G.GAME.cost_sparks - G.GAME.cost_spark_default 
     card.ability.reforge_plincoins = G.GAME.cost_plincoins - G.GAME.cost_plincoin_default 
+    card.ability.reforge_cryptocurrency = G.GAME.cost_cryptocurrency - G.GAME.cost_cryptocurrency_default 
 
     card.saved_last_reforge = true
 end
@@ -320,20 +330,24 @@ function convert_currency(amount, starting_currency, ending_currency)
 	local dollar_to_plincoin  = 3
 	local credit_to_plincoin  = 15
 	local sparkle_to_plincoin = 12495
+    local cryptocurrency_to_plincoin = 4
 	
 	if     ending_currency == "DOLLAR"  then money = money * dollar_to_plincoin
 	elseif ending_currency == "CREDIT"  then money = money * credit_to_plincoin
 	elseif ending_currency == "SPARKLE" then money = money * sparkle_to_plincoin
-	elseif ending_currency ~= "PLINCOIN" then return nil end
+	elseif ending_currency == "CRYPTOCURRENCY" then money = money * cryptocurrency_to_plincoin
+    elseif starting_currency ~= "PLINCOIN" then return nil end
 	
 	-- Next, convert from plincoin into the desired currency.
 	local plincoin_to_dollar  = 1 / dollar_to_plincoin
 	local plincoin_to_credit  = 1 / credit_to_plincoin
 	local plincoin_to_sparkle = 1 / sparkle_to_plincoin
+    local plincoin_to_cryptocurrency = 1 / cryptocurrency_to_plincoin
 	
 	if     starting_currency == "DOLLAR"  then money = money * plincoin_to_dollar
 	elseif starting_currency == "CREDIT"  then money = money * plincoin_to_credit
 	elseif starting_currency == "SPARKLE" then money = money * plincoin_to_sparkle
+    elseif ending_currency == "CRYPTOCURRENCY" then money = money * plincoin_to_cryptocurrency
 	elseif starting_currency ~= "PLINCOIN" then return nil end
 	
 	return math.ceil(money)

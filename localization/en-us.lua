@@ -1479,7 +1479,7 @@ return {
             v_hpot_ref_joker_exc = {
                 name = "Premium Anvil",
                 text = {
-                    "{C:hpot_plincoin}Plincoins{} and",
+                    "{C:hpot_plincoin}Plincoins{}, {C:orange}Cryptocurrency{}",
                     "{C:blue}Joker Exchange{} can",
                     "be used to reforge"
                 }
@@ -3028,6 +3028,7 @@ return {
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
+            hotpot_reforge_cryptocurrency = "B.",
             k_changedperson = "Changed!",
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",

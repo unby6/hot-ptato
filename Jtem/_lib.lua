@@ -126,6 +126,7 @@ G.ARGS.LOC_COLOURS.jtem_stats_power = G.C.HP_JTEM.STATS.POWER
 G.ARGS.LOC_COLOURS.jtem_stats_guts = G.C.HP_JTEM.STATS.GUTS
 G.ARGS.LOC_COLOURS.jtem_stats_wits = G.C.HP_JTEM.STATS.WITS
 G.ARGS.LOC_COLOURS.jtem_crimson = G.C.HP_JTEM.MISC.TRAIN_C
+G.ARGS.LOC_COLOURS.orange = G.C.ORANGE
 
 SMODS.Gradient{
 	key = "jtem_training_ug",

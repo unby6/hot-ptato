@@ -100,6 +100,13 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
                     func = "can_reforge_with_plincoins",
                     colour = SMODS.Gradients["hpot_plincoin"]
                 },
+                UIBox_adv_button{
+                    label = {{{localize("hotpot_reforge_cryptocurrency")},{ref_table = G.GAME, ref_value = "cost_cryptocurrency"}}},
+                    text_scale = 0.5,
+                    button = 'reforge_with_cryptocurrency',
+                    func = "can_reforge_with_cryptocurrency",
+                    colour = G.C.ORANGE
+                },
 			}},
 
 			{n = G.UIT.C, config = {minw = 0.1}},
@@ -275,6 +282,16 @@ function G.FUNCS.can_reforge_with_plincoins(e)
             e.config.button = 'reforge_with_plincoins'
         end
     end
+
+function G.FUNCS.can_reforge_with_cryptocurrency(e)
+    if not G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.cryptocurrency < G.GAME.cost_cryptocurrency or not G.GAME.ref_placed then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.ORANGE
+            e.config.button = 'reforge_with_cryptocurrency'
+        end
+    end
 --
 
 G.FUNCS.reforge_with_credits = function ()
@@ -303,6 +320,14 @@ end
 
 G.FUNCS.reforge_with_plincoins = function ()
     ease_plincoins(-G.GAME.cost_plincoins)
+    set_card_reforge()
+    update_reforge_cost()
+    reforge_card(G.reforge_area.cards[1])
+    play_sound("hpot_tname_reforge")
+end
+
+G.FUNCS.reforge_with_cryptocurrency = function ()
+    ease_cryptocurrency (-G.GAME.cost_cryptocurrency )
     set_card_reforge()
     update_reforge_cost()
     reforge_card(G.reforge_area.cards[1])
