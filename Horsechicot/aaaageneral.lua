@@ -1,14 +1,18 @@
 Horsechicot = {}
-function Horsechicot.credit(coders, arters)
+function Horsechicot.credit(coders, arters, ideaers)
     if type(coders) == "string" then
         coders = {coders}
     end
     if type(arters) == "string" then
         arters = {arters}
     end
+    if type(ideaers) == "string" then
+        arters = {ideaers}
+    end
     return {
         code = coders,
         art = arters,
+        idea = ideaers,
         team = { 'Horsechicot' }
     }
 end
