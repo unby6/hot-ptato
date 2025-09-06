@@ -3074,10 +3074,12 @@ return {
             hpot_diy_tarot_sold = "When a Tarot Card is sold",
 
             hpot_diy_earn_dollars = "Earn $2",
-            hpot_diy_earn_plincoins = "Earn 0.1 Plincoins",
-            hpot_diy_earn_credits = "Earn 0.01 Credits",
+            hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
+            hpot_diy_earn_credits = "Earn 0.1 Credits",
             hpot_diy_earn_sparks = "Earn 1000 Spark Points",
-            hpot_diy_random_consumable = "Create a Random Consumable"
+            hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
+            hpot_diy_random_consumable = "Create a Random Consumable",
+            k_harvest = "Harvest Organs"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
