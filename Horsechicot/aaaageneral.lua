@@ -18,4 +18,5 @@ HPJTTT.add_texts({
     "and now... a word from our Sponsor. Entropy.",
     "Attempt to compare Joker with Table",
     "Now in 3D",
+    TMJ and "Thanks for using Too Many Jokers! ~ cg" or "Use Too Many Jokers! ~ cg" --tmj prio is lower
 })
