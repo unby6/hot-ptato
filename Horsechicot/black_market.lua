@@ -133,7 +133,7 @@ function ease_cryptocurrency(plink, instant)
       end
   end
 
-  G.FUNCS.can_reroll = function(e)
+  G.FUNCS.can_reroll_market = function(e)
     if ((G.GAME.cryptocurrency) - G.GAME.current_round.market_reroll_cost < 0) and G.GAME.current_round.market_reroll_cost ~= 0 then 
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
