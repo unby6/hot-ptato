@@ -39,7 +39,7 @@ HotPotato.effect_options = {
 }
 
 function HotPotato.diy_trigger(self, card, context)
-    if G.GAME.hotpot_di and G.GAME.hotpot_diy.trigger == 1 then return context.joker_main end
+    if G.GAME.hotpot_diy and G.GAME.hotpot_diy.trigger == 1 then return context.joker_main end
 end
 
 function HotPotato.diy_effect(self, card, context)
