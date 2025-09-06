@@ -547,7 +547,7 @@ function G.FUNCS.hotpot_jtem_delivery_request_item(e)
     }
 end
 
-local currencies = { "dollars", "joker_exchange", "plincoin", "credits" }
+local currencies = { "dollars", "joker_exchange", "plincoin", "credits", "cryptocurrency" }
 local function hpot_create_joker_from_amazon(card, center)
     -- factors are more fucked when requesting
     local should_spawn_with_rental = pseudorandom("hpjtem_delivery_rental") < 0.3 and true
@@ -1007,7 +1007,7 @@ function generate_currency_string_args(currency)
         }
     end
     if currency == "joker_exchange" then return { colour = G.C.BLUE, symbol = "͸", font = SMODS.Fonts["hpot_plincoin"] } end
-    if currency == "cryptocurrency" then return { colour = G.C.RED, symbol = "B"} end
+    if currency == "cryptocurrency" then return { colour = G.C.ORANGE, symbol = "B"} end
     -- patches for other currencies strings
 end
 
