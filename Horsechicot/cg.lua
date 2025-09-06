@@ -42,5 +42,37 @@ SMODS.Joker {
 SMODS.Joker {
     hotpot_credits = Horsechicot.credit('cg223'),
     key = "lockin",
-
+    config = {was_clicked = false, start_time = 0, leniency = 1},
+    calculate = function (self, card, context)
+        if context.game_over then
+            card.ability.was_clicked = false
+            card.ability.start_time = love.timer.getTime()
+            juice_card_until(card, function() 
+                return ((love.timer.getTime() - (G.GAME.chips/G.GAME.blind.chips) * card.ability.leniency * G.TIMERS.REAL * G.SETTINGS.GAMESPEED) > 0) or card.ability.was_clicked
+            end)
+            delay((G.GAME.chips/G.GAME.blind.chips) * card.ability.leniency * G.TIMERS.REAL * G.SETTINGS.GAMESPEED)
+            G.E_MANAGER:add_event(Event {
+                func = function()
+                    if card.ability.was_clicked then
+                        return {
+                            message = "Saved!",
+                            saved = true
+                        }
+                    else
+                        return {
+                            message = "Fail!",
+                        }
+                    end
+                end
+            })
+        end
+    end
 }
+
+local old = Card.click 
+function Card:click()
+    old(self)
+    if self.config.center.key == "j_hpot_lockin" then
+        self.ability.was_clicked = true
+    end
+end
