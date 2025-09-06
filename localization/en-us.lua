@@ -1325,13 +1325,19 @@ return {
                     "chance to be considered {C:attention}face cards{}"
                 }
             },
-            j_hpot_diy_blank = {
-                "{C:attention}Purchase{} this {C:attention}Jok{}er",
-                "to find ou{C:purple}t!{}!"
-            },
             j_hpot_diy = {
-                "#1#",
-                "#2#"
+                name = "DIY",
+                text = {
+                    "{C:attention}Purchase{} this {C:attention}Jok{}er",
+                    "to find ou{C:purple}t!{}!"
+                }
+            },
+            j_hpot_diy_full = {
+                name = "DIY",
+                text = {
+                    "#1#",
+                    "#2#"
+                }
             },
             j_hpot_brainfuck = {
                 name = "--[----->+<]>---.+++++.+.------.++++++++++++.+++++.",

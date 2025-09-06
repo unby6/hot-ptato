@@ -14,20 +14,20 @@ SMODS.Joker {
         end
     end,
     loc_vars = function(self, q, card)
-        if not G.GAME.hotpot_diy then
+        if G.GAME.hotpot_diy then
             return {
-                key = "j_hpot_diy_blank"
+                key = "j_hpot_diy_full",
+                vars = {
+                    HotPotato.trigger_options[G.GAME.hotpot_diy.trigger],
+                    HotPotato.effect_options[G.GAME.hotpot_diy.effect]
+                }
             }
         end
-        return {
-            vars = {
-                HotPotato.trigger_options[G.GAME.hotpot_diy.trigger],
-                HotPotato.effect_options[G.GAME.hotpot_diy.effect]
-            }
-        }
     end
 }
 
+
+--TODO: Localize
 HotPotato.trigger_options = {
     "When Hand is Played",
 }
@@ -35,7 +35,8 @@ HotPotato.effect_options = {
     "Earn $2",
     "Earn 0.1 Plincoins",
     "Earn 0.01 Credits",
-    "Earn 1000 Spark Points"
+    "Earn 1000 Spark Points",
+    "Create a Random Consumable"
 }
 
 function HotPotato.diy_trigger(self, card, context)
@@ -94,7 +95,7 @@ function create_UIBox_diy()
         contents = {	
             create_option_cycle({
                 options = HotPotato.trigger_options,
-                w = 4.5,
+                w = 7.5,
                 cycle_shoulders = true,
                 opt_callback = "diy_option_trigger",
                 current_option = 1,
@@ -104,7 +105,7 @@ function create_UIBox_diy()
             }),
             create_option_cycle({
                 options = HotPotato.effect_options,
-                w = 4.5,
+                w = 7.5,
                 cycle_shoulders = true,
                 opt_callback = "diy_option_effect",
                 current_option = 1,
@@ -132,6 +133,9 @@ end
 function G.FUNCS.diy_apply()
     G.FUNCS:exit_overlay_menu()
     G.GAME.DIY_OPEN = false
+    G.GAME.hotpot_diy = G.GAME.hotpot_diy or {}
+    G.GAME.hotpot_diy.effect = G.GAME.hotpot_diy.effect or 1
+    G.GAME.hotpot_diy.trigger = G.GAME.hotpot_diy.trigger or 1
 end
 
 G.FUNCS.diy_option_effect = function(args)	
