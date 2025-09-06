@@ -136,5 +136,6 @@ SMODS.Joker {
             card.ability.extra.chips = card.ability.extra.extra * Horsechicot.num_jokers()
             return { chips = card.ability.extra.chips }
         end
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("cg223", "my shitass ex")
 }
