@@ -1325,6 +1325,14 @@ return {
                     "chance to be considered {C:attention}face cards{}"
                 }
             },
+            j_hpot_brainfuck = {
+                name = "--[----->+<]>---.+++++.+.------.++++++++++++.+++++.",
+                text = {
+                    "Create a {C:attention}Luchador{} if",
+                    "played hand is in rank",
+                    "order {C:red}lowest{} to {C:green}highest{}"
+                }
+            }
         },
         Sleeve = {
             sleeve_hpot_lime = {
