@@ -9,7 +9,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
     if not G.GAME.market_filled then
         G.GAME.market_filled = true
         for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-            new_shop_card = SMODS.create_card{set = "BlackMarket", area = G.market_jokers}
+            local new_shop_card = SMODS.create_card{set = "BlackMarket", area = G.market_jokers}
             G.market_jokers:emplace(new_shop_card)
             create_market_card_ui(new_shop_card)
             new_shop_card:juice_up()
