@@ -134,7 +134,8 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
             },
         }}
 	}},
-	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}}
+	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}},
+    G.UIDEF.hotpot_horsechicot_market_section()
 end
 
 function HPTN.move_card(card, _area) -- Moving cards from one area to another easily

@@ -219,6 +219,7 @@ function end_round()
         local number_of_ads = math.floor(pseudorandom('ad_num')*2)
         create_ads(number_of_ads)
     end
+    G.GAME.market_filled = nil
     return end_round_ref()
 end
 
