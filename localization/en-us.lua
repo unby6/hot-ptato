@@ -1303,6 +1303,21 @@ return {
                     "{X:mult,C:white}X#1#{} Mult if current {C:mult}Mult{} is odd",
                 }
             },
+            j_hpot_potatosmileys = {
+                name = "Potato Smileys",
+                text = {
+                    "Played {C:attention}face{} cards give",
+                    "{C:mult}+#1#{} Mult when scored",
+                    "{C:mult}-#2#{} Mult per round played",
+                }
+            },
+            j_hpot_plinkodemayo = {
+                name = "Plinko de Mayo",
+                text = {
+                    "Played {C:attention}5{} cards give",
+                    "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} when scored"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
