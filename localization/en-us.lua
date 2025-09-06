@@ -1303,6 +1303,13 @@ return {
                     "{X:chips,C:white}X#2#{} Chips if current Chips is {C:attention}even{}"
                 }
             },
+            j_hpot_faceblindness = {
+                name = "Face Blindness",
+                text = {
+                    "{C:attention}All{} cards have a {C:green}#1#/#2#{} chance",
+                    "to be scored as a {C:attention}face card{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
