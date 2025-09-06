@@ -13,8 +13,8 @@ function G.UIDEF.hotpot_horsechicot_market_section()
       G.market_jokers:emplace(new_shop_card)
       create_market_card_ui(new_shop_card)
       new_shop_card:juice_up()
-      return true
     end
+    save_run()
   end
   return { n = G.UIT.R, config = { minw = 3, minh = .5, colour = G.C.CLEAR }, nodes = {} },
       {
@@ -196,7 +196,7 @@ G.FUNCS.reroll_market = function(e)
       play_sound('other1')
 
       --
-      for i = 1, G.GAME.market.joker_max - #G.market_jokers.cards do
+      for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
         local new_market_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers }
         G.market_jokers:emplace(new_market_card)
         create_market_card_ui(new_market_card)
@@ -233,6 +233,98 @@ end
 
 function create_market_card_ui(card, type, area)
   card.market_cost = card:get_market_cost()
+  G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.43,
+    blocking = false,
+    blockable = false,
+    func = (function()
+      if card.opening then return true end
+      local t1 = {
+          n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
+              {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
+                {n=G.UIT.O, config={object = DynaText({string = {{prefix = "B.", ref_table = card, ref_value = 'market_cost'}}, colours = {G.C.ORANGE},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+              }}
+          }}
+      if card.config and card.config.center and card.config.center.credits then
+          t1 = {
+              n = G.UIT.ROOT,
+              config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
+              nodes = {
+                  {
+                      n = G.UIT.R,
+                      config = { align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03 },
+                      nodes = {
+                          { n = G.UIT.O, config = { object = DynaText({ string = { { prefix = 'c.', ref_table = card.config.center, ref_value = 'credits' } }, colours = { G.C.PURPLE }, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5 }) } },
+                      }
+                  }
+              }
+          }
+      end
+      local t2 = card.ability.set == 'Voucher' and {
+        n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_redeem_from_market', one_press = true, button = 'redeem_from_shop', hover = true}, nodes={
+            {n=G.UIT.T, config={text = localize('b_redeem'),colour = G.C.WHITE, scale = 0.4}}
+        }} or card.ability.set == 'Booster' and {
+        n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_open_from_market', one_press = true, button = 'open_booster', hover = true}, nodes={
+            {n=G.UIT.T, config={text = localize('b_open'),colour = G.C.WHITE, scale = 0.5}}
+        }} or {
+        n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'can_buy_from_market', one_press = true, button = 'buy_from_shop', hover = true}, nodes={
+            {n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
+        }}
+      local t3 = {
+        n=G.UIT.ROOT, config = {id = 'buy_and_use', ref_table = card, minh = 1.1, padding = 0.1, align = 'cr', colour = G.C.RED, shadow = true, r = 0.08, minw = 1.1, func = 'can_buy_and_use_from_market', one_press = true, button = 'buy_from_shop', hover = true, focus_args = {type = 'none'}}, nodes={
+          {n=G.UIT.B, config = {w=0.1,h=0.6}},
+          {n=G.UIT.C, config = {align = 'cm'}, nodes={
+            {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
+              {n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
+            }},
+            {n=G.UIT.R, config = {align = 'cm', maxw = 1}, nodes={
+              {n=G.UIT.T, config={text = localize('b_and_use'),colour = G.C.WHITE, scale = 0.3}}
+            }},
+          }} 
+        }}
+        
+
+      card.children.price = UIBox{
+        definition = t1,
+        config = {
+          align="tm",
+          offset = {x=0,y=1.5},
+          major = card,
+          bond = 'Weak',
+          parent = card
+        }
+      }
+
+      card.children.buy_button = UIBox{
+        definition = t2,
+        config = {
+          align="bm",
+          offset = {x=0,y=-0.3},
+          major = card,
+          bond = 'Weak',
+          parent = card
+        }
+      }
+
+      if card.ability.consumeable then --and card:can_use_consumeable(true, true)
+        card.children.buy_and_use_button = UIBox{
+          definition = t3,
+          config = {
+            align="cr",
+            offset = {x=-0.3,y=0},
+            major = card,
+            bond = 'Weak',
+            parent = card
+          }
+        }
+      end
+
+      card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.38
+
+        return true
+    end)
+  }))
 end
 
 G.FUNCS.can_buy_from_market = function(e)
