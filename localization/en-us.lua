@@ -1296,18 +1296,26 @@ return {
                     "{C:attention}face{} cards otherwise"
                 }
             },
-            j_hpot_onemillionifstatements = {
-                name = "1 Million If Statements",
+            j_hpot_ifstatements = {
+                name = "1000000 If Statements",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult if current Mult is {C:attention}even{}",
-                    "{X:chips,C:white}X#2#{} Chips if current Chips is {C:attention}even{}"
+                    "{X:chips,C:white}X#1#{} Chips if current {C:chips}Chips{} are odd",
+                    "{X:mult,C:white}X#1#{} Mult if current {C:mult}Mult{} is odd",
                 }
             },
-            j_hpot_faceblindness = {
-                name = "Face Blindness",
+            j_hpot_potatosmileys = {
+                name = "Potato Smileys",
                 text = {
-                    "{C:attention}All{} cards have a {C:green}#1#/#2#{} chance",
-                    "to be scored as a {C:attention}face card{}"
+                    "Played {C:attention}face{} cards give",
+                    "{C:mult}+#1#{} Mult when scored",
+                    "{C:mult}-#2#{} Mult per round played",
+                }
+            },
+            j_hpot_plinkodemayo = {
+                name = "Plinko de Mayo",
+                text = {
+                    "Played {C:attention}5{} cards give",
+                    "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} when scored"
                 }
             },
         },
