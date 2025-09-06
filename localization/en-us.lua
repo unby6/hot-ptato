@@ -1380,6 +1380,13 @@ return {
                     "This Joker gains the {C:attention}sell value{}",
                     "of all sold cards"
                 }
+            },
+            j_hpot_folded = {
+                name = "Folded Joker",
+                text = {
+                    "{C:mult}+#1#{} Mult if hand",
+                    "contains {C:attention}#2#{} or more unscoring cards"
+                }
             }
         },
         Sleeve = {
