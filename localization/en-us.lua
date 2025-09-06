@@ -1394,6 +1394,15 @@ return {
                     "Disable the effect of the {C:attention}Boss Blind{}",
                     "every {C:attention}#1#{} {C:inactive}[#2#]{} hands played"
                 }
+            },
+            j_hpot_idle = {
+                name = "Idle Joker",
+                text = {
+                    "Blind chip is clickable for {C:attention}+#1#{} point",
+                    "Earn {C:money}$#2#{} at end of round for every",
+                    "digit in your current points",
+                    "{C:inactive}(Currently #3# Points)",
+                }
             }
         },
         Sleeve = {
