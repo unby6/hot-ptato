@@ -24,6 +24,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
             create_market_card_ui(v)
         end
     end
+  G.harvest_cost = G.harvest_cost or 0
   return { n = G.UIT.R, config = { minw = 3, minh = .5, colour = G.C.CLEAR }, nodes = {} },
       {
         n = G.UIT.R,
@@ -54,6 +55,33 @@ function G.UIDEF.hotpot_horsechicot_market_section()
                         nodes = {
                           { n = G.UIT.T, config = { text = "B.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
                           { n = G.UIT.T, config = { ref_table = G.GAME.current_round, ref_value = 'market_reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                n = G.UIT.R,
+                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = G.C.ORANGE, button = 'harvest_market', func = 'can_harvest_market', hover = true, shadow = true },
+                nodes = {
+                  {
+                    n = G.UIT.R,
+                    config = { align = "cm", padding = 0.07, focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' },
+                    nodes = {
+                      {
+                        n = G.UIT.R,
+                        config = { align = "cm", maxw = 1.3 },
+                        nodes = {
+                          { n = G.UIT.T, config = { text = localize('k_harvest'), scale = 0.4, colour = G.C.WHITE, shadow = true } },
+                        }
+                      },
+                      {
+                        n = G.UIT.R,
+                        config = { align = "cm", maxw = 1.3, minw = 1 },
+                        nodes = {
+                          { n = G.UIT.T, config = { text = "B.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                          { n = G.UIT.T, config = { ref_table = G, ref_value = 'harvest_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
                         }
                       }
                     }
@@ -453,4 +481,38 @@ SMODS.ObjectType {
     j_hpot_tname_sunset = true,
     j_hpot_tname_graveyard = true,
   }
+}
+
+
+G.FUNCS.can_harvest_market = function(e)
+    if G.jokers and #G.jokers.highlighted == 1 and not SMODS.is_eternal(G.jokers.highlighted[1]) then
+        e.config.colour = G.C.RED
+        e.config.button = 'harvest_market'
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    end
+end
+  
+G.FUNCS.harvest_market = function(e)
+    G.jokers.highlighted[1]:start_dissolve()
+    ease_cryptocurrency(G.harvest_cost)
+    play_sound("hpot_harvest")
+end
+
+local highlight_ref = Card.highlight
+function Card:highlight(is)
+    highlight_ref(self, is)
+    if G.jokers then
+        if is and G.jokers.highlighted[1] == self then
+            G.harvest_cost = self:get_market_cost()
+        elseif not is and G.jokers.highlighted[1] == self then    
+            G.harvest_cost = 0
+        end
+    end
+end
+
+SMODS.Sound {
+    key = "harvest",
+    path = "sfx_the_flesh_consumes_all.mp3"
 }

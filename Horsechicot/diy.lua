@@ -38,6 +38,7 @@ HotPotato.effect_options = {
     "hpot_diy_earn_plincoins",
     "hpot_diy_earn_credits",
     "hpot_diy_earn_sparks",
+    "hpot_diy_earn_crypto",
     "hpot_diy_random_consumable"
 }
 
@@ -55,12 +56,14 @@ function HotPotato.diy_effect(self, card, context)
     if G.GAME.hotpot_diy.effect == 1 then
         ease_dollars(2)
     elseif G.GAME.hotpot_diy.effect == 2 then
-        ease_plincoins(0.1)
+        ease_plincoins(0.5)
     elseif G.GAME.hotpot_diy.effect == 3 then
-        HPTN.ease_credits(0.01)
+        HPTN.ease_credits(0.1)
     elseif G.GAME.hotpot_diy.effect == 4 then
         ease_spark_points(1000)
     elseif G.GAME.hotpot_diy.effect == 5 then
+        ease_cryptocurrency(0.25)
+    elseif G.GAME.hotpot_diy.effect == 6 then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         return {
             message = localize { type = 'variable', key = 'a_cards', vars = { 1 } },
@@ -69,7 +72,7 @@ function HotPotato.diy_effect(self, card, context)
                     G.E_MANAGER:add_event(Event{
                         trigger = "after",
                         func = function()
-                            SMODS.add_card{area=G.consumeables, set="Consumable"}
+                            SMODS.add_card{area=G.consumeables, set="Consumeables"}
                             G.GAME.consumeable_buffer = 0
                             return true
                         end
@@ -89,10 +92,11 @@ When [POKER HAND] is played
 
 Effects:
 Gain $2         DONE
-Gain 0.1 Plincoin         DONE
-Gain 0.01 Credits         DONE
+Gain 0.5 Plincoin         DONE
+Gain 0.1 Credits         DONE
 Gain 1000 Joker Exchange         DONE
-Create a random consumable (Must have room)
+Gain B.0.25 DONE
+Create a random consumable (Must have room) DONE
 ]]--
 
 function create_UIBox_diy()
