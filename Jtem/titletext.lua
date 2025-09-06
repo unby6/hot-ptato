@@ -1586,7 +1586,11 @@ I had virtually no rehearsal for that.]],
     }
 }
 
-
+HPJTTT.add_texts = function(tbl)
+    for i, v in pairs(tbl) do
+        HPJTTT.text[#HPJTTT.text+1] = v
+    end
+end
 
 HPJTTT.chosen = (math.floor(os.time())%#HPJTTT.text)+1
 

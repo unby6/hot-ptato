@@ -3031,7 +3031,7 @@ return {
             k_apply = "Apply",
 
             hpot_diy_hand_played = "When Hand is Played",
-            hpot_diy_tarot_sold = "When a Tarot Card is sold"
+            hpot_diy_tarot_sold = "When a Tarot Card is sold",
 
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.1 Plincoins",

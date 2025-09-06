@@ -13,3 +13,9 @@ function Horsechicot.credit(coders, arters)
     }
 end
 SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
+
+HPJTTT.add_texts({
+    "and now... a word from our Sponsor. Entropy.",
+    "Attempt to compare Joker with Table",
+    "Now in 3D",
+})
