@@ -100,7 +100,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
                 loc_txt = "hotpot_go_market",
                 button = "hotpot_horsechicot_toggle_market",
-                atlas = "hpot_tname_shop_reforge"
+                atlas = "hpot_horsechicot_market"
             },
             {
                 n = G.UIT.R,

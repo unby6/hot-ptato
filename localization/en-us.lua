@@ -2972,6 +2972,7 @@ return {
             hotpot_delivery = "Deliveries",
             hotpot_delivery_back = "Back to Shop",
             hotpot_go_reforge = "Reforge",
+            hotpot_go_market = "Black Market",
             hotpot_request_joker_line_1 = "Request",
             hotpot_request_joker_line_2 = "a Joker",
             hotpot_request_joker_line_3 = "Once every ante",

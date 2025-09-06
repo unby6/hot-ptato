@@ -46,3 +46,19 @@ HPJTTT.add_texts({
     "silly ahh drivables - @lily.felli",
     "130 lbs",
 })
+
+SMODS.Atlas{
+    key = "horsechicot_market",
+    path = "Horsechicot/shop_button.png",
+    px = 34, py = 34,
+}
+
+SMODS.Sound {
+    key = "music_market",
+    path = "music_market.ogg",
+    select_music_track = function (self)
+      if G.HP_HC_MARKET_VISIBLE then
+        return 1225
+      end
+    end
+  }
