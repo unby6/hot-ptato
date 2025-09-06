@@ -53,6 +53,12 @@ SMODS.Atlas{
     px = 34, py = 34,
 }
 
+SMODS.Atlas{
+    key = "hc_tags",
+    path = "Horsechicot/hc_tags.png",
+    px = 34, py = 34,
+}
+
 SMODS.Sound {
     key = "music_market",
     path = "music_market.ogg",

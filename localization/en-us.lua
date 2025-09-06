@@ -2433,6 +2433,13 @@ return {
                     "becomes {C:dark_edition}Psychedelic"
                 }
             },
+            tag_hpot_illegal = {
+                name = "Illegal Tag",
+                text = {
+                    "Gain {C:orange}+#1#{} Cryptocurrency",
+                    "immediately"
+                }
+            },
         },
         Edition = {
             e_hpot_psychedelic = {
