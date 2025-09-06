@@ -1318,6 +1318,14 @@ return {
                     "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} when scored"
                 }
             },
+            j_hpot_lockin = {
+                name = "Lock In",
+                text = {
+                    "Precisely {C:purple}Click{} this {C:attention}Joker{}",
+                    "to Prevent Death",
+                    "{S:1.1,C:red,E:2}self destructs{}"
+                }
+            },
             j_hpot_faceblindness = {
                 name = "Face Blindness",
                 text = {

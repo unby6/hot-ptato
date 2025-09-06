@@ -13,7 +13,7 @@ SMODS.Joker {
             local should_trigger = true
 ---@diagnostic disable-next-line: param-type-mismatch
             for _, card in ipairs(cards) do
-                local id = card:get_id()
+                local id = card:get_id() --
                 if id < last then
                     should_trigger = false
                     break
@@ -37,4 +37,10 @@ SMODS.Joker {
             end
         end
     end
+}
+
+SMODS.Joker {
+    hotpot_credits = Horsechicot.credit('cg223'),
+    key = "lockin",
+
 }
