@@ -14,6 +14,7 @@ SMODS.Joker {
             }
         end
     end,
+    hotpot_credits = Horsechicot.credit("Lily Felli")
 }
 -- this is very easy but i spent 30 minutes confused about lsp stuff not working
 --.... i spelt it smdos instead of smods.
