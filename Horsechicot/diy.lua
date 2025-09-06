@@ -18,8 +18,8 @@ SMODS.Joker {
             return {
                 key = "j_hpot_diy_full",
                 vars = {
-                    HotPotato.trigger_options[G.GAME.hotpot_diy.trigger],
-                    HotPotato.effect_options[G.GAME.hotpot_diy.effect]
+                    localize(HotPotato.trigger_options[G.GAME.hotpot_diy.trigger]),
+                    localize(HotPotato.effect_options[G.GAME.hotpot_diy.effect])
                 }
             }
         end
@@ -29,14 +29,14 @@ SMODS.Joker {
 
 --TODO: Localize
 HotPotato.trigger_options = {
-    "When Hand is Played",
+    "hpot_diy_hand_played",
 }
 HotPotato.effect_options = {
-    "Earn $2",
-    "Earn 0.1 Plincoins",
-    "Earn 0.01 Credits",
-    "Earn 1000 Spark Points",
-    "Create a Random Consumable"
+    "hpot_diy_earn_dollars",
+    "hpot_diy_earn_plincoins",
+    "hpot_diy_earn_credits",
+    "hpot_diy_earn_sparks",
+    "hpot_diy_random_consumable"
 }
 
 function HotPotato.diy_trigger(self, card, context)
@@ -119,7 +119,7 @@ function create_UIBox_diy()
                 nodes = {
                     UIBox_button({
                         button = "diy_apply",
-                        label = { "APPLY" }, --TODO: localize
+                        label = { localize("k_apply") },
                         minw = 4.5,
                         focus_args = { snap_to = true },
                     }),

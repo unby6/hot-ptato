@@ -1346,6 +1346,16 @@ return {
                     "played hand is in rank",
                     "order {C:red}lowest{} to {C:green}highest{}"
                 }
+            },
+            j_hpot_precognition = {
+                name = "Precognition",
+                text = {
+                    "Use this Joker to {C:attention}predict{}",
+                    "the next {C:green}probability{} roll",
+                    "Gain {C:red}+#2#{} Mult when",
+                    "guessing correctly",
+                    "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)"
+                }
             }
         },
         Sleeve = {
@@ -2996,7 +3006,20 @@ return {
             wheel_button_2 = "Arrow",
             wheel_spin_button1 = "Spin",
 
-            you_have = "You have "
+            you_have = "You have ",
+            k_success = "Success",
+            k_failure = "Failure",
+            k_confirm = "Confirm",
+            k_exit = "Exit",
+            k_apply = "Apply",
+
+            hpot_diy_hand_played = "When Hand is Played",
+
+            hpot_diy_earn_dollars = "Earn $2",
+            hpot_diy_earn_plincoins = "Earn 0.1 Plincoins",
+            hpot_diy_earn_credits = "Earn 0.01 Credits",
+            hpot_diy_earn_sparks = "Earn 1000 Spark Points",
+            hpot_diy_random_consumable = "Create a Random Consumable"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -3006,6 +3029,7 @@ return {
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" },
+            a_cards = {"+#1# Cards"},
 
             hotpot_exchange_for_jx_line_1 = "Buy ͸",
             hotpot_exchange_for_jx_line_2 = "for #1#",
