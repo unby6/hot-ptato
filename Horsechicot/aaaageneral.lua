@@ -44,4 +44,5 @@ HPJTTT.add_texts({
     "silly ahh drivables - @lily.felli",
     "silly ahh drivables - @lily.felli",
     "silly ahh drivables - @lily.felli",
+    "130 lbs",
 })
