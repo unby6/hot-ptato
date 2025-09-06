@@ -97,11 +97,19 @@ Create a random consumable (Must have room)
 
 function create_UIBox_diy()
     --todo: localize
+    local trigger_options = {}
+    for i, v in pairs(HotPotato.trigger_options) do
+        trigger_options[#trigger_options+1] = localize(v)
+    end
+    local effect_options = {}
+    for i, v in pairs(HotPotato.effect_options) do
+        effect_options[#effect_options+1] = localize(v)
+    end
     local t = create_UIBox_generic_options({
         no_back = true,
         contents = {	
             create_option_cycle({
-                options = HotPotato.trigger_options,
+                options = trigger_options,
                 w = 7.5,
                 cycle_shoulders = true,
                 opt_callback = "diy_option_trigger",
@@ -111,7 +119,7 @@ function create_UIBox_diy()
                 focus_args = { snap_to = true, nav = "wide" },
             }),
             create_option_cycle({
-                options = HotPotato.effect_options,
+                options = effect_options,
                 w = 7.5,
                 cycle_shoulders = true,
                 opt_callback = "diy_option_effect",
