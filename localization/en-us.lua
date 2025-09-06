@@ -1373,6 +1373,13 @@ return {
                     "card is destroyed",
                     "at end of round"
                 }
+            },
+            j_hpot_balatro_free_smods_download_2025 = {
+                name = "Balatro SMODS free download working 2025",
+                text = {
+                    "This Joker gains the {C:attention}sell value{}",
+                    "of all sold cards"
+                }
             }
         },
         Sleeve = {
