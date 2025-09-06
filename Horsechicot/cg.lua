@@ -57,10 +57,17 @@ function end_round()
         card.ability.was_clicked = false
         card.ability.start_time = love.timer.getTime()
         SMODS.calculate_effect({ message = "Click me!" }, card)
+        local time_given = (G.GAME.chips / G.GAME.blind.chips) * card.ability.leniency * G.SETTINGS.GAMESPEED
+        local last_juice_time = love.timer.getTime()
         G.E_MANAGER:add_event(Event({
             func = function()
-                if (love.timer.getTime() - ((G.GAME.chips / G.GAME.blind.chips) * card.ability.leniency * G.SETTINGS.GAMESPEED)) > card.ability.start_time then
+                if (love.timer.getTime() - time_given) > card.ability.start_time or card.ability.was_clicked then
                     return true
+                else
+                    if love.timer.getTime() - 0.3 > last_juice_time then
+                        last_juice_time = love.timer.getTime()
+                        card:juice_up(0.1, 0.08)
+                    end
                 end
             end
         }))
