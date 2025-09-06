@@ -877,7 +877,8 @@ function hotpot_jtem_init_extra_shops_area()
         { card_limit = 2, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W })
     G.hp_jtem_delivery_queue.cards = G.hp_jtem_delivery_queue.cards or {}
     G.hp_jtem_delivery_special_deals.cards = G.hp_jtem_delivery_special_deals.cards or {}
-    G.hp_jtem_delivery_queue.children = G.hp_jtem_delivery_queue.children or {}
+    G.hp_jtem_y_queue = G.hp_jtem_y_queue or {}
+    G.hp_jtem_y_queue.children = G.hp_jtem_delivery_queue.children or {}
     G.hp_jtem_delivery_special_deals.children = G.hp_jtem_delivery_special_deals.children or {}
 end
 

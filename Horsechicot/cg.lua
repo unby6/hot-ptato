@@ -83,6 +83,7 @@ function end_round()
             end
         })
     end
+    G.GAME.current_round.market_reroll_cost = 0.25
     return old()
 end
 

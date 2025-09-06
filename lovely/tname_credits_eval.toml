@@ -10,7 +10,7 @@ target = 'functions/UI_definitions.lua'
 pattern = '''local t2 = card.ability.set == 'Voucher' and {'''
 position = 'before'
 payload = '''
-if card.config and card.config.center and card.config.center.credits then
+if card.config and card.config.center and card.config.center.credits and not G.HP_HC_MARKET_VISIBLE then
 	t1 = {
 		n = G.UIT.ROOT,
 		config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
@@ -140,8 +140,10 @@ target = 'functions/button_callbacks.lua'
 pattern = '''if c1.cost ~= 0 then'''
 position = 'at'
 payload = '''
-if c1.config and c1.config.center and c1.config.center.credits then
+if c1.config and c1.config.center and c1.config.center.credits and not c1.market_cost then
 	HPTN.ease_credits(-c1.config.center.credits)
+elseif c1.market_cost then
+  ease_cryptocurrency(-c1.market_cost)
 elseif c1.cost ~= 0 then
 '''
 match_indent = true
@@ -153,8 +155,10 @@ target = 'card.lua'
 pattern = '''if self.cost > 0 then '''
 position = 'at'
 payload = '''
-if self.config and self.config.center and self.config.center.credits and not G.GAME.DefineBoosterState then
+if self.config and self.config.center and self.config.center.credits and not G.GAME.DefineBoosterState and not self.market_cost then
 	HPTN.ease_credits(-self.config.center.credits)
+elseif self.market_cost then
+  ease_cryptocurrency(-self.market_cost)
 elseif self.cost > 0 then
 '''
 match_indent = true
@@ -172,7 +176,7 @@ pattern = '''
 position = 'at'
 payload = '''
     G.E_MANAGER:add_event(Event({trigger = 'immediate',func = function()
-	    if self.config.center.credits then
+	    if self.config.center.credits and not G.HP_HC_MARKET_VISIBLE then
 		HPTN.ease_credits(math.floor(self.config.center.credits/2))
 		else
         ease_dollars(self.sell_cost)
