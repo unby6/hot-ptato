@@ -1364,6 +1364,15 @@ return {
                     "guessing correctly",
                     "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)"
                 }
+            },
+            j_hpot_banana_of_doom = {
+                name = "Banana of Doom",
+                text = {
+                    "{X:mult,C:white}#1#{} Mult",
+                    "{C:green}#2# in #3#{} chance this",
+                    "card is destroyed",
+                    "at end of round"
+                }
             }
         },
         Sleeve = {
@@ -3022,6 +3031,7 @@ return {
             k_apply = "Apply",
 
             hpot_diy_hand_played = "When Hand is Played",
+            hpot_diy_tarot_sold = "When a Tarot Card is sold"
 
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.1 Plincoins",

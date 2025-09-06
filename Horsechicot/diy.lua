@@ -23,13 +23,15 @@ SMODS.Joker {
                 }
             }
         end
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("lord.ruby")
 }
 
 
 --TODO: Localize
 HotPotato.trigger_options = {
     "hpot_diy_hand_played",
+    "hpot_diy_tarot_sold"
 }
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
@@ -40,7 +42,12 @@ HotPotato.effect_options = {
 }
 
 function HotPotato.diy_trigger(self, card, context)
-    if G.GAME.hotpot_diy and G.GAME.hotpot_diy.trigger == 1 then return context.joker_main end
+    if not G.GAME.hotpot_diy then return end
+    if G.GAME.hotpot_diy.trigger == 1 then 
+        return context.joker_main
+    elseif G.GAME.hotpot_diy.trigger == 2 then
+        return context.selling_card and context.card.config.center.set == "Tarot"
+    end
 end
 
 function HotPotato.diy_effect(self, card, context)

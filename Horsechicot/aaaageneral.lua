@@ -12,3 +12,4 @@ function Horsechicot.credit(coders, arters)
         team = { 'Horsechicot' }
     }
 end
+SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}

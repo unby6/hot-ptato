@@ -35,7 +35,8 @@ SMODS.Joker {
                 card.ability.mult_mod
             }
         }
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("lord.ruby")
 }
 
 function create_UIBox_precognition()
