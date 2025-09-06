@@ -100,7 +100,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     
     //vec3 ext = vec3(0,1,1);
 
-    hslt.r = jtem_deckshader.g/15;
+    hslt.r = jtem_deckshader.g/15.;
 
 	tex = RGB(hslt);
 
