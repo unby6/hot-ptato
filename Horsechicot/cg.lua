@@ -2,6 +2,7 @@
 SMODS.Joker {
     hotpot_credits = {
         art = {},
+        idea = { 'lord.ruby' },
         code = { 'cg223' },
         team = { 'Horsechicot' }
     },
@@ -41,7 +42,7 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    hotpot_credits = Horsechicot.credit('cg223'),
+    hotpot_credits = Horsechicot.credit('cg223', nil, 'lord.ruby'),
     key = "lockin",
     config = { was_clicked = false, start_time = 0, leniency = 0.2, can_save = false },
     calculate = function(self, card, context)
