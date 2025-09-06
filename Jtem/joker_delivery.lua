@@ -97,13 +97,18 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                 button = "hotpot_tname_toggle_reforge",
                 atlas = "hpot_tname_shop_reforge"
             },
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+                loc_txt = "hotpot_go_market",
+                button = "hotpot_horsechicot_toggle_market",
+                atlas = "hpot_tname_shop_reforge"
+            },
             {
                 n = G.UIT.R,
                 nodes = {
                     {
                         n = G.UIT.B,
                         config = {
-                            h = 9.5,
+                            h = 5.5,
                             w = 0.1
                         }
                     }
@@ -125,6 +130,24 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
                 loc_txt = "hotpot_delivery_back",
                 button = "hotpot_tname_toggle_reforge",
+                atlas = "hpot_tname_shop_reforge",
+                pos = {x = 1, y = 0}
+            },
+            {
+                n = G.UIT.R,
+                nodes = {
+                    {
+                        n = G.UIT.B,
+                        config = {
+                            h = 8.5,
+                            w = 0.1
+                        }
+                    }
+                }
+            },
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+                loc_txt = "hotpot_delivery_back",
+                button = "hotpot_horsechicot_toggle_market",
                 atlas = "hpot_tname_shop_reforge",
                 pos = {x = 1, y = 0}
             },
@@ -957,6 +980,7 @@ function get_currency_amount(currency)
     if currency == "dollars" then return G.GAME.dollars end
     if currency == "plincoin" then return G.GAME.plincoins end
     if currency == "joker_exchange" then return G.GAME.spark_points end
+    if currency == "cryptocurrency" then return G.GAME.cryptocurrency end
 end
 
 function ease_currency(currency, value, instant)
@@ -966,6 +990,7 @@ function ease_currency(currency, value, instant)
     if currency == "dollars" then ease_dollars(value, instant) end
     if currency == "plincoin" then ease_plincoins(value, instant) end
     if currency == "joker_exchange" then ease_spark_points(value, instant) end
+    if currency == "cryptocurrency" then ease_cryptocurrency(value, instant) end
     -- patches for other currencies ease
 end
 
@@ -982,6 +1007,7 @@ function generate_currency_string_args(currency)
         }
     end
     if currency == "joker_exchange" then return { colour = G.C.BLUE, symbol = "͸", font = SMODS.Fonts["hpot_plincoin"] } end
+    if currency == "cryptocurrency" then return { colour = G.C.RED, symbol = "B"} end
     -- patches for other currencies strings
 end
 
@@ -1063,10 +1089,13 @@ function hotpot_jtem_generate_special_deals(deals)
             price_factor = 0.3
         elseif currency == "credits" then
             price_factor = 10
+        elseif currency == "cryptocurrency" then
+            price_factor = 0.1
         end
         local credits = currency == "credits"
         local plincoin = currency == "plincoin"
         local jx = currency == "joker_exchange"
+        local bc = currency == "cryptocurrency"
         -- add factor of 0.87 to 1.15
         local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) *
@@ -1276,6 +1305,7 @@ function G.FUNCS.toggle_shop(e)
     G.HP_TNAME_REFORGE_VISIBLE = false
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals, true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue, true)
+    hotpot_jtem_destroy_all_card_in_an_area(G.market_jokers, true)
     return next_round_button_for_delivery_area_destruction(e)
 end
 
