@@ -1395,6 +1395,22 @@ return {
                     "{C:mult}+#1#{} Mult if hand",
                     "contains {C:attention}#2#{} or more unscoring cards"
                 }
+            },
+            j_hpot_c_sharp = {
+                name = "C#3#",
+                text = {
+                    "Disable the effect of the {C:attention}Boss Blind{}",
+                    "every {C:attention}#1#{} {C:inactive}[#2#]{} hands played"
+                }
+            },
+            j_hpot_idle = {
+                name = "Idle Joker",
+                text = {
+                    "Blind chip is clickable for {C:attention}+#1#{} point",
+                    "Earn {C:money}$#2#{} at end of round for every",
+                    "digit in your current points",
+                    "{C:inactive}(Currently #3# Points)",
+                }
             }
         },
         Sleeve = {
@@ -3066,10 +3082,12 @@ return {
             hpot_diy_tarot_sold = "When a Tarot Card is sold",
 
             hpot_diy_earn_dollars = "Earn $2",
-            hpot_diy_earn_plincoins = "Earn 0.1 Plincoins",
-            hpot_diy_earn_credits = "Earn 0.01 Credits",
+            hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
+            hpot_diy_earn_credits = "Earn 0.1 Credits",
             hpot_diy_earn_sparks = "Earn 1000 Spark Points",
-            hpot_diy_random_consumable = "Create a Random Consumable"
+            hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
+            hpot_diy_random_consumable = "Create a Random Consumable",
+            k_harvest = "Harvest Organs"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

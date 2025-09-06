@@ -6,16 +6,25 @@ function G.UIDEF.hotpot_horsechicot_market_section()
     math.min(G.GAME.shop.market_joker_max * 1.02 * G.CARD_W, 4.08 * G.CARD_W),
     1.05 * G.CARD_H,
     { card_limit = G.GAME.shop.market_joker_max, type = 'shop', highlight_limit = 1, negative_info = true })
-  if not G.GAME.market_filled then
-    G.GAME.market_filled = true
-    for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-      local new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers }
-      G.market_jokers:emplace(new_shop_card)
-      create_market_card_ui(new_shop_card)
-      new_shop_card:juice_up()
-    end
-    save_run()
+  if G.GAME.market_table then
+    G.market_jokers:load(G.GAME.market_table)
+    G.GAME.market_table = nil
   end
+    if not G.GAME.market_filled then
+        G.GAME.market_filled = true
+        for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
+        local new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers }
+        G.market_jokers:emplace(new_shop_card)
+        create_market_card_ui(new_shop_card)
+        new_shop_card:juice_up()
+        end
+        save_run()
+    else    
+        for i, v in pairs(G.market_jokers.cards)  do
+            create_market_card_ui(v)
+        end
+    end
+  G.harvest_cost = G.harvest_cost or 0
   return { n = G.UIT.R, config = { minw = 3, minh = .5, colour = G.C.CLEAR }, nodes = {} },
       {
         n = G.UIT.R,
@@ -52,6 +61,33 @@ function G.UIDEF.hotpot_horsechicot_market_section()
                   }
                 }
               },
+              {
+                n = G.UIT.R,
+                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = G.C.ORANGE, button = 'harvest_market', func = 'can_harvest_market', hover = true, shadow = true },
+                nodes = {
+                  {
+                    n = G.UIT.R,
+                    config = { align = "cm", padding = 0.07, focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' },
+                    nodes = {
+                      {
+                        n = G.UIT.R,
+                        config = { align = "cm", maxw = 1.3 },
+                        nodes = {
+                          { n = G.UIT.T, config = { text = localize('k_harvest'), scale = 0.4, colour = G.C.WHITE, shadow = true } },
+                        }
+                      },
+                      {
+                        n = G.UIT.R,
+                        config = { align = "cm", maxw = 1.3, minw = 1 },
+                        nodes = {
+                          { n = G.UIT.T, config = { text = "B.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                          { n = G.UIT.T, config = { ref_table = G, ref_value = 'harvest_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
+                        }
+                      }
+                    }
+                  }
+                }
+              },
             }
           },
           {
@@ -64,6 +100,10 @@ function G.UIDEF.hotpot_horsechicot_market_section()
         }
       },
       { n = G.UIT.R, config = { minw = 3, minh = 3.5, colour = G.C.CLEAR }, nodes = {} }
+end
+
+function remove_if_exists(thingy)
+    if thingy then thingy:remove() end
 end
 
 G.FUNCS.hotpot_horsechicot_toggle_market = function()  -- takn from deliveries
@@ -87,6 +127,9 @@ G.FUNCS.hotpot_horsechicot_toggle_market = function()  -- takn from deliveries
       return true
     end, { trigger = "after", delay = 0 })
     play_sound("hpot_sfx_whistleup", 1.3, 0.25)
+    for i, v in pairs(G.market_jokers.cards)  do
+        create_market_card_ui(v)
+    end
   else
     --exiting market
     ease_background_colour_blind(G.STATES.SHOP)
@@ -117,7 +160,10 @@ function Game:start_run(args)
   local saveTable = args.savetext or nil
   if not saveTable then
     G.GAME.cryptocurrency = 0
-    G.GAME.current_round.market_reroll_cost = 1
+    G.GAME.current_round.market_reroll_cost = 0.25
+  end
+  if saveTable and saveTable.cardAreas then
+    G.GAME.market_table = saveTable.cardAreas.market_jokers
   end
   return ret
 end
@@ -183,7 +229,7 @@ G.FUNCS.reroll_market = function(e)
   G.E_MANAGER:add_event(Event({
     trigger = 'immediate',
     func = function()
-      G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 1
+      G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.25
       for i = #G.market_jokers.cards, 1, -1 do
         local c = G.market_jokers:remove_card(G.market_jokers.cards[i])
         c:remove()
@@ -228,7 +274,7 @@ G.FUNCS.reroll_market = function(e)
 end
 
 function Card:get_market_cost()
-  return 1
+  return math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 400
 end
 
 function create_market_card_ui(card, type, area)
@@ -246,21 +292,6 @@ function create_market_card_ui(card, type, area)
                 {n=G.UIT.O, config={object = DynaText({string = {{prefix = "B.", ref_table = card, ref_value = 'market_cost'}}, colours = {G.C.ORANGE},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
               }}
           }}
-      if card.config and card.config.center and card.config.center.credits then
-          t1 = {
-              n = G.UIT.ROOT,
-              config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
-              nodes = {
-                  {
-                      n = G.UIT.R,
-                      config = { align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03 },
-                      nodes = {
-                          { n = G.UIT.O, config = { object = DynaText({ string = { { prefix = 'c.', ref_table = card.config.center, ref_value = 'credits' } }, colours = { G.C.PURPLE }, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5 }) } },
-                      }
-                  }
-              }
-          }
-      end
       local t2 = card.ability.set == 'Voucher' and {
         n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_redeem_from_market', one_press = true, button = 'redeem_from_shop', hover = true}, nodes={
             {n=G.UIT.T, config={text = localize('b_redeem'),colour = G.C.WHITE, scale = 0.4}}
@@ -380,5 +411,108 @@ end
 
 SMODS.ObjectType {
   key = 'BlackMarket',
-  default = "c_wraith"
+  default = "c_wraith",
+  cards = {
+    c_death = true,
+    c_hanged_man = true,
+    c_familiar = true,
+    c_grim = true,
+    c_incantation = true,
+    c_talisman = true,
+    c_aura = true,
+    c_wraith = true,
+    c_sigil = true,
+    c_ouija = true,
+    c_ectoplasm = true,
+    c_immolate = true,
+    c_ankh = true,
+    c_deja_vu = true,
+    c_hex = true,
+    c_trance = true,
+    c_medium = true,
+    c_cryptid = true,
+    c_soul = true,
+    c_black_hole = true,
+    c_inspiration = true,
+    c_arcade = true,
+    c_blossom = true,
+    p_hpot_czech_ultra_1 = true,
+    p_hpot_hanafuda_ultra_1 = true,
+    p_hpot_auras_ultra_1 = true,
+    p_hpot_ultra_arcana = true,
+    p_hpot_ultra_celestial = true,
+    p_hpot_ultra_standard = true,
+    p_hpot_ultra_buffoon = true,
+    p_hpot_ultra_spectral = true,
+    j_dna = true,
+    j_cavendish = true,
+    j_vagabond = true,
+    j_baron = true,
+    j_obelisk = true,
+    j_baseball = true,
+    j_ancient = true,
+    j_campfire = true,
+    j_blueprint = true,
+    j_wee = true,
+    j_hit_the_road = true,
+    j_duo = true,
+    j_trio = true,
+    j_family = true,
+    j_order = true,
+    j_tribe = true,
+    j_stuntman = true,
+    j_invisible = true,
+    j_brainstorm = true,
+    j_drivers_license = true,
+    j_hpot_banana_of_doom = true,
+    j_hpot_brainfuck = true,
+    j_hpot_diy = true,
+    j_hpot_retriggered = true,
+    j_hpot_jtem_slop_live = true,
+    j_hpot_dupedshovel = true,
+    j_hpot_jtem_flash = true,
+    j_hpot_dont_touch_that_dial = true,
+    j_hpot_jade = true,
+    j_hpot_wizard_tower = true,
+    j_hpot_faceblindness = true,
+    j_hpot_ifstatements = true,
+    j_hpot_tname_postcard = true,
+    j_hpot_tname_jankman = true,
+    j_hpot_tname_sunset = true,
+    j_hpot_tname_graveyard = true,
+  }
+}
+
+
+G.FUNCS.can_harvest_market = function(e)
+    if G.jokers and #G.jokers.highlighted == 1 and not SMODS.is_eternal(G.jokers.highlighted[1]) then
+        e.config.colour = G.C.RED
+        e.config.button = 'harvest_market'
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    end
+end
+  
+G.FUNCS.harvest_market = function(e)
+    G.jokers.highlighted[1]:start_dissolve()
+    ease_cryptocurrency(G.harvest_cost)
+    play_sound("hpot_harvest")
+end
+
+local highlight_ref = Card.highlight
+function Card:highlight(is)
+    highlight_ref(self, is)
+    if G.jokers then
+        if is and G.jokers.highlighted[1] == self then
+            G.harvest_cost = self:get_market_cost()
+        elseif not is and G.jokers.highlighted[1] == self then    
+            G.harvest_cost = 0
+        end
+    end
+end
+
+SMODS.Sound {
+    key = "harvest",
+    path = "sfx_the_flesh_consumes_all.mp3"
 }

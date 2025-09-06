@@ -1,0 +1,46 @@
+local click = Blind.click
+function Blind:click()
+    local found = SMODS.find_card("j_hpot_idle")
+    if next(found) then
+        self.states.drag.can = false
+
+        for _,joker in pairs(found) do
+            joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
+            SMODS.calculate_effect({message = localize("k_upgrade_ex")}, joker)
+        end
+
+        self:juice_up()
+    else
+        self.states.drag.can = true
+    end
+
+    click(self)
+    
+end
+
+SMODS.Joker {
+    key = "idle",
+    rarity = 2,
+    cost = 5,
+    atlas = "hc_placeholder",
+    pos = { x = 0, y = 0 },
+    config = { extra = { score = 0, gain = 1, money = 1 } },
+    hotpot_credits = Horsechicot.credit("Lily Felli", nil, "lord.ruby"),
+    loc_vars = function(self, info_queue, card)
+        return {vars = {
+            card.ability.extra.gain,
+            card.ability.extra.money,
+            card.ability.extra.score,
+        }}
+    end,
+    calc_dollar_bonus = function(self, card)
+        return (#tostring(card.ability.extra.score)) * card.ability.extra.money
+    end,
+    calculate = function(self, card, context)
+        if context.main_eval and context.end_of_round then
+            card.ability.extra.score = 0
+            SMODS.calculate_effect({message = localize("k_reset")}, card)
+        end
+    end
+
+}
