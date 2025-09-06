@@ -192,6 +192,14 @@ local hpotConfigTab = function()
         callback = function()
         end,
     })
+	hpot_nodes[#hpot_nodes + 1] = create_toggle({
+        label = localize("hotpot_white_stake_stickers"),
+        active_colour = HEX("40c76d"),
+        ref_table = HotPotatoConfig,
+        ref_value = "white_stake_stickers",
+        callback = function()
+        end,
+    })
     return {
         n = G.UIT.ROOT,
         config = {
@@ -207,4 +215,4 @@ local hpotConfigTab = function()
     }
 end
 
-HotPotato.config_tab = phantaConfigTab
+HotPotato.config_tab = hpotConfigTab

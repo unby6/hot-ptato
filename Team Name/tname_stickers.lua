@@ -63,8 +63,10 @@ SMODS.Sticker({
 		idea = { "Corobo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
-
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -109,7 +111,10 @@ SMODS.Sticker({
 		idea = { "GoldenLeaf" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -145,7 +150,10 @@ SMODS.Sticker({
 		idea = { "GoldenLeaf" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -190,7 +198,10 @@ SMODS.Sticker({
 		idea = { "GoldenLeaf" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -265,7 +276,10 @@ SMODS.Sticker({
 		idea = { "Corobo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -312,7 +326,10 @@ SMODS.Sticker({
 		idea = { "Revo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -360,7 +377,10 @@ SMODS.Sticker({
 		idea = { "GoldenLeaf" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -405,7 +425,10 @@ SMODS.Sticker({
 		idea = { "GoldenLeaf" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -446,7 +469,10 @@ SMODS.Sticker({
 		idea = { "Corobo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -498,7 +524,10 @@ SMODS.Sticker({
 		idea = { "Corobo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 
@@ -517,7 +546,10 @@ SMODS.Sticker({
 		idea = { "Corobo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -545,7 +577,10 @@ SMODS.Sticker({
 		idea = { "Corobo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -569,7 +604,10 @@ SMODS.Sticker({
 		idea = { "Violet" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -605,7 +643,10 @@ SMODS.Sticker({
 		idea = { "Revo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })
 
 SMODS.Sticker({
@@ -643,5 +684,8 @@ SMODS.Sticker({
 		idea = { "Revo" },
 		code = { "Revo"},
 		team = { "Team Name" }
-	}
+	},
+	should_apply = function(self, card, center, area, bypass_roll)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+	end
 })

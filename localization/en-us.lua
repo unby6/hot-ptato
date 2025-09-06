@@ -3013,6 +3013,7 @@ return {
             hpot_credit_text = "Credits:",
 
             hotpot_disable_animations = "Disable Animations",
+            hotpot_white_stake_stickers = "Custom stickers apply on White Stake",
 
             k_place_card_text = "PLACE JOKER TO REFORGE",
             k_place_button = "Place",
