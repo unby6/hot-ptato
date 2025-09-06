@@ -1318,6 +1318,13 @@ return {
                     "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} when scored"
                 }
             },
+            j_hpot_faceblindness = {
+                name = "Face Blindness",
+                text = {
+                    "{C:attention}All{} cards have a {C:green}#1# in #2#{}",
+                    "chance to be considered {C:attention}face cards{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
