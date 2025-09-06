@@ -1387,6 +1387,13 @@ return {
                     "{C:mult}+#1#{} Mult if hand",
                     "contains {C:attention}#2#{} or more unscoring cards"
                 }
+            },
+            j_hpot_c_sharp = {
+                name = "C#3#",
+                text = {
+                    "Disable the effect of the {C:attention}Boss Blind{}",
+                    "every {C:attention}#1#{} {C:inactive}[#2#]{} hands played"
+                }
             }
         },
         Sleeve = {

@@ -4,7 +4,7 @@ SMODS.Joker {
     cost = 5,
     atlas = "hc_placeholder",
     pos = { x = 0, y = 0 },
-    config = { reset = 12, left = 12 },
+    config = { extra = { reset = 12, left = 12 } },
     calculate = function(self, card, context)
         if context.before then
             card.ability.extra.left = card.ability.extra.left - 1
@@ -28,5 +28,12 @@ SMODS.Joker {
             end
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli")
+    hotpot_credits = Horsechicot.credit("Lily Felli"),
+    loc_vars = function(self, info_queue, card)
+        return {vars = {
+            card.ability.extra.reset,
+            card.ability.extra.left,
+            "#"
+        }}
+    end
 }
