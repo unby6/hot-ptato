@@ -27,5 +27,5 @@ HPJTTT.add_texts({
     "JTA",
     "Bubsdrop",
     "BIS",
-    "Backboost"
+    "Backboost",
 })
