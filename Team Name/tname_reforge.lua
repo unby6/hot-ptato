@@ -101,7 +101,7 @@ G.UIDEF.hotpot_tname_reforge_section = function ()
                     colour = SMODS.Gradients["hpot_plincoin"]
                 },
                 UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_cryptocurrency")},{ref_table = G.GAME, ref_value = "cost_cryptocurrency"}}},
+                    label = {{{localize("hotpot_reforge_cryptocurrency"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_cryptocurrency"}}},
                     text_scale = 0.5,
                     button = 'reforge_with_cryptocurrency',
                     func = "can_reforge_with_cryptocurrency",

@@ -598,7 +598,7 @@ return {
             c_hpot_cap_crypto = {
                 name = 'Cryptocurrency',
                 text = {
-                    "Earn {C:orangef:hpot_plincoin}£#1#"
+                    "Earn {C:orange,f:hpot_plincoin}£#1#"
                 }
             },
             c_hpot_cap_chaos = {
@@ -3141,7 +3141,7 @@ return {
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
-            hotpot_reforge_cryptocurrency = "B.",
+            hotpot_reforge_cryptocurrency = "£",
             k_changedperson = "Changed!",
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
