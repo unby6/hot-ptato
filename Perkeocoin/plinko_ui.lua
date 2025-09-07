@@ -15,6 +15,20 @@ PlinkoUI = {
   f = { },
   sprites = {
   },
+  extra_sprites = {
+    bitcoin = {
+      atlas = "hpot_hc_plinkos",
+      pos = {x = 0, y = 0}
+    },
+    github = {
+      atlas = "hpot_hc_plinkos",
+      pos = {x = 1, y = 0}
+    },
+    entropy = {
+      atlas = "hpot_hc_plinkos",
+      pos = {x = 2, y = 0}
+    }
+  }
 }
 
 SMODS.Atlas {
@@ -133,7 +147,11 @@ function PlinkoUI.f.init_sprites()
   if not PlinkoUI.sprites.fisch then
     PlinkoUI.sprites.fisch = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS['hpot_jtem_fisch'], { x = 0, y = 0})
   end
-
+  for i, v in pairs(PlinkoUI.extra_sprites) do
+    if not PlinkoUI.sprites[i] then
+      PlinkoUI.sprites[i] = Sprite (0,0,orb_size,orb_size,G.ASSET_ATLAS[v.atlas], v.pos)
+    end
+  end
   if not PlinkoUI.sprites.peg then
     -- scale dimensions relative to the orb
     local peg_size = PlinkoGame.s.peg_radius * (orb_size / PlinkoGame.s.ball_radius)

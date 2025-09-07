@@ -67,4 +67,11 @@ SMODS.Sound {
         return 1225
       end
     end
-  }
+}
+
+
+SMODS.Atlas {
+    key = "hc_plinkos",
+    path = "Horsechicot/plinkos.png",
+    px = 40,py = 40,
+}
