@@ -76,4 +76,9 @@ SMODS.Atlas {
     path = "Horsechicot/plinkos.png",
     px = 40,py = 40,
 }
-function Horsechicot:calculate(context) end
+
+function Horsechicot:calculate(context)
+    if context.end_round then
+        G.GAME.bm_bought_this_round = false
+    end
+end

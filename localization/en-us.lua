@@ -914,6 +914,13 @@ return {
                     }
                 }
             },
+            j_hpot_roi = {
+                name = "Return on Investment",
+                text = {
+                    "First bought {C:purple,E:1.2}Black Market{} item",
+                    "each round is {C:attention}refunded{}"
+                }
+            },
             j_hpot_cg223 = {
                 name = "cg223",
                 text = {
