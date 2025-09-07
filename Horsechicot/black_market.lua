@@ -274,7 +274,7 @@ G.FUNCS.reroll_market = function(e)
 end
 
 function Card:get_market_cost()
-  return math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 400
+  return math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 50
 end
 
 function create_market_card_ui(card, type, area)
