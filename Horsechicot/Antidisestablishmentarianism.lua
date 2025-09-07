@@ -6,7 +6,7 @@ SMODS.Joker {
         extra = {
         }
     },
-    atlas = "placeholders",
+    atlas = "hc_placeholders",
     pos = {x = 0, y = 0},
     loc_vars = function(self, info_queue, card)
     end,
