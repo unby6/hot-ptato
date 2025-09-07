@@ -1468,6 +1468,13 @@ return {
                     "{C:inactive}(Slots left: {C:attention}#4#{}{C:inactive})"
                 }
             },
+            j_hpot_iou = {
+                name = "I.O.U",
+                text = {
+                    "Sell this {C:attention}Joker{}",
+                    "to gain {C:attention}B.2{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
