@@ -135,7 +135,24 @@ SMODS.Back {
 
 Horsechicot.errors = {
     "Index out of Bounds",
-    "Attempt to compare Number with Table"
+    "Attempt to compare Number with Table",
+    "Well, this is awkward..",
+    "Context failed succesfully!",
+    "Something bad",
+    "Click 'Play' to continue",
+    "Your Deck ran :(",
+    "HC_Alloc: no free edicts",
+    "???",
+    "#",
+    "Server is not responding",
+    "keylog.exe was terminated",
+    "Unable to gain access to sys32",
+    "Mods/Tangents is missing",
+    "version.dll was altered",
+    "Your steamID was blacklisted",
+    "OUT_OF_MEMORY",
+    "Stack overflow",
+    "Discord Nitro expired"
 }
 
 function get_err_message()
