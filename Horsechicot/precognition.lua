@@ -6,6 +6,8 @@ SMODS.Joker {
         mult = 0,
         mult_mod = 5
     },
+    atlas = "hc_jokers",
+    pos = {x = 3, y = 0},
     calculate = function(self, card, context)
         if context.pseudorandom_result then
             if context.result == G.GAME.precognition_guess then
@@ -36,7 +38,7 @@ SMODS.Joker {
             }
         }
     end,
-    hotpot_credits = Horsechicot.credit("lord.ruby")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47")
 }
 
 function create_UIBox_precognition()
@@ -169,3 +171,9 @@ SMODS.Sound {
     key = "correct",
     path = "sfx_correct.mp3"
 }
+
+local toggle_shopref = G.FUNCS.toggle_shop
+G.FUNCS.toggle_shop = function(e)
+    toggle_shopref(e)
+    G.deck.states.visible = true
+end

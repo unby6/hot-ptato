@@ -29,7 +29,7 @@ payload = '''
                         {n=G.UIT.C, config={align = "cm", r = 0.1, minw = 1.28+spacing, minh = 1, colour = temp_col2}, nodes={
                         {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'dollars', prefix = localize('$')}},
                                 scale_function = function ()
-                                    return scale_number(G.GAME.dollars, 2.2 * scale, 99999, 1000000)
+                                    return scale_number(G.GAME.dollars, 2.2 * scale, 10)
                                 end, maxw = 1.35/2, colours = {G.C.MONEY}, font = G.LANGUAGES['en-us'].font, shadow = true,spacing = 2, bump = true, scale = 2.2*scale}), id = 'dollar_text_UI'}}
                     }},
                     }},
@@ -42,7 +42,7 @@ payload = '''
                         {n=G.UIT.C, config={align = "cm", r = 0.1, minw = 1.28+spacing, minh = 1, colour = temp_col2}, nodes={
                         {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'cryptocurrency', prefix = 'B.'}},
                                 scale_function = function ()
-                                    return scale_number(G.GAME.cryptocurrency, 2.2 * scale, 99999, 1000000)
+                                    return scale_number(G.GAME.cryptocurrency, 2.2 * scale, 10)
                                 end, maxw = 1.35/2, colours = {G.C.ORANGE}, font = G.LANGUAGES['en-us'].font, shadow = true,spacing = 2, bump = true, scale = 2.2*scale}), id = 'crypto_text_UI'}}
                     }},
                     }},
@@ -52,4 +52,18 @@ payload = '''
 },
 '''
 match_indent = true           
-           
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''
+G.shop.alignment.offset.y = -5.3
+G.shop.alignment.offset.x = 0
+'''
+payload = '''
+G.shop.alignment.offset.y = -5.3
+G.shop.alignment.offset.x = 0.75
+'''
+match_indent = true
+

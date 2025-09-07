@@ -186,9 +186,10 @@ pattern = '''G.shop = G.shop or UIBox{
         }'''
 payload = '''
 if not plinko then
+    G.deck.states.visible = false
 	G.shop = G.shop or UIBox{
 		definition = G.UIDEF.shop(),
-		config = {align='tmi', offset = {x=0,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
+		config = {align='tmi', offset = {x=1.5,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
 	}
 end
 '''
