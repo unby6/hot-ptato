@@ -1498,7 +1498,7 @@ return {
                     "Gives {C:attention}B.#1#{}",
                     "when rerolling {C:dark_edition}any{} shops,",
                     "{C:red}self destructs after {C:attention}#3#{} uses",
-                    "{C:inactive}(Uses: {C:attention}#4#{}{C:inactive})"
+                    "{C:inactive}(Uses: {C:attention}#2#{}{C:inactive})"
                 }
             },
             j_hpot_selfinserting = {
