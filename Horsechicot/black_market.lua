@@ -1,11 +1,13 @@
 function G.UIDEF.hotpot_horsechicot_market_section()
   G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 4
-  G.market_jokers = CardArea(
-    G.hand.T.x + 0,
-    G.hand.T.y + G.ROOM.T.y + 9,
-    math.min(G.GAME.shop.market_joker_max * 1.02 * G.CARD_W, 4.08 * G.CARD_W),
-    1.05 * G.CARD_H,
-    { card_limit = G.GAME.shop.market_joker_max, type = 'shop', highlight_limit = 1, negative_info = true })
+  if not G.market_jokers or not G.market_jokers.cards then
+    G.market_jokers = CardArea(
+        G.hand.T.x + 0,
+        G.hand.T.y + G.ROOM.T.y + 9,
+        math.min(G.GAME.shop.market_joker_max * 1.02 * G.CARD_W, 4.08 * G.CARD_W),
+        1.05 * G.CARD_H,
+        { card_limit = G.GAME.shop.market_joker_max, type = 'shop', highlight_limit = 1, negative_info = true })
+  end
   if G.GAME.market_table then
     G.market_jokers:load(G.GAME.market_table)
     G.GAME.market_table = nil
@@ -20,7 +22,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
         end
         save_run()
     else    
-        for i, v in pairs(G.market_jokers.cards)  do
+        for i, v in pairs(G.market_jokers.cards) do
             create_market_card_ui(v)
         end
     end
@@ -128,6 +130,9 @@ G.FUNCS.hotpot_horsechicot_toggle_market = function()  -- takn from deliveries
     end, { trigger = "after", delay = 0 })
     play_sound("hpot_sfx_whistleup", 1.3, 0.25)
     for i, v in pairs(G.market_jokers.cards)  do
+        remove_if_exists(v.children.price)
+        remove_if_exists(v.children.buy_and_use_button)
+        remove_if_exists(v.children.buy_button)
         create_market_card_ui(v)
     end
   else
