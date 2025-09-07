@@ -422,13 +422,22 @@ return {
                 }
             },
             b_hpot_unstable = {
-                name = "Unstable",
+                name = "Unstable Deck",
                 text = {
                     "Oops! The Game crashed:",
                     "attempt to index field #1#",
                     "(a nil value)"
                 }
-            }
+            },
+            b_hpot_window = {
+                name = "Window Deck",
+                text = {
+                    "Unlock a new {C:hpot_ad}Scoring Window{}",
+                    "after a Boss Blind is defeated",
+                    "Level up each {C:attention}new{} window when",
+                    "a hand is leveled up"
+                }
+            },
         },
         bottlecap = {
             c_hpot_cap_money = {
