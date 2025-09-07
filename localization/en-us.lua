@@ -3189,6 +3189,12 @@ return {
             hotpot_exchange_option_cred_4 = "A Box of ͸",
             hotpot_exchange_option_cred_5 = "A Load of ͸",
 
+            hotpot_exchange_option_crypto_1 = "A Giant Premium Pile of ͸",
+            hotpot_exchange_option_crypto_2 = "A Premium Ton of ͸",
+            hotpot_exchange_option_crypto_3 = "A Premium Overfilled Box of ͸",
+            hotpot_exchange_option_crypto_4 = "A Premium Cargo Load of ͸",
+            hotpot_exchange_option_crypto_5 = "A Giant Premium Cargo Load of ͸",
+
             hotpot_reforge_credits = "c.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
