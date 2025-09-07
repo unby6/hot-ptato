@@ -142,7 +142,7 @@ ease_dollars(G.GAME.current_round.dollars)'''
 payload = '''
 --
 ease_plincoins(G.GAME.current_round.plincoins)
-ease_cryptocurrency(G.GAME.current_round.cryptocurrency)
+if G.GAME.current_round.cryptocurrency and G.GAME.current_round.cryptocurrency > 0 then ease_cryptocurrency(G.GAME.current_round.cryptocurrency) end
 G.GAME.current_round.plincoins = 0
 G.GAME.current_round.cryptocurrency = 0
 --
