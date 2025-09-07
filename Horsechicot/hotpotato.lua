@@ -82,9 +82,9 @@ SMODS.Joker {
             main_end = main_end
         }
     end,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = true,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     rarity = 2,
     atlas = 'hc_placeholder',
     pos = { x = 0, y = 0 },
