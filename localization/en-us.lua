@@ -420,6 +420,14 @@ return {
                     "This is meant to be a deck that", "every team adds ideas to",
                     "go ham, deck is at Jtem/deck.lua"
                 }
+            },
+            b_hpot_unstable = {
+                name = "Unstable",
+                text = {
+                    "Oops! The Game crashed:",
+                    "attempt to index field #1#",
+                    "(a nil value)"
+                }
             }
         },
         bottlecap = {

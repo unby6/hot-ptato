@@ -231,6 +231,9 @@ G.FUNCS.reroll_market = function(e)
     trigger = 'immediate',
     func = function()
       G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.25
+      if G.GAME.modifiers.unstable then
+        G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost * math.floor((pseudorandom("unstable_deck_market_reroll") * 0.4 - 0.19 + 1) * 100) / 100
+      end
       for i = #G.market_jokers.cards, 1, -1 do
         local c = G.market_jokers:remove_card(G.market_jokers.cards[i])
         c:remove()
@@ -275,7 +278,11 @@ G.FUNCS.reroll_market = function(e)
 end
 
 function Card:get_market_cost()
-  return math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 50
+  local value =  math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 50
+  if G.GAME.modifiers.unstable then
+    value = value * (pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1)
+  end
+  return value
 end
 
 function create_market_card_ui(card, type, area)

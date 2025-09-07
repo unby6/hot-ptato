@@ -136,13 +136,22 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
-position = 'after'
+position = 'at'
 pattern = '''
 ease_dollars(G.GAME.current_round.dollars)'''
 payload = '''
 --
-ease_plincoins(G.GAME.current_round.plincoins)
-if G.GAME.current_round.cryptocurrency and G.GAME.current_round.cryptocurrency > 0 then ease_cryptocurrency(G.GAME.current_round.cryptocurrency) end
+local d_m = 1
+local p_m = 1
+local c_m = 1
+if G.GAME.modifiers.unstable then
+  d_m = pseudorandom("unstable_deck_dollars")
+  p_m = pseudorandom("unstable_deck_plincoins")
+  c_m = pseudorandom("unstable_deck_cryptocurrency")
+end
+ease_dollars(G.GAME.current_round.dollars * d_m)
+ease_plincoins(G.GAME.current_round.plincoins * p_m)
+if G.GAME.current_round.cryptocurrency and G.GAME.current_round.cryptocurrency > 0 then ease_cryptocurrency(G.GAME.current_round.cryptocurrency * c_m) end
 G.GAME.current_round.plincoins = 0
 G.GAME.current_round.cryptocurrency = 0
 --
