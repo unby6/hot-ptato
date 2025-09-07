@@ -6,12 +6,12 @@ SMODS.Joker {
         extra = {
         }
     },
-    atlas = "hc_placeholder",
-    pos = {x = 0, y = 0},
+    atlas = "hc_jokers",
+    pos = {x = 0, y = 1},
     loc_vars = function(self, info_queue, card)
     end,
     hotpot_credits = {
-        art = {"???"},
+        art = {"pangaea47"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
