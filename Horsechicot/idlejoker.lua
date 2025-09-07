@@ -42,5 +42,5 @@ SMODS.Joker {
             SMODS.calculate_effect({message = localize("k_reset")}, card)
         end
     end,
-    Horsechicot.credit("Lilly Felli", "pangea47")
+    hotpot_credits = Horsechicot.credit("Lily Felli", "pangaea47")
 }
