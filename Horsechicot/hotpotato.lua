@@ -1,0 +1,135 @@
+SMODS.Joker {
+    key = "thetruehotpotato",
+    config = {
+        extra = {
+            mult_gain = 3,
+            total_mult = 0,
+            used_positions = {}
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local main_end = nil
+        if card.area and card.area == G.jokers then
+            local current_position = nil
+            local position_already_used = false
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then
+                    current_position = i
+                    for _, pos in ipairs(card.ability.extra.used_positions) do
+                        if pos == current_position then
+                            position_already_used = true
+                            break
+                        end
+                    end
+                    break
+                end
+            end
+            local is_active = current_position and not position_already_used
+            local max_positions = G.jokers and #G.jokers.cards or 5
+            local positions_remaining = max_positions - #card.ability.extra.used_positions
+            main_end = {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = {
+                                ref_table = card,
+                                align = "m",
+                                colour = is_active and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or
+                                mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8),
+                                r = 0.05,
+                                padding = 0.06
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.T,
+                                    config = {
+                                        text = ' ' .. localize(is_active and 'k_active' or 'k_inactive') .. ' ',
+                                        colour = G.C.UI.TEXT_LIGHT,
+                                        scale = 0.32 * 0.8
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.3, padding = 0.05 },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = positions_remaining,
+                                scale = 0.3,
+                                colour = G.C.UI.TEXT_LIGHT
+                            }
+                        }
+                    }
+                }
+            }
+        end
+
+        return {
+            vars = {
+                card.ability.extra.mult_gain,
+                card.ability.extra.total_mult,
+                #card.ability.extra.used_positions,
+                G.jokers and #G.jokers.cards or 5
+            },
+            main_end = main_end
+        }
+    end,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    rarity = 2,
+    atlas = 'hc_placeholder',
+    pos = { x = 0, y = 0 },
+    cost = 4,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and not context.blueprint then
+            local current_position = nil
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then
+                    current_position = i
+                    break
+                end
+            end
+            if current_position then
+                local position_already_used = false
+                for _, pos in ipairs(card.ability.extra.used_positions) do
+                    if pos == current_position then
+                        position_already_used = true
+                        break
+                    end
+                end
+                if not position_already_used then
+                    table.insert(card.ability.extra.used_positions, current_position)
+                    card.ability.extra.total_mult = card.ability.extra.total_mult + card.ability.extra.mult_gain
+                    local max_positions = G.jokers and #G.jokers.cards or 5
+                    if #card.ability.extra.used_positions >= max_positions then
+                        card.ability.extra.used_positions = {}
+                        return {
+                            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } } ..
+                            ' ' .. localize('k_reset'),
+                            colour = G.C.MULT
+                        }
+                    else
+                        return {
+                            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
+                            colour = G.C.MULT
+                        }
+                    end
+                end
+            end
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.total_mult
+            }
+        end
+    end
+}
