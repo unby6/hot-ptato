@@ -55,7 +55,7 @@ SMODS.Voucher {
        G.GAME.spawning_blocked = G.GAME.spawning_blocked or {}
        G.GAME.spawning_reset = "round"
     end,
-    Horsechicot.credit("lord.ruby", nil, "cg223")
+    Horsechicot.credit("lord.ruby", "lord.ruby", "cg223")
 }
 
 SMODS.Voucher {
