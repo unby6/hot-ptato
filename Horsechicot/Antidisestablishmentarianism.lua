@@ -16,16 +16,16 @@ SMODS.Joker {
         team = {"Horsechicot"}
     },
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval and not context.blueprint then
+        if context.after and context.main_eval and not context.blueprint then
             if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
                 local all_debuffed = true
-                for _, played_card in ipairs(context.scoring_hand) do
+                for _, played_card in ipairs(G.play.cards) do
                     if not played_card.debuff then
                         all_debuffed = false
                         break
                     end
                 end
-                if all_debuffed and #context.scoring_hand > 0 then
+                if all_debuffed and #G.play.cards > 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.blind:disable()
