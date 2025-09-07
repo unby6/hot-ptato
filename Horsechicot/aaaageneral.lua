@@ -76,3 +76,4 @@ SMODS.Atlas {
     path = "Horsechicot/plinkos.png",
     px = 40,py = 40,
 }
+function Horsechicot:calculate(context) end
