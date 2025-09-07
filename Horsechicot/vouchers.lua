@@ -16,7 +16,8 @@ SMODS.Voucher {
         if G.GAME.blind_on_deck == "Boss" then
             return card.ability.bitcoins
         end
-    end
+    end,
+    Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
 }
 
 SMODS.Voucher {
@@ -38,5 +39,6 @@ SMODS.Voucher {
             return card.ability.bitcoins
         end
     end,
-    requires = {'v_hpot_bitcoin_miner'}
+    requires = {'v_hpot_bitcoin_miner'},
+    Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
 }
