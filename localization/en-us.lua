@@ -1624,6 +1624,22 @@ return {
                     "is defeated"
                 }
             },
+            v_hpot_antibodies = {
+                name = "Antibodies",
+                text = {
+                    "Jokers appear",
+                    "{C:red}at most once{}",
+                    "per {C:attention}Round{}"
+                }
+            },
+            v_hpot_vaccination = {
+                name = "Vaccination",
+                text = {
+                    "Jokers appear",
+                    "{C:red}at most once{}",
+                    "per {C:attention}Ante{}"
+                }
+            },
         },
         
         Spectral = {

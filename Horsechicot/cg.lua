@@ -92,6 +92,14 @@ function end_round()
             G.GAME.current_round.current_hand.scores[i] = 0
         end
     end
+    if G.GAME.spawning_blocked then
+        if G.GAME.spawning_reset == "ante" and G.GAME.blind_on_deck == "Boss" then
+            G.GAME.spawning_blocked = {}
+        end
+        if G.GAME.spawning_reset == "round" then
+            G.GAME.spawning_blocked = {}
+        end
+    end
     return old()
 end
 
