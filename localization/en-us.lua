@@ -1411,7 +1411,14 @@ return {
                     "digit in your current points",
                     "{C:inactive}(Currently #3# Points)",
                 }
-            }
+            },
+            j_hpot_antidsestablishmentarianism = {
+                name = "Antidsestablishmentarianism",
+                text = {
+                    "Disable the effect of the {C:attention}Boss Blind{}",
+                    "if played hand consists of {C:attention}debuffed{} cards"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
