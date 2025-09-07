@@ -1468,6 +1468,22 @@ return {
                     "{C:inactive}(Slots left: {C:attention}#4#{}{C:inactive})"
                 }
             },
+            j_hpot_iou = {
+                name = "I.O.U",
+                text = {
+                    "Sell this {C:attention}Joker{}",
+                    "to gain {C:attention}B.#1#{}"
+                }
+            },
+            j_hpot_shady = {
+                name = "Shady Joker",
+                text = {
+                    "Gives {C:attention}B.#1#{}",
+                    "when rerolling {C:dark_edition}any{} shops,",
+                    "{C:red}self destructs after {C:attention}#3#{} uses",
+                    "{C:inactive}(Uses: {C:attention}#4#{}{C:inactive})"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

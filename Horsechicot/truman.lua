@@ -11,6 +11,11 @@ SMODS.Joker {
         extra = { base_mult = 5 },
         hotpot_credits = {}
     },
+    hotpot_credits = {
+        art = {"???"},
+        code = {"Nxkoo"},
+        team = {"Horsechicot"}
+    },
     loc_vars = function(self, info_queue, card)
         local teams = {}
         if not G.jokers then return end
