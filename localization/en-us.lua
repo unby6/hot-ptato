@@ -1484,6 +1484,17 @@ return {
                     "{C:inactive}(Uses: {C:attention}#4#{}{C:inactive})"
                 }
             },
+            j_hpot_selfinserting = {
+                name = {
+                    "Obligatory {C:hpot_advert}Self Inserts",
+                    "of the {C:attention}Hot Potato{} Mod"
+                },
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult for each",
+                    "{C:hpot_advert}self-inserts{} in this {C:attention}Mod{}",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
