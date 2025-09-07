@@ -284,7 +284,7 @@ G.FUNCS.reroll_market = function(e)
 end
 
 function Card:get_market_cost()
-  local value =  math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 50
+  local value =  math.max(self.cost / 5, 0.5) + (self.config and self.config.center and self.config.center.credits or 0) / 50
   if G.GAME.modifiers.unstable then
     value = math.floor(value * (pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1) * 100) / 100
   end
@@ -512,6 +512,7 @@ G.FUNCS.harvest_market = function(e)
     G.jokers.highlighted[1]:start_dissolve()
     ease_cryptocurrency(G.harvest_cost)
     play_sound("hpot_harvest")
+    G.harvest_cost = 0
 end
 
 local highlight_ref = Card.highlight
@@ -519,9 +520,12 @@ function Card:highlight(is)
     highlight_ref(self, is)
     if G.jokers then
         if is and G.jokers.highlighted[1] == self then
-            G.harvest_cost = self:get_market_cost()
+            G.harvest_cost = math.floor(self:get_market_cost() * 0.8 * 5) / 5
         elseif not is and self.area == G.jokers and #G.jokers.highlighted == 0 then    
             G.harvest_cost = 0
+        end
+        if not is and #G.jokers.highlighted == 1 then
+            G.harvest_cost = G.jokers.highlighted[1]:get_market_cost()
         end
     end
 end

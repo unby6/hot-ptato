@@ -87,6 +87,19 @@ function end_round()
         })
     end
     G.GAME.current_round.market_reroll_cost = 0.25
+    if G.GAME.modifiers.windows and G.GAME.current_round.current_hand.scores then
+        for i, v in pairs(G.GAME.current_round.current_hand.scores) do
+            G.GAME.current_round.current_hand.scores[i] = 0
+        end
+    end
+    if G.GAME.spawning_blocked then
+        if G.GAME.spawning_reset == "ante" and G.GAME.blind_on_deck == "Boss" then
+            G.GAME.spawning_blocked = {}
+        end
+        if G.GAME.spawning_reset == "round" then
+            G.GAME.spawning_blocked = {}
+        end
+    end
     return old()
 end
 

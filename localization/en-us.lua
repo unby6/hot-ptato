@@ -422,13 +422,22 @@ return {
                 }
             },
             b_hpot_unstable = {
-                name = "Unstable",
+                name = "Unstable Deck",
                 text = {
                     "Oops! The Game crashed:",
                     "attempt to index field #1#",
                     "(a nil value)"
                 }
-            }
+            },
+            b_hpot_window = {
+                name = "Window Deck",
+                text = {
+                    "Unlock a new {C:hpot_ad}Scoring Window{}",
+                    "after a Boss Blind is defeated",
+                    "Level up each {C:attention}new{} window when",
+                    "a hand is leveled up"
+                }
+            },
         },
         bottlecap = {
             c_hpot_cap_money = {
@@ -1497,7 +1506,7 @@ return {
                     "Gives {C:attention}B.#1#{}",
                     "when rerolling {C:dark_edition}any{} shops,",
                     "{C:red}self destructs after {C:attention}#3#{} uses",
-                    "{C:inactive}(Uses: {C:attention}#4#{}{C:inactive})"
+                    "{C:inactive}(Uses: {C:attention}#2#{}{C:inactive})"
                 }
             },
             j_hpot_selfinserting = {
@@ -1621,6 +1630,22 @@ return {
                     "Earn {C:hpot_advert,f:hpot_plincoin}£0.5{}",
                     "when a non-Boss Blind",
                     "is defeated"
+                }
+            },
+            v_hpot_antibodies = {
+                name = "Antibodies",
+                text = {
+                    "Jokers appear",
+                    "{C:red}at most once{}",
+                    "per {C:attention}Round{}"
+                }
+            },
+            v_hpot_vaccination = {
+                name = "Vaccination",
+                text = {
+                    "Jokers appear",
+                    "{C:red}at most once{}",
+                    "per {C:attention}Ante{}"
                 }
             },
         },
