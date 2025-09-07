@@ -49,8 +49,8 @@ end
 
 SMODS.Voucher {
     key = "antibodies",
-    --atlas = "hc_vouchers",
-    pos = {x = 1, y = 0},
+    atlas = "hc_vouchers",
+    pos = {x = 0, y = 1},
     redeem = function()
        G.GAME.spawning_blocked = G.GAME.spawning_blocked or {}
        G.GAME.spawning_reset = "round"
@@ -60,8 +60,8 @@ SMODS.Voucher {
 
 SMODS.Voucher {
     key = "vaccination",
---    atlas = "hc_vouchers",
-    pos = {x = 1, y = 0},
+    atlas = "hc_vouchers",
+    pos = {x = 1, y = 1},
     redeem = function()
        G.GAME.spawning_blocked = G.GAME.spawning_blocked or {}
        G.GAME.spawning_reset = "ante"
