@@ -10,6 +10,8 @@ SMODS.Voucher {
             }
         }
     end,
+    atlas = "hc_vouchers",
+    pos = {x = 0, y = 0},
     calc_crypto_bonus = function(self, card)
         if G.GAME.blind_on_deck == "Boss" then
             return card.ability.bitcoins
@@ -22,6 +24,8 @@ SMODS.Voucher {
     config = {
         bitcoins = 0.5
     },
+    atlas = "hc_vouchers",
+    pos = {x = 1, y = 0},
     loc_vars = function(self, q, card)
         return {
             vars = {
