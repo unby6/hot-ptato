@@ -46,19 +46,19 @@ Horsechicot.unstable = {
 }
 function randomize_values()
     for i, v in pairs(Horsechicot.unstable.GAME) do
-        local random_result = pseudorandom("unstable_deck_"..i) * 0.4 - 0.19 + 1
+        local random_result = pseudorandom("unstable_deck_"..i) * 0.4 - 0.175 + 1
         if G.GAME[v] then
             G.GAME[v] = G.GAME[v] * random_result
         end
     end
     for i, v in pairs(Horsechicot.unstable.round_resets) do
-        local random_result = pseudorandom("unstable_deck_"..i) * 0.4 - 0.19 + 1
+        local random_result = pseudorandom("unstable_deck_"..i) * 0.4 - 0.175 + 1
         if G.GAME.round_resets[v] then
             G.GAME.round_resets[v] = G.GAME.round_resets[v] * random_result
             G.GAME.current_round[v] = G.GAME.round_resets[v]
         end
     end
-    G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.4 - 0.19 + 1)
+    G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1)
     G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
     if G.HUD then
         G.HUD:get_UIE_by_ID('credits_UI_text').config.object:update()
@@ -66,7 +66,7 @@ function randomize_values()
     for i, v in pairs(G.GAME.hands) do
         for ind, value in pairs(v) do
             if type(value) == "number" and ind ~= "level" then
-                G.GAME.hands[i][ind] = value * (pseudorandom("unstable_deck_"..ind..i) * 0.4 - 0.19 + 1)
+                G.GAME.hands[i][ind] = value * (pseudorandom("unstable_deck_"..ind..i) * 0.4 - 0.175 + 1)
             end
         end
     end
@@ -75,7 +75,7 @@ end
 local card_ui = create_shop_card_ui
 function create_shop_card_ui(card, ...)
     if G.GAME.modifiers.unstable then
-        card.cost = card.cost * (pseudorandom("unstable_deck_cost") * 0.4 - 0.19 + 1)
+        card.cost = card.cost * (pseudorandom("unstable_deck_cost") * 0.4 - 0.175 + 1)
     end
     return card_ui(card, ...)
 end
@@ -87,7 +87,7 @@ function G.FUNCS.reroll_shop(e)
         G.E_MANAGER:add_event(Event{
             trigger = "after",
             func = function()
-                G.GAME.current_round.reroll_cost = G.GAME.current_round.reroll_cost * math.floor((pseudorandom("unstable_deck_reroll_cost") * 0.4 - 0.19 + 1) * 100) / 100
+                G.GAME.current_round.reroll_cost = G.GAME.current_round.reroll_cost * math.floor((pseudorandom("unstable_deck_reroll_cost") * 0.4 - 0.175 + 1) * 100) / 100
                 return true
             end
         })
