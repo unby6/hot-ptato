@@ -116,7 +116,7 @@ G.FUNCS.hotpot_horsechicot_toggle_market = function()  -- takn from deliveries
     --starting market
     ease_background_colour({ new_colour = G.C.BLACK, special_colour = darken(G.C.BLACK, 0.6), tertiary_colour = darken(
     G.C.BLACK, 0.4), contrast = 3 })
-    G.shop.alignment.offset.y = -47
+    G.shop.alignment.offset.y = -46.3
     G.HP_HC_MARKET_VISIBLE = true
     simple_add_event(function()
       sign_sprite.pinch.y = true

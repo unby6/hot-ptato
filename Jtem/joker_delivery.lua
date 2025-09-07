@@ -265,54 +265,60 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                 },
                             }
                         },
-                                                {
-                            n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
-                            nodes = {
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_c2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                    },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "c." } }), scale = 0.3, colour = G.C.WHITE }
-                                    },
-                                    }
-                                },
-                            }
-                        },
                         {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_b2j', func = "hp_jtem_can_exchange_b2j", hover = true },
+                            config = {  },
                             nodes = {
                                 {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_b2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                    },
+                                    n = G.UIT.C,
+                                    config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_c2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                            },
+                                            }
+                                        },
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "c." } }), scale = 0.3, colour = G.C.WHITE }
+                                            },
+                                            }
+                                        },
                                     }
                                 },
                                 {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "£" } }), scale = 0.3, colour = G.C.WHITE }
-                                    },
+                                    n = G.UIT.C,
+                                    config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_b2j', func = "hp_jtem_can_exchange_b2j", hover = true },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_b2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                            },
+                                            }
+                                        },
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "£" } }), scale = 0.3, colour = G.C.WHITE }
+                                            },
+                                            }
+                                        },
                                     }
                                 },
                             }
-                        },
+                        }
                     }
                 },
                 {
