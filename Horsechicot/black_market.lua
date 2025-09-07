@@ -280,7 +280,7 @@ end
 function Card:get_market_cost()
   local value =  math.max(self.cost / 5, 1) + (self.config and self.config.center and self.config.center.credits or 0) / 50
   if G.GAME.modifiers.unstable then
-    value = value * (pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1)
+    value = value * math.floor((pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1) * 100) / 100
   end
   return value
 end
