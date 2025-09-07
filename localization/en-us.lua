@@ -1447,6 +1447,27 @@ return {
                     "{C:red}random Consumables"
                 }
             },
+            j_hpot_truman = {
+                name = "Truman",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult for each",
+                    "{C:attention}Jokers{} created by the",
+                    "same {C:attention}team{} in your slots",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult)",
+                    "{C:inactive}(Currently: {C:attention}#4#{} {C:inactive}with {C:attention}#2#{} {C:attention}Jokers{}{C:inactive})"
+                }
+            },
+            j_hpot_thetruehotpotato = {
+                name = "Hot Potato",
+                text = {
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "everytime it is in a {C:attention}unique{} Joker",
+                    "position when the round ends,",
+                    "{C:red}resets{} when all positions used",
+                    "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
+                    "{C:inactive}(Slots left: {C:attention}#4#{}{C:inactive})"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
