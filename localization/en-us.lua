@@ -598,7 +598,7 @@ return {
             c_hpot_cap_crypto = {
                 name = 'Cryptocurrency',
                 text = {
-                    "Earn {C:orange}B.#1#"
+                    "Earn {C:orangef:hpot_plincoin}£#1#"
                 }
             },
             c_hpot_cap_chaos = {
@@ -1567,7 +1567,7 @@ return {
             v_hpot_bitcoin_miner = {
                 name = "Bitcoin Miner",
                 text = {
-                    "Earn {C:orange}B.0.5{}",
+                    "Earn {C:orange,f:hpot_plincoin}£0.5{}",
                     "when a Boss Blind",
                     "is defeated"
                 }
@@ -1575,7 +1575,7 @@ return {
             v_hpot_crypto_farm = {
                 name = "Crypto Farm",
                 text = {
-                    "Earn {C:orange}B.0.5{}",
+                    "Earn {C:orange,f:hpot_plincoin}£0.5{}",
                     "when a non-Boss Blind",
                     "is defeated"
                 }

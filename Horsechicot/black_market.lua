@@ -53,7 +53,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
                         n = G.UIT.R,
                         config = { align = "cm", maxw = 1.3, minw = 1 },
                         nodes = {
-                          { n = G.UIT.T, config = { text = "B.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                          { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], scale = 0.7, colour = G.C.WHITE, shadow = true } },
                           { n = G.UIT.T, config = { ref_table = G.GAME.current_round, ref_value = 'market_reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
                         }
                       }
@@ -80,7 +80,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
                         n = G.UIT.R,
                         config = { align = "cm", maxw = 1.3, minw = 1 },
                         nodes = {
-                          { n = G.UIT.T, config = { text = "B.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                          { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], scale = 0.7, colour = G.C.WHITE, shadow = true } },
                           { n = G.UIT.T, config = { ref_table = G, ref_value = 'harvest_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
                         }
                       }
@@ -172,10 +172,10 @@ function ease_cryptocurrency(plink, instant)
   local function _mod(mod)
     local dollar_UI = G.HUD:get_UIE_by_ID('crypto_text_UI')
     mod = mod or 0
-    local text = '+B.'
+    local text = '+£'
     local col = G.C.MONEY
     if mod < 0 then
-      text = '-B.'
+      text = '-£'
       col = G.C.RED
     end
 
@@ -191,6 +191,7 @@ function ease_cryptocurrency(plink, instant)
       cover = dollar_UI.parent,
       cover_colour = G.C.ORANGE,
       align = 'cm',
+      font = SMODS.Fonts['hpot_plincoin']
     })
     --Play a chip sound
     play_sound('coin1')
@@ -289,7 +290,7 @@ function create_market_card_ui(card, type, area)
       local t1 = {
           n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
               {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = {{prefix = "B.", ref_table = card, ref_value = 'market_cost'}}, colours = {G.C.ORANGE},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                {n=G.UIT.O, config={object = DynaText({string = {{prefix = "£", ref_table = card, ref_value = 'market_cost'}}, font = SMODS.Fonts['hpot_plincoin'], colours = {G.C.ORANGE},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
               }}
           }}
       local t2 = card.ability.set == 'Voucher' and {
@@ -577,7 +578,7 @@ function add_round_eval_crypto(config)
                 func = function()
                     G.round_eval:add_child(
                             {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={
-                                {n=G.UIT.O, config={object = DynaText({string = {"B."..num_dollars},colours = {G.C.ORANNGE}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
+                                {n=G.UIT.O, config={object = DynaText({string = {"£"..num_dollars},font = SMODS.Fonts['hpot_plincoin'],colours = {G.C.ORANNGE}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
                             }},
                             G.round_eval:get_UIE_by_ID('dollar_'..config.name))
 
@@ -598,7 +599,7 @@ function add_round_eval_crypto(config)
                                 dollar_row = dollar_row+1
                         end
 
-                        local r = {n=G.UIT.T, config={text = "B.", colour = G.C.ORANGE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
+                        local r = {n=G.UIT.T, config={text = "£", font = SMODS.Fonts['hpot_plincoin'], colour = G.C.ORANGE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
                         play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
                         
                         if config.name == 'blind1' then 
