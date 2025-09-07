@@ -94,6 +94,8 @@ HPTN.Modification = SMODS.GameObject:extend({
 	applied = function(self, card) end,
 })
 
+-- i tried to get this to work with photograph and couldnt figure it out
+-- so if someone else wants to try to fix it feel free - ruby
 SMODS.DrawStep({ -- drawstep like stickers
 	key = "modifications",
 	order = 40,
