@@ -43,7 +43,7 @@ payload = '''
                         {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'cryptocurrency', prefix = '£'}, font = SMODS.Fonts['hpot_plincoin'],},
                                 scale_function = function ()
                                     return scale_number(G.GAME.cryptocurrency, 2.2 * scale, 10)
-                                end, maxw = 1.35/2, colours = {G.C.ORANGE}, font = SMODS.Fonts['hpot_plincoin'], shadow = true,spacing = 2, bump = true, scale = 2.2*scale}), id = 'crypto_text_UI'}}
+                                end, maxw = 1.35/2, colours = {SMODS.Gradients.hpot_advert}, font = SMODS.Fonts['hpot_plincoin'], shadow = true,spacing = 2, bump = true, scale = 2.2*scale}), id = 'crypto_text_UI'}}
                     }},
                     }},
                     }},

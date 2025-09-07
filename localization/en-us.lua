@@ -606,7 +606,7 @@ return {
             c_hpot_cap_crypto = {
                 name = 'Cryptocurrency',
                 text = {
-                    "Earn {C:orange,f:hpot_plincoin}£#1#"
+                    "Earn {C:hpot_advert,f:hpot_plincoin}£#1#"
                 }
             },
             c_hpot_cap_chaos = {
@@ -1594,7 +1594,7 @@ return {
             v_hpot_ref_joker_exc = {
                 name = "Premium Anvil",
                 text = {
-                    "{C:hpot_plincoin}Plincoins{}, {C:orange}Cryptocurrency{}",
+                    "{C:hpot_plincoin}Plincoins{}, {C:hpot_advert}Cryptocurrency{}",
                     "{C:blue}Joker Exchange{} can",
                     "be used to reforge"
                 }
@@ -1602,7 +1602,7 @@ return {
             v_hpot_bitcoin_miner = {
                 name = "Bitcoin Miner",
                 text = {
-                    "Earn {C:orange,f:hpot_plincoin}£0.5{}",
+                    "Earn {C:hpot_advert,f:hpot_plincoin}£0.5{}",
                     "when a Boss Blind",
                     "is defeated"
                 }
@@ -1610,7 +1610,7 @@ return {
             v_hpot_crypto_farm = {
                 name = "Crypto Farm",
                 text = {
-                    "Earn {C:orange,f:hpot_plincoin}£0.5{}",
+                    "Earn {C:hpot_advert,f:hpot_plincoin}£0.5{}",
                     "when a non-Boss Blind",
                     "is defeated"
                 }
@@ -2568,7 +2568,7 @@ return {
             tag_hpot_illegal = {
                 name = "Illegal Tag",
                 text = {
-                    "Gain {C:orange}+#1#{} Cryptocurrency",
+                    "Gain {C:hpot_advert}+#1#{} Cryptocurrency",
                     "immediately"
                 }
             },

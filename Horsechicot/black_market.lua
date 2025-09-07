@@ -38,7 +38,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
             nodes = {
               {
                 n = G.UIT.R,
-                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = G.C.ORANGE, button = 'reroll_market', func = 'can_reroll_market', hover = true, shadow = true },
+                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = SMODS.Gradients.hpot_advert, button = 'reroll_market', func = 'can_reroll_market', hover = true, shadow = true },
                 nodes = {
                   {
                     n = G.UIT.R,
@@ -65,7 +65,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
               },
               {
                 n = G.UIT.R,
-                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = G.C.ORANGE, button = 'harvest_market', func = 'can_harvest_market', hover = true, shadow = true },
+                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = SMODS.Gradients.hpot_advert, button = 'harvest_market', func = 'can_harvest_market', hover = true, shadow = true },
                 nodes = {
                   {
                     n = G.UIT.R,
@@ -194,7 +194,7 @@ function ease_cryptocurrency(plink, instant)
       scale = 0.8,
       hold = 0.7,
       cover = dollar_UI.parent,
-      cover_colour = G.C.ORANGE,
+      cover_colour = SMODS.Gradients.hpot_advert,
       align = 'cm',
       font = SMODS.Fonts['hpot_plincoin']
     })
@@ -219,7 +219,7 @@ G.FUNCS.can_reroll_market = function(e)
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else
-    e.config.colour = G.C.ORANGE
+    e.config.colour = SMODS.Gradients.hpot_advert
     e.config.button = 'reroll_market'
   end
 end
@@ -302,7 +302,7 @@ function create_market_card_ui(card, type, area)
       local t1 = {
           n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
               {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = {{prefix = "£", ref_table = card, ref_value = 'market_cost'}}, font = SMODS.Fonts['hpot_plincoin'], colours = {G.C.ORANGE},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                {n=G.UIT.O, config={object = DynaText({string = {{prefix = "£", ref_table = card, ref_value = 'market_cost'}}, font = SMODS.Fonts['hpot_plincoin'], colours = {SMODS.Gradients.hpot_advert},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
               }}
           }}
       local t2 = card.ability.set == 'Voucher' and {
@@ -376,7 +376,7 @@ G.FUNCS.can_buy_from_market = function(e)
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else
-    e.config.colour = G.C.ORANGE
+    e.config.colour = SMODS.Gradients.hpot_advert
     e.config.button = 'buy_from_shop'
   end
   if e.config.ref_parent and e.config.ref_parent.children.buy_and_use then
@@ -566,7 +566,7 @@ function add_round_eval_crypto(config)
                 --Add the far left text and context first:
                 local left_text = {}
                 if config.name == 'cryptocurrency' then
-                  table.insert(left_text, {n=G.UIT.T, config={text = config.cryptocurrency, scale = 0.8*scale, colour = G.C.ORANGE, shadow = true, juice = true}})
+                  table.insert(left_text, {n=G.UIT.T, config={text = config.cryptocurrency, scale = 0.8*scale, colour = SMODS.Gradients.hpot_advert, shadow = true, juice = true}})
                   table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_cryptocurrency_cashout', vars = {0}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
                 elseif string.find(config.name, 'joker') then
                   table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
@@ -611,7 +611,7 @@ function add_round_eval_crypto(config)
                                 dollar_row = dollar_row+1
                         end
 
-                        local r = {n=G.UIT.T, config={text = "£", font = SMODS.Fonts['hpot_plincoin'], colour = G.C.ORANGE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
+                        local r = {n=G.UIT.T, config={text = "£", font = SMODS.Fonts['hpot_plincoin'], colour = SMODS.Gradients.hpot_advert, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
                         play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
                         
                         if config.name == 'blind1' then 
