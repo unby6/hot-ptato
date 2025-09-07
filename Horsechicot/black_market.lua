@@ -120,7 +120,7 @@ G.FUNCS.hotpot_horsechicot_toggle_market = function()  -- takn from deliveries
       sign_sprite.pinch.y = true
       delay(0.5)
       simple_add_event(function()
-        sign_sprite.atlas = G.ANIMATION_ATLAS["hpot_tname_shop_sign"]
+        sign_sprite.atlas = G.ANIMATION_ATLAS["hpot_hc_shop_sign"]
         sign_sprite.pinch.y = false
         return true
       end)
@@ -506,7 +506,7 @@ function Card:highlight(is)
     if G.jokers then
         if is and G.jokers.highlighted[1] == self then
             G.harvest_cost = self:get_market_cost()
-        elseif not is and G.jokers.highlighted[1] == self then    
+        elseif not is and self.area == G.jokers and #G.jokers.highlighted == 0 then    
             G.harvest_cost = 0
         end
     end
@@ -516,3 +516,10 @@ SMODS.Sound {
     key = "harvest",
     path = "sfx_the_flesh_consumes_all.mp3"
 }
+
+SMODS.Atlas {
+    key = "hc_shop_sign",
+    path = "Horsechicot/market_sign.png",
+    px = 113,py = 57,
+    frames = 4, atlas_table = 'ANIMATION_ATLAS'
+  }

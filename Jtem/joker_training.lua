@@ -361,6 +361,7 @@ function G.FUNCS.hpot_start_training_joker(e)
 	local card = e.config.ref_table
 	G.CONTROLLER.locks.use = true
     ease_spark_points(-1 * hpot_get_training_cost(card))
+	card.area:remove_from_highlighted(card) -- Youre welcome Jtem - ruby
 	card:highlight(false)
 	G.E_MANAGER:add_event(Event {
 		trigger = 'after',
