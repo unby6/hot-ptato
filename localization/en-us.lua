@@ -1437,7 +1437,7 @@ return {
                 text = {
                     "{C:attention}Jokers{} in the Shop",
                     "are {C:attention}replaced{} by",
-                    "{C:red}random{} Consumables"
+                    "{C:red}random Consumables"
                 }
             },
         },
@@ -1536,7 +1536,24 @@ return {
                     "be used to reforge"
                 }
             },
+            v_hpot_bitcoin_miner = {
+                name = "Bitcoin Miner",
+                text = {
+                    "Earn {C:orange}B.0.5{}",
+                    "when a Boss Blind",
+                    "is defeated"
+                }
+            },
+            v_hpot_crypto_farm = {
+                name = "Crypto Farm",
+                text = {
+                    "Earn {C:orange}B.0.5{}",
+                    "when a non-Boss Blind",
+                    "is defeated"
+                }
+            },
         },
+        
         Spectral = {
             c_hpot_arcade_machine = {
                 name = "Arcade Machine",
@@ -3121,6 +3138,7 @@ return {
             k_hpot_creditable = "Creditable",
 
             hotpot_plincoins_cashout = 'Plincoins (#1# per round)',
+            hotpot_cryptocurrency_cashout = 'Cryptocurrency',
             hotpot_art = { "Art: #1#" },
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
