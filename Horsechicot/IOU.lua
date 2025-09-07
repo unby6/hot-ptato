@@ -2,7 +2,7 @@ SMODS.Joker {
     key = "iou",
     config = {
         extra = {
-            bitcoins = 4
+            bitcoins = 2
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -18,6 +18,11 @@ SMODS.Joker {
     rarity = 2,
     cost = 4,
     atlas = "hc_placeholder",
+    hotpot_credits = {
+        art = {"???"},
+        code = {"Nxkoo"},
+        team = {"Horsechicot"}
+    },
     pos = { x = 0, y = 0 },
     calculate = function(self, card, context)
         if context.selling_self and not context.blueprint then
