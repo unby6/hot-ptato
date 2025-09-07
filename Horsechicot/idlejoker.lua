@@ -22,8 +22,8 @@ SMODS.Joker {
     key = "idle",
     rarity = 2,
     cost = 5,
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = {x = 2, y = 0},
     config = { extra = { score = 0, gain = 1, money = 1 } },
     hotpot_credits = Horsechicot.credit("Lily Felli", nil, "lord.ruby"),
     loc_vars = function(self, info_queue, card)
@@ -41,6 +41,6 @@ SMODS.Joker {
             card.ability.extra.score = 0
             SMODS.calculate_effect({message = localize("k_reset")}, card)
         end
-    end
-
+    end,
+    Horsechicot.credit("Lilly Felli", "pangea47")
 }
