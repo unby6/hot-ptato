@@ -17,13 +17,14 @@ SMODS.Joker {
     perishable_compat = true,
     rarity = 2,
     cost = 4,
-    atlas = "hc_placeholder",
+    atlas = "hc_jokers",
+    pos = {x = 7, y = 0},
+    pixel_size = {w = 71, h = 71},
     hotpot_credits = {
         art = {"???"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
-    pos = { x = 0, y = 0 },
     calculate = function(self, card, context)
         if context.selling_self and not context.blueprint then
             return {

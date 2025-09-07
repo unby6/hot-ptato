@@ -48,7 +48,9 @@ SMODS.Joker {
     config = { was_clicked = false, start_time = 0, leniency = 0.2, can_save = false },
     calculate = function(self, card, context)
         if context.game_over and card.ability.can_save then return { saved = true, message = "Saved!" } end
-    end
+    end,
+    atlas = "hc_jokers",
+    pos = {x = 6, y = 0}
 }
 
 local old = end_round
