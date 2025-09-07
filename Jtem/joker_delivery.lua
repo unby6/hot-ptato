@@ -294,6 +294,11 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                     }
                                 },
                                 {
+                                    n = G.UIT.c,
+                                    config = { minw = 0.1 },
+                                    nodes = {},
+                                },
+                                {
                                     n = G.UIT.C,
                                     config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_b2j', func = "hp_jtem_can_exchange_b2j", hover = true },
                                     nodes = {
@@ -1362,7 +1367,7 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
     if not G.HP_JTEM_DELIVERY_VISIBLE then
 		ease_background_colour({new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
-        G.shop.alignment.offset.y = -20.7
+        G.shop.alignment.offset.y = -20
         G.HP_JTEM_DELIVERY_VISIBLE = true
         simple_add_event(function()
             sign_sprite.pinch.y = true
