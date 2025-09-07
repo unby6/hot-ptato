@@ -595,6 +595,19 @@ return {
                     "{C:inactive}(Must have room)"
                 }
             },
+            c_hpot_cap_crypto = {
+                name = 'Cryptocurrency',
+                text = {
+                    "Earn {C:orange}B.#1#"
+                }
+            },
+            c_hpot_cap_chaos = {
+                name = 'Chaos',
+                text = {
+                    "Acts as a {C:red}Random{}",
+                    "Bottlecap"
+                }
+            },
         },
         imaginary = {
             c_hpot_imag_stars = {
