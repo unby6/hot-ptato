@@ -42,7 +42,7 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    hotpot_credits = Horsechicot.credit('cg223', nil, 'lord.ruby'),
+    hotpot_credits = Horsechicot.credit('cg223', 'pangaea47', 'lord.ruby'),
     key = "lockin",
     rarity = 2,
     config = { was_clicked = false, start_time = 0, leniency = 0.2, can_save = false },
