@@ -614,7 +614,7 @@ SMODS.Joker{ --Balatro **PREMIUM**
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual and not context.bluleprint then
+        if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual and not context.blueprint then
             ease_dollars(-card.ability.extra.dollars)
             return {
                 message = "-$"..card.ability.extra.dollars,
