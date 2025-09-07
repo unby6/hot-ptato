@@ -151,7 +151,7 @@ function G.FUNCS.buy_from_shop(e)
             for i, v in pairs(SMODS.find_card("j_hpot_roi")) do
                 G.GAME.bm_bought_this_round = true
                 event = Event {
-                    func = function() ease_cryptocurrency(card.market_cost) end
+                    func = function() ease_cryptocurrency(card.market_cost); return true end
                 }
             end
         end
