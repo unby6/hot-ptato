@@ -202,7 +202,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function () -- takn from deliveries
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
     if not G.HP_TNAME_REFORGE_VISIBLE then
 		ease_background_colour({new_colour = G.C.BLACK, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
-        G.shop.alignment.offset.y = -35
+        G.shop.alignment.offset.y = -35.7
         G.HP_TNAME_REFORGE_VISIBLE = true
 		simple_add_event(function()
             sign_sprite.pinch.y = true

@@ -12,6 +12,8 @@ local function hp_jtem_buy_jx_individual( b_type, index )
         am = "p2j"
     elseif b_type == "credits" then
         am = "c2j"
+    elseif b_type == "crypto" then
+        am = "b2j"
     else
         am = "d2j"
     end
@@ -25,7 +27,10 @@ local function hp_jtem_buy_jx_individual( b_type, index )
         first_time_bonus = gives_out * price_mult[3]
     end
     local args = generate_currency_string_args(b_type)
-
+    local _y = b_type == "plincoin" and 1 or 0
+    if b_type == "crypto" then
+        _y = 3
+    end
     local numbertext = {
         {
             n = G.UIT.C,
@@ -51,68 +56,67 @@ local function hp_jtem_buy_jx_individual( b_type, index )
             }
         })
     end
-
-if b_type == "credits" then
-    return {
-        n = G.UIT.C,
-        config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
-        nodes = {
-            { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                    {
-                        n = G.UIT.O,
-                        config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "credits" and 2 or 0})}
-                    },
-                }
-            },
-            { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                    {
-                        n = G.UIT.T,
-                        config = { text = localize("hotpot_exchange_option_"..(b_type == "credits" and "cred_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
-                    },
-                }
-            },
-            { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
-            },
-        { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
-                    {
-                        n = G.UIT.T,
-                        config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
+    if b_type == "credits" then
+        return {
+            n = G.UIT.C,
+            config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
+            nodes = {
+                { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                        {
+                            n = G.UIT.O,
+                            config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "credits" and 2 or 0})}
+                        },
                     }
-                }
-            },
-        }
-    }
-else
-    return {
-        n = G.UIT.C,
-        config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
-        nodes = {
-            { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                    {
-                        n = G.UIT.O,
-                        config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "plincoin" and 1 or 0})}
-                    },
-                }
-            },
-            { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                    {
-                        n = G.UIT.T,
-                        config = { text = localize("hotpot_exchange_option_"..(b_type == "plincoin" and "plin_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
-                    },
-                }
-            },
-            { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
-            },
-        { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
-                    {
-                        n = G.UIT.T,
-                        config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
+                },
+                { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = { text = localize("hotpot_exchange_option_"..(b_type == "credits" and "cred_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
+                        },
                     }
-                }
-            },
+                },
+                { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
+                },
+            { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
+                        }
+                    }
+                },
+            }
         }
-    }
-end
+    else
+        return {
+            n = G.UIT.C,
+            config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
+            nodes = {
+                { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                        {
+                            n = G.UIT.O,
+                            config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = _y})}
+                        },
+                    }
+                },
+                { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = { text = localize("hotpot_exchange_option_"..(b_type == "plincoin" and "plin_" or b_type == "crypto" and "crypto_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
+                        },
+                    }
+                },
+                { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
+                },
+            { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
+                        }
+                    }
+                },
+            }
+        }
+    end
 end
 
 G.FUNCS.hpot_can_buy_jx_screen = function (e)
@@ -157,6 +161,10 @@ G.UIDEF.hp_jtem_buy_jx = function (mode)
     end
     if (mode == "credits" or mode == "both_2") and G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
         table.insert(nds, hp_jtem_buy_jx_row( "credits" ))
+    end
+
+    if (mode == "crypto" or mode == "both_2") and G.GAME.hp_jtem_should_allow_buying_jx_from_crypto then
+        table.insert(nds, hp_jtem_buy_jx_row( "crypto" ))
     end
     local ret
 if G.GAME.used_vouchers["v_hpot_exchange_rate"] then
