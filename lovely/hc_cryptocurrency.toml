@@ -40,10 +40,10 @@ payload = '''
                     {n=G.UIT.C, config={align = "cm", padding = 0.05, minw = 1.45 + spacing, minh = 1.15, colour = temp_col, emboss = 0.05, r = 0.1}, nodes={
                     {n=G.UIT.R, config={align = "cm"}, nodes={
                         {n=G.UIT.C, config={align = "cm", r = 0.1, minw = 1.28+spacing, minh = 1, colour = temp_col2}, nodes={
-                        {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'cryptocurrency', prefix = 'B.'}},
+                        {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'cryptocurrency', prefix = '£'}, font = SMODS.Fonts['hpot_plincoin'],},
                                 scale_function = function ()
                                     return scale_number(G.GAME.cryptocurrency, 2.2 * scale, 10)
-                                end, maxw = 1.35/2, colours = {G.C.ORANGE}, font = G.LANGUAGES['en-us'].font, shadow = true,spacing = 2, bump = true, scale = 2.2*scale}), id = 'crypto_text_UI'}}
+                                end, maxw = 1.35/2, colours = {G.C.ORANGE}, font = SMODS.Fonts['hpot_plincoin'], shadow = true,spacing = 2, bump = true, scale = 2.2*scale}), id = 'crypto_text_UI'}}
                     }},
                     }},
                     }},

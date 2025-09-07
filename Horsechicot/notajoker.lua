@@ -20,7 +20,7 @@ end
 function HotPotato.get_random_consumable()
     local cards = {}
     for i, v in pairs(G.P_CENTER_POOLS.Consumeables) do
-        if not v.hidden and not v.no_collection and v.set ~= "bottlecap" then
+        if not v.hidden and not v.no_collection then
             cards[#cards+1] = v
         end
     end
