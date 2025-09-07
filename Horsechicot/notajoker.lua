@@ -1,0 +1,28 @@
+SMODS.Joker {
+    key = "notajoker",
+    rarity = 2,
+    cost = 5,
+    atlas = "hc_jokers",
+    pos = {x = 5, y = 0},
+    hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47")
+}
+
+local createcard_ref = create_card
+function create_card(set, ...)
+    local card = createcard_ref(set, ...)
+    if G.STATE == G.STATES.SHOP and card.config.center.set == "Joker" and next(SMODS.find_card("j_hpot_notajoker")) then
+        local c = HotPotato.get_random_consumable()
+        card:set_ability(c)
+    end
+    return card
+end
+
+function HotPotato.get_random_consumable()
+    local cards = {}
+    for i, v in pairs(G.P_CENTER_POOLS.Consumeables) do
+        if not v.hidden and not v.no_collection and v.set ~= "bottlecap" then
+            cards[#cards+1] = v
+        end
+    end
+    return pseudorandom_element(cards, pseudoseed("hpot_notajoker"))
+end

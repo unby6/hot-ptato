@@ -1432,6 +1432,14 @@ return {
                     "if played hand consists of {C:attention}debuffed{} cards"
                 }
             },
+            j_hpot_notajoker = {
+                name = "This is not a Joker",
+                text = {
+                    "{C:attention}Jokers{} in the Shop",
+                    "are {C:attention}replaced{} by",
+                    "{C:red}random{} Consumables"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {

@@ -25,7 +25,6 @@ SMODS.Joker {
     atlas = "hc_jokers",
     pos = {x = 2, y = 0},
     config = { extra = { score = 0, gain = 1, money = 1 } },
-    hotpot_credits = Horsechicot.credit("Lily Felli", nil, "lord.ruby"),
     loc_vars = function(self, info_queue, card)
         return {vars = {
             card.ability.extra.gain,
@@ -42,5 +41,5 @@ SMODS.Joker {
             SMODS.calculate_effect({message = localize("k_reset")}, card)
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli", "pangaea47")
+    hotpot_credits = Horsechicot.credit("Lily Felli", "pangaea47", "lord.ruby")
 }
