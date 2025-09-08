@@ -181,5 +181,7 @@ end
 
 SMODS.Joker {
     key = "roi",
+    atlas = "hc_jokers",
+    pos = {x = 3, y = 1}
     hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby")
 }
