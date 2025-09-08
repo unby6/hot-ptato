@@ -85,4 +85,4 @@ function Horsechicot:calculate(context)
     end
 end
 
-SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=71, py=95}
+SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
