@@ -940,7 +940,7 @@ return {
                 text = {
                     "{C:attention}Face{} cards instead score as",
                     "as a previously {C:money}sold {C:attention}Joker",
-                    "{S:0.7,C:inactive}as if in the main Joker context"
+                    "{s:0.7,C:inactive}as if in the main Joker context"
                 }
             },
             j_hpot_roi = {
@@ -1560,7 +1560,7 @@ return {
                 name = "Exchange Rate",
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
-                    "and {C:purple}credits",
+                    "{C:purple}credits, and {C:hpot_advert}cryptocurrency{}",
                     "for {C:blue}Joker Exchange"
                 }
             },

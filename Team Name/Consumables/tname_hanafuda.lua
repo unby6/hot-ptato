@@ -1710,7 +1710,7 @@ SMODS.Consumable({
 		local remove = {}
 		for i = 1, #G.jokers.highlighted do
 			modif = get_modification(G.jokers.highlighted[i])
-			if modif.morality == "BAD" then
+			if modif and modif.morality == "BAD" then
 				remove[#remove + 1] = G.jokers.highlighted[i]
 			end
 		end

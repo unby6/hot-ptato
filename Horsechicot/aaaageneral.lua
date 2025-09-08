@@ -80,9 +80,50 @@ SMODS.Atlas {
 }
 
 function Horsechicot:calculate(context)
-    if context.end_round then
+    if context.end_of_round then
         G.GAME.bm_bought_this_round = false
     end
 end
 
 SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
+
+
+local oldfunc = Game.main_menu
+Game.main_menu = function(change_context)
+    local ret = oldfunc(change_context) 
+    G.E_MANAGER:add_event(Event({
+        trigger = "after",
+        delay = 0,
+        blockable = false,
+        blocking = false,
+        func = function()
+            local newcard = Card(
+                G.title_top.T.x,
+                G.title_top.T.y,
+                G.CARD_W,
+                G.CARD_H,
+                G.P_CARDS.empty,
+                G.P_CENTERS.j_hpot_thetruehotpotato,
+                { bypass_discovery_center = true }
+            )
+            -- recenter the title
+            G.title_top.T.w = G.title_top.T.w * 1.7675
+            G.title_top.T.x = G.title_top.T.x - 0.8
+            G.title_top:emplace(newcard)
+            -- make the card look the same way as the title screen Ace of Spades
+            newcard.T.w = newcard.T.w * 1.1 * 1.2
+            newcard.T.h = newcard.T.h * 1.1 * 1.2
+            newcard.no_ui = true
+            newcard.states.visible = false
+            if change_context == "splash" then
+                newcard.states.visible = true
+                newcard:start_materialize({ G.C.WHITE, G.C.WHITE }, true, 2.5)
+            else
+                newcard.states.visible = true
+                newcard:start_materialize({ G.C.WHITE, G.C.WHITE }, nil, 1.2)
+            end
+            return true
+        end
+    }))
+    return ret
+end

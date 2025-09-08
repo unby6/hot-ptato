@@ -8,6 +8,8 @@ SMODS.Joker {
     },
     key = "brainfuck",
     rarity = 3,
+    atlas = "hc_jokers",
+    pos = {x = 4, y = 1},
     calculate = function(self, card, context)
         if context.joker_main then
             local cards = context.scoring_hand
@@ -183,5 +185,5 @@ SMODS.Joker {
     key = "roi",
     atlas = "hc_jokers",
     pos = {x = 3, y = 1},
-    hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby")
+    hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby"),
 }
