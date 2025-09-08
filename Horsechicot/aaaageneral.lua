@@ -133,3 +133,10 @@ Game.main_menu = function(change_context)
     }))
     return ret
 end
+
+function HotPotato.get_blind_font(blind)
+    if blind and (blind.name == "bl_hpot_quartz" or (blind.config and blind.config.name == "bl_hpot_quartz")) then
+        return SMODS.Fonts['hpot_plincoin']
+    end
+end
+
