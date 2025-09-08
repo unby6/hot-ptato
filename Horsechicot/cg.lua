@@ -64,7 +64,7 @@ SMODS.Joker {
 local old = end_round
 function end_round()
     local card = SMODS.find_card("j_hpot_lockin")[1]
-    if card then
+    if card and (G.GAME.chips / G.GAME.blind.chips) < 1 then
         card.ability.can_save = false
         card.ability.was_clicked = false
         card.ability.start_time = love.timer.getTime()
