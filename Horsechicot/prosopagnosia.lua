@@ -4,11 +4,24 @@ SMODS.Joker {
     cost = 7,
     atlas = "hc_jokers",
     pos = {x = 1, y = 1},
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    Horsechicot.credit("cg223", "pangaea47", "lord.ruby")
+    Horsechicot.credit("cg223", "pangaea47", "lord.ruby"),
+    calculate = function(self, card, context)
+        if context.count_prosopagnosia then
+            G.GAME.prosopagnosia = (G.GAME.prosopagnosia or 0) + 1
+            return nil, true
+        end
+    end
 }
+
+function get_prosopagnosia_count()
+    local ret = SMODS.calculate_context({count_prosopagnosia = true})
+    local count = G.GAME.prosopagnosia
+    G.GAME.prosopagnosia = nil
+    return count
+end
 
 local function is_scoring(card, context)
     for i, v in pairs(context.scoring_hand) do
@@ -19,7 +32,7 @@ end
 local old_ec = eval_card
 function eval_card(card, context)
     if SMODS.find_card("j_hpot_prosopagnosia")[1] and card.playing_card and card:is_face() and context.cardarea == G.play and context.main_scoring and is_scoring(card, context) then
-        for _, _ in pairs(SMODS.find_card("j_hpot_prosopagnosia")) do
+        for i = 1, get_prosopagnosia_count() do
             local reps = { 1 }
 
             --From Red seal
