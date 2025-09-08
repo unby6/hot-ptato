@@ -405,7 +405,7 @@ G.FUNCS.start_plinko = function(e, use_dollars)
     return true
   end
   }))
-
+  SMODS.calculate_context({plinko_started = true})
   G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
 end
 

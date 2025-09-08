@@ -31,7 +31,8 @@ SMODS.Joker {
 --TODO: Localize
 HotPotato.trigger_options = {
     "hpot_diy_hand_played",
-    "hpot_diy_tarot_sold"
+    "hpot_diy_tarot_sold",
+    "hpoy_diy_plinko_played"
 }
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
@@ -48,6 +49,8 @@ function HotPotato.diy_trigger(self, card, context)
         return context.joker_main
     elseif G.GAME.hotpot_diy.trigger == 2 then
         return context.selling_card and context.card.config.center.set == "Tarot"
+    elseif G.GAME.hotpot_diy.trigger == 3 then
+        return context.plinko_started
     end
 end
 
