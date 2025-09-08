@@ -940,7 +940,7 @@ return {
                 text = {
                     "{C:attention}Face{} cards instead score as",
                     "as a previously {C:money}sold {C:attention}Joker",
-                    "{S:0.7,C:inactive}as if in the main Joker context"
+                    "{s:0.7,C:inactive}as if in the main Joker context"
                 }
             },
             j_hpot_roi = {
