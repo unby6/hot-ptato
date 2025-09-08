@@ -5,6 +5,8 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
+    atlas = "hc_jokers",
+    pos = {x = 6, y = 1},
     calculate = function(self, card, context)
         local jokers = {}
         for i, v in pairs(G.jokers.cards) do
