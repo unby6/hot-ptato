@@ -80,7 +80,7 @@ SMODS.Atlas {
 }
 
 function Horsechicot:calculate(context)
-    if context.end_round then
+    if context.end_of_round then
         G.GAME.bm_bought_this_round = false
     end
 end
