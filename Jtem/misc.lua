@@ -180,14 +180,14 @@ SMODS.Atlas {
 
 SMODS.Atlas {
   key = "jtemrally",
-  path = "Ads/rally.png",
+  path = "Ads/Rally.png",
   px = 240,py = 320,
   frames = 40, atlas_table = 'ANIMATION_ATLAS'
 }
 
 SMODS.Atlas {
   key = "jtemrally",
-  path = "Ads/rally.png",
+  path = "Ads/Rally.png",
   px = 240,py = 320,
   frames = 40, atlas_table = 'ANIMATION_ATLAS'
 }
