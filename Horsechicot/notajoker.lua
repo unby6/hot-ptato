@@ -4,6 +4,9 @@ SMODS.Joker {
     cost = 5,
     atlas = "hc_jokers",
     pos = {x = 5, y = 0},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47")
 }
 

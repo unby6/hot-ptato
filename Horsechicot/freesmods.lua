@@ -4,6 +4,9 @@ SMODS.Joker {
     cost = 5,
     atlas = "hc_placeholder",
     pos = {x=0,y=0},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.selling_card then
             card.ability.extra_value = card.ability.extra_value + context.card.sell_cost

@@ -8,6 +8,9 @@ SMODS.Joker {
             odds = 6666
         }
     },
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
     atlas = "hc_jokers",
     pos = {x = 0, y = 0},
     soul_pos = {x = 1, y = 0},

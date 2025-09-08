@@ -10,6 +10,9 @@ SMODS.Joker {
     rarity = 3,
     atlas = "hc_jokers",
     pos = {x = 4, y = 1},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.joker_main then
             local cards = context.scoring_hand
@@ -52,7 +55,10 @@ SMODS.Joker {
         if context.game_over and card.ability.can_save then return { saved = true, message = "Saved!" } end
     end,
     atlas = "hc_jokers",
-    pos = {x = 6, y = 0}
+    pos = {x = 6, y = 0},
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
 }
 
 local old = end_round
@@ -149,6 +155,9 @@ SMODS.Joker {
             extra = 1,
         }
     },
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.joker_main then
             card.ability.extra.chips = card.ability.extra.extra * Horsechicot.num_jokers()
@@ -185,5 +194,8 @@ SMODS.Joker {
     key = "roi",
     atlas = "hc_jokers",
     pos = {x = 3, y = 1},
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby"),
 }

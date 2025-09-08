@@ -8,6 +8,9 @@ SMODS.Joker {
     },
     atlas = "hc_jokers",
     pos = {x = 3, y = 0},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.pseudorandom_result then
             if context.result == G.GAME.precognition_guess then

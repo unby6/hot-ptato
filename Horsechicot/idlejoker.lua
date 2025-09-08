@@ -32,6 +32,9 @@ SMODS.Joker {
             card.ability.extra.score,
         }}
     end,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     calc_dollar_bonus = function(self, card)
         return (#tostring(card.ability.extra.score)) * card.ability.extra.money
     end,

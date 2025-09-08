@@ -5,6 +5,9 @@ SMODS.Joker {
     atlas = "hc_placeholder",
     pos = { x = 0, y = 0 },
     config = { extra = { reset = 12, left = 12 } },
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.before then
             card.ability.extra.left = card.ability.extra.left - 1

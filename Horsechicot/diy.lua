@@ -2,6 +2,9 @@ SMODS.Joker {
     key = "diy",
     rarity = 3,
     cost = 10,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     add_to_deck = function(self, card)
         if not G.GAME.hotpot_diy then
             G.GAME.DIY_OPEN = true

@@ -12,7 +12,7 @@ SMODS.Joker {
         hotpot_credits = {}
     },
     hotpot_credits = {
-        art = {"???"},
+        art = {"pangaea47"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },

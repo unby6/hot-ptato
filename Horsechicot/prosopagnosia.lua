@@ -3,6 +3,9 @@ SMODS.Joker {
     rarity = 3,
     atlas = "hc_jokers",
     pos = {x = 1, y = 1},
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
     Horsechicot.credit("cg223", "pangaea47", "lord.ruby")
 }
 
