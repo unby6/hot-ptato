@@ -88,8 +88,6 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     rarity = 2,
-    atlas = 'hc_placeholder',
-    pos = { x = 0, y = 0 },
     cost = 4,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and not context.blueprint then
