@@ -32,7 +32,8 @@ SMODS.Joker {
 HotPotato.trigger_options = {
     "hpot_diy_hand_played",
     "hpot_diy_tarot_sold",
-    "hpot_diy_plinko_played"
+    "hpot_diy_plinko_played",
+    "hpot_diy_end_of_round",
 }
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
@@ -51,6 +52,8 @@ function HotPotato.diy_trigger(self, card, context)
         return context.selling_card and context.card.config.center.set == "Tarot"
     elseif G.GAME.hotpot_diy.trigger == 3 then
         return context.plinko_started
+    elseif G.GAME.hotpot_diy.trigger == 4 then
+        return context.end_of_round and context.main_eval
     end
 end
 
