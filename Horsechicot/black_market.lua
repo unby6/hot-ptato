@@ -501,7 +501,7 @@ SMODS.ObjectType {
 
 
 G.FUNCS.can_harvest_market = function(e)
-    if G.jokers and #G.jokers.highlighted == 1 and not SMODS.is_eternal(G.jokers.highlighted[1]) then
+    if G.jokers and #G.jokers.highlighted == 1 and not SMODS.is_eternal(G.jokers.highlighted[1]) and not G.GAME.current_round.harvested then
         e.config.colour = G.C.RED
         e.config.button = 'harvest_market'
     else
@@ -515,6 +515,7 @@ G.FUNCS.harvest_market = function(e)
     ease_cryptocurrency(G.harvest_cost)
     play_sound("hpot_harvest")
     G.harvest_cost = 0
+    G.GAME.current_round.harvested = true
 end
 
 local highlight_ref = Card.highlight

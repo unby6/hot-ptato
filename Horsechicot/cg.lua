@@ -108,6 +108,7 @@ function end_round()
             G.GAME.spawning_blocked = {}
         end
     end
+    G.GAME.current_round.harvested = nil
     return old()
 end
 
