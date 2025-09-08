@@ -54,6 +54,7 @@ HPJTTT.add_texts({
     "I wish shadows had rights",
     "The cat atop the far tree whispers sweet promises to passerbys",
     "I think we should stop having money. That sounds like a good thing.",
+    "One or two extra currencies",
 })
 
 SMODS.Atlas{
