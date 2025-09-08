@@ -125,7 +125,7 @@ SMODS.Back {
         G.GAME.modifiers.window = true
     end,
     calculate = function(self, card, context)
-        if (context.end_of_round and not context.blueprint and not context.individual and G.GAME.blind_on_deck == "Boss" and not context.repetition) then
+        if context.end_of_round and not context.individual and not context.blueprint and not context.repetition and G.GAME.blind.boss then
             G.GAME.windows_unlocked = math.min((G.GAME.windows_unlocked or 0) + 1, 37)
             G.bypass_scoring_ui = true
             return {
