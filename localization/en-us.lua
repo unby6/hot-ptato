@@ -932,7 +932,11 @@ return {
                 }
             },
             j_hpot_prosopagnosia = {
-                name = "Mr. Joker Encounters a Secondhand Vanity: Tulpamancers Prosopagnosia",
+                name = {
+                    "Mr. Joker Encounters",
+                    "a Secondhand Vanity:",
+                    "Tulpamancers Prosopagnosia"
+                },
                 text = {
                     "{C:attention}Face{} cards instead score as",
                     "as a previously {C:money}sold {C:attention}Joker",
