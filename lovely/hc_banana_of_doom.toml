@@ -12,3 +12,13 @@ payload = '''
 if self.ability.name == 'Cavendish' then G.GAME.pool_flags.cavendish = true end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'before'
+pattern = '''if self.config.colour and (self.config.colour[4] > 0.01) then'''
+payload = '''
+self.colour = self.colour or G.C.WHITE
+'''
+match_indent = true
