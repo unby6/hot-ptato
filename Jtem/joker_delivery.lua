@@ -160,6 +160,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
     G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
     G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
     G.GAME.hp_jtem_c2j_rate = G.GAME.hp_jtem_c2j_rate or { from = 1, to = 833 }
+    G.GAME.hp_jtem_b2j_rate = G.GAME.hp_jtem_b2j_rate or { from = 1, to = 50000 }
     return
         {
             n = G.UIT.R,
@@ -264,35 +265,70 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                 },
                             }
                         },
-                                                {
+                        {
                             n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
+                            config = {  },
                             nodes = {
                                 {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_c2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                    },
+                                    n = G.UIT.C,
+                                    config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_c2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                            },
+                                            }
+                                        },
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "c." } }), scale = 0.3, colour = G.C.WHITE }
+                                            },
+                                            }
+                                        },
                                     }
                                 },
                                 {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "c." } }), scale = 0.3, colour = G.C.WHITE }
-                                    },
+                                    n = G.UIT.c,
+                                    config = { minw = 0.1 },
+                                    nodes = {},
+                                },
+                                {
+                                    n = G.UIT.C,
+                                    config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_b2j', func = "hp_jtem_can_exchange_b2j", hover = true },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_b2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
+                                            },
+                                            }
+                                        },
+                                        {
+                                            n = G.UIT.R,
+                                            config = { align = "cm" },
+                                            nodes = { {
+                                                n = G.UIT.T,
+                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "£" } }), scale = 0.3, colour = G.C.WHITE }
+                                            },
+                                            }
+                                        },
                                     }
                                 },
                             }
-                        },
+                        }
                     }
                 },
                 {
                     n = G.UIT.C,
-                    config = { padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm" },
+                    config = { padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm", font = SMODS.Fonts['hpot_plincoin'] },
                     nodes = {
                         {
                             n = G.UIT.R,
@@ -480,6 +516,15 @@ G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
         e.config.button = 'hp_jtem_exchange_c2j'
     end
 end
+G.FUNCS.hp_jtem_can_exchange_b2j = function(e)
+    if (0 > G.GAME.cryptocurrency) or not G.GAME.hp_jtem_should_allow_buying_jx_from_crypto then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.BLUE
+        e.config.button = 'hp_jtem_exchange_b2j'
+    end
+end
 G.FUNCS.hp_jtem_can_order = function(e)
     local _c = e.config.ref_table
     if (_c.hp_jtem_currency_bought_value > get_currency_amount(_c.hp_jtem_currency_bought) - (_c.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
@@ -655,7 +700,12 @@ G.FUNCS.hp_jtem_exchange_c2j = function(e)
         definition = G.UIDEF.hp_jtem_buy_jx("credits")
     }
 end
-
+G.FUNCS.hp_jtem_exchange_b2j = function(e)
+    G.SETTINGS.paused = true
+    G.FUNCS.overlay_menu {
+        definition = G.UIDEF.hp_jtem_buy_jx("crypto")
+    }
+end
 G.FUNCS.hp_jtem_order = function(e)
     G.GAME.hp_jtem_queue_max_size = G.GAME.hp_jtem_queue_max_size or 2
     local card = e.config.ref_table
@@ -981,7 +1031,7 @@ function get_currency_amount(currency)
     if currency == "dollars" then return G.GAME.dollars end
     if currency == "plincoin" then return G.GAME.plincoins end
     if currency == "joker_exchange" then return G.GAME.spark_points end
-    if currency == "cryptocurrency" then return G.GAME.cryptocurrency end
+    if currency == "cryptocurrency" or currency == "crypto"then return G.GAME.cryptocurrency end
 end
 
 function ease_currency(currency, value, instant)
@@ -991,7 +1041,7 @@ function ease_currency(currency, value, instant)
     if currency == "dollars" then ease_dollars(value, instant) end
     if currency == "plincoin" then ease_plincoins(value, instant) end
     if currency == "joker_exchange" then ease_spark_points(value, instant) end
-    if currency == "cryptocurrency" then ease_cryptocurrency(value, instant) end
+    if currency == "cryptocurrency" or currency == "crypto" then ease_cryptocurrency(value, instant) end
     -- patches for other currencies ease
 end
 
@@ -1008,7 +1058,7 @@ function generate_currency_string_args(currency)
         }
     end
     if currency == "joker_exchange" then return { colour = G.C.BLUE, symbol = "͸", font = SMODS.Fonts["hpot_plincoin"] } end
-    if currency == "cryptocurrency" then return { colour = G.C.ORANGE, symbol = "B"} end
+    if currency == "cryptocurrency" or currency == "crypto" then return { colour = G.C.ORANGE, symbol = "£", font = SMODS.Fonts["hpot_plincoin"] } end
     -- patches for other currencies strings
 end
 

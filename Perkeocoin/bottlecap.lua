@@ -660,11 +660,13 @@ in_pool = function(self, args)
                 end
             end
             local byebye = pseudorandom_element(valid, pseudoseed('antijokercap'))
-            byebye.getting_sliced = true
-            G.E_MANAGER:add_event(Event({func = function()
-                card:juice_up(0.8, 0.8)
-                byebye:start_dissolve({G.C.RED}, nil, 1.6)
-            return true end }))
+            if byebye then
+                byebye.getting_sliced = true
+                G.E_MANAGER:add_event(Event({func = function()
+                    card:juice_up(0.8, 0.8)
+                    byebye:start_dissolve({G.C.RED}, nil, 1.6)
+                return true end }))
+            end
         end
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()

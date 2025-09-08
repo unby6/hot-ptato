@@ -8,6 +8,8 @@ SMODS.Joker {
     },
     key = "brainfuck",
     rarity = 3,
+    atlas = "hc_jokers",
+    pos = {x = 4, y = 1},
     calculate = function(self, card, context)
         if context.joker_main then
             local cards = context.scoring_hand
@@ -87,6 +89,19 @@ function end_round()
         })
     end
     G.GAME.current_round.market_reroll_cost = 0.25
+    if G.GAME.modifiers.windows and G.GAME.current_round.current_hand.scores then
+        for i, v in pairs(G.GAME.current_round.current_hand.scores) do
+            G.GAME.current_round.current_hand.scores[i] = 0
+        end
+    end
+    if G.GAME.spawning_blocked then
+        if G.GAME.spawning_reset == "ante" and G.GAME.blind_on_deck == "Boss" then
+            G.GAME.spawning_blocked = {}
+        end
+        if G.GAME.spawning_reset == "round" then
+            G.GAME.spawning_blocked = {}
+        end
+    end
     return old()
 end
 
@@ -168,5 +183,7 @@ end
 
 SMODS.Joker {
     key = "roi",
-    hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby")
+    atlas = "hc_jokers",
+    pos = {x = 3, y = 1},
+    hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby"),
 }

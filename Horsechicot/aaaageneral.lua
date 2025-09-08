@@ -17,6 +17,7 @@ function Horsechicot.credit(coders, arters, ideaers)
     }
 end
 SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
+SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
 
@@ -46,6 +47,12 @@ HPJTTT.add_texts({
     "silly ahh drivables - @lily.felli",
     "silly ahh drivables - @lily.felli",
     "130 lbs",
+    "Niko: She's 10. Can I Mate?",
+    CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!", --cprns prio is  literally -99 million :3
+    "awawa awebo",
+    "I wish shadows had rights",
+    "The cat atop the far tree whispers sweet promises to passerbys",
+    "I think we should stop having money. That sounds like a good thing.",
 })
 
 SMODS.Atlas{
@@ -78,7 +85,50 @@ SMODS.Atlas {
 }
 
 function Horsechicot:calculate(context)
-    if context.end_round then
+    if context.end_of_round then
         G.GAME.bm_bought_this_round = false
     end
+end
+
+SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
+
+
+local oldfunc = Game.main_menu
+Game.main_menu = function(change_context)
+    local ret = oldfunc(change_context) 
+    G.E_MANAGER:add_event(Event({
+        trigger = "after",
+        delay = 0,
+        blockable = false,
+        blocking = false,
+        func = function()
+            local newcard = Card(
+                G.title_top.T.x,
+                G.title_top.T.y,
+                G.CARD_W,
+                G.CARD_H,
+                G.P_CARDS.empty,
+                G.P_CENTERS.j_hpot_thetruehotpotato,
+                { bypass_discovery_center = true }
+            )
+            -- recenter the title
+            G.title_top.T.w = G.title_top.T.w * 1.7675
+            G.title_top.T.x = G.title_top.T.x - 0.8
+            G.title_top:emplace(newcard)
+            -- make the card look the same way as the title screen Ace of Spades
+            newcard.T.w = newcard.T.w * 1.1 * 1.2
+            newcard.T.h = newcard.T.h * 1.1 * 1.2
+            newcard.no_ui = true
+            newcard.states.visible = false
+            if change_context == "splash" then
+                newcard.states.visible = true
+                newcard:start_materialize({ G.C.WHITE, G.C.WHITE }, true, 2.5)
+            else
+                newcard.states.visible = true
+                newcard:start_materialize({ G.C.WHITE, G.C.WHITE }, nil, 1.2)
+            end
+            return true
+        end
+    }))
+    return ret
 end

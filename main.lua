@@ -217,6 +217,8 @@ end
 
 HotPotato.config_tab = hpotConfigTab
 
-function SMODS.current_mod:calculate(context)
-	Horsechicot:calculate(context)
+SMODS.current_mod.calculate = function(self, context)
+	local ret
+	ret = ret or Horsechicot:calculate(context)
+	return ret
 end

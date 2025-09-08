@@ -21,15 +21,15 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
     perishable_compat = true,
     rarity = 1,
     cost = 3,
-    atlas = "hc_placeholder",
+    atlas = "hc_jokers",
     hotpot_credits = {
-        art = {"???"},
+        art = {"pangaea47"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
-    pos = { x = 0, y = 0 },
+    pos = { x = 2, y = 1 },
     calculate = function(self, card, context)
-        if (context.reroll_shop and context.reroll_market) and not context.blueprint and card.ability.extra.uses_remaining > 0 then
+        if (context.reroll_shop or context.reroll_market) and not context.blueprint and card.ability.extra.uses_remaining > 0 then
             card.ability.extra.uses_remaining = card.ability.extra.uses_remaining - 1
             if card.ability.extra.uses_remaining <= 0 then
                 return {
@@ -55,7 +55,7 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
                 }
             else
                 return {
-                    message = card.ability.extra.uses_remaining,
+                    message = number_format(card.ability.extra.uses_remaining),
                     colour = G.C.ORANGE,
                     func = function()
                         G.E_MANAGER:add_event(Event({

@@ -931,6 +931,18 @@ return {
                     }
                 }
             },
+            j_hpot_prosopagnosia = {
+                name = {
+                    "Mr. Joker Encounters",
+                    "a Secondhand Vanity:",
+                    "Tulpamancers Prosopagnosia"
+                },
+                text = {
+                    "{C:attention}Face{} cards instead score as",
+                    "as a previously {C:money}sold {C:attention}Joker",
+                    "{s:0.7,C:inactive}as if in the main Joker context"
+                }
+            },
             j_hpot_roi = {
                 name = "Return on Investment",
                 text = {
@@ -1548,7 +1560,7 @@ return {
                 name = "Exchange Rate",
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
-                    "and {C:purple}credits",
+                    "{C:purple}credits, and {C:hpot_advert}cryptocurrency{}",
                     "for {C:blue}Joker Exchange"
                 }
             },
@@ -1622,6 +1634,22 @@ return {
                     "Earn {C:hpot_advert,f:hpot_plincoin}£0.5{}",
                     "when a non-Boss Blind",
                     "is defeated"
+                }
+            },
+            v_hpot_antibodies = {
+                name = "Antibodies",
+                text = {
+                    "Jokers appear",
+                    "{C:red}at most once{}",
+                    "per {C:attention}Round{}"
+                }
+            },
+            v_hpot_vaccination = {
+                name = "Vaccination",
+                text = {
+                    "Jokers appear",
+                    "{C:red}at most once{}",
+                    "per {C:attention}Ante{}"
                 }
             },
         },
@@ -2244,6 +2272,42 @@ return {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{} Joker cards",
                 },
+            },
+
+            p_hpot_team_normal = {
+                name = 'Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_team_jumbo = {
+                name = 'Jumbo Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_team_mega = {
+                name = 'Mega Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_team_ultra = {
+                name = 'Ultra Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
             },
 
             --
@@ -3088,6 +3152,7 @@ return {
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
+            k_hpot_team_pack = 'Team Pack',
             k_hpot_auras_packs = "Aura Pack",
             k_hpot_hanafuda_packs = "Hanafuda Pack",
             b_bottlecap_cards = 'Bottlecaps',
@@ -3165,6 +3230,12 @@ return {
             hotpot_exchange_option_cred_4 = "A Box of ͸",
             hotpot_exchange_option_cred_5 = "A Load of ͸",
 
+            hotpot_exchange_option_crypto_1 = "A Giant Premium Pile of ͸",
+            hotpot_exchange_option_crypto_2 = "A Premium Ton of ͸",
+            hotpot_exchange_option_crypto_3 = "A Premium Overfilled Box of ͸",
+            hotpot_exchange_option_crypto_4 = "A Premium Cargo Load of ͸",
+            hotpot_exchange_option_crypto_5 = "A Giant Premium Cargo Load of ͸",
+
             hotpot_reforge_credits = "c.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_joker_exchange = "͸", -- 10 K
@@ -3197,6 +3268,8 @@ return {
 
             hpot_diy_hand_played = "When Hand is Played",
             hpot_diy_tarot_sold = "When a Tarot Card is sold",
+            hpot_diy_plinko_played = "When playing Plinko",
+            hpot_diy_end_of_round = "At end of round",
 
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",

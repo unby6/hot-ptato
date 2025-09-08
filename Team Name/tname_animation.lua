@@ -42,7 +42,9 @@ function Game:update(dt)
             v.pos_extra = v.default_pos_extra
         end
     end
-
+    if PlinkoLogic and PlinkoLogic.STATE and PlinkoLogic.STATE ~= 0 then
+        G.STATE = G.STATES.PLINKO
+    end
     return update_ref(self, dt)
 end
 

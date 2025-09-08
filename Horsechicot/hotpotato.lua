@@ -7,6 +7,8 @@ SMODS.Joker {
             used_positions = {}
         }
     },
+    atlas = "hc_jokers",
+    pos = {x = 5, y = 1},
     loc_vars = function(self, info_queue, card)
         local main_end = nil
         if card.area and card.area == G.jokers then
@@ -86,8 +88,6 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     rarity = 2,
-    atlas = 'hc_placeholder',
-    pos = { x = 0, y = 0 },
     cost = 4,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and not context.blueprint then

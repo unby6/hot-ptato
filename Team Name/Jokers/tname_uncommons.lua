@@ -265,9 +265,8 @@ SMODS.Joker({
 		if context.joker_type_destroyed then
 			SMODS.scale_card(card, {
 				ref_table = hpt,
-				ref_value = "xmult",
-				scalar_value = "xmultm",
-				operation = "-"
+				ref_value = "destroyed",
+				scalar_value = "xmultg",
 			})
 		end
 		if context.press_play then
@@ -275,11 +274,12 @@ SMODS.Joker({
 				ref_table = hpt,
 				ref_value = "xmult",
 				scalar_value = "xmultm",
+				operation = "-"
 			})
 		end
 		if context.joker_main then
 			return {
-				xmult = hpt.xmult + hpt.xmultg * hpt.destroyed
+				xmult = hpt.xmult
 			}
 		end
 	end,
