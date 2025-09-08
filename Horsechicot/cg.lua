@@ -94,7 +94,7 @@ function end_round()
             end
         })
     end
-    G.GAME.current_round.market_reroll_cost = 0.25
+    G.GAME.current_round.market_reroll_cost = 0.5
     if G.GAME.modifiers.windows and G.GAME.current_round.current_hand.scores then
         for i, v in pairs(G.GAME.current_round.current_hand.scores) do
             G.GAME.current_round.current_hand.scores[i] = 0

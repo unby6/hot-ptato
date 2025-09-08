@@ -236,7 +236,7 @@ G.FUNCS.reroll_market = function(e)
   G.E_MANAGER:add_event(Event({
     trigger = 'immediate',
     func = function()
-      G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.25
+      G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.5
       if G.GAME.modifiers.unstable then
         G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost * math.floor((pseudorandom("unstable_deck_market_reroll") * 0.4 - 0.19 + 1) * 100) / 100
       end
