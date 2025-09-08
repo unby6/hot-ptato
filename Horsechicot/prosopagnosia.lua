@@ -6,9 +6,15 @@ SMODS.Joker {
     Horsechicot.credit("cg223", "pangaea47", "lord.ruby")
 }
 
+local function is_scoring(card, context)
+    for i, v in pairs(context.scoring_hand) do
+        if v == card then return true end
+    end
+end
+
 local old_ec = eval_card
 function eval_card(card, context)
-    if SMODS.find_card("j_hpot_prosopagnosia")[1] and card.playing_card and card:is_face() and card.area == G.play and context.main_scoring then
+    if SMODS.find_card("j_hpot_prosopagnosia")[1] and card.playing_card and card:is_face() and context.cardarea == G.play and context.main_scoring and is_scoring(card, context) then
         for _, _ in pairs(SMODS.find_card("j_hpot_prosopagnosia")) do
             local reps = { 1 }
 
