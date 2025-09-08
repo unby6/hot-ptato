@@ -1,6 +1,9 @@
 SMODS.Joker {
     key = "prosopagnosia",
     rarity = 3,
+    atlas = "hc_jokers",
+    pos = {x = 1, y = 1},
+    Horsechicot.credit("cg223", "pangaea47", "lord.ruby")
 }
 
 local old_ec = eval_card
