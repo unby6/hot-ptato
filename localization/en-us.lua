@@ -1560,7 +1560,7 @@ return {
                 name = "Exchange Rate",
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
-                    "and {C:purple}credits",
+                    "{C:purple}credits, and {C:hpot_advert}cryptocurrency{}",
                     "for {C:blue}Joker Exchange"
                 }
             },
