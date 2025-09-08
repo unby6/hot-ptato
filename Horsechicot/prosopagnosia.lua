@@ -4,7 +4,7 @@ SMODS.Joker {
     cost = 7,
     atlas = "hc_jokers",
     pos = {x = 1, y = 1},
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     Horsechicot.credit("cg223", "pangaea47", "lord.ruby")
