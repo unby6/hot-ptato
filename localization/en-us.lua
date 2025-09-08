@@ -1545,6 +1545,14 @@ return {
                     "at end of round",
                 }
             },
+            j_hpot_timelapse = {
+                name = "Timelapse",
+                text = {
+                    "Copy the ability of",
+                    "the {C:attention}most recently{} and",
+                    "{C:attention}earliest{} obtained {C:attention}Jokers{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
