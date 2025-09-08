@@ -136,12 +136,16 @@ end
 local old = SMODS.calculate_context
 function SMODS.calculate_context(context, ...)
     if context.game_over then
-        if G.lock_in_card and G.lock_in_card.ability.was_clicked then
-            SMODS.calculate_effect({message = "Saved!"}, G.lock_in_card)
-            SMODS.destroy_cards(G.lock_in_card)
-            SMODS.saved = true
-            G.saved_by_lock_in = true
-            G.lock_in_card = nil
+        if G.lock_in_card then
+            if G.lock_in_card.ability.was_clicked then
+                SMODS.calculate_effect({message = "Saved!"}, G.lock_in_card)
+                SMODS.destroy_cards(G.lock_in_card)
+                SMODS.saved = true
+                G.saved_by_lock_in = true
+            else
+                G.lock_in_card:remove()
+                G.lock_in_card = nil
+            end
         end
     end
     return old(context, ...)
