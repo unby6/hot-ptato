@@ -47,7 +47,8 @@ HPJTTT.add_texts({
     "silly ahh drivables - @lily.felli",
     "silly ahh drivables - @lily.felli",
     "130 lbs",
-    "Niko: She's 10. Can I Mate?"
+    "Niko: She's 10. Can I Mate?",
+    CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!" --cprns prio is  literally -99 million :3
 })
 
 SMODS.Atlas{
