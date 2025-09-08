@@ -120,7 +120,7 @@ SMODS.Back {
     name = "Window Deck",
     key = "window",
     pos = { x = 0, y = 0 },
-    --atlas = "decks",
+    atlas = "hc_decks",
     apply = function()
         G.GAME.modifiers.window = true
     end,

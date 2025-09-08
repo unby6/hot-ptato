@@ -17,6 +17,7 @@ function Horsechicot.credit(coders, arters, ideaers)
     }
 end
 SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
+SMODS.Atlas{key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
