@@ -184,9 +184,4 @@ SMODS.Joker {
     atlas = "hc_jokers",
     pos = {x = 3, y = 1},
     hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby"),
-    calculate = function(self, card, context)
-        if context.end_of_round then
-            G.GAME.bm_bought_this_round = nil
-        end
-    end
 }
