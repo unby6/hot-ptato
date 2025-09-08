@@ -140,9 +140,21 @@ function SMODS.calculate_context(context, ...)
             SMODS.calculate_effect({message = "Saved!"}, G.lock_in_card)
             SMODS.destroy_cards(G.lock_in_card)
             SMODS.saved = true
+            G.saved_by_lock_in = true
+            G.lock_in_card = nil
         end
     end
     return old(context, ...)
+end
+
+local old = localize
+function localize(key, ...)
+    if key == "ph_mr_bones" and G.saved_by_lock_in then
+        G.saved_by_lock_in = false
+        return "Saved by Lock In"
+    else
+        return old(key, ...)
+    end
 end
 
 SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
