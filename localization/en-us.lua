@@ -1489,13 +1489,13 @@ return {
                 name = "I.O.U",
                 text = {
                     "Sell this {C:attention}Joker{}",
-                    "to gain {C:attention}B.#1#{}"
+                    "to gain {f:hpot_plincoin,C:hpot_advert}£#1#{}"
                 }
             },
             j_hpot_shady = {
                 name = "Shady Joker",
                 text = {
-                    "Gives {C:attention}B.#1#{}",
+                    "Gives {f:hpot_plincoin,C:hpot_advert}£#1#{}",
                     "when rerolling {C:dark_edition}any{} shops,",
                     "{C:red}self destructs after {C:attention}#3#{} uses",
                     "{C:inactive}(Uses: {C:attention}#2#{}{C:inactive})"
