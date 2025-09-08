@@ -284,7 +284,14 @@ G.FUNCS.reroll_market = function(e)
 end
 
 function Card:get_market_cost()
-  local value =  math.max(self.cost / 5, 0.5) + (self.config and self.config.center and self.config.center.credits or 0) / 50
+  local value = 0.8
+  if self.config.center.set == "Tarot" then
+    value = 0.6
+  elseif self.config.center.set == "Booster" and self.config.center.credits then
+    value = 0.5 + self.config.center.credits/50
+  elseif self.config.center.set == "Joker" then 
+    value = 1 + self.config.center.cost / 10
+  end
   if G.GAME.modifiers.unstable then
     value = math.floor(value * (pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1) * 100) / 100
   end
