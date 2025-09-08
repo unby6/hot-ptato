@@ -84,3 +84,5 @@ function Horsechicot:calculate(context)
         G.GAME.bm_bought_this_round = false
     end
 end
+
+SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=71, py=95}
