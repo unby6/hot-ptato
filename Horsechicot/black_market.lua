@@ -458,6 +458,7 @@ SMODS.ObjectType {
     p_hpot_ultra_standard = true,
     p_hpot_ultra_buffoon = true,
     p_hpot_ultra_spectral = true,
+    p_hpot_team_ultra_1 = true,
     j_dna = true,
     j_cavendish = true,
     j_vagabond = true,
@@ -494,6 +495,7 @@ SMODS.ObjectType {
     j_hpot_tname_jankman = true,
     j_hpot_tname_sunset = true,
     j_hpot_tname_graveyard = true,
+    j_hpot_prosopagnosia = true
   }
 }
 

@@ -2270,6 +2270,42 @@ return {
                 },
             },
 
+            p_hpot_team_normal = {
+                name = 'Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_team_jumbo = {
+                name = 'Jumbo Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_team_mega = {
+                name = 'Mega Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
+            p_hpot_team_ultra = {
+                name = 'Ultra Team Pack',
+                text = {
+                    'Choose {C:attention}#1#{} of up to',
+                    "{C:attention}#2# {C:hpot_advert}#3#{} cards to",
+                    'be used immediately',
+                }
+            },
+
             --
             hpot_plincoin_seal = {
                 name = "Plincoin Seal",
@@ -3112,6 +3148,7 @@ return {
             b_czech_cards = 'Cheque Cards',
             k_czech = 'Cheque',
             k_hpot_czech_pack = 'Cheque Pack',
+            k_hpot_team_pack = 'Team Pack',
             k_hpot_auras_packs = "Aura Pack",
             k_hpot_hanafuda_packs = "Hanafuda Pack",
             b_bottlecap_cards = 'Bottlecaps',
