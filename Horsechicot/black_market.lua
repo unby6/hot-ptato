@@ -166,7 +166,7 @@ function Game:start_run(args)
   local saveTable = args.savetext or nil
   if not saveTable then
     G.GAME.cryptocurrency = 0
-    G.GAME.current_round.market_reroll_cost = 0.25
+    G.GAME.current_round.market_reroll_cost = 0.5
   end
   if saveTable and saveTable.cardAreas then
     G.GAME.market_table = saveTable.cardAreas.market_jokers
