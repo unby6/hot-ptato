@@ -8,6 +8,8 @@ SMODS.Joker {
     },
     key = "brainfuck",
     rarity = 3,
+    atlas = "hc_jokers",
+    pos = {x = 4, y = 1},
     calculate = function(self, card, context)
         if context.joker_main then
             local cards = context.scoring_hand
