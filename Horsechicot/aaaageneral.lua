@@ -48,7 +48,11 @@ HPJTTT.add_texts({
     "silly ahh drivables - @lily.felli",
     "130 lbs",
     "Niko: She's 10. Can I Mate?",
-    CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!" --cprns prio is  literally -99 million :3
+    CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!", --cprns prio is  literally -99 million :3
+    "awawa awebo",
+    "I wish shadows had rights",
+    "The cat atop the far tree whispers sweet promises to passerbys",
+    "I think we should stop having money. That sounds like a good thing.",
 })
 
 SMODS.Atlas{
