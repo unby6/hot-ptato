@@ -1536,7 +1536,7 @@ return {
             j_hpot_chocolate_milk = {
                 name = {
                     "Chocolate Milk",
-                    "{s:0.7,C:inactive}(SEAMINGLESSLY VANILLA JOKER){}"
+                    "{s:0.7,C:inactive}(SEAMLESSLY VANILLA JOKER){}"
                 },
                 text = {
                     "{X:chips,C:white} X#1# {} Chips",

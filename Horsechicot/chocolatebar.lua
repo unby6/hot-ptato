@@ -5,15 +5,15 @@ SMODS.Joker {
     perishable_compat = true,
     rarity = 1,
     cost = 5,
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 0, y = 2 },
     config = { extra = { odds = 6, chips = 150 } },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_chocolate_bar')
         return { vars = { card.ability.extra.chips, numerator, denominator } }
     end,
     hotpot_credits = {
-        art = {"???"},
+        art = {"lord.ruby"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
