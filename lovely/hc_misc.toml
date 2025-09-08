@@ -1,0 +1,16 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+position = 'before'
+pattern = '''
+for k, card in pairs(self.cards) do
+'''
+payload = '''
+self.cards = self.cards or {}
+'''
+match_indent = true
