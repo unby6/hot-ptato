@@ -9,7 +9,7 @@ SMODS.Joker {
     key = "brainfuck",
     rarity = 3,
     atlas = "hc_jokers",
-    pos = {x = 4, y = 1},
+    pos = { x = 4, y = 1 },
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
@@ -49,17 +49,24 @@ SMODS.Joker {
 SMODS.Joker {
     hotpot_credits = Horsechicot.credit('cg223', 'pangaea47', 'lord.ruby'),
     key = "lockin",
+    cost = 4,
     rarity = 2,
-    config = { was_clicked = false, start_time = 0, leniency = 0.2, can_save = false },
-    calculate = function(self, card, context)
-        if context.game_over and card.ability.can_save then return { saved = true, message = "Saved!" } end
-    end,
+    config = { was_clicked = false, start_time = 0, leniency = 1, can_save = false },
     atlas = "hc_jokers",
-    pos = {x = 6, y = 0},
+    pos = { x = 6, y = 0 },
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = true,
 }
+
+local old = G.draw
+function G:draw()
+    local card = G.lock_in_card
+    local focused = G.CONTROLLER.focused.target
+    G.CONTROLLER.focused.target = card
+    old(self)
+    G.CONTROLLER.focused.target = focused
+end
 
 local old = end_round
 function end_round()
@@ -68,9 +75,14 @@ function end_round()
         card.ability.can_save = false
         card.ability.was_clicked = false
         card.ability.start_time = love.timer.getTime()
-        SMODS.calculate_effect({ message = "Click me!" }, card)
-        local time_given = (G.GAME.chips / G.GAME.blind.chips) * card.ability.leniency * G.SETTINGS.GAMESPEED
+        G.draw_lockin_background = true
+        SMODS.calculate_effect({ message = "Lock in." }, card)
+        local time_given = (G.GAME.chips / G.GAME.blind.chips) * card.ability.leniency
         local last_juice_time = love.timer.getTime()
+        G.jokers:remove_card(card)
+        G.lock_in_card = card
+        card.T.x = pseudorandom("hc_lockinpos", 0, G.ROOM.T.w - G.CARD_W)
+        card.T.y = pseudorandom("hc_lockinpos", 0, G.ROOM.T.h - G.CARD_H)
         G.E_MANAGER:add_event(Event({
             func = function()
                 if (love.timer.getTime() - time_given) > card.ability.start_time or card.ability.was_clicked then
@@ -85,6 +97,7 @@ function end_round()
         }))
         G.E_MANAGER:add_event(Event {
             func = function()
+                G.draw_lockin_background = false
                 if card.ability.was_clicked then
                     card.ability.can_save = true
                 else
@@ -115,10 +128,24 @@ end
 local old = Card.click
 function Card:click()
     old(self)
-    if self.config.center.key == "j_hpot_lockin" then
+    if self.config.center.key == "j_hpot_lockin" and self.ability.start_time + 0.05 < love.timer.getTime()  then
         self.ability.was_clicked = true
     end
 end
+
+local old = SMODS.calculate_context
+function SMODS.calculate_context(context, ...)
+    if context.game_over then
+        if G.lock_in_card and G.lock_in_card.ability.was_clicked then
+            SMODS.calculate_effect({message = "Saved!"}, G.lock_in_card)
+            SMODS.destroy_cards(G.lock_in_card)
+            SMODS.saved = true
+        end
+    end
+    return old(context, ...)
+end
+
+SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
 
 function Horsechicot.num_jokers()
     if Horsechicot.joker_count_cache then
@@ -178,7 +205,9 @@ function G.FUNCS.buy_from_shop(e)
             for i, v in pairs(SMODS.find_card("j_hpot_roi")) do
                 G.GAME.bm_bought_this_round = true
                 event = Event {
-                    func = function() ease_cryptocurrency(card.market_cost); return true end
+                    func = function()
+                        ease_cryptocurrency(card.market_cost); return true
+                    end
                 }
             end
         end
@@ -190,11 +219,10 @@ function G.FUNCS.buy_from_shop(e)
     return ret
 end
 
-
 SMODS.Joker {
     key = "roi",
     atlas = "hc_jokers",
-    pos = {x = 3, y = 1},
+    pos = { x = 3, y = 1 },
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
