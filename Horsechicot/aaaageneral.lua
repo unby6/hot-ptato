@@ -92,7 +92,6 @@ function Horsechicot:calculate(context)
     end
 end
 
-SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
 
 
 local oldfunc = Game.main_menu
