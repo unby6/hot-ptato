@@ -116,7 +116,10 @@ function use_random_bottlecap(self, card)
     end
     local cap = pseudorandom_element(caps, pseudoseed("hc_chaos"))
     local dummy_cap = {
-        ability = copy_table(cap.config)
+        ability = copy_table(cap.config),
+        states = {
+            
+        }
     }
     for i, v in pairs(Card) do
         if type(v) == "function" then
