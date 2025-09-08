@@ -1,7 +1,7 @@
 function get_team_card(team, seed)
     local cards = {}
     for i, v in pairs(G.P_CENTERS) do
-        if v.set ~= "Enhanced" and v.set ~= "Edition" and not v.hidden and v.hotpot_credits and string.lower(v.hotpot_credits.team[1]) == string.lower(team) and v.rarity ~= 4 then
+        if v.set ~= "Enhanced" and v.set ~= "Edition" and not v.hidden and v.hotpot_credits and string.lower(v.hotpot_credits.team[1]) == string.lower(team) and v.rarity ~= 4 and v.set ~= "Booster" then
             cards[#cards+1] = v
         end
     end
