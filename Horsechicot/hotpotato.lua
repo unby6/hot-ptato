@@ -7,6 +7,8 @@ SMODS.Joker {
             used_positions = {}
         }
     },
+    atlas = "hc_jokers",
+    pos = {x = 5, y = 1},
     loc_vars = function(self, info_queue, card)
         local main_end = nil
         if card.area and card.area == G.jokers then
