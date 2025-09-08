@@ -37,7 +37,8 @@ function eval_card(card, context)
             for i = 2, #reps do
                 if reps[i].jokers then
                     SMODS.calculate_effect(reps[i].jokers, reps[i].jokers.card)
-                else
+                end
+                if reps[i].seals then
                     SMODS.calculate_effect(reps[i], card)
                 end
                 calc_random_joker(card, context)
