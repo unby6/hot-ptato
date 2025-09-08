@@ -32,7 +32,7 @@ SMODS.Joker {
 HotPotato.trigger_options = {
     "hpot_diy_hand_played",
     "hpot_diy_tarot_sold",
-    "hpoy_diy_plinko_played"
+    "hpot_diy_plinko_played"
 }
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
