@@ -31,7 +31,7 @@ SMODS.Joker {
             end
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli"),
+    hotpot_credits = Horsechicot.credit("Lily Felli", "lord.ruby"),
     loc_vars = function(self, info_queue, card)
         return {vars = {
             card.ability.extra.reset,
