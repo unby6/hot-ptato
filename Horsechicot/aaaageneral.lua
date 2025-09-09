@@ -159,6 +159,8 @@ function Horsechicot.post_load()
             cards[i] = true
         end
     end
+
+
     SMODS.ObjectType {
         key = 'BlackMarket',
         default = "c_wraith",

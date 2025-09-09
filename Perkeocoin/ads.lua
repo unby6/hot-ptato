@@ -50,6 +50,22 @@ HotPotato.Ads = {
     -- Defaults = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0,y=0}, animated = false, base_size = 0.75, max_scale = 0.5}
 }
 
+for i, v in pairs(HotPotato.Ads.Adverts) do
+    if v.video and love.system.getOS() ~= "Windows" then
+        HotPotato.Ads.Adverts[i] = nil
+    end
+end
+for i, v in pairs(HotPotato.Ads.Shitposts) do
+    if v.video and love.system.getOS() ~= "Windows" then
+        HotPotato.Ads.Adverts[i] = nil
+    end
+end
+for i, v in pairs(HotPotato.Ads.Special) do
+    if v.video and love.system.getOS() ~= "Windows" then
+        HotPotato.Ads.Adverts[i] = nil
+    end
+end
+
 --- In case you haven't played HotPot yet, Ads appear after the Boss Blind is defeated.
 --- They can also appear from a certain Joker, or a particular Consumable type.
 --- Ads are not *actually* advertising anything - they are just meant to be silly :3
