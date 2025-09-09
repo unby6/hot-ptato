@@ -64,6 +64,7 @@ HPJTTT.add_texts({
     "The Oldest Anarchy Mod In Balatro",
     "D1D7",
     "smots gaming",
+    "Tip number 10: Sit at the chessboard and play with yourself"
 })
 
 SMODS.Atlas{
