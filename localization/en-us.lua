@@ -938,9 +938,9 @@ return {
                     "Tulpamancers Prosopagnosia"
                 },
                 text = {
-                    "{C:attention}Face{} cards instead score as",
-                    "as a previously {C:money}sold {C:attention}Joker",
-                    "{s:0.7,C:inactive}as if in the main Joker context"
+                    "When a {C:attention}Face{} card is scored,",
+                    "scores a previously {C:money}sold {C:attention}Joker",
+                    "as if in the main {C:attention}Joker{} context"
                 }
             },
             j_hpot_roi = {

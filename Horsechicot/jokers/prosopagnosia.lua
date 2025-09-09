@@ -3,74 +3,27 @@ SMODS.Joker {
     rarity = 3,
     cost = 7,
     atlas = "hc_jokers",
-    pos = {x = 1, y = 1},
+    pos = { x = 1, y = 1 },
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     Horsechicot.credit("cg223", "pangaea47", "lord.ruby"),
+    loc_vars = function(self, info_queue, card)
+        for key, _ in pairs(G.GAME.removed_joker_keys or {}) do
+            if G.P_CENTERS[key] and not G.P_CENTERS[key].no_prosopagnosia then
+                info_queue[#info_queue + 1] = G.P_CENTERS[key]
+            end
+        end
+    end,
     calculate = function(self, card, context)
-        if context.count_prosopagnosia then
-            G.GAME.prosopagnosia = (G.GAME.prosopagnosia or 0) + 1
-            return nil, true
+        if context.individual and context.cardarea == G.play then
+            return {
+                func = function() calc_random_joker(card, context) return true end
+            }
         end
     end
 }
 
-function get_prosopagnosia_count()
-    local ret = SMODS.calculate_context({count_prosopagnosia = true})
-    local count = G.GAME.prosopagnosia
-    G.GAME.prosopagnosia = nil
-    return count
-end
-
-local function is_scoring(card, context)
-    for i, v in pairs(context.scoring_hand) do
-        if v == card then return true end
-    end
-end
-
-local old_ec = eval_card
-function eval_card(card, context)
-    if SMODS.find_card("j_hpot_prosopagnosia")[1] and card.playing_card and card:is_face() and context.cardarea == G.play and context.main_scoring and is_scoring(card, context) then
-        for i = 1, get_prosopagnosia_count() do
-            local reps = { 1 }
-
-            --From Red seal
-            local eval = eval_card(card,
-                { repetition_only = true, cardarea = G.play, full_hand = G.play.cards, scoring_hand = context.scoring_hand, scoring_name =
-                context.text, poker_hands = context.poker_hands, repetition = true })
-            if next(eval) then
-                for h = 1, eval.seals.repetitions do
-                    reps[#reps + 1] = eval
-                end
-            end
-            --From jokers
-            for j = 1, #G.jokers.cards do
-                --calculate the joker effects
-                local eval = eval_card(G.jokers.cards[j],
-                    { cardarea = G.play, full_hand = G.play.cards, scoring_hand = context.scoring_hand, scoring_name = context.text, poker_hands =
-                    context.poker_hands, other_card = card, repetition = true })
-                if next(eval) and eval.jokers then
-                    for h = 1, eval.jokers.repetitions do
-                        reps[#reps + 1] = eval
-                    end
-                end
-            end
-            calc_random_joker(card, context)
-            for i = 2, #reps do
-                if reps[i].jokers then
-                    SMODS.calculate_effect(reps[i].jokers, reps[i].jokers.card)
-                end
-                if reps[i].seals then
-                    SMODS.calculate_effect(reps[i], card)
-                end
-                calc_random_joker(card, context)
-            end
-        end
-    else
-        return old_ec(card, context)
-    end
-end
 
 local old_sell_card = Card.sell_card
 function Card:sell_card()
@@ -96,8 +49,15 @@ function calc_random_joker(card, other_context)
         temp_card:set_ability(jkr)
         temp_card:add_to_deck()
         temp_card:update(G.real_dt * G.SPEEDFACTOR)
-        local effect = temp_card:calculate_joker({ cardarea = G.jokers, full_hand = G.play.cards, scoring_hand =
-        other_context.scoring_hand, scoring_name = other_context.scoring_name, poker_hands = other_context.poker_hands, joker_main = true })
+        local effect = temp_card:calculate_joker({
+            cardarea = G.jokers,
+            full_hand = G.play.cards,
+            scoring_hand =
+                other_context.scoring_hand,
+            scoring_name = other_context.scoring_name,
+            poker_hands = other_context.poker_hands,
+            joker_main = true
+        })
         if effect then
             SMODS.calculate_effect(effect, card)
         end
