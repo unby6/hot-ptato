@@ -3,6 +3,7 @@ local old_love_update = love.update
 function love.update(dt)
     if not lock then
         lock = true
+        love.update = old_love_update
         if TMJ then
             TMJ.SEARCH_FIELD_FUNCS[#TMJ.SEARCH_FIELD_FUNCS+1] = function(center)
                 if center.hotpot_credits then
