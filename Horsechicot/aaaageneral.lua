@@ -140,3 +140,28 @@ function HotPotato.get_blind_font(blind)
     end
 end
 
+function Horsechicot.post_load()
+    local cards = {
+        c_death = true,
+        c_hanged_man = true,
+        p_hpot_czech_ultra_1 = true,
+        p_hpot_hanafuda_ultra_1 = true,
+        p_hpot_auras_ultra_1 = true,
+        p_hpot_ultra_arcana = true,
+        p_hpot_ultra_celestial = true,
+        p_hpot_ultra_standard = true,
+        p_hpot_ultra_buffoon = true,
+        p_hpot_ultra_spectral = true,
+        p_hpot_team_ultra_1 = true,
+    }
+    for i, v in pairs(G.P_CENTERS) do
+        if (v.set == "Joker" and v.rarity == 3) or v.set == "Spectral" then
+            cards[i] = true
+        end
+    end
+    SMODS.ObjectType {
+        key = 'BlackMarket',
+        default = "c_wraith",
+        cards = cards
+      }
+end

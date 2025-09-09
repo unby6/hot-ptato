@@ -31,7 +31,6 @@ SMODS.Joker {
 }
 
 
---TODO: Localize
 HotPotato.trigger_options = {
     "hpot_diy_hand_played",
     "hpot_diy_tarot_sold",
@@ -104,12 +103,11 @@ Gain $2         DONE
 Gain 0.5 Plincoin         DONE
 Gain 0.1 Credits         DONE
 Gain 1000 Joker Exchange         DONE
-Gain B.0.25 DONE
-Create a random consumable (Must have room) DONE
+Gain B.0.25         DONE
+Create a random consumable (Must have room)         DONE
 ]]--
 
 function create_UIBox_diy()
-    --todo: localize
     local trigger_options = {}
     for i, v in pairs(HotPotato.trigger_options) do
         trigger_options[#trigger_options+1] = localize(v)
