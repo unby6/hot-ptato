@@ -14,7 +14,7 @@ SMODS.Blind {
                 return false
             end
         end
-        return true
+        return card.area == G.jokers
     end,
     hotpot_credits = {
         art = {"GoldenLeaf"},
