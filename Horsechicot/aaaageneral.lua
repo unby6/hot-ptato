@@ -16,6 +16,14 @@ function Horsechicot.credit(coders, arters, ideaers)
         team = { 'Horsechicot' }
     }
 end
+
+local function mod_exists(id)
+    local m = SMODS.find_mod(id)
+    if m[1] and m[1].can_load then
+        return true
+    end
+end
+
 SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95}
@@ -52,7 +60,7 @@ HPJTTT.add_texts({
     "It's over, " .. Username .. " knows.",
     "Two Hotties, One potato.",
     "-- TODO: your mom",
-    Entropy and "You are not immune to Propaganda",
+    mod_exists("entropy") and "You are not immune to Propaganda" or "generic message", --holes bad? 
     "The Oldest Anarchy Mod In Balatro"
 })
 
