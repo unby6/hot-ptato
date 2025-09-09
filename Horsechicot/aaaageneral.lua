@@ -159,6 +159,18 @@ function Horsechicot.post_load()
             cards[i] = true
         end
     end
+
+    for i, v in pairs(HotPotato.Ads.Adverts) do
+        if v.video and love.system.getOS() == "Android" then
+            HotPotato.Ads.Adverts[i] = nil
+        end
+    end
+    for i, v in pairs(HotPotato.Ads.Shitposts) do
+        if v.video and love.system.getOS() == "Android" then
+            HotPotato.Ads.Adverts[i] = nil
+        end
+    end
+
     SMODS.ObjectType {
         key = 'BlackMarket',
         default = "c_wraith",
