@@ -35,7 +35,7 @@ SMODS.Joker {
                 SMODS.scale_card(self, {
                     ref_table = card.ability.extra,
                     ref_value = "uses_left",
-                    scalar_table = {mod = 1}
+                    scalar_table = {mod = 1},
                     scalar_value = "mod",
                     operation = "-",
                     scaling_message = {

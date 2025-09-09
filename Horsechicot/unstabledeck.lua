@@ -81,7 +81,7 @@ end
 local card_set_abilityref = Card.set_ability
 function Card:set_ability(...)
     card_set_abilityref(self, ...)
-    if G.GAME.modifiers.unstable then
+    if G.GAME.modifiers.unstable and not G.SETTINGS.paused then
         HotPotato.manipulate(self, {
             min = 0.8325,
             max = 1.225,
