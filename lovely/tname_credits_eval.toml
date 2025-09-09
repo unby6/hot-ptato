@@ -143,7 +143,9 @@ payload = '''
 if c1.config and c1.config.center and c1.config.center.credits and not c1.market_cost then
 	HPTN.ease_credits(-c1.config.center.credits)
 elseif c1.market_cost then
-  ease_cryptocurrency(-c1.market_cost)
+  if not Entropy or (not Entropy.has_rune("rune_entr_naudiz") or not G.GAME.providence) then
+    ease_cryptocurrency(-c1.market_cost)
+  end
 elseif c1.cost ~= 0 then
 '''
 match_indent = true
