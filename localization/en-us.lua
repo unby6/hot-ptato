@@ -1562,6 +1562,23 @@ return {
                     "{C:attention}earliest{} obtained {C:attention}Jokers{}"
                 }
             },
+            j_hpot_bayharbourjoker = {
+                name = "Bay Harbour Joker",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "{C:red,E:hpot_KILL}KILL{} Joker to the right",
+                    "and converts its sell value to {f:hpot_plincoin,C:hpot_advert}£{}",
+                    "{C:inactive}Tonight's the night."
+                }
+            },
+            j_hpot_blunderfarming = {
+                name = "Blunderfarming",
+                text = {
+                    "Skipping a {C:attention}Blind{}",
+                    "has {C:green}#1# in #2#{} chance",
+                    "to multiply gained {C:attention}Tag"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
