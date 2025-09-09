@@ -1,3 +1,4 @@
+SMODS.DynaTextEffect = SMODS.DynaTextEffect or function() end
 SMODS.DynaTextEffect {
     key = "KILL",
     func = function(dynatext, index, letter)

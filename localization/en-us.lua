@@ -2708,6 +2708,13 @@ return {
                     "{C:green}#1# in #2#{} chance",
                     "to upgrade played hand"
                 }
+            },
+            e_hpot_phantasmic = {
+                name = "Phantasmic",
+                text = {
+                    "{C:green}#1# in #2#{} chance",
+                    "to trigger a random Joker"
+                }
             }
         },
         Blind = {
@@ -3385,6 +3392,7 @@ return {
             hpot_jtem_mood = "Under Training",
             hotpot_training_pack = "Training Pack",
             hpot_psychedelic = "Psychedelic",
+            hpot_phantasmic = "Phantasmic",
             hpot_event = "Event",
             hpot_overclock = "Overclock",
             hpot_redirect = "Redirect",
