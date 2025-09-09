@@ -200,6 +200,13 @@ local hpotConfigTab = function()
         callback = function()
         end,
     })
+	hpot_nodes[#hpot_nodes + 1] = create_toggle({
+        label = localize("hotpot_family_friendly"),
+        active_colour = HEX("40c76d"),
+        ref_table = HotPotatoConfig,
+        ref_value = "family_friendly",
+        HotPotato.reload_localization(),
+    })
     return {
         n = G.UIT.ROOT,
         config = {

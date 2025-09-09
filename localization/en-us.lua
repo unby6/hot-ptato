@@ -3327,6 +3327,7 @@ return {
 
             hotpot_disable_animations = "Disable Animations",
             hotpot_white_stake_stickers = "Custom stickers apply on White Stake",
+            hotpot_family_friendly = "Family Friendly",
 
             k_place_card_text = "PLACE JOKER TO REFORGE",
             k_place_button = "Place",
@@ -3355,7 +3356,7 @@ return {
             hpot_diy_earn_sparks = "Earn 1000 Spark Points",
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
-            k_harvest = "Harvest Organs"
+            k_harvest = HotPotatoConfig.family_friendly and "Harvest Joy" or "Harvest Organs"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

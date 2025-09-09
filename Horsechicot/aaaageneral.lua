@@ -199,3 +199,12 @@ function SMODS.injectItems(...)
     loadmodsref(...)
     Horsechicot.post_load()
 end
+
+function HotPotato.reload_localization()
+
+end
+
+function HotPotato.reload_localization()
+	SMODS.handle_loc_file(HotPotato.path)
+	return init_localization()
+end

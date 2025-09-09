@@ -455,7 +455,11 @@ end
 G.FUNCS.harvest_market = function(e)
     G.jokers.highlighted[1]:start_dissolve()
     ease_cryptocurrency(G.harvest_cost)
-    play_sound("hpot_harvest")
+    if HotPotatoConfig.family_friendly then
+        play_sound("hpot_harvest_joy")
+    else
+      play_sound("hpot_harvest")
+    end
     G.harvest_cost = 0
     G.GAME.current_round.harvested = true
 end
@@ -478,6 +482,11 @@ end
 SMODS.Sound {
     key = "harvest",
     path = "sfx_the_flesh_consumes_all.mp3"
+}
+
+SMODS.Sound {
+  key = "harvest_joy",
+  path = "sfx_the_JOY_JOYS_all.mp3"
 }
 
 SMODS.Atlas {
