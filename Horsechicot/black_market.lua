@@ -295,6 +295,7 @@ function Card:get_market_cost()
   if G.GAME.modifiers.unstable then
     value = math.floor(value * (pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1) * 100) / 100
   end
+  if self.config.center.hidden then value = value * 2 end
   return value
 end
 
