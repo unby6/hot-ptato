@@ -892,7 +892,7 @@ SMODS.EventStep {
 					end
                 end,
                 func = function()
-        			return G.GAME.spark_points > 25000
+        			return G.GAME.spark_points >= 25000
                 end,
             },
 		}
