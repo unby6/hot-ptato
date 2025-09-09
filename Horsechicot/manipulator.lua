@@ -3,8 +3,8 @@
 
 if Cryptid then
     HotPotato.manipulate = Cryptid.manipulate
-    HotPot.manipulate_table = Cryptid.manipulate_table
-    HotPot.manipulate_value = Cryptid.manipulate_value
+    HotPotato.manipulate_table = Cryptid.manipulate_table
+    HotPotato.manipulate_value = Cryptid.manipulate_value
     return
 end
 
