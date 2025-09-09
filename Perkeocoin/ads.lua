@@ -60,6 +60,11 @@ for i, v in pairs(HotPotato.Ads.Shitposts) do
         HotPotato.Ads.Adverts[i] = nil
     end
 end
+for i, v in pairs(HotPotato.Ads.Special) do
+    if v.video and love.system.getOS() ~= "Windows" then
+        HotPotato.Ads.Adverts[i] = nil
+    end
+end
 
 --- In case you haven't played HotPot yet, Ads appear after the Boss Blind is defeated.
 --- They can also appear from a certain Joker, or a particular Consumable type.
