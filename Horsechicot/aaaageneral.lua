@@ -60,7 +60,7 @@ HPJTTT.add_texts({
     "It's over, " .. Username .. " knows.",
     "Two Hotties, One potato.",
     "-- TODO: your mom",
-    mod_exists("entropy") and "You are not immune to Propaganda" or "generic message", --holes bad? 
+    Entropy and "You are not immune to Propaganda" or "generic message", --holes bad? 
     "The Oldest Anarchy Mod In Balatro"
 })
 
