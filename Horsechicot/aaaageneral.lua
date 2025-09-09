@@ -22,6 +22,8 @@ SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, 
 SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
 
+local Username = G.PROFILES[G.SETTINGS.profile].name
+
 HPJTTT.add_texts({
     "and now... a word from our Sponsor. Entropy.",
     "Attempt to compare Joker with Table",
@@ -45,6 +47,11 @@ HPJTTT.add_texts({
     "I think we should stop having money. That sounds like a good thing.",
     "One or two extra currencies",
     "Shoutouts to gay foxgirls",
+    "In a Cargo Box?",
+    Username .. ", Stay Determined!",
+    "It's over, " .. Username .. " knows.",
+    "Two Hotties, One potato.",
+    "-- TODO: your mom"
 })
 
 SMODS.Atlas{
