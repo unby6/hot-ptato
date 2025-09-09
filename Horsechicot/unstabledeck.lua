@@ -125,8 +125,8 @@ end
 SMODS.Back {
     name = "Unstable Deck",
     key = "unstable",
-    pos = { x = 0, y = 0 },
-    --atlas = "decks",
+    pos = { x = 1, y = 0 },
+    atlas = "hc_decks",
     apply = function()
         G.GAME.payout_mult = G.GAME.payout_mult or 1
         randomize_values()

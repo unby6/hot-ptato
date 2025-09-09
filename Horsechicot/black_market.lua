@@ -298,8 +298,16 @@ function Card:get_market_cost()
   return value
 end
 
+local set_costref = Card.set_cost
+function Card:set_cost(...)
+  set_costref(self, ...)
+  self.market_cost = self:get_market_cost()
+end
+
 function create_market_card_ui(card, type, area)
-  card.market_cost = card:get_market_cost()
+  if not card.market_cost then
+    card.market_cost = card:get_market_cost()
+  end
   G.E_MANAGER:add_event(Event({
     trigger = 'after',
     delay = 0.43,
@@ -429,82 +437,6 @@ G.FUNCS.can_open_from_market = function(e)
     e.config.button = 'use_card'
   end
 end
-
-SMODS.ObjectType {
-  key = 'BlackMarket',
-  default = "c_wraith",
-  cards = {
-    c_death = true,
-    c_hanged_man = true,
-    c_familiar = true,
-    c_grim = true,
-    c_incantation = true,
-    c_talisman = true,
-    c_aura = true,
-    c_wraith = true,
-    c_sigil = true,
-    c_ouija = true,
-    c_ectoplasm = true,
-    c_immolate = true,
-    c_ankh = true,
-    c_deja_vu = true,
-    c_hex = true,
-    c_trance = true,
-    c_medium = true,
-    c_cryptid = true,
-    c_soul = true,
-    c_black_hole = true,
-    c_inspiration = true,
-    c_arcade = true,
-    c_blossom = true,
-    p_hpot_czech_ultra_1 = true,
-    p_hpot_hanafuda_ultra_1 = true,
-    p_hpot_auras_ultra_1 = true,
-    p_hpot_ultra_arcana = true,
-    p_hpot_ultra_celestial = true,
-    p_hpot_ultra_standard = true,
-    p_hpot_ultra_buffoon = true,
-    p_hpot_ultra_spectral = true,
-    p_hpot_team_ultra_1 = true,
-    j_dna = true,
-    j_cavendish = true,
-    j_vagabond = true,
-    j_baron = true,
-    j_obelisk = true,
-    j_baseball = true,
-    j_ancient = true,
-    j_campfire = true,
-    j_blueprint = true,
-    j_wee = true,
-    j_hit_the_road = true,
-    j_duo = true,
-    j_trio = true,
-    j_family = true,
-    j_order = true,
-    j_tribe = true,
-    j_stuntman = true,
-    j_invisible = true,
-    j_brainstorm = true,
-    j_drivers_license = true,
-    j_hpot_banana_of_doom = true,
-    j_hpot_brainfuck = true,
-    j_hpot_diy = true,
-    j_hpot_retriggered = true,
-    j_hpot_jtem_slop_live = true,
-    j_hpot_dupedshovel = true,
-    j_hpot_jtem_flash = true,
-    j_hpot_dont_touch_that_dial = true,
-    j_hpot_jade = true,
-    j_hpot_wizard_tower = true,
-    j_hpot_faceblindness = true,
-    j_hpot_ifstatements = true,
-    j_hpot_tname_postcard = true,
-    j_hpot_tname_jankman = true,
-    j_hpot_tname_sunset = true,
-    j_hpot_tname_graveyard = true,
-    j_hpot_prosopagnosia = true
-  }
-}
 
 
 G.FUNCS.can_harvest_market = function(e)
