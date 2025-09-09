@@ -2,8 +2,8 @@ SMODS.Joker {
     key = "c_sharp",
     rarity = 2,
     cost = 5,
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 7, y = 1 },
     config = { extra = { reset = 12, left = 12 } },
     blueprint_compat = false,
     eternal_compat = true,
@@ -31,7 +31,7 @@ SMODS.Joker {
             end
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli"),
+    hotpot_credits = Horsechicot.credit("Lily Felli", "lord.ruby"),
     loc_vars = function(self, info_queue, card)
         return {vars = {
             card.ability.extra.reset,

@@ -1533,6 +1533,35 @@ return {
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult stored)"
                 }
             },
+            j_hpot_chocolate_bar = {
+                name = "Chocolate Bar",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "{C:green}#2# in #3#{} chance this",
+                    "card is destroyed",
+                    "at end of round",
+                }
+            },
+            j_hpot_chocolate_milk = {
+                name = {
+                    "Chocolate Milk",
+                    "{s:0.7,C:inactive}(SEAMLESSLY VANILLA JOKER){}"
+                },
+                text = {
+                    "{X:chips,C:white} X#1# {} Chips",
+                    "{C:green}#2# in #3#{} chance this",
+                    "card is destroyed",
+                    "at end of round",
+                }
+            },
+            j_hpot_timelapse = {
+                name = "Timelapse",
+                text = {
+                    "Copy the ability of",
+                    "the {C:attention}most recently{} and",
+                    "{C:attention}earliest{} obtained {C:attention}Jokers{}"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
@@ -3169,6 +3198,7 @@ return {
             b_key_cards = "Keys",
             k_key = "Key",
             k_events = "Events",
+            k_drank_ex = "Drunk!",
 
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",

@@ -21,7 +21,8 @@ HotPotato.Ads = {
         ad_404 = {atlas = 'hpot_jtemads',pos = {x=4,y=0}},
         ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
         ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
-        ad_indiepaketphoenix = {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true},
+
+        ad_indiepaketphoenix = love.system.getOS() == "Windows" and {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true} or nil,
         -- Team Name
         ad_tname = {atlas = "hpot_tname_ads",pos = {x=0,y=0}},
         -- Horsechicot

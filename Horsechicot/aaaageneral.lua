@@ -17,6 +17,7 @@ function Horsechicot.credit(coders, arters, ideaers)
     }
 end
 SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
+SMODS.Atlas{key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
@@ -53,6 +54,7 @@ HPJTTT.add_texts({
     "I wish shadows had rights",
     "The cat atop the far tree whispers sweet promises to passerbys",
     "I think we should stop having money. That sounds like a good thing.",
+    "One or two extra currencies",
 })
 
 SMODS.Atlas{
@@ -90,7 +92,6 @@ function Horsechicot:calculate(context)
     end
 end
 
-SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
 
 
 local oldfunc = Game.main_menu
@@ -132,3 +133,10 @@ Game.main_menu = function(change_context)
     }))
     return ret
 end
+
+function HotPotato.get_blind_font(blind)
+    if blind and (blind.name == "bl_hpot_quartz" or (blind.config and blind.config.name == "bl_hpot_quartz")) then
+        return SMODS.Fonts['hpot_plincoin']
+    end
+end
+

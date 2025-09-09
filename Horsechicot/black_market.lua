@@ -166,7 +166,7 @@ function Game:start_run(args)
   local saveTable = args.savetext or nil
   if not saveTable then
     G.GAME.cryptocurrency = 0
-    G.GAME.current_round.market_reroll_cost = 0.25
+    G.GAME.current_round.market_reroll_cost = 0.5
   end
   if saveTable and saveTable.cardAreas then
     G.GAME.market_table = saveTable.cardAreas.market_jokers
@@ -236,7 +236,7 @@ G.FUNCS.reroll_market = function(e)
   G.E_MANAGER:add_event(Event({
     trigger = 'immediate',
     func = function()
-      G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.25
+      G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.5
       if G.GAME.modifiers.unstable then
         G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost * math.floor((pseudorandom("unstable_deck_market_reroll") * 0.4 - 0.19 + 1) * 100) / 100
       end
@@ -284,7 +284,14 @@ G.FUNCS.reroll_market = function(e)
 end
 
 function Card:get_market_cost()
-  local value =  math.max(self.cost / 5, 0.5) + (self.config and self.config.center and self.config.center.credits or 0) / 50
+  local value = 0.8
+  if self.config.center.set == "Tarot" then
+    value = 0.6
+  elseif self.config.center.set == "Booster" and self.config.center.credits then
+    value = 0.5 + self.config.center.credits/50
+  elseif self.config.center.set == "Joker" then 
+    value = 1 + self.config.center.cost / 10
+  end
   if G.GAME.modifiers.unstable then
     value = math.floor(value * (pseudorandom("unstable_deck_market_cost") * 0.4 - 0.19 + 1) * 100) / 100
   end
@@ -501,7 +508,7 @@ SMODS.ObjectType {
 
 
 G.FUNCS.can_harvest_market = function(e)
-    if G.jokers and #G.jokers.highlighted == 1 and not SMODS.is_eternal(G.jokers.highlighted[1]) then
+    if G.jokers and #G.jokers.highlighted == 1 and not SMODS.is_eternal(G.jokers.highlighted[1]) and not G.GAME.current_round.harvested then
         e.config.colour = G.C.RED
         e.config.button = 'harvest_market'
     else
@@ -515,6 +522,7 @@ G.FUNCS.harvest_market = function(e)
     ease_cryptocurrency(G.harvest_cost)
     play_sound("hpot_harvest")
     G.harvest_cost = 0
+    G.GAME.current_round.harvested = true
 end
 
 local highlight_ref = Card.highlight

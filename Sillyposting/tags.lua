@@ -1,4 +1,4 @@
-SMODS.Atlas({key = "SillypostingTags", path = "Sillyposting/tags.png", px = 34, py = 34, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "SillypostingTags", path = "Sillyposting/Tags.png", px = 34, py = 34, atlas_table = "ASSET_ATLAS"}):register()
 SMODS.Tag {
     key = "job",
     atlas = "SillypostingTags",
