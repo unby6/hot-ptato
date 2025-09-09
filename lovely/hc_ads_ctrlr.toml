@@ -1,0 +1,32 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = '''
+local debugplus = require("debugplus.core")
+debugplus.handleKeys(self, key, dt)
+'''
+position = "at"
+payload = '''
+local debugplus = require("debugplus.core")
+local ref = debugplus.handleKeys
+debugplus.handleKeys = function(controller, key, dt)
+    local isAd = controller.hovering.target and controller.hovering.target.config and controller.hovering.target.config.ad
+    if controller.hovering.target and isAd then
+        local _card = controller.hovering.target
+        if key == "r" then
+           G.FUNCS.remove_ad(controller.hovering.target.config.id)
+        else
+            ref(controller, key, dt)
+        end
+    else
+        ref(controller, key, dt)
+    end
+end
+debugplus.handleKeys(self, key, dt)
+'''
+match_indent = true

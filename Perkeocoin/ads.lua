@@ -285,6 +285,7 @@ function create_ads(number_of_ads)
                 new_ad.config.key = ad_to_use
                 new_ad.config.scale = ad_scale
                 new_ad.config.tutorial = tutorial_ad
+                new_ad.config.ad = true
                 G.GAME.hotpot_ads[#G.GAME.hotpot_ads+1] = new_ad
             return true end}))
         end
