@@ -171,3 +171,6 @@ SMODS.Booster {
         card.ability.team = pseudorandom_element(get_teams(), pseudoseed("team_pack"))
     end,
 }
+
+--TODO add more team pack variations/sprites
+--my original idea for this was to have 1 pack for every team but obviously we are 6th so we have to rely on the last team here
