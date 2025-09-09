@@ -166,4 +166,13 @@ function Horsechicot.post_load()
         default = "c_wraith",
         cards = cards
       }
+    
+    local old = end_round
+    function end_round()
+        if not G.round_end_lock then
+            G.round_end_lock = true
+            old()
+            G.E_MANAGER:add_event(Event{func = function() G.round_end_lock = false return true end})
+        end
+    end
 end
