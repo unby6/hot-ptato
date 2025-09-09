@@ -301,7 +301,9 @@ end
 local set_costref = Card.set_cost
 function Card:set_cost(...)
   set_costref(self, ...)
-  self.market_cost = self:get_market_cost()
+  if self.area == G.market_jokers then
+    self.market_cost = self:get_market_cost()
+  end
 end
 
 function create_market_card_ui(card, type, area)
