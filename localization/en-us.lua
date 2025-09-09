@@ -2707,6 +2707,14 @@ return {
                     "immediately"
                 }
             },
+            tag_hpot_phantasmic = {
+                name = "Phantasmic Tag",
+                text = {
+                    "Next base edition shop",
+                    "{C:attention}Joker{} is free and",
+                    "becomes {C:dark_edition}Phantasmic"
+                }
+            },
         },
         Edition = {
             e_hpot_psychedelic = {

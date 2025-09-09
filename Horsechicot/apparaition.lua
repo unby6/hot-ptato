@@ -5,7 +5,9 @@ SMODS.Consumable {
     atlas = 'hc_placeholder',
     discovered = true,
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_hpot_phantasmic
+        if not card.edition or not card.edition.hpot_phantasmic then
+            info_queue[#info_queue + 1] = G.P_CENTERS.e_hpot_phantasmic
+        end
     end,
     use = function(self, card, area, copier)
         local card = pseudorandom_element(G.consumeables.cards, pseudoseed("apparition"))
