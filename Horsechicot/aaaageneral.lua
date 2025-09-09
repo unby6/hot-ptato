@@ -63,6 +63,7 @@ HPJTTT.add_texts({
     Entropy and "You are not immune to Propaganda" or "generic message", --holes bad? 
     "The Oldest Anarchy Mod In Balatro",
     "D1D7",
+    "smots gaming",
 })
 
 SMODS.Atlas{
