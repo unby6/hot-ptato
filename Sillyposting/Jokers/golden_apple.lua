@@ -25,36 +25,24 @@ SMODS.Joker {
     atlas = 'TeamNameAnims1',
     calculate = function (self, card, context)
         if context.using_consumeable and context.consumeable.ability.max_highlighted and not context.blueprint then
-            card.ability.extra.uses_left = card.ability.extra.uses_left - 1
-            if card.ability.extra.uses_left <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+            if card.ability.extra.uses_left - 1 <= 0 then 
+                SMODS.destroy_cards(self, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.GOLD
                 }
             else
-                return {
-                    message = card.ability.extra.uses_left .. '',
-                    colour = G.C.GOLD
-                }
+                SMODS.scale_card(self, {
+                    ref_table = card.ability.extra,
+                    ref_value = "uses_left",
+                    scalar_table = {mod = 1}
+                    scalar_value = "mod",
+                    operation = "-",
+                    scaling_message = {
+                        message = card.ability.uses_left,
+                        colour = G.C.GOLD
+                    }
+                })
             end
         end
     end,

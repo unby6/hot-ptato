@@ -107,22 +107,18 @@ SMODS.Joker {
                     end
                 end
                 if not position_already_used then
-                    table.insert(card.ability.extra.used_positions, current_position)
-                    card.ability.extra.total_mult = card.ability.extra.total_mult + card.ability.extra.mult_gain
                     local max_positions = G.jokers and #G.jokers.cards or 5
-                    if #card.ability.extra.used_positions >= max_positions then
-                        card.ability.extra.used_positions = {}
-                        return {
-                            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } } ..
-                            ' ' .. localize('k_reset'),
+                    table.insert(card.ability.extra.used_positions, current_position)
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "total_mult",
+                        scalar_value = "mult_gain",
+                        scaling_message = {
+                            message = #card.ability.extra.used_positions >= max_positions and localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } } ..
+                            ' ' .. localize('k_reset') or localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
                             colour = G.C.MULT
                         }
-                    else
-                        return {
-                            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
-                            colour = G.C.MULT
-                        }
-                    end
+                    })
                 end
             end
         end

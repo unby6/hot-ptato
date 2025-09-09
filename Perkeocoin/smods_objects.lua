@@ -314,10 +314,16 @@ SMODS.Joker{ -- Kitchen Gun
                 end
             end
             card.ability.extra.xmult = card.ability.extra.xmult + (adsRemoved*card.ability.extra.xmult_mod)
-            return{
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                colour = G.C.RED
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "xmult_mod",
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + adsRemoved*change
+                end,
+                message_key = "a_xmult",
+                message_colour = G.C.RED
+            })
         end
         if context.joker_main and context.cardarea == G.jokers and card.ability.extra.xmult > 1 then
             return{
@@ -386,34 +392,21 @@ SMODS.Joker{ --TV Dinner
             end
 
         elseif context.close_ad and not context.blueprint then
-            card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_mod
-            if card.ability.extra.mult <= 0 then
-                G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                    func = function()
-                        G.jokers:remove_card(self)
-                        card:remove()
-                        card = nil
-                        return true; end})) 
-                    return true
-                end
-                }))
-                G.GAME.pool_flags.tv_dinner_eaten = true
+            if self.ability.extra.mult - self.ability.extra.mult_mod <= 0 then 
+                SMODS.destroy_cards(self, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
                 }
+            else
+                SMODS.scale_card(self, {
+                    ref_table = self.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "mult_mod",
+                    operation = "-",
+                    message_key = 'a_mult_minus'
+                })
             end
-            return {
-                message = localize{type='variable',key='a_mult_minus',vars={card.ability.extra.mult_mod}},
-                colour = G.C.MULT
-            }
         end
     end,
     in_pool = function (self, args)
@@ -671,8 +664,15 @@ SMODS.Joker{ --Skimming
 
     calculate = function(self, card, context)
         if context.close_ad and not context.blueprint then
-            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
-            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "$"..card.ability.extra.dollars, colour = G.C.MONEY})
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "dollars",
+                scalar_value = "dollars_mod",
+                scaling_message = {
+                    localize("$")..number_format(card.ability.extra.dollars), 
+                    colour = G.C.MONEY
+                }
+            })
         end
     end
 

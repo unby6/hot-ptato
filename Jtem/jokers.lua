@@ -169,9 +169,13 @@ SMODS.Joker {
             if (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.Food) then
                 return {
                     func = function()
-                        card.ability.mult = card.ability.mult + card.ability.extra.gain
+                        SMODS.scale_card(card, {
+                            ref_table = card.ability,
+                            ref_value = "mult",
+                            scalar_table = card.ability.extra,
+                            scalar_value = "gain"
+                        })
                     end,
-                    message = localize("k_upgrade_ex")
                 }
                 
             end
@@ -186,19 +190,13 @@ SMODS.Joker {
 }
 
 function hpot_jtem_scale_card(card, key)
-    if SMODS.scale_card then
-        SMODS.scale_card(card,
-            {
-                ref_table = card.ability.extra,
-                ref_value = key,
-                scalar_value = key.."_mod",
-                operation = "+",
-                no_message = true
-            }
-        )
-    else
-        card.ability.extra[key] = card.ability.extra[key] + card.ability.extra[key.."_mod"]
-    end
+    SMODS.scale_card(card, {
+        ref_table = card.ability.extra,
+        ref_value = key,
+        scalar_value = key.."_mod",
+        operation = "+",
+        no_message = true
+    })
 end
 
 SMODS.Joker {

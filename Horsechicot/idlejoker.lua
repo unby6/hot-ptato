@@ -6,7 +6,11 @@ function Blind:click()
 
         for _,joker in pairs(found) do
             joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
-            SMODS.calculate_effect({message = localize("k_upgrade_ex")}, joker)
+            SMODS.scale_card(joker, {
+                ref_table = joker.ability.extra,
+                ref_value = "score",
+                scalar_value = "gain",
+            })
         end
 
         self:juice_up()
