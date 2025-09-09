@@ -51,7 +51,9 @@ HPJTTT.add_texts({
     Username .. ", Stay Determined!",
     "It's over, " .. Username .. " knows.",
     "Two Hotties, One potato.",
-    "-- TODO: your mom"
+    "-- TODO: your mom",
+    Entropy and "You are not immune to Propaganda",
+    "The Oldest Anarchy Mod In Balatro"
 })
 
 SMODS.Atlas{
