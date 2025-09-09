@@ -1524,6 +1524,15 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
                 }
             },
+            j_hpot_electrical_discharge = {
+                name = "Electrical Discharge",
+                text = {
+                    "Siphons {C:mult}#1#%{} of Mult to this Joker",
+                    "If you wouldn't beat the blind, gain the stored",
+                    "Mult and reset this Joker",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult stored)"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
