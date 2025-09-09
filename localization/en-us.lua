@@ -946,10 +946,10 @@ return {
             j_hpot_yapper = {
                 name = "The Yapper",
                 text = {
-                    "Gives {C:mult}+#1#{} mult per character",
-                    "in a random {C:attention}menu quip{}",
+                    "Gives {C:mult}+#1#{} Mult per character",
+                    "in a random {C:attention}Menu Quip{}",
                     '{C:inactive, s:0.7}Current quip: "#2#"',
-                    "Will give {C:mult}+#3#{} mult"
+                    "Will give {C:mult}+#3#{} Mult"
                 }
             },
             j_hpot_roi = {
