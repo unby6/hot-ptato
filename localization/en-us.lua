@@ -943,6 +943,15 @@ return {
                     "as if in the main {C:attention}Joker{} context"
                 }
             },
+            j_hpot_yapper = {
+                name = "The Yapper",
+                text = {
+                    "Gives {C:mult}+#1#{} mult per character",
+                    "in a random {C:attention}menu quip{}",
+                    '{C:inactive, s:0.7}Current quip: "#2#"',
+                    "Will give {C:mult}+#3#{} mult"
+                }
+            },
             j_hpot_roi = {
                 name = "Return on Investment",
                 text = {
