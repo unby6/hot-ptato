@@ -222,5 +222,3 @@ SMODS.current_mod.calculate = function(self, context)
 		Horsechicot:calculate(context) or {}
 	)
 end
-
-Horsechicot.post_load()

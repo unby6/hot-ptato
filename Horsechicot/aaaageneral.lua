@@ -161,8 +161,12 @@ function Horsechicot.post_load()
         p_hpot_ultra_spectral = true,
         p_hpot_team_ultra_1 = true,
     }
+    local sets = {
+        Spectral = true,
+        Omen = true,
+    }
     for i, v in pairs(G.P_CENTERS) do
-        if (v.set == "Joker" and v.rarity == 3) or v.set == "Spectral" then
+        if (v.set == "Joker" and v.rarity == 3) or (sets[v.set]) then
             cards[i] = true
         end
     end
@@ -172,7 +176,8 @@ function Horsechicot.post_load()
         key = 'BlackMarket',
         default = "c_wraith",
         cards = cards
-      }
+    }
+    SMODS.ObjectTypes.BlackMarket:inject()
     
     local old = end_round
     function end_round()
@@ -182,4 +187,11 @@ function Horsechicot.post_load()
             G.E_MANAGER:add_event(Event{func = function() G.round_end_lock = false return true end})
         end
     end
+end
+
+
+local loadmodsref = SMODS.injectItems
+function SMODS.injectItems(...)
+    loadmodsref(...)
+    Horsechicot.post_load()
 end
