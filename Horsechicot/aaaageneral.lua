@@ -61,7 +61,8 @@ HPJTTT.add_texts({
     "Two Hotties, One potato.",
     "-- TODO: your mom",
     Entropy and "You are not immune to Propaganda" or "generic message", --holes bad? 
-    "The Oldest Anarchy Mod In Balatro"
+    "The Oldest Anarchy Mod In Balatro",
+    "D1D7",
 })
 
 SMODS.Atlas{
