@@ -145,9 +145,9 @@ local d_m = 1
 local p_m = 1
 local c_m = 1
 if G.GAME.modifiers.unstable then
-  d_m = pseudorandom("unstable_deck_dollars")
-  p_m = pseudorandom("unstable_deck_plincoins")
-  c_m = pseudorandom("unstable_deck_cryptocurrency")
+  d_m = pseudorandom("unstable_deck_dollars") * 0.4 - 0.1675 + 1
+  p_m = pseudorandom("unstable_deck_plincoins") * 0.4 - 0.1675 + 1
+  c_m = pseudorandom("unstable_deck_cryptocurrency") * 0.4 - 0.1675 + 1
 end
 ease_dollars(G.GAME.current_round.dollars * d_m)
 ease_plincoins(G.GAME.current_round.plincoins * p_m)
