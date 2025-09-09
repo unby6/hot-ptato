@@ -1843,6 +1843,13 @@ return {
                     "{C:attention}Training{} Joker"
                 }
             },
+            c_hpot_apparition = {
+                name = "Apparition",
+                text = {
+                    "Add {C:dark_edition}Phantasmic{} to",
+                    "a random held {C:attention}Consumable{}"
+                }
+            },
         },
         Tarot = {
             c_chariot_v2 = {
