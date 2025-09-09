@@ -1,6 +1,13 @@
 --Using this system is basically a sin but its only used in Unstable Deck currently and i hope to keep it that way
 --Stolen from Cryptlib because i wrote it all - ruby
 
+if Cryptid then
+    HotPotato.manipulate = Cryptid.manipulate
+    HotPot.manipulate_table = Cryptid.manipulate_table
+    HotPot.manipulate_value = Cryptid.manipulate_value
+    return
+end
+
 HotPotato.base_values = {}
 
 HotPotato.misprintize_value_blacklist = {
