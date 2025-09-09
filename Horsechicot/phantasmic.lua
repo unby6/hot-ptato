@@ -66,10 +66,15 @@ SMODS.Edition {
                 context.joker_main = jm
 			end
             card.ability.mused = true
+            G.E_MANAGER:add_event(Event{
+                trigger = "after",
+                blocking = false,
+                func = function()
+                    card.ability.mused = false
+                    return true
+                end
+            })
 		end
-        if context.after then
-            card.ability.mused = false
-        end
 	end,
 	Horsechicot.credit("lord.ruby", "lord.ruby")
 }
