@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = "blunderfarming",
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 4, y = 2 },
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
@@ -11,7 +11,8 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'blunderfarming')
         return { vars = { numerator, denominator } }
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("Nxkoo", "lord.ruby")
 }
 
 local original_add_tag = add_tag
