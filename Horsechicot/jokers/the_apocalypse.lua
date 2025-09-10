@@ -60,7 +60,8 @@ SMODS.Joker {
         end
         if card.ability.horseman == "cg" then
             vars = {
-                card.ability.extra.chips_mod
+                card.ability.extra.chips_mod,
+                card.ability.extra.chips_mod * Horsechicot.num_jokers()
             }
         end
         return {
