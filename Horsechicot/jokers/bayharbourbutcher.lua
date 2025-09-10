@@ -52,5 +52,6 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("Nxkoo", "lord.ruby")
 }

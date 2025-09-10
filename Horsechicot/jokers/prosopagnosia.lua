@@ -21,7 +21,8 @@ SMODS.Joker {
                 func = function() calc_random_joker(card, context) return true end
             }
         end
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("cg223", "pangaea47")
 }
 
 
