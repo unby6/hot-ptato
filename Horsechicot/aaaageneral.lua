@@ -66,7 +66,8 @@ HPJTTT.add_texts({
     "smots gaming",
     "Tip number 10: Sit at the chessboard and play with yourself",
     love.system.getOS() .. " is the worst operating system!",
-	"Murph will do anything but wheel of mods"
+	"Murph will do anything but wheel of mods",
+	"Grows offline!",
 })
 
 function Horsechicot.get_authors()
