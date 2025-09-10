@@ -196,6 +196,7 @@ function reforge_card(card, free)
 		    card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
         end
 	end
+    SMODS.calculate_context({reforging = true, card = card})
 end
 
 

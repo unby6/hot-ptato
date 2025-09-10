@@ -3425,6 +3425,7 @@ return {
             hpot_diy_plinko_played = "When playing Plinko",
             hpot_diy_end_of_round = "At end of round",
             hpot_diy_organs_harvested = "When harvesting in the Black Market", --masterfully crafted for family friendly compat
+            hpot_diy_reforging = "When reforging a Joker",
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
             hpot_diy_earn_credits = "Earn 0.1 Credits",
