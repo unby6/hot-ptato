@@ -18,7 +18,10 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() then
             return {
-                func = function() calc_random_joker(card, context) return true end
+                func = function()
+                    calc_random_joker(card, context)
+                    return true
+                end
             }
         end
     end,
