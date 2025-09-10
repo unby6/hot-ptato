@@ -208,3 +208,5 @@ function HotPotato.reload_localization()
 	SMODS.handle_loc_file(HotPotato.path)
 	return init_localization()
 end
+
+SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}

@@ -2,7 +2,6 @@
 
 
 
-SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
 
 function Horsechicot.num_jokers()
     if Horsechicot.joker_count_cache then
