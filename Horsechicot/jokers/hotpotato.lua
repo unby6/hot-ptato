@@ -7,6 +7,9 @@ SMODS.Joker {
             used_positions = {}
         }
     },
+    pools = {
+        ["Food"] = true
+    },
     atlas = "hc_jokers",
     pos = {x = 5, y = 1},
     loc_vars = function(self, info_queue, card)
