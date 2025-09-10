@@ -1615,10 +1615,10 @@ return {
             j_hpot_lotus = {
                 name = "Lotus Flower",
                 text = {
-                    "Use this Joker to banish",
-                    "and {C:attention}store{} a selected Joker",
-                    "for {C:attention}future{} retrieval",
-                    "then {C:red}self destructs{}"
+                    "Use this Joker to banish and {C:attention}store{}",
+                    "a selected Joker for {C:attention}future{} retrieval",
+                    "take {C:attention}50%{} of a random currency",
+                    "and {C:red}self destruct{}"
                 }
             },
             j_hpot_lotus_filled = {
