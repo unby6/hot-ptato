@@ -72,27 +72,21 @@ SMODS.Joker {
         end
         if card.ability.horseman == "lily" then
             local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_apocalypse_lily')
-            return {
-                vars = {
-                    numerator,
-                    denominator
-                }
+            vars = {
+                numerator,
+                denominator
             }
         end
         if card.ability.horseman == "baccon" then
-            return {
-                vars = {
-                    card.ability.extra.xmult,
-                    card.ability.extra.cards_needed
-                }
+            vars = {
+                card.ability.extra.xmult,
+                card.ability.extra.cards_needed
             }
         end
         if card.ability.horseman == "nxkoo" then
-            return {
-                vars = {
-                    card.ability.extra.hxmult,
-                    card.ability.extra.axmult
-                }
+            vars = {
+                card.ability.extra.hxmult,
+                card.ability.extra.axmult
             }
         end
         return {
