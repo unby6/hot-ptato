@@ -76,7 +76,7 @@ SMODS.Joker {
         end
     end,
     add_to_deck = function(self, card, from_debuff)
-        if card.ability.first then
+        if not card.ability.first then
             randomize_horseman(card)
             card.ability.first = true
         end
