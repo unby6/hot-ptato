@@ -7,6 +7,32 @@ local horsemen = {
     "baccon"
 }
 
+local pos_map = {
+    ruby = {x = 1, y = 0},
+    lily = {x = 2, y = 0},
+    nxkoo = {x = 3, y = 0},
+    cg = {x = 0, y = 1},
+    pangaea = {x = 1, y = 1},
+    baccon = {x = 2, y = 1}
+}
+local function randomize_horseman(card)
+    card.ability.horseman = pseudorandom_element(horsemen, pseudoseed("hpot_apocalypse"))
+    card.children.center:set_sprite_pos(pos_map[card.ability.horseman])
+end
+
+function get_currency_mult()
+    local pm = 0.2
+    local bm = 0.4
+    local dm = 0.05
+    local cm = 0.01
+    local jm = 0.000005
+    local c_softcap = 100 --prevent metaprogression farming too hard
+    local xmult = 
+    G.GAME.dollars * bm + G.GAME.plincoins + pm + G.GAME.cryptocurrency * bm + G.GAME.spark_points * jm
+    + (math.min(G.PROFILES[G.SETTINGS.profile].TNameCredits, c_softcap) + math.log(math.max(G.PROFILES[G.SETTINGS.profile].TNameCredits - c_softcap, 0))) * cm
+    return xmult
+end
+
 SMODS.Atlas{key = "hc_apocalypse", path = "Horsechicot/hc_apocalypse.png", px = 71, py = 95}
 
 SMODS.Joker {
@@ -23,12 +49,31 @@ SMODS.Joker {
     perishable_compat = true,
     loc_vars = function(self, q, card)
         if card.ability.horseman == "" then return end
+        local vars
+        if card.ability.horseman == "ruby" then
+            vars = {
+                get_currency_mult()
+            }
+        end
         return {
+            vars = vars,
             key = "j_hpot_apocalypse_"..card.ability.horseman
         }
     end,
     calculate = function(self, card, context)
-
+        if context.joker_main then
+            if card.ability.horseman == "ruby" then
+                G.E_MANAGER:add_event(Event{
+                    func = function()
+                        randomize_horseman(card)
+                        return true
+                    end
+                })
+                return {
+                    xmult = get_currency_mult()
+                }
+            end
+        end
     end,
     add_to_deck = function(self, card, from_debuff)
         if card.ability.first then
@@ -37,16 +82,3 @@ SMODS.Joker {
         end
     end
 }
-
-local pos_map = {
-    ruby = {x = 1, y = 0},
-    lily = {x = 2, y = 0},
-    nxkoo = {x = 3, y = 0},
-    cg = {x = 0, y = 1},
-    pangaea = {x = 1, y = 1},
-    baccon = {x = 2, y = 1}
-}
-local function randomize_horseman(card)
-    card.ability.horseman = pseudorandom_element(horsemen, pseudoseed("hpot_apocalypse"))
-    card.children.center:set_sprite_pos(pos_map[card.ability.horseman])
-end

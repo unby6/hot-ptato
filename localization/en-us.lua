@@ -1590,10 +1590,25 @@ return {
             },
 
             j_hpot_apocalypse = {
-                name = "Apocalypse",
+                name = "The Apocalypse",
                 text = {
                     "Transforms into a random",
                     "{C:hpot_adverts}Horseman{} when purchased"
+                }
+            },
+
+            j_hpot_apocalypse_ruby = {
+                name = "The Apocalypse: Conquest",
+                text = {
+                    {
+                        "Transforms into a random",
+                        "{C:hpot_adverts}Horseman{} when triggered"
+                    },
+                    {
+                        "Gives {X:mult,C:white}XMult{} based",
+                        "on your {C:hpot_adverts}Currencies{}",
+                        "{C:inactive}Currently: {X:mult,C:white}X#1#{C:inactive} Mult)"
+                    }
                 }
             },
         },
