@@ -1728,7 +1728,14 @@ return {
                 name = "Dark Connections",
                 text = {
                     "All {C:purple}Black Market{} items",
-                    "are {C:attention}25%{} off"
+                    "are {C:attention}#1#%{} off"
+                }
+            },
+            v_hpot_hc_underground_control = {
+                name = "Underground Control",
+                text = {
+                    "{C:red}Harvesting{} gives {C:attention}#1#%{}",
+                    "more {C:hpot_advert}Cryptocurrency"
                 }
             }
         },
