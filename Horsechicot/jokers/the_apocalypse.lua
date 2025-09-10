@@ -80,5 +80,10 @@ SMODS.Joker {
             randomize_horseman(card)
             card.ability.first = true
         end
+    end,
+    set_ability = function(self, card)
+        if card.ability.horseman then
+            card.children.center:set_sprite_pos(pos_map[card.ability.horseman])
+        end
     end
 }
