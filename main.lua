@@ -222,6 +222,29 @@ local hpotConfigTab = function()
     }
 end
 
+SMODS.Sound{
+    key = "weirdroute",
+    path = "weirderroute.ogg"
+}
+
+G.weird_route = {
+	weird_timer = 0
+}
+
+local updatehook = Game.update
+local weird_check_timer = 0
+
+function Game:update(dt)
+    updatehook(self, dt)
+    weird_check_timer = (weird_check_timer or 0) + dt
+    if weird_check_timer >= 1 then
+        weird_check_timer = weird_check_timer - 1
+        if SMODS.pseudorandom_probability(card, 'weirdroute', 1, 1000) then
+            play_sound("hpot_weirdroute", 1, 1)
+        end
+    end
+end
+
 HotPotato.config_tab = hpotConfigTab
 
 SMODS.current_mod.calculate = function(self, context)
