@@ -5,7 +5,7 @@ SMODS.Joker {
     cost = 4,
     config = {
         current = HPJTTT.text[1],
-        amt = 1
+        amt = 2
     },
     loc_vars = function (self, info_queue, card)
         return {vars = { card.ability.amt, card.ability.current or HPJTTT.text[1], string.len(card.ability.current) * card.ability.amt}}
