@@ -36,6 +36,7 @@ HotPotato.trigger_options = {
     "hpot_diy_tarot_sold",
     "hpot_diy_plinko_played",
     "hpot_diy_end_of_round",
+    "hpot_diy_organs_harvested"
 }
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
@@ -56,6 +57,8 @@ function HotPotato.diy_trigger(self, card, context)
         return context.plinko_started
     elseif G.GAME.hotpot_diy.trigger == 4 then
         return context.end_of_round and context.main_eval
+    elseif G.GAME.hotpot_diy.trigger == 5 then
+        return context.organs_harvested
     end
 end
 

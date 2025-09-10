@@ -462,6 +462,7 @@ G.FUNCS.harvest_market = function(e)
     end
     G.harvest_cost = 0
     G.GAME.current_round.harvested = true
+    SMODS.calculate_context{organs_harvested = true, card_harvested = G.jokers.highlighted[1]}
 end
 
 local highlight_ref = Card.highlight
