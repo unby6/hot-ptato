@@ -1674,6 +1674,14 @@ return {
                     "retrieve {C:attention}#1#{}",
                 }
             },
+            j_hpot_panic_attack = {
+                name = "Panic Attack",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult",
+                    "Decreases by {X:mult,C:white}#2#{} every second",
+                    "Resets at the end of the ante"
+                }
+            }
         },
         Sleeve = {
             sleeve_hpot_lime = {
