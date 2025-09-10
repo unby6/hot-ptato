@@ -1588,6 +1588,14 @@ return {
                     "to multiply gained {C:attention}Tag"
                 }
             },
+
+            j_hpot_apocalypse = {
+                name = "Apocalypse",
+                text = {
+                    "Transforms into a random",
+                    "{C:hpot_adverts}Horseman{} when purchased"
+                }
+            },
         },
         Sleeve = {
             sleeve_hpot_lime = {
