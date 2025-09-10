@@ -3186,7 +3186,7 @@ return {
                     "{C:blue}+50{C:green} Chips if triggered during scoring"
                 }
             },
-            modif_hpot_sharpened = {
+            modif_hpot_spiked = {
                 name = "Spiked",
                 text = {
                     "{X:blue,C:white}X1.2{C:green} Chips if triggered during scoring"
@@ -3198,10 +3198,10 @@ return {
                     "{X:blue,C:white}X%5{C:green} Chips if triggered during scoring"
                 }
             },
-            modif_hpot_damaged = {
-                name = "Damaged",
+            modif_hpot_rusty = {
+                name = "Rusty",
                 text = {
-                    "{C:blue}+-25{C:green} Chips if triggered during scoring"
+                    "{C:blue}-25{C:green} Chips if triggered during scoring"
                 }
             },
             modif_hpot_flawed = {
@@ -3513,6 +3513,13 @@ return {
             modif_hpot_hyper = "Hyper",
             modif_hpot_smudged = "Smudged",
             modif_hpot_depreciating = "Depreciating",
+
+            modif_hpot_spiked = "Spiked",
+            modif_hpot_dull = "Dull",
+            modif_hpot_jagged = "Jagged",
+            modif_hpot_menacing = "Menacing",
+            modif_hpot_flawed = "Flawed",
+            modif_hpot_rusty = "rusty",
 
         },
         EventChoices = {

@@ -665,7 +665,7 @@ HPTN.Modification({
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
-	key = "damaged",
+	key = "rusty",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
