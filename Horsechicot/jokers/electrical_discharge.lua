@@ -2,8 +2,8 @@ SMODS.Joker {
     key = "electrical_discharge",
     rarity = 2,
     cost = 5,
-    atlas = "hc_placeholder",
-    pos = {x=0,y=0},
+    atlas = "hc_jokers",
+    pos = {x=5,y=2},
     config = { extra = { stored_mult = 0, take = 0.2 } }, -- 20%
     loc_vars = function(self, info_queue, card)
         return {vars = {
