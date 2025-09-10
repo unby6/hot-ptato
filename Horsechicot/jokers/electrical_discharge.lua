@@ -4,6 +4,9 @@ SMODS.Joker {
     cost = 5,
     atlas = "hc_jokers",
     pos = {x=5,y=2},
+=======
+    pos = { x = 5, y = 2 },
+>>>>>>> Stashed changes
     config = { extra = { stored_mult = 0, take = 0.2 } }, -- 20%
     loc_vars = function(self, info_queue, card)
         return {vars = {
@@ -30,5 +33,5 @@ SMODS.Joker {
             end
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli", nil, "Lily Felli")
+    hotpot_credits = Horsechicot.credit("Lily Felli", "pangaea47", "Lily Felli")
 }

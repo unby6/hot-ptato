@@ -3,7 +3,11 @@ SMODS.Joker {
     rarity = 2,
     cost = 5,
     atlas = "hc_jokers",
+<<<<<<< Updated upstream
     pos = {x=6,y=2},
+=======
+    pos = { x = 6, y = 2 },
+>>>>>>> Stashed changes
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
@@ -19,5 +23,8 @@ SMODS.Joker {
     end,
     hotpot_credits = Horsechicot.credit("Lily Felli")
 }
+
 -- this is very easy but i spent 30 minutes confused about lsp stuff not working
 --.... i spelt it smdos instead of smods.
+
+-- dumbass bitch -nxkoo

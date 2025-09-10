@@ -1,5 +1,7 @@
 SMODS.Joker {
     key = "diy",
+    atlas = "hc_jokers",
+    pos = { x = 7, y = 2 },
     rarity = 3,
     cost = 10,
     blueprint_compat = false,
