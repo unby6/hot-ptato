@@ -127,5 +127,6 @@ SMODS.Joker {
                 mult = card.ability.extra.total_mult
             }
         end
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("Nxkoo", "pangaea47")
 }
