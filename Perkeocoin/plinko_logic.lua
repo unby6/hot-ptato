@@ -80,6 +80,9 @@ function PlinkoLogic.f.generate_rewards()
         card:set_edition()
       end
       card.ability.extra.chosen = rarity
+      if pseudorandom("legendary_cap") < 0.003 and card.config.center.pools.bottlecap_Legendary then
+        card.ability.extra.chosen = "Legendary"
+      end
       G.plinko_rewards:emplace(card)
     end
   end

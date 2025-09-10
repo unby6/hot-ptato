@@ -243,7 +243,7 @@ function end_round()
 end
 
 function create_ads(number_of_ads)
-    if next(SMODS.find_joker("j_hpot_balatro_free_smods_download_2025")) then
+    if next(SMODS.find_card("j_hpot_balatro_free_smods_download_2025")) then
         number_of_ads = math.floor(number_of_ads + pseudorandom("free_smods_extra_ads") * 2)
     end
     local ad_index = #G.GAME.hotpot_ads or 0 --TODO: Find logic error that causes the bug. This default value is a temporary fix.

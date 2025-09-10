@@ -14,6 +14,7 @@ in_pool = function(self, args)
             ['Common'] = 0.5,
             ['Uncommon'] = 1,
             ['Rare'] = 1.5,
+            ["Legendary"] = 3,
             ['Bad'] = -0.5,
             chosen = 'Common'
         }
@@ -28,6 +29,7 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
@@ -73,6 +75,7 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     config = {
@@ -80,6 +83,7 @@ in_pool = function(self, args)
             ['Common'] = 1,
             ['Uncommon'] = 1,
             ['Rare'] = 1,
+            ['Legendary'] = 1,
             ['Bad'] = 1,
             chosen = 'Common'
         }

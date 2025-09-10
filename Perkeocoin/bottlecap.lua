@@ -21,6 +21,11 @@ SMODS.ObjectType {
     key = 'bottlecap_Rare',
     default = "c_hpot_cap_money"
 }
+--added by horsechicot
+SMODS.ObjectType {
+    key = 'bottlecap_Legendary',
+    default = "c_hpot_cap_money"
+}
 SMODS.ObjectType {
     key = 'bottlecap_Bad',
     default = "c_hpot_cap_money"
@@ -46,6 +51,20 @@ You can create a random bottlecap of a specific rarity using these pools as well
 However, note that you will have to manually set the chosen rarity once it's created, or else it'll stick to whatever chosen is defaulted to
 ]]
 
+HotPotato.bottlecap_badges = function(self, card, badges)
+    local color = G.C.BLUE
+    if card.ability.extra.chosen == 'Uncommon' then
+        color = G.C.GREEN
+    elseif card.ability.extra.chosen == 'Rare' then
+        color = G.C.RED
+    elseif card.ability.extra.chosen == 'Legendary' then
+        color = G.C.PURPLE
+    elseif card.ability.extra.chosen == 'Bad' then
+        color = G.C.BLACK
+    end
+    badges[#badges+1] = create_badge(localize("k_"..string.lower(card.ability.extra.chosen)), color, G.C.WHITE, 1 )
+end
+
 SMODS.Consumable { --Money
 in_pool = function(self, args)
 		return true, { allow_duplicates = true }
@@ -60,6 +79,7 @@ in_pool = function(self, args)
             ['Common'] = 5,
             ['Uncommon'] = 10,
             ['Rare'] = 20,
+            ['Legendary'] = 40,
             ['Bad'] = -5,
             chosen = 'Common'
         }
@@ -78,23 +98,14 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -119,6 +130,7 @@ in_pool = function(self, args)
             ['Common'] = 1,
             ['Uncommon'] = 2,
             ['Rare'] = 3,
+            ['Legendary'] = 5,
             ['Bad'] = -1,
             chosen = 'Common'
         }
@@ -137,23 +149,14 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -178,6 +181,7 @@ in_pool = function(self, args)
             ['Common'] = {'e_foil', "Foil"},
             ['Uncommon'] = {'e_holo', "Holographic"},
             ['Rare'] = {'e_polychrome', "Polychrome"},
+            ["Legendary"] = {"e_negative", "Negative"},
             chosen = 'Common'
         }
     },
@@ -194,23 +198,14 @@ in_pool = function(self, args)
         ['bottlecap'] = true,
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
-        ['bottlecap_Rare'] = true
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen][2]}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         if G.jokers and G.jokers.cards then
@@ -346,6 +341,7 @@ in_pool = function(self, args)
             ['Common'] = 'Common',
             ['Uncommon'] = 'Uncommon',
             ['Rare'] = 'Rare',
+            ['Legendary'] = 'Legendary',
             chosen = 'Common'
         }
     },
@@ -362,23 +358,14 @@ in_pool = function(self, args)
         ['bottlecap'] = true,
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
-        ['bottlecap_Rare'] = true
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
@@ -386,7 +373,7 @@ in_pool = function(self, args)
 
     use = function(self, card, area, copier)
         if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-            SMODS.add_card({set = 'Joker', rarity = card.ability.extra[card.ability.extra.chosen], key_append = 'jokercap'}):juice_up(0.5,0.5)
+            SMODS.add_card({set = 'Joker', rarity = card.ability.extra[card.ability.extra.chosen], legendary = card.ability.extra[card.ability.extra.choden] == "Legendary", key_append = 'jokercap'}):juice_up(0.5,0.5)
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             attention_text({
@@ -422,6 +409,7 @@ in_pool = function(self, args)
             ['Common'] = 8,
             ['Uncommon'] = 4,
             ['Rare'] = 2,
+            ['Legendary'] = 1,
             ['Bad'] = 16,
             chosen = 'Common',
             dollars = 50
@@ -441,6 +429,7 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
@@ -448,17 +437,7 @@ in_pool = function(self, args)
         return {vars = {new_numerator, new_denominator, card.ability.extra.dollars}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -703,6 +682,7 @@ in_pool = function(self, args)
             ['Common'] = 1,
             ['Uncommon'] = 2,
             ['Rare'] = 3,
+            ['Legendary'] = 4,
             chosen = 'Common'
         }
     },
@@ -719,7 +699,8 @@ in_pool = function(self, args)
         ['bottlecap'] = true,
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
-        ['bottlecap_Rare'] = true
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
@@ -729,17 +710,7 @@ in_pool = function(self, args)
         return true
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     use = function(self, card, area, copier)
         for i=1, card.ability.extra[card.ability.extra.chosen] do
@@ -779,6 +750,7 @@ in_pool = function(self, args)
             ['Common'] = 1,
             ['Uncommon'] = 2,
             ['Rare'] = 3,
+            ['Legendary'] = 4,
             ['Bad'] = -1,
             chosen = 'Common'
         }
@@ -797,23 +769,14 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -840,6 +803,7 @@ in_pool = function(self, args)
             ['Common'] = 1,
             ['Uncommon'] = 2,
             ['Rare'] = 3,
+            ['Legendary'] = 4,
             ['Bad'] = -1,
             chosen = 'Common'
         }
@@ -858,23 +822,14 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen == 'Common' and '' or 's'}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -901,6 +856,7 @@ in_pool = function(self, args)
             ['Common'] = {'Booster Pack','normal'},
             ['Uncommon'] = {'Jumbo Booster Pack', 'jumbo'},
             ['Rare'] = {'Mega Booster Pack','mega'},
+            ['Legendary'] = {'Ultra Booster Pack', 'ultra'},
             chosen = 'Common'
         }
     },
@@ -917,23 +873,14 @@ in_pool = function(self, args)
         ['bottlecap'] = true,
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
-        ['bottlecap_Rare'] = true
+        ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen][1]}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return G.shop or G.GAME.modifiers.hpot_plinko_4ever
@@ -1107,17 +1054,7 @@ in_pool = function(self, args)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or (card.area == G.consumeables)
@@ -1201,17 +1138,7 @@ in_pool = function(self, args)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) or (card.area == G.consumeables)
@@ -1268,6 +1195,7 @@ in_pool = function(self, args)
         extra = {
             ['Uncommon'] = 'Tier 1',
             ['Rare'] = 'Tier 1 and Tier 2',
+            ['Legendary'] = 'Two Tier 2s',
             chosen = 'Uncommon'
         }
     },
@@ -1283,19 +1211,14 @@ in_pool = function(self, args)
     pools = {
         ['bottlecap'] = true,
         ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Rare'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.GREEN
-        if card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -1374,7 +1297,37 @@ in_pool = function(self, args)
                     G.GAME.current_round.voucher = saveshopv
                 end
             end
+        elseif card.ability.extra.chosen == 'Legendary' then
+            if valid2[1] and valid2[2] then
+                local key1, key2 = pseudorandom_element(valid2, pseudoseed('vouchercap')), pseudorandom_element(valid2, pseudoseed('vouchercap'))
+                local saveshopv = G.GAME.current_round.voucher
+                local _card1 = SMODS.create_card{set = 'Voucher', key = key1}
+                local _card2 = SMODS.create_card{set = 'Voucher', key = key2}
+                G.play:emplace(_card1)
+                G.play:emplace(_card2)
+                _card1.cost = 0
+                _card2.cost = 0
+                _card1:redeem()
+                _card2:redeem()
 
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
+                _card1:start_dissolve() _card2:start_dissolve();return true end}))
+                if saveshopv ~= nil then
+                    G.GAME.current_round.voucher = saveshopv
+                end
+            elseif valid2[1] then
+                local key = pseudorandom_element(valid2, pseudoseed('vouchercap'))
+                local saveshopv = G.GAME.current_round.voucher
+                local _card = SMODS.create_card{set = 'Voucher', key = key}
+                G.play:emplace(_card)
+                _card.cost = 0
+                _card:redeem()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
+                _card:start_dissolve();return true end}))
+                if saveshopv ~= nil then
+                    G.GAME.current_round.voucher = saveshopv
+                end
+            end
         end
     end
 }
@@ -1476,6 +1429,7 @@ in_pool = function(self, args)
             ['Common'] = 2,
             ['Uncommon'] = 3,
             ['Rare'] = 5,
+            ['Legendary'] = 7,
             chosen = 'Common',
             every = 2
         }
@@ -1493,23 +1447,14 @@ in_pool = function(self, args)
         ['bottlecap'] = true,
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Rare'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen, card.ability.extra.every}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true
@@ -1571,9 +1516,7 @@ in_pool = function(self, args)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
-    set_badges = function(self, card, badges)
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, G.C.RED, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards < G.jokers.config.card_limit and G.jokers.cards[1]
@@ -1791,6 +1734,7 @@ in_pool = function(self, args)
             ['Common'] = 5,
             ['Uncommon'] = 10,
             ['Rare'] = 15,
+            ["Legendary"] = 30,
             ['Bad'] = -10,
             chosen = 'Common'
         }
@@ -1809,23 +1753,14 @@ in_pool = function(self, args)
         ['bottlecap_Common'] = true,
         ['bottlecap_Uncommon'] = true,
         ['bottlecap_Rare'] = true,
+        ['bottlecap_Legendary'] = true,
         ['bottlecap_Bad'] = true
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra[card.ability.extra.chosen]}}
     end,
 
-    set_badges = function(self, card, badges)
-        local color = G.C.BLUE
-        if card.ability.extra.chosen == 'Uncommon' then
-            color = G.C.GREEN
-        elseif card.ability.extra.chosen == 'Rare' then
-            color = G.C.RED
-        elseif card.ability.extra.chosen == 'Bad' then
-            color = G.C.BLACK
-        end
- 		badges[#badges+1] = create_badge(card.ability.extra.chosen, color, G.C.WHITE, 1 )
- 	end,
+    set_badges = HotPotato.bottlecap_badges,
 
     can_use = function(self, card)
         return true

@@ -3253,6 +3253,7 @@ return {
             }
         },
         dictionary = {
+            k_bad = "Bad",
             b_hanafuda_cards = 'Hanafuda Cards',
             k_hanafuda = 'Hanafuda',
             b_aura_cards = 'Auras',
