@@ -81,7 +81,7 @@ SMODS.Joker {
             card.ability.first = true
         end
     end,
-    set_ability = function(self, card)
+    set_sprites = function(self, card, front)
         if card.ability.horseman then
             card.children.center:set_sprite_pos(pos_map[card.ability.horseman])
         end
