@@ -9,8 +9,8 @@ SMODS.Joker {
     },
     key = "lotus",
     rarity = 3,
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 2, y = 3 },
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = true,
@@ -49,5 +49,10 @@ SMODS.Joker {
                 localize { type = 'name_text', key = G.PROFILES[G.SETTINGS.profile].hpot_lotus_joker, set = "Joker", vars = {} }
             } or nil
         }
+    end,
+    set_sprites = function(self, card, front)
+        if G.PROFILES[G.SETTINGS.profile].hpot_lotus_joker then
+            card.children.center:set_sprite_pos({x = 3, y = 3})
+        end
     end
 }
