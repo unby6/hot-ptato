@@ -23,32 +23,3 @@ SMODS.Atlas {
     py = 95
 }
 
-SMODS.Joker {
-    key = "cg223",
-    rarity = 4,
-    atlas = "cg223",
-    pos = { x = 0, y = 0 },
-    soul_pos = { x = 1, y = 0 },
-    loc_vars = function(self, info_queue, card)
-        card.ability.extra.chips = card.ability.extra.extra * Horsechicot.num_jokers()
-        return { vars = { card.ability.extra.extra, card.ability.extra.chips } }
-    end,
-    config = {
-        extra = {
-            chips = 0,
-            extra = 1,
-        }
-    },
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            card.ability.extra.chips = card.ability.extra.extra * Horsechicot.num_jokers()
-            return { chips = card.ability.extra.chips }
-        end
-    end,
-    hotpot_credits = Horsechicot.credit("cg223", "my shitass ex")
-}
-
-

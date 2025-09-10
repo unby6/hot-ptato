@@ -40,7 +40,10 @@ SMODS.Joker {
     cost = 10,
     rarity = 3,
     config = {
-        horseman = ""
+        horseman = "",
+        extra = {
+            chips_mod = 1
+        }
     },
     atlas = "hc_apocalypse",
     pos = { x = 0, y = 0 },
@@ -53,6 +56,11 @@ SMODS.Joker {
         if card.ability.horseman == "ruby" then
             vars = {
                 get_currency_mult()
+            }
+        end
+        if card.ability.horseman == "cg" then
+            vars = {
+                card.ability.extra.chips_mod
             }
         end
         return {
@@ -71,6 +79,17 @@ SMODS.Joker {
                 })
                 return {
                     xmult = get_currency_mult()
+                }
+            elseif card.ability.horseman == "cg" then
+                local chips = card.ability.extra.chips_mod * Horsechicot.num_jokers()
+                G.E_MANAGER:add_event(Event{
+                    func = function()
+                        randomize_horseman(card)
+                        return true
+                    end
+                })
+                return {
+                    chips = chips
                 }
             end
         end
