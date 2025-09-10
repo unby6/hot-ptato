@@ -1594,7 +1594,7 @@ return {
                 text = {
                     {
                         "Transforms into a random",
-                        "{C:hpot_adverts}Horseman{} when triggered"
+                        "{C:hpot_adverts}Horseman{} after hand is played"
                     },
                     {
                         "Gives {X:mult,C:white}XMult{} based",
@@ -1608,12 +1608,52 @@ return {
                 text = {
                     {
                         "Transforms into a random",
-                        "{C:hpot_adverts}Horseman{} when triggered"
+                        "{C:hpot_adverts}Horseman{} after hand is played"
                     },
                     {
                         "Gives {C:chips}+#1#{} Chips for",
                         "each {C:attention}Joker{} in your {C:attention}Collection{}",
                         "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+                    }
+                }
+            },
+            j_hpot_apocalypse_lily = {
+                name = "The Apocalypse: Famine",
+                text = {
+                    {
+                        "Transforms into a random",
+                        "{C:hpot_adverts}Horseman{} after hand is played"
+                    },
+                    {
+                        "Scored cards have a",
+                        "{C:green}#1# in #2# chance to",
+                        "become a {C:spades}Spade{} or a {C:attention}9{}"
+                    }
+                }
+            },
+            j_hpot_apocalypse_baccon = {
+                name = "The Apocalypse: Plague",
+                text = {
+                    {
+                        "Transforms into a random",
+                        "{C:hpot_adverts}Horseman{} after hand is played"
+                    },
+                    {
+                        "{X:mult,C:white}X#1#{} Mult if",
+                        "played hand contains {C:attention}#2#{} Cards"
+                    }
+                }
+            },
+            j_hpot_apocalypse_nxkoo = {
+                name = "The Apocalypse: Death",
+                text = {
+                    {
+                        "Transforms into a random",
+                        "{C:hpot_adverts}Horseman{} after hand is played"
+                    },
+                    {
+                        "{C:attention}Aces{} of {C:hearts}Hearts{} give {X:mult,C:white}X#1#{} Mult",
+                        "other {C:attention}Aces{} give {X:milt,C:white}X#2#{} Mult"
                     }
                 }
             },

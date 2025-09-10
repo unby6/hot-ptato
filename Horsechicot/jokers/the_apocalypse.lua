@@ -42,7 +42,13 @@ SMODS.Joker {
     config = {
         horseman = "",
         extra = {
-            chips_mod = 1
+            chips_mod = 1,
+            odds = 2,
+            cards_needed = 4,
+            xmult = 4,
+
+            axmult = 1.5,
+            hxmult = 2
         }
     },
     atlas = "hc_apocalypse",
@@ -62,6 +68,31 @@ SMODS.Joker {
             vars = {
                 card.ability.extra.chips_mod,
                 card.ability.extra.chips_mod * Horsechicot.num_jokers()
+            }
+        end
+        if card.ability.horseman == "lily" then
+            local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_apocalypse_lily')
+            return {
+                vars = {
+                    numerator,
+                    denominator
+                }
+            }
+        end
+        if card.ability.horseman == "baccon" then
+            return {
+                vars = {
+                    card.ability.extra.xmult,
+                    card.ability.extra.cards_needed
+                }
+            }
+        end
+        if card.ability.horseman == "nxkoo" then
+            return {
+                vars = {
+                    card.ability.extra.hxmult,
+                    card.ability.extra.axmult
+                }
             }
         end
         return {
@@ -92,6 +123,34 @@ SMODS.Joker {
                 return {
                     chips = chips
                 }
+            elseif card.ability.horseman == "baccon" and #G.play.cards == card.ability.extra.cards_needed then
+                randomize_horseman(card)
+                return {
+                    xmult = card.ability.extra.xmult
+                }
+            end
+        end
+        if context.individual and context.cardarea == G.play then
+            if card.ability.horseman == "lily" and SMODS.pseudorandom_probability(card, 'hpot_apocalypse_lily', 1, card.ability.extra.odds) then
+                local type = pseudorandom_element({"rank", "suit"}, pseudoseed("hpot_apocalypse_choice"))
+                if type == "rank" then
+                    SMODS.change_base(context.other_card, nil, "9")
+                else
+                    SMODS.change_base(context.other_card, "Spades")
+                end
+            elseif card.ability.horseman == "nxkoo" then
+                if context.other_card:get_id() == 14 then
+                    if context.other_card:is_suit("Hearts") then
+                        return {xmult = card.ability.extra.hxmult}
+                    else    
+                        return {xmult = card.ability.extra.axmult}
+                    end
+                end
+            end
+        end
+        if context.after then
+            if card.ability.horseman == "lily" or card.ability.horseman == "nxkoo" then
+                randomize_horseman(card)
             end
         end
     end,
