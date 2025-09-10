@@ -217,7 +217,7 @@ function Horsechicot.post_load()
 
     for i, v in pairs(Horsechicot.get_authors()) do
         HPJTTT.add_texts{
-            "Author shoutout: " .. v
+            "Contributor shoutout: " .. v
         }
     end
 end
