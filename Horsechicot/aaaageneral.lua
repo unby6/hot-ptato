@@ -68,6 +68,29 @@ HPJTTT.add_texts({
     love.system.getOS() .. " is the worst operating system!"
 })
 
+function Horsechicot.get_authors()
+    if Horsechicot.known_authors then
+        return Horsechicot.known_authors
+    end
+    Horsechicot.known_authors = {}
+    local author_map = {}
+    for _, v in pairs(G.P_CENTERS) do
+        if v.hotpot_credits then
+            for _, authors in pairs(v.hotpot_credits) do
+                if type(authors) == "string" then authors = {authors} end
+                for _, author in pairs(authors) do
+                    author_map[author] = true
+                end
+            end
+        end
+    end
+    
+    for author, _ in pairs(author_map) do
+        Horsechicot.known_authors[#Horsechicot.known_authors+1] = author
+    end
+    return Horsechicot.known_authors
+end
+
 SMODS.Atlas{
     key = "horsechicot_market",
     path = "Horsechicot/shop_button.png",
@@ -190,6 +213,12 @@ function Horsechicot.post_load()
             old()
             G.E_MANAGER:add_event(Event{func = function() G.round_end_lock = false return true end})
         end
+    end
+
+    for i, v in pairs(Horsechicot.get_authors()) do
+        HPJTTT.add_texts{
+            "Author shoutout: " .. v
+        }
     end
 end
 
