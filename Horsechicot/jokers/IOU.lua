@@ -21,7 +21,7 @@ SMODS.Joker {
     pos = {x = 7, y = 0},
     pixel_size = {w = 71, h = 71},
     hotpot_credits = {
-        art = {"???"},
+        art = {"pangaea47"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
