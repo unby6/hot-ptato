@@ -3,11 +3,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 5,
     atlas = "hc_jokers",
-<<<<<<< Updated upstream
-    pos = {x=6,y=2},
-=======
     pos = { x = 6, y = 2 },
->>>>>>> Stashed changes
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,

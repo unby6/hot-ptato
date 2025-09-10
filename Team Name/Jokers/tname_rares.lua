@@ -253,7 +253,7 @@ SMODS.Joker({
 			hpt.destroyed = hpt.destroyed + 1
 			return{
 					message = localize("k_upgrade_ex")
-				}
+			}
 		end
 		if context.joker_main then
 			return {

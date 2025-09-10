@@ -215,6 +215,8 @@ function Game:start_run(args)
             G.GAME.hotpot_ads[k] = new_ad
         end
     end
+    G.jokers.config.highlighted_limit = 1e100
+    G.consumeables.config.highlighted_limit = 1e100
     return result
 end
 
