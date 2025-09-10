@@ -3167,6 +3167,49 @@ return {
                     "{C:money}-$1{C:dark_edition} sell value at the end of a round"
                 }
             },
+
+            modif_hpot_sharpened= {
+                name = "Sharpened",
+                text = {
+                    "{C:mult}+10{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_dull = {
+                name = "Dull",
+                text = {
+                    "{C:mult}-5{C:green} Mult if triggered during scoring"
+                }
+            },
+            modif_hpot_jagged = {
+                name = "Jagged",
+                text = {
+                    "{C:blue}+50{C:green} Chips if triggered during scoring"
+                }
+            },
+            modif_hpot_sharpened = {
+                name = "Spiked",
+                text = {
+                    "{X:blue,C:white}X1.2{C:green} Chips if triggered during scoring"
+                }
+            },
+            modif_hpot_menacing = {
+                name = "Menacing",
+                text = {
+                    "{X:blue,C:white}X%5{C:green} Chips if triggered during scoring"
+                }
+            },
+            modif_hpot_damaged = {
+                name = "Damaged",
+                text = {
+                    "{C:blue}+-25{C:green} Chips if triggered during scoring"
+                }
+            },
+            modif_hpot_flawed = {
+                name = "Flawed",
+                text = {
+                    "{X:blue,C:white}X0.8{C:green} Chips if triggered during scoring"
+                }
+            },
         },
     },
     misc = {

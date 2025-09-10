@@ -532,3 +532,150 @@ HPTN.Modification({
 })
 
 
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "sharpened",
+	morality = "GOOD",
+	badge_colour = HEX("4bc292"),
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ mult = 10 }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "jagged",
+	morality = "GOOD",
+	badge_colour = HEX("4bc292"),
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ chips = 50 }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "spiked",
+	morality = "GOOD",
+	badge_colour = HEX("4bc292"),
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ xchips = 1.2 }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 0, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "menacing",
+	morality = "GOOD",
+	badge_colour = HEX("4bc292"),
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ chips = HPTN.perc(hand_chips, 5) }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "dull",
+	morality = "BAD",
+	badge_colour = G.C.DARK_EDITION,
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ mult = -5 }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "flawed",
+	morality = "BAD",
+	badge_colour = G.C.DARK_EDITION,
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ chips = -25 }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
+
+HPTN.Modification({
+	atlas = "tname_modifs",
+	pos = { x = 1, y = 0 },
+	hpot_anim = {
+		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
+	},
+	key = "damaged",
+	morality = "BAD",
+	badge_colour = G.C.DARK_EDITION,
+	calculate = function(self, card, context)
+		if context.post_trigger and context.other_card == card then
+			SMODS.calculate_effect({ xchips = 0.8 }, card)
+		end
+	end,
+	hotpot_credits = {
+		idea = { "lord.ruby" },
+		code = { "lord.ruby" },
+		team = { "Horsechicot" },
+	},
+})
