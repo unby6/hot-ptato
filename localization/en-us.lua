@@ -959,14 +959,6 @@ return {
                     "each round is {C:attention}refunded{}"
                 }
             },
-            j_hpot_cg223 = {
-                name = "cg223",
-                text = {
-                    "Gives {C:chips}+#1#{} Chips for",
-                    "each {C:attention}Joker{} in your {C:attention}Collection{}",
-                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
-                }
-            },
             j_hpot_golden_apple = {
                 name = "Golden Apple",
                 text = {
@@ -1608,6 +1600,20 @@ return {
                         "Gives {X:mult,C:white}XMult{} based",
                         "on your {C:hpot_adverts}Currencies{}",
                         "{C:inactive}Currently: {X:mult,C:white}X#1#{C:inactive} Mult)"
+                    }
+                }
+            },
+            j_hpot_apocalypse_cg = {
+                name = "The Apocalypse: War",
+                text = {
+                    {
+                        "Transforms into a random",
+                        "{C:hpot_adverts}Horseman{} when triggered"
+                    },
+                    {
+                        "Gives {C:chips}+#1#{} Chips for",
+                        "each {C:attention}Joker{} in your {C:attention}Collection{}",
+                        "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
                     }
                 }
             },
