@@ -392,7 +392,7 @@ SMODS.Joker{ --TV Dinner
             end
 
         elseif context.close_ad and not context.blueprint then
-            if self.ability.extra.mult - self.ability.extra.mult_mod <= 0 then 
+            if card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then 
                 SMODS.destroy_cards(self, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
@@ -400,7 +400,7 @@ SMODS.Joker{ --TV Dinner
                 }
             else
                 SMODS.scale_card(self, {
-                    ref_table = self.ability.extra,
+                    ref_table = card.ability.extra,
                     ref_value = "mult",
                     scalar_value = "mult_mod",
                     operation = "-",
