@@ -1,5 +1,7 @@
 SMODS.Voucher {
     key = "hc_dark_connections",
+    atlas = "hc_vouchers",
+    pos = {x = 0, y = 2},
     hotpot_credits = Horsechicot.credit("cg223"),
     config = {
         pct = 25
@@ -17,6 +19,8 @@ SMODS.Voucher {
 
 SMODS.Voucher {
     key = "hc_underground_control",
+    atlas = "hc_vouchers",
+    pos = {x = 1, y = 2},
     hotpot_credits = Horsechicot.credit("cg223"),
     config = {
         pct = 25
