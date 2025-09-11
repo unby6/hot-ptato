@@ -95,60 +95,90 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
         G.GAME.nursery_mother_table = nil
     end
     return
-        {
-            n = G.UIT.R,
-            config = { minw = 3, minh = 2.5, colour = G.C.CLEAR },
-            nodes = {}
-        },
-        {
-            n = G.UIT.R,
-            config = { id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r = 0.15, colour = G.C.RED, one_press = false, button = 'hide_nursery', func = 'can_hide_nursery', hover = true, shadow = true },
-            nodes = {
+    {
+        n = G.UIT.ROOT,
+        config = { align = 'cl', colour = G.C.CLEAR },
+        nodes = {
+            UIBox_dyn_container({
                 {
                     n = G.UIT.R,
-                    config = { align = "cm", padding = 0.07, focus_args = { button = 'y', orientation = 'cr' }, func = 'set_button_pip' },
+                    config = { align = "cm", padding = 0.1, emboss = 0.05, r = 0.1, colour = G.C.DYN_UI.BOSS_MAIN },
                     nodes = {
                         {
-                            n = G.UIT.R,
-                            config = { align = "cm", maxw = 1.3 },
+                            n = G.UIT.C,
+                            config = { align = "tm" },
                             nodes = {
-                                -------------------
-                                { n = G.UIT.T, config = { text = localize("hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true } }
-                                -------------------
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm", padding = 0.05 },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.C,
+                                            config = { align = "cm", padding = 0.1 },
+                                            nodes = {
+                                                {
+                                                    n = G.UIT.R,
+                                                    config = { id = 'shop_button', align = "cm", minw = 2.8, minh = 1.5, r = 0.15, colour = G.C.RED, one_press = false, button = 'hide_nursery', func = 'can_hide_nursery', hover = true, shadow = true },
+                                                    nodes = {
+                                                        {
+                                                            n = G.UIT.R,
+                                                            config = { align = "cm", padding = 0.07, focus_args = { button = 'y', orientation = 'cr' }, func = 'set_button_pip' },
+                                                            nodes = {
+                                                                {
+                                                                    n = G.UIT.R,
+                                                                    config = { align = "cm", maxw = 1.3 },
+                                                                    nodes = {
+                                                                        -------------------
+                                                                        { n = G.UIT.T, config = { text = localize("hotpot_plinko_to_shop1"), scale = 0.4, colour = G.C.WHITE, shadow = true } }
+                                                                        -------------------
+                                                                    }
+                                                                },
+                                                                {
+                                                                    n = G.UIT.R,
+                                                                    config = { align = "cm", maxw = 1.3 },
+                                                                    nodes = {
+                                                                        -------------------
+                                                                        { n = G.UIT.T, config = { text = localize("hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true } }
+                                                                        -------------------
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                    }
+                                                },
+                                            }
+                                        },
+                                    }
+                                },
                             }
                         },
+
                         {
-                            n = G.UIT.R,
-                            config = { align = "cm", maxw = 1.3 },
+                            n = G.UIT.C,
+                            config = { align = "cm", padding = 0.2, r = 0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2 },
                             nodes = {
-                                -------------------
-                                { n = G.UIT.T, config = { text = localize("hotpot_plinko_to_shop2"), scale = 0.4, colour = G.C.WHITE, shadow = true } }
-                                -------------------
+                                {
+                                    n = G.UIT.R,
+                                    config = { id = "nursery_area", align = "cm", colour = G.C.BLACK, },
+                                    nodes = {
+
+                                    }
+                                },
                             }
-                        }
+                        },
+
                     }
                 },
-            }
-        },
-        {
-            n = G.UIT.R,
-            config = { align = "cm", padding = 0.05 },
-            nodes = {
-                {
-                    n = G.UIT.C,
-                    config = { align = "cm", padding = 0.2, r = 0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2 },
-                    nodes = {
-                        { n = G.UIT.O, config = { object = G.nursery_father } },
-                    }
-                },
-                {
-                    n = G.UIT.C,
-                    config = { align = "cm", padding = 0.2, r = 0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2 },
-                    nodes = {
-                        { n = G.UIT.O, config = { object = G.nursery_mother } },
-                    }
-                },
-            }
-        },
-        { n = G.UIT.R, config = { minw = 3, minh = 3.5, colour = G.C.CLEAR }, nodes = {} }
+
+            }, false)
+        }
+    }
+end
+
+local ca_dref = CardArea.draw
+function CardArea:draw(...)
+	if self == G.hand and (G.STATE == G.STATES.NURSERY) then
+		return
+	end
+	return ca_dref(self, ...)
 end
