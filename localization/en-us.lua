@@ -1587,7 +1587,6 @@ return {
                     "to multiply gained {C:attention}Tag"
                 }
             },
-
             j_hpot_apocalypse = {
                 name = "The Apocalypse",
                 text = {
@@ -1595,7 +1594,13 @@ return {
                     "{C:hpot_adverts}Horseman{} when purchased"
                 }
             },
-
+            j_hpot_inacargobox = {
+                name = "In a Cargo Box?",
+                text = {
+                    "{C:attention}Jokers{} in {C:blue}Delivery's Queue{}",
+                    "each give {X:mult,C:white} X#1# {} Mult",
+                }
+            },
             j_hpot_apocalypse_ruby = {
                 name = "The Apocalypse: Conquest",
                 text = {
@@ -2301,6 +2306,15 @@ return {
             --#endregion
         },
         Other = {
+            hc_nxko_comment = {
+                name = {
+                    "Nxkoo's Comment :",
+                    "{s:0.7}(From Horsechicot)"
+                },
+                text = {
+                    "You're late, sugartits"
+                }
+            },
             p_hpot_czech_normal = {
                 ['name'] = 'Cheque Pack',
                 ['text'] = {
