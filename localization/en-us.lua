@@ -1601,6 +1601,14 @@ return {
                     "each give {X:mult,C:white} X#1# {} Mult",
                 }
             },
+            j_hpot_bungaloid = {
+                name = "Bungaloid",
+                text = {
+                    "Create a random",
+                    "{C:hpot_advert}Hot Potato{} Jokers",
+                    "if played hand contains a {C:attention}#1#{}",
+                }
+            },
             j_hpot_apocalypse_ruby = {
                 name = "The Apocalypse: Conquest",
                 text = {
