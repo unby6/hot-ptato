@@ -3534,6 +3534,9 @@ return {
             wheel_button_2 = "Arrow",
             wheel_spin_button1 = "Spin",
 
+            nursery_button_1 = "The",
+            nursery_button_2 = "Nursery",
+
             you_have = "You have ",
             k_success = "Success",
             k_failure = "Failure",

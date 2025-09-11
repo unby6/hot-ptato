@@ -1,0 +1,33 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Game:draw
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'after'
+pattern = '''timer_checkpoint('uiboxes', 'draw')'''
+payload = '''
+if self.STATE == self.STATES.NURSERY then
+  PlinkoGame.f.draw()
+end
+
+'''
+match_indent = true
+
+
+# Game:update
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
+payload = '''
+if self.STATE == self.STATES.NURSERY then
+  update_nursery(dt)
+end
+
+'''
+match_indent = true
