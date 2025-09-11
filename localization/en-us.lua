@@ -1462,6 +1462,13 @@ return {
                     "{C:inactive}(Currently #3# Points)",
                 }
             },
+            j_hpot_participation_award = {
+                name = "Participation Award",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "{s:0.6,C:inactive}you tried{}"
+                }
+            },
             j_hpot_antidsestablishmentarianism = {
                 name = "Antidsestablishmentarianism",
                 text = {
