@@ -91,7 +91,8 @@ HPJTTT.add_texts({
     "Numberslop in MY Balatro Mod?! There's more likely than what you think!",
     "GAY EDITION",
     "Now compatible with Birthlatro!",
-    "What the dog doin?"
+    "What the dog doin?",
+    "Nerf what if there was a joker",
 })
 
 function Horsechicot.get_authors()
