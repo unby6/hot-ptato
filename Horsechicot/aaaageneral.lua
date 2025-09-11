@@ -71,7 +71,7 @@ HPJTTT.add_texts({
     "Restraining Order means nothing to me",
     "Why so serious?",
     "Why so genius?",
-    CardPronouns and "Why so queerious?",
+    CardPronouns and "Why so queerious?" or "generic message",
     "MEDIC!",
     "REF DO SOMETHING",
     "77 + 33 = 100",
