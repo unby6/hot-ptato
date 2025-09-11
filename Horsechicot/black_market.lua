@@ -1,5 +1,5 @@
 function G.UIDEF.hotpot_horsechicot_market_section()
-  G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 4
+  G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 2
   if not G.market_jokers or not G.market_jokers.cards then
     G.market_jokers = CardArea(
         G.hand.T.x + 0,
@@ -27,7 +27,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
         end
     end
   G.harvest_cost = G.harvest_cost or 0
-  return { n = G.UIT.R, config = { minw = 3, minh = .5, colour = G.C.CLEAR }, nodes = {} },
+  return { n = G.UIT.R, config = { minw = 3, minh = 2.5, colour = G.C.CLEAR }, nodes = {} },
       {
         n = G.UIT.R,
         config = { align = "cm", padding = 0.05 },
@@ -116,7 +116,7 @@ G.FUNCS.hotpot_horsechicot_toggle_market = function()  -- takn from deliveries
     --starting market
     ease_background_colour({ new_colour = G.C.BLACK, special_colour = darken(G.C.BLACK, 0.6), tertiary_colour = darken(
     G.C.BLACK, 0.4), contrast = 3 })
-    G.shop.alignment.offset.y = -46.3
+    G.shop.alignment.offset.y = -48.3
     G.HP_HC_MARKET_VISIBLE = true
     simple_add_event(function()
       sign_sprite.pinch.y = true
