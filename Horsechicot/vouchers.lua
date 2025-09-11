@@ -44,6 +44,7 @@ SMODS.Voucher {
 }
 
 function Horsechicot.spawning_blocked(center)
+    if G.GAME.ante_banned and G.GAME.ante_banned[center.key] then return true end
     return center and G.GAME.spawning_blocked and G.GAME.spawning_blocked[center.key] or nil
 end
 

@@ -143,9 +143,13 @@ SMODS.Joker {
             end
         end
         if context.after then
-            if card.ability.horseman == "lily" or card.ability.horseman == "nxkoo" then
+            if card.ability.horseman == "lily" or card.ability.horseman == "nxkoo" or card.ability.horseman == "pangaea" then
                 randomize_horseman(card)
             end
+        end
+        if context.using_consumeable and card.ability.horseman == "pangaea" then
+            G.GAME.ante_banned = G.GAME.ante_banned or {}
+            G.GAME.ante_banned[context.consumeable.config.center_key] = true
         end
     end,
     add_to_deck = function(self, card, from_debuff)

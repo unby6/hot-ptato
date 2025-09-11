@@ -1653,7 +1653,21 @@ return {
                     },
                     {
                         "{C:attention}Aces{} of {C:hearts}Hearts{} give {X:mult,C:white}X#1#{} Mult",
-                        "other {C:attention}Aces{} give {X:milt,C:white}X#2#{} Mult"
+                        "other {C:attention}Aces{} give {X:mult,C:white}X#2#{} Mult"
+                    }
+                }
+            },
+            j_hpot_apocalypse_pangaea = {
+                name = "The Apocalypse: Cataclysm",
+                text = {
+                    {
+                        "Transforms into a random",
+                        "{C:hpot_adverts}Horseman{} after hand is played"
+                    },
+                    {
+                        "Consumable have {X:attention,C:white}X2{} values",
+                        "but are {C:red}banned{} for the",
+                        "rest of the ante when used"
                     }
                 }
             },

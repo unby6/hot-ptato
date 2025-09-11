@@ -87,6 +87,15 @@ function Card:set_ability(...)
             max = 1.225,
         })
     end
+    if self.ability.consumeable and next(SMODS.find_card("j_hpot_apocalypse")) then
+        for i, v in pairs(SMODS.find_card("j_hpot_apocalypse")) do
+            if v.ability.horseman == "pangaea" then
+                HotPotato.manipulate(self, {
+                    value = 2
+                })
+            end
+        end
+    end
 end
 
 local card_ui = create_shop_card_ui

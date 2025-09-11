@@ -73,6 +73,9 @@ function end_round()
             G.GAME.spawning_blocked = {}
         end
     end
+    if G.GAME.ante_banned and G.GAME.blind_on_deck == "Boss" then
+        G.GAME.ante_banned = nil
+    end
     G.GAME.current_round.harvested = nil
     return old()
 end
