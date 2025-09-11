@@ -26,7 +26,10 @@ HotPotato.Ads = {
         -- Team Name
         ad_tname = {atlas = "hpot_tname_ads",pos = {x=0,y=0}},
         -- Horsechicot
-        ad_banana = {atlas = "hpot_hcbananaad", pos = {x = 0, y = 0}}
+        ad_banana = {atlas = "hpot_hcbananaad", pos = {x = 0, y = 0}},
+        ad_numberslop = {atlas = "hpot_hcnumberslop", pos = {x = 0, y = 0}},
+        ad_red = {atlas = "hpot_hcred", pos = {x = 0, y = 0}},
+        ad_mustard = {atlas = "hpot_hcmustard", pos = {x = 0, y = 0}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
