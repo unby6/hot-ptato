@@ -7,12 +7,12 @@ SMODS.Joker {
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
-    rarity = 3,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     cost = 8,
-    config = { extra = { xmult_per_delivery = 1.5 } },
+    config = { extra = { xmult_per_delivery = 2.5 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
