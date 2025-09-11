@@ -49,7 +49,8 @@ HotPotato.effect_options = {
     "hpot_diy_earn_credits",
     "hpot_diy_earn_sparks",
     "hpot_diy_earn_crypto",
-    "hpot_diy_random_consumable"
+    "hpot_diy_random_consumable",
+    "hpot_diy_random_card"
 }
 
 function HotPotato.diy_trigger(self, card, context)
@@ -98,6 +99,21 @@ function HotPotato.diy_effect(self, card, context)
                 end
             end
         }
+    elseif G.GAME.hotpot_diy.effect == 7 then
+        local edition = pseudorandom_element(G.P_CENTER_POOLS.Edition, pseudoseed("hpot_diy")).key
+        local enhancement = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed("hpot_diy")).key
+        while G.P_CENTERS[enhancement].no_doe or G.GAME.banned_keys[enhancement] do
+            enhancement = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed("hpot_diy")).key
+        end
+        local seal = pseudorandom_element(G.P_CENTER_POOLS.Seal, pseudoseed("hpot_diy")).key
+        local card = SMODS.create_card{
+            seal = seal,
+            edition = edition,
+            key = enhancement.key
+        }
+        table.insert(G.playing_cards, card)
+        G.deck:emplace(card)
+        card:add_to_deck()
     end
 end
 
