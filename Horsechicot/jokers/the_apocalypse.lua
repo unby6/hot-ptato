@@ -16,8 +16,10 @@ local pos_map = {
     baccon = {x = 2, y = 1}
 }
 local function randomize_horseman(card)
+    card:flip()
     card.ability.horseman = pseudorandom_element(horsemen, pseudoseed("hpot_apocalypse"))
     card.children.center:set_sprite_pos(pos_map[card.ability.horseman])
+    card:flip()
 end
 
 function get_currency_mult()
@@ -118,7 +120,12 @@ SMODS.Joker {
                     chips = chips
                 }
             elseif card.ability.horseman == "baccon" and #G.play.cards == card.ability.extra.cards_needed then
-                randomize_horseman(card)
+                G.E_MANAGER:add_event(Event{
+                    func = function()
+                        randomize_horseman(card)
+                        return true
+                    end
+                })
                 return {
                     xmult = card.ability.extra.xmult
                 }
@@ -127,11 +134,13 @@ SMODS.Joker {
         if context.individual and context.cardarea == G.play then
             if card.ability.horseman == "lily" and SMODS.pseudorandom_probability(card, 'hpot_apocalypse_lily', 1, card.ability.extra.odds) then
                 local type = pseudorandom_element({"rank", "suit"}, pseudoseed("hpot_apocalypse_choice"))
+                context.other_card:flip()
                 if type == "rank" then
                     SMODS.change_base(context.other_card, nil, "9")
                 else
                     SMODS.change_base(context.other_card, "Spades")
                 end
+                context.other_card:flip()
             elseif card.ability.horseman == "nxkoo" then
                 if context.other_card:get_id() == 14 then
                     if context.other_card:is_suit("Hearts") then
@@ -144,7 +153,12 @@ SMODS.Joker {
         end
         if context.after then
             if card.ability.horseman == "lily" or card.ability.horseman == "nxkoo" or card.ability.horseman == "pangaea" then
-                randomize_horseman(card)
+                G.E_MANAGER:add_event(Event{
+                    func = function()
+                        randomize_horseman(card)
+                        return true
+                    end
+                })
             end
         end
         if context.using_consumeable and card.ability.horseman == "pangaea" then
