@@ -1,5 +1,5 @@
 function G.UIDEF.hotpot_horsechicot_market_section()
-  G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 4
+  G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 2
   if not G.market_jokers or not G.market_jokers.cards then
     G.market_jokers = CardArea(
         G.hand.T.x + 0,
