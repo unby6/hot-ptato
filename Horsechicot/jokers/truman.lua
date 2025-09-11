@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = "truman",
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 4, y = 3 },
     rarity = 4,
     blueprint_compat = true,
     eternal_compat = true,
