@@ -20,7 +20,10 @@ local deck = SMODS.Back {
         -- end
     end,
     calculate = function (self, back, context)
-        
+        --Horsechicot Addition  Cards give 0.05 bitcoins when triggered
+        if context.post_trigger then
+            ease_cryptocurrency(0.05)
+        end
     end
 }
 
