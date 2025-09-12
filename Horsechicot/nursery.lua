@@ -22,6 +22,18 @@ Nursery = {
     f = {}
 }
 
+local start_run_ref = Game.start_run
+function Game:start_run(args)
+  local ret = start_run_ref(self, args)
+  local saveTable = args.savetext or nil
+  if saveTable and saveTable.cardAreas then
+    G.GAME.nursery_father_table = saveTable.cardAreas.nursery_father
+    G.GAME.nursery_mother_table = saveTable.cardAreas.nursery_mother
+    G.GAME.nursery_child_table = saveTable.cardAreas.nursery_child
+  end
+  return ret
+end
+
 function update_nursery(dt) -- talen from plinko so idk
     if not G.STATE_COMPLETE then
         stop_use()
@@ -88,7 +100,6 @@ function G.FUNCS.hide_nursery(e)
     ease_background_colour_blind(G.STATE)
     show_shop()
 
-    G.nursery.alignment.offset.y = G.ROOM.T.y + 29
 
     G.E_MANAGER:add_event(Event({
         func = function()
