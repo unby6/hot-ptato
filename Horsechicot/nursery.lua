@@ -230,37 +230,91 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                             nodes = {
                                 {
                                     n = G.UIT.R,
-                                    config = { id = "nursery_area", align = "cm", colour = G.C.BLACK, r = 0.2},
+                                    config = { id = "nursery_area", align = "cm", colour = G.C.BLACK, r = 0.2 },
                                     nodes = {
 
                                         {
                                             n = G.UIT.C,
-                                            config = { id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2},
+                                            config = { align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
                                             nodes = {
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_father, align = "cl" } } } },
-                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W }, nodes = { { n = G.UIT.T, config = { text = "Father", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Father", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
 
                                             }
                                         },
-                                        { 
+                                        {
                                             n = G.UIT.C,
-                                            config = { id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
+                                            config = { align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
                                             nodes = {
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_mother, align = "cl" } } } },
-                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W}, nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
                                             }
                                         },
                                     }
                                 },
                             }
                         },
-
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm", padding = 0.2, colour = G.C.L_BLACK, emboss = 0.05, r = 0.02 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { align = "cm", r = 0.2 },
+                            nodes = {
+                                UIBox_button {
+                                    label = { "Breed" },
+                                    colour = G.C.ETERNAL,
+                                    scale = 0.4,
+                                    minh = 0.6,
+                                    maxh = 0.6,
+                                    minw = 2,
+                                    maxw = 2,
+                                    button = "handy_clear_search",
+                                },
+                            }
+                        },
+                        {
+                            n = G.UIT.C,
+                            config = { align = "cm", r = 0.2 },
+                            nodes = {
+                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W }, nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.5, colour = G.C.WHITE, shadow = true } }, } },
+                            }
+                        },
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "cm", padding = 0.2, r = 0.2, colour = G.C.L_BLACK, emboss = 0.05 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { id = "nursery_buttons", align = "cm", colour = G.C.BLACK, r = 0.2 },
+                            nodes = {
+                                UIBox_button {
+                                    label = { "Breed" },
+                                    colour = G.C.ETERNAL,
+                                    scale = 0.4,
+                                    minh = 0.6,
+                                    maxh = 0.6,
+                                    minw = 2,
+                                    maxw = 2,
+                                    button = "nursery_breed",
+                                },
+                            }
+                        },
                     }
                 },
 
             }, false)
         }
     }
+end
+
+function G.FUNCS.nursery_breed(e)
+
 end
 
 local ca_dref = CardArea.draw
@@ -275,8 +329,8 @@ function G.FUNCS.emplace_mother(e)
     local jkr = G.jokers.highlighted[1]
     G.jokers:remove_from_highlighted(jkr, true)
     G.jokers:remove_card(jkr)
-    G.nursery_mother:emplace(jkr) 
-end 
+    G.nursery_mother:emplace(jkr)
+end
 
 function G.FUNCS.can_emplace_mother(e)
     if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 then
@@ -292,7 +346,7 @@ function G.FUNCS.emplace_father(e)
     local jkr = G.jokers.highlighted[1]
     G.jokers:remove_from_highlighted(jkr, true)
     G.jokers:remove_card(jkr)
-    G.nursery_father:emplace(jkr) 
+    G.nursery_father:emplace(jkr)
 end
 
 function G.FUNCS.can_emplace_father(e)
@@ -314,4 +368,20 @@ function Card:highlight(is)
     else
         old(self, is)
     end
+end
+
+
+
+--end ui, start mechanics
+
+function Horsechicot.breed(mother_center, father_center)
+
+end
+
+function Horsechicot.calculate_genes(center)
+    if G.GAME.gene_table[center.key] then
+        return G.GAME.gene_table[center.key]
+    end
+
+    
 end
