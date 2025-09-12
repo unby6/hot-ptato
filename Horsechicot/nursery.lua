@@ -6,6 +6,16 @@ function G.FUNCS.show_nursery(e)
     G.STATE_COMPLETE = false
 end
 
+if Nursery then
+    if G.nursery then
+        G.FUNCS.hide_nursery()
+        G.nursery:remove()
+        G.nursery = nil
+        G.nursery_mother:remove()
+        G.nursery_father:remove()
+    end
+end
+
 --light copying from plinko
 Nursery = {
     o = {},
@@ -146,6 +156,67 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                                         },
                                                     }
                                                 },
+
+                                                {
+                                                    n = G.UIT.R,
+                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true, shadow = true },
+                                                    nodes = {
+                                                        {
+                                                            n = G.UIT.C,
+                                                            config = { align = "cm", focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' },
+                                                            nodes = {
+                                                                {
+                                                                    n = G.UIT.R,
+                                                                    config = { align = "cm", maxw = 1.3 },
+                                                                    nodes = {
+                                                                        -------------------
+                                                                        { n = G.UIT.T, config = { text = "Emplace", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                                                                        -------------------
+                                                                    }
+                                                                },
+                                                                {
+                                                                    n = G.UIT.R,
+                                                                    config = { align = "cm", maxw = 1.3, minw = 1 },
+                                                                    nodes = {
+                                                                        -------------------
+                                                                        { n = G.UIT.T, config = { text = "Father", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                                                                        -------------------
+                                                                    }
+                                                                } or nil
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    n = G.UIT.R,
+                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, minh = 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true, shadow = true },
+                                                    nodes = {
+                                                        {
+                                                            n = G.UIT.C,
+                                                            config = { align = "cm", focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' },
+                                                            nodes = {
+                                                                {
+                                                                    n = G.UIT.R,
+                                                                    config = { align = "cm", maxw = 1.3 },
+                                                                    nodes = {
+                                                                        -------------------
+                                                                        { n = G.UIT.T, config = { text = "Emplace", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                                                                        -------------------
+                                                                    }
+                                                                },
+                                                                {
+                                                                    n = G.UIT.R,
+                                                                    config = { align = "cm", maxw = 1.3, minw = 1 },
+                                                                    nodes = {
+                                                                        -------------------
+                                                                        { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                                                                        -------------------
+                                                                    }
+                                                                } or nil
+                                                            }
+                                                        }
+                                                    }
+                                                },
                                             }
                                         },
                                     }
@@ -159,9 +230,26 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                             nodes = {
                                 {
                                     n = G.UIT.R,
-                                    config = { id = "nursery_area", align = "cm", colour = G.C.BLACK, },
+                                    config = { id = "nursery_area", align = "cm", colour = G.C.BLACK, r = 0.2},
                                     nodes = {
 
+                                        {
+                                            n = G.UIT.C,
+                                            config = { id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2},
+                                            nodes = {
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_father, align = "cl" } } } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W }, nodes = { { n = G.UIT.T, config = { text = "Father", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+
+                                            }
+                                        },
+                                        { 
+                                            n = G.UIT.C,
+                                            config = { id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
+                                            nodes = {
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_mother, align = "cl" } } } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W}, nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+                                            }
+                                        },
                                     }
                                 },
                             }
@@ -177,8 +265,8 @@ end
 
 local ca_dref = CardArea.draw
 function CardArea:draw(...)
-	if self == G.hand and (G.STATE == G.STATES.NURSERY) then
-		return
-	end
-	return ca_dref(self, ...)
+    if self == G.hand and (G.STATE == G.STATES.NURSERY) then
+        return
+    end
+    return ca_dref(self, ...)
 end
