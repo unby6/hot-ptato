@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = "notbaddragon",
     atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    pos = { x = 1, y = 4 },
     hotpot_credits = {
         art = {"pangaea47"},
         code = {"Nxkoo"},
