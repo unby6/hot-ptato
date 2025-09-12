@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = "inacargobox",
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 7, y = 3 },
     hotpot_credits = {
         art = {"???"},
         code = {"Nxkoo"},
