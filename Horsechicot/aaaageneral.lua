@@ -29,6 +29,7 @@ SMODS.Atlas{key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 9
 SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
+SMODS.Atlas{key = "hc_consumables", path = "Horsechicot/hc_consumables.png", px=71, py=95}
 
 local Username = G.PROFILES[G.SETTINGS.profile].name
 

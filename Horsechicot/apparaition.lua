@@ -1,8 +1,8 @@
 SMODS.Consumable {
     key = 'apparition',
     set = 'Spectral',
-    pos = { x = 2, y = 0 },
-    atlas = 'hc_placeholder',
+    pos = { x = 0, y = 0 },
+    atlas = 'hc_consumables',
     discovered = true,
     loc_vars = function(self, info_queue, card)
         if not card.edition or not card.edition.hpot_phantasmic then
