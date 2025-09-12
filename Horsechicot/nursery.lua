@@ -435,6 +435,7 @@ end
 
 --end ui, start mechanics
 G.C.HPOT_PINK = HEX("fe89d0")
+G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother_center, father_center)
     local center_to_dupe
     if G.GAME.guaranteed_breed_center == "mother" then

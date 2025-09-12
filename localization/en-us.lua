@@ -1857,6 +1857,13 @@ return {
                     "{C:red}Harvesting{} gives {C:attention}#1#%{}",
                     "more {C:hpot_advert}Cryptocurrency"
                 }
+            },
+            v_hpot_hc_parthenogenesis = {
+                name = "Parthenogenesis",
+                text = {
+                    "When {C:hpot_pink}breeding{}, the child will",
+                    "always be a child of the {C:attention}Mother"
+                }
             }
         },
         
