@@ -12,7 +12,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     cost = 3,
-    config = { extra = { mult_per_joker = 10, chips_per_joker = 150 } },
+    config = { extra = { mult_per_joker = 3, chips_per_joker = 20 } },
     loc_vars = function(self, info_queue, card)
         local valid_jokers = 0
         if G.jokers and G.jokers.cards then
