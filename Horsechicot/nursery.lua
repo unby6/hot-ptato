@@ -291,6 +291,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                     minw = 2,
                                     maxw = 2,
                                     button = "nursery_breed",
+                                    func = "can_nursery_breed",
                                 },
                             }
                         },
@@ -310,7 +311,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
 end
 
 function G.FUNCS.nursery_breed(e)
-
+    Horsechicot.breed(G.nursery_mother.cards[1].config.center, G.nursery_father.cards[1].config.center)
 end
 
 local ca_dref = CardArea.draw
@@ -355,9 +356,19 @@ function G.FUNCS.can_emplace_father(e)
     end
 end
 
+function G.FUNCS.can_nursery_breed(e)
+    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 then
+        e.config.colour = G.C.ETERNAL
+        e.config.button = "nursery_breed"
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    end
+end
+
 local old = Card.highlight
 function Card:highlight(is)
-    if (G.nursery_mother and self.area == G.nursery_mother) or (G.nursery_father and self.area == G.nursery_father) then
+    if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) then
         local area = self.area
         area:remove_card(self)
         G.jokers:emplace(self)
@@ -382,6 +393,7 @@ function Horsechicot.breed(mother_center, father_center)
             center_to_dupe = father_center
         end
     end
+    G.GAME.active_breeding = true
     G.GAME.center_being_duped = center_to_dupe
     G.GAME.rounds_passed = 0
 end
@@ -395,6 +407,8 @@ function end_round()
             if to_dupe then
                 G.GAME.rounds_passed = G.GAME.rounds_passed + 1
                 if G.GAME.rounds_passed >= 2 then
+                    G.GAME.active_breeding = false
+                    G.GAME.center_being_duped = false
                     if pseudorandom("hc_breed_miscarry") > 0.1 then
                         local card = SMODS.create_card{key = to_dupe.key}
                         G.nursery_child:emplace(card)
