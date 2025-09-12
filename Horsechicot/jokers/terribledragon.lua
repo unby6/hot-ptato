@@ -3,7 +3,7 @@ SMODS.Joker {
     atlas = "hc_placeholder",
     pos = { x = 1, y = 4 },
     hotpot_credits = {
-        art = {"pangaea47"},
+        art = {"cg223"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
