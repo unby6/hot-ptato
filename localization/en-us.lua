@@ -2001,6 +2001,14 @@ return {
                     "a random held {C:attention}Consumable{}"
                 }
             },
+            c_hpot_monarch = {
+                name = "Monarch",
+                text = {
+                    "Creates up to {C:attention}#1#",
+                    "random {C:spectral}Spectral{} cards",
+                    "{C:inactive}(Must have room)",
+                }
+            },
         },
         Tarot = {
             c_chariot_v2 = {
