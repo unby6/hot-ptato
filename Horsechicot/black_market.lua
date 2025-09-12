@@ -13,15 +13,23 @@ function G.UIDEF.hotpot_horsechicot_market_section()
     G.GAME.market_table = nil
   end
     if not G.GAME.market_filled then
-        G.GAME.market_filled = true
+        G.GAME.market_filled = {}
         for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-        local new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers }
-        G.market_jokers:emplace(new_shop_card)
-        create_market_card_ui(new_shop_card)
-        new_shop_card:juice_up()
+          local new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers }
+          G.market_jokers:emplace(new_shop_card)
+          create_market_card_ui(new_shop_card)
+          new_shop_card:juice_up()
+          G.GAME.market_filled[#G.GAME.market_filled+1] = new_shop_card.config.center.key
         end
         save_run()
     else    
+        for i, v in pairs(G.GAME.market_filled) do
+          local c = SMODS.create_card{
+            key = v
+          }
+          create_market_card_ui(c)
+          G.market_jokers:emplace(c)
+        end
         for i, v in pairs(G.market_jokers.cards) do
             create_market_card_ui(v)
         end
@@ -167,6 +175,7 @@ function Game:start_run(args)
   if not saveTable then
     G.GAME.cryptocurrency = 0
     G.GAME.current_round.market_reroll_cost = 0.5
+    G.GAME.market_filled = nil
   end
   if saveTable and saveTable.cardAreas then
     G.GAME.market_table = saveTable.cardAreas.market_jokers
