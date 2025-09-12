@@ -104,7 +104,7 @@ SMODS.Joker {
             main_end = main_end
         }
     end,
-    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
 }
 
 local emplace_ref = CardArea.emplace

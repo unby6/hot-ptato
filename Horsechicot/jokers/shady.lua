@@ -25,6 +25,7 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
     hotpot_credits = {
         art = {"pangaea47"},
         code = {"Nxkoo"},
+        idea = { "lord.ruby" },
         team = {"Horsechicot"}
     },
     pos = { x = 2, y = 1 },

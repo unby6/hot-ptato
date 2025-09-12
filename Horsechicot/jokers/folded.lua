@@ -20,6 +20,6 @@ SMODS.Joker {
             card.ability.extra.unscoring
         }}
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli"),
+    hotpot_credits = Horsechicot.credit("Lily Felli", "Pangaea", "lord.ruby"),
     pixel_size = { w = 71, h = 62 },
 }

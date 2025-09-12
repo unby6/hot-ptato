@@ -1,6 +1,6 @@
 SMODS.Voucher {
     key = "hc_parthenogenesis", --todo: atlas
-    hotpot_credits = Horsechicot.credit("cg223"),
+    hotpot_credits = Horsechicot.credit("cg223", "lord.ruby"),
     redeem = function (self, voucher)
         G.GAME.guaranteed_breed_center = "mother"
     end,

@@ -15,6 +15,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {"pangaea47"},
         code = {"Nxkoo"},
+        idea = { "lord.ruby" },
         team = {"Horsechicot"}
     },
     loc_vars = function(self, info_queue, card)

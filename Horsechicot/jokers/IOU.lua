@@ -23,6 +23,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = {"pangaea47"},
         code = {"Nxkoo"},
+        idea = {"lord.ruby"},
         team = {"Horsechicot"}
     },
     calculate = function(self, card, context)
