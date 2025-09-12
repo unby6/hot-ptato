@@ -2,6 +2,7 @@ SMODS.Joker {
     key = "truman",
     atlas = "hc_jokers",
     pos = { x = 4, y = 3 },
+    soul_pos = {x = 4, y = 4},
     rarity = 4,
     blueprint_compat = true,
     eternal_compat = true,
@@ -41,6 +42,16 @@ SMODS.Joker {
                 highest_num,
                 highest_num * card.ability.extra.base_mult,
                 highest_name
+            }
+        }
+    end,
+    collection_loc_vars = function()
+        return {
+            vars = {
+                5,
+                0,
+                1,
+                "[TEAM]"
             }
         }
     end,
