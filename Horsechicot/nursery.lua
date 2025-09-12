@@ -459,7 +459,7 @@ function end_round()
             local to_dupe = G.GAME.center_being_duped
             if to_dupe then
                 G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
-                if G.GAME.breeding_rounds_passed >= 2 then
+                if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
