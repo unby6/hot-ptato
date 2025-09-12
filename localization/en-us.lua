@@ -1611,7 +1611,7 @@ return {
             },
             j_hpot_notbaddragon = {
                 name = {
-                    "Terrib{s:0.4}ad{}le Dragon"
+                    "Terrible Dragon"
                 },
                 text = {
                     "{C:mult}+#1#{} Mult and {C:chips}+#2#{} Chips",
