@@ -71,21 +71,6 @@ function update_nursery(dt) -- talen from plinko so idk
     if G.GAME.breeding_finished then
         G.GAME.breeding_finished = false
     end
-    if G.GAME.miscarried then
-        G.GAME.miscarried = false
-        delay(0.5)
-        G.E_MANAGER:add_event(Event {
-            func = function()
-                if G.nursery_mother.cards[1] then
-                    SMODS.calculate_effect {
-                        card = G.nursery_mother.cards[1],
-                        message = "Miscarried!"
-                    }
-                end
-                return true
-            end
-        })
-    end
 end
 
 function G.FUNCS.can_hide_nursery(e)
@@ -478,15 +463,10 @@ function end_round()
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
-                    if pseudorandom("hc_breed_miscarry") > 0.1 then
-                        local card = SMODS.create_card { key = to_dupe.key }
-                        card.infertile = true
-                        G.nursery_mother.cards[1].infertile = true
-                        G.nursery_child:emplace(card)
-                    else
-                        G.GAME.child_color = G.C.RED
-                        G.GAME.miscarried = true
-                    end
+                    local card = SMODS.create_card { key = to_dupe.key }
+                    card.infertile = true
+                    G.nursery_mother.cards[1].infertile = true
+                    G.nursery_child:emplace(card)
                 end
             end
             return true
