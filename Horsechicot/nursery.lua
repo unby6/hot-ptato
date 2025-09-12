@@ -159,7 +159,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
 
                                                 {
                                                     n = G.UIT.R,
-                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true, shadow = true },
+                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'emplace_father', func = 'can_emplace_father', hover = true, shadow = true },
                                                     nodes = {
                                                         {
                                                             n = G.UIT.C,
@@ -189,7 +189,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                                 },
                                                 {
                                                     n = G.UIT.R,
-                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, minh = 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true, shadow = true },
+                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, minh = 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'emplace_mother', func = 'can_emplace_mother', hover = true, shadow = true },
                                                     nodes = {
                                                         {
                                                             n = G.UIT.C,
@@ -269,4 +269,49 @@ function CardArea:draw(...)
         return
     end
     return ca_dref(self, ...)
+end
+
+function G.FUNCS.emplace_mother(e)
+    local jkr = G.jokers.highlighted[1]
+    G.jokers:remove_from_highlighted(jkr, true)
+    G.jokers:remove_card(jkr)
+    G.nursery_mother:emplace(jkr) 
+end 
+
+function G.FUNCS.can_emplace_mother(e)
+    if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.RED
+        e.config.button = "emplace_mother"
+    end
+end
+
+function G.FUNCS.emplace_father(e)
+    local jkr = G.jokers.highlighted[1]
+    G.jokers:remove_from_highlighted(jkr, true)
+    G.jokers:remove_card(jkr)
+    G.nursery_father:emplace(jkr) 
+end
+
+function G.FUNCS.can_emplace_father(e)
+    if #G.jokers.highlighted ~= 1 or #G.nursery_father.cards ~= 0 then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.RED
+        e.config.button = "emplace_father"
+    end
+end
+
+local old = Card.highlight
+function Card:highlight(is)
+    if (G.nursery_mother and self.area == G.nursery_mother) or (G.nursery_father and self.area == G.nursery_father) then
+        local area = self.area
+        area:remove_card(self)
+        G.jokers:emplace(self)
+    else
+        old(self, is)
+    end
 end
