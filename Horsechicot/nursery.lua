@@ -344,7 +344,13 @@ function G.FUNCS.can_nursery_abort(e)
 end
 
 function G.FUNCS.nursery_breed(e)
-    Horsechicot.breed(G.nursery_mother.cards[1].config.center, G.nursery_father.cards[1].config.center)
+    local mom = G.nursery_mother.cards[1]
+    local dad = G.nursery_father.cards[1]
+    Horsechicot.breed(mom.config.center, dad.config.center)
+    SMODS.calculate_effect{
+        card = mom,
+        message = "Impregnated!"
+    }
 end
 
 local ca_dref = CardArea.draw
