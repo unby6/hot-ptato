@@ -347,9 +347,10 @@ function G.FUNCS.nursery_breed(e)
     local mom = G.nursery_mother.cards[1]
     local dad = G.nursery_father.cards[1]
     Horsechicot.breed(mom.config.center, dad.config.center)
+    mom:juice_up()
     SMODS.calculate_effect{
         card = mom,
-        message = "Impregnated!"
+        message = "Impregnated!",
     }
 end
 
