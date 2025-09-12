@@ -85,6 +85,7 @@ function G.FUNCS.hide_nursery(e)
     ease_background_colour_blind(G.STATE)
     show_shop()
 
+    G.nursery.alignment.offset.y = G.ROOM.T.y + 29
 
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -409,8 +410,8 @@ function G.FUNCS.can_emplace_father(e)
 end
 
 function G.FUNCS.can_nursery_breed(e)
-    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.nursery_mother.cards[1].infertile and not G.nursery_father.cards[1].infertile then
-        e.config.colour = G.C.ETERNAL
+    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.nursery_mother.cards[1].infertile and not G.nursery_father.cards[1].infertile and not G.GAME.active_breeding then
+        e.config.colour = G.C.HPOT_PINK
         e.config.button = "nursery_breed"
     else
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
@@ -420,11 +421,11 @@ end
 
 local old = Card.highlight
 function Card:highlight(is)
-    if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) then
+    if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) or (G.nursery_child and self.area == G.nursery_child) then
         local area = self.area
         area:remove_card(self)
         G.jokers:emplace(self)
-    else
+    elseif not (G.nursery_mother and self.area == G.nursery_mother and G.GAME.active_breeding) then
         old(self, is)
     end
 end
@@ -464,6 +465,8 @@ function end_round()
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
                     local card = SMODS.create_card { key = to_dupe.key }
+                    card.T.w = card.T.w * 0.75
+                    card.T.h = card.T.h * 0.75
                     card.infertile = true
                     G.nursery_mother.cards[1].infertile = true
                     G.nursery_child:emplace(card)
