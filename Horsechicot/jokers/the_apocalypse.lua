@@ -62,6 +62,7 @@ SMODS.Joker {
         if card.ability.horseman == "" then return end
         local vars
         if card.ability.horseman == "ruby" then
+            q[#q+1] = {set = "Other", key = "hc_ruby_apocalypse"}
             vars = {
                 get_currency_mult()
             }
