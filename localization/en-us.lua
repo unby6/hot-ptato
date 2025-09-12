@@ -1601,6 +1601,32 @@ return {
                     "each give {X:mult,C:white} X#1# {} Mult",
                 }
             },
+            j_hpot_bungaloid = {
+                name = "Bungaloid",
+                text = {
+                    "Create a random",
+                    "{C:hpot_advert}Hot Potato{} Jokers",
+                    "if played hand contains a {C:attention}#1#{}",
+                }
+            },
+            j_hpot_notbaddragon = {
+                name = {
+                    "Terrib{s:0.4}ad{}le Dragon"
+                },
+                text = {
+                    "{C:mult}+#1#{} Mult and {C:chips}+#2#{} Chips",
+                    "for each {C:attention}Untrained Joker{}",
+                    "{C:inactive}(Currently {C:mult}+#4#{} {C:inactive}Mult and {C:chips}+#5#{} {C:inactive}Chips)"
+                }
+            },
+            j_hpot_goldenchicot = {
+                name = "Golden Chicot",
+                text = {
+                    "Earn {C:money}$#1#{} for each time",
+                    "a {C:attention}Boss Blind{} is disabled",
+                    "{C:inactive}(Currently {C:money}$#3#{}{C:inactive})"
+                }
+            },
             j_hpot_apocalypse_ruby = {
                 name = "The Apocalypse: Conquest",
                 text = {
@@ -1849,6 +1875,13 @@ return {
                     "{C:red}Harvesting{} gives {C:attention}#1#%{}",
                     "more {C:hpot_advert}Cryptocurrency"
                 }
+            },
+            v_hpot_hc_parthenogenesis = {
+                name = "Parthenogenesis",
+                text = {
+                    "When {C:hpot_pink}breeding{}, the child will",
+                    "always be a child of the {C:attention}Mother"
+                }
             }
         },
         
@@ -1991,6 +2024,14 @@ return {
                 text = {
                     "Add {C:dark_edition}Phantasmic{} to",
                     "a random held {C:attention}Consumable{}"
+                }
+            },
+            c_hpot_monarch = {
+                name = "Monarch",
+                text = {
+                    "Creates up to {C:attention}#1#",
+                    "random {C:spectral}Spectral{} cards",
+                    "{C:inactive}(Must have room)",
                 }
             },
         },
@@ -3533,6 +3574,9 @@ return {
             wheel_button_1 = "The",
             wheel_button_2 = "Arrow",
             wheel_spin_button1 = "Spin",
+
+            nursery_button_1 = "The",
+            nursery_button_2 = "Nursery",
 
             you_have = "You have ",
             k_success = "Success",
