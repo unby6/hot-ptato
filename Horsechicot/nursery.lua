@@ -45,7 +45,6 @@ function update_nursery(dt) -- talen from plinko so idk
                             play_sound('cardFan2')
                             -- Back to shop button
                             G.CONTROLLER:snap_to({ node = G.nursery:get_UIE_by_ID('shop_button') })
-                            set_wheel()
 
                             return true
                         end
@@ -56,6 +55,24 @@ function update_nursery(dt) -- talen from plinko so idk
         }))
 
         G.STATE_COMPLETE = true
+    end
+    if G.GAME.breeding_finished then
+        G.GAME.breeding_finished = false
+    end
+    if G.GAME.miscarried then
+        G.GAME.miscarried = false
+        delay(0.5)
+        G.E_MANAGER:add_event(Event {
+            func = function()
+                if G.nursery_mother.cards[1] then
+                    SMODS.calculate_effect {
+                        card = G.nursery_mother.cards[1],
+                        message = "Miscarried!"
+                    }
+                end
+                return true
+            end
+        })
     end
 end
 
@@ -113,9 +130,6 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
     if G.GAME.nursery_child_table then
         G.nursery_child:load(G.GAME.nursery_child_table)
         G.GAME.nursery_child_table = nil
-    end
-    if G.GAME.breeding_finished then
-        G.GAME.breeding_finished = false
     end
     return
     {
@@ -250,8 +264,16 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                             n = G.UIT.C,
                                             config = { align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
                                             nodes = {
-                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_father, align = "cl" } } } },
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Father", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_father, align = "cl" } } } },
+                                            }
+                                        },
+                                        {
+                                            n = G.UIT.C,
+                                            config = { align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
+                                            nodes = {
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_mother, align = "cl" } } } },
 
                                             }
                                         },
@@ -259,16 +281,9 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                             n = G.UIT.C,
                                             config = { align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
                                             nodes = {
-                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_mother, align = "cl" } } } },
-                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
-                                            }
-                                        },
-                                        {
-                                            n = G.UIT.C,
-                                            config = { align = "cm", colour = G.C.BLACK, padding = 0.2, minw = 2.3, minh = 1.9, r = 0.2 },
-                                            nodes = {
-                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_child, align = "cl" } } } },
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Child", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
+                                                { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_child, align = "cl" } } } },
+
                                             }
                                         },
                                     }
@@ -333,7 +348,7 @@ end
 function G.FUNCS.nursery_abort(e)
     G.GAME.active_breeding = false
     G.GAME.center_being_duped = nil
-    SMODS.calculate_effect{card = G.nursery_mother.cards[1], message = "Aborted!"}
+    SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = "Aborted!" }
 end
 
 function G.FUNCS.can_nursery_abort(e)
@@ -351,7 +366,7 @@ function G.FUNCS.nursery_breed(e)
     local dad = G.nursery_father.cards[1]
     Horsechicot.breed(mom.config.center, dad.config.center)
     mom:juice_up()
-    SMODS.calculate_effect{
+    SMODS.calculate_effect {
         card = mom,
         message = "Impregnated!",
     }
@@ -420,8 +435,6 @@ function Card:highlight(is)
     end
 end
 
-
-
 --end ui, start mechanics
 G.C.HPOT_PINK = HEX("fe89d0")
 function Horsechicot.breed(mother_center, father_center)
@@ -429,7 +442,7 @@ function Horsechicot.breed(mother_center, father_center)
     if G.GAME.guaranteed_breed_center == "mother" then
         center_to_dupe = mother_center
     else
-        local poll = pseudorandom("hc_breed")
+        local poll = pseudorandom("hc_breed_result")
         if poll > 0.5 then
             G.GAME.child_color = G.C.HPOT_PINK
             center_to_dupe = mother_center
@@ -440,28 +453,29 @@ function Horsechicot.breed(mother_center, father_center)
     end
     G.GAME.active_breeding = true
     G.GAME.center_being_duped = center_to_dupe
-    G.GAME.rounds_passed = 0
+    G.GAME.breeding_rounds_passed = 0
 end
 
 local old = end_round
 function end_round()
     old()
     G.E_MANAGER:add_event(Event {
-        func = function ()
+        func = function()
             local to_dupe = G.GAME.center_being_duped
             if to_dupe then
-                G.GAME.rounds_passed = G.GAME.rounds_passed + 1
-                if G.GAME.rounds_passed >= 2 then
+                G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
+                if G.GAME.breeding_rounds_passed >= 2 then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
                     if pseudorandom("hc_breed_miscarry") > 0.1 then
-                        local card = SMODS.create_card{key = to_dupe.key}
+                        local card = SMODS.create_card { key = to_dupe.key }
                         card.infertile = true
                         G.nursery_mother.cards[1].infertile = true
                         G.nursery_child:emplace(card)
                     else
-                        --todo: miscarriage
+                        G.GAME.child_color = G.C.RED
+                        G.GAME.miscarried = true
                     end
                 end
             end
