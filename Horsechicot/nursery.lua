@@ -274,7 +274,6 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                             nodes = {
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_mother, align = "cl" } } } },
-
                                             }
                                         },
                                         {
@@ -283,7 +282,6 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                             nodes = {
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W },                                              nodes = { { n = G.UIT.T, config = { text = "Child", scale = 0.7, colour = G.C.WHITE, shadow = true } }, } },
                                                 { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W, minh = G.CARD_H, colour = G.C.GREY, r = 0.2 }, nodes = { { n = G.UIT.O, config = { object = G.nursery_child, align = "cl" } } } },
-
                                             }
                                         },
                                     }
