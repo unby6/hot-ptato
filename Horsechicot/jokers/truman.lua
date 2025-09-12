@@ -18,6 +18,9 @@ SMODS.Joker {
         team = {"Horsechicot"}
     },
     loc_vars = function(self, info_queue, card)
+        if not G.jokers or G.settings.paused then
+            return self:collection_loc_vars(info_queue, card)
+        end
         local teams = {}
         if not G.jokers then return end
         for i, jkr in pairs(G.jokers.cards) do
