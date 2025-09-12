@@ -11,5 +11,6 @@ SMODS.Voucher {
     hotpot_credits = Horsechicot.credit("cg223"),
     redeem = function (self, voucher)
         G.GAME.quick_preggo = true
-    end
+    end,
+    requires = {"v_hpot_hc_parthenogenesis"}
 }

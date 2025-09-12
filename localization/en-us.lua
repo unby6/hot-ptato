@@ -1861,6 +1861,13 @@ return {
                     "per {C:attention}Ante{}"
                 }
             },
+            v_hpot_hc_incubator = {
+                name = "Incubator",
+                text = {
+                    "{C:hpot_pink}Breeding{} now takes",
+                    "only one round"
+                }
+            },
             v_hpot_hc_dark_connections = {
                 name = "Dark Connections",
                 text = {
