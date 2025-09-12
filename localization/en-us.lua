@@ -1609,6 +1609,24 @@ return {
                     "if played hand contains a {C:attention}#1#{}",
                 }
             },
+            j_hpot_notbaddragon = {
+                name = {
+                    "Terrib{s:0.4}ad{}le Dragon"
+                },
+                text = {
+                    "{C:mult}+#1#{} Mult and {C:chips}+#2#{} Chips",
+                    "for each {C:attention}Untrained Joker{}",
+                    "{C:inactive}(Currently {C:mult}+#4#{} {C:inactive}Mult and {C:chips}+#5#{} {C:inactive}Chips)"
+                }
+            },
+            j_hpot_goldenchicot = {
+                name = "Golden Chicot",
+                text = {
+                    "Earn {C:money}$#1#{} for each time",
+                    "a {C:attention}Boss Blind{} is disabled",
+                    "{C:inactive}(Currently {C:money}$#3#{}{C:inactive})"
+                }
+            },
             j_hpot_apocalypse_ruby = {
                 name = "The Apocalypse: Conquest",
                 text = {
