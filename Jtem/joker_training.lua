@@ -194,6 +194,7 @@ SMODS.Sticker {
 	atlas = "jtem_mood",
 	pos = { x = 2, y = 0 },
 	hpot_mood_sticker = true,
+	-- TODO: this is for pissdrawer :3 - nxkoo
 	-- For people peeping in here, especially people who know UI code
 	-- I wanna see this separate as little ui block elements someday
 	-- Instead of one big description
