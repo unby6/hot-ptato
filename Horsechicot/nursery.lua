@@ -114,6 +114,9 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
         G.nursery_child:load(G.GAME.nursery_child_table)
         G.GAME.nursery_child_table = nil
     end
+    if G.GAME.breeding_finished then
+        G.GAME.breeding_finished = false
+    end
     return
     {
         n = G.UIT.ROOT,
@@ -448,6 +451,7 @@ function end_round()
                 G.GAME.rounds_passed = G.GAME.rounds_passed + 1
                 if G.GAME.rounds_passed >= 2 then
                     G.GAME.active_breeding = false
+                    G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
                     if pseudorandom("hc_breed_miscarry") > 0.1 then
                         local card = SMODS.create_card{key = to_dupe.key}
