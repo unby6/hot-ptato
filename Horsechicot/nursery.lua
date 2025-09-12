@@ -295,6 +295,23 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                 },
                             }
                         },
+                        {
+                            n = G.UIT.C,
+                            config = { align = "cm", r = 0.2 },
+                            nodes = {
+                                UIBox_button {
+                                    label = { "Abort" },
+                                    colour = G.C.ETERNAL,
+                                    scale = 0.4,
+                                    minh = 0.6,
+                                    maxh = 0.6,
+                                    minw = 2,
+                                    maxw = 2,
+                                    button = "nursery_abort",
+                                    func = "can_nursery_abort",
+                                },
+                            }
+                        },
                         -- {
                         --     n = G.UIT.C,
                         --     config = { align = "cm", r = 0.2 },
@@ -308,6 +325,22 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
             }, false)
         }
     }
+end
+
+function G.FUNCS.nursery_abort(e)
+    G.GAME.active_breeding = false
+    G.GAME.center_being_duped = nil
+    SMODS.calculate_effect{card = G.nursery_mother.cards[1], message = "Aborted!"}
+end
+
+function G.FUNCS.can_nursery_abort(e)
+    if not G.GAME.active_breeding then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.RED
+        e.config.button = "nursery_abort"
+    end
 end
 
 function G.FUNCS.nursery_breed(e)
