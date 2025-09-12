@@ -224,6 +224,17 @@ local hpotConfigTab = function()
     }
 end
 
+local hotpot_gradient = SMODS.Gradient({
+	key = "hotpotatoblaze",
+	colours = {
+    HEX("ff4d00"),
+	HEX("e73121")
+	},
+	cycle = 10
+})
+
+HotPotato.badge_colour = hotpot_gradient
+
 HotPotato.config_tab = hpotConfigTab
 
 SMODS.current_mod.calculate = function(self, context)
