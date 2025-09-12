@@ -12,7 +12,7 @@ SMODS.Joker {
         extra = {
             xmult = 3,
             xmult_base = 3,
-            xmult_mod = 0.2
+            xmult_mod = 0.1
         }
     },
     calculate = function(self, card, context)
@@ -28,7 +28,13 @@ SMODS.Joker {
             G.GAME.scoring = true
         end
         if context.after then
-            G.GAME.scoring = nil
+            G.E_MANAGER:add_event(Event{
+                trigger = "after",
+                func = function()
+                    G.GAME.scoring = nil
+                    return true
+                end
+            })
         end
     end,
     this_function_runs_every_fucking_second = function(self, card)
