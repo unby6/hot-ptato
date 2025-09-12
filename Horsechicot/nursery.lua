@@ -383,6 +383,7 @@ function Horsechicot.breed(mother_center, father_center)
         end
     end
     G.GAME.center_being_duped = center_to_dupe
+    G.GAME.rounds_passed = 0
 end
 
 local old = end_round
@@ -393,9 +394,10 @@ function end_round()
             local to_dupe = G.GAME.center_being_duped
             if to_dupe then
                 G.GAME.rounds_passed = G.GAME.rounds_passed + 1
-                if G.GAME.rounds_passed == 2 then
+                if G.GAME.rounds_passed >= 2 then
                     if pseudorandom("hc_breed_miscarry") > 0.1 then
-                        
+                        local card = SMODS.create_card{key = to_dupe.key}
+                        G.nursery_child:emplace(card)
                     else
                         --todo: miscarriage
                     end
