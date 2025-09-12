@@ -228,9 +228,10 @@ local hotpot_gradient = SMODS.Gradient({
 	key = "hotpotatoblaze",
 	colours = {
     HEX("ff4d00"),
+    HEX("765341"),
 	HEX("e73121")
 	},
-	cycle = 10
+	cycle = 6
 })
 
 HotPotato.badge_colour = hotpot_gradient
