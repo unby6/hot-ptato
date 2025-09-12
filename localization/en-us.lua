@@ -2362,6 +2362,12 @@ return {
                     "You're late, sugartits"
                 }
             },
+            hc_ruby_apocalypse = {
+                name = "Ruby's Comment :",
+                text = {
+                    "Play Entropy"
+                }
+            },
             p_hpot_czech_normal = {
                 ['name'] = 'Cheque Pack',
                 ['text'] = {
