@@ -423,7 +423,7 @@ end
 
 
 --end ui, start mechanics
-
+G.C.HPOT_PINK = HEX("fe89d0")
 function Horsechicot.breed(mother_center, father_center)
     local center_to_dupe
     if G.GAME.guaranteed_breed_center == "mother" then
@@ -431,8 +431,10 @@ function Horsechicot.breed(mother_center, father_center)
     else
         local poll = pseudorandom("hc_breed")
         if poll > 0.5 then
+            G.GAME.child_color = G.C.HPOT_PINK
             center_to_dupe = mother_center
         else
+            G.GAME.child_color = G.C.BLUE
             center_to_dupe = father_center
         end
     end
