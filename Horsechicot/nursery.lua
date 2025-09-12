@@ -375,13 +375,16 @@ end
 --end ui, start mechanics
 
 function Horsechicot.breed(mother_center, father_center)
-
-end
-
-function Horsechicot.calculate_genes(center)
-    if G.GAME.gene_table[center.key] then
-        return G.GAME.gene_table[center.key]
+    local center_to_dupe
+    if G.GAME.guaranteed_breed_center == "mother" then
+        center_to_dupe = mother_center
+    else
+        local poll = pseudorandom("hc_breed")
+        if poll > 0.5 then
+            center_to_dupe = mother_center
+        else
+            center_to_dupe = father_center
+        end
     end
-
-    
+    G.GAME.center_being_duped = center_to_dupe
 end
