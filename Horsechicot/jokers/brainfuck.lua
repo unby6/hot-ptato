@@ -1,6 +1,6 @@
 SMODS.Joker {
     hotpot_credits = {
-        art = {},
+        art = { "Pangaea" },
         idea = { 'lord.ruby' },
         code = { 'cg223' },
         team = { 'Horsechicot' }

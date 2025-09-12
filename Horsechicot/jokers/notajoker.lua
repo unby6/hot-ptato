@@ -7,7 +7,7 @@ SMODS.Joker {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47", "lord.ruby")
 }
 
 local createcard_ref = create_card

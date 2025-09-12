@@ -17,7 +17,7 @@ SMODS.Joker {
             }
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli")
+    hotpot_credits = Horsechicot.credit("Lily Felli", "Pangaea", "lord.ruby")
 }
 
 -- this is very easy but i spent 30 minutes confused about lsp stuff not working

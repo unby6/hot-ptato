@@ -40,5 +40,5 @@ SMODS.Joker {
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_doom')
         return { vars = { card.ability.extra.xmult, numerator, denominator } }
     end,
-    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
 }

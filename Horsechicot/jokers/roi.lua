@@ -28,5 +28,5 @@ SMODS.Joker {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    hotpot_credits = Horsechicot.credit("cg223", nil, "lord.ruby"),
+    hotpot_credits = Horsechicot.credit("cg223", "Pangaea", "lord.ruby"),
 }

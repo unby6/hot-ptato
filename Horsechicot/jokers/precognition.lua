@@ -41,7 +41,7 @@ SMODS.Joker {
             }
         }
     end,
-    hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "pangaea47", "lord.ruby")
 }
 
 function create_UIBox_precognition()
