@@ -1,4 +1,4 @@
-G.STATES.NURSERY = 69420223
+G.STATES.NURSERY = 6942022367
 function G.FUNCS.show_nursery(e)
     stop_use()
     hide_shop()
@@ -92,6 +92,7 @@ function G.FUNCS.hide_nursery(e)
             return true
         end
     }))
+    G.nursery.alignment.offset.y = G.ROOM.T.y + 29
 end
 
 function G.UIDEF.hotpot_horsechicot_nursery_section()
