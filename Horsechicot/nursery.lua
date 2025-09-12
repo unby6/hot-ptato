@@ -357,7 +357,7 @@ function G.FUNCS.can_emplace_father(e)
 end
 
 function G.FUNCS.can_nursery_breed(e)
-    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 then
+    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.nursery_mother.cards[1].infertile and not G.nursery_father.cards[1].infertile then
         e.config.colour = G.C.ETERNAL
         e.config.button = "nursery_breed"
     else
@@ -411,6 +411,8 @@ function end_round()
                     G.GAME.center_being_duped = false
                     if pseudorandom("hc_breed_miscarry") > 0.1 then
                         local card = SMODS.create_card{key = to_dupe.key}
+                        card.infertile = true
+                        G.nursery_mother.cards[1].infertile = true
                         G.nursery_child:emplace(card)
                     else
                         --todo: miscarriage
