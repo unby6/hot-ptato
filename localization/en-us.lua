@@ -1597,7 +1597,7 @@ return {
             j_hpot_inacargobox = {
                 name = "In a Cargo Box?",
                 text = {
-                    "{C:attention}Jokers{} in {C:blue}Delivery's Queue{}",
+                    "{C:attention}Jokers{} in the {C:blue}Delivery Queue{}",
                     "each give {X:mult,C:white} X#1# {} Mult",
                 }
             },
