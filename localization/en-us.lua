@@ -1604,8 +1604,7 @@ return {
             j_hpot_bungaloid = {
                 name = "Bungaloid",
                 text = {
-                    "Create a random",
-                    "{C:hpot_advert}Hot Potato{} Jokers",
+                    "Create a random {C:hpot_advert}Hot Potato{} Joker",
                     "if played hand contains a {C:attention}#1#{}",
                 }
             },
