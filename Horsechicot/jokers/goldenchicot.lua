@@ -43,9 +43,15 @@ SMODS.Joker {
     key = "goldenchicot",
     atlas = "hc_jokers",
     pos = { x = 6, y = 3 },
+    hotpot_credits = {
+        art = {"lord.ruby"},
+        code = {"Nxkoo"},
+        team = {"Horsechicot"}
+    },
     rarity = 3,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     cost = 8,
     config = {
         extra = {
