@@ -41,8 +41,8 @@ create_boss_bounty_system()
 
 SMODS.Joker {
     key = "goldenchicot",
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 6, y = 3 },
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
