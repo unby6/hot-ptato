@@ -285,6 +285,10 @@ HPJTTT = {
         "Download NoMoreEs",
         "10 trillion more leaks to hotpot",
         "No one is really going to read this splash text right?",
+        "*BEEEEEELCH*",
+        "It's a they/them!",
+        "Also check out Games Repainted!",
+        "I'm so fucking fat ouuuuughhh fuuuuuuuck"
     }
 }
 
