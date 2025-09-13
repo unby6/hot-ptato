@@ -2413,6 +2413,16 @@ return {
                 }
             },
 
+            hc_nxko_comment3 = {
+                name = {
+                    "Nxkoo's Comment:",
+                    "{s:0.7}(From Horsechicot)"
+                },
+                text = {
+                    "man im dead :skull:"
+                }
+            },
+
             --Apocalypse comments
             hc_ruby_apocalypse = {
                 name = "Ruby's Comment :",
