@@ -20,10 +20,6 @@ SMODS.Joker {
             }
         elseif context.baby_made and context.father == card and not context.blueprint then
             SMODS.scale_card(card, {ref_table = card.ability, ref_value = "current", scalar_value = "increment"})
-            card.ability.current = card.ability.current + card.ability.increment
-            return {
-                message = localize("k_upgrade_ex")
-            }
         end
     end
 }

@@ -69,6 +69,17 @@ function update_nursery(dt) -- talen from plinko so idk
     end
     if G.GAME.breeding_finished then
         G.GAME.breeding_finished = false
+        for i, v in pairs(G.I.CARD) do
+            if v.ability and v.ability.father then
+                dad = v
+                v.ability.father = nil
+            end
+        end
+        SMODS.calculate_context {
+            baby_made = true,
+            father = dad,
+            mother = mom
+        }
     end
 end
 
@@ -500,17 +511,6 @@ function end_round()
                     G.nursery_child:emplace(card)
                     local mom, dad = G.nursery_mother.cards[1], nil
                     G.nursery_mother.cards[1].ability.mother = nil
-                    for i, v in pairs(G.I.CARD) do
-                        if v.ability and v.ability.father then
-                            dad = v
-                            v.ability.father = nil
-                        end
-                    end
-                    SMODS.calculate_context{
-                        baby_made = true,
-                        father = dad,
-                        mother = mom
-                    }
                 end
             end
             return true
