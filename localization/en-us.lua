@@ -917,7 +917,8 @@ return {
                 name = "Genghis Khan",
                 text = {
                     "{C:white,X:red}X#1#{} Mult for every",
-                    "{C:attention}Child{} fathered"
+                    "{C:attention}Child{} fathered",
+                    "{C:inactive}Currently {C:white,X:red}X#2#{C:inactive} Mult"
                 }
             },
             j_hpot_login_bonus = {
