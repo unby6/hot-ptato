@@ -1614,6 +1614,7 @@ return {
                 text = {
                     "Create a random {C:hpot_advert}Hot Potato{} Joker",
                     "if played hand contains a {C:attention}#1#{}",
+                    "{C:inactive}(Must have room)"
                 }
             },
             j_hpot_notbaddragon = {
