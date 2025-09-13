@@ -751,6 +751,16 @@ return {
             },
         },
         Joker = {
+            j_hpot_hc_trackmania = {
+                name = "Trackmania",
+                text = {
+                    "{C:white,X:red}X#1#{} Mult, decreases",
+                    "by {C:white,X:red}X#2#{} Mult",
+                    "every second",
+                    "{s:0.8,C:inactive}Resets after boss defeated",
+                    "{C:inactive}(Currently {C:white,X:red}X#3#{C:inactive} Mult)"
+                }
+            },
             j_hpot_fortnite = {
                 ['name'] = '19 Plincoin Fortnite Card',
                 ['text'] = {
