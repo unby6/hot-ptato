@@ -8,12 +8,15 @@ SMODS.Joker {
     loc_vars = function (self, info_queue, card)
         return {vars = {card.ability.increment, card.ability.current}}
     end,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
     calculate = function (self, card, context)
         if context.joker_main then
             return {
                 xmult = card.ability.current
             }
-        elseif context.baby_made and context.father == card then
+        elseif context.baby_made and context.father == card and not context.blueprint then
             SMODS.scale_card(card, {ref_table = card.ability, ref_value = "current", scalar_value = "increment"})
             card.ability.current = card.ability.current + card.ability.increment
             return {

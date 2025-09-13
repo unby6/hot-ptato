@@ -23,14 +23,14 @@ end
 
 local start_run_ref = Game.start_run
 function Game:start_run(args)
-  local ret = start_run_ref(self, args)
-  local saveTable = args.savetext or nil
-  if saveTable and saveTable.cardAreas then
-    G.GAME.nursery_father_table = saveTable.cardAreas.nursery_father
-    G.GAME.nursery_mother_table = saveTable.cardAreas.nursery_mother
-    G.GAME.nursery_child_table = saveTable.cardAreas.nursery_child
-  end
-  return ret
+    local ret = start_run_ref(self, args)
+    local saveTable = args.savetext or nil
+    if saveTable and saveTable.cardAreas then
+        G.GAME.nursery_father_table = saveTable.cardAreas.nursery_father
+        G.GAME.nursery_mother_table = saveTable.cardAreas.nursery_mother
+        G.GAME.nursery_child_table = saveTable.cardAreas.nursery_child
+    end
+    return ret
 end
 
 function update_nursery(dt) -- talen from plinko so idk
@@ -337,6 +337,12 @@ end
 
 --maybe should make this only usable once a round
 function G.FUNCS.nursery_abort(e)
+    G.nursery_mother.cards[1].ability.mother = nil
+    for i, v in pairs(G.I.CARD) do
+        if v.ability and v.ability.father then
+            v.ability.father = nil
+        end
+    end
     G.GAME.active_breeding = false
     G.GAME.center_being_duped = nil
     SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = "Aborted!" }
@@ -355,6 +361,8 @@ end
 function G.FUNCS.nursery_breed(e)
     local mom = G.nursery_mother.cards[1]
     local dad = G.nursery_father.cards[1]
+    mom.ability.mother = true
+    dad.ability.father = true
     Horsechicot.breed(mom.config.center, dad.config.center)
     mom:juice_up()
     SMODS.calculate_effect {
@@ -448,6 +456,7 @@ function G.start_run(...)
     end
     return old(...)
 end
+
 --end ui, start mechanics
 --this is used for "Nursery" and female nursery icon
 G.C.HPOT_PINK = HEX("fe89d0")
@@ -489,6 +498,19 @@ function end_round()
                     card.T.w = card.T.w * 0.75
                     card.T.h = card.T.h * 0.75
                     G.nursery_child:emplace(card)
+                    local mom, dad = G.nursery_mother.cards[1], nil
+                    G.nursery_mother.cards[1].ability.mother = nil
+                    for i, v in pairs(G.I.CARD) do
+                        if v.ability and v.ability.father then
+                            dad = v
+                            v.ability.father = nil
+                        end
+                    end
+                    SMODS.calculate_context{
+                        baby_made = true,
+                        father = dad,
+                        mother = mom
+                    }
                 end
             end
             return true
