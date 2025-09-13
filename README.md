@@ -33,3 +33,6 @@ some of this is things only the last team can do really
 
 ### message from cg
 ADD MORE CURRENCIES DO IT MORE MORE MORE MORE MORE
+
+### message from Nxkoo
+Pissdrawer or OAP, PLEASE add a button and an UI to condense all of this currency into one singular UI/Panel, its overwhelming
