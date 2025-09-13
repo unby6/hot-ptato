@@ -224,16 +224,6 @@ local hpotConfigTab = function()
     }
 end
 
-local hotpot_gradient = SMODS.Gradient({
-	key = "hotpotatoblaze",
-	colours = {
-    HEX("ff4d00"),
-    HEX("765341"),
-	HEX("e73121")
-	},
-	cycle = 6
-})
-
 HotPotato.badge_colour = SMODS.Gradients["hpot_advert"]
 
 HotPotato.config_tab = hpotConfigTab
