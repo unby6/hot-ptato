@@ -2364,7 +2364,7 @@ return {
             },
 
             hc_lily_comment = {
-                name = "Lily's Comment:",
+                name = "Lily's Comment :",
                 text = {
                     "My beloved <3"
                 }
