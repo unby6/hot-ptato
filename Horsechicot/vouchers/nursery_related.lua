@@ -1,5 +1,6 @@
+--main functionality for these is located in the nursery files
 SMODS.Voucher {
-    key = "hc_parthenogenesis", --todo: atlas
+    key = "hc_parthenogenesis", 
     hotpot_credits = Horsechicot.credit("cg223", "lord.ruby"),
     redeem = function (self, voucher)
         G.GAME.guaranteed_breed_center = "mother"

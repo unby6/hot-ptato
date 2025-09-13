@@ -1,3 +1,4 @@
+--main implementation for these is in the black_market.lua file
 SMODS.Voucher {
     key = "hc_dark_connections",
     atlas = "hc_vouchers",
