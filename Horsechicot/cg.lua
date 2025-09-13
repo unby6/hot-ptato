@@ -16,10 +16,3 @@ function Horsechicot.num_jokers()
     return Horsechicot.joker_count_cache
 end
 
-SMODS.Atlas {
-    key = "cg223",
-    path = "Horsechicot/cg223.png",
-    px = 71,
-    py = 95
-}
-
