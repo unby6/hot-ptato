@@ -37,6 +37,12 @@ SMODS.Joker{
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "hpot_cloverpit")
         return { vars = { numerator, denominator } }
     end,
+    hotpot_credits = {
+        art = {"pangaea47"},
+        code = {"lord.ruby"},
+        idea = {"pangaea47"},
+        team = {"Horsechicot"}
+    }
 }
 
 local ease_ref = ease_dollars
