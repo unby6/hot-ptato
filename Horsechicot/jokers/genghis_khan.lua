@@ -4,6 +4,8 @@ SMODS.Joker {
         current = 1,
         increment = 0.5
     },
+    atlas = "hc_jokers",
+    pos = {x = 3, y = 4},
     hotpot_credits = Horsechicot.credit("cg223", "Pangaea", "cg223"),
     loc_vars = function (self, info_queue, card)
         return {vars = {card.ability.increment, card.ability.current}}
