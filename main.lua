@@ -234,7 +234,7 @@ local hotpot_gradient = SMODS.Gradient({
 	cycle = 6
 })
 
-HotPotato.badge_colour = hotpot_gradient
+HotPotato.badge_colour = SMODS.Gradients["hpot_advert"]
 
 HotPotato.config_tab = hpotConfigTab
 
