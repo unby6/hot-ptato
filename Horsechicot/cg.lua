@@ -2,7 +2,7 @@
 
 
 
-
+--this is used for the war horseman
 function Horsechicot.num_jokers()
     if Horsechicot.joker_count_cache then
         return Horsechicot.joker_count_cache
