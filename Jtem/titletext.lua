@@ -259,7 +259,6 @@ HPJTTT.add_texts({
     "D1D7",
     "smots gaming",
     "Tip number 10: Sit at the chessboard and play with yourself",
-    love.system.getOS() .. " is the worst operating system!",
 	"Murph will do anything but wheel of mods",
 	"Grows offline!",
     "Restraining Order means nothing to me",
