@@ -2381,6 +2381,17 @@ return {
                 }
             },
 
+            hc_nxko_comment2 = {
+                name = {
+                    "Nxkoo's Comment:",
+                    "{s:0.7}(From Horsechicot)"
+                },
+                text = {
+                    "This Joker was supposed to be sprited",
+                    "but the spriter refused to do so, i wonder why"
+                }
+            },
+
             --Apocalypse comments
             hc_ruby_apocalypse = {
                 name = "Ruby's Comment :",
@@ -2402,6 +2413,14 @@ return {
                     "Shoutouts to gay foxgirls,",
                     "sorry about the {C:hpot_pink}Nursery",
                     "{s:0}type bald in chat",
+                }
+            },
+            hc_nxko_apocalypse = {
+                name = "Nxkoo's Comment :",
+                text = {
+                    "I might be associated with {C:red}Death{},",
+                    "but that doesn't mean that i {s:1.5,C:hpot_KILL}DIED{}.",
+                    "{C:inactive,s:0.7}(I'm AroAce btw){}"
                 }
             },
             p_hpot_czech_normal = {
