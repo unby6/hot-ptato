@@ -5,10 +5,10 @@ SMODS.Joker {
     perishable_compat = true,
     rarity = 3,
     cost = 6,
-    atlas = "hc_placeholder",
-    pos = { x = 0, y = 0 },
+    atlas = "hc_jokers",
+    pos = { x = 1, y = 4 },
     hotpot_credits = {
-        art = {"???"},
+        art = {"pangaea47"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
