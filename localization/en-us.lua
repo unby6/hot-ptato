@@ -2378,6 +2378,14 @@ return {
                     "Play Entropy"
                 }
             },
+
+            hc_lily_apocalypse = {
+                name = "Lily's Comment :",
+                text = {
+                    "I am your god,",
+                    "a killer and a fraud"
+                }
+            },
             p_hpot_czech_normal = {
                 ['name'] = 'Cheque Pack',
                 ['text'] = {
