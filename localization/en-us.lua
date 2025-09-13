@@ -1434,7 +1434,7 @@ return {
             j_hpot_banana_of_doom = {
                 name = "Banana of Doom",
                 text = {
-                    "{X:mult,C:white}#1#{} Mult",
+                    "{X:mult,C:white}X#1#{} Mult",
                     "{C:green}#2# in #3#{} chance this",
                     "card is destroyed",
                     "at end of round"
@@ -1481,7 +1481,8 @@ return {
                 name = "Antidisestablishmentarianism",
                 text = {
                     "Disable the effect of the {C:attention}Boss Blind{}",
-                    "if played hand consists of {C:attention}debuffed{} cards"
+                    "if played hand consists of",
+                    "only {C:attention}debuffed{} cards"
                 }
             },
             j_hpot_notajoker = {
@@ -1536,7 +1537,7 @@ return {
                 },
                 text = {
                     "{X:mult,C:white}X#1#{} Mult for each",
-                    "{C:hpot_advert}self-inserts{} in this {C:attention}Mod{}",
+                    "{C:hpot_advert}self-insert{} in this {C:attention}Mod{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
                 }
             },
@@ -1592,7 +1593,8 @@ return {
                 text = {
                     "Skipping a {C:attention}Blind{}",
                     "has {C:green}#1# in #2#{} chance",
-                    "to multiply gained {C:attention}Tag"
+                    "to create a copy of",
+                    "the gained {C:attention}Tag"
                 }
             },
             j_hpot_apocalypse = {
