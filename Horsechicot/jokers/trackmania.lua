@@ -8,8 +8,8 @@ SMODS.Joker {
     rarity = 3,
     cost = 6,
     atlas = "hc_jokers",
-    pos = { x = 5, y = 4 },
-    soul_pos = { x = 6, y = 4 },
+    pos = { x = 6, y = 4 },
+    soul_pos = { x = 7, y = 4 },
     loc_vars = function(self, info_queue, card)
         local t_since_ante = love.timer.getTime() - card.ability.start_time
         local xmult = card.ability.def_xmult - (t_since_ante * card.ability.dec_per_sec)
