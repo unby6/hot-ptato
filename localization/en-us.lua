@@ -2372,6 +2372,8 @@ return {
                     "My beloved <3"
                 }
             },
+
+            --Apocalypse comments
             hc_ruby_apocalypse = {
                 name = "Ruby's Comment :",
                 text = {
