@@ -619,7 +619,7 @@ function hpot_event_start_scenario()
 
         current_step = nil,
         previous_step = nil,
-        next_step = nil,
+        next_step = scenario.starting_step_key,
 
         ability = G.GAME.hpot_event_scenario_data,
 
