@@ -14,3 +14,21 @@ payload = '''
 self.cards = self.cards or {}
 '''
 match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = 'engine/ui.lua'
+position = 'before'
+pattern = '''
+if self.UIT == G.UIT.O and not self.config.no_role then
+    self.config.object:set_role(self.config.role or {role_type = 'Minor', major = self, xy_bond = 'Strong', wh_bond = 'Weak', scale_bond = 'Weak'})
+end
+'''
+payload = '''
+if self.UIT == G.UIT.O and not self.config.no_role and self.config.object then
+    self.config.object:set_role(self.config.role or {role_type = 'Minor', major = self, xy_bond = 'Strong', wh_bond = 'Weak', scale_bond = 'Weak'})
+end
+'''
+match_indent = true
+
