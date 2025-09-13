@@ -223,7 +223,7 @@ HPJTTT = {
         "and now... a word from our Sponsor. Entropy.",
         "Attempt to compare Joker with Table",
         "Now in 3D",
-        TMJ and "Thanks for using Too Many Jokers! ~ cg" or "Use Too Many Jokers! ~ cg", --tmj prio is lower
+        TMJ and "Thanks for using Too Many Jokers! ~ cg" or "Use Too Many Jokers! ~ cg", --tmj prio is lower - this wont load anymore (context: used to be in a diff file loaded normally)
         "Cassoosted Fuper",
         "Splipped Droost",
         "mb6fbhsphdrcb",
@@ -235,7 +235,7 @@ HPJTTT = {
         "silly ahh drivables - @lily.felli",
         "130 lbs",
         "Niko: She's 10. Can I Mate?",
-        CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!", --cprns prio is  literally -99 million :3
+        CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!", --cprns prio is  literally -99 million :3 - this wont load anymore
         "awawa awebo",
         "I wish shadows had rights",
         "The cat atop the far tree whispers sweet promises to passerbys",
