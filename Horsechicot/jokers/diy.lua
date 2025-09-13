@@ -34,7 +34,7 @@ SMODS.Joker {
     hotpot_credits = Horsechicot.credit("lord.ruby")
 }
 
-
+--used in the UI, set them in localization files
 HotPotato.trigger_options = {
     "hpot_diy_hand_played",
     "hpot_diy_tarot_sold",
@@ -53,6 +53,7 @@ HotPotato.effect_options = {
     "hpot_diy_random_card"
 }
 
+--as in the order they are above. if HotPotato.diy_trigger(blah) then
 function HotPotato.diy_trigger(self, card, context)
     if not G.GAME.hotpot_diy then return end
     if G.GAME.hotpot_diy.trigger == 1 then 
@@ -70,6 +71,7 @@ function HotPotato.diy_trigger(self, card, context)
     end
 end
 
+--effect triggered by above if. again, order as they are in that table up there
 function HotPotato.diy_effect(self, card, context)
     if not G.GAME.hotpot_diy then return end
     if G.GAME.hotpot_diy.effect == 1 then
