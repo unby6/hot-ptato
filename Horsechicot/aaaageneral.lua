@@ -31,32 +31,6 @@ SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, 
 SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
 SMODS.Atlas{key = "hc_consumables", path = "Horsechicot/hc_consumables.png", px=71, py=95}
 
-local Username = G.PROFILES[G.SETTINGS.profile].name
-
-
-
-function Horsechicot.get_authors()
-    if Horsechicot.known_authors then
-        return Horsechicot.known_authors
-    end
-    Horsechicot.known_authors = {}
-    local author_map = {}
-    for _, v in pairs(G.P_CENTERS) do
-        if v.hotpot_credits then
-            for _, authors in pairs(v.hotpot_credits) do
-                if type(authors) == "string" then authors = {authors} end
-                for _, author in pairs(authors) do
-                    author_map[author] = true
-                end
-            end
-        end
-    end
-    
-    for author, _ in pairs(author_map) do
-        Horsechicot.known_authors[#Horsechicot.known_authors+1] = author
-    end
-    return Horsechicot.known_authors
-end
 
 SMODS.Atlas{
     key = "horsechicot_market",
