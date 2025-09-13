@@ -465,7 +465,13 @@ function G.start_run(...)
         G.nursery:remove()
         G.nursery = nil
     end
-    return old(...)
+    old(...)
+    for i, v in pairs(G.I.CARD) do
+        if v.ability and v.ability.is_nursery_smalled then
+            v.T.w = v.T.w * 0.75
+            v.T.h = v.T.h * 0.75
+        end
+    end
 end
 
 --end ui, start mechanics
@@ -506,8 +512,10 @@ function end_round()
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
                     local card = SMODS.create_card { key = to_dupe.key }
+                    --make children smaller
                     card.T.w = card.T.w * 0.75
                     card.T.h = card.T.h * 0.75
+                    card.ability.is_nursery_smalled = true
                     G.nursery_child:emplace(card)
                     local mom, dad = G.nursery_mother.cards[1], nil
                     G.nursery_mother.cards[1].ability.mother = nil
@@ -517,3 +525,4 @@ function end_round()
         end
     })
 end
+
