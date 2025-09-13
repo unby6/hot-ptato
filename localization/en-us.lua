@@ -1635,6 +1635,14 @@ return {
                     "{C:inactive}(Currently {C:money}$#3#{}{C:inactive})"
                 }
             },
+            j_hpot_cardstack = {
+                name = "Card Stack",
+                text = {
+                    "{C:attention}Played{} cards have",
+                    "{C:green}#3# in #2#{} chance",
+                    "to gain {C:attention}#1#{} retrigger"
+                }
+            },
             j_hpot_apocalypse_ruby = {
                 name = "The Apocalypse: Conquest",
                 text = {
