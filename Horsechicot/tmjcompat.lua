@@ -1,3 +1,4 @@
+--we do this post_load because. to be honest i dont actually know. its more stable i guess?
 local lock = false
 local old_love_update = love.update
 function love.update(dt)
