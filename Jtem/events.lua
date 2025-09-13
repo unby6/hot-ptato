@@ -636,7 +636,7 @@ function hpot_event_start_scenario()
         finish_scenario = hpot_event_end_scenario,
     }
 
-	SMODS.calculate_context({ hpot_event_scenario_start = true, scenario = G.hpot_event_scenario })
+	SMODS.calculate_context({ hpot_event_scenario_start = true, event = G.hpot_event })
 
 	G.E_MANAGER:add_event(Event({
 		func = function()
