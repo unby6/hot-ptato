@@ -1470,7 +1470,7 @@ return {
                 }
             },
             j_hpot_antidsestablishmentarianism = {
-                name = "Antidsestablishmentarianism",
+                name = "Antidisestablishmentarianism",
                 text = {
                     "Disable the effect of the {C:attention}Boss Blind{}",
                     "if played hand consists of {C:attention}debuffed{} cards"
