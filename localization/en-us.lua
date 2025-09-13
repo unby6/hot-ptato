@@ -913,6 +913,13 @@ return {
                     "Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} at the end of round"
                 }
             },
+            j_hpot_hc_genghis_khan = {
+                name = "Genghis Khan",
+                text = {
+                    "{C:white,X:red}X#1#{} Mult for every",
+                    "{C:attention}Child{} fathered"
+                }
+            },
             j_hpot_login_bonus = {
                 name = "Login Bonus",
                 text = {
