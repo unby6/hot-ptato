@@ -280,7 +280,11 @@ HPJTTT = {
         "Now with no preservatives or artificial sweeteners",
         "Woof",
         "Todays random seed is: "..tostring(math.floor(os.time()) % 100),
-        "Merge branch 'main' of https://github.com/the-Astra/Hot-Potato"
+        "Merge branch 'main' of https://github.com/the-Astra/Hot-Potato",
+        "Works on Smart Fridges",
+        "Download NoMoreEs",
+        "10 trillion more leaks to hotpot",
+        "No one is really going to read this splash text right?",
     }
 }
 
