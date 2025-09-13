@@ -14,6 +14,7 @@ SMODS.Joker {
     cost = 3,
     config = { extra = { mult_per_joker = 3, chips_per_joker = 20 } },
     loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = { key = 'hc_nxko_comment2', set = 'Other' }
         local valid_jokers = 0
         if G.jokers and G.jokers.cards then
             for _, joker in ipairs(G.jokers.cards) do
