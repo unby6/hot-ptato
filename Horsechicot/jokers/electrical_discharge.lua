@@ -30,5 +30,9 @@ SMODS.Joker {
             end
         end
     end,
-    hotpot_credits = Horsechicot.credit("Lily Felli", "pangaea47", "Lily Felli")
+    hotpot_credits = {
+        code = {"Lily Felli"},
+        art = {"pangaea47"},
+        team = {"Horsechicot"}
+    }
 }
