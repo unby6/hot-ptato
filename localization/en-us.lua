@@ -1740,6 +1740,15 @@ return {
                     "Decreases by {X:mult,C:white}#2#{} every second",
                     "Resets at the end of the ante"
                 }
+            },
+            j_hpot_cloverpit = {
+                name = "Clover Pit",
+                text = {
+                    "Earn the Played Poker hands",
+                    "{C:attention}base{} mult as {C:money}${}",
+                    "{C:green}#1# in #2#{} chance to lose",
+                    "all money earned this {C:attention}ante{}"
+                }
             }
         },
         Sleeve = {
