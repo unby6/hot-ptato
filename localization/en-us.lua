@@ -2391,7 +2391,8 @@ return {
             hc_cg_apocalypse = {
                 name = "Cg's Comment :",
                 text = {
-                    "Shoutouts to gay foxgirls",
+                    "Shoutouts to gay foxgirls,",
+                    "sorry about the {C:hpot_pink}Nursery",
                     "{s:0}type bald in chat",
                 }
             },
