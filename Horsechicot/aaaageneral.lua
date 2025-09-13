@@ -154,9 +154,6 @@ function SMODS.injectItems(...)
     Horsechicot.post_load()
 end
 
-function HotPotato.reload_localization()
-
-end
 
 function HotPotato.reload_localization()
 	SMODS.handle_loc_file(HotPotato.path)
