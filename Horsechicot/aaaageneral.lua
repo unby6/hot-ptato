@@ -17,12 +17,6 @@ function Horsechicot.credit(coders, arters, ideaers)
     }
 end
 
-local function mod_exists(id)
-    local m = SMODS.find_mod(id)
-    if m[1] and m[1].can_load then
-        return true
-    end
-end
 
 SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
 SMODS.Atlas{key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 95}
