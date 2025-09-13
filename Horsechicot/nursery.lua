@@ -430,7 +430,14 @@ function Card:highlight(is)
         old(self, is)
     end
 end
-
+local old = G.FUNCS.go_to_menu
+function G.FUNCS.go_to_menu(e)
+    old(e)
+    if G.nursery then
+        G.nursery:remove()
+        G.nursery = nil
+    end
+end
 --end ui, start mechanics
 G.C.HPOT_PINK = HEX("fe89d0")
 G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
