@@ -2368,6 +2368,13 @@ return {
                     "Play Entropy"
                 }
             },
+            hc_cg_apocalypse = {
+                name = "Cg's Comment :",
+                text = {
+                    "Shoutouts to gay foxgirls",
+                    "{s:0}type bald in chat",
+                }
+            },
             p_hpot_czech_normal = {
                 ['name'] = 'Cheque Pack',
                 ['text'] = {
