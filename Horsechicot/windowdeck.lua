@@ -33,7 +33,7 @@ SMODS.Scoring_Calculation {
     text = 'X',
     replace_ui = function(self)
         local scale = 0.4
-        local w = math.max(2 - 0.25 * (G.GAME.windows_unlocked or 0), 0.25)
+        local w = math.max(2 - 0.4 * (G.GAME.windows_unlocked or 0), 0.25)
         local nodes = {
             {n=G.UIT.C, config={align = 'cm', id = 'hand_chips_container'}, nodes = {
                 SMODS.GUI.score_container({
