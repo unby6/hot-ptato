@@ -2364,10 +2364,7 @@ return {
             },
 
             hc_lily_comment = {
-                name = {
-                    "Lily's Comment:",
-                    "{s:0.7}(From Horsechicot)"
-                },
+                name = "Lily's Comment :",
                 text = {
                     "My beloved <3"
                 }
@@ -2384,6 +2381,13 @@ return {
                 text = {
                     "I am your god,",
                     "a killer and a fraud"
+                }
+            },
+            hc_cg_apocalypse = {
+                name = "Cg's Comment :",
+                text = {
+                    "Shoutouts to gay foxgirls",
+                    "{s:0}type bald in chat",
                 }
             },
             p_hpot_czech_normal = {
