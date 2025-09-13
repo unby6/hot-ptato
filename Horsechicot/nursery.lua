@@ -1,3 +1,6 @@
+--feel free to rewrite anything in this file causing issues (like UI stuff)
+--i (cg) hacked it together from the wheel and plinko stuff
+
 G.STATES.NURSERY = 6942022367
 function G.FUNCS.show_nursery(e)
     stop_use()
@@ -6,6 +9,7 @@ function G.FUNCS.show_nursery(e)
     G.STATE_COMPLETE = false
 end
 
+--for watch lua
 if Nursery then
     if G.nursery then
         G.FUNCS.hide_nursery()
@@ -16,11 +20,6 @@ if Nursery then
     end
 end
 
---light copying from plinko
-Nursery = {
-    o = {},
-    f = {}
-}
 
 local start_run_ref = Game.start_run
 function Game:start_run(args)
@@ -93,10 +92,10 @@ function G.FUNCS.hide_nursery(e)
             return true
         end
     }))
-    G.nursery.alignment.offset.y = G.ROOM.T.y + 29
 end
 
 function G.UIDEF.hotpot_horsechicot_nursery_section()
+    --init areas
     if not G.nursery_father or not G.nursery_father.cards then
         G.nursery_father = CardArea(
             G.hand.T.x - 1,
@@ -117,6 +116,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
             1.05 * G.CARD_H,
             { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
     end
+    --load if possible
     if G.GAME.nursery_father_table then
         G.nursery_father:load(G.GAME.nursery_father_table)
         G.GAME.nursery_father_table = nil
@@ -129,6 +129,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
         G.nursery_child:load(G.GAME.nursery_child_table)
         G.GAME.nursery_child_table = nil
     end
+    --ui stuff (its fucked)
     return
     {
         n = G.UIT.ROOT,
@@ -326,13 +327,6 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                                 },
                             }
                         },
-                        -- {
-                        --     n = G.UIT.C,
-                        --     config = { align = "cm", r = 0.2 },
-                        --     nodes = {
-                        --         { n = G.UIT.R, config = { align = "cm", minw = G.CARD_W }, nodes = { { n = G.UIT.T, config = { text = "Mother", scale = 0.5, colour = G.C.WHITE, shadow = true } }, } },
-                        --     }
-                        -- },
                     }
                 },
 
@@ -341,6 +335,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
     }
 end
 
+--maybe should make this only usable once a round
 function G.FUNCS.nursery_abort(e)
     G.GAME.active_breeding = false
     G.GAME.center_being_duped = nil
@@ -368,6 +363,7 @@ function G.FUNCS.nursery_breed(e)
     }
 end
 
+--dont draw G.hand during nursery
 local ca_dref = CardArea.draw
 function CardArea:draw(...)
     if self == G.hand and (G.STATE == G.STATES.NURSERY) then
@@ -376,6 +372,7 @@ function CardArea:draw(...)
     return ca_dref(self, ...)
 end
 
+--buncha button stuff down here
 function G.FUNCS.emplace_mother(e)
     local jkr = G.jokers.highlighted[1]
     G.jokers:remove_from_highlighted(jkr, true)
@@ -420,6 +417,7 @@ function G.FUNCS.can_nursery_breed(e)
     end
 end
 
+--i dont use Click here because im dumb. fix it if you want.
 local old = Card.highlight
 function Card:highlight(is)
     if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) or (G.nursery_child and self.area == G.nursery_child) then
@@ -430,6 +428,8 @@ function Card:highlight(is)
         old(self, is)
     end
 end
+
+--properly cleanup when menuing
 local old = G.FUNCS.go_to_menu
 function G.FUNCS.go_to_menu(e)
     old(e)
@@ -438,7 +438,18 @@ function G.FUNCS.go_to_menu(e)
         G.nursery = nil
     end
 end
+
+--properly cleanup when new running
+local old = G.start_run
+function G.start_run(...)
+    if G.nursery then
+        G.nursery:remove()
+        G.nursery = nil
+    end
+    return old(...)
+end
 --end ui, start mechanics
+--this is used for "Nursery" and female nursery icon
 G.C.HPOT_PINK = HEX("fe89d0")
 G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother_center, father_center)
@@ -447,6 +458,7 @@ function Horsechicot.breed(mother_center, father_center)
         center_to_dupe = mother_center
     else
         local poll = pseudorandom("hc_breed_result")
+        --we choose which parent to make a new joker of
         if poll > 0.5 then
             G.GAME.child_color = G.C.HPOT_PINK
             center_to_dupe = mother_center
@@ -460,6 +472,7 @@ function Horsechicot.breed(mother_center, father_center)
     G.GAME.breeding_rounds_passed = 0
 end
 
+--pregnancy checks
 local old = end_round
 function end_round()
     old()
