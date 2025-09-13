@@ -288,7 +288,8 @@ HPJTTT = {
         "*BEEEEEELCH*",
         "It's a they/them!",
         "Also check out Games Repainted!",
-        "I'm so fucking fat ouuuuughhh fuuuuuuuck"
+        "I'm so fucking fat ouuuuughhh fuuuuuuuck",
+        "Am I a socialist or leftist? Uh, this is a trackmania stream, I'm a racist."
     }
 }
 
