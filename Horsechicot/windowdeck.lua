@@ -1,3 +1,5 @@
+--todo: fix that issue where a bunch of windows appear after a certain point
+
 function generate_windows()
     G.GAME.window_colours = {}
     G.GAME.current_round.current_hand.scores = G.GAME.current_round.current_hand.scores or {}
