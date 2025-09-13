@@ -1,10 +1,10 @@
 SMODS.Consumable {
     key = 'monarch',
     set = 'Spectral',
-    atlas = "hc_placeholder",
-    pos = { x = 2, y = 0 },
+    atlas = "hc_consumables",
+    pos = { x = 1, y = 0 },
     hotpot_credits = {
-        art = {"???"},
+        art = {"lord.ruby"},
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },

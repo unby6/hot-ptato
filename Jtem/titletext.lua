@@ -276,7 +276,11 @@ HPJTTT = {
         "Now compatible with Birthlatro!",
         "What the dog doin?",
         "Nerf what if there was a joker",
-        "*notices bulge* OwO What's this?"
+        "*notices bulge* OwO What's this?",
+        "Now with no preservatives or artificial sweeteners",
+        "Woof",
+        "Todays random seed is: "..tostring(math.floor(os.time()) % 100),
+        "Merge branch 'main' of https://github.com/the-Astra/Hot-Potato"
     }
 }
 
