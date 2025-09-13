@@ -918,7 +918,7 @@ return {
                 text = {
                     "{C:white,X:red}X#1#{} Mult for every",
                     "{C:attention}Child{} fathered",
-                    "{C:inactive}Currently {C:white,X:red}X#2#{C:inactive} Mult"
+                    "{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)"
                 }
             },
             j_hpot_login_bonus = {
@@ -1614,6 +1614,7 @@ return {
                 text = {
                     "Create a random {C:hpot_advert}Hot Potato{} Joker",
                     "if played hand contains a {C:attention}#1#{}",
+                    "{C:inactive}(Must have room)"
                 }
             },
             j_hpot_notbaddragon = {
@@ -1632,6 +1633,14 @@ return {
                     "Earn {C:money}$#1#{} for each time",
                     "a {C:attention}Boss Blind{} is disabled",
                     "{C:inactive}(Currently {C:money}$#3#{}{C:inactive})"
+                }
+            },
+            j_hpot_cardstack = {
+                name = "Card Stack",
+                text = {
+                    "{C:attention}Played{} cards have",
+                    "{C:green}#3# in #2#{} chance",
+                    "to gain {C:attention}#1#{} retrigger"
                 }
             },
             j_hpot_apocalypse_ruby = {
@@ -2396,8 +2405,9 @@ return {
                     "{s:0.7}(From Horsechicot)"
                 },
                 text = {
-                    "This Joker was supposed to be sprited",
-                    "but the spriter refused to do so, i wonder why"
+                    "This Joker was supposed",
+                    "to be sprited but the spriter",
+                    "refused to do so, i wonder why"
                 }
             },
 
