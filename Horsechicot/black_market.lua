@@ -11,7 +11,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
   if G.GAME.market_table then
     G.market_jokers:load(G.GAME.market_table)
     G.GAME.market_table = nil
-  end
+  else
     if not G.GAME.market_filled then
         G.GAME.market_filled = {}
         for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
@@ -34,6 +34,7 @@ function G.UIDEF.hotpot_horsechicot_market_section()
             create_market_card_ui(v)
         end
     end
+  end
   G.harvest_cost = G.harvest_cost or 0
   return { n = G.UIT.R, config = { minw = 3, minh = 2.5, colour = G.C.CLEAR }, nodes = {} },
       {
