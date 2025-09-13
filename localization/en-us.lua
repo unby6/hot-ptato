@@ -2364,10 +2364,7 @@ return {
             },
 
             hc_lily_comment = {
-                name = {
-                    "Lily's Comment:",
-                    "{s:0.7}(From Horsechicot)"
-                },
+                name = "Lily's Comment:",
                 text = {
                     "My beloved <3"
                 }
