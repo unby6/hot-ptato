@@ -2387,8 +2387,9 @@ return {
                     "{s:0.7}(From Horsechicot)"
                 },
                 text = {
-                    "This Joker was supposed to be sprited",
-                    "but the spriter refused to do so, i wonder why"
+                    "This Joker was supposed",
+                    "to be sprited but the spriter",
+                    "refused to do so, i wonder why"
                 }
             },
 
