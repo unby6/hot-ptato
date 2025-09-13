@@ -2362,6 +2362,16 @@ return {
                     "You're late, sugartits"
                 }
             },
+
+            hc_lily_comment = {
+                name = {
+                    "Lily's Comment:",
+                    "{s:0.7}(From Horsechicot)"
+                },
+                text = {
+                    "My beloved <3"
+                }
+            },
             hc_ruby_apocalypse = {
                 name = "Ruby's Comment :",
                 text = {
