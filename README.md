@@ -30,3 +30,6 @@ pls dont add more currencies :(
 ### message from ruby
 please ctrl + f for TODO
 some of this is things only the last team can do really
+
+### message from cg
+ADD MORE CURRENCIES DO IT MORE MORE MORE MORE MORE
