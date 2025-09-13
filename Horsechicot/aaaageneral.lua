@@ -266,3 +266,5 @@ SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
 SMODS.Atlas{key = "hcnumberslop", path = "Ads/numberslop.png", px=169, py=55}
 SMODS.Atlas{key = "hcred", path = "Ads/red.png", px=169, py=55}
 SMODS.Atlas{key = "hcmustard", path = "Ads/mustard.png", px=169, py=55}
+
+HPJTTT.chosen = (math.floor(os.time())%#HPJTTT.text)+1
