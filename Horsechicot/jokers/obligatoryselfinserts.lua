@@ -19,8 +19,8 @@ SMODS.Joker {
     end,
     config = {
         extra = {
-            obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself = 0.5,
-            selfinserts = 10
+            obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself = 1.5,
+            selfinserts = 15
         }
     },
     calculate = function(self, card, context)
