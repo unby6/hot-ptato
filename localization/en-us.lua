@@ -2380,6 +2380,14 @@ return {
                     "Play Entropy"
                 }
             },
+
+            hc_lily_apocalypse = {
+                name = "Lily's Comment :",
+                text = {
+                    "I am your god,",
+                    "a killer and a fraud"
+                }
+            },
             hc_cg_apocalypse = {
                 name = "Cg's Comment :",
                 text = {

@@ -75,7 +75,7 @@ SMODS.Joker {
             }
         end
         if card.ability.horseman == "lily" then
-            
+            q[#q+1] = {set = "Other", key = "hc_lily_apocalypse"}
             local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_apocalypse_lily')
             vars = {
                 numerator,
@@ -102,33 +102,15 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             if card.ability.horseman == "ruby" then
-                G.E_MANAGER:add_event(Event{
-                    func = function()
-                        randomize_horseman(card)
-                        return true
-                    end
-                })
                 return {
                     xmult = get_currency_mult()
                 }
             elseif card.ability.horseman == "cg" then
                 local chips = card.ability.extra.chips_mod * Horsechicot.num_jokers()
-                G.E_MANAGER:add_event(Event{
-                    func = function()
-                        randomize_horseman(card)
-                        return true
-                    end
-                })
                 return {
                     chips = chips
                 }
             elseif card.ability.horseman == "baccon" and #G.play.cards == card.ability.extra.cards_needed then
-                G.E_MANAGER:add_event(Event{
-                    func = function()
-                        randomize_horseman(card)
-                        return true
-                    end
-                })
                 return {
                     xmult = card.ability.extra.xmult
                 }
@@ -155,14 +137,12 @@ SMODS.Joker {
             end
         end
         if context.after then
-            if card.ability.horseman == "lily" or card.ability.horseman == "nxkoo" or card.ability.horseman == "pangaea" then
-                G.E_MANAGER:add_event(Event{
-                    func = function()
-                        randomize_horseman(card)
-                        return true
-                    end
-                })
-            end
+            G.E_MANAGER:add_event(Event{
+                func = function()
+                    randomize_horseman(card)
+                    return true
+                end
+            })
         end
         if context.using_consumeable and card.ability.horseman == "pangaea" then
             G.GAME.ante_banned = G.GAME.ante_banned or {}
