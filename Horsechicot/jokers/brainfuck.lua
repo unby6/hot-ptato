@@ -17,6 +17,7 @@ SMODS.Joker {
             local cards = context.scoring_hand
             local last = -math.huge
             local should_trigger = true
+            --classic straight check
             ---@diagnostic disable-next-line: param-type-mismatch
             for _, card in ipairs(cards) do
                 local id = card:get_id() --
@@ -27,6 +28,7 @@ SMODS.Joker {
                     last = id
                 end
             end
+            --make luchador
             if should_trigger then
                 return {
                     message = "Added!",
