@@ -2362,10 +2362,29 @@ return {
                     "You're late, sugartits"
                 }
             },
+
+            hc_lily_comment = {
+                name = {
+                    "Lily's Comment:",
+                    "{s:0.7}(From Horsechicot)"
+                },
+                text = {
+                    "My beloved <3"
+                }
+            },
+
+            --Apocalypse comments
             hc_ruby_apocalypse = {
                 name = "Ruby's Comment :",
                 text = {
                     "Play Entropy"
+                }
+            },
+            hc_cg_apocalypse = {
+                name = "Cg's Comment :",
+                text = {
+                    "Shoutouts to gay foxgirls",
+                    "{s:0}type bald in chat",
                 }
             },
             p_hpot_czech_normal = {
