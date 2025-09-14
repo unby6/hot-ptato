@@ -1770,6 +1770,16 @@ return {
                     "{C:green}#1# in #2#{} chance to lose",
                     "all money earned this {C:attention}ante{}"
                 }
+            },
+            j_hpot_commit_farmer = {
+                name = "Commit Farmer",
+                text = {
+                    "Gives {X:mult,C:white}X#1#{} Mult for every",
+                    "{C:attention}GitHub Commit{} made by",
+                    "a random {C:attention}Team {C:inactive}(Currently",
+                    "{C:hpot_advert}#2#{C:inactive} at {X:mult,C:white}X#3#{C:inactive} Mult)",
+                    "{C:inactive}(Resets at end of round)"
+                }
             }
         },
         Sleeve = {

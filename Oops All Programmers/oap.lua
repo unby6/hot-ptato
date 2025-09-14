@@ -17,7 +17,13 @@ function OAP.credit(coders, arters, ideaers) -- stolen from horsechicot god bles
     }
 end
 
+function SMODS.current_mod.reset_game_globals(run_start)
+    reset_commit_farmer()
+end
 
 -- atlas stuff, keep it at the end probably
+SMODS.Atlas{key = "oap_jokers", path = "Oops! All Programmers/oap_jokers.png", px = 71, py = 95}
+
+--ads
 SMODS.Atlas{key = "oap_roffle", path = "Ads/roffleland.png", px=218, py=121}
 SMODS.Atlas{key = "oap_danielad", path = "Ads/findhim.png", px=125, py=188}
