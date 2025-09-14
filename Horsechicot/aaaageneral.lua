@@ -7,7 +7,7 @@ function Horsechicot.credit(coders, arters, ideaers)
         arters = {arters}
     end
     if type(ideaers) == "string" then
-        arters = {ideaers}
+        ideaers = {ideaers}
     end
     return {
         code = coders,
