@@ -35,7 +35,7 @@ end
 ---@return table
 function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
     local btnx = 0
-    local btny = 0 
+    local btny = 0
     local localized = "hotpot_delivery"
     local func = "hotpot_jtem_toggle_delivery"
     local atlas = "hpot_jtem_pkg"
@@ -44,7 +44,6 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
         if btntype == "to_delivery" or not btntype then
             localized = "hotpot_delivery"
             btnx = 0
-
         elseif btntype == "back_from_delivery" then
             localized = "hotpot_delivery_back"
             btnx = 1
@@ -92,12 +91,12 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
         config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
         nodes = {
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
                 loc_txt = "hotpot_go_reforge",
                 button = "hotpot_tname_toggle_reforge",
                 atlas = "hpot_tname_shop_reforge"
             },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
                 loc_txt = "hotpot_go_market",
                 button = "hotpot_horsechicot_toggle_market",
                 atlas = "hpot_horsechicot_market"
@@ -115,7 +114,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                 }
             },
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
-                        {
+            {
                 n = G.UIT.R,
                 nodes = {
                     {
@@ -127,11 +126,11 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                     }
                 }
             },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
                 loc_txt = "hotpot_delivery_back",
                 button = "hotpot_tname_toggle_reforge",
                 atlas = "hpot_tname_shop_reforge",
-                pos = {x = 1, y = 0}
+                pos = { x = 1, y = 0 }
             },
             {
                 n = G.UIT.R,
@@ -145,11 +144,11 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                     }
                 }
             },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component{
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
                 loc_txt = "hotpot_delivery_back",
                 button = "hotpot_horsechicot_toggle_market",
                 atlas = "hpot_tname_shop_reforge",
-                pos = {x = 1, y = 0}
+                pos = { x = 1, y = 0 }
             },
         },
     }
@@ -267,7 +266,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                         },
                         {
                             n = G.UIT.R,
-                            config = {  },
+                            config = {},
                             nodes = {
                                 {
                                     n = G.UIT.C,
@@ -346,7 +345,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                         align = "cm",
                                     },
                                     nodes = {
-                                        {n=G.UIT.T, config={text = localize("hpot_delivery_queue"), scale = 0.45, colour = G.C.L_BLACK, vert = true}},
+                                        { n = G.UIT.T, config = { text = localize("hpot_delivery_queue"), scale = 0.45, colour = G.C.L_BLACK, vert = true } },
                                     }
                                 },
                                 {
@@ -435,7 +434,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_section()
                                         align = "cm",
                                     },
                                     nodes = {
-                                        {n=G.UIT.T, config={text = localize("hpot_special_deals"), scale = 0.45, colour = G.C.L_BLACK, vert = true}},
+                                        { n = G.UIT.T, config = { text = localize("hpot_special_deals"), scale = 0.45, colour = G.C.L_BLACK, vert = true } },
                                     }
                                 },
                                 {
@@ -602,7 +601,7 @@ local function hpot_create_joker_from_amazon(card, center)
     local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
     local price_factor = 0.5
     if currency == "joker_exchange" then
-        price_factor = 12942 
+        price_factor = 12942
     elseif currency == "plincoin" then
         price_factor = 0.75
     elseif currency == "credits" then
@@ -616,42 +615,46 @@ local function hpot_create_joker_from_amazon(card, center)
     price_factor = price_factor * (should_spawn_with_eternal and 0.9 or 1) * (should_spawn_with_rental and 0.6 or 1) *
         (should_spawn_with_perishable and 0.6 or 1) * 1.5
     if center.credits then
-    hotpot_jtem_add_to_offers(center.key, {
-        price = { currency = currency, value = math.ceil(center.credits/7 * price_factor * random_price_factor) },
-        rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
-            (should_spawn_with_rental and 0.6 or 1) * (should_spawn_with_rental and 0.5 or 1) *
-            (plincoin and 2 or 1) * 1.5,
-        extras = {
-            rental = should_spawn_with_rental,
-            eternal = should_spawn_with_eternal,
-            perishable = should_spawn_with_perishable,
-            perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
-        },
-        create_card_args = {
-            hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
-                (not jx and poll_edition("hpjtem_delivery_edition")),
-            no_edition = jx or credits
-        }
-    })
-else
-    hotpot_jtem_add_to_offers(center.key, {
-        price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
-        rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
-            (should_spawn_with_rental and 0.6 or 1) * (should_spawn_with_rental and 0.5 or 1) *
-            (plincoin and 2 or 1) * 1.5,
-        extras = {
-            rental = should_spawn_with_rental,
-            eternal = should_spawn_with_eternal,
-            perishable = should_spawn_with_perishable,
-            perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
-        },
-        create_card_args = {
-            hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
-                (not jx and poll_edition("hpjtem_delivery_edition")),
-            no_edition = jx or credits
-        }
-    })
-end
+        hotpot_jtem_add_to_offers(center.key, {
+            price = { currency = currency, value = math.ceil(center.credits / 7 * price_factor * random_price_factor) },
+            rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
+                (should_spawn_with_rental and 0.6 or 1) * (should_spawn_with_rental and 0.5 or 1) *
+                (plincoin and 2 or 1) * 1.5,
+            extras = {
+                rental = should_spawn_with_rental,
+                eternal = should_spawn_with_eternal,
+                perishable = should_spawn_with_perishable,
+                perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
+            },
+            create_card_args = {
+                hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
+                    (not jx and poll_edition("hpjtem_delivery_edition")),
+                no_edition = jx or credits,
+                bypass_discovery_ui = true,
+                bypass_discovery_center = true
+            }
+        })
+    else
+        hotpot_jtem_add_to_offers(center.key, {
+            price = { currency = currency, value = math.ceil(center.cost * price_factor * random_price_factor) },
+            rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.6 or 1) *
+                (should_spawn_with_rental and 0.6 or 1) * (should_spawn_with_rental and 0.5 or 1) *
+                (plincoin and 2 or 1) * 1.5,
+            extras = {
+                rental = should_spawn_with_rental,
+                eternal = should_spawn_with_eternal,
+                perishable = should_spawn_with_perishable,
+                perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
+            },
+            create_card_args = {
+                hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
+                    (not jx and poll_edition("hpjtem_delivery_edition")),
+                no_edition = jx or credits,
+                bypass_discovery_ui = true,
+                bypass_discovery_center = true
+            }
+        })
+    end
     -- cannot order again until the end of this ante
     G.GAME.hp_jtem_already_requested_this_ante = true
     hotpot_delivery_refresh_card()
@@ -779,7 +782,7 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                                 n = G.UIT.C,
                                 config = {},
                                 nodes = {
-                                    { n = G.UIT.T, config = { font = SMODS.Fonts["hpot_plincoin"], text = localize("hotpot_cashback").." ", colour = G.C.WHITE, scale = 0.4, shadow = true, } }
+                                    { n = G.UIT.T, config = { font = SMODS.Fonts["hpot_plincoin"], text = localize("hotpot_cashback") .. " ", colour = G.C.WHITE, scale = 0.4, shadow = true, } }
                                 }
                             },
                             {
@@ -1031,7 +1034,7 @@ function get_currency_amount(currency)
     if currency == "dollars" then return G.GAME.dollars end
     if currency == "plincoin" then return G.GAME.plincoins end
     if currency == "joker_exchange" then return G.GAME.spark_points end
-    if currency == "cryptocurrency" or currency == "crypto"then return G.GAME.cryptocurrency end
+    if currency == "cryptocurrency" or currency == "crypto" then return G.GAME.cryptocurrency end
 end
 
 function ease_currency(currency, value, instant)
@@ -1058,7 +1061,14 @@ function generate_currency_string_args(currency)
         }
     end
     if currency == "joker_exchange" then return { colour = G.C.BLUE, symbol = "͸", font = SMODS.Fonts["hpot_plincoin"] } end
-    if currency == "cryptocurrency" or currency == "crypto" then return { colour = G.C.ORANGE, symbol = "£", font = SMODS.Fonts["hpot_plincoin"] } end
+    if currency == "cryptocurrency" or currency == "crypto" then
+        return {
+            colour = G.C.ORANGE,
+            symbol = "£",
+            font = SMODS
+                .Fonts["hpot_plincoin"]
+        }
+    end
     -- patches for other currencies strings
 end
 
@@ -1153,7 +1163,7 @@ function hotpot_jtem_generate_special_deals(deals)
             (should_spawn_with_perishable and 0.3 or 1)
         if center and center.credits then
             hotpot_jtem_add_to_offers(center.key, {
-                price = { currency = currency, value = math.ceil(center.credits/7 * price_factor * random_price_factor) },
+                price = { currency = currency, value = math.ceil(center.credits / 7 * price_factor * random_price_factor) },
                 rounds_total_factor = 0.4 * (should_spawn_with_perishable and 0.2 or 1) *
                     (should_spawn_with_rental and 0.3 or 1) * (should_spawn_with_rental and 0.5 or 1) *
                     (plincoin and 2 or 1),
@@ -1166,7 +1176,9 @@ function hotpot_jtem_generate_special_deals(deals)
                 create_card_args = {
                     hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
                         (not jx and poll_edition("hpjtem_delivery_edition")),
-                    no_edition = jx or credits
+                    no_edition = jx or credits,
+                    bypass_discovery_ui = true,
+                    bypass_discovery_center = true
                 }
             })
         else
@@ -1184,7 +1196,9 @@ function hotpot_jtem_generate_special_deals(deals)
                 create_card_args = {
                     hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
                         (not jx and poll_edition("hpjtem_delivery_edition")),
-                    no_edition = jx or credits
+                    no_edition = jx or credits,
+                    bypass_discovery_ui = true,
+                    bypass_discovery_center = true
                 }
             })
         end
@@ -1366,7 +1380,7 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
     stop_use()
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
     if not G.HP_JTEM_DELIVERY_VISIBLE then
-		ease_background_colour({new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
+        ease_background_colour({ new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK, 0.4), contrast = 3 })
         G.shop.alignment.offset.y = -20
         G.HP_JTEM_DELIVERY_VISIBLE = true
         simple_add_event(function()
