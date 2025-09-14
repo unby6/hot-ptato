@@ -16,3 +16,7 @@ function OAP.credit(coders, arters, ideaers) -- stolen from horsechicot god bles
         team = { 'Oops! All Programmers' }
     }
 end
+
+
+-- atlas stuff, keep it at the end probably
+SMODS.Atlas{key = "oap_roffle", path = "Ads/roffleland.png", px=218, py=121}
