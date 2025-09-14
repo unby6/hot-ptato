@@ -31,7 +31,9 @@ HotPotato.Ads = {
         ad_red = {atlas = "hpot_hcred", pos = {x = 0, y = 0}},
         ad_mustard = {atlas = "hpot_hcmustard", pos = {x = 0, y = 0}},
         ad_windows = {atlas = "hpot_hcwindows", pos = {x = 0, y = 0}},
+        -- Oops! All Programmers
         ad_roffle = {atlas = "hpot_oap_roffle", pos = {x = 0, y = 0}},
+        ad_daniel = {atlas = "hpot_oap_danielad", pos = {x = 0, y = 0}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},

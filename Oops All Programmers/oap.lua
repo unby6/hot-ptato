@@ -20,3 +20,4 @@ end
 
 -- atlas stuff, keep it at the end probably
 SMODS.Atlas{key = "oap_roffle", path = "Ads/roffleland.png", px=218, py=121}
+SMODS.Atlas{key = "oap_danielad", path = "Ads/findhim.png", px=125, py=188}
