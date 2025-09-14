@@ -107,7 +107,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                     {
                         n = G.UIT.B,
                         config = {
-                            h = 5.5,
+                            h = 7,
                             w = 0.1
                         }
                     }
