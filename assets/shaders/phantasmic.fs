@@ -273,7 +273,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec4 textp = RGB(hsl);
     tex.rgb = textp.rgb;
     t = t + cos(t) * 0.2 + sin(t) * 0.3;
-        uv = vec2(sin(uv.x), uv.y / (4));
+        uv = vec2(sin(uv.x), uv.y / (4.));
 	float stars = ((pNoise(uv*10. + t/15.0, 10)*pNoise(uv*10. + t/15.0, 10)+1.5)/1.+0.15 + ((pNoise(uv*12. + t/15.0, 10)+1.2)/1.+0.3))/2.2+0.05 + 0.007*norm_uv * 1.1;
 
 	float clusters = (pNoise(uv*10.0-t/15.0, 10)+1.5)/1.5-0.25 + 0.007*norm_uv;
