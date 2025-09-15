@@ -1837,6 +1837,16 @@ return {
                 }
             }        
         },
+        Enhanced = {
+            m_hpot_oap_lead = {
+                name = 'Lead Card',
+                text = {
+                    'When {C:attention}this card{} is scored,',
+                    '{C:attention}permanently{} gain {X:chips,C:white}X#1#{} Chips',
+                    'when {C:attention}held in hand{}'
+                }
+            }
+        },
         Sleeve = {
             sleeve_hpot_lime = {
                 name = "Lime Sleeve",
