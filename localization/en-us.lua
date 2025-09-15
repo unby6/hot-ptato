@@ -1827,7 +1827,15 @@ return {
                     'Level up the next {C:attention}#1#',
                     'final poker hands {C:attention}twice'
                 }
-            }
+            },
+            j_hpot_pump_and_dump = {
+                name = 'Pump And Dump',
+                text = {
+                    'Earn {C:hpot_advert,f:hpot_plincoin}£#1#{} at end of round',
+                    '{C:green}#2# in #3# chance{} to',
+                    'lose all {C:hpot_advert,f:hpot_plincoin}£{} instead'
+                }
+            }        
         },
         Sleeve = {
             sleeve_hpot_lime = {
