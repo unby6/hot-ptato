@@ -1790,6 +1790,22 @@ return {
                     '{X:mult,C:white}X#1#{} Mult when limit is exceeded',
                     '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
                 }
+            },
+            j_hpot_charlie = {
+                name = 'Chipper Charlie',
+                text = {
+                    'Gains {C:mult}+#1#{} Mult when',
+                    'a {C:chips}+Chips{} effect scores',
+                    '{C:inactive}(Currently: {C:mult}+#2#{C:inactive} Mult)'
+                }
+            },
+            j_hpot_melvin = {
+                name = 'Molten Melvin',
+                text = {
+                    'Gains {C:chips}+#1#{} Chips when',
+                    'a {C:mult}+Mult{} effect scores',
+                    '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Mult)'
+                }
             }
         },
         Sleeve = {

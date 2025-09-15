@@ -43,7 +43,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = { '?' },
         code = { 'theAstra' },
-        idea = { 'the30ne' },
+        idea = { 'th30ne' },
         team = { 'Oops! All Programmers' }
     }
 }
