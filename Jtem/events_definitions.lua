@@ -1395,3 +1395,73 @@ SMODS.EventScenario {
 		return #SMODS.find_card("j_hpot_power_plant") > 0
 	end
 }
+
+
+-- Virtual Sin Forgiveness
+
+SMODS.EventScenario {
+	key = "virtual_sin_forgiveness",
+	starting_step_key = "hpot_vsf_1",
+	hotpot_credits = {
+		idea = { "th30ne" },
+		code = { "theAstra" },
+		team = { "O!AP" },
+	}
+}
+
+SMODS.EventStep {
+    key = "hpot_vsf_1",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = function()
+                    event.start_step('hpot_vsf_2')
+                end,
+			},
+		}
+	end,
+	start = function(self, event)
+		local dan = Character("j_hpot_melvin")
+		dan.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
+		dan.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				dan.T.scale = dan.T.scale * 0.75
+				return true
+			end,
+		}))
+    end,
+    finish = function(self, event)
+    end
+}
+
+SMODS.EventStep {
+    key = "hpot_vsf_2",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+        play_sound('hpot_forgiveness')
+        for _, joker in pairs(G.jokers.cards) do
+            joker:juice_up(0.8, 0.8)
+            for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
+                if joker.ability[sticker] then
+                    joker.ability[sticker] = nil
+                end
+            end
+        end
+	end,
+    finish = function(self, event)
+    end
+}
