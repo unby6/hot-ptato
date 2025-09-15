@@ -3350,6 +3350,18 @@ return {
                     "{C:inactive}(Check your deck!)"
                 }
             },
+
+            hpot_vsf_1 = {
+                text = {
+                    "I absolve you of your sins!"
+                }
+            },
+
+            hpot_vsf_2 = {
+                text = {
+                    "You have been forgiven."
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -3429,6 +3441,12 @@ return {
                     "Hazzard Alert!"
                 }
             },
+            hpot_virtual_sin_forgiveness = {
+                name = "Virtual Sin Forgiveness",
+                text = {
+                    "Become cleansed my child!"
+                }
+            }
         },
 
         Modification = {

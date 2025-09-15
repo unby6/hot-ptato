@@ -33,3 +33,9 @@ SMODS.Atlas{key = "oap_barga", path = "Ads/barga.png", px=218, py=270}
 SMODS.Atlas{key = "oap_sex", path = "Ads/sex.png", px=218, py=140}
 SMODS.Atlas{key = "oap_superepicramp", path = "Ads/SuperEpicRamp.png", px=218, py=153}
 SMODS.Atlas{key = "oap_thanosyikes", path = "Ads/thanosYikes.png", px=218, py=217}
+
+-- sounds
+SMODS.Sound {
+    key = 'forgiveness',
+    path = 'sfx_forgiveness.ogg'
+}
