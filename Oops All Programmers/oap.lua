@@ -17,7 +17,9 @@ function OAP.credit(coders, arters, ideaers) -- stolen from horsechicot god bles
     }
 end
 
-function SMODS.current_mod.reset_game_globals(run_start)
+local rgg_ref = SMODS.current_mod.reset_game_globals
+function SMODS.current_mod.reset_game_globals(run_start) -- i am the worst developer of all time - trif
+    rgg_ref(run_start) -- so sorry
     reset_commit_farmer()
 end
 
