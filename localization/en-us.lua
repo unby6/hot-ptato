@@ -1804,7 +1804,7 @@ return {
                 text = {
                     'Gains {C:chips}+#1#{} Chips when',
                     'a {C:mult}+Mult{} effect scores',
-                    '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Mult)'
+                    '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Chips)'
                 }
             }
         },
