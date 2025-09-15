@@ -333,7 +333,12 @@ HPJTTT = {
         "Turn on the TV, it doesn't matter what channel",
         "You could get with this, or you could get with that",
         "Shake it like a Polaroid picture!",
-        "Apple bottom jeans!"
+        "Apple bottom jeans!",
+        "100% Sburb-free!",
+        "4/13 doctors recommend!",
+        "Filled to the brim with japery!",
+        "Definitely not a precursor to Undertale!",
+        "Hello, Zepp."
     }
 }
 
