@@ -317,6 +317,23 @@ HPJTTT = {
         "Molten Melvin approved!",
         "Hello everybody, my name is Markiplier!",
         "Not OSHA compliant",
+        "Ultra Deluxe Remaster: Limited Collector's GOTY Edition (Director's Cut)",
+        "Real Gamers only",
+        "jimbo.exe is real",
+        "Ahh... free at last. O, Gabriel... Now dawns thy reckoning, and thy gore shall GLISTEN before the temples of Man!",
+        "THIS PRISON, TO HOLD... ME?",
+        "mayonnaise colored benz, i push miracle whips",
+        "*hits the griddy*",
+        "Mother, help me, there's a head attached to my neck and *I'm* in it.",
+        "DETECTIVE. ARRIVING. ON THE SCENE.",
+        "real lies real eyes realize, or something",
+        "now with 400% less bees",
+        "Help, I'm trapped in the splash text!",
+        "Pentagonal!",
+        "Turn on the TV, it doesn't matter what channel",
+        "You could get with this, or you could get with that",
+        "Shake it like a Polaroid picture!",
+        "Apple bottom jeans!"
     }
 }
 
