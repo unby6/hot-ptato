@@ -25,6 +25,7 @@ end
 
 -- atlas stuff, keep it at the end probably
 SMODS.Atlas{key = "oap_jokers", path = "Oops! All Programmers/oap_jokers.png", px = 71, py = 95}
+SMODS.Atlas{key = "oap_pb", path = "Oops! All Programmers/oap_pb.png", px = 71, py = 95}
 
 --ads
 SMODS.Atlas{key = "oap_roffle", path = "Ads/roffleland.png", px=218, py=121}
