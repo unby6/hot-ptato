@@ -1,7 +1,7 @@
 # Oops All Programmers
 
 Featuring:
-- Astra
+- theAstra
 - Liafeon
 - Mysthaps
 - SadCube
