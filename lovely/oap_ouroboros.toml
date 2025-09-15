@@ -1,0 +1,14 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+position = 'at'
+pattern = "if #G.jokers.cards < G.jokers.config.card_limit or self.area == G.jokers then"
+payload = '''
+if (#G.jokers.cards < G.jokers.config.card_limit or next(SMODS.find_card('j_hpot_ouroboros'))) or self.area == G.jokers then
+'''
+match_indent = true
