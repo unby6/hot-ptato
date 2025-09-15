@@ -1780,6 +1780,16 @@ return {
                     "{C:hpot_advert}#2#{C:inactive} at {X:mult,C:white}X#3#{C:inactive} Mult)",
                     "{C:inactive}(Resets at end of round)"
                 }
+            },
+            j_hpot_ouroboros = {
+                name = 'Ouroboros',
+                text = {
+                    '{C:attention}Jokers{} can be added to',
+                    'Joker Slots {C:attention}over the limit',
+                    '{C:red}Destroys{} one random other Joker and gains',
+                    '{X:mult,C:white}X#1#{} Mult when limit is exceeded',
+                    '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
+                }
             }
         },
         Sleeve = {
