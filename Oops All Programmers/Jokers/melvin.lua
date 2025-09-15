@@ -4,43 +4,42 @@ SMODS.Joker {
     cost = 5,
     config = {
         extra = {
-            chips = 0,
-            gain = 30
+            chips = 30,
         }
     },
     atlas = "oap_jokers",
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.gain, card.ability.extra.chips } }
+        return { vars = { card.ability.extra.chips } }
     end,
     calculate = function(self, card, context)
-        if context.other_ret and context.other_ret.jokers and (context.other_ret.jokers.mult or context.other_ret.jokers.h_mult or context.other_ret.jokers.mult_mod) and not context.retrigger_joker_check then
-            SMODS.scale_card(card,{
-                ref_table = card.ability.extra,
-                ref_value = 'chips',
-                scalar_value = 'gain',
-                message_colour = G.C.CHIPS
-            })
-        end
-
-        if context.individual and context.cardarea == G.play and not context.end_of_round and not context.repetition and context.other_card:get_chip_mult() > 0 then
-            SMODS.scale_card(card,{
-                ref_table = card.ability.extra,
-                ref_value = 'chips',
-                scalar_value = 'gain',
-                message_colour = G.C.CHIPS
-            })
-        end
-
-        if context.joker_main and card.ability.extra.chips > 0 then
-            return {
-                chips = card.ability.extra.chips
-            }
-        end
+        if context.before then
+			card.ability.extra.active = true
+		end
+		if context.after then
+			card.ability.extra.active = false
+		end
+		if card.ability.extra.active then
+            local mult_count = 0
+			for _, v in ipairs(G.jokers.cards) do
+				if v.ability.name ~= 'Blueprint' and v.ability.name ~= 'Brainstorm' and v.ability.name ~= "j_hpot_charlie" and v.ability.name ~= "j_hpot_melvin" then
+					context.blueprint = nil
+					local ret = SMODS.blueprint_effect(card, v, context)
+					if ret and ret.mult then
+                        mult_count = mult_count + 1
+					end
+				end
+			end
+            if mult_count > 0 then
+                return {
+                    chips = (mult_count * card.ability.extra.chips),
+                }
+            end
+		end
     end,
     hotpot_credits = {
         art = {'th30ne'},
-        code = {'theAstra'},
+        code = {'trif'},
         idea = {'th30ne'},
         team = {'Oops! All Programmers'}
     }

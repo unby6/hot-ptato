@@ -1794,17 +1794,15 @@ return {
             j_hpot_charlie = {
                 name = 'Chipper Charlie',
                 text = {
-                    'Gains {C:mult}+#1#{} Mult when',
-                    'a {C:chips}+Chips{} effect scores',
-                    '{C:inactive}(Currently: {C:mult}+#2#{C:inactive} Mult)'
+                    'Gives {C:mult}+#1#{} Mult when',
+                    'a {C:chips}+Chips{} effect scores'
                 }
             },
             j_hpot_melvin = {
                 name = 'Molten Melvin',
                 text = {
-                    'Gains {C:chips}+#1#{} Chips when',
-                    'a {C:mult}+Mult{} effect scores',
-                    '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Chips)'
+                    'Gives {C:chips}+#1#{} Chips when',
+                    'a {C:mult}+Mult{} effect scores'
                 }
             },
             j_hpot_art_of_the_deal = {
