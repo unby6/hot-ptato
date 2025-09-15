@@ -11,6 +11,7 @@ SMODS.Joker {
     },
     atlas = "oap_jokers",
     pos = { x = 6, y = 0 },
+    pixel_size = { h = 77 },
     loc_vars = function(self, info_queue, card)
         return { vars = { 
             card.ability.extra.retriggers,
