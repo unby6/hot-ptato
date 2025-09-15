@@ -1806,6 +1806,13 @@ return {
                     'a {C:mult}+Mult{} effect scores',
                     '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Mult)'
                 }
+            },
+            j_hpot_art_of_the_deal = {
+                name = 'Art of the Deal',
+                text = {
+                    'Creates a random {C:hpot_czech}Cheque{}',
+                    'when a {C:attention}blind{} is defeated'
+                }
             }
         },
         Sleeve = {
