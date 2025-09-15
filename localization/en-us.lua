@@ -1820,6 +1820,13 @@ return {
                     'a random scoring card',
                     'retriggers {C:attention}#1#{} times'
                 }
+            },
+            j_hpot_mega_mushroom = {
+                name = 'Mega Mushroom',
+                text = {
+                    'Level up the next {C:attention}#1#',
+                    'final poker hands {C:attention}twice'
+                }
             }
         },
         Sleeve = {
