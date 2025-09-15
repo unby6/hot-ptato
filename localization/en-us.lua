@@ -1809,7 +1809,16 @@ return {
                 name = 'Art of the Deal',
                 text = {
                     'Creates a random {C:hpot_czech}Cheque{}',
-                    'when a {C:attention}blind{} is defeated'
+                    'when a {C:attention}Blind{} is defeated'
+                }
+            },
+            j_hpot_paper_jam = {
+                name = 'Paper Jam',
+                text = {
+                    'If played hand contains',
+                    '{C:attention}5{} or more scoring cards,',
+                    'a random scoring card',
+                    'retriggers {C:attention}#1#{} times'
                 }
             }
         },
