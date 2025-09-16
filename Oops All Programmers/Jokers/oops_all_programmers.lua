@@ -41,4 +41,8 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return { key = 'j_hpot_OAP_'..card.ability.extra.effect, vars = card.ability[card.ability.extra.effect .. '_effect'] or {} }
     end,
+    hotpot_credits = {
+        art = {'SadCube'},
+        team = {'Oops! All Programmers'}
+    }
 }
