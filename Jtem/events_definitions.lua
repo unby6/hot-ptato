@@ -170,9 +170,9 @@ end
 local Character = function(key, container_key, dx, dy)
 	dy = dy or 0
 	dx = dx or 0
-    container_key = container_key or "jimbo_card"
+	container_key = container_key or "jimbo_card"
 	local x, y = get_hpot_event_image_center()
-    local card = Card_Character({
+	local card = Card_Character({
 		x = x + dx,
 		y = y + dy,
 		center = key,
@@ -182,7 +182,7 @@ local Character = function(key, container_key, dx, dy)
 end
 
 local Remove = function(character_key)
-    character_key = character_key or "jimbo_card"
+	character_key = character_key or "jimbo_card"
 	local jimbo_card = G.hpot_event_ui_image_area.children[character_key]
 	if jimbo_card then
 		G.E_MANAGER:add_event(Event({
@@ -381,7 +381,7 @@ SMODS.EventStep({
 				y = y,
 				center = delivery.config.center.key,
 			})
-            event.image_area.children.jimbo_card = jimbo_card
+			event.image_area.children.jimbo_card = jimbo_card
 			hpot_event_display_lines(1, true)
 			delay(1)
 			G.E_MANAGER:add_event(Event {
@@ -394,7 +394,7 @@ SMODS.EventStep({
 			})
 		end
 	end,
-	
+
 	finish = function(self, event)
 		local jimbo_card = event.image_area.children.jimbo_card
 		if jimbo_card then
@@ -621,9 +621,9 @@ SMODS.EventScenario {
 	starting_step_key = "hpot_postman_1",
 	in_pool = function()
 		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0 and G.jokers and
-		#G.jokers.cards < G.jokers.config.card_limit
+			#G.jokers.cards < G.jokers.config.card_limit
 	end,
-    hotpot_credits = {
+	hotpot_credits = {
 		idea = { "MissingNumber" },
 		code = { "Haya", "SleepyG11" },
 		team = { "Jtem" },
@@ -648,7 +648,7 @@ SMODS.EventStep({
 						end
 					end
 					if next(valid) then
-						local vouch = pseudorandom_element(valid, 'vouch_'..G.GAME.round_resets.ante)
+						local vouch = pseudorandom_element(valid, 'vouch_' .. G.GAME.round_resets.ante)
 						event.ability.voucher = vouch
 						G.GAME.hpot_voucher_taken = G.GAME.hpot_event_scenario_data.voucher
 						--print(G.GAME.hpot_event_scenario_data.voucher)
@@ -693,7 +693,7 @@ SMODS.EventStep({
 				return true
 			end,
 		}))
-		G.E_MANAGER:add_event(Event{
+		G.E_MANAGER:add_event(Event {
 			func = function()
 				pirate_card.children.card.cost = 0
 				pirate_card.children.card:redeem()
@@ -741,7 +741,7 @@ SMODS.EventStep({
 	start = function(self, event)
 	end,
 	finish = function(self, event)
-		create_ads(pseudorandom('spam_spam_lovely_spam!_'..G.GAME.round_resets.ante, 10, 25))
+		create_ads(pseudorandom('spam_spam_lovely_spam!_' .. G.GAME.round_resets.ante, 10, 25))
 	end
 })
 
@@ -758,77 +758,77 @@ SMODS.EventScenario {
 -- Money game
 
 SMODS.EventStep({
-    key = "money_game_invest",
-    get_choices = function(self, event)
-        return {
-            {
-                key = "sell_diamonds",
-                button = function()
-                    SMODS.add_card({
-                        key = "j_rough_gem",
-                        stickers = { "rental" }
-                    })
-                    event.finish_scenario()
-                end,
-                func = function()
-                    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
-                end,
-            },
-            {
-                key = "sell_rocks",
-                button = function()
-                    SMODS.add_card({
-                        key = "j_stone",
-                        stickers = { "eternal" }
-                    })
-                    event.finish_scenario()
-                end,
-                func = function()
-                    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
-                end,
-            },
-            {
-                key = "sell_water_to_a_fish",
-                button = function()
-                    SMODS.add_card({
-                        key = "j_selzer",
-                        stickers = { "rental" }
-                    })
-                    event.finish_scenario()
-                end,
-                func = function()
-                    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
-                end,
-            },
-            {
-                key = "sell_time_to_a_clock",
-                button = function()
-                    SMODS.add_card({
-                        key = "j_delayed_grat",
-                        stickers = { "perishable" }
-                    })
-                    event.finish_scenario()
-                end,
-                -- No check to prevent softlock
-            },
-        }
-    end,
+	key = "money_game_invest",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "sell_diamonds",
+				button = function()
+					SMODS.add_card({
+						key = "j_rough_gem",
+						stickers = { "rental" }
+					})
+					event.finish_scenario()
+				end,
+				func = function()
+					return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+				end,
+			},
+			{
+				key = "sell_rocks",
+				button = function()
+					SMODS.add_card({
+						key = "j_stone",
+						stickers = { "eternal" }
+					})
+					event.finish_scenario()
+				end,
+				func = function()
+					return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+				end,
+			},
+			{
+				key = "sell_water_to_a_fish",
+				button = function()
+					SMODS.add_card({
+						key = "j_selzer",
+						stickers = { "rental" }
+					})
+					event.finish_scenario()
+				end,
+				func = function()
+					return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+				end,
+			},
+			{
+				key = "sell_time_to_a_clock",
+				button = function()
+					SMODS.add_card({
+						key = "j_delayed_grat",
+						stickers = { "perishable" }
+					})
+					event.finish_scenario()
+				end,
+				-- No check to prevent softlock
+			},
+		}
+	end,
 
-    start = function()
-        local card = Character("j_to_the_moon")
-        card.children.particles.colours = { G.C.MONEY, G.C.MONEY, G.C.MONEY }
-    end,
-    finish = function()
-        Remove()
-    end,
+	start = function()
+		local card = Character("j_to_the_moon")
+		card.children.particles.colours = { G.C.MONEY, G.C.MONEY, G.C.MONEY }
+	end,
+	finish = function()
+		Remove()
+	end,
 })
 SMODS.EventScenario({
-    key = "money_game",
-    starting_step_key = "hpot_money_game_invest",
+	key = "money_game",
+	starting_step_key = "hpot_money_game_invest",
 
-    in_pool = function(self)
-        return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
-    end,
+	in_pool = function(self)
+		return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+	end,
 })
 
 
@@ -852,18 +852,18 @@ SMODS.EventStep {
 	end,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hp_prince_ignore",
-                button = function()
-                    event.finish_scenario()
-                end,
-            },
-            {
-                key = "hp_prince_reply",
-                button = function()
+			{
+				key = "hp_prince_ignore",
+				button = function()
+					event.finish_scenario()
+				end,
+			},
+			{
+				key = "hp_prince_reply",
+				button = function()
 					event.start_step('hpot_nigerian_prince_reply')
-                end,
-            },
+				end,
+			},
 		}
 	end
 }
@@ -873,15 +873,15 @@ SMODS.EventStep {
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hp_prince_ignore",
-                button = function()
-                    event.finish_scenario()
-                end,
-            },
-            {
-                key = "hp_prince_invest",
-                button = function()
+			{
+				key = "hp_prince_ignore",
+				button = function()
+					event.finish_scenario()
+				end,
+			},
+			{
+				key = "hp_prince_invest",
+				button = function()
 					local success = pseudorandom("hpot_nigerian_prince_invest") > 0.5
 					ease_spark_points(-25000)
 					if success then
@@ -890,11 +890,11 @@ SMODS.EventStep {
 					else
 						event.start_step('hpot_nigerian_prince_invested')
 					end
-                end,
-                func = function()
-        			return G.GAME.spark_points >= 25000
-                end,
-            },
+				end,
+				func = function()
+					return G.GAME.spark_points >= 25000
+				end,
+			},
 		}
 	end
 }
@@ -903,15 +903,15 @@ SMODS.EventStep {
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hp_prince_stop",
-                button = function()
-                    event.finish_scenario()
-                end,
-            },
-            {
-                key = "hp_prince_invest_more",
-                button = function()
+			{
+				key = "hp_prince_stop",
+				button = function()
+					event.finish_scenario()
+				end,
+			},
+			{
+				key = "hp_prince_invest_more",
+				button = function()
 					local success = pseudorandom("hpot_nigerian_prince_invest") > 0.5
 					ease_spark_points(-25000)
 					if success then
@@ -920,11 +920,11 @@ SMODS.EventStep {
 					else
 						event.start_step('hpot_nigerian_prince_invested')
 					end
-                end,
-                func = function()
-        			return G.GAME.spark_points > 25000
-                end,
-            },
+				end,
+				func = function()
+					return G.GAME.spark_points > 25000
+				end,
+			},
 		}
 	end
 }
@@ -934,23 +934,23 @@ SMODS.EventStep {
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hp_prince_leave",
-                button = function()
-                    event.finish_scenario()
-                end,
-            },
+			{
+				key = "hp_prince_leave",
+				button = function()
+					event.finish_scenario()
+				end,
+			},
 		}
 	end
 }
 
 SMODS.EventScenario({
-    key = "nigerian_prince",
-    starting_step_key = "hpot_nigerian_prince_start",
+	key = "nigerian_prince",
+	starting_step_key = "hpot_nigerian_prince_start",
 
-    in_pool = function(self)
-        return true
-    end,
+	in_pool = function(self)
+		return true
+	end,
 	hotpot_credits = {
 		idea = { "Aikoyori" },
 		code = { "Aikoyori" },
@@ -960,163 +960,165 @@ SMODS.EventScenario({
 -- Food for stuff trade
 -- Someone make good finish for this event
 local function get_food_joker()
-    for _, joker in ipairs(G.jokers.cards) do
-        local pools = joker.config.center.pools or {}
-        if pools.Food then return joker end
-    end
+	for _, joker in ipairs(G.jokers.cards) do
+		local pools = joker.config.center.pools or {}
+		if pools.Food then return joker end
+	end
 end
 
 SMODS.EventStep({
-    key = "food_trade_1",
-    get_choices = function(self, event)
-        return {
-            {
-                key = "hpot_food_trade_listen",
-                no_prefix = true,
-                vars = { localize { type = 'name_text', key = "j_gluttenous_joker", set = "Joker", vars = {} } },
-                button = function()
-                    return event.start_step("hpot_food_trade_2")
-                end,
-            }
-        }
-    end,
+	key = "food_trade_1",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_food_trade_listen",
+				no_prefix = true,
+				vars = { localize { type = 'name_text', key = "j_gluttenous_joker", set = "Joker", vars = {} } },
+				button = function()
+					return event.start_step("hpot_food_trade_2")
+				end,
+			}
+		}
+	end,
 })
 SMODS.EventStep({
-    key = "food_trade_2",
-    get_choices = function(self, event)
-        return {
-            {
-                key = "hpot_food_trade_listen",
-                no_prefix = true,
-                vars = { localize { type = 'name_text', key = "j_hpot_greedybastard", set = "Joker", vars = {} } },
-                button = function()
-                    return event.start_step("hpot_food_trade_3")
-                end,
-            }
-        }
-    end,
-    start = function(self, event)
-        local glut = Character("j_gluttenous_joker", "glut", -G.CARD_W / 2, -G.CARD_H / 8)
-        glut.children.particles.colours = { { 0, 0, 0, 0 } }
-        event.display_lines(2, true)
-        glut:say_stuff(5)
-    end,
+	key = "food_trade_2",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_food_trade_listen",
+				no_prefix = true,
+				vars = { localize { type = 'name_text', key = "j_hpot_greedybastard", set = "Joker", vars = {} } },
+				button = function()
+					return event.start_step("hpot_food_trade_3")
+				end,
+			}
+		}
+	end,
+	start = function(self, event)
+		local glut = Character("j_gluttenous_joker", "glut", -G.CARD_W / 2, -G.CARD_H / 8)
+		glut.children.particles.colours = { { 0, 0, 0, 0 } }
+		event.display_lines(2, true)
+		glut:say_stuff(5)
+	end,
 })
 SMODS.EventStep({
-    key = "food_trade_3",
-    get_choices = function(self, event)
-        return {
-            {
-                key = "hpot_food_trade_listen",
-                no_prefix = true,
-                vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
-                button = function()
-                    return event.start_step("hpot_food_trade_4")
-                end,
-            }
-        }
-    end,
-    start = function(self, event)
-        local greedyb = Character("j_hpot_greedybastard", "greedyb", 0, G.CARD_H / 8)
-        greedyb.children.particles.colours = { { 0, 0, 0, 0 } }
-        event.display_lines(2, true)
-        greedyb:say_stuff(5)
-    end,
+	key = "food_trade_3",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_food_trade_listen",
+				no_prefix = true,
+				vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
+				button = function()
+					return event.start_step("hpot_food_trade_4")
+				end,
+			}
+		}
+	end,
+	start = function(self, event)
+		local greedyb = Character("j_hpot_greedybastard", "greedyb", 0, G.CARD_H / 8)
+		greedyb.children.particles.colours = { { 0, 0, 0, 0 } }
+		event.display_lines(2, true)
+		greedyb:say_stuff(5)
+	end,
 })
 SMODS.EventStep({
-    key = "food_trade_4",
-    get_choices = function(self, event)
-        return {
-            {
-                key = "hpot_food_trade_think",
-                no_prefix = true,
-                button = function()
-                    return event.start_step("hpot_food_trade_choose")
-                end,
-            }
-        }
-    end,
-    start = function(self, event)
-        local vagabond = Character("j_vagabond", "vagabond", G.CARD_W / 2, -G.CARD_H / 8)
-        vagabond.children.particles.colours = { { 0, 0, 0, 0 } }
-        event.display_lines(2, true)
-        vagabond:say_stuff(5)
-    end,
+	key = "food_trade_4",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_food_trade_think",
+				no_prefix = true,
+				button = function()
+					return event.start_step("hpot_food_trade_choose")
+				end,
+			}
+		}
+	end,
+	start = function(self, event)
+		local vagabond = Character("j_vagabond", "vagabond", G.CARD_W / 2, -G.CARD_H / 8)
+		vagabond.children.particles.colours = { { 0, 0, 0, 0 } }
+		event.display_lines(2, true)
+		vagabond:say_stuff(5)
+	end,
 })
 SMODS.EventStep({
-    key = "food_trade_choose",
-    get_choices = function(self, event)
-        return {
-            {
-                key = "ignore",
-                button = function ()
-                    event.finish_scenario()
-                end
-            },
-            {
-                key = "hpot_food_trade_choose",
-                no_prefix = true,
-                vars = { localize { type = 'name_text', key = "j_gluttenous_joker", set = "Joker", vars = {} } },
-                button = function()
-                    SMODS.destroy_cards(get_food_joker())
-                    for i = 1, 2 do
-                        SMODS.add_card({
-                            key = "c_empress"
-                        })
-                    end
-                    event.finish_scenario()
-                end,
-                func = function()
-                    return get_food_joker() and G.consumeables and G.consumeables.config.card_limit - #G.consumeables.cards >= 2
-                end,
-            },
-            {
-                key = "hpot_food_trade_choose",
-                no_prefix = true,
-                vars = { localize { type = 'name_text', key = "j_hpot_greedybastard", set = "Joker", vars = {} } },
-                button = function()
-                    SMODS.destroy_cards(get_food_joker())
-                    ease_plincoins(4)
-                    event.finish_scenario()
-                end,
-                func = function()
-                    return get_food_joker()
-                end,
-            },
-            {
-                key = "hpot_food_trade_choose",
-                no_prefix = true,
-                vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
-                button = function()
-                    SMODS.destroy_cards(get_food_joker())
-                    SMODS.add_card({
-                        set = "bottlecap_Rare",
-                        area = G.consumeables,
-                    })
-                    event.finish_scenario()
-                end,
-                func = function()
-                    return get_food_joker() and G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit
-                end,
-            }
-        }
-    end,
-    finish = function()
-        Remove("glut")
-        Remove("greedyb")
-        Remove("vagabond")
-    end,
+	key = "food_trade_choose",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "ignore",
+				button = function()
+					event.finish_scenario()
+				end
+			},
+			{
+				key = "hpot_food_trade_choose",
+				no_prefix = true,
+				vars = { localize { type = 'name_text', key = "j_gluttenous_joker", set = "Joker", vars = {} } },
+				button = function()
+					SMODS.destroy_cards(get_food_joker())
+					for i = 1, 2 do
+						SMODS.add_card({
+							key = "c_empress"
+						})
+					end
+					event.finish_scenario()
+				end,
+				func = function()
+					return get_food_joker() and G.consumeables and
+						G.consumeables.config.card_limit - #G.consumeables.cards >= 2
+				end,
+			},
+			{
+				key = "hpot_food_trade_choose",
+				no_prefix = true,
+				vars = { localize { type = 'name_text', key = "j_hpot_greedybastard", set = "Joker", vars = {} } },
+				button = function()
+					SMODS.destroy_cards(get_food_joker())
+					ease_plincoins(4)
+					event.finish_scenario()
+				end,
+				func = function()
+					return get_food_joker()
+				end,
+			},
+			{
+				key = "hpot_food_trade_choose",
+				no_prefix = true,
+				vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
+				button = function()
+					SMODS.destroy_cards(get_food_joker())
+					SMODS.add_card({
+						set = "bottlecap_Rare",
+						area = G.consumeables,
+					})
+					event.finish_scenario()
+				end,
+				func = function()
+					return get_food_joker() and G.consumeables and
+						#G.consumeables.cards < G.consumeables.config.card_limit
+				end,
+			}
+		}
+	end,
+	finish = function()
+		Remove("glut")
+		Remove("greedyb")
+		Remove("vagabond")
+	end,
 })
 
 SMODS.EventScenario({
-    key = "food_trade",
-    starting_step_key = "hpot_food_trade_1",
+	key = "food_trade",
+	starting_step_key = "hpot_food_trade_1",
 
-    in_pool = function(self)
-        return get_food_joker()
-    end,
+	in_pool = function(self)
+		return get_food_joker()
+	end,
 
-    hotpot_credits = {
+	hotpot_credits = {
 		idea = { "MissingNumber" },
 		code = { "SleepyG11" },
 		team = { "Jtem" },
@@ -1136,7 +1138,7 @@ SMODS.EventStep({
 
 	config = {
 		extra = {
-			
+
 		},
 	},
 
@@ -1185,12 +1187,12 @@ SMODS.EventStep({
 				end,
 			},
 			{
-                key = "hpot_ignore_or_something",
+				key = "hpot_ignore_or_something",
 				no_prefix = true,
-                button = function()
-                    event.finish_scenario()
-                end,
-            },
+				button = function()
+					event.finish_scenario()
+				end,
+			},
 		}
 	end,
 	start = function(self, event)
@@ -1257,40 +1259,40 @@ SMODS.EventStep({
 	},
 
 	get_choices = function(self, event)
-	return {
-		{
-			key = "hpot_remove_stickers",
-			no_prefix = true,
-			loc_vars = { self.config.extra.cost },
-			button = function()
-				ease_plincoins(-self.config.extra.cost)
-				for k, card in pairs(G.jokers.cards) do
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						func = function()
-							card:juice_up()
-							remove_all_stickers(card)
-							return true
-						end,
-					}))
-				end
-				event.start_step("hpot_sticker_success")
-			end,
-			func = function()
-				return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= 3
-			end,
-		},
-		{
-			key = "hpot_ignore_or_something",
-			no_prefix = true,
-			button = function()
-				event.finish_scenario()
-			end,
-		},
-	}
+		return {
+			{
+				key = "hpot_remove_stickers",
+				no_prefix = true,
+				loc_vars = { self.config.extra.cost },
+				button = function()
+					ease_plincoins(-self.config.extra.cost)
+					for k, card in pairs(G.jokers.cards) do
+						G.E_MANAGER:add_event(Event({
+							trigger = "after",
+							func = function()
+								card:juice_up()
+								remove_all_stickers(card)
+								return true
+							end,
+						}))
+					end
+					event.start_step("hpot_sticker_success")
+				end,
+				func = function()
+					return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= 3
+				end,
+			},
+			{
+				key = "hpot_ignore_or_something",
+				no_prefix = true,
+				button = function()
+					event.finish_scenario()
+				end,
+			},
+		}
 	end,
 	start = function(self, event)
-	event.display_lines(1, true)
+		event.display_lines(1, true)
 		delay(2)
 		local x, y = event.get_image_center()
 		local cc = Character("j_hpot_sticker_master")
@@ -1338,7 +1340,7 @@ SMODS.EventScenario {
 		team = { "Team Name" },
 	},
 	in_pool = function()
-		return sticker_check(G.jokers.cards) > 0 
+		return sticker_check(G.jokers.cards) > 0
 	end
 }
 
@@ -1353,26 +1355,25 @@ SMODS.EventStep({
 				key = "hpot_general_move_on",
 				no_prefix = true,
 				button = function()
-
-				if SMODS.find_card("j_hpot_power_plant") then
-					SMODS.find_card("j_hpot_power_plant")[1]:start_dissolve()
-				end
-
-				local suits = {}
-				for k, v in pairs(G.playing_cards) do
-					if not suits[v.base.suit] then
-						suits[#suits+1] = v.base.suit
+					if SMODS.find_card("j_hpot_power_plant") then
+						SMODS.find_card("j_hpot_power_plant")[1]:start_dissolve()
 					end
-				end
-				local random_suit = pseudorandom_element(suits)
-				for k, v in pairs(G.playing_cards) do
-					if v.base.suit == random_suit then
-						SMODS.Stickers["hpot_uranium"]:apply(v,true)
-					end
-				end
 
-				event.finish_scenario()
-			end,
+					local suits = {}
+					for k, v in pairs(G.playing_cards) do
+						if not suits[v.base.suit] then
+							suits[#suits + 1] = v.base.suit
+						end
+					end
+					local random_suit = pseudorandom_element(suits)
+					for k, v in pairs(G.playing_cards) do
+						if v.base.suit == random_suit then
+							SMODS.Stickers["hpot_uranium"]:apply(v, true)
+						end
+					end
+
+					event.finish_scenario()
+				end,
 			},
 		}
 	end,
@@ -1410,15 +1411,16 @@ SMODS.EventScenario {
 }
 
 SMODS.EventStep {
-    key = "hpot_vsf_1",
+	key = "hpot_vsf_1",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
 			{
 				key = "hpot_general_move_on",
 				no_prefix = true,
 				button = function()
-                    event.start_step('hpot_vsf_2')
-                end,
+					event.start_step('hpot_vsf_2')
+				end,
 			},
 		}
 	end,
@@ -1435,13 +1437,14 @@ SMODS.EventStep {
 				return true
 			end,
 		}))
-    end,
-    finish = function(self, event)
-    end
+	end,
+	finish = function(self, event)
+	end
 }
 
 SMODS.EventStep {
-    key = "hpot_vsf_2",
+	key = "hpot_vsf_2",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1452,16 +1455,197 @@ SMODS.EventStep {
 		}
 	end,
 	start = function(self, event)
-        play_sound('hpot_forgiveness')
-        for _, joker in pairs(G.jokers.cards) do
-            joker:juice_up(0.8, 0.8)
-            for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
-                if joker.ability[sticker] then
-                    joker.ability[sticker] = nil
-                end
-            end
-        end
+		play_sound('hpot_forgiveness')
+		for _, joker in pairs(G.jokers.cards) do
+			joker:juice_up(0.8, 0.8)
+			for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
+				if joker.ability[sticker] then
+					joker.ability[sticker] = nil
+				end
+			end
+		end
 	end,
-    finish = function(self, event)
-    end
+	finish = function(self, event)
+	end
+}
+
+
+-- The Trolley Problem
+
+SMODS.EventScenario {
+	key = "trolley",
+	starting_step_key = "hpot_trolley_1",
+	hotpot_credits = {
+		idea = { "theAstra" },
+		code = { "theAstra" },
+		team = { "O!AP" },
+	},
+	in_pool = function()
+		return #G.jokers.cards >= 1 and #G.playing_cards >= 5
+	end
+}
+
+-- Prevent selling card during this event
+local csc = Card.can_sell_card
+function Card:can_sell_card(context)
+	if self.marked_for_trolley then
+		return false
+	end
+
+	return csc(self, context)
+end
+
+SMODS.EventStep {
+	key = "hpot_trolley_1",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_trolley_joker",
+				no_prefix = true,
+				button = function()
+					event.start_step('hpot_trolley_joker_killed')
+				end,
+			},
+			{
+				key = "hpot_trolley_cards",
+				no_prefix = true,
+				button = function()
+					event.start_step('hpot_trolley_cards_killed')
+				end,
+			},
+			{
+				key = "hpot_trolley_bribe_attempt",
+				no_prefix = true,
+				button = function()
+					ease_dollars(-20)
+					event.start_step('hpot_trolley_bribe')
+				end,
+				func = function()
+					return G.GAME.dollars >= 20
+				end
+			},
+		}
+	end,
+	start = function(self, event)
+		G.GAME.TROLLEY_PREV_HANDSIZE = G.hand.config.card_limit
+
+		G.hand:change_size(5 - G.hand.config.card_limit)
+
+		local selected_joker = pseudorandom_element(G.jokers.cards)
+		selected_joker.marked_for_trolley = true
+
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_deck_to_hand()
+
+				G.jokers:remove_card(selected_joker)
+				G.hand:emplace(selected_joker)
+				return true;
+			end
+		}))
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_trolley_joker_killed",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		for _, v in pairs(G.hand.cards) do
+			if v.ability.set == 'Joker' then
+				v:start_dissolve()
+				G.hand:remove_card(v)
+			end
+		end
+	end,
+	finish = function(self, event)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_hand_to_deck()
+				G.deck:shuffle('nr' .. G.GAME.round_resets.ante)
+
+				G.hand:change_size(G.GAME.TROLLEY_PREV_HANDSIZE - 5)
+				G.GAME.TROLLEY_PREV_HANDSIZE = nil
+				return true;
+			end
+		}))
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_trolley_cards_killed",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		for _, v in pairs(G.hand.cards) do
+			if v.ability.set ~= 'Joker' then
+				v:start_dissolve()
+			end
+		end
+	end,
+	finish = function(self, event)
+		local joker = G.hand.cards[1]
+		G.hand:remove_card(joker)
+		G.jokers:emplace(joker)
+		joker.marked_for_trolley = nil
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.hand:change_size(G.GAME.TROLLEY_PREV_HANDSIZE - 5)
+				G.GAME.TROLLEY_PREV_HANDSIZE = nil
+				return true;
+			end
+		}))
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_trolley_bribe",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+		for _, v in pairs(G.hand.cards) do
+			if v.ability.set == 'Joker' then
+				G.hand:remove_card(v)
+				G.jokers:emplace(v)
+				v.marked_for_trolley = nil
+				break
+			end
+		end
+
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_hand_to_deck()
+				G.deck:shuffle('nr' .. G.GAME.round_resets.ante)
+
+				G.hand:change_size(G.GAME.TROLLEY_PREV_HANDSIZE - 5)
+				G.GAME.TROLLEY_PREV_HANDSIZE = nil
+				return true;
+			end
+		}))
+	end
 }

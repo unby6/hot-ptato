@@ -3395,6 +3395,45 @@ return {
                     "You have been forgiven."
                 }
             },
+
+            hpot_trolley_1 = {
+                text = {
+                    "You are faced with a classic {C:red}trolley problem{}.",
+                    " ",
+                    "On one track lies {C:attention}one{} of your Jokers.",
+                    " ",
+                    "On the other track lies {C:attention}five{} of your playing cards",
+                    " ",
+                    "You can choose where the trolley will go, what is your choice?"
+                }
+            },
+
+            hpot_trolley_joker_killed = {
+                text = {
+                    "You flip the lever, directing the trolley at your Joker.",
+                    "It dies in an instant.",
+                    "This was your choice."
+                }
+            },
+
+            hpot_trolley_cards_killed = {
+                text = {
+                    "You do not flip the lever, directing the trolley at your playing cards.",
+                    "They all die in an instant.",
+                    "This was your choice."
+                }
+            },
+
+            hpot_trolley_bribe = {
+                text = {
+                    "You hastily hand the trolley operator",
+                    "{C:dollars}$20{} in hopes they will brake in time.",
+                    " ", "...", " ",
+                    "Luckily, it stops just in time.",
+                    "All of your cards remain in tact.",
+                    "This was your choice."
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -3478,6 +3517,12 @@ return {
                 name = "Virtual Sin Forgiveness",
                 text = {
                     "Become cleansed my child!"
+                }
+            },
+            hpot_trolley = {
+                name = "The Trolley Problem",
+                text = {
+                    "Which do you value more?"
                 }
             }
         },
@@ -3943,7 +3988,11 @@ return {
             hpot_exchange_sparks_to_dollars = "Joker Exchange to Dollars",
             hpot_ignore_or_something = "Ignore",
 
-            hpot_remove_stickers = "Remove (#1# Plincoins)"
+            hpot_remove_stickers = "Remove (#1# Plincoins)",
+
+            hpot_trolley_joker = "Direct at Joker",
+            hpot_trolley_cards = "Direct at Playing Cards",
+            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
         }
     }
 }
