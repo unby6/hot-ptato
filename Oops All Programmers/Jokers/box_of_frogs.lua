@@ -3,7 +3,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 7,
     atlas = "oap_jokers",
-    pos = { x = 0, y = 0 },
+    pos = { x = 9, y = 0 },
     hotpot_credits = {
         art = { 'th30ne' },
         code = { 'theAstra' },
