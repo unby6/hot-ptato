@@ -1850,7 +1850,14 @@ return {
                         '{C:inactive,s:0.8}also play Everything Upgrade Tree'
                     }
                 }
-            },      
+            },
+            j_hpot_box_of_frogs = {
+                name = 'Box of Frogs',
+                text = {
+                    '{C:attention}Vanilla Jokers{} can no',
+                    'longer appear in the {C:attention}shop'
+                }
+            }, 
         },
         Enhanced = {
             m_hpot_oap_lead = {
