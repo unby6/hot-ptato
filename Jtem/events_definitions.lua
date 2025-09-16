@@ -1482,8 +1482,7 @@ SMODS.EventScenario {
 	},
 	in_pool = function()
 		return #G.jokers.cards >= 1 and #G.playing_cards >= 5
-	end,
-	weight = 100
+	end
 }
 
 -- Prevent selling card during this event
