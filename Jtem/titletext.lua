@@ -338,7 +338,10 @@ HPJTTT = {
         "4/13 doctors recommend!",
         "Filled to the brim with japery!",
         "Definitely not a precursor to Undertale!",
-        "Hello, Zepp."
+        "Hello, Zepp.",
+        Maximus and "James approved!" or "Play Maximus!",
+        "HOT! HOT! HEY WE GOT IT!",
+        "\"This was the worst mistake I have ever made\" - Astra"
     }
 }
 
