@@ -6,7 +6,7 @@ SMODS.Joker {
     pos = { x = 0, y = 0 },
     hotpot_credits = {
         art = { 'th30ne' },
-        code = { 'trif' },
+        code = { 'theAstra' },
         idea = { 'th30ne' },
         team = { 'Oops! All Programmers' }
     }
