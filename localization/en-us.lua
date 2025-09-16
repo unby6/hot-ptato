@@ -1865,7 +1865,91 @@ return {
                     'drawn {C:attention}#1#{} of {V:1}#2#{}',
                     '{s:0.8,C:inactive}(Rank and Suit change every trigger)'
                 }
-            }
+            },
+            j_hpot_OAP_trif = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:green}Trif's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
+            j_hpot_OAP_sadcube = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
+            j_hpot_OAP_astra = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:purple}Astra's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
+            j_hpot_OAP_wix = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:blue}Wix's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
+            j_hpot_OAP_myst = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:tarot}Myst's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
+            j_hpot_OAP_lia = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:attention}Liafeon's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
+            j_hpot_OAP_th30ne = {
+                name = "Oops! A Programmer",
+                text = { {
+                    "This Joker changes its",
+                    "{C:attention}effect{} based on who",
+                    "it currently represents"
+                },
+                    { "{s:1.2,C:spectral}th30ne's{s:1.2} Ability:",
+                        " ",
+                    },
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
