@@ -1958,7 +1958,16 @@ return {
                     'earn {C:money}$#2#{} and destroy one',
                     'random card held in hand'
                 }
-            }
+            },
+            j_hpot_wumpus = {
+                name = 'Wumpus',
+                text = {
+                    'If any other Joker is about',
+                    'to be {C:red}destroyed{}, earn',
+                    '{C:money}$#1#{} and {C:red}destroy this',
+                    'card instead'
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
