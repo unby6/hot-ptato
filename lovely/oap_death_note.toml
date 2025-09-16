@@ -1,0 +1,17 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = 'after'
+pattern = '''
+else
+    draw_card(G.deck,G.hand, i*100/hand_space,'up', true, cards_to_draw[i])
+'''
+payload = '''
+    SMODS.calculate_context({post_draw_individual = true, card = cards_to_draw[i]})
+'''
+match_indent = true

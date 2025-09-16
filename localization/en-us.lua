@@ -1857,7 +1857,15 @@ return {
                     '{C:attention}Vanilla Jokers{} can no',
                     'longer appear in the {C:attention}shop'
                 }
-            }, 
+            },
+            j_hpot_death_note = {
+                name = 'Death Note',
+                text = {
+                    '{C:red}Destroys{} the next',
+                    'drawn {C:attention}#1#{} of {V:1}#2#{}',
+                    '{s:0.8,C:inactive}(Rank and Suit change every trigger)'
+                }
+            }
         },
         Enhanced = {
             m_hpot_oap_lead = {
