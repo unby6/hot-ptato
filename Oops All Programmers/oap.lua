@@ -34,6 +34,9 @@ SMODS.Atlas{key = "oap_barga", path = "Ads/barga.png", px=218, py=270}
 SMODS.Atlas{key = "oap_sex", path = "Ads/sex.png", px=218, py=140} -- hey what the fuck - myst
 SMODS.Atlas{key = "oap_superepicramp", path = "Ads/SuperEpicRamp.png", px=218, py=153}
 SMODS.Atlas{key = "oap_thanosyikes", path = "Ads/thanosYikes.png", px=218, py=217}
+SMODS.Atlas{key = "oap_palombi", path = "Ads/palombi.png", px=224, py=250}
+SMODS.Atlas{key = "oap_lebron", path = "Ads/lebron.png", px=100, py=100}
+SMODS.Atlas{key = "oap_donut", path = "Ads/donut.png", px=200, py=263}
 
 -- sounds
 SMODS.Sound {
