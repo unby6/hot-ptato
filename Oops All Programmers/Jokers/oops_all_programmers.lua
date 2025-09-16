@@ -27,7 +27,7 @@ SMODS.Joker {
 
         },
         th30ne_effect = {
-
+            xmult = 3
         },
     },
     set_ability = function(self, card, initial, delay_sprites)
@@ -40,6 +40,35 @@ SMODS.Joker {
     end,
     loc_vars = function(self, info_queue, card)
         return { key = 'j_hpot_OAP_'..card.ability.extra.effect, vars = card.ability[card.ability.extra.effect .. '_effect'] or {} }
+    end,
+
+    calculate = function(self, card, context)
+
+        -- th30ne
+        if card.ability.extra.effect == 'th30ne' and context.joker_main then
+            local aces = {}
+            local threes = {}
+            for _, playing_card in ipairs(context.scoring_hand) do
+                if playing_card:get_id() == 3 then
+                    table.insert(threes, playing_card)
+                elseif playing_card:get_id() == 14 then
+                    table.insert(aces, playing_card)
+                end
+            end
+            if #aces > 0 and #threes > 0 then
+                for _, ace in ipairs(aces) do
+                    for _, three in ipairs(threes) do
+                        if ace.base.suit ~= three.base.suit 
+                        and not SMODS.has_enhancement(ace, 'm_wild')
+                        and not SMODS.has_enhancement(three, 'm_wild') then
+                            return {
+                                xmult = card.ability.th30ne_effect.xmult
+                            }
+                        end
+                    end
+                end
+            end
+        end
     end,
     hotpot_credits = {
         art = {'SadCube'},

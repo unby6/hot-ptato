@@ -1946,7 +1946,9 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:spectral}th30ne's{s:1.2} Ability:",
-                        " ",
+                        "{X:mult,C:white}X3{} Mult if {C:attention}poker hand",
+                        "contains a {C:attention}3{} and an {C:attention}Ace{}",
+                        "of different suits"
                     },
                 }
             },
