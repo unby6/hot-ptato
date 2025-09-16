@@ -1950,6 +1950,15 @@ return {
                     },
                 }
             },
+            j_hpot_trolley_operator = {
+                name = 'Trolley Operator',
+                text = {
+                    'If there {C:attention}exactly #1#{} cards',
+                    'held in hand after playing a hand',
+                    'earn {C:money}$#2#{} and destroy one',
+                    'random card held in hand'
+                }
+            }
         },
         Enhanced = {
             m_hpot_oap_lead = {
