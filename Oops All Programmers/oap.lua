@@ -31,7 +31,7 @@ SMODS.Atlas{key = "oap_pb", path = "Oops! All Programmers/oap_pb.png", px = 71, 
 SMODS.Atlas{key = "oap_roffle", path = "Ads/roffleland.png", px=218, py=121}
 SMODS.Atlas{key = "oap_danielad", path = "Ads/findhim.png", px=125, py=188}
 SMODS.Atlas{key = "oap_barga", path = "Ads/barga.png", px=218, py=270}
-SMODS.Atlas{key = "oap_sex", path = "Ads/sex.png", px=218, py=140}
+SMODS.Atlas{key = "oap_sex", path = "Ads/sex.png", px=218, py=140} -- hey what the fuck - myst
 SMODS.Atlas{key = "oap_superepicramp", path = "Ads/SuperEpicRamp.png", px=218, py=153}
 SMODS.Atlas{key = "oap_thanosyikes", path = "Ads/thanosYikes.png", px=218, py=217}
 

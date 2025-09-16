@@ -1835,7 +1835,22 @@ return {
                     '{C:green}#2# in #3# chance{} to',
                     'lose all {C:hpot_advert,f:hpot_plincoin}£{} instead'
                 }
-            }        
+            },
+            j_hpot_gula = {
+                name = 'Gula',
+                text = {
+                    {
+                        'When {C:attention}Blind{} is selected,',
+                        'consumes all {C:hpot_plincoin}Plincoins{}, {C:hpot_advert,f:hpot_plincoin}Cryptocurrency',
+                        'and {f:hpot_plincoin,C:blue}Spark Points{} to gain {C:mult}XMult{}',
+                        'proportional to amount consumed',
+                        '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
+                    },
+                    {
+                        '{C:inactive,s:0.8}also play Everything Upgrade Tree'
+                    }
+                }
+            },      
         },
         Enhanced = {
             m_hpot_oap_lead = {
