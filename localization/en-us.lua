@@ -3590,6 +3590,23 @@ return {
                     "{C:inactive}Maybe next time.{}"
                 }
             },
+            hpot_refreshing_1 = {
+                text = {
+                    "During your run, you come across a {C:attention}Vending Machine.",
+                    "You investigate and notice bottles of Cola are {C:money}$5{}.",
+                    " ",
+                    "Would you like one?"
+                }
+            },
+            hpot_refreshing_purchase = {
+                text = {
+                    "You insert the money and a bottle is dispensed.",
+                    "You quickly down the entire bottle.",
+                    "You notice the bottlecap looks interesting and pocket it.",
+                    " ",
+                    "Would you like to buy another?"
+                }
+            }
         },
         EventScenarios = {
             hpot_test = {
@@ -3685,6 +3702,12 @@ return {
                 name = "Mystery Box",
                 text = {
                     "I wonder what's inside?"
+                }
+            },
+            hpot_refreshing = {
+                name = "Ah, Refreshing!",
+                text = {
+                    "Take a break with a cold one."
                 }
             },
         },
@@ -4156,6 +4179,8 @@ return {
             hpot_trolley_cards = "Direct at Playing Cards",
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
             hpot_mystery_box = "Open (5 credits)",
+
+            hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})"
         }
     }
 }

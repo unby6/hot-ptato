@@ -1649,6 +1649,10 @@ SMODS.EventStep {
 		}))
 	end
 }
+
+
+-- Mystery Box
+
 SMODS.EventScenario {
 	key = "mystery_box",
 	starting_step_key = "hpot_mb_1",
@@ -1747,6 +1751,97 @@ SMODS.EventStep {
 		}
 	end,
 	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+
+-- Refreshing
+
+SMODS.EventScenario {
+	key = "refreshing",
+	starting_step_key = "hpot_refreshing_1",
+	hotpot_credits = {
+		idea = { "theAstra" },
+		code = { "theAstra" },
+		team = { "O!AP" },
+	}
+}
+
+SMODS.EventStep {
+	key = "hpot_refreshing_1",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_refreshing_purchase_btn",
+				no_prefix = true,
+				button = function()
+					ease_dollars(-5)
+					event.start_step('hpot_refreshing_purchase')
+				end,
+				func = function()
+					return G.GAME.dollars >= 5 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+				end
+			},
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		local cola = Character("j_diet_cola")
+		cola.children.particles.colours = { G.C.RED, G.C.RED, G.C.RED }
+		cola.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				cola.T.scale = cola.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_refreshing_purchase",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_refreshing_purchase_btn",
+				no_prefix = true,
+				button = function()
+					ease_dollars(-5)
+					event.start_step('hpot_refreshing_purchase')
+				end,
+				func = function()
+					return G.GAME.dollars >= 5 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+				end
+			},
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		play_sound('hpot_bottlecap')
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			func = function()
+				SMODS.add_card({
+					set = 'bottlecap'
+				})
+				return true;
+			end
+		}))
 	end,
 	finish = function(self, event)
 	end
