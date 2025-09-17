@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = 'OAP',
     atlas = 'oap_self_insert',
-    pos = {x = 0, y = 0},
+    pos = { x = 0, y = 0 },
     rarity = 2,
     discovered = true,
     config = {
@@ -36,14 +36,17 @@ SMODS.Joker {
         local chosen_index = pseudorandom('oap', 1, 7)
         card.ability.extra.effect = choices[chosen_index]
         card.children.center.atlas = G.ASSET_ATLAS['hpot_oap_self_insert']
-        card.children.center:set_sprite_pos({x = chosen_index - 1, y = 0})
+        card.children.center:set_sprite_pos({ x = chosen_index - 1, y = 0 })
     end,
     loc_vars = function(self, info_queue, card)
-        return { key = 'j_hpot_OAP_'..card.ability.extra.effect, vars = card.ability[card.ability.extra.effect .. '_effect'] or {} }
+        return {
+            key = 'j_hpot_OAP_' .. card.ability.extra.effect,
+            vars = card.ability
+                [card.ability.extra.effect .. '_effect'] or {}
+        }
     end,
 
     calculate = function(self, card, context)
-
         -- th30ne
         if card.ability.extra.effect == 'th30ne' and context.joker_main then
             local aces = {}
@@ -58,9 +61,9 @@ SMODS.Joker {
             if #aces > 0 and #threes > 0 then
                 for _, ace in ipairs(aces) do
                     for _, three in ipairs(threes) do
-                        if ace.base.suit ~= three.base.suit 
-                        and not SMODS.has_enhancement(ace, 'm_wild')
-                        and not SMODS.has_enhancement(three, 'm_wild') then
+                        if ace.base.suit ~= three.base.suit
+                            and not SMODS.has_enhancement(ace, 'm_wild')
+                            and not SMODS.has_enhancement(three, 'm_wild') then
                             return {
                                 xmult = card.ability.th30ne_effect.xmult
                             }
@@ -69,9 +72,63 @@ SMODS.Joker {
                 end
             end
         end
+
+        -- theAstra
+        if card.ability.extra.effect == 'astra' and context.after and #context.full_hand == 1 and not (context.full_hand[1]:is_face() or context.full_hand[1]:get_id() == 14) then
+            local initial_card = context.full_hand[1]
+            local suit = initial_card.base.suit
+            local rank1 = math.floor(initial_card.base.id / 2)
+            local rank2 = initial_card.base.id - rank1
+
+            rank1 = rank1 == 1 and 'Ace' or rank1
+            rank2 = rank2 == 1 and 'Ace' or rank2
+
+            local card1, card2 = {}, {}
+
+            SMODS.destroy_cards(initial_card)
+
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    play_sound('slice1')
+
+                    card1 = SMODS.add_card({
+                        set = 'Base',
+                        rank = '' .. rank1,
+                        suit = suit,
+                        area = G.play,
+                        skip_materialize = true
+                    })
+
+                    card2 = SMODS.add_card({
+                        set = 'Base',
+                        rank = '' .. rank2,
+                        suit = suit,
+                        area = G.play,
+                        skip_materialize = true
+                    })
+
+                    card:juice_up(0.3, 0.4)
+                    card1:juice_up(0.3, 0.4)
+                    card2:juice_up(0.3, 0.4)
+
+                    return true;
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    draw_card(card1.area, G.discard, 1 * 100 / 2, 'down', nil, nil, 0.07, card1)
+                    draw_card(card2.area, G.discard, 2 * 100 / 2, 'down', nil, nil, 0.07, card2)
+                    return true;
+                end
+            }))
+        end
     end,
     hotpot_credits = {
-        art = {'SadCube'},
-        team = {'Oops! All Programmers'}
+        art = { 'SadCube' },
+        team = { 'Oops! All Programmers' }
     }
 }

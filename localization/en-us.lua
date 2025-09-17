@@ -1898,7 +1898,9 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:purple}Astra's{s:1.2} Ability:",
-                        " ",
+                        "After scoring, if exactly {C:attention}1{} numbered",
+                        "card was played, replace it with {C:attention}2{} cards",
+                        "whose ranks are {C:attention}half{} of the original",
                     },
                 }
             },
