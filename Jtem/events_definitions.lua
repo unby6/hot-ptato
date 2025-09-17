@@ -1527,6 +1527,18 @@ SMODS.EventStep {
 		}
 	end,
 	start = function(self, event)
+		local to = Character("j_hpot_trolley_operator")
+		to.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				to.T.scale = to.T.scale * 0.75
+				return true
+			end,
+		}))
+
 		G.GAME.TROLLEY_PREV_HANDSIZE = G.hand.config.card_limit
 
 		G.hand:change_size(5 - G.hand.config.card_limit)
