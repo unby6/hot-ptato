@@ -1998,6 +1998,12 @@ return {
                     '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Chips)'
                 }
             },
+            j_hpot_fun_is_infinite = {
+                name = "Fun is Infinite",
+                text = {
+                    "{C:attention}Eternal{} Jokers give {X:mult,C:white}X#1#{} Mult",
+                }
+            }
         },
         Enhanced = {
             m_hpot_oap_lead = {
