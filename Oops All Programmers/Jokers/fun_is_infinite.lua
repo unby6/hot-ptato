@@ -20,6 +20,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = { "?" },
         code = { "trif" },
-        idea = { "th30ne" }
+        idea = { "th30ne" },
+        team = { "Oops! All Programmers" }
     }
 }
