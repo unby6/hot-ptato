@@ -3640,6 +3640,38 @@ return {
                     " ",
                     "Would you like to buy another?"
                 }
+            },
+            hpot_fishing_1 = {
+                text = {
+                    "You come across a pond that seems to be stocked with fish.",
+                    " ",
+                    "Would you like to cast a line?"
+                }
+            },
+            hpot_fishing_cast_line = {
+                text = {
+                    "You cast your line in hopes of getting the big one.",
+                    " ",
+                    "Wait for a bite?"
+                }
+            },
+            hpot_fishing_waiting = {
+                text = {
+                    "Hmm... still no bite.",
+                    " ",
+                    "Would you like to wait a bit longer?"
+                }
+            },
+            hpot_fishing_bite = {
+                text = {
+                    "{C:attention}Aha!{} A bite!",
+                    "You set the hook and reel in as fast as you can.",
+                    "You land your prize and...",
+                    "...",
+                    "Wait this isn't a fish at all!",
+                    "It's a mystery to you how this item even put up so much of a fight.",
+                    "Disappointedly, you shove it in your pocket in hopes it comes in handy later."
+                }
             }
         },
         EventScenarios = {
@@ -3742,6 +3774,12 @@ return {
                 name = "Ah, Refreshing!",
                 text = {
                     "Take a break with a cold one."
+                }
+            },
+            hpot_fishing = {
+                name = "Fishing",
+                text = {
+                    "Kick back and cast a line!"
                 }
             },
         },
@@ -4214,7 +4252,11 @@ return {
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
             hpot_mystery_box = "Open (5 credits)",
 
-            hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})"
+            hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})",
+
+            hpot_fishing_cast_btn = "Cast a line!",
+            hpot_fishing_wait_btn = "Wait a little longer",
+            hpot_fishing_leave_btn = "Retrieve your line and leave",
         }
     }
 }

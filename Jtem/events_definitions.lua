@@ -1729,7 +1729,7 @@ SMODS.EventStep {
 	end,
 	start = function(self, event)
 		for _, joker in pairs(G.jokers.cards) do
-			joker:juice_up(0.8,1)
+			joker:juice_up(0.8, 1)
 		end
 	end,
 	finish = function(self, event)
@@ -1783,6 +1783,7 @@ SMODS.EventScenario {
 
 SMODS.EventStep {
 	key = "hpot_refreshing_1",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1793,7 +1794,8 @@ SMODS.EventStep {
 					event.start_step('hpot_refreshing_purchase')
 				end,
 				func = function()
-					return G.GAME.dollars >= 5 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+					return G.GAME.dollars >= 5 and
+					#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				end
 			},
 			{
@@ -1823,6 +1825,7 @@ SMODS.EventStep {
 
 SMODS.EventStep {
 	key = "hpot_refreshing_purchase",
+	hide_hand = true,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1833,7 +1836,8 @@ SMODS.EventStep {
 					event.start_step('hpot_refreshing_purchase')
 				end,
 				func = function()
-					return G.GAME.dollars >= 5 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+					return G.GAME.dollars >= 5 and
+					#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				end
 			},
 			{
@@ -1854,6 +1858,132 @@ SMODS.EventStep {
 				return true;
 			end
 		}))
+	end,
+	finish = function(self, event)
+	end
+}
+
+
+-- Fishing
+
+SMODS.EventScenario {
+	key = "fishing",
+	starting_step_key = "hpot_fishing_1",
+	hotpot_credits = {
+		idea = { "theAstra" },
+		code = { "theAstra" },
+		team = { "O!AP" },
+	},
+	weight = 100
+}
+
+SMODS.EventStep {
+	key = "hpot_fishing_1",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_fishing_cast_btn",
+				no_prefix = true,
+				button = function()
+					event.start_step('hpot_fishing_cast_line')
+				end,
+				func = function()
+					return #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+				end
+			},
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_fishing_cast_line",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_fishing_wait_btn",
+				no_prefix = true,
+				button = function()
+					local success = SMODS.pseudorandom_probability(event, 'hpot_fishing', 1, 10, 'hpot_fishing', true)
+					if success then
+						event.start_step('hpot_fishing_bite')
+					else
+						event.start_step('hpot_fishing_waiting')
+					end
+				end
+			},
+			{
+				key = "hpot_fishing_leave_btn",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_fishing_waiting",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_fishing_wait_btn",
+				no_prefix = true,
+				button = function()
+					local success = SMODS.pseudorandom_probability(event, 'hpot_fishing', 1, 2, 'hpot_fishing', true)
+					if success then
+						event.start_step('hpot_fishing_bite')
+					else
+						event.start_step('hpot_fishing_waiting')
+					end
+				end
+			},
+			{
+				key = "hpot_fishing_leave_btn",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_fishing_bite",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		local c_type = pseudorandom_element(SMODS.ConsumableType.visible_buffer)
+
+		SMODS.add_card {
+			set = c_type,
+			key_append = 'hpot_fishing'
+		}
 	end,
 	finish = function(self, event)
 	end
