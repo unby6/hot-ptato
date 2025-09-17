@@ -1874,7 +1874,6 @@ SMODS.EventScenario {
 		code = { "theAstra" },
 		team = { "O!AP" },
 	},
-	weight = 100
 }
 
 SMODS.EventStep {
