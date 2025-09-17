@@ -18,7 +18,7 @@ SMODS.Joker {
 
         },
         wix_effect = {
-
+            xchips = 2
         },
         myst_effect = {
 
@@ -125,6 +125,14 @@ SMODS.Joker {
                     return true;
                 end
             }))
+        end
+
+        --wix
+        if card.ability.extra.effect == "wix" and context.individual and context.cardarea == G.play and context.other_card:get_id() == 12 then
+            return {
+                xchips = card.ability.wix_effect.xchips,
+                xchip_message = { message = "X2 Chips", sound = "hpot_forgiveness", colour = G.C.CHIPS }
+            }
         end
     end,
     hotpot_credits = {
