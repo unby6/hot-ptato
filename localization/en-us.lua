@@ -2625,6 +2625,14 @@ return {
                     "{C:attention}Training{} Joker"
                 }
             },
+            c_hpot_heavy_metal = {
+                name = "Heavy Metal",
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
             --#endregion
         },
         Other = {
