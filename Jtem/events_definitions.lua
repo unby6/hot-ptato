@@ -1406,12 +1406,14 @@ SMODS.EventStep({
 		return {
             {
                 key = "hpot_general_move_on",
+				no_prefix = true,
                 button = function()
                     event.start_step('hpot_job_application_procrastinate')
                 end,
             },
             {
                 key = "hpot_job_application_apply",
+				no_prefix = true,
                 button = function()
 					local success = SMODS.pseudorandom_probability(event, "jobapplication", 1, 2, "jobapplication", true)
 					if success then
@@ -1446,8 +1448,9 @@ SMODS.EventStep({
 		return {
             {
                 key = "hpot_general_move_on",
+				no_prefix = true,
                 button = function()
-					ease_dollars(-G.GAME.dollars)
+					ease_plincoins(-G.GAME.plincoins)
                     event.finish_scenario()
                 end,
             }
@@ -1462,6 +1465,7 @@ SMODS.EventStep({
 		return {
             {
                 key = "hpot_general_move_on",
+				no_prefix = true,
                 button = function()
                     event.finish_scenario()
                 end,
@@ -1477,6 +1481,7 @@ SMODS.EventStep({
 		return {
             {
                 key = "hpot_job_application_success",
+				no_prefix = true,
                 button = function()
 					ease_plincoins(10)
 					G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
