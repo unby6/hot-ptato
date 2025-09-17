@@ -1649,3 +1649,105 @@ SMODS.EventStep {
 		}))
 	end
 }
+SMODS.EventScenario {
+	key = "mystery_box",
+	starting_step_key = "hpot_mb_1",
+	hotpot_credits = {
+		idea = { "factwixard" },
+		code = { "factwixard" },
+		team = { "O!AP" }
+	},
+}
+SMODS.EventStep {
+	key = "mb_1",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = function()
+					event.start_step('hpot_mb_4')
+				end,
+			},
+			{
+				key = "hpot_mystery_box",
+				no_prefix = true,
+				button = function()
+					HPTN.ease_credits(-5)
+					event.start_step("hpot_mb_2")
+				end,
+				func = function()
+					return G.GAME.credits_text > 5
+				end,
+			},
+		}
+	end,
+	start = function(self, event)
+		local tn = Character("j_hpot_tname_postcard")
+		tn.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				tn.T.scale = tn.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+	finish = function(self, event)
+	end
+}
+SMODS.EventStep {
+	key = "mb_2",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_mb_3")
+				end,
+			},
+		}
+	end,
+	start = function(self, event)
+		for _, joker in pairs(G.jokers.cards) do
+			joker:juice_up(0.8,1)
+		end
+	end,
+	finish = function(self, event)
+	end
+}
+SMODS.EventStep {
+	key = "mb_3",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+SMODS.EventStep {
+	key = "mb_4",
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
