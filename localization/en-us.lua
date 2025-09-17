@@ -3506,7 +3506,40 @@ return {
                     "{C:inactive}(Check your deck!)"
                 }
             },
-
+            hpot_job_application_1 = {
+                text = {
+                    "You notice a paper sticking out from the pile on your desk...",
+                    " ",
+                    "It's the job application you haven't filled in.",
+                    "Will you fill it in today?"
+                }
+            },
+            hpot_job_application_procrastinate = {
+                text =  {
+                    "Uh oh!",
+                    "The government has caught you playing Balatro",
+                    "instead of applying for a job.",
+                    " ",
+                    "They're taking those Plincoins back.",
+                }
+            },
+            hpot_job_application_success = {
+                text = {
+                    "Congratulations!",
+                    "Your application to work at the Plincoin factory",
+                    "was successful.",
+                    "Unfortunately you no longer have as much time to play Balatro",
+                    "{C:blue}-1 {C:inactive}hand each round",
+                    "{C:inactive}Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}10",
+                }
+            },
+            hpot_job_application_failure = {
+                text = {
+                    "Oh no!",
+                    "Your application to work at the Plincoin factory",
+                    "was unsuccessful.",
+                }
+            },
             hpot_vsf_1 = {
                 text = {
                     "I absolve you of your sins!"
@@ -3608,7 +3641,7 @@ return {
                     " ",
                     "Would you like to buy another?"
                 }
-            }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -3686,6 +3719,13 @@ return {
                 name = "Nuclear Explosion",
                 text = {
                     "Hazzard Alert!"
+                }
+            },
+            hpot_job_application = {
+                name = "Job Application",
+                text = {
+                    "Seems you've been putting",
+                    "this off for a while."
                 }
             },
             hpot_virtual_sin_forgiveness = {
@@ -4177,12 +4217,15 @@ return {
 
             hpot_remove_stickers = "Remove (#1# Plincoins)",
 
+            hpot_job_application_apply = "Apply now",
+            hpot_job_application_success = "Celebrate!",
+
             hpot_trolley_joker = "Direct at Joker",
             hpot_trolley_cards = "Direct at Playing Cards",
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
             hpot_mystery_box = "Open (5 credits)",
 
-            hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})"
+            hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})",
         }
     }
 }
