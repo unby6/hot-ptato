@@ -1974,6 +1974,30 @@ return {
                     'card instead'
                 }
             },
+            j_hpot_99_bottles = {
+                name = '99 Bottles of Coke on the Wall',
+                text = {
+                    '{C:mult}+#1#{} Mult for each',
+                    '{C:attention}Bottlecap{} used this run',
+                    '{C:inactive}(Currently: {C:mult}+#2#{C:inactive} Mult)'
+                }
+            },
+            j_hpot_atm = {
+                name = 'ATM',
+                text = {
+                    '{C:money}$#1#{} at end of round for each',
+                    '{C:hpot_czech}Cheque{} used this run',
+                    '{C:inactive}(Currently: {C:money}$#2#{C:inactive})'
+                }
+            },
+            j_hpot_tori_gate = {
+                name = 'Tori Gate',
+                text = {
+                    '{C:chips}+#1#{} Chips for each',
+                    '{C:hanafuda}Hanafuda{} card used this run',
+                    '{C:inactive}(Currently: {C:chips}+#2#{C:inactive} Chips)'
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
