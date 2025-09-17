@@ -3555,6 +3555,41 @@ return {
                     "This was your choice."
                 }
             },
+            hpot_mb_1 = {
+                text = {
+                    "Hello! {C:attention}Team Name{} made credits,",
+                    "and now's your chance to {C:attention}use{} them!",
+                    "Luckily, we have a neat {C:attention}mystery box{} in front of us!",
+                    "Don't you wanna {C:attention}open{} it?"
+                }
+            },
+            hpot_mb_2 = {
+                text = {
+                    "Ooh, neat! A {C:edition,E:1}Five Star{}!",
+                    " ",
+                    "Shame it isn't of use to you, though.",
+                    "Oh, well! Maybe {C:attention}next time{}?"
+                }
+            },
+            hpot_mb_3 = {
+                text = {
+                    "{C:inactive}You have the feeling what just happened{}",
+                    "{C:inactive}was a major waste of time.{}",
+                    " ",
+                    " ",
+                    " ",
+                    "{C:inactive}And credits.{}"
+                }
+            },
+            hpot_mb_4 = {
+                text = {
+                    "{C:inactive}You decide to cut the bullshit and leave.{}",
+                    " ",
+                    " ",
+                    " ",
+                    "{C:inactive}Maybe next time.{}"
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -3645,7 +3680,13 @@ return {
                 text = {
                     "Which do you value more?"
                 }
-            }
+            },
+            hpot_mystery_box = {
+                name = "Mystery Box",
+                text = {
+                    "I wonder what's inside?"
+                }
+            },
         },
 
         Modification = {
@@ -4114,6 +4155,7 @@ return {
             hpot_trolley_joker = "Direct at Joker",
             hpot_trolley_cards = "Direct at Playing Cards",
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
+            hpot_mystery_box = "Open (5 credits)",
         }
     }
 }
