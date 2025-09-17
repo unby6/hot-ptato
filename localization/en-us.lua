@@ -1912,7 +1912,9 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:blue}Wix's{s:1.2} Ability:",
-                        " ",
+                        "Played {C:attention}Queens{} give",
+                        "{X:chips,C:white}X2{} Chips",
+                        "{s:0.8,X:dark_edition,C:white,E:1}funnyeffect{}"
                     },
                 }
             },
