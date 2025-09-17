@@ -74,7 +74,7 @@ SMODS.Joker {
         end
 
         -- theAstra
-        if card.ability.extra.effect == 'astra' and context.after and #context.full_hand == 1 and not (context.full_hand[1]:is_face() or context.full_hand[1]:get_id() == 14) then
+        if card.ability.extra.effect == 'astra' and context.after and #context.full_hand == 1 and not (context.full_hand[1]:is_face() or context.full_hand[1]:get_id() == 14) and not context.blueprint then
             local initial_card = context.full_hand[1]
             local suit = initial_card.base.suit
             local rank1 = math.floor(initial_card.base.id / 2)
