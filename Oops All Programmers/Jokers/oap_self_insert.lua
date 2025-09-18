@@ -53,7 +53,7 @@ SMODS.Joker {
         if card.ability.extra.effect == 'wix' then
             return {
                 key = key,
-                vars = { card.ability.th30ne_effect.xchips }
+                vars = { card.ability.wix_effect.xchips }
             }
         end
 
