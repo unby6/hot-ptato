@@ -1886,7 +1886,10 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
-                        " ",
+                        "The next {C:attention}#1# {C:green}probabilities",
+                        "are {C:attention}guaranteed{} to succeed.",
+                        "Gains {C:attention}#2#{} more guarantees at",
+                        "the end of a round"
                     },
                 }
             },
@@ -1913,7 +1916,7 @@ return {
                 },
                     { "{s:1.2,C:blue}Wix's{s:1.2} Ability:",
                         "Played {C:attention}Queens{} give",
-                        "{X:chips,C:white}X2{} Chips",
+                        "{X:chips,C:white}X#1#{} Chips",
                         "{s:0.8,X:dark_edition,C:white,E:1}funnyeffect{}"
                     },
                 }
@@ -1950,7 +1953,7 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:spectral}th30ne's{s:1.2} Ability:",
-                        "{X:mult,C:white}X3{} Mult if {C:attention}poker hand",
+                        "{X:mult,C:white}X#1#{} Mult if {C:attention}poker hand",
                         "contains a {C:attention}3{} and an {C:attention}Ace{}",
                         "of different suits"
                     },

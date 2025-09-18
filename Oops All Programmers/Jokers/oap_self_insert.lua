@@ -12,11 +12,11 @@ SMODS.Joker {
 
         },
         sadcube_effect = {
-
+            guarantees = 2,
+            guarantee_resets = 2,
+            gain = 2
         },
-        astra_effect = {
-
-        },
+        astra_effect = {},
         wix_effect = {
             xchips = 2
         },
@@ -39,10 +39,31 @@ SMODS.Joker {
         card.children.center:set_sprite_pos({ x = chosen_index - 1, y = 0 })
     end,
     loc_vars = function(self, info_queue, card)
+        local key = 'j_hpot_OAP_' .. card.ability.extra.effect
+
+        if card.ability.extra.effect == 'th30ne' then
+            return {
+                key = key,
+                vars = { card.ability.th30ne_effect.xmult }
+            }
+        end
+
+        if card.ability.extra.effect == 'wix' then
+            return {
+                key = key,
+                vars = { card.ability.th30ne_effect.xchips }
+            }
+        end
+
+        if card.ability.extra.effect == 'sadcube' then
+            return {
+                key = key,
+                vars = { card.ability.sadcube_effect.guarantees, card.ability.sadcube_effect.gain }
+            }
+        end
+
         return {
-            key = 'j_hpot_OAP_' .. card.ability.extra.effect,
-            vars = card.ability
-                [card.ability.extra.effect .. '_effect'] or {}
+            key = key
         }
     end,
 
@@ -133,6 +154,26 @@ SMODS.Joker {
                 xchips = card.ability.wix_effect.xchips,
                 xchip_message = { message = "X2 Chips", sound = "hpot_forgiveness", colour = G.C.CHIPS }
             }
+        end
+
+        --SadCube
+        if card.ability.extra.effect == 'sadcube' and context.fix_probability and card.ability.sadcube_effect.guarantees > 0 then
+            if context.from_roll then
+                card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantees - 1
+            end
+            return {
+                numerator = context.denominator
+            }
+        end
+
+        if card.ability.extra.effect == 'sadcube' and context.end_of_round and context.cardarea == G.jokers then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.sadcube_effect,
+                ref_value = 'guarantee_resets',
+                scalar_value = 'gain',
+                message_colour = G.C.GREEN
+            })
+            card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantee_resets
         end
     end,
     hotpot_credits = {
