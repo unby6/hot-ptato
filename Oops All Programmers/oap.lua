@@ -38,6 +38,7 @@ SMODS.Atlas{key = "oap_thanosyikes", path = "Ads/thanosYikes.png", px=218, py=21
 SMODS.Atlas{key = "oap_palombi", path = "Ads/palombi.png", px=224, py=250}
 SMODS.Atlas{key = "oap_lebron", path = "Ads/lebron.png", px=100, py=100}
 SMODS.Atlas{key = "oap_donut", path = "Ads/donut.png", px=200, py=263}
+SMODS.Atlas{key = "oap_greg", path = "Ads/gregregation.png", px=225, py=225}
 
 -- sounds
 SMODS.Sound {

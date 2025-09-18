@@ -41,6 +41,7 @@ HotPotato.Ads = {
         ad_palombi = {atlas = "hpot_oap_palombi", pos = {x = 0, y = 0}},
         ad_lebron = {atlas = "hpot_oap_lebron", pos = {x = 0, y = 0}},
         ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}},
+        ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
