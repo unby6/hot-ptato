@@ -1786,8 +1786,8 @@ return {
                 text = {
                     '{C:attention}Jokers{} can be added to',
                     'Joker Slots {C:attention}over the limit',
-                    '{C:red}Destroys{} one random other Joker and gains',
-                    '{X:mult,C:white}X#1#{} Mult when limit is exceeded',
+                    '{C:red}Destroys{} one random other Joker and',
+                    'gains {X:mult,C:white}X#1#{} Mult when limit is exceeded',
                     '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
                 }
             },
@@ -1962,16 +1962,16 @@ return {
             j_hpot_trolley_operator = {
                 name = 'Trolley Operator',
                 text = {
-                    'If there {C:attention}exactly #1#{} cards',
-                    'held in hand after playing a hand',
-                    'earn {C:money}$#2#{} and destroy one',
+                    'If there are {C:attention}exactly #1#{} cards',
+                    'held in hand after playing a hand,',
+                    'earn {C:money}$#2#{} and {C:red}destroy{} one',
                     'random card held in hand'
                 }
             },
             j_hpot_wumpus = {
                 name = 'Wumpus',
                 text = {
-                    'If any other Joker is about',
+                    'If any other {C:attention}Joker{} is about',
                     'to be {C:red}destroyed{}, earn',
                     '{C:money}$#1#{} and {C:red}destroy this',
                     'card instead'
@@ -2019,6 +2019,15 @@ return {
                 name = "Fine Print",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult*" -- someone else do this pls
+                }
+            },
+            j_hpot_loss = {
+                name = 'Is this loss?',
+                text = {
+                    'Breeding with this card will {C:attention}always',
+                    'result in a copy of {C:attention}this{} Joker with',
+                    'an extra {X:mult,C:white}X#2#{} Mult',
+                    '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
             }
         },

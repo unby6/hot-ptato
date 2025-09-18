@@ -356,6 +356,7 @@ function G.FUNCS.nursery_abort(e)
     end
     G.GAME.active_breeding = false
     G.GAME.center_being_duped = nil
+    G.GAME.loss_child_xmult = nil
     SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = "Aborted!" }
 end
 
@@ -480,7 +481,11 @@ G.C.HPOT_PINK = HEX("fe89d0")
 G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother_center, father_center)
     local center_to_dupe
-    if G.GAME.guaranteed_breed_center == "mother" then
+    if mother_center.key == 'j_hpot_loss' or father_center.key == 'j_hpot_loss' then
+        local loss_card = mother_center.key == 'j_hpot_loss' and G.nursery_mother.cards[1] or G.nursery_father.cards[1]
+        center_to_dupe = loss_card.config.center
+        G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
+    elseif G.GAME.guaranteed_breed_center == "mother" then
         center_to_dupe = mother_center
     else
         local poll = pseudorandom("hc_breed_result")
@@ -517,6 +522,10 @@ function end_round()
                     card.T.h = card.T.h * 0.75
                     card.ability.is_nursery_smalled = true
                     G.nursery_child:emplace(card)
+                    if to_dupe.key == 'j_hpot_loss' then
+                        card.ability.extra.Xmult = G.GAME.loss_child_xmult
+                        G.GAME.loss_child_xmult = nil
+                    end
                     local mom, dad = G.nursery_mother.cards[1], nil
                     G.nursery_mother.cards[1].ability.mother = nil
                 end
