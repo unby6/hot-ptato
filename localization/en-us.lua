@@ -2014,6 +2014,12 @@ return {
                     "when a Joker is {C:attention}Impregnated{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
+            },
+            j_hpot_fine_print = {
+                name = "Fine Print",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult*" -- someone else do this pls
+                }
             }
         },
         Enhanced = {
@@ -4098,7 +4104,7 @@ return {
             hpot_credit_text = "Credits:",
 
             hotpot_disable_animations = "Disable Animations",
-            hotpot_white_stake_stickers = "Custom stickers apply on White Stake",
+            ite_stake_stickers = "Custom stickers apply on White Stake",
             hotpot_family_friendly = "Family Friendly",
 
             k_place_card_text = "PLACE JOKER TO REFORGE",
