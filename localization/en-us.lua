@@ -2003,6 +2003,14 @@ return {
                 text = {
                     "{C:attention}Eternal{} Jokers give {X:mult,C:white}X#1#{} Mult",
                 }
+            },
+            j_hpot_american_healthcare = {
+                name = "American Healthcare",
+                text = {
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult",
+                    "when a Joker is {C:attention}Impregnated{}",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+                }
             }
         },
         Enhanced = {
