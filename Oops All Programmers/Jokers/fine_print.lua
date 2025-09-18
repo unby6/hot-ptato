@@ -69,8 +69,8 @@ SMODS.Joker {
                 return
             end
             if a.no_rare then
-                for i = 1, #context.full_hand do
-                    if context.full_hand[i]:is_rarity("Rare") then
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i]:is_rarity("Rare") then
                         return
                     end
                 end
