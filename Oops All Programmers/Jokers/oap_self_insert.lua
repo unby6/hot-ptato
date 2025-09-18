@@ -157,23 +157,25 @@ SMODS.Joker {
         end
 
         --SadCube
-        if card.ability.extra.effect == 'sadcube' and context.fix_probability and card.ability.sadcube_effect.guarantees > 0 then
-            if context.from_roll then
-                card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantees - 1
+        if card.ability.extra.effect == 'sadcube' then
+            if context.fix_probability and card.ability.sadcube_effect.guarantees > 0 then
+                if context.from_roll then
+                    card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantees - 1
+                end
+                return {
+                    numerator = context.denominator
+                }
             end
-            return {
-                numerator = context.denominator
-            }
-        end
-
-        if card.ability.extra.effect == 'sadcube' and context.end_of_round and context.cardarea == G.jokers then
-            SMODS.scale_card(card, {
-                ref_table = card.ability.sadcube_effect,
-                ref_value = 'guarantee_resets',
-                scalar_value = 'gain',
-                message_colour = G.C.GREEN
-            })
-            card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantee_resets
+            
+            if context.end_of_round and context.cardarea == G.jokers then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.sadcube_effect,
+                    ref_value = 'guarantee_resets',
+                    scalar_value = 'gain',
+                    message_colour = G.C.GREEN
+                })
+                card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantee_resets
+            end
         end
     end,
     hotpot_credits = {
