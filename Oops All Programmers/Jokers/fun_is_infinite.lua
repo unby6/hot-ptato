@@ -4,7 +4,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     atlas = "oap_jokers",
-    pos = { x = 0, y = 0 },
+    pos = { x = 5, y = 1 },
     config = { extra = { xmult = 1.75 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = { key = "eternal", set = "Other" }

@@ -1,6 +1,6 @@
 {
   "workspace.library": [
-    "C:/Users/Artemis/AppData/Roaming/Balatro/Mods/smods-main", 
-    "C:/Users/Artemis/AppData/Roaming/Balatro/Mods/lovely/dump"
+    "C:/path/to/smods-main", 
+    "C:/path/to/lovely/dump"
   ]
 }

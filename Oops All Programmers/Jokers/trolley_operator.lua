@@ -3,7 +3,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 5,
     atlas = "oap_jokers",
-    pos = { x = 0, y = 0 },
+    pos = { x = 7, y = 1 },
     config = {
         extra = {
             money = 3,
