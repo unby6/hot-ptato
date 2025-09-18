@@ -1887,8 +1887,8 @@ return {
                 },
                     { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
                         "The next {C:attention}#1# {C:green}probabilities",
-                        "are {C:attention}guaranteed{} to succeed.",
-                        "Gains {C:attention}#2#{} more guarantees at",
+                        "are {C:attention}multiplied by #2#{}.",
+                        "Gains {C:attention}#3#{} more modifiers at",
                         "the end of a round"
                     },
                 }

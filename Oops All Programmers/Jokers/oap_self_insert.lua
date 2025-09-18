@@ -3,6 +3,7 @@ SMODS.Joker {
     atlas = 'oap_self_insert',
     pos = { x = 0, y = 0 },
     rarity = 2,
+    cost = 6,
     discovered = true,
     config = {
         extra = {
@@ -12,8 +13,9 @@ SMODS.Joker {
 
         },
         sadcube_effect = {
-            guarantees = 2,
-            guarantee_resets = 2,
+            modifiers = 2,
+            multiplier = 4,
+            modifier_resets = 2,
             gain = 2
         },
         astra_effect = {},
@@ -58,7 +60,7 @@ SMODS.Joker {
         if card.ability.extra.effect == 'sadcube' then
             return {
                 key = key,
-                vars = { card.ability.sadcube_effect.guarantees, card.ability.sadcube_effect.gain }
+                vars = { card.ability.sadcube_effect.modifiers, card.ability.sadcube_effect.multiplier, card.ability.sadcube_effect.gain }
             }
         end
 
@@ -158,23 +160,23 @@ SMODS.Joker {
 
         --SadCube
         if card.ability.extra.effect == 'sadcube' then
-            if context.fix_probability and card.ability.sadcube_effect.guarantees > 0 then
+            if context.mod_probability and card.ability.sadcube_effect.modifiers > 0 then
                 if context.from_roll then
-                    card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantees - 1
+                    card.ability.sadcube_effect.modifiers = card.ability.sadcube_effect.modifiers - 1
                 end
                 return {
-                    numerator = context.denominator
+                    numerator = context.numerator * card.ability.sadcube_effect.multiplier
                 }
             end
-            
+
             if context.end_of_round and context.cardarea == G.jokers then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.sadcube_effect,
-                    ref_value = 'guarantee_resets',
+                    ref_value = 'modifier_resets',
                     scalar_value = 'gain',
                     message_colour = G.C.GREEN
                 })
-                card.ability.sadcube_effect.guarantees = card.ability.sadcube_effect.guarantee_resets
+                card.ability.sadcube_effect.modifiers = card.ability.sadcube_effect.modifier_resets
             end
         end
     end,
