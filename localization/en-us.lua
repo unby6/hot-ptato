@@ -4140,7 +4140,13 @@ return {
             hpot_diy_random_consumable = "Create a Random Consumable",
             hpot_diy_random_card = "Create a Random Playing Card",
             k_harvest = HotPotatoConfig.family_friendly and "Harvest Joy" or "Harvest Organs",
-            k_none = "none"
+            k_none = "none",
+
+            k_oap_fine_print_no_full_slots = "*Joker Slots cannot be full",
+            k_oap_fine_print_empty_consumables = "*Consumable slots must be empty",
+            k_oap_fine_print_no_rare = "*All other Jokers must be non-Rare",
+            k_oap_fine_print_no_small = "*Does not apply on Small Blind",
+            k_oap_fine_print_no_first_hand = "*Does not apply on first hand of round",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -4174,7 +4180,10 @@ return {
             hotpot_exchange_bonus = " +#1# BONUS!",
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
-            hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)'
+            hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)',
+
+            k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
+            k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
         },
         v_text = {
             ch_c_hpot_reduce_select_size = { "All consumables can affect {C:attention}1{} less card" },

@@ -31,7 +31,39 @@ SMODS.Joker {
         }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.xmult } }
+        local nodes = {}
+        for k, v in pairs(card.ability.extra.effects) do
+            if v then
+                local text
+                if k == 'no_rank' then
+                    text = localize { type = 'variable', key = 'k_oap_fine_print_' .. k, vars = { localize(v.r.key, 'ranks') } }
+                elseif k == 'no_suit' then
+                    text = localize { type = 'variable', key = 'k_oap_fine_print_' .. k, vars = { localize(v.s.name, 'suits_plural') } }
+                else
+                    text = localize('k_oap_fine_print_' .. k)
+                end
+                table.insert(nodes,
+                    {
+                        n = G.UIT.R,
+                        config = { align = 'cm', padding = 0.06 },
+                        nodes = {
+                            {n = G.UIT.T, config = { text = text, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32 * 0.8 }},
+                        }
+                    }
+                )
+            end
+        end
+
+        return {
+            vars = { card.ability.extra.xmult },
+            main_end = (card.area and card.area == G.jokers) and next(nodes) and
+                {{
+                    n = G.UIT.C,
+                    config = {align = "bm", minh = 0.4, padding = 0.02},
+                    nodes = nodes
+                }} or nil
+            
+        }
     end,
     calculate = function(self, card, context)
         if context.setting_blind and SMODS.pseudorandom_probability(card, "fine_print", 1, 2, "fine_print_add") and card.ability.extra.cond_count <= 3 and not context.blueprint then
@@ -88,7 +120,7 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         art = { "?" },
-        code = { "trif" },
+        code = { "trif", "theAstra" },
         idea = { "th30ne" },
         team = { "Oops! All Programmers" }
     }
