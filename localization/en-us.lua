@@ -3704,6 +3704,50 @@ return {
                     "It's a mystery to you how this item even put up so much of a fight.",
                     "Disappointedly, you shove it in your pocket in hopes it comes in handy later."
                 }
+            },
+            hpot_roffle_start = {
+                text = {
+                    "Hey folks, in today's video we're back with another modded Balatro run.",
+                    "This time... we're...",
+                    "...",
+                    "...Where am I?",
+                    "I was just streaming, when all of a sudden...",
+                    " ",
+                    "Hello?",
+                    "Can anyone hear me?"
+                }
+            },
+            hpot_roffle_looksinside = {
+                text = {
+                    "What?",
+                    "\">looks inside\"?",
+                    "I'm not sure what you're looking for...",
+                    "I don't see a photochad or anything like that...",
+                    " ",
+                    "...",
+                    "Ooh, wait, I found... half of one?",
+                    "...Here you go!",
+                    "...Can you get me out of here?",
+                    "...",
+                    "Hello?"
+                }
+            },
+            hpot_roffle_spec_baron = {
+                text = {
+                    "Huh?",
+                    "\"Speculative baron\"?",
+                    "That's... probably not the best choice right now.",
+                    "I don't see any Barons here anyways, but if I find something...",
+                    "Will you get me out of here?",
+                    " ",
+                    "...",
+                    "Oh, here's one!",
+                    "...It'll work, right?",
+                    "It's just a little... strange...",
+                    "...",
+                    "Will you get me out of here now?",
+                    "Hello?"
+                }
             }
         },
         EventScenarios = {
@@ -3814,6 +3858,12 @@ return {
                     "Kick back and cast a line!"
                 }
             },
+            hpot_roffle = {
+                name = "Trapped Streamer",
+                text = {
+                    "Hey folks..."
+                }
+            }
         },
 
         Modification = {
@@ -4298,6 +4348,9 @@ return {
             hpot_fishing_cast_btn = "Cast a line!",
             hpot_fishing_wait_btn = "Wait a little longer",
             hpot_fishing_leave_btn = "Retrieve your line and leave",
+
+            hpot_roffle_looksinside_btn = ">looks inside",
+            hpot_roffle_spec_baron_btn = "Speculative Baron",
         }
     }
 }

@@ -1987,3 +1987,100 @@ SMODS.EventStep {
 	finish = function(self, event)
 	end
 }
+
+-- trapped streamer
+
+SMODS.EventScenario {
+	key = "roffle",
+	starting_step_key = "hpot_roffle_start",
+	hotpot_credits = {
+		idea = { "trif" },
+		code = { "trif" },
+		team = { "O!AP" },
+	},
+	weight = 100
+}
+
+SMODS.EventStep {
+	key = "hpot_roffle_start",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_roffle_looksinside_btn",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_roffle_looksinside")
+				end
+			},
+			{
+				key = "hpot_roffle_spec_baron_btn",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_roffle_spec_baron")
+				end
+			}
+		}
+	end,
+	start = function(self, event)
+		local roff = Character("j_card_sharp")
+		roff.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				roff.T.scale = roff.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+}
+
+SMODS.EventStep {
+	key = "hpot_roffle_looksinside",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	finish = function(self, event)
+		if #G.jokers.cards < G.jokers.config.card_limit then
+			local joker = pseudorandom_element({"j_photograph", "j_hanging_chad"}, "photochad")
+			SMODS.add_card({
+				key = joker,
+				area = G.jokers,
+			})
+		end
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_roffle_spec_baron",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	finish = function(self, event)
+		if #G.jokers.cards < G.jokers.config.card_limit then
+			local b = SMODS.add_card({
+				key = "j_baron",
+				area = G.jokers,
+			})
+			b.T.h = b.T.h * 0.8
+			poll_modification(1, b, nil, {BAD = 100})
+			reforge_card(b, true)
+		end
+	end
+}
