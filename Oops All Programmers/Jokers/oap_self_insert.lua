@@ -213,6 +213,103 @@ SMODS.Joker {
             end
         end
 
+        -- trif
+        if card.ability.extra.effect == "trif" then
+            if context.before and #context.full_hand == 5 then
+                local chosen = pseudorandom_element({"enhancement", "edition", "seal", "modification"}, "oap_trif_effect")
+                local _card = pseudorandom_element(context.full_hand, "oap_trif_card")
+
+                if chosen == "enhancement" then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            _card:flip()
+                            play_sound('card1', 1)
+                            _card:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            _card:set_ability(SMODS.poll_enhancement({key="oap_trif", guaranteed=true}))
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            _card:flip()
+                            play_sound('tarot2', 0.85, 0.6)
+                            card:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
+                end
+
+                if chosen == "edition" then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.2,
+                        func = function()
+                            _card:set_edition(poll_edition("oap_trif", nil, nil, true), true)
+                            card:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
+                end
+
+                if chosen == "modification" then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            _card:flip()
+                            play_sound('card1', 1)
+                            _card:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            poll_modification(1, _card)
+                            reforge_card(_card, true)
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            _card:flip()
+                            play_sound('tarot2', 0.85, 0.6)
+                            card:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
+                end
+
+                if chosen == "seal" then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.1,
+                        func = function()
+                            _card:set_seal(SMODS.poll_seal({key="oap_trif", guaranteed=true}), nil, true)
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot1')
+                            card:juice_up(0.3, 0.5)
+                            return true
+                        end
+                    }))
+                end
+            end
+        end
+
         -- liafeon
         if card.ability.extra.effect == "liafeon" and context.scoring_name == "High Card" and G.GAME.current_round.hands_played == 0 then
             for i, v in ipairs(context.scoring_hand) do

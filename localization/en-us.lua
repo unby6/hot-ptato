@@ -1874,7 +1874,9 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:green}Trif's{s:1.2} Ability:",
-                        " ",
+                        "If played hand contains {C:attention}5{} cards,",
+                        "give a random one a new {C:dark_edition}Edition{},",
+                        "{C:attention}Enhancement{}, {C:attention}Modification{}, or {C:red}Seal{}"
                     },
                 }
             },
