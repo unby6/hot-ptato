@@ -18,7 +18,7 @@ SMODS.Joker {
         local valid_jokers = 0
         if G.jokers and G.jokers.cards then
             for _, joker in ipairs(G.jokers.cards) do
-                if joker ~= card and not (joker.ability.extra and joker.ability.extra.hpot_mood) then
+                if joker ~= card and not (joker.ability.extra and type(joker.ability.extra) == "table" and joker.ability.extra.hpot_mood) then
                     valid_jokers = valid_jokers + 1
                 end
             end
