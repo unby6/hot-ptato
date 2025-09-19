@@ -3,7 +3,7 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     atlas = "oap_jokers",
-    pos = { x = 0, y = 0 },
+    pos = { x = 8, y = 1 },
     config = {
         extra = {
             money = 1
@@ -27,7 +27,7 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = { '?' },
+        art = { 'SadCube' },
         code = { 'theAstra' },
         idea = { 'theAstra' },
         team = { 'Oops! All Programmers' }
