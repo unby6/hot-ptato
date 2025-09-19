@@ -1929,7 +1929,10 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:tarot}Myst's{s:1.2} Ability:",
-                        " ",
+                        "{C:red}Unscores{} all scoring non-{C:attention}face{}",
+                        "cards, {X:mult,C:white} X#1# {} Mult for each",
+                        "card {C:red}unscored{} this way",
+                        "{C:inactive,s:0.8}starting from {X:mult,C:white,s:0.8} X1 {C:inactive,s:0.8} Mult",
                     },
                 }
             },
@@ -4075,6 +4078,7 @@ return {
             k_key = "Key",
             k_events = "Events",
             k_drank_ex = "Drunk!",
+            k_unscored_ex = "Unscored!",
 
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",

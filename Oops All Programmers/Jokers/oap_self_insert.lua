@@ -1,3 +1,4 @@
+local choices = { 'trif', 'sadcube', 'astra', 'wix', 'myst', 'lia', 'th30ne' } -- Notice: Same order as sprite sheet
 SMODS.Joker {
     key = 'OAP',
     atlas = 'oap_self_insert',
@@ -23,7 +24,8 @@ SMODS.Joker {
             xchips = 2
         },
         myst_effect = {
-
+            x_mult = 1,
+            count = 0
         },
         lia_effect = {
 
@@ -33,39 +35,31 @@ SMODS.Joker {
         },
     },
     set_ability = function(self, card, initial, delay_sprites)
-        local choices = { 'trif', 'sadcube', 'astra', 'wix', 'myst', 'lia', 'th30ne' } -- Notice: Same order as sprite sheet
-
         local chosen_index = pseudorandom('oap', 1, 7)
         card.ability.extra.effect = choices[chosen_index]
         card.children.center.atlas = G.ASSET_ATLAS['hpot_oap_self_insert']
         card.children.center:set_sprite_pos({ x = chosen_index - 1, y = 0 })
     end,
+    set_sprites = function(self, card)
+        if not card.ability then return end
+        for k, v in ipairs(choices) do
+            if card.ability.extra.effect == v then
+                card.children.center.atlas = G.ASSET_ATLAS['hpot_oap_self_insert']
+                card.children.center:set_sprite_pos({ x = k - 1, y = 0 })
+            end
+        end
+    end,
     loc_vars = function(self, info_queue, card)
         local key = 'j_hpot_OAP_' .. card.ability.extra.effect
+        local vars = {}
 
-        if card.ability.extra.effect == 'th30ne' then
-            return {
-                key = key,
-                vars = { card.ability.th30ne_effect.xmult }
-            }
-        end
-
-        if card.ability.extra.effect == 'wix' then
-            return {
-                key = key,
-                vars = { card.ability.wix_effect.xchips }
-            }
-        end
-
-        if card.ability.extra.effect == 'sadcube' then
-            return {
-                key = key,
-                vars = { card.ability.sadcube_effect.modifiers, card.ability.sadcube_effect.multiplier, card.ability.sadcube_effect.gain }
-            }
-        end
+        if card.ability.extra.effect == 'th30ne' then vars = { card.ability.th30ne_effect.xmult } end
+        if card.ability.extra.effect == 'wix' then vars = { card.ability.wix_effect.xchips } end
+        if card.ability.extra.effect == 'sadcube' then vars = { card.ability.sadcube_effect.modifiers, card.ability.sadcube_effect.multiplier, card.ability.sadcube_effect.gain } end
+        if card.ability.extra.effect == 'myst' then vars = { card.ability.myst_effect.x_mult } end
 
         return {
-            key = key
+            key = key, vars = vars
         }
     end,
 
@@ -177,6 +171,48 @@ SMODS.Joker {
                     message_colour = G.C.GREEN
                 })
                 card.ability.sadcube_effect.modifiers = card.ability.sadcube_effect.modifier_resets
+            end
+        end
+
+        -- sorry for the shitty code - myst
+        if card.ability.extra.effect == "myst" then
+            if G.STATE == G.STATES.HAND_PLAYED and context.modify_scoring_hand and not context.blueprint then
+                for _, _card in ipairs(context.scoring_hand) do
+                    if _card == context.other_card or SMODS.always_scores(context.other_card) or next(find_joker('Splash')) then 
+                        if not _card.ability.oap_myst_activated or not _card.ability.oap_myst_activated[card.sort_id] then
+                            _card.ability.oap_myst_activated = _card.ability.oap_myst_activated or {}
+                            _card.ability.oap_myst_activated[card.sort_id] = true
+                            
+                            if not _card:is_face() then
+                                card.ability.myst_effect.count = card.ability.myst_effect.count + 1
+                                card:juice_up()
+                                SMODS.calculate_effect({
+                                    message = localize("k_unscored_ex"),
+                                    colour = G.C.PURPLE,
+                                }, context.other_card)
+                                delay(0.2)
+                                return {
+                                    remove_from_hand = true,
+                                }
+                            end
+                        end
+                    end
+                end
+            end
+
+            if context.joker_main then
+                if card.ability.myst_effect.count > 0 then
+                    return {
+                        x_mult = card.ability.myst_effect.x_mult * (card.ability.myst_effect.count + 1)
+                    }
+                end
+            end
+
+            if context.after and not context.blueprint then
+                for _, v in ipairs(G.playing_cards) do
+                    v.ability.oap_myst_activated = nil
+                end
+                card.ability.myst_effect.count = 0
             end
         end
     end,
