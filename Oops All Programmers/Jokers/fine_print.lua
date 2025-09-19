@@ -66,7 +66,7 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and SMODS.pseudorandom_probability(card, "fine_print", 1, 2, "fine_print_add") and card.ability.extra.cond_count <= 3 and not context.blueprint then
+        if context.setting_blind and SMODS.pseudorandom_probability(card, "fine_print", 1, 2, "fine_print_add", true) and card.ability.extra.cond_count <= 3 and not context.blueprint then
             local b, chosen = pseudorandom_element(card.ability.extra.list, "fine_print_effect")
             card.ability.extra.effects[chosen] = true
             card.ability.extra.list[chosen] = nil
