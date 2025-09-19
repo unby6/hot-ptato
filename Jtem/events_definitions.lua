@@ -1397,6 +1397,113 @@ SMODS.EventScenario {
 	end
 }
 
+-- Job Application
+
+SMODS.EventStep({
+	key = "hpot_job_application_1",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hpot_general_move_on",
+				no_prefix = true,
+                button = function()
+                    event.start_step('hpot_job_application_procrastinate')
+                end,
+            },
+            {
+                key = "hpot_job_application_apply",
+				no_prefix = true,
+                button = function()
+					local success = SMODS.pseudorandom_probability(event, "jobapplication", 1, 2, "jobapplication", true)
+					if success then
+						event.start_step('hpot_job_application_success')
+					else
+						event.start_step('hpot_job_application_failure')
+					end
+                end,
+            },
+		}
+	end,
+	start = function(self, event)
+		local application = Character("j_business")
+		application.children.particles.colours = { G.C.BLUE, G.C.BLUE, G.C.BLUE }
+		application.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				application.T.scale = application.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+})
+
+SMODS.EventStep({
+	key = "hpot_job_application_procrastinate",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hpot_general_move_on",
+				no_prefix = true,
+                button = function()
+					ease_plincoins(-G.GAME.plincoins)
+                    event.finish_scenario()
+                end,
+            }
+		}
+	end,
+})
+
+SMODS.EventStep({
+	key = "hpot_job_application_failure",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hpot_general_move_on",
+				no_prefix = true,
+                button = function()
+                    event.finish_scenario()
+                end,
+            }
+		}
+	end,
+})
+
+SMODS.EventStep({
+	key = "hpot_job_application_success",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+            {
+                key = "hpot_job_application_success",
+				no_prefix = true,
+                button = function()
+					ease_plincoins(10)
+					G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
+                    event.finish_scenario()
+                end,
+            }
+		}
+	end,
+})
+
+SMODS.EventScenario {
+	key = "job_application",
+	starting_step_key = "hpot_job_application_1",
+	hotpot_credits = {
+		idea = { "Liafeon" },
+		code = { "Liafeon" },
+		team = { "Oops! All Programmers" },
+	},
+	in_pool = function()
+		return G.GAME.round_resets.ante >= 5
+	end
+}
 
 -- Virtual Sin Forgiveness
 
@@ -1767,7 +1874,6 @@ SMODS.EventStep {
 	finish = function(self, event)
 	end
 }
-
 
 -- Refreshing
 
