@@ -27,9 +27,6 @@ SMODS.Joker {
             x_mult = 1,
             count = 0
         },
-        lia_effect = {
-
-        },
         th30ne_effect = {
             xmult = 3
         },
@@ -213,6 +210,46 @@ SMODS.Joker {
                     v.ability.oap_myst_activated = nil
                 end
                 card.ability.myst_effect.count = 0
+            end
+        end
+
+        -- liafeon
+        if card.ability.extra.effect == "liafeon" and context.scoring_name == "High Card" and G.GAME.current_round.hands_played == 0 then
+            for i, v in ipairs(context.scoring_hand) do
+                G.E_MANAGER:add_event(
+                    Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            v:flip()
+                            card:juice_up(0.3, 0.3)
+                            play_sound('card1', 0.15);v:juice_up(0.3, 0.3)
+                            return true
+                        end
+                    })
+                )
+                G.E_MANAGER:add_event(
+                    Event({
+                        trigger = 'after',
+                        delay = 0.1,
+                        func = function()
+                            v:change_suit("Hearts")
+                            return true
+                        end
+                    })
+                )
+                G.E_MANAGER:add_event(
+                    Event({
+                        trigger = 'after',
+                        delay = 0.15,
+                        func = function()
+                            v:flip()
+                            play_sound('tarot2', percent, 0.6)
+                            v:juice_up(0.3, 0.3)
+                            return true
+                        end
+                    })
+                )
             end
         end
     end,

@@ -1944,7 +1944,9 @@ return {
                     "it currently represents"
                 },
                     { "{s:1.2,C:attention}Liafeon's{s:1.2} Ability:",
-                        " ",
+                        "If the first played hand",
+                        "is a {C:attention}High Card",
+                        "change its suit to {C:hearts}Hearts"
                     },
                 }
             },
