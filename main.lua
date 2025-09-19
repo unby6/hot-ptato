@@ -9,6 +9,14 @@ HotPotato = SMODS.current_mod
 
 --#endregion
 
+--modicon
+SMODS.Atlas {
+	key = "modicon",
+	path = "modicon.png",
+	px = 32,
+	py = 32
+}
+
 -- FILE LOADING
 --#region File Loading
 local nativefs = NFS
