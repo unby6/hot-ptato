@@ -1997,8 +1997,7 @@ SMODS.EventScenario {
 		idea = { "trif" },
 		code = { "trif" },
 		team = { "O!AP" },
-	},
-	weight = 100
+	}
 }
 
 SMODS.EventStep {
@@ -2082,5 +2081,110 @@ SMODS.EventStep {
 			poll_modification(1, b, nil, {BAD = 100})
 			reforge_card(b, true)
 		end
+	end
+}
+
+-- md6 slot machine
+
+SMODS.EventScenario {
+	key = "bizzare_machine",
+	starting_step_key = "hpot_bizzare_machine_start",
+	hotpot_credits = {
+		code = { "Mysthaps" },
+		team = { "O!AP" },
+	},
+}
+
+SMODS.EventStep {
+	key = "hpot_bizzare_machine_start",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_bizzare_machine_take_coin",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_bizzare_machine_take_coin")
+				end
+			},
+			{
+				key = "hpot_bizzare_machine_insert_coin",
+				no_prefix = true,
+				button = function()
+					if pseudorandom('hpot_bizzare_machine', 1, 100) <= 100 then
+						event.start_step("hpot_bizzare_machine_insert_coin_success")
+					else
+						event.start_step("hpot_bizzare_machine_insert_coin_failure")
+					end
+				end
+			}
+		}
+	end,
+	start = function(self, event)
+		G.GAME.abno_choice_music = true
+	end,
+}
+
+SMODS.EventStep {
+	key = "hpot_bizzare_machine_take_coin",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		ease_plincoins(1)
+	end,
+	finish = function(self, event)
+		G.GAME.abno_choice_music = nil
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_bizzare_machine_insert_coin_success",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		local card = SMODS.add_card({
+			set = "Joker",
+			rarity = "Legendary",
+			area = G.jokers,
+		})
+	end,
+	finish = function(self, event)
+		G.GAME.abno_choice_music = nil
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_bizzare_machine_insert_coin_failure",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_general_move_on",
+				no_prefix = true,
+				button = event.finish_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		ease_plincoins(0.5)
+	end,
+	finish = function(self, event)
+		G.GAME.abno_choice_music = nil
 	end
 }

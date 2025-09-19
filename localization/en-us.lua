@@ -3751,7 +3751,67 @@ return {
                     "Will you get me out of here now?",
                     "Hello?"
                 }
-            }
+            },
+            hpot_bizzare_machine_start = {
+                text = {
+                    "There's a bizarre-looking machine. In front of it is a coin.",
+                    " ",
+                    "Then there's a twinkling, glowing coin slot on the machine-",
+                    "it's almost enticing us to deposit the coin inside it.",
+                    " ",
+                    "A disembodied, mechanical voice echoes from somewhere",
+                    "when I walk up to the machine.",
+                    " ",
+                    "{C:attention}\"Test your luck!\"",
+                    " ",
+                    "Where did that vocalization come from? Did it come from",
+                    "within the machine, or was it this space itself",
+                    "whispering to me?",
+                    " ",
+                    "I pick up the coin and walk up to the machine's coin slot.",
+                    "I should think this through."
+                }
+            },
+            hpot_bizzare_machine_take_coin = {
+                text = {
+                    "On closer examination, this coin could come in useful later.",
+                    " ",
+                    "... I should quit while I'm ahead, even for a small gain.",
+                    " ",
+                    "Much better than gambling this coin away into that",
+                    "suspicious machine for some unknown, mysterious outcome",
+                    "I have no way of gauging.",
+                    " ",
+                    "I pocket the coin and leave the machine."
+                }
+            },
+            hpot_bizzare_machine_insert_coin_success = {
+                text = {
+                    "The slot sucks the coin inside with a clack.",
+                    " ",
+                    "\"%^*@%@!!@$%\"",
+                    " ",
+                    "The machine makes a strange, ineffable and unsettling noise.",
+                    " ",
+                    "After a moment, it spits out something from its...",
+                    "vent-like apparatus.",
+                    " ",
+                    "It zooms off to somewhere before I even get a chance",
+                    "to realize what happened."
+                }
+            },
+            hpot_bizzare_machine_insert_coin_failure = {
+                text = {
+                    "The slot sucks the coin inside with a clack.",
+                    " ",
+                    "\"......\"",
+                    " ",
+                    "Then nothing.",
+                    "I stomp forward to beat up the machine,",
+                    "but it zooms off to somewhere before I even get",
+                    "a chance to see what would happen."
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -3866,7 +3926,13 @@ return {
                 text = {
                     "Hey folks..."
                 }
-            }
+            },
+            hpot_bizzare_machine = {
+                name = "Bizzare Machine",
+                text = {
+                    "There's a bizzare machine."
+                }
+            },
         },
 
         Modification = {
@@ -4355,6 +4421,9 @@ return {
 
             hpot_roffle_looksinside_btn = ">looks inside",
             hpot_roffle_spec_baron_btn = "Speculative Baron",
+
+            hpot_bizzare_machine_take_coin = "Just take the coin.",
+            hpot_bizzare_machine_insert_coin = "Insert the coin in the slot."
         }
     }
 }

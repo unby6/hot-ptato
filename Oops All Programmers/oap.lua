@@ -45,3 +45,14 @@ SMODS.Sound {
     key = 'forgiveness',
     path = 'sfx_forgiveness.ogg'
 }
+SMODS.Sound{
+    key = 'music_abnormalitychoice',
+    path = 'music_abnormalitychoice.ogg',
+    pitch = 0.7,
+    volume = 0.8,
+    sync = false,
+    select_music_track = function(self)
+        if G.GAME.abno_choice_music then return 10000000 end
+        return false
+    end
+}
