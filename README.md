@@ -39,3 +39,6 @@ Pissdrawer or OAP, PLEASE add a button and an UI to condense all of this currenc
 
 ### message from trif
 hi guys i'm in the readme messages too
+
+### message from myst
+good fucking god stop adding currencies yall
