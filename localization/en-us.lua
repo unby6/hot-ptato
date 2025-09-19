@@ -2025,7 +2025,7 @@ return {
                 }
             },
             j_hpot_loss = {
-                name = 'Is this loss?',
+                name = 'Loss',
                 text = {
                     'Breeding with this card will {C:attention}always',
                     'result in a copy of {C:attention}this{} Joker with',
