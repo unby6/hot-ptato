@@ -2054,6 +2054,14 @@ return {
                     'if hand ever scores over',
                     '{C:attention}twice the blind requirement'
                 }
+            },
+            j_hpot_sonloaf = {
+                name = 'Son Loaf',
+                text = {
+                    'Creates a {C:attention}Food Joker',
+                    'whenever another {C:attention}Food Joker{}',
+                    'is {C:red}destroyed'
+                }
             }
         },
         Enhanced = {
