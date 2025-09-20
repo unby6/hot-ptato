@@ -4,6 +4,7 @@ SMODS.Back {
     apply = function(self, back)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
+            delay = 3,
             func = function()
                 for k, v in ipairs(G.GAME.hotpot_ads) do
                     G.E_MANAGER:add_event(Event({
