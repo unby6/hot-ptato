@@ -14,6 +14,7 @@ SMODS.Joker {
             card.ability.extra.hands_left,
          } }
     end,
+    pools = { Food = true },
     calculate = function(self, card, context)
         if context.before
         and G.GAME.current_round.hands_left == 0
