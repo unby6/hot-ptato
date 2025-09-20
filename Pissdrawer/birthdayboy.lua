@@ -3,7 +3,7 @@ SMODS.Joker {
     key = "birthdayboy",
     loc_txt = {
         name = "Birthday Boy",
-        text = { "Happy Birthday, N'!" }
+        text = { {"Happy Birthday, N'!"}, {'Where would Jujutsu', 'Jokers be without you...'} }
     },
     atlas = "birthdayboy",
     pos = { x = 0, y = 0 },
