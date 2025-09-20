@@ -381,6 +381,7 @@ HPJTTT = {
         "HEY THAT BUMP IS SHAPED LIKE A DEER",
         "Can we please stop adding more currencies?",
         "Y-yowou showouwd pway uwuifier! OwO",
+        "CC? by CC, do you mean: crumbling castle, cave-in cavern, chaos complex, cornerboost collab, ceiling pop contest, candy cliffs, cheesecake country, celeste community, circular platform clutter, collapsing canyon, curious crater, cpop city, corroded city, crouch climb, cookie clicker, closed captions, crow control, celestial cabinet, carbon copy, CameronC, cycles contest, cupid's comit, cherry city, comb connections city, cloudfrost cave, cyclic cliffside, carlos collab, celestenet client, celestecord, core c-side, cc-sides, cloudy cliffs, chilly caves, or chromatic complex? next time, be more clear with your abbreivations.",
     }
 }
 
