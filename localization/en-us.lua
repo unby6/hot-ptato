@@ -438,6 +438,12 @@ return {
                     "a hand is leveled up"
                 }
             },
+            b_hpot_ublockdeck = {
+                name = 'uBlock Origin',
+                text = {
+                    'Remove {C:red}Ads'
+                }
+            }
         },
         bottlecap = {
             c_hpot_cap_money = {
