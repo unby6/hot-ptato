@@ -35,7 +35,7 @@ some of this is things only the last team can do really
 please don't be disruptive with cross-team messages.
 
 ### message from Nxkoo
-Pissdrawer or OAP, PLEASE add a button and an UI to condense all of this currency into one singular UI/Panel, its overwhelming
+Pissdrawer, PLEASE add a button and an UI to condense all of this currency into one singular UI/Panel, its overwhelming
 
 ### message from trif
 hi guys i'm in the readme messages too
