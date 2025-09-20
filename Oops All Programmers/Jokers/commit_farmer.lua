@@ -11,7 +11,7 @@ SMODS.Joker {
                 ["team name"] = 307,
                 ["team :)"] = 16,
                 horsechicot = 540,
-                ["oops! all programmers"] = 14
+                ["oops! all programmers"] = 145
             },
             xmult_base = 1,
             xmult_inc = 0.01
