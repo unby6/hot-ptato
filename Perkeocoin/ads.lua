@@ -43,6 +43,9 @@ HotPotato.Ads = {
         ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}},
         ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}},
         ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}},
+        ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
+        ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}},
+        ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -59,9 +62,6 @@ HotPotato.Ads = {
         ad_astolfo = {atlas = 'hpot_jtemads',pos = {x=4,y=2}},
         -- Team Name
         ad_twinx = {atlas = "hpot_tname_ads",pos = {x=1,y=0}},
-        ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
-        ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
-        ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}}
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
