@@ -2036,6 +2036,14 @@ return {
                     'an extra {X:mult,C:white}X#2#{} Mult',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
+            },
+            j_hpot_undying = {
+                name = 'Jimbo The Undying',
+                text = {
+                    'When this card is {C:red}destroyed{},',
+                    'create a copy with an extra {X:mult,C:white}X#2#{} Mult',
+                    '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
+                }
             }
         },
         Enhanced = {
@@ -4357,6 +4365,8 @@ return {
 
             k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
             k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
+
+            k_oap_undying = "Can't kill me punk!", -- Had to put this in v_dictionary because that's what scale_card looks for :sob: - Astra
         },
         v_text = {
             ch_c_hpot_reduce_select_size = { "All consumables can affect {C:attention}1{} less card" },

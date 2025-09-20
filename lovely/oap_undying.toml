@@ -1,0 +1,18 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+position = 'after'
+pattern = '''
+-- TARGET : Add extra conditions here
+'''
+payload = '''
+if self.getting_sliced and self.config.center_key == 'j_hpot_undying' then
+    is_available = true
+end
+'''
+match_indent = true
