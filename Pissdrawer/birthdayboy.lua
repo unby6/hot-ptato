@@ -3,7 +3,7 @@ SMODS.Joker {
     key = "birthdayboy",
     loc_txt = {
         name = "Birthday Boy",
-        text = { "{E:1}Happy Birthday, N'!{}" }
+        text = { {"Happy Birthday, N'!"}, {'Where would Jujutsu', 'Jokers be without you...'} }
     },
     hotpot_credits = {
         art = { "deadbeet" },
