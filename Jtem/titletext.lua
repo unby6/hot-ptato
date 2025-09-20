@@ -250,7 +250,6 @@ HPJTTT = {
         "D1D7",
         "smots gaming",
         "Tip number 10: Sit at the chessboard and play with yourself",
-        "Murph will do anything but wheel of mods",
         "Grows offline!",
         "Restraining Order means nothing to me",
         "Why so serious?",
