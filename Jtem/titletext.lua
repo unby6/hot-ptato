@@ -341,7 +341,8 @@ HPJTTT = {
         "Hello, Zepp.",
         Maximus and "James approved!" or "Play Maximus!",
         "HOT! HOT! HEY WE GOT IT!",
-        "\"This was the worst mistake I have ever made\" - Astra"
+        "\"This was the worst mistake I have ever made\" - Astra",
+        "turns out casinos dont like when you add 10 holo aces to the deck :("
     }
 }
 
