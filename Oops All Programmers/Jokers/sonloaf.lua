@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = "sonloaf",
     atlas = "oap_jokers",
-    pos = { x = 0, y = 0 },
+    pos = { x = 0, y = 0 }, -- If you see this comment it means Son Loaf never got a chance to be sprited
     hotpot_credits = {
         art = { '?' },
         code = { 'factwixard' },
