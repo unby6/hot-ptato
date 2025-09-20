@@ -3,7 +3,12 @@ SMODS.Joker {
     key = "birthdayboy",
     loc_txt = {
         name = "Birthday Boy",
-        text = { "Happy Birthday, N'!" }
+        text = { "{E:1}Happy Birthday, N'!{}" }
+    },
+    hotpot_credits = {
+        art = { "deadbeet" },
+        code = { "deadbeet" },
+        team = { "Pissdrawer" }
     },
     atlas = "birthdayboy",
     pos = { x = 0, y = 0 },
@@ -11,5 +16,8 @@ SMODS.Joker {
     unlocked = true,
     discovered = true,
     rarity = 4,
-    no_collection = true
+    no_collection = true,
+    in_pool = function(self, args)
+        return false
+    end
 }
