@@ -2044,6 +2044,16 @@ return {
                     'create a copy with an extra {X:mult,C:white}X#2#{} Mult',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
+            },
+            j_hpot_numberslop = {
+                name = 'Numberslop',
+                text = {
+                    '{C:attention}Numbered{} cards give',
+                    '{X:mult,C:white}X#1#{} Mult when scored.',
+                    'This card is {C:red}destroyed{}',
+                    'if hand ever scores over',
+                    '{C:attention}twice the blind requirement'
+                }
             }
         },
         Enhanced = {
@@ -4328,6 +4338,8 @@ return {
             k_oap_fine_print_no_rare = "*All other Jokers must be non-Rare",
             k_oap_fine_print_no_small = "*Does not apply on Small Blind",
             k_oap_fine_print_no_first_hand = "*Does not apply on first hand of round",
+
+            k_oap_too_much_slop = "Too much slop..."
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
