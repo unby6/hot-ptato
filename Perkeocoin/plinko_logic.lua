@@ -14,8 +14,8 @@ PlinkoLogic = {
       rolls_to_up_cost = 3,
       plincoins_per_round = 1,
     },
-    
-    -- GENERAL INFO    
+
+    -- GENERAL INFO
     STATES = {
         CLOSED = 0,
         IDLE = 1,
@@ -24,7 +24,7 @@ PlinkoLogic = {
     },
     STATE = 0,
 
-    
+
     rewards = {
         total = 7,
         per_rarity = {
@@ -43,7 +43,7 @@ PlinkoLogic = {
         -- Tier 2
         {ante_left = 0, rounds_left = 1},
     },
-    
+
     -- Functions
     f = { },
 }
@@ -62,9 +62,15 @@ function PlinkoLogic.f.generate_rewards()
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
       G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
       G.plinko_rewards.moving_pegs = true
+  elseif next(SMODS.find_card('j_hpot_hardcore_mode')) then
+      G.GAME.plinko_rewards.Uncommon = PlinkoLogic.rewards.per_rarity.Uncommon - 1
+      G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
+      G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad + 2
   else
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
+      G.GAME.plinko_rewards.Uncommon = PlinkoLogic.rewards.per_rarity.Uncommon
       G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+      G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
       G.plinko_rewards.moving_pegs = false
   end
 
@@ -92,7 +98,7 @@ end
 
 function PlinkoLogic.f.won_reward(reward_num)
   assert(type(reward_num) == "number", "won_reward must be called with a number")
-  
+
   PlinkoGame.f.remove_balls()
 
   draw_card(G.plinko_rewards, G.play, 1, 'up', true, G.plinko_rewards.cards[reward_num], nil, nil)
@@ -141,7 +147,7 @@ end
 
 --#region Roll cost logic
 
--- NOTE FOR VOUCHER IMPL: 
+-- NOTE FOR VOUCHER IMPL:
 -- run PlinkoLogic.f.reset_cost(true) to update when the roll cost is gonna reset
 
 function PlinkoLogic.f.reset_cost(keep_roll_cost)
@@ -177,7 +183,7 @@ end
 
 function PlinkoLogic.f.round_up(mod)
   G.GAME.current_round.plinko_cost_reset.rounds_left = math.max(0, G.GAME.current_round.plinko_cost_reset.rounds_left - mod)
-  
+
   if G.GAME.current_round.plinko_cost_reset.ante_left <= 0 and G.GAME.current_round.plinko_cost_reset.rounds_left <= 0 then
     PlinkoLogic.f.reset_cost()
   end
@@ -219,10 +225,10 @@ function PlinkoLogic.f.handle_roll(use_dollars)
     ease_dollars(-G.GAME.current_round.plinko_roll_cost * G.GAME.plinko_dollars_cost)
   else
     ease_plincoins(-G.GAME.current_round.plinko_roll_cost)
+    G.GAME.current_round.plinko_preroll_cost = G.GAME.current_round.plinko_roll_cost
   end
 
   G.GAME.current_round.plinko_rolls = G.GAME.current_round.plinko_rolls + 1
-
   PlinkoLogic.f.update_roll_cost()
 end
 

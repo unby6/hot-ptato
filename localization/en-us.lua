@@ -153,7 +153,7 @@ return {
                     "from {C:attention}#1#{} selected card"
                 }
             },
-            
+
             c_hpot_iris_1 = {
                 name = "Bridge (Iris)",
                 text = {
@@ -273,7 +273,7 @@ return {
                     "to {C:attention}#1#{} selected card"
                 }
             },
-            
+
             c_hpot_chrysanthemum_1 = {
                 name = "Sake (Chrysanthemum)",
                 text = {
@@ -612,7 +612,7 @@ return {
             c_hpot_cap_tname_consumables = {
                 name = 'Team Name Consumables',
                 text = {
-                    "Fills your consumable", 
+                    "Fills your consumable",
                     "slots with",
                     "{C:attention}#1#{} Cards",
                     "{C:inactive}(Must have room)"
@@ -2068,6 +2068,14 @@ return {
                     'whenever another {C:attention}Food Joker{}',
                     'is {C:red}destroyed'
                 }
+            },
+            j_hpot_hardcore_mode = {
+                name = 'Hardcore Mode',
+                text = {
+                    '{C:attention}+2{} {C:dark_edition}Bad{} Bottlecaps',
+                    'on each {C:hpot_plincoin}Plinko{},',
+                    'refunds {C:hpot_plincoin,f:hpot_plincoin}${} on win',
+                }
             }
         },
         Enhanced = {
@@ -2236,7 +2244,7 @@ return {
                 }
             }
         },
-        
+
         Spectral = {
             c_hpot_arcade_machine = {
                 name = "Arcade Machine",
@@ -2804,7 +2812,7 @@ return {
                     [3] = 'be used immediately',
                 }
             },
-            
+
 
             --tname booster ??!?
 
