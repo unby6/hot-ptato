@@ -31,6 +31,7 @@ end
 
 function G.UIDEF.nxclicker()
     local save = G.PROFILES[G.SETTINGS.profile]
+    save.JtemNXkilled = save.JtemNXkilled or 0
     save.JtemNXplus = (save.JtemNXplus or 1)
     save.JtemNXneeded = math.floor(HPTN.nxkoofactor^((0.2*(save.JtemNXplus or 1))+1))
     return {n = G.UIT.ROOT, config = {
