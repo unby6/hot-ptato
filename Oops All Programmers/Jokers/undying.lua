@@ -28,7 +28,7 @@ SMODS.Joker {
             })
         end
 
-        if context.joker_main then
+        if context.joker_main and card.ability.extra.Xmult > 1 then
             return {
                 xmult = card.ability.extra.Xmult
             }
