@@ -24,6 +24,13 @@ local deck = SMODS.Back {
         if context.post_trigger then
             ease_cryptocurrency(0.05)
         end
+		--Oops! All Programmers addition: gain 1 of each currency when boss blind defeated
+        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
+            ease_plincoins(1)
+            ease_cryptocurrency(1)
+            ease_spark_points(1)
+            HPTN.ease_credits(1)
+        end
     end
 }
 
