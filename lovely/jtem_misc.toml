@@ -7,7 +7,7 @@ priority = 0
 [patches.pattern]
 target = 'game.lua'
 position = 'after'
-pattern = '''self.GAME = saveTable and saveTable.GAME or self:init_game_object()'''
+pattern = '''self.GAME.selected_back_key = selected_back'''
 payload = '''
 init_jtem(self.GAME)
 '''

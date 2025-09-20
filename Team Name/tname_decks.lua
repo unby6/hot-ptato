@@ -15,15 +15,13 @@ SMODS.Back {
     end
 }
 
-local start_run_ref = Game.start_run
-function Game:start_run(args)
-    start_run_ref(self, args)
-    local starting_plincoins = G.GAME.selected_back and G.GAME.selected_back.effect and
-    G.GAME.selected_back.effect.config and G.GAME.selected_back.effect.config.plincoins or 0
-    G.GAME.starting_params.plincoins = G.GAME.starting_params.plincoins or 0
-    G.GAME.starting_params.plincoins = G.GAME.starting_params.plincoins + starting_plincoins
-    G.GAME.plincoins = G.GAME.plincoins or 0
-    G.GAME.plincoins = G.GAME.plincoins + starting_plincoins
+local init_perkeocoin_ref = init_perkeocoin
+function init_perkeocoin(game)
+    local starting_plincoins = game.selected_back and game.selected_back.effect and
+    G.GAME.selected_back.effect.config and game.selected_back.effect.config.plincoins or 0
+    game.plincoins = game.plincoins or 0
+    game.plincoins = game.plincoins + starting_plincoins
+    init_perkeocoin_ref(game)
 end
 
 
