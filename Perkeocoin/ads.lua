@@ -58,7 +58,10 @@ HotPotato.Ads = {
         ad_beachday = {atlas = 'hpot_jtemads',pos = {x=3,y=2}},
         ad_astolfo = {atlas = 'hpot_jtemads',pos = {x=4,y=2}},
         -- Team Name
-        ad_twinx = {atlas = "hpot_tname_ads",pos = {x=1,y=0}}
+        ad_twinx = {atlas = "hpot_tname_ads",pos = {x=1,y=0}},
+        ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
+        ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
+        ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}}
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
