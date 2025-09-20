@@ -375,7 +375,12 @@ HPJTTT = {
         "Here's Jimbo!",
         "you just lost The Game",
         "https://en.wikipedia.org/wiki/Roguelike_deck-building_game",
-        "winning bigly, folks"
+        "winning bigly, folks",
+        "Baby, do you know what you wanna hear? 'Cause you can say the word, make it oh so clear!",
+        "We're swaying on horseback",
+        "HEY THAT BUMP IS SHAPED LIKE A DEER",
+        "Can we please stop adding more currencies?",
+        "Y-yowou showouwd pway uwuifier! OwO",
     }
 }
 
