@@ -468,10 +468,6 @@ function generate_wheel_rewards(_area)
 	if next(find_joker("Tipping Point")) then
 		G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
 		G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
-	elseif next(SMODS.find_card("j_hpot_hardcore_mode")) then
-    G.GAME.plinko_rewards.Uncommon = PlinkoLogic.rewards.per_rarity.Uncommon - 1
-		G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
-		G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad + 2
 	else
 		G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
     G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon

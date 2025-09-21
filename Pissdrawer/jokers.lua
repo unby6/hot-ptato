@@ -1,5 +1,5 @@
 SMODS.Joker {
-    key = 'hardcore_mode',
+    key = 'minimum_prize_guarantee',
     rarity = 1,
     cost = 5,
     atlas = "pdr_joker",
@@ -11,9 +11,25 @@ SMODS.Joker {
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
-        if context.using_consumeable and context.area == G.plinko_rewards and not (context.consumeable.edition and context.consumeable.edition.negative) then
+        if context.using_consumeable and context.area == G.plinko_rewards and context.consumeable.edition and context.consumeable.edition.negative then
             if G.GAME.current_round and G.GAME.current_round.plinko_preroll_cost and G.GAME.current_round.plinko_preroll_cost ~= 0 then
-                ease_plincoins(G.GAME.current_round.plinko_preroll_cost)
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            SMODS.add_card {
+                                set = 'Czech',
+                                key_append = 'j_hpot_minimum_prize_guarantee'
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+                    return {
+                        message = localize('k_plus_czech'),
+                        colour = G.C.SECONDARY_SET.Czech,
+                    }
+                end
             end
         end
         return nil, true

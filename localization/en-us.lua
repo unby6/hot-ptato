@@ -2069,14 +2069,14 @@ return {
                     'is {C:red}destroyed'
                 }
             },
-            j_hpot_hardcore_mode = {
-                name = 'Hardcore Mode',
+            j_hpot_minimum_prize_guarantee = {
+                name = 'Minimum Prize Guarantee',
                 text = {
-                    '{C:attention}+2{} {C:dark_edition}Bad{} Bottlecaps',
-                    'on each {C:hpot_plincoin}Plinko{},',
-                    'refunds {C:hpot_plincoin,f:hpot_plincoin}${} on win',
+                    'Winning a {C:dark_edition}Bad{} {C:attention}Bottlecap{} in {C:hpot_plincoin}Plinko{}',
+                    'creates a {C:hpot_czech}Cheque{} card',
+                    '{C:inactive}(Must have room)'
                 }
-            }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
@@ -3897,6 +3897,14 @@ return {
                     "a chance to see what would happen."
                 }
             },
+            hpot_tech_support_start = {
+                text = {
+                    "You just started your journey onto the modding scene",
+                    "but you're having trouble coding a specific Joker.",
+                    " ",
+                    "Who do you ask for help?"
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -4025,6 +4033,12 @@ return {
                     "There's a bizzare machine."
                 }
             },
+            hpot_tech_support = {
+                name = "Joker's Bizarre Modding Adventure",
+                text = {
+                    "How do I mod Balatro?"
+                }
+            }
         },
 
         Modification = {
@@ -4369,7 +4383,9 @@ return {
             k_oap_fine_print_no_small = "*Does not apply on Small Blind",
             k_oap_fine_print_no_first_hand = "*Does not apply on first hand of round",
 
-            k_oap_too_much_slop = "Too much slop..."
+            k_oap_too_much_slop = "Too much slop...",
+
+            k_plus_czech = "+1 Cheque",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -4522,7 +4538,15 @@ return {
             hpot_roffle_spec_baron_btn = "Speculative Baron",
 
             hpot_bizzare_machine_take_coin = "Just take the coin.",
-            hpot_bizzare_machine_insert_coin = "Insert the coin in the slot."
+            hpot_bizzare_machine_insert_coin = "Insert the coin in the slot.",
+
+            hpot_tech_support_ask_n = "Ask N'",
+            hpot_tech_support_ask_eremel = "Ask Eremel",
+            hpot_tech_support_ask_sdm_0 = "Ask SDM_0",
+            hpot_tech_support_ask_bepis = "Ask Bepis",
+            hpot_tech_support_ask_deadbeet = "Ask Deadbeet",
+            hpot_tech_support_ask_fey = "Ask Fey",
+            hpot_tech_support_ask_tacashumi = "Ask Tacashumi"
         }
     }
 }
