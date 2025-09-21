@@ -383,7 +383,10 @@ HPJTTT = {
         "CC? by CC, do you mean: crumbling castle, cave-in cavern, chaos complex, cornerboost collab, ceiling pop contest, candy cliffs, cheesecake country, celeste community, circular platform clutter, collapsing canyon, curious crater, cpop city, corroded city, crouch climb, cookie clicker, closed captions, crow control, celestial cabinet, carbon copy, CameronC, cycles contest, cupid's comit, cherry city, comb connections city, cloudfrost cave, cyclic cliffside, carlos collab, celestenet client, celestecord, core c-side, cc-sides, cloudy cliffs, chilly caves, or chromatic complex? next time, be more clear with your abbreivations.",
         "We've got allen wrenches, gerbil feeders, toilet seats, electric heaters, trash compactors, juice extractor, shower rods, and water meters, walkie-talkies, copper wires, safety goggles, radial tires, BB pellets, rubber mallets, fans and dehumidifiers, picture hangers, paper cutters, waffle irons, window shutters, paint removers, window louvres, masking tape and plastic gutters, kitchen faucets, folding tables, weather stripping, jumper cables, hooks and tackle, grout and spackle, power foggers, spoons and ladles, pesticides for fumigation, high-performance lubrication, metal roofing, water proofing, multi-purpose insulation, air compressors, brass connectors, wrecking chisels, smoke detectors, tire guages, hamster cages, thermostats, and bug deflectors, trailer hitch demagnetizers, automatic circumcisers, tennis rackets, angle brackets, Duracells and Energizers, soffit panels, circuit brakers, vacuum cleaners, coffee makers, calculators, generators, matching salt and pepper shakers",
         "play hyperfixation please... i'd really appreciate it?",
-        "Fun Fact: "
+        "Unfun Fact: ",
+        "Fun Fact: 7 out of 8 teams are downright TERRIBLE at making a functional mod! (Not including GhostSalt)",
+        "I think we might've made this into a roguelite?",
+        "You should Gold Stake yourself NOW!"
     }
 }
 
