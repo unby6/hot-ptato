@@ -1,10 +1,11 @@
 function G.FUNCS.toggle_currencies()
     G.E_MANAGER:add_event(Event({
-        trigger = 'after',
+        trigger = 'immediate',
         func = function()
             if not Toggle_currencies then Toggle_currencies = true else Toggle_currencies = false end
-            G.HUD:remove(); G.HUD = nil
-            G.HUD_blind:remove(); G.HUD_blind = nil
+            G.HUD:remove()
+            G.HUD_blind:remove()
+            G.HUD, G.HUD_blind = nil, nil
             G.HUD = UIBox {
                 definition = create_UIBox_HUD(),
                 config = { align = ('cli'), offset = { x = -0.7, y = 0 }, major = G.ROOM_ATTACH }
