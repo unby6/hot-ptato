@@ -1,5 +1,3 @@
-
-
 --- did i do this right? idk
 
 ---@class HPTN.Modification: SMODS.GameObject
@@ -40,8 +38,8 @@ HPTN.Modification = SMODS.GameObject:extend({
 	class_prefix = "modif",
 	hide_badge = false,
 	needs_enable_flag = true,
-		draw = function(self, card)
-		--[[local timer = (G.TIMERS.REAL * 8) 
+	draw = function(self, card)
+		--[[local timer = (G.TIMERS.REAL * 8)
 		local frames = 8
 		local real_timer = (math.floor(timer) - 1) % frames + 1]]
 
@@ -53,7 +51,6 @@ HPTN.Modification = SMODS.GameObject:extend({
 		--[[self.sticker_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas], self.pos)
 		self.sticker_sprite.sprite_pos.x = real_timer
 		G.shared_stickers[self.key] = self.sticker_sprite]]
-		
 	end,
 	register = function(self)
 		if self.registered then
@@ -144,7 +141,7 @@ SMODS.DrawStep({ -- drawstep like stickers
 })
 
 -- check smods stickers stuff for more info on these
-function HPTN.modif_apply(modif, card) 
+function HPTN.modif_apply(modif, card)
 	local sticker = HPTN.Modifications[modif]
 	sticker:apply(card, true)
 	SMODS.enh_cache:write(card, nil)
@@ -324,13 +321,14 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(card, 1, 5, "hpot_damaged")
 		return {
-			vars = { (G.GAME.probabilities.normal or 1) },
+			vars = { numerator, demonimator },
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card then
-			if pseudorandom("damaged") < G.GAME.probabilities.normal / 5 then
+			if SMODS.pseudorandom_probability(card, "hpot_damaged", 1, 5) then
 				SMODS.destroy_cards(card)
 			end
 		end
@@ -394,15 +392,16 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(card, 1, 3, "hpot_dozing")
 		return {
-			vars = { (G.GAME.probabilities.normal or 1) },
+			vars = { numerator, demonimator },
 		}
 	end,
 	calculate = function(self, card, context)
 		if
 			context.setting_blind
 			and not card.prevent_trigger
-			and pseudorandom("dozing") < G.GAME.probabilities.normal / 3
+			and SMODS.pseudorandom_probability(card, "hpot_dozing", 1, 3)
 		then
 			card.prevent_trigger = true
 			SMODS.calculate_effect({ message = "Trigger Disabled!" }, card)
