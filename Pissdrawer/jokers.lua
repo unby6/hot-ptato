@@ -59,3 +59,38 @@ SMODS.Joker {
         return false
     end
 }
+
+SMODS.Joker {
+    key = 'kindergarten',
+    rarity = 3,
+    cost = 7,
+    atlas = "pdr_joker",
+    pos = { x = 0, y = 0 },
+    config = {extra = {xmult = 1.75}},
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    hotpot_credits = {
+        art = { 'SDM_0' },
+        code = { 'SDM_0' },
+        idea = { 'SDM_0' },
+        team = { 'Pissdrawer' }
+    },
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.is_nursery_smalled then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    in_pool = function()
+        if G.jokers and G.jokers.cards then
+            for _, v in ipairs(G.jokers.cards) do
+                if v.ability.is_nursery_smalled then
+                    return true
+                end
+            end
+        end
+        return false
+    end
+}
