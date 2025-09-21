@@ -150,8 +150,9 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(nil, 1, 4, "hpot_uranium")
 		info_queue[#info_queue + 1] =
-			{ key = "hpot_uranium", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
+			{ key = "hpot_uranium", set = "Other", vars = { numerator, demonimator } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -194,8 +195,9 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(nil, 1, 4, "hpot_uranium")
 		info_queue[#info_queue + 1] =
-			{ key = "hpot_uranium", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
+			{ key = "hpot_uranium", set = "Other", vars = { numerator, demonimator } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -414,8 +416,9 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(nil, 1, 4, "hpot_spores")
 		info_queue[#info_queue + 1] =
-			{ key = "hpot_spores", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
+			{ key = "hpot_spores", set = "Other", vars = { numerator, demonimator } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
@@ -458,8 +461,9 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(nil, 1, 4, "hpot_spores")
 		info_queue[#info_queue + 1] =
-			{ key = "hpot_spores", set = "Other", vars = { (G.GAME.probabilities.normal or 1) } }
+			{ key = "hpot_spores", set = "Other", vars = { numerator, demonimator } }
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.high },
