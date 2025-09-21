@@ -1,23 +1,23 @@
 function sticker_check(area, sticker) -- make "sticker" a table check?
-	local amount = 0
-	for k, v in pairs(area) do
-		if v and v.ability then
-			if sticker then
-				if v.ability[sticker] or v[sticker] then
-					amount = amount + 1
-				end
-			else
-				for l, b in pairs(SMODS.Stickers) do
-					if v.ability[l] or v[l] then
-						amount = amount + 1
-					end
-				end
-			end
-		else
-			amount = 0
-		end
-	end
-	return amount
+    local amount = 0
+    for k, v in pairs(area) do
+        if v and v.ability then
+            if sticker then
+                if v.ability[sticker] or v[sticker] then
+                    amount = amount + 1
+                end
+            else
+                for l, b in pairs(SMODS.Stickers) do
+                    if v.ability[l] or v[l] then
+                        amount = amount + 1
+                    end
+                end
+            end
+        else
+            amount = 0
+        end
+    end
+    return amount
 end
 
 function remove_all_stickers(card)
@@ -27,46 +27,47 @@ function remove_all_stickers(card)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = function()
-                        SMODS.Stickers[k]:apply(card,false)
-                    return true
-                end
+                        SMODS.Stickers[k]:apply(card, false)
+                        return true
+                    end
                 }))
             end
         end
     end
 end
+
 --- Polls a random sticker from the set of stickers according to a uniform distribution.
 ---
 --- @param guaranteed boolean Controls whether or not you are guaranteed to get a sticker.
 ---
 --- @param card table|nil The card to consider. If it's provided, the stickers that the card has (if it has any) are excluded from the sticker pool.
 function poll_sticker(guaranteed, card)
-	guaranteed = guaranteed or false
+    guaranteed = guaranteed or false
 
-	local stickers = {}
-	local ability = card and card.ability or nil
-	
-	for k, v in pairs(SMODS.Stickers) do
-		-- Check if the current sticker is on the current card (if the current card exists)
-		if card and (ability[k] or card[k]) then
-			goto poll_sticker_skip
-		end
-		
-		-- Append the sticker to the array
-		stickers[#stickers + 1] = v
-		
-		::poll_sticker_skip::
-	end
-	
-	if #stickers == 0 then return nil end
-	
-	-- Check if chance to get sticker is met
-	local candidate = pseudorandom_element(stickers)
-	if guaranteed or pseudorandom("poll_sticker_rate") < tonumber(candidate.rate) then
-		return candidate.key
-	end
-	
-	return nil
+    local stickers = {}
+    local ability = card and card.ability or nil
+
+    for k, v in pairs(SMODS.Stickers) do
+        -- Check if the current sticker is on the current card (if the current card exists)
+        if card and (ability[k] or card[k]) then
+            goto poll_sticker_skip
+        end
+
+        -- Append the sticker to the array
+        stickers[#stickers + 1] = v
+
+        ::poll_sticker_skip::
+    end
+
+    if #stickers == 0 then return nil end
+
+    -- Check if chance to get sticker is met
+    local candidate = pseudorandom_element(stickers)
+    if guaranteed or pseudorandom("poll_sticker_rate") < tonumber(candidate.rate) then
+        return candidate.key
+    end
+
+    return nil
 end
 
 --- Polls a random modification from the set of modifications according to their weighted probabilities.
@@ -80,148 +81,148 @@ end
 --- @param odds table|nil A table specifying relative odds for each morality category. The fields `GOOD`, `BAD`, and `MISC` are all numbers which are normalized across enabled categories to sum to 100% (value = 1).
 ---  Defaults to GOOD = 1/2, BAD = 1/2, MISC = 0 if not specified
 function poll_modification(chance, card, morality, odds)
-	chance = chance or 1/5
-	card = card or nil
-	
-	morality = morality or {} -- Target for which kind of modifications we're targetting specifically
-	morality.GOOD = (morality.GOOD == nil) and true or morality.GOOD
-	morality.BAD = (morality.BAD == nil) and true or morality.BAD
-	morality.MISC = (morality.MISC == nil) and true or morality.MISC
-	
-	odds = odds or {}
-	odds.GOOD = odds.GOOD or 1/2 -- Odds for a good modification
-	odds.BAD = odds.BAD or 1/2 -- Odds for a bad modification
-	odds.MISC = odds.MISC or 0 -- Odds for any modification that slips through the cracks
+    chance = chance or 1 / 5
+    card = card or nil
 
-	-- Make sure the odds add up to 100% no matter what
-	local sanity_sum = (morality.GOOD and odds.GOOD) + (morality.BAD and odds.BAD) + (morality.MISC and odds.MISC)
-	if sanity_sum ~= 1 then
-		if sanity_sum == 0 then -- If there are no odds
-			odds.GOOD = 1/2
-			odds.BAD = 1/2
-			odds.MISC = (morality.GOOD or morality.BAD) and 0 or 1
-		end 
-		
-		-- Normalize the odds
-		sanity_sum = (morality.GOOD and odds.GOOD) + (morality.BAD and odds.BAD) + (morality.MISC and odds.MISC)
-		
-		odds.GOOD = odds.GOOD / sanity_sum
-		odds.BAD = odds.BAD / sanity_sum
-		odds.MISC = odds.MISC / sanity_sum
-	end
+    morality = morality or {} -- Target for which kind of modifications we're targetting specifically
+    morality.GOOD = (morality.GOOD == nil) and true or morality.GOOD
+    morality.BAD = (morality.BAD == nil) and true or morality.BAD
+    morality.MISC = (morality.MISC == nil) and true or morality.MISC
 
-	local good_modifications = {}
-	local bad_modifications = {}
-	local misc_modifications = {}
-	
-	local ability = card and card.ability or nil
-	for k, v in pairs(HPTN.Modifications) do
-		if card and ability[k] then
-			goto poll_modification_skip
-		end
-	
-		if v.morality == "GOOD" then
-			good_modifications[#good_modifications + 1] = v
-		elseif v.morality == "BAD" then
-			bad_modifications[#bad_modifications + 1] = v
-		else
-			misc_modifications[#misc_modifications + 1] = v
-		end
-		
-		::poll_modification_skip::
-	end
-	
-	local random_value = pseudorandom("poll_modification")
-	
-	if morality.GOOD and #good_modifications > 0 then
-		if random_value < odds.GOOD * chance then
-			return pseudorandom_element(good_modifications)
-		end
-		random_value = random_value - odds.GOOD * chance
-	end
-	if morality.BAD and #bad_modifications > 0 then
-		if random_value < odds.BAD * chance then
-			return pseudorandom_element(bad_modifications)
-		end
-		random_value = random_value - odds.BAD * chance
-	end
-	if morality.MISC and #misc_modifications > 0 then
-		if random_value < odds.MISC * chance then
-			return pseudorandom_element(misc_modifications)
-		end
-	end
+    odds = odds or {}
+    odds.GOOD = odds.GOOD or 1 / 2 -- Odds for a good modification
+    odds.BAD = odds.BAD or 1 / 2 -- Odds for a bad modification
+    odds.MISC = odds.MISC or 0 -- Odds for any modification that slips through the cracks
 
-	return nil
+    -- Make sure the odds add up to 100% no matter what
+    local sanity_sum = (morality.GOOD and odds.GOOD) + (morality.BAD and odds.BAD) + (morality.MISC and odds.MISC)
+    if sanity_sum ~= 1 then
+        if sanity_sum == 0 then -- If there are no odds
+            odds.GOOD = 1 / 2
+            odds.BAD = 1 / 2
+            odds.MISC = (morality.GOOD or morality.BAD) and 0 or 1
+        end
+
+        -- Normalize the odds
+        sanity_sum = (morality.GOOD and odds.GOOD) + (morality.BAD and odds.BAD) + (morality.MISC and odds.MISC)
+
+        odds.GOOD = odds.GOOD / sanity_sum
+        odds.BAD = odds.BAD / sanity_sum
+        odds.MISC = odds.MISC / sanity_sum
+    end
+
+    local good_modifications = {}
+    local bad_modifications = {}
+    local misc_modifications = {}
+
+    local ability = card and card.ability or nil
+    for k, v in pairs(HPTN.Modifications) do
+        if card and ability[k] then
+            goto poll_modification_skip
+        end
+
+        if v.morality == "GOOD" then
+            good_modifications[#good_modifications + 1] = v
+        elseif v.morality == "BAD" then
+            bad_modifications[#bad_modifications + 1] = v
+        else
+            misc_modifications[#misc_modifications + 1] = v
+        end
+
+        ::poll_modification_skip::
+    end
+
+    local random_value = pseudorandom("poll_modification")
+
+    if morality.GOOD and #good_modifications > 0 then
+        if random_value < odds.GOOD * chance then
+            return pseudorandom_element(good_modifications)
+        end
+        random_value = random_value - odds.GOOD * chance
+    end
+    if morality.BAD and #bad_modifications > 0 then
+        if random_value < odds.BAD * chance then
+            return pseudorandom_element(bad_modifications)
+        end
+        random_value = random_value - odds.BAD * chance
+    end
+    if morality.MISC and #misc_modifications > 0 then
+        if random_value < odds.MISC * chance then
+            return pseudorandom_element(misc_modifications)
+        end
+    end
+
+    return nil
 end
 
 --- Gets the key for the modification of a card, located in card.ability.
 ---
 --- @param card table|nil The card to consider for modification inquiry.
 function get_modification(card)
-	if not card then return nil end
-	
-	local ability = card.ability
-	for k, v in pairs(HPTN.Modifications) do
-		if ability[k] then
-			return k
-		end
-	end
-	
-	return nil
+    if not card then return nil end
+
+    local ability = card.ability
+    for k, v in pairs(HPTN.Modifications) do
+        if ability[k] then
+            return k
+        end
+    end
+
+    return nil
 end
 
 --- Reforges a card, replacing its current modification (if it has one) with its new one.
 ---
 --- @param card table|nil The card to consider for reforging.
 function reforge_card(card, free)
-	if not card then return nil end
+    if not card then return nil end
 
-	local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers["v_hpot_masters"] -- Reforging can never result in a bad modifier
-	
-	local chance = 1 -- 100% chance to get a modification when you reforge
-	-- card param is given by the parameter to this function
-	local morality = reforge_degree_v2_voucher_acquired and { GOOD = true, BAD = false, MISC = false } or { GOOD = true, BAD = true, MISC = true }
-	local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1, BAD = 0, MISC = 0 } or { GOOD = 1/2, BAD = 1/2, MISC = 0 }
-	
-	local old_modification = get_modification(card)
-	local new_modification = poll_modification(chance, card, morality, odds)
-	
-	if old_modification then
-		HPTN.Modifications[old_modification]:apply(card,false)
-	end
-	if new_modification then
+    local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers
+    ["v_hpot_masters"]                                                             -- Reforging can never result in a bad modifier
+
+    local chance = 1                                                               -- 100% chance to get a modification when you reforge
+    -- card param is given by the parameter to this function
+    local morality = reforge_degree_v2_voucher_acquired and { GOOD = true, BAD = false, MISC = false } or
+    { GOOD = true, BAD = true, MISC = true }
+    local odds = reforge_degree_v2_voucher_acquired and { GOOD = 1, BAD = 0, MISC = 0 } or
+    { GOOD = 1 / 2, BAD = 1 / 2, MISC = 0 }
+
+    local old_modification = get_modification(card)
+    local new_modification = poll_modification(chance, card, morality, odds)
+
+    if old_modification then
+        HPTN.Modifications[old_modification]:apply(card, false)
+    end
+    if new_modification then
         card:juice_up()
-		HPTN.Modifications[new_modification.key]:apply(card,true)
+        HPTN.Modifications[new_modification.key]:apply(card, true)
         if not free then
-		    card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
+            card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
         end
-	end
-    SMODS.calculate_context({reforging = true, card = card})
+    end
+    SMODS.calculate_context({ reforging = true, card = card })
 end
-
-
 
 --- Checks the amount of money it would cost to reforge a given card, in dollars.
 ---
 --- @param card table|nil The card to consider for reforging.
 function reforge_cost(card)
-	if not card then return nil end
-	
-	local cost_initial = (card.ability.reforge_count or 0) + (card.ability.sell_cost or 0)
-	
-	local discount = reforge_discounts()
-	local cost_final = cost_initial - discount
+    if not card then return nil end
 
-	return cost_final
+    local cost_initial = (card.ability.reforge_count or 0) + (card.ability.sell_cost or 0)
+
+    local discount = reforge_discounts()
+    local cost_final = cost_initial - discount
+
+    return cost_final
 end
 
--- 5 am 
+-- 5 am
 -- not needed
 --- @param card table|nil Card to give reforge values
 function ready_to_reforge(card)
     card = card or G.reforge_area.cards[1]
     if not card.ready_for_reforging then
-    
         card.ready_for_reforging = true
 
         card.ability.reforge_dollars = 0
@@ -234,8 +235,8 @@ end
 
 --- @param card table|nil to update the card's values
 function set_card_reforge(card, currency)
-    card = card or G.reforge_area.cards[1] 
-    card.ability.reforge_dollars = reforge_cost(card) -- get the reforge cost
+    card = card or G.reforge_area.cards[1]
+    card.ability.reforge_dollars = reforge_cost(card)                                       -- get the reforge cost
     card.ability.reforge_credits = convert_currency(reforge_cost(card), "DOLLAR", "CREDIT") -- convert the reforge cost to other currencties and set the card abilities accordingly
     card.ability.reforge_sparks = convert_currency(reforge_cost(card), "DOLLAR", "SPARKLE")
     card.ability.reforge_plincoins = convert_currency(reforge_cost(card), "DOLLAR", "PLINCOIN")
@@ -245,44 +246,45 @@ end
 --- @param card table|nil Card to use to update the costs
 function update_reforge_cost(card)
     card = card or G.reforge_area.cards[1]
-    if not G.GAME.used_vouchers["v_hpot_intership"] then -- discarded voucher feel free to add it
-        G.GAME.cost_dollars = G.GAME.cost_dollars + card.ability.reforge_dollars -- update the price with card's ability table
-        G.GAME.cost_credits =  G.GAME.cost_credits + card.ability.reforge_credits
-        G.GAME.cost_sparks =  G.GAME.cost_sparks + card.ability.reforge_sparks
+    if not G.GAME.used_vouchers["v_hpot_intership"] then                         -- discarded voucher feel free to add it
+        G.GAME.cost_dollars = G.GAME.cost_dollars +
+        card.ability.reforge_dollars                                             -- update the price with card's ability table
+        G.GAME.cost_credits = G.GAME.cost_credits + card.ability.reforge_credits
+        G.GAME.cost_sparks = G.GAME.cost_sparks + card.ability.reforge_sparks
         card.ability.reforge_plincoins = card.ability.reforge_plincoins or 10
         G.GAME.cost_plincoins = G.GAME.cost_plincoins + card.ability.reforge_plincoins
         G.GAME.cost_cryptocurrency = G.GAME.cost_cryptocurrency + card.ability.reforge_cryptocurrency
     else
         G.GAME.cost_dollars = card.ability.reforge_dollars -- if the voucher exists stop updating
         G.GAME.cost_credits = card.ability.reforge_credits
-        G.GAME.cost_sparks =  card.ability.reforge_sparks
-        G.GAME.cost_plincoins = card.ability.reforge_plincoins  or card.ability.reforge_plincoins_default
+        G.GAME.cost_sparks = card.ability.reforge_sparks
+        G.GAME.cost_plincoins = card.ability.reforge_plincoins or card.ability.reforge_plincoins_default
         G.GAME.cost_cryptocurrency = card.ability.reforge_cryptocurrency
     end
 
-        if card.saved_last_reforge then -- update the card values if there is a last saved table (i dont remember why i added this but there were issues)
-            card.ability.reforge_dollars = card.ability.reforge_dollars_default
-            card.ability.reforge_credits = card.ability.reforge_credits_default
-            card.ability.reforge_sparks = card.ability.reforge_sparks_default
-            card.ability.reforge_plincoins = card.ability.reforge_plincoins_default or 10
-            card.ability.reforge_cryptocurrency = card.ability.reforge_cryptocurrency_default
+    if card.saved_last_reforge then     -- update the card values if there is a last saved table (i dont remember why i added this but there were issues)
+        card.ability.reforge_dollars = card.ability.reforge_dollars_default
+        card.ability.reforge_credits = card.ability.reforge_credits_default
+        card.ability.reforge_sparks = card.ability.reforge_sparks_default
+        card.ability.reforge_plincoins = card.ability.reforge_plincoins_default or 10
+        card.ability.reforge_cryptocurrency = card.ability.reforge_cryptocurrency_default
 
-            card.saved_last_reforge = false -- set last reforged to false
+        card.saved_last_reforge = false                -- set last reforged to false
 
-            card.ability.reforge_dollars_default = nil -- set the saved value table to nil
-            card.ability.reforge_credits_default = nil
-            card.ability.reforge_sparks_default = nil
-            card.ability.reforge_plincoins_default = nil
-            card.ability.reforge_cryptocurrency_default = nil
-        end
+        card.ability.reforge_dollars_default = nil     -- set the saved value table to nil
+        card.ability.reforge_credits_default = nil
+        card.ability.reforge_sparks_default = nil
+        card.ability.reforge_plincoins_default = nil
+        card.ability.reforge_cryptocurrency_default = nil
+    end
 end
 
 -- reseting the reforge cost
 function reset_reforge_cost() -- reset the cost to defults
-    G.GAME.cost_dollars = G.GAME.cost_dollar_default 
-    G.GAME.cost_credits =  G.GAME.cost_credit_default 
-    G.GAME.cost_sparks =  G.GAME.cost_spark_default 
-    G.GAME.cost_plincoins = G.GAME.cost_plincoin_default 
+    G.GAME.cost_dollars = G.GAME.cost_dollar_default
+    G.GAME.cost_credits = G.GAME.cost_credit_default
+    G.GAME.cost_sparks = G.GAME.cost_spark_default
+    G.GAME.cost_plincoins = G.GAME.cost_plincoin_default
     G.GAME.cost_cryptocurrency = G.GAME.cost_cryptocurrency_default
 end
 
@@ -292,30 +294,30 @@ end
 --- @param card table|nil to save the card's values
 function final_ability_values(card) -- save the card's final values ( so it scales / resets probably iirc )
     card = card or G.reforge_area.cards[1]
-    
+
     card.ability.reforge_dollars_default = card.ability.reforge_dollars
     card.ability.reforge_credits_default = card.ability.reforge_credits
     card.ability.reforge_sparks_default = card.ability.reforge_sparks
     card.ability.reforge_plincoins_default = card.ability.reforge_plincoins
     card.ability.reforge_cryptocurrency_default = card.ability.reforge_cryptocurrency
 
-    card.ability.reforge_dollars = G.GAME.cost_dollars - G.GAME.cost_dollar_default 
-    card.ability.reforge_credits = G.GAME.cost_credits - G.GAME.cost_credit_default 
-    card.ability.reforge_sparks = G.GAME.cost_sparks - G.GAME.cost_spark_default 
-    card.ability.reforge_plincoins = G.GAME.cost_plincoins - G.GAME.cost_plincoin_default 
-    card.ability.reforge_cryptocurrency = G.GAME.cost_cryptocurrency - G.GAME.cost_cryptocurrency_default 
+    card.ability.reforge_dollars = G.GAME.cost_dollars - G.GAME.cost_dollar_default
+    card.ability.reforge_credits = G.GAME.cost_credits - G.GAME.cost_credit_default
+    card.ability.reforge_sparks = G.GAME.cost_sparks - G.GAME.cost_spark_default
+    card.ability.reforge_plincoins = G.GAME.cost_plincoins - G.GAME.cost_plincoin_default
+    card.ability.reforge_cryptocurrency = G.GAME.cost_cryptocurrency - G.GAME.cost_cryptocurrency_default
 
     card.saved_last_reforge = true
 end
 
 --- Totals up all of the flat-rate discounts available for reforging. Feel free to list more here when needed.
 function reforge_discounts() -- unused
-	local total = 0
+    local total = 0
 
-    if G.GAME.used_vouchers["v_hpot_costcutting"] then -- discarded voucher feel free to add it 
+    if G.GAME.used_vouchers["v_hpot_costcutting"] then -- discarded voucher feel free to add it
         total = total + 2
     end
-	return total
+    return total
 end
 
 --- Converts currency from one type into another type.
@@ -324,51 +326,62 @@ end
 --- @param starting_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 --- @param ending_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 function convert_currency(amount, starting_currency, ending_currency)
-	local money = amount or 0
-    starting_currency = starting_currency or "PLINCOIN"
-    ending_currency = ending_currency or "PLINCOIN"
-	-- First, convert everything into plincoin, the MOST valuable of all of the currencies.
-	local dollar_to_plincoin  = 3
-	local credit_to_plincoin  = 15
-	local sparkle_to_plincoin = 12495
+    local money                      = amount or 0
+    starting_currency                = starting_currency or "PLINCOIN"
+    ending_currency                  = ending_currency or "PLINCOIN"
+    -- First, convert everything into plincoin, the MOST valuable of all of the currencies.
+    local dollar_to_plincoin         = 3
+    local credit_to_plincoin         = 15
+    local sparkle_to_plincoin        = 12495
     local cryptocurrency_to_plincoin = 4
-	
-	if     ending_currency == "DOLLAR"  then money = money * dollar_to_plincoin
-	elseif ending_currency == "CREDIT"  then money = money * credit_to_plincoin
-	elseif ending_currency == "SPARKLE" then money = money * sparkle_to_plincoin
-	elseif ending_currency == "CRYPTOCURRENCY" then money = money * cryptocurrency_to_plincoin
-    elseif starting_currency ~= "PLINCOIN" then return nil end
-	
-	-- Next, convert from plincoin into the desired currency.
-	local plincoin_to_dollar  = 1 / dollar_to_plincoin
-	local plincoin_to_credit  = 1 / credit_to_plincoin
-	local plincoin_to_sparkle = 1 / sparkle_to_plincoin
+
+    if ending_currency == "DOLLAR" then
+        money = money * dollar_to_plincoin
+    elseif ending_currency == "CREDIT" then
+        money = money * credit_to_plincoin
+    elseif ending_currency == "SPARKLE" then
+        money = money * sparkle_to_plincoin
+    elseif ending_currency == "CRYPTOCURRENCY" then
+        money = money * cryptocurrency_to_plincoin
+    elseif starting_currency ~= "PLINCOIN" then
+        return nil
+    end
+
+    -- Next, convert from plincoin into the desired currency.
+    local plincoin_to_dollar         = 1 / dollar_to_plincoin
+    local plincoin_to_credit         = 1 / credit_to_plincoin
+    local plincoin_to_sparkle        = 1 / sparkle_to_plincoin
     local plincoin_to_cryptocurrency = 1 / cryptocurrency_to_plincoin
-	
-	if     starting_currency == "DOLLAR"  then money = money * plincoin_to_dollar
-	elseif starting_currency == "CREDIT"  then money = money * plincoin_to_credit
-	elseif starting_currency == "SPARKLE" then money = money * plincoin_to_sparkle
-    elseif ending_currency == "CRYPTOCURRENCY" then money = money * plincoin_to_cryptocurrency
-	elseif starting_currency ~= "PLINCOIN" then return nil end
-	
-	return math.ceil(money)
+
+    if starting_currency == "DOLLAR" then
+        money = money * plincoin_to_dollar
+    elseif starting_currency == "CREDIT" then
+        money = money * plincoin_to_credit
+    elseif starting_currency == "SPARKLE" then
+        money = money * plincoin_to_sparkle
+    elseif ending_currency == "CRYPTOCURRENCY" then
+        money = money * plincoin_to_cryptocurrency
+    elseif starting_currency ~= "PLINCOIN" then
+        return nil
+    end
+
+    return math.ceil(money)
 end
 
 function add_tables(tables) -- yet again, there is probably a better way to do this but im lazy to find how
-	local ful_tab = {}
-	for i = 1, #tables do
-		for i2 = 1, #tables[i] do
-			ful_tab[#ful_tab + 1] = tables[i][i2]
-		end
-	end
-	return ful_tab
+    local ful_tab = {}
+    for i = 1, #tables do
+        for i2 = 1, #tables[i] do
+            ful_tab[#ful_tab + 1] = tables[i][i2]
+        end
+    end
+    return ful_tab
 end
-
 
 -- probably shouldve made this a global function but whatever
 function HPTN.ease_credits(amount, instant)
     amount = amount or 0
-  local function _mod(mod)  -- Taken from ease_plincoins()
+    local function _mod(mod) -- Taken from ease_plincoins()
         local dollar_UI = G.HUD:get_UIE_by_ID('credits_UI_text')
         mod = mod or 0
         local text = '+'
@@ -379,169 +392,188 @@ function HPTN.ease_credits(amount, instant)
         end
 
         G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits + amount
-		G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
-    
-        dollar_UI.config.object:update()
-        if amount ~= 0 then
-            G.HUD:recalculate()
-            --Popup text next to the chips in UI showing number of chips gained/lost
-            attention_text({
-            text = text..tostring(math.abs(mod)),
-            scale = 0.8, 
-            hold = 0.7,
-            cover = dollar_UI.parent,
-            cover_colour = col,
-            align = 'cm',
-            })
-            --Play a chip sound
-            if amount > 0 then
-            play_sound("hpot_tname_gaincred")
-            else
-            play_sound("hpot_tname_losecred")
+        G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
+        if Toggle_currencies then
+            dollar_UI.config.object:update()
+            if amount ~= 0 then
+                G.HUD:recalculate()
+                --Popup text next to the chips in UI showing number of chips gained/lost
+                attention_text({
+                    text = text .. tostring(math.abs(mod)),
+                    scale = 0.8,
+                    hold = 0.7,
+                    cover = dollar_UI.parent,
+                    cover_colour = col,
+                    align = 'cm',
+                })
+                --Play a chip sound
+                if amount > 0 then
+                    play_sound("hpot_tname_gaincred")
+                else
+                    play_sound("hpot_tname_losecred")
+                end
             end
         end
     end
 
-	if instant then
+    if instant then
         _mod(amount)
     else
         G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            _mod(amount)
-            return true
-        end
+            trigger = 'immediate',
+            func = function()
+                _mod(amount)
+                return true
+            end
         }))
     end
 
-	G:save_progress()
+    G:save_progress()
 end
 
 function HPTN.set_credits(amount)
-	G.PROFILES[G.SETTINGS.profile].TNameCredits = amount
-	G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
+    G.PROFILES[G.SETTINGS.profile].TNameCredits = amount
+    G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
 end
 
 function HPTN.check_if_enough_credits(cost)
-	local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
-	if (credits - cost) >= 0 then
-		return true
-	end
-	return false
+    local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
+    if (credits - cost) >= 0 then
+        return true
+    end
+    return false
 end
-
 
 G.FUNCS.credits_UI_set = function(e)
-  local new_chips_text = number_format(G.PROFILES[G.SETTINGS.profile].TNameCredits)
-  if G.GAME.credits_text ~= new_chips_text then
-    e.config.scale = math.min(0.8, scale_number(G.PROFILES[G.SETTINGS.profile].TNameCredits, 1.1))
-    G.GAME.credits_text = new_chips_text
-  end
+    local new_chips_text = number_format(G.PROFILES[G.SETTINGS.profile].TNameCredits)
+    if G.GAME.credits_text ~= new_chips_text then
+        e.config.scale = math.min(0.8, scale_number(G.PROFILES[G.SETTINGS.profile].TNameCredits, 1.1))
+        G.GAME.credits_text = new_chips_text
+    end
 end
 
 
-function add_round_eval_credits(config)  --taken straight from plincoin.lua (yet again thank you to whoever added these)
+function add_round_eval_credits(config) --taken straight from plincoin.lua (yet again thank you to whoever added these)
     local config = config or {}
     local width = G.round_eval.T.w - 0.51
     local num_dollars = config.credits or 1
     local scale = 0.9
-    
+
     if not G.round_eval.divider_added then
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',delay = 0.25,
-        func = function() 
-            local spacer = {n=G.UIT.R, config={align = "cm", minw = width}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = {'......................................'}, colours = {G.C.WHITE},shadow = true, float = true, y_offset = -30, scale = 0.45, spacing = 13.5, font = G.LANGUAGES['en-us'].font, pop_in = 0})}}
-            }}
-            G.round_eval:add_child(spacer,G.round_eval:get_UIE_by_ID('bonus_round_eval'))
-            return true
-        end
-    }))
-  end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.25,
+            func = function()
+                local spacer = {
+                    n = G.UIT.R,
+                    config = { align = "cm", minw = width },
+                    nodes = {
+                        { n = G.UIT.O, config = { object = DynaText({ string = { '......................................' }, colours = { G.C.WHITE }, shadow = true, float = true, y_offset = -30, scale = 0.45, spacing = 13.5, font = G.LANGUAGES['en-us'].font, pop_in = 0 }) } }
+                    }
+                }
+                G.round_eval:add_child(spacer, G.round_eval:get_UIE_by_ID('bonus_round_eval'))
+                return true
+            end
+        }))
+    end
     delay(0.6)
     G.round_eval.divider_added = true
 
     delay(0.2)
 
-        G.E_MANAGER:add_event(Event({
-            trigger = 'before',delay = 0.5,
-            func = function()
-                --Add the far left text and context first:
-                local left_text = {}
-                if config.name == 'credits' then
-                  table.insert(left_text, {n=G.UIT.T, config={text = config.credits, font = config.font, scale = 0.8*scale, colour = G.C.PURPLE, shadow = true, juice = true}})
-                  if G.GAME.modifiers.hands_to_credits then
-                    table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_credits_cashout2', vars = {(G.GAME.credits_cashout or 0), (G.GAME.credits_cashout2 or 0)}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
-                  else
-                    table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'hotpot_credits_cashout', vars = {G.GAME.credits_cashout or 0}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
-                  end
-                elseif string.find(config.name, 'joker') then
-                  table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.5,
+        func = function()
+            --Add the far left text and context first:
+            local left_text = {}
+            if config.name == 'credits' then
+                table.insert(left_text,
+                    { n = G.UIT.T, config = { text = config.credits, font = config.font, scale = 0.8 * scale, colour = G.C.PURPLE, shadow = true, juice = true } })
+                if G.GAME.modifiers.hands_to_credits then
+                    table.insert(left_text,
+                        { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = 'hotpot_credits_cashout2', vars = { (G.GAME.credits_cashout or 0), (G.GAME.credits_cashout2 or 0) } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
+                else
+                    table.insert(left_text,
+                        { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = 'hotpot_credits_cashout', vars = { G.GAME.credits_cashout or 0 } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
                 end
-                    local full_row = {n=G.UIT.R, config={align = "cm", minw = 5}, nodes={
-                    {n=G.UIT.C, config={padding = 0.05, minw = width*0.55, minh = 0.61, align = "cl"}, nodes=left_text},
-                    {n=G.UIT.C, config={padding = 0.05,minw = width*0.45, align = "cr"}, nodes={{n=G.UIT.C, config={align = "cm", id = 'dollar_'..config.name},nodes={}}}}
-                }}
+            elseif string.find(config.name, 'joker') then
+                table.insert(left_text,
+                    { n = G.UIT.O, config = { object = DynaText({ string = localize { type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key }, colours = { G.C.FILTER }, shadow = true, pop_in = 0, scale = 0.6 * scale, silent = true }) } })
+            end
+            local full_row = {
+                n = G.UIT.R,
+                config = { align = "cm", minw = 5 },
+                nodes = {
+                    { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.55, minh = 0.61, align = "cl" }, nodes = left_text },
+                    { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.45, align = "cr" },      nodes = { { n = G.UIT.C, config = { align = "cm", id = 'dollar_' .. config.name }, nodes = {} } } }
+                }
+            }
 
-                G.round_eval:add_child(full_row,G.round_eval:get_UIE_by_ID('bonus_round_eval'))
-                play_sound('cancel', config.pitch or 1)
-                play_sound('highlight1',( 1.5*config.pitch) or 1, 0.2)
-                if config.card then config.card:juice_up(0.7, 0.46) end
+            G.round_eval:add_child(full_row, G.round_eval:get_UIE_by_ID('bonus_round_eval'))
+            play_sound('cancel', config.pitch or 1)
+            play_sound('highlight1', (1.5 * config.pitch) or 1, 0.2)
+            if config.card then config.card:juice_up(0.7, 0.46) end
+            return true
+        end
+    }))
+    local dollar_row = 0
+    if num_dollars > 60 then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',
+            delay = 0.38,
+            func = function()
+                G.round_eval:add_child(
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm", id = 'dollar_row_' .. (dollar_row + 1) .. '_' .. config.name },
+                        nodes = {
+                            { n = G.UIT.O, config = { object = DynaText({ string = "c", colours = { G.C.PURPLE }, shadow = true, pop_in = 0, scale = 0.65, float = true }) } }
+                        }
+                    },
+                    G.round_eval:get_UIE_by_ID('dollar_' .. config.name))
+
+                play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7)
+                play_sound('coin6', 1.3, 0.8)
                 return true
             end
         }))
-        local dollar_row = 0
-        if num_dollars > 60 then
+    else
+        for i = 1, num_dollars or 1 do
             G.E_MANAGER:add_event(Event({
-                trigger = 'before',delay = 0.38,
+                trigger = 'before',
+                delay = 0.18 - ((num_dollars > 20 and 0.13) or (num_dollars > 9 and 0.1) or 0),
                 func = function()
-                    G.round_eval:add_child(
-                            {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={
-                                {n=G.UIT.O, config={object = DynaText({string = "c",colours = {G.C.PURPLE}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
-                            }},
-                            G.round_eval:get_UIE_by_ID('dollar_'..config.name))
+                    if i % 30 == 1 then
+                        G.round_eval:add_child(
+                            { n = G.UIT.R, config = { align = "cm", id = 'dollar_row_' .. (dollar_row + 1) .. '_' .. config.name }, nodes = {} },
+                            G.round_eval:get_UIE_by_ID('dollar_' .. config.name))
+                        dollar_row = dollar_row + 1
+                    end
 
-                    play_sound('coin3', 0.9+0.2*math.random(), 0.7)
-                    play_sound('coin6', 1.3, 0.8)
+                    local r = { n = G.UIT.T, config = { text = "c", colour = G.C.PURPLE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true } }
+                    play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
+
+                    if config.name == 'blind1' then
+                        G.GAME.current_round.dollars_to_be_earned = G.GAME.current_round.dollars_to_be_earned:sub(2)
+                    end
+
+                    G.round_eval:add_child(r, G.round_eval:get_UIE_by_ID('dollar_row_' .. (dollar_row) ..
+                    '_' .. config.name))
+                    G.VIBRATION = G.VIBRATION + 0.4
                     return true
                 end
             }))
-        else
-            for i = 1, num_dollars or 1 do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',delay = 0.18 - ((num_dollars > 20 and 0.13) or (num_dollars > 9 and 0.1) or 0),
-                    func = function()
-                        if i%30 == 1 then 
-                            G.round_eval:add_child(
-                                {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={}},
-                                G.round_eval:get_UIE_by_ID('dollar_'..config.name))
-                                dollar_row = dollar_row+1
-                        end
-
-                        local r = {n=G.UIT.T, config={text = "c", colour = G.C.PURPLE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
-                        play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
-                        
-                        if config.name == 'blind1' then 
-                            G.GAME.current_round.dollars_to_be_earned = G.GAME.current_round.dollars_to_be_earned:sub(2)
-                        end
-
-                        G.round_eval:add_child(r,G.round_eval:get_UIE_by_ID('dollar_row_'..(dollar_row)..'_'..config.name))
-                        G.VIBRATION = G.VIBRATION + 0.4
-                        return true
-                    end
-                }))
-            end
         end
+    end
 
-      -- might cause issues. Dollars cashout adds up everything and sends "bottom" cashout. Might need similar implementation if more plincoin cashouts are added - im leaving this in
-      G.GAME.current_round.credits = G.GAME.current_round.credits + config.credits
-
+    -- might cause issues. Dollars cashout adds up everything and sends "bottom" cashout. Might need similar implementation if more plincoin cashouts are added - im leaving this in
+    G.GAME.current_round.credits = G.GAME.current_round.credits + config.credits
 end
 
-
 function HPTN.perc(mod, perc) -- get precentage
-	local per = (mod / 100)* perc
-	return per
+    local per = (mod / 100) * perc
+    return per
 end
 
 function Card:remove_sticker_calc(sticker, card) -- for blunder sticker
@@ -552,8 +584,7 @@ function Card:apply_sticker_calc(sticker, card) -- for blunder sticker
     sticker:applied(self, card)
 end
 
-
-G.FUNCS.change_page_jx = function () -- why the fuck is this here ???
+G.FUNCS.change_page_jx = function()  -- why the fuck is this here ???
     if G.GAME.first_page_stuff_and_shit then
         G.GAME.first_page_stuff_and_shit = nil
         G.FUNCS.exit_overlay_menu()
@@ -561,12 +592,9 @@ G.FUNCS.change_page_jx = function () -- why the fuck is this here ???
     else
         G.GAME.first_page_stuff_and_shit = true
         G.FUNCS.exit_overlay_menu()
-            G.SETTINGS.paused = true
-            G.FUNCS.overlay_menu {
-                definition = G.UIDEF.hp_jtem_buy_jx("credits")
-            }
+        G.SETTINGS.paused = true
+        G.FUNCS.overlay_menu {
+            definition = G.UIDEF.hp_jtem_buy_jx("credits")
+        }
     end
 end
-
-
-
