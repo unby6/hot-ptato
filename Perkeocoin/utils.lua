@@ -1,9 +1,8 @@
-
 -- Common utility functions
 
 --its ease_dollars for plincoins
 function ease_plincoins(plink, instant)
-  local function _mod(mod)
+    local function _mod(mod)
         local dollar_UI = G.HUD:get_UIE_by_ID('plincoin_text_UI')
         mod = mod or 0
         local text = '+$'
@@ -14,19 +13,20 @@ function ease_plincoins(plink, instant)
         end
 
         G.GAME.plincoins = G.GAME.plincoins + plink
-    
-        dollar_UI.config.object:update()
-        G.HUD:recalculate()
-        --Popup text next to the chips in UI showing number of chips gained/lost
-        attention_text({
-          text = text..tostring(math.abs(mod)),
-          scale = 0.8, 
-          hold = 0.7,
-          cover = dollar_UI.parent,
-          cover_colour = col,
-          align = 'cm',
-          font = SMODS.Fonts.hpot_plincoin
-          })
+        if Toggle_currencies then
+            dollar_UI.config.object:update()
+            G.HUD:recalculate()
+            --Popup text next to the chips in UI showing number of chips gained/lost
+            attention_text({
+                text = text .. tostring(math.abs(mod)),
+                scale = 0.8,
+                hold = 0.7,
+                cover = dollar_UI.parent,
+                cover_colour = col,
+                align = 'cm',
+                font = SMODS.Fonts.hpot_plincoin
+            })
+        end
         --Play a chip sound
         play_sound('coin1')
     end
@@ -34,11 +34,11 @@ function ease_plincoins(plink, instant)
         _mod(plink)
     else
         G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            _mod(plink)
-            return true
-        end
+            trigger = 'immediate',
+            func = function()
+                _mod(plink)
+                return true
+            end
         }))
     end
 end
@@ -50,26 +50,26 @@ end
 local big_f = Card.flip
 function Card:flip()
     if self.forever_flipped then
-      return
+        return
     end
     big_f(self)
 end
 
 --two new contexts for the cashout screen, called once for every row and one more time for the final added amount
 --pk_cashout_row is for changing the values whereas pk_cashout_row_but_just_looking is for reading them after the changes
---check context.pk_cashout_row.dollars for the amounts 
+--check context.pk_cashout_row.dollars for the amounts
 --check context.pk_cashout_row.name for if its the total amount or not (== 'bottom' for total, ~= for individual rows)
 local cashout_row = add_round_eval_row
 function add_round_eval_row(config)
-    for i=1, #G.jokers.cards do
-        local effects = eval_card(G.jokers.cards[i], {pk_cashout_row = config})
+    for i = 1, #G.jokers.cards do
+        local effects = eval_card(G.jokers.cards[i], { pk_cashout_row = config })
         if effects.jokers then
-          config = effects.jokers.new_config
-          --do your own card_eval_status_text
+            config = effects.jokers.new_config
+            --do your own card_eval_status_text
         end
     end
-    for i=1, #G.jokers.cards do
-        eval_card(G.jokers.cards[i], {pk_cashout_row_but_just_looking = config})
+    for i = 1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], { pk_cashout_row_but_just_looking = config })
     end
     return cashout_row(config)
 end
@@ -82,20 +82,20 @@ function Card:can_sell_card(context)
 end
 
 function show_shop()
-    if G.shop and G.shop.alignment.offset.py then 
-      G.shop.alignment.offset.y = G.shop.alignment.offset.py
-      G.shop.alignment.offset.py = nil
+    if G.shop and G.shop.alignment.offset.py then
+        G.shop.alignment.offset.y = G.shop.alignment.offset.py
+        G.shop.alignment.offset.py = nil
     end
 end
 
 function hide_shop()
     if G.shop and not G.shop.alignment.offset.py then
-      G.shop.alignment.offset.py = G.shop.alignment.offset.y
-      G.shop.alignment.offset.y = G.ROOM.T.y + 29
+        G.shop.alignment.offset.py = G.shop.alignment.offset.y
+        G.shop.alignment.offset.y = G.ROOM.T.y + 29
     end
 end
 
-dump = function (o, level, prefix)
+dump = function(o, level, prefix)
     level = level or 1
     prefix = prefix or '  '
     if type(o) == 'table' and level <= 5 then
@@ -108,14 +108,15 @@ dump = function (o, level, prefix)
                 format = '%s["%s"] = %s,\n'
             end
             s = s .. string.format(
-                    format,
-                    prefix,
-                    k,
-                    -- Compact parent & draw_major to avoid recursion and huge dumps.
-                    (k == 'parent' or k == 'draw_major') and string.format("'%s'", tostring(v)) or dump(v, level + 1, prefix..'  ')
+                format,
+                prefix,
+                k,
+                -- Compact parent & draw_major to avoid recursion and huge dumps.
+                (k == 'parent' or k == 'draw_major') and string.format("'%s'", tostring(v)) or
+                dump(v, level + 1, prefix .. '  ')
             )
         end
-        return s..prefix:sub(3)..'}'
+        return s .. prefix:sub(3) .. '}'
     else
         if type(o) == "string" then
             return string.format('"%s"', o)
@@ -128,5 +129,3 @@ dump = function (o, level, prefix)
         return tostring(o)
     end
 end
-
-
