@@ -278,7 +278,7 @@ HPJTTT = {
         "*notices bulge* OwO What's this?",
         "Now with no preservatives or artificial sweeteners",
         "Woof",
-        "Todays random seed is: "..tostring(math.floor(os.time()) % 100),
+        "Todays random seed is: " .. tostring(math.floor(os.time()) % 100),
         "Merge branch 'main' of https://github.com/the-Astra/Hot-Potato",
         "Works on Smart Fridges",
         "Download NoMoreEs",
@@ -381,6 +381,9 @@ HPJTTT = {
         "Can we please stop adding more currencies?",
         "Y-yowou showouwd pway uwuifier! OwO",
         "CC? by CC, do you mean: crumbling castle, cave-in cavern, chaos complex, cornerboost collab, ceiling pop contest, candy cliffs, cheesecake country, celeste community, circular platform clutter, collapsing canyon, curious crater, cpop city, corroded city, crouch climb, cookie clicker, closed captions, crow control, celestial cabinet, carbon copy, CameronC, cycles contest, cupid's comit, cherry city, comb connections city, cloudfrost cave, cyclic cliffside, carlos collab, celestenet client, celestecord, core c-side, cc-sides, cloudy cliffs, chilly caves, or chromatic complex? next time, be more clear with your abbreivations.",
+        "We've got allen wrenches, gerbil feeders, toilet seats, electric heaters, trash compactors, juice extractor, shower rods, and water meters, walkie-talkies, copper wires, safety goggles, radial tires, BB pellets, rubber mallets, fans and dehumidifiers, picture hangers, paper cutters, waffle irons, window shutters, paint removers, window louvres, masking tape and plastic gutters, kitchen faucets, folding tables, weather stripping, jumper cables, hooks and tackle, grout and spackle, power foggers, spoons and ladles, pesticides for fumigation, high-performance lubrication, metal roofing, water proofing, multi-purpose insulation, air compressors, brass connectors, wrecking chisels, smoke detectors, tire guages, hamster cages, thermostats, and bug deflectors, trailer hitch demagnetizers, automatic circumcisers, tennis rackets, angle brackets, Duracells and Energizers, soffit panels, circuit brakers, vacuum cleaners, coffee makers, calculators, generators, matching salt and pepper shakers",
+        "play hyperfixation please... i'd really appreciate it?",
+        "Fun Fact: "
     }
 }
 
