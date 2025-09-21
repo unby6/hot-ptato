@@ -30,3 +30,10 @@ function G.FUNCS.toggle_currencies()
         end
     }))
 end
+
+local uib = UIBox.set_parent_child
+function UIBox:set_parent_child(node, parent)
+    if node and self then
+        return uib(self, node, parent)
+    end
+end
