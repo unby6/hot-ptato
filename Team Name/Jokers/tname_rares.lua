@@ -197,9 +197,10 @@ SMODS.Joker({
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
-			return {
-				vars = { hpt.suit , g(hpt.availability)},
-			}
+		return {
+			vars = { hpt.suit, g(hpt.availability) },
+			key = JoyousSpring and "j_hpot_sunset_joy" or nil
+		}
 	end,
 	pos = {x=11,y=0},
 	atlas = "tname_jokers2",
@@ -215,6 +216,12 @@ SMODS.Joker({
 	    end
 		if bool and card.ability.extra.availability and context.joker_main then
 			SMODS.add_card{set = "Hanafuda"}
+
+			if JoyousSpring then
+				JoyousSpring.create_pseudorandom({ { monster_archetypes = { "FlowerCardian" } } },
+                        "hpot_sunset", false)
+			end
+
 			card.ability.extra.availability = false
 		end
 		if context.end_of_round then

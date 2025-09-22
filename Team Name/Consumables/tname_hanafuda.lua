@@ -43,6 +43,23 @@ function unhighlight_hj()
 	G.hand:unhighlight_all()
 end
 
+-- joyous :3
+function joy_hanafuda_score(types, context)
+    if JoyousSpring then
+        if context.individual and context.cardarea == G.play then
+            local _, key = JoyousSpring.get_hanafuda(context.other_card)
+
+			for _, hanafuda_type in ipairs(types) do
+				if key == hanafuda_type then
+					return {
+						xchips = 1.5
+					}
+				end
+			end
+		end
+	end
+end
+
 -- PINE
 SMODS.Consumable({
 	key = "pine_1",
@@ -55,7 +72,6 @@ SMODS.Consumable({
 		code = { "Revo" },
 		team = { "Team Name" },
 	},
-
 	config = {
 		extra = {
 			high = 3,
@@ -85,7 +101,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Pine with Crane"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -130,6 +149,9 @@ SMODS.Consumable({
 		end
 		unhighlight_hj()
 	end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Pine with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -175,6 +197,9 @@ SMODS.Consumable({
 		end
 		unhighlight_hj()
 	end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Pine", "Pine_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -219,7 +244,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Pine", "Pine_2"}, context)
+	end
 })
 
 -- WILLOW
@@ -264,7 +292,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Willow with Calligrapher"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -308,6 +339,9 @@ SMODS.Consumable({
 		end
 		unhighlight_hj()
 	end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Willow with Swallow"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -351,6 +385,9 @@ SMODS.Consumable({
 		end
 		unhighlight_hj()
 	end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Willow with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -393,7 +430,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Willow"}, context)
+	end
 })
 
 -- SAKURA
@@ -440,7 +480,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Cherry Blossom with Curtain"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -485,7 +528,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Cherry Blossom with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -528,7 +574,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Cherry Blossom", "Cherry Blossom_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -571,7 +620,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Cherry Blossom", "Cherry Blossom_2"}, context)
+	end
 })
 
 -- PAULOWNIA
@@ -621,7 +673,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Paulownia with Phoenix"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -668,7 +723,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Paulownia", "Paulownia_2", "Paulownia_3"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -711,7 +769,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Paulownia", "Paulownia_2", "Paulownia_3"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -754,7 +815,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Paulownia", "Paulownia_2", "Paulownia_3"}, context)
+	end
 })
 
 -- PEONY
@@ -799,7 +863,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Peony with Butterfly"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -842,7 +909,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Peony with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -885,7 +955,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Peony", "Peony_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -928,7 +1001,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Peony", "Peony_2"}, context)
+	end
 })
 
 -- MAPLE
@@ -966,7 +1042,10 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		ease_dollars(hpt.high * #G.jokers.cards)
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Maple with Deer"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1002,7 +1081,10 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		ease_dollars(hpt.high * #G.jokers.cards)
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Maple with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1038,7 +1120,10 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		ease_dollars(hpt.high * #G.jokers.cards)
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Maple", "Maple_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1074,7 +1159,10 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		ease_dollars(hpt.high * #G.jokers.cards)
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Maple", "Maple_2"}, context)
+	end
 })
 
 -- Chrysanthemum
@@ -1112,7 +1200,10 @@ SMODS.Consumable({
 			reforge_card(random_joker, true)
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Chrysanthemum with Sake"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1148,7 +1239,10 @@ SMODS.Consumable({
 			reforge_card(G.jokers.highlighted[i], true)
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Chrysanthemum with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1184,7 +1278,10 @@ SMODS.Consumable({
 			reforge_card(G.jokers.highlighted[i], true)
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Chrysanthemum", "Chrysanthemum_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1220,7 +1317,10 @@ SMODS.Consumable({
 			reforge_card(G.jokers.highlighted[i], true)
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Chrysanthemum", "Chrysanthemum_2"}, context)
+	end
 })
 
 -- SUSUKI
@@ -1265,7 +1365,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Zebra Grass with Moon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1308,7 +1411,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Zebra Grass with Geese"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1351,7 +1457,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Zebra Grass", "Zebra Grass_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1394,7 +1503,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Zebra Grass", "Zebra Grass_2"}, context)
+	end
 })
 
 -- IRIS
@@ -1427,10 +1539,11 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and context.main_eval then
-			card.ability.extra_value = (card.ability.extra_value or 0) + 1
-			card:set_cost()
-		end
+        if context.end_of_round and context.main_eval then
+            card.ability.extra_value = (card.ability.extra_value or 0) + 1
+            card:set_cost()
+        end
+		return joy_hanafuda_score({"Water Iris with Bridge"}, context)
 	end,
 })
 
@@ -1462,10 +1575,11 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and context.main_eval then
-			card.ability.extra_value = (card.ability.extra_value or 0) + 1
-			card:set_cost()
-		end
+        if context.end_of_round and context.main_eval then
+            card.ability.extra_value = (card.ability.extra_value or 0) + 1
+            card:set_cost()
+        end
+		return joy_hanafuda_score({"Water Iris with Ribbon"}, context)
 	end,
 })
 
@@ -1497,10 +1611,11 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and context.main_eval then
-			card.ability.extra_value = (card.ability.extra_value or 0) + 1
-			card:set_cost()
-		end
+        if context.end_of_round and context.main_eval then
+            card.ability.extra_value = (card.ability.extra_value or 0) + 1
+            card:set_cost()
+        end
+		return joy_hanafuda_score({"Water Iris", "Water Iris_2"}, context)
 	end,
 })
 
@@ -1536,6 +1651,7 @@ SMODS.Consumable({
 			card.ability.extra_value = (card.ability.extra_value or 0) + 1
 			card:set_cost()
 		end
+		return joy_hanafuda_score({"Water Iris", "Water Iris_2"}, context)
 	end,
 })
 
@@ -1585,7 +1701,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Wisteria with Cuckoo"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1632,7 +1751,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Wisteria with Ribbon"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1679,7 +1801,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Wisteria", "Wisteria_2"}, context)
+	end
 })
 
 SMODS.Consumable({
@@ -1726,7 +1851,10 @@ SMODS.Consumable({
 			end
 		end
 		unhighlight_hj()
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Wisteria", "Wisteria_2"}, context)
+	end
 })
 
 -- BUSH CLOVER
@@ -1767,7 +1895,10 @@ SMODS.Consumable({
 				edition = "e_negative",
 			})
 		end
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Clover with Boar"}, context)
+	end
 })
 SMODS.Consumable({
 	key = "bush_clover_2",
@@ -1805,7 +1936,10 @@ SMODS.Consumable({
 				edition = "e_negative",
 			})
 		end
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Clover with Ribbon"}, context)
+	end
 })
 SMODS.Consumable({
 	key = "bush_clover_3",
@@ -1843,7 +1977,10 @@ SMODS.Consumable({
 				edition = "e_negative",
 			})
 		end
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Clover", "Clover_2"}, context)
+	end
 })
 SMODS.Consumable({
 	key = "bush_clover_4",
@@ -1881,6 +2018,9 @@ SMODS.Consumable({
 				edition = "e_negative",
 			})
 		end
-	end,
+    end,
+	calculate = function (self, card, context)
+		return joy_hanafuda_score({"Clover", "Clover_2"}, context)
+	end
 })
 
