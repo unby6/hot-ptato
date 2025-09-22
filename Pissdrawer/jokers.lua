@@ -240,3 +240,28 @@ SMODS.Joker {
         return true, { allow_duplicates = true }
     end
 }
+
+SMODS.Joker {
+    key = 'togore',
+    loc_txt = {name = 'Togore', text = {
+        'When hand is {C:attention}played{},',
+        '{C:attention}non-played{} cards held in', 
+        'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
+    }},
+    config = {extra = {chips = 10}},
+    loc_vars = function(self,info_queue,card)
+        return {vars = {
+            card.ability.extra.chips
+        }}
+    end,
+    rarity = 1, cost = 3,
+    atlas = 'pdr_togore',
+    calculate = function(self,card,context)
+        if context.individual and context.cardarea == G.hand then
+            context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
+            return {
+                message = '+'..card.ability.extra.chips..' Chips', colour = G.C.CHIPS
+            }
+        end
+    end
+}
