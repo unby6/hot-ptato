@@ -1310,8 +1310,8 @@ return {
             j_hpot_credits_ex = {
                 name = "Credits EX",
                 text = {
-                    {"{X:mult,C:white}X#1#{} Mult"},
-                    {"{C:purple}+#2#c.{} for each hand played this round."}
+                    { "{X:mult,C:white}X#1#{} Mult" },
+                    { "{C:purple}+#2#c.{} for each hand played this round." }
                 }
             },
             j_hpot_jankman = {
@@ -1333,8 +1333,17 @@ return {
                 name = "Sunset",
                 text = {
                     "If played hand contains a card with {C:attention}#1#{} suit,",
-                    "Create a {C:red}Hanafuda{} Card.",
-                    "{C:inactive}(Only works once per round, currently #2#.)"
+                    "Create a {C:red}Hanafuda{} Card",
+                    "{C:inactive}(Only works once per round, currently #2#)"
+                }
+            },
+            j_hpot_sunset_joy = {
+                name = "Sunset",
+                text = {
+                    "If played hand contains a card with {C:attention}#1#{} suit,",
+                    "Create a {C:red}Hanafuda{} Card and",
+                    "{C:attention}1{} {C:joy_normal}\"Flower Cardian\"{}",
+                    "{C:inactive}(Only works once per round, currently #2#)"
                 }
             },
             j_hpot_nxkoo_joker = {
@@ -2084,6 +2093,20 @@ return {
                     "give {X:mult,C:white}X#1#{} Mult",
                 },
             },
+            j_hpot_local_newspaper = {
+                name = 'Local Newspaper',
+                text = {
+                    'Expands choices by {C:attention}1{}',
+                    'during {C:attention}Event{} selection'
+                }
+            },
+            j_hpot_ruan_mei = {
+                name = 'Ruan Mei',
+                text = {
+                    'Rare {C:attention}Event{} types',
+                    'appear more frequently'
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
@@ -2249,9 +2272,20 @@ return {
                     "When {C:hpot_pink}breeding{}, the child will",
                     "always be a child of the {C:attention}Mother"
                 }
+            },
+            v_hpot_domain_extrapolation = {
+                name = "Domain Extrapolation",
+                text = {
+                    "{C:attention}Events{} appear after {C:attention}Boss Blinds{}"
+                }
+            },
+            v_hpot_domain_expansion = {
+                name = "Domain Expansion",
+                text = {
+                    "{C:attention}Events{} appear after all {C:attention}Blinds{}"
+                }
             }
         },
-
         Spectral = {
             c_hpot_arcade_machine = {
                 name = "Arcade Machine",
@@ -2267,6 +2301,56 @@ return {
                     "Add a {V:1}Dark Pink Seal{}",
                     "to {C:attention}#1#{} selected",
                     "card in your hand",
+                }
+            },
+            c_hpot_blossom_joy = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "card in your hand",
+                        "and enhance it into a",
+                        "{C:attention}Hanafuda{} card"
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:joy_effect}\"Ash Blossom & Joyous Spring\"{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
+            c_hpot_blossom_pta = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "card in your hand",
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:attention}Joyous Spring{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
+            c_hpot_blossom_joy_pta = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "card in your hand",
+                        "and enhance it into a",
+                        "{C:attention}Hanafuda{} card"
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:attention}Joyous Spring{}",
+                        "or {C:joy_effect}\"Ash Blossom & Joyous Spring\"{}",
+                        "{C:inactive}(Must have room)"
+                    },
                 }
             },
             c_hpot_arcade_machine_p = {
@@ -3641,7 +3725,7 @@ return {
                 }
             },
             hpot_job_application_procrastinate = {
-                text =  {
+                text = {
                     "Uh oh!",
                     "The government has caught you playing Balatro",
                     "instead of applying for a job.",
@@ -4112,7 +4196,7 @@ return {
                 }
             },
 
-            modif_hpot_sharpened= {
+            modif_hpot_sharpened = {
                 name = "Sharpened",
                 text = {
                     "{C:mult}+10{C:green} Mult if triggered during scoring"
@@ -4403,7 +4487,7 @@ return {
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" },
-            a_cards = {"+#1# Cards"},
+            a_cards = { "+#1# Cards" },
 
             hotpot_exchange_for_jx_line_1 = "Buy ͸",
             hotpot_exchange_for_jx_line_2 = "for #1#",

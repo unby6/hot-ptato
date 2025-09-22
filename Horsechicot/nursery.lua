@@ -465,8 +465,8 @@ function G.FUNCS.go_to_menu(e)
 end
 
 --properly cleanup when new running
-local old = G.start_run
-function G.start_run(...)
+local old = Game.start_run
+function Game.start_run(...)
     if G.nursery then
         G.nursery:remove()
         G.nursery = nil
