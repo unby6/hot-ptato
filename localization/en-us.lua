@@ -1311,7 +1311,7 @@ return {
                 name = "Credits EX",
                 text = {
                     { "{X:mult,C:white}X#1#{} Mult" },
-                    { "{C:purple}+#2#c.{} for each hand played this round." }
+                    { "{C:purple}+#2#c.{} for each hand played this round" }
                 }
             },
             j_hpot_jankman = {
@@ -2284,7 +2284,7 @@ return {
             v_hpot_domain_extrapolation = {
                 name = "Domain Extrapolation",
                 text = {
-                    "{C:attention}Events{} appear after {C:attention}Boss Blinds{}"
+                    "{C:attention}Events{} appear after {C:attention}Big Blinds{}"
                 }
             },
             v_hpot_domain_expansion = {
@@ -3142,9 +3142,63 @@ return {
                 }
             },
             hpot_event_encounter = {
-                name = "Event Encounter",
+                name = "Event",
                 text = {
                     "Choices, choices, choices..."
+                }
+            },
+            hpot_event_encounter_combat = {
+                name = "Combat",
+                text = {
+                    "Overcome a challenge"
+                }
+            },
+            hpot_event_encounter_occurence = {
+                name = "Occurence",
+                text = {
+                    "Choices, choices, choices..."
+                }
+            },
+            hpot_event_encounter_reward = {
+                name = "Reward",
+                text = {
+                    "You deserve it"
+                }
+            },
+            hpot_event_encounter_encounter = {
+                name = "Encounter",
+                text = {
+                    "Face a difficult foe"
+                }
+            },
+            hpot_event_encounter_transaction = {
+                name = "Transaction",
+                text = {
+                    "The Jimbo Exchange"
+                }
+            },
+            hpot_event_encounter_adventure = {
+                name = "Adventure",
+                text = {
+                    "Have some fun"
+                }
+            },
+            hpot_event_encounter_wealth = {
+                name = "Wealth",
+                text = {
+                    "Get some riches"
+                }
+            },
+            hpot_event_encounter_escapade = {
+                name = "Escapade",
+                text = {
+                    "Take a break"
+                }
+            },
+            hpot_event_encounter_respite = {
+                name = "Respite",
+                text = {
+                    "The calm before the storm"
                 }
             },
             hpot_jtem_mood_depressed = {
