@@ -292,7 +292,7 @@ SMODS.Joker {
                         simple_add_event(
                         function() 
                             local _c = copy_card(card,nil,nil,nil,true)
-                            print(inspect(context))
+                            --print(inspect(context))
                             _c:add_to_deck()
                             G.jokers:emplace(_c)
                             return true

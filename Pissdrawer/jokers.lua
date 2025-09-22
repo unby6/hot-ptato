@@ -61,76 +61,36 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = 'rivals',
+    key = 'kindergarten',
     rarity = 3,
-    cost = 8,
-    loc_txt = { name = 'Marvel Rivals', text = {
-        { '{s:0.00001,C:white}lmao' }, { '{C:attention}Cycle{} through {C:attention}random{}', ' effects on selecting', 'a blind' }
-    } },
-    config = { extra = {
-        rivals = {
-            'lunasnow',
-            'mantis',
-            'loki',
-            'rigby',
-            'cnd',
-            'ultron',
-            'jeff',
-            'invis'
-        },
-        char = 'cnd'
-    } },
+    cost = 7,
+    atlas = "pdr_joker",
+    pos = { x = 0, y = 0 },
+    config = {extra = {xmult = 1.75}},
     loc_vars = function(self, info_queue, card)
-        local main_end = {}
-
-        if card.ability.extra.char == 'cnd' then
-            main_end = {
-                {
-                    n = G.UIT.C,
-                    config = { padding = 0.03 },
-                    nodes = {
-                        {
-                            n = G.UIT.R,
-                            config = { align = 'cm' },
-                            nodes = {
-                                { n = G.UIT.T, config = { text = "It's co-op time!", scale = 0.28, colour = G.C.PURPLE } } }
-                        },
-                        {
-                            n = G.UIT.R,
-                            config = { align = 'cm', padding = 0.03 },
-                            nodes = {
-                                { n = G.UIT.T, config = { text = 'Create ', scale = 0.32, colour = G.C.UI.TEXT_DARK } },
-                                { n = G.UIT.T, config = { text = '1 Consumeable', scale = 0.32, colour = G.C.FILTER } }
-                            }
-                        },
-                        {
-                            n = G.UIT.R,
-                            config = { align = 'cm' },
-                            nodes = {
-                                { n = G.UIT.T, config = { text = 'on playing a hand', scale = 0.32, colour = G.C.UI.TEXT_DARK } },
-                            }
-                        },
-                    }
-                }
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    hotpot_credits = {
+        art = { 'SDM_0' },
+        code = { 'SDM_0' },
+        idea = { 'SDM_0' },
+        team = { 'Pissdrawer' }
+    },
+    calculate = function(self, card, context)
+        if context.other_joker and context.other_joker.ability.is_nursery_smalled then
+            return {
+                xmult = card.ability.extra.xmult
             }
         end
-
-        return { main_end = main_end }
     end,
-    calculate = function(self, card, context)
-        if context.setting_blind and not context.blueprint then
-            card.ability.extra.char = pseudorandom_element(card.ability.extra.rivals, pseudoseed('rivals'))
-        end
-        if context.joker_main then
-            if card.ability.extra.char == 'cnd' then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                        SMODS.add_card{consumable = true}
-                        return true
-                    end
-                }))
+    in_pool = function()
+        if G.jokers and G.jokers.cards then
+            for _, v in ipairs(G.jokers.cards) do
+                if v.ability.is_nursery_smalled then
+                    return true
+                end
             end
         end
+        return false
     end
 }
