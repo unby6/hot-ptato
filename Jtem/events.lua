@@ -119,7 +119,7 @@ HotPotato.EventStep = SMODS.GameObject:extend({
 
 HotPotato.EventScenarios = {}
 ---@class HotPotato.EventScenario: SMODS.GameObject
----@field domains? EventDomain[]|string[] Domain pool the scenario belongs to.
+---@field domains? table<EventDomain|string, true> Domain pool the scenario belongs to.
 ---@field in_pool? fun(self: HotPotato.EventScenario|table): boolean Determines if this scenario can be chosen.
 ---@field get_weight? fun(self: HotPotato.EventScenario|table): number Determines the weight of the scenario being chosen.
 ---@field weight? number Used if `get_weight` isn't specified.
@@ -165,7 +165,7 @@ HotPotato.EventScenario = SMODS.GameObject:extend({
 	pos = { x = 0, y = 0, },
 
 	-- Events basically added by me so..
-    -- Haya my goat <3
+	-- Haya my goat <3
 	hotpot_credits = {
 		idea = { "SleepyG11" },
 		code = { "SleepyG11", "Haya" },
@@ -653,7 +653,7 @@ function hpot_event_start_scenario()
 	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
 
 	G.hpot_event = {
-        scenario = scenario,
+		scenario = scenario,
 		domain = G.GAME.hpot_event_domain,
 
 		current_step = nil,
@@ -826,7 +826,7 @@ function hpot_event_end_scenario()
 					trigger = "immediate",
 					func = function()
 						G.GAME.hpot_event_domain_choices_used = {}
-                        G.GAME.hpot_event_domain_choices = {}
+						G.GAME.hpot_event_domain_choices = {}
 						G.GAME.hpot_event_domain = nil
 
 						G.STATE = G.STATES.BLIND_SELECT
@@ -1053,8 +1053,8 @@ function G.FUNCS.hpot_event_select(e)
 					func = function()
 						G.E_MANAGER:add_event(Event({
 							trigger = "immediate",
-                            func = function()
-                                G.GAME.hpot_event_domain = domain
+							func = function()
+								G.GAME.hpot_event_domain = domain
 								G.STATE = G.STATES.HOTPOT_EVENT
 								G.STATE_COMPLETE = false
 								return true
@@ -1309,7 +1309,7 @@ function get_next_hpot_event(domain)
 	end
 	local eligible_events = {}
 	local total_weight = 0
-    for key, event in pairs(HotPotato.EventScenarios) do
+	for key, event in pairs(HotPotato.EventScenarios) do
 		if not domain or (event.domains and event.domains[domain]) then
 			local weight = event:get_weight()
 			if weight > 0 and event:in_pool() then
