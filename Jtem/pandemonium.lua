@@ -124,9 +124,9 @@ function PandemoniumGame.f.update(dt)
 		center_y = (dir.y * center_x) + (dir.x * center_y) * pseudorandom('pandemonium_dist')
 		love.mouse.setPosition(center_x, center_y)
 		pandemonium.time_till_cursor_move = 0
-		print("move mouse lmao")
-		print(center_x)
-		print(center_y)
+		-- print("move mouse lmao")
+		-- print(center_x)
+		-- print(center_y)
 	end
 
 	PandemoniumGame.m.oldX, PandemoniumGame.m.oldY = love.mouse.getPosition()

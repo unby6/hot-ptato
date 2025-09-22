@@ -11,7 +11,7 @@ return {
             c_hpot_fear = {
                 name = "Aura of Fear",
                 text = {
-                    "{C:attention}All current Jokers{} gain",
+                    "{C:attention}All current jokers{} gain",
                     "{C:red}negative{} stickers,",
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
@@ -55,8 +55,8 @@ return {
                 text = {
                     "{C:red}Remove ALL Credits{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:purple}#1# Credits{} removed",
-                    "{C:inactive}(Currently +#2# Copies)"
+                    "for every {C:purple}#1# Credits{} removed.",
+                    "{C:inactive}(Currently +#2# Copies.)"
                 }
             },
         },
@@ -592,7 +592,7 @@ return {
             c_hpot_cap_modif = {
                 name = 'Modification',
                 text = {
-                    "A random Joker gains",
+                    "A random joker gains",
                     "a random {C:dark_edititon}#1# {C:attention}Modification{}"
                 }
             },
@@ -600,7 +600,7 @@ return {
                 name = 'Sticker Overload',
                 text = {
                     "Apply a {C:dark_edition}Random Sticker",
-                    "to all Jokers"
+                    "to all jokers"
                 }
             },
             c_hpot_cap_credits = {
@@ -988,7 +988,7 @@ return {
                 text = {
                     "The next {C:attention}#1#{} used consumables",
                     "can affect {C:attention}#2#{} extra card",
-                    "(if applicable)"
+                    "{C:inactive}(if applicable){}"
                 }
             },
             j_hpot_magic_factory = {
@@ -1143,7 +1143,7 @@ return {
                 name = "Sticker Master",
                 text = {
                     "{C:mult}+#1#{} Mult for",
-                    "each sticker on", "your Jokers",
+                    "each sticker on", "your jokers",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
@@ -1155,11 +1155,11 @@ return {
                         "is selected, randomly",
                         "apply a {C:dark_edition}Random Sticker{}",
                         "to the card on the right",
-                        "or on the left",
+                        "or on the left.",
                     },
                     {
                         "Gains {X:mult,C:white}X#2#{} Mult",
-                        "per sticker applied",
+                        "per sticker applied.",
                         "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
                     },
                 }
@@ -1170,43 +1170,43 @@ return {
                     "Gain {C:money}+$#1#{}",
                     "at the end of a round",
                     "for each {C:attention}Uranium{}",
-                    "sticker on your Jokers",
-                    "and playing cards",
+                    "sticker on your jokers",
+                    "and playing cards.",
                     "{C:inactive}(Currently {C:money}+$#2#{C:inactive})"
                 }
             },
             j_hpot_grand_finale = {
                 name = "Grand Finale",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}plastic{}",
+                    "A {C:attention}bizarre{} object, associated with {C:edition}plastic{}.",
                     "{C:inactive}({C:attention}+#1#{C:inactive} Joker Slots)"
                 }
             },
             j_hpot_grand_diagonal = {
                 name = "Grand Diagonal",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}metal{}",
+                    "A {C:attention}bizarre{} object, associated with {C:edition}metal{}.",
                     "{C:inactive}({C:attention}+#1#{C:inactive} Consumable Slots)"
                 }
             },
             j_hpot_grand_spectral = {
                 name = "Grand Spectral",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}smoke{}",
+                    "A {C:attention}bizarre{} object, associated with {C:edition}smoke{}.",
                     "{C:inactive}(Turns all tarots in shop to {C:attention}Spectral{C:inactive} Cards)"
                 }
             },
             j_hpot_grand_brachial = {
                 name = "Grand Brachial",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}meat{}",
-                    "{C:inactive}(Copy both the leftmost and rightmost Jokers)"
+                    "A {C:attention}bizarre{} object, associated with {C:edition}meat{}.",
+                    "{C:inactive}(Copy both the leftmost and rightmost Jokers.)"
                 }
             },
             j_hpot_grand_chocolatier = {
                 name = "Grand Chocolatier",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}sugar{}",
+                    "A {C:attention}bizarre{} object, associated with {C:edition}sugar{}.",
                     "{C:inactive}({C:white,X:mult}X#1#{C:inactive} Mult)"
                 }
             },
@@ -1238,7 +1238,7 @@ return {
                 },
                     { "Corobo Ability:",
                         "{X:mult,C:white}X#4#{} Mult, {X:mult,C:white}+X#5#{} Mult",
-                        "per scored card"
+                        "per scored card."
                     },
                 }
             },
@@ -1278,7 +1278,7 @@ return {
                     { "Jogla Ability:",
                         "Creates {C:attention}#3#{C:dark_edition} negative{} copies",
                         "of the {C:attention}leftmost{} consumable",
-                        "when {C:attention}ending{} shop"
+                        "when {C:attention}ending{} shop."
                     },
                 },
             },
@@ -1290,7 +1290,7 @@ return {
                         "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
                     { "Revo Ability:",
                         "Each Played {C:spades}Spades{} suit is",
-                        "retriggered {C:attention}#6#{} times"
+                        "retriggered {C:attention}#6#{} times."
                     },
                 },
             },
@@ -1318,7 +1318,7 @@ return {
                 name = "JankMan",
                 text = {
                     "{C:inactive}hahahahaha, im jankman!",
-                    "{X:mult,C:white}+#1#X{} Mult per sticker on this Joker",
+                    "{X:mult,C:white}+#1#X{} Mult per sticker on this joker.",
                     "{C:inactive}(Currently{X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -1333,8 +1333,8 @@ return {
                 name = "Sunset",
                 text = {
                     "If played hand contains a card with {C:attention}#1#{} suit,",
-                    "Create a {C:red}Hanafuda{} Card",
-                    "{C:inactive}(Only works once per round, currently #2#)"
+                    "Create a {C:red}Hanafuda{} Card.",
+                    "{C:inactive}(Only works once per round, currently #2#.)"
                 }
             },
             j_hpot_nxkoo_joker = {
@@ -1349,7 +1349,7 @@ return {
             j_hpot_graveyard = {
                 name = "Graveyard",
                 text = {
-                    "{X:mult,C:white}+X#1#{} Mult per Joker destroyed",
+                    "{X:mult,C:white}+X#1#{} Mult per joker destroyed",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -1358,7 +1358,7 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Mult",
                     "{X:mult,C:white}-X#2#{} after each played hand",
-                    "{X:mult,C:white}+X#3#{} after each Joker destroyed",
+                    "{X:mult,C:white}+X#3#{} after each joker destroyed",
                 }
             },
             j_hpot_upsidedownsmiley = {
@@ -1895,7 +1895,7 @@ return {
                 },
                     { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
                         "The next {C:attention}#1# {C:green}probabilities",
-                        "are {C:attention}multiplied by #2#{}",
+                        "are {C:attention}multiplied by #2#{}.",
                         "Gains {C:attention}#3#{} more modifiers at",
                         "the end of a round"
                     },
@@ -2055,7 +2055,7 @@ return {
                 name = 'Numberslop',
                 text = {
                     '{C:attention}Numbered{} cards give',
-                    '{X:mult,C:white}X#1#{} Mult when scored',
+                    '{X:mult,C:white}X#1#{} Mult when scored.',
                     'This card is {C:red}destroyed{}',
                     'if hand ever scores over',
                     '{C:attention}twice the blind requirement'
@@ -2080,8 +2080,9 @@ return {
             j_hpot_social_credit = {
                 name = 'Social Credit',
                 text = {
-                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {C:red}Social{} {C:yellow}Credit{} at end of round',
-                    '{C:inactive}(Social Credit (Currently {C:red}#2#{C:inactive}) will alter depending on your performance){}'
+                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
+                    '{C:inactive}depending on your performance{}'
                 }
             },
         },
@@ -2160,8 +2161,8 @@ return {
             v_hpot_digital_payment = {
                 name = "Digital Payment",
                 text = {
-                    "Earn no interest",
-                    "Gain {C:purple}+#1#{} Credits{}",
+                    "Earn no interest.",
+                    "gain {C:purple}+#1#{} Credits{}",
                     "for each interest",
                     "you would earn"
                 }
@@ -2169,8 +2170,8 @@ return {
             v_hpot_digital_promotion = {
                 name = "Digital Promotion",
                 text = {
-                    "Earn no hand money",
-                    "Gain {C:purple}+#1#{} Credits{}",
+                    "Earn no hand money.",
+                    "gain {C:purple}+#1#{} Credits{}",
                     "for each spare hand",
                     "you would earn"
                 }
@@ -2186,7 +2187,7 @@ return {
                 name = "Premium Anvil",
                 text = {
                     "{C:hpot_plincoin}Plincoins{}, {C:hpot_advert}Cryptocurrency{}",
-                    "and {C:blue}Joker Exchange{} can",
+                    "{C:blue}Joker Exchange{} can",
                     "be used to reforge"
                 }
             },
@@ -3144,8 +3145,8 @@ return {
             hpot_overclock = {
                 name = "Overclock",
                 text = {
-                    "{C:attention}Retriggers{} for", "{C:attention}#1#{} Rounds",
-                    "{C:red}Debuffs{} afterwards",
+                    "{C:attention}Retriggers{} for", "{C:attention}#1#{} Rounds.",
+                    "{C:red}debuff{} afterwards.",
                     "{C:inactive}({C:attention}#2#{C:inactive} Remaining)"
                 }
             },
@@ -3154,7 +3155,7 @@ return {
                 text = {
                     "When this card",
                     "is going to be destroyed",
-                    "{C:red}destroy{} another card instead"
+                    "{C:red}destroy{} another card instead."
                 }
             },
             hpot_fragile = {
@@ -3169,16 +3170,16 @@ return {
             hpot_rage = {
                 name = "Rage",
                 text = {
-                    "{C:attention}Retrigger{} this card once",
-                    "{C:red}Destroys{} adjacent cards"
+                    "{C:attention}Retrigger{} this card.",
+                    "{C:red}destroys{} adjacent cards"
                 }
             },
             hpot_spores = {
                 name = "Spore",
                 text = {
-                    "{C:green}#1# in #2#{} Chance to",
+                    "{C:green}#1# in 2{} Chance to",
                     "give a spore to {C:attention}adjacent{} cards",
-                    "when in hand",
+                    "when in hand.",
                     "{C:red}Destroyed{} if adjacent cards",
                     "all have spores"
                 }
@@ -3187,7 +3188,7 @@ return {
                 name = "Nuke",
                 text = {
                     "When a {C:attention}Blind",
-                    "is selected, {C:green}#1# in #2#{}",
+                    "is selected, {C:green}#1# in 6{}",
                     "Chance to {C:red}Destroy{} self and",
                     "adjacent cards"
                 }
@@ -3208,7 +3209,7 @@ return {
                     "When a {C:attention}Blind",
                     "is selected, {C:attention}Swap{}",
                     "unequipped and equipped",
-                    "stickers",
+                    "stickers.",
                     "{C:inactive}(Binary excluded)"
                 }
             },
@@ -3225,7 +3226,7 @@ return {
                 name = "Uranium",
                 text = {
                     "During scoring",
-                    "has a {C:green}#1# in #2#{} Chance",
+                    "has a {C:green}#1# in 4{} Chance",
                     "to {C:red}debuff{} adjacent cards"
                 }
             },
@@ -3399,7 +3400,7 @@ return {
                 text = {
                     "Randomizes Jokers when",
                     "hand is played",
-                    "(Only appears on ante 10)"
+                    "(Only appears on ante 10.)"
                 }
             },
         },
@@ -4076,7 +4077,7 @@ return {
             modif_hpot_damaged = {
                 name = "Damaged",
                 text = {
-                    "{C:dark_edition}#1# in #2# Chance to self-destroy when triggered"
+                    "{C:dark_edition}#1# in 2 Chance to self-destruct when triggered"
                 }
             },
             modif_hpot_supported = {
@@ -4088,7 +4089,7 @@ return {
             modif_hpot_dozing = {
                 name = "Dozing",
                 text = {
-                    "{C:dark_edition}#1# in #2# Chance to not trigger for a round"
+                    "{C:dark_edition}#1# in 3 Chance to not trigger for a round"
                 }
             },
             modif_hpot_hyper = {
