@@ -198,7 +198,7 @@ end
 -- Trade
 
 HotPotato.EventStep({
-    key = "pelter",
+	key = "pelter",
 	get_choices = function(self, event)
 		return {
 			{
@@ -268,15 +268,15 @@ HotPotato.EventStep {
 
 -- TODO: you can't even get imaginary cards T-T
 HotPotato.EventScenario {
-    key = "trade1",
-	domain = 'occurence',
+	key = "trade1",
+	domains = { occurence = true },
 	starting_step_key = "hpot_pelter",
 	hotpot_credits = {
 		idea = { "Squidguset" },
 		code = { "Squidguset" },
 		team = { "Jtem" },
-    },
-	in_pool = function (self)
+	},
+	in_pool = function(self)
 		return not not (next(SMODS.find_card("c_hpot_imag_duck")) or next(SMODS.find_card("c_hpot_imag_stars")))
 	end
 }
@@ -495,8 +495,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "porch_pirate",
-	domain = "occurence",
+	key = "porch_pirate",
+	domains = { occurence = true },
 	starting_step_key = "hpot_porch_pirate_1",
 	hotpot_credits = {
 		idea = { "Haya" },
@@ -622,8 +622,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "postman",
-	domain = "reward",
+	key = "postman",
+	domains = { reward = true },
 	starting_step_key = "hpot_postman_1",
 	in_pool = function()
 		return G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue > 0 and G.jokers and
@@ -722,8 +722,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "voucher",
-	domain = "reward",
+	key = "voucher",
+	domains = { reward = true },
 	starting_step_key = "hpot_voucher_1",
 	hotpot_credits = {
 		idea = { "MissingNumber" },
@@ -753,8 +753,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "spam_email",
-	domain = "occurence",
+	key = "spam_email",
+	domains = { occurence = true },
 	starting_step_key = "hpot_spam_1",
 	hotpot_credits = {
 		idea = { "MissingNumber" },
@@ -831,8 +831,8 @@ HotPotato.EventStep({
 	end,
 })
 HotPotato.EventScenario({
-    key = "money_game",
-	domain = 'reward',
+	key = "money_game",
+	domains = { reward = true },
 	starting_step_key = "hpot_money_game_invest",
 	in_pool = function(self)
 		return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
@@ -938,7 +938,7 @@ HotPotato.EventStep {
 }
 
 HotPotato.EventStep {
-    key = "nigerian_prince_success",
+	key = "nigerian_prince_success",
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
@@ -954,7 +954,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario({
 	key = "nigerian_prince",
-	domain = "occurence",
+	domains = { occurence = true },
 	starting_step_key = "hpot_nigerian_prince_start",
 	in_pool = function(self)
 		return true
@@ -1119,8 +1119,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario({
-    key = "food_trade",
-	domain = "occurence",
+	key = "food_trade",
+	domains = { occurence = true },
 	starting_step_key = "hpot_food_trade_1",
 
 	in_pool = function(self)
@@ -1244,8 +1244,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "currency_exchange",
-	domain = "wealth",
+	key = "currency_exchange",
+	domains = { wealth = true },
 	starting_step_key = "hpot_currency_exchange_1",
 	hotpot_credits = {
 		idea = { "Revo" },
@@ -1342,8 +1342,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "sticker_master_e",
-	domain = "occurence",
+	key = "sticker_master_e",
+	domains = { occurence = true },
 	starting_step_key = "hpot_sticker_master_1",
 	hotpot_credits = {
 		idea = { "Revo" },
@@ -1396,8 +1396,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "nuclear_explosion",
-	domain = 'occurence',
+	key = "nuclear_explosion",
+	domains = { occurence = true },
 	starting_step_key = "hpot_nuclear_explosion_1",
 	hotpot_credits = {
 		idea = { "Revo" },
@@ -1505,8 +1505,8 @@ HotPotato.EventStep({
 })
 
 HotPotato.EventScenario {
-    key = "job_application",
-	domain = 'occurence',
+	key = "job_application",
+	domains = { occurence = true },
 	starting_step_key = "hpot_job_application_1",
 	hotpot_credits = {
 		idea = { "Liafeon" },
@@ -1521,8 +1521,8 @@ HotPotato.EventScenario {
 -- Virtual Sin Forgiveness
 
 HotPotato.EventScenario {
-    key = "virtual_sin_forgiveness",
-	domain = "reward",
+	key = "virtual_sin_forgiveness",
+	domains = { reward = true },
 	starting_step_key = "hpot_vsf_1",
 	hotpot_credits = {
 		idea = { "th30ne" },
@@ -1594,8 +1594,8 @@ HotPotato.EventStep {
 -- The Trolley Problem
 
 HotPotato.EventScenario {
-    key = "trolley",
-	domain = 'occurence',
+	key = "trolley",
+	domains = { occurence = true },
 	starting_step_key = "hpot_trolley_1",
 	hotpot_credits = {
 		idea = { "theAstra" },
@@ -1788,8 +1788,8 @@ HotPotato.EventStep {
 -- Mystery Box
 
 HotPotato.EventScenario {
-    key = "mystery_box",
-	domain = "occurence",
+	key = "mystery_box",
+	domains = { occurence = true },
 	starting_step_key = "hpot_mb_1",
 	hotpot_credits = {
 		idea = { "factwixard" },
@@ -1894,8 +1894,8 @@ HotPotato.EventStep {
 -- Refreshing
 
 HotPotato.EventScenario {
-    key = "refreshing",
-	domain = "occurence",
+	key = "refreshing",
+	domains = { occurence = true },
 	starting_step_key = "hpot_refreshing_1",
 	hotpot_credits = {
 		idea = { "theAstra" },
@@ -1990,8 +1990,8 @@ HotPotato.EventStep {
 -- Fishing
 
 HotPotato.EventScenario {
-    key = "fishing",
-	domain = 'occurence',
+	key = "fishing",
+	domains = { occurence = true },
 	starting_step_key = "hpot_fishing_1",
 	hotpot_credits = {
 		idea = { "theAstra" },
@@ -2115,8 +2115,8 @@ HotPotato.EventStep {
 -- trapped streamer
 
 HotPotato.EventScenario {
-    key = "roffle",
-	domain = "reward",
+	key = "roffle",
+	domains = { reward = true },
 	starting_step_key = "hpot_roffle_start",
 	hotpot_credits = {
 		idea = { "trif" },
@@ -2126,7 +2126,7 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-    key = "hpot_roffle_start",
+	key = "hpot_roffle_start",
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
@@ -2221,8 +2221,8 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-    key = "hpot_bizzare_machine_start",
-	domain = "occurence",
+	key = "hpot_bizzare_machine_start",
+	domains = { occurence = true },
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
@@ -2318,8 +2318,8 @@ HotPotato.EventStep {
 -- Pissdrawer Tech Support
 
 HotPotato.EventScenario {
-    key = "tech_support",
-	domain = "reward",
+	key = "tech_support",
+	domains = { reward = true },
 	starting_step_key = "hpot_tech_support_start",
 	hotpot_credits = {
 		code = { "SDM_0" },

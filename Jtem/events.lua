@@ -119,7 +119,7 @@ HotPotato.EventStep = SMODS.GameObject:extend({
 
 HotPotato.EventScenarios = {}
 ---@class HotPotato.EventScenario: SMODS.GameObject
----@field domain? EventDomain|string Domain pool the scenario belongs to.
+---@field domains? EventDomain[]|string[] Domain pool the scenario belongs to.
 ---@field in_pool? fun(self: HotPotato.EventScenario|table): boolean Determines if this scenario can be chosen.
 ---@field get_weight? fun(self: HotPotato.EventScenario|table): number Determines the weight of the scenario being chosen.
 ---@field weight? number Used if `get_weight` isn't specified.
@@ -138,7 +138,7 @@ HotPotato.EventScenario = SMODS.GameObject:extend({
 	process_loc_text = function(self)
 		SMODS.process_loc_text(G.localization.descriptions.EventScenarios, self.key:lower(), self.loc_txt)
 	end,
-	domain = "occurence",
+	domains = { occurence = true },
 	weight = 5,
 	in_pool = function(self)
 		return true
@@ -1310,8 +1310,7 @@ function get_next_hpot_event(domain)
 	local eligible_events = {}
 	local total_weight = 0
     for key, event in pairs(HotPotato.EventScenarios) do
-        local event_domain = event.domain or "occurence"
-		if domain and event_domain == domain then
+		if not domain or (event.domains and event.domains[domain]) then
 			local weight = event:get_weight()
 			if weight > 0 and event:in_pool() then
 				eligible_events[key] = event
