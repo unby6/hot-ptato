@@ -248,6 +248,12 @@ SMODS.Joker {
         '{C:attention}non-played{} cards held in', 
         'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
     }},
+    hotpot_credits = {
+        art = { 'Tacashumi' },
+        code = { 'fey <3' },
+        idea = { 'Tacashumi' },
+        team = { 'Pissdrawer' }
+    },
     config = {extra = {chips = 10}},
     loc_vars = function(self,info_queue,card)
         return {vars = {
