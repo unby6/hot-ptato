@@ -1,5 +1,5 @@
 -- Scenario by default
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "nothing_1",
 	loc_txt = {
 		-- Loc key: G.localization.Descriptions.EventSteps.hpot_nothing_1
@@ -25,7 +25,7 @@ SMODS.EventStep({
 		}
 	end,
 })
-SMODS.EventScenario({
+HotPotato.EventScenario({
 	key = "nothing",
 	starting_step_key = "hpot_nothing_1",
 
@@ -42,7 +42,7 @@ SMODS.EventScenario({
 })
 
 -- Test scenario
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "test_1",
 
 	config = {
@@ -115,7 +115,7 @@ SMODS.EventStep({
 		end
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "test_2",
 	get_choices = function(self, event)
 		return {
@@ -132,7 +132,7 @@ SMODS.EventStep({
 		end
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "test_3",
 	get_choices = function(self, event)
 		return {
@@ -148,7 +148,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventScenario({
+HotPotato.EventScenario({
 	key = "test",
 	starting_step_key = "hpot_test_1",
 	in_pool = function()
@@ -197,7 +197,7 @@ end
 
 -- Trade
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "pelter",
 	get_choices = function(self, event)
 		return {
@@ -236,7 +236,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "tradedreams",
 	get_choices = function()
 		return {
@@ -251,7 +251,7 @@ SMODS.EventStep {
 	end,
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "tradeduck",
 	get_choices = function()
 		return {
@@ -267,7 +267,7 @@ SMODS.EventStep {
 
 }
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "trade1",
 	starting_step_key = "hpot_pelter",
 	hotpot_credits = {
@@ -279,7 +279,7 @@ SMODS.EventScenario {
 
 -- Porch Pirates
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "porch_pirate_1",
 	get_choices = function(self, event)
 		return {
@@ -308,7 +308,7 @@ SMODS.EventStep({
 	end,
 	finish = function(self, event) end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "porch_pirate_2",
 	config = {
 		extra = {
@@ -347,7 +347,7 @@ SMODS.EventStep({
 		Remove()
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "porch_pirate_good",
 	get_choices = function(self, event)
 		return {
@@ -414,7 +414,7 @@ SMODS.EventStep({
 		end
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "porch_pirate_bad",
 	get_choices = function(self, event)
 		return {
@@ -479,7 +479,7 @@ SMODS.EventStep({
 		end
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "porch_pirate_phew",
 	get_choices = function()
 		return {
@@ -490,7 +490,7 @@ SMODS.EventStep({
 	finish = function(self) end,
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "porch_pirate",
 	starting_step_key = "hpot_porch_pirate_1",
 	hotpot_credits = {
@@ -513,7 +513,7 @@ local function taxcalc(d)
 	return d * (G.GAME.CurrentInflation * (1 + (1 / 12.4))) + math.sqrt(G.GAME.CurrentInflation)
 end
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "taxman",
 	config = { extra = { cost = 50, req = 10 } },
 	get_choices = function(self)
@@ -553,7 +553,7 @@ SMODS.EventStep {
 
 -- Postman
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "postman_1",
 	get_choices = function(self, event)
 		return {
@@ -616,7 +616,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "postman",
 	starting_step_key = "hpot_postman_1",
 	in_pool = function()
@@ -632,7 +632,7 @@ SMODS.EventScenario {
 
 -- Free voucher yahoo
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "voucher_1",
 	get_choices = function(self, event)
 		return {
@@ -666,7 +666,7 @@ SMODS.EventStep({
 		}
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = 'voucher_2',
 	get_choices = function()
 		return {
@@ -715,7 +715,7 @@ SMODS.EventStep({
 	end
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "voucher",
 	starting_step_key = "hpot_voucher_1",
 	hotpot_credits = {
@@ -727,7 +727,7 @@ SMODS.EventScenario {
 
 -- Spam
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = 'spam_1',
 	get_choices = function(self, event)
 		return {
@@ -745,7 +745,7 @@ SMODS.EventStep({
 	end
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "spam_email",
 	starting_step_key = "hpot_spam_1",
 	hotpot_credits = {
@@ -757,7 +757,7 @@ SMODS.EventScenario {
 
 -- Money game
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "money_game_invest",
 	get_choices = function(self, event)
 		return {
@@ -822,7 +822,7 @@ SMODS.EventStep({
 		Remove()
 	end,
 })
-SMODS.EventScenario({
+HotPotato.EventScenario({
 	key = "money_game",
 	starting_step_key = "hpot_money_game_invest",
 
@@ -833,7 +833,7 @@ SMODS.EventScenario({
 
 
 -- nigerian prince
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "nigerian_prince_start",
 	hide_hand = true,
 	start = function(self, event)
@@ -868,7 +868,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "nigerian_prince_reply",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -898,7 +898,7 @@ SMODS.EventStep {
 		}
 	end
 }
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "nigerian_prince_invested",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -929,7 +929,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "nigerian_prince_success",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -944,7 +944,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventScenario({
+HotPotato.EventScenario({
 	key = "nigerian_prince",
 	starting_step_key = "hpot_nigerian_prince_start",
 
@@ -966,7 +966,7 @@ local function get_food_joker()
 	end
 end
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "food_trade_1",
 	get_choices = function(self, event)
 		return {
@@ -981,7 +981,7 @@ SMODS.EventStep({
 		}
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "food_trade_2",
 	get_choices = function(self, event)
 		return {
@@ -1002,7 +1002,7 @@ SMODS.EventStep({
 		glut:say_stuff(5)
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "food_trade_3",
 	get_choices = function(self, event)
 		return {
@@ -1023,7 +1023,7 @@ SMODS.EventStep({
 		greedyb:say_stuff(5)
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "food_trade_4",
 	get_choices = function(self, event)
 		return {
@@ -1043,7 +1043,7 @@ SMODS.EventStep({
 		vagabond:say_stuff(5)
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "food_trade_choose",
 	get_choices = function(self, event)
 		return {
@@ -1110,7 +1110,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventScenario({
+HotPotato.EventScenario({
 	key = "food_trade",
 	starting_step_key = "hpot_food_trade_1",
 
@@ -1133,7 +1133,7 @@ SMODS.EventScenario({
 
 -- Mysterious Man
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "currency_exchange_1",
 
 	config = {
@@ -1206,7 +1206,7 @@ SMODS.EventStep({
 		event.display_lines(1, true)
 	end,
 })
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "currency_exchange_success",
 	get_choices = function(self, event)
 		return {
@@ -1234,7 +1234,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "currency_exchange",
 	starting_step_key = "hpot_currency_exchange_1",
 	hotpot_credits = {
@@ -1249,7 +1249,7 @@ SMODS.EventScenario {
 
 -- Sticker Master
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "sticker_master_1",
 
 	config = {
@@ -1303,7 +1303,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "sticker_success",
 	get_choices = function(self, event)
 		return {
@@ -1331,7 +1331,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "sticker_master_e",
 	starting_step_key = "hpot_sticker_master_1",
 	hotpot_credits = {
@@ -1347,7 +1347,7 @@ SMODS.EventScenario {
 
 -- Nuclear Explosion
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "nuclear_explosion_1",
 	get_choices = function(self, event)
 		return {
@@ -1384,7 +1384,7 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "nuclear_explosion",
 	starting_step_key = "hpot_nuclear_explosion_1",
 	hotpot_credits = {
@@ -1399,30 +1399,30 @@ SMODS.EventScenario {
 
 -- Job Application
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "hpot_job_application_1",
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hpot_general_move_on",
+			{
+				key = "hpot_general_move_on",
 				no_prefix = true,
-                button = function()
-                    event.start_step('hpot_job_application_procrastinate')
-                end,
-            },
-            {
-                key = "hpot_job_application_apply",
+				button = function()
+					event.start_step('hpot_job_application_procrastinate')
+				end,
+			},
+			{
+				key = "hpot_job_application_apply",
 				no_prefix = true,
-                button = function()
+				button = function()
 					local success = SMODS.pseudorandom_probability(event, "jobapplication", 1, 2, "jobapplication", true)
 					if success then
 						event.start_step('hpot_job_application_success')
 					else
 						event.start_step('hpot_job_application_failure')
 					end
-                end,
-            },
+				end,
+			},
 		}
 	end,
 	start = function(self, event)
@@ -1441,58 +1441,58 @@ SMODS.EventStep({
 	end,
 })
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "hpot_job_application_procrastinate",
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hpot_general_move_on",
+			{
+				key = "hpot_general_move_on",
 				no_prefix = true,
-                button = function()
+				button = function()
 					ease_plincoins(-G.GAME.plincoins)
-                    event.finish_scenario()
-                end,
-            }
+					event.finish_scenario()
+				end,
+			}
 		}
 	end,
 })
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "hpot_job_application_failure",
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hpot_general_move_on",
+			{
+				key = "hpot_general_move_on",
 				no_prefix = true,
-                button = function()
-                    event.finish_scenario()
-                end,
-            }
+				button = function()
+					event.finish_scenario()
+				end,
+			}
 		}
 	end,
 })
 
-SMODS.EventStep({
+HotPotato.EventStep({
 	key = "hpot_job_application_success",
 	hide_hand = true,
 	get_choices = function(self, event)
 		return {
-            {
-                key = "hpot_job_application_success",
+			{
+				key = "hpot_job_application_success",
 				no_prefix = true,
-                button = function()
+				button = function()
 					ease_plincoins(10)
 					G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
-                    event.finish_scenario()
-                end,
-            }
+					event.finish_scenario()
+				end,
+			}
 		}
 	end,
 })
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "job_application",
 	starting_step_key = "hpot_job_application_1",
 	hotpot_credits = {
@@ -1507,7 +1507,7 @@ SMODS.EventScenario {
 
 -- Virtual Sin Forgiveness
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "virtual_sin_forgiveness",
 	starting_step_key = "hpot_vsf_1",
 	hotpot_credits = {
@@ -1517,7 +1517,7 @@ SMODS.EventScenario {
 	}
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_vsf_1",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -1549,7 +1549,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_vsf_2",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -1579,7 +1579,7 @@ SMODS.EventStep {
 
 -- The Trolley Problem
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "trolley",
 	starting_step_key = "hpot_trolley_1",
 	hotpot_credits = {
@@ -1602,7 +1602,7 @@ function Card:can_sell_card(context)
 	return csc(self, context)
 end
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_trolley_1",
 	get_choices = function(self, event)
 		return {
@@ -1667,7 +1667,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_trolley_joker_killed",
 	get_choices = function(self, event)
 		return {
@@ -1700,7 +1700,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_trolley_cards_killed",
 	get_choices = function(self, event)
 		return {
@@ -1733,7 +1733,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_trolley_bribe",
 	get_choices = function(self, event)
 		return {
@@ -1772,7 +1772,7 @@ SMODS.EventStep {
 
 -- Mystery Box
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "mystery_box",
 	starting_step_key = "hpot_mb_1",
 	hotpot_credits = {
@@ -1781,7 +1781,7 @@ SMODS.EventScenario {
 		team = { "O!AP" }
 	},
 }
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "mb_1",
 	get_choices = function(self, event)
 		return {
@@ -1821,7 +1821,7 @@ SMODS.EventStep {
 	finish = function(self, event)
 	end
 }
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "mb_2",
 	get_choices = function(self, event)
 		return {
@@ -1842,7 +1842,7 @@ SMODS.EventStep {
 	finish = function(self, event)
 	end
 }
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "mb_3",
 	get_choices = function(self, event)
 		return {
@@ -1858,7 +1858,7 @@ SMODS.EventStep {
 	finish = function(self, event)
 	end
 }
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "mb_4",
 	get_choices = function(self, event)
 		return {
@@ -1877,7 +1877,7 @@ SMODS.EventStep {
 
 -- Refreshing
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "refreshing",
 	starting_step_key = "hpot_refreshing_1",
 	hotpot_credits = {
@@ -1887,7 +1887,7 @@ SMODS.EventScenario {
 	}
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_refreshing_1",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -1901,7 +1901,7 @@ SMODS.EventStep {
 				end,
 				func = function()
 					return G.GAME.dollars >= 5 and
-					#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+						#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				end
 			},
 			{
@@ -1929,7 +1929,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_refreshing_purchase",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -1943,7 +1943,7 @@ SMODS.EventStep {
 				end,
 				func = function()
 					return G.GAME.dollars >= 5 and
-					#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+						#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				end
 			},
 			{
@@ -1972,7 +1972,7 @@ SMODS.EventStep {
 
 -- Fishing
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "fishing",
 	starting_step_key = "hpot_fishing_1",
 	hotpot_credits = {
@@ -1982,7 +1982,7 @@ SMODS.EventScenario {
 	},
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_fishing_1",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2010,7 +2010,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_fishing_cast_line",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2040,7 +2040,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_fishing_waiting",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2070,7 +2070,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_fishing_bite",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2096,7 +2096,7 @@ SMODS.EventStep {
 
 -- trapped streamer
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "roffle",
 	starting_step_key = "hpot_roffle_start",
 	hotpot_credits = {
@@ -2106,7 +2106,7 @@ SMODS.EventScenario {
 	}
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_roffle_start",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2142,7 +2142,7 @@ SMODS.EventStep {
 	end,
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_roffle_looksinside",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2156,7 +2156,7 @@ SMODS.EventStep {
 	end,
 	finish = function(self, event)
 		if #G.jokers.cards < G.jokers.config.card_limit then
-			local joker = pseudorandom_element({"j_photograph", "j_hanging_chad"}, "photochad")
+			local joker = pseudorandom_element({ "j_photograph", "j_hanging_chad" }, "photochad")
 			SMODS.add_card({
 				key = joker,
 				area = G.jokers,
@@ -2165,7 +2165,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_roffle_spec_baron",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2184,7 +2184,7 @@ SMODS.EventStep {
 				area = G.jokers,
 			})
 			b.T.h = b.T.h * 0.8
-			poll_modification(1, b, nil, {BAD = 100})
+			poll_modification(1, b, nil, { BAD = 100 })
 			reforge_card(b, true)
 		end
 	end
@@ -2192,7 +2192,7 @@ SMODS.EventStep {
 
 -- md6 slot machine
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "bizzare_machine",
 	starting_step_key = "hpot_bizzare_machine_start",
 	hotpot_credits = {
@@ -2201,7 +2201,7 @@ SMODS.EventScenario {
 	},
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_bizzare_machine_start",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2231,7 +2231,7 @@ SMODS.EventStep {
 	end,
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_bizzare_machine_take_coin",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2251,7 +2251,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_bizzare_machine_insert_coin_success",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2275,7 +2275,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_bizzare_machine_insert_coin_failure",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2297,7 +2297,7 @@ SMODS.EventStep {
 
 -- Pissdrawer Tech Support
 
-SMODS.EventScenario {
+HotPotato.EventScenario {
 	key = "tech_support",
 	starting_step_key = "hpot_tech_support_start",
 	hotpot_credits = {
@@ -2306,7 +2306,7 @@ SMODS.EventScenario {
 	},
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_start",
 	hide_hand = true,
 	get_choices = function(self, event)
@@ -2377,7 +2377,7 @@ SMODS.EventStep {
 	end,
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_n",
 	hide_hand = true,
 	get_choices = function()
@@ -2391,7 +2391,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_eremel",
 	hide_hand = true,
 	get_choices = function()
@@ -2405,7 +2405,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_sdm_0",
 	hide_hand = true,
 	get_choices = function()
@@ -2419,7 +2419,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_bepis",
 	hide_hand = true,
 	get_choices = function()
@@ -2433,7 +2433,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_deadbeet",
 	hide_hand = true,
 	get_choices = function()
@@ -2447,7 +2447,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_fey",
 	hide_hand = true,
 	get_choices = function()
@@ -2461,7 +2461,7 @@ SMODS.EventStep {
 	end
 }
 
-SMODS.EventStep {
+HotPotato.EventStep {
 	key = "hpot_tech_support_ask_tacashumi",
 	hide_hand = true,
 	get_choices = function()

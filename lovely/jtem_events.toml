@@ -10,7 +10,7 @@ target = "functions/button_callbacks.lua"
 pattern = "G.STATE = G.STATES.BLIND_SELECT"
 position = 'after'
 payload = '''
-if (G.GAME.round_resets.blind_states.Small == "Defeated" and G.GAME.round_resets.blind_states.Big == "Upcoming" and (G.GAME.blind_on_deck == "Small" or G.GAME.blind_on_deck == "Big")) then
+if hpot_event_can_appear() then
     G.STATE = G.STATES.HOTPOT_EVENT_SELECT
 end
 '''

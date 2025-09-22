@@ -1,0 +1,87 @@
+-- I will probably move all this to the other event file eventually
+
+HotPotato.EventDomainPool = {
+    { key = "combat",      weight = 1,   colour = G.C.RED },
+    { key = "occurence",   weight = 1,   colour = G.C.PURPLE },
+    { key = "encounter",   weight = 0.7, colour = darken(G.C.RED, 0.2) },
+    { key = "transaction", weight = 0.5, colour = G.C.GREEN },
+    { key = "reward",      weight = 0.4, colour = G.C.HPOT_PINK or HEX("fe89d0") },
+    { key = "adventure",   weight = 0.2, colour = G.C.ORANGE },
+    { key = "wealth",      weight = 0.2, colour = G.C.MONEY },
+    { key = "escapade",    weight = 0.1, colour = HEX("A17CFF") },
+    { key = "respite",     weight = 0,   colour = G.C.GREEN },
+}
+
+HotPotato.EventDomains = {}
+
+for _, domain in ipairs(HotPotato.EventDomainPool) do
+    HotPotato.EventDomains[domain.key] = domain
+end
+
+function hpot_event_domain_add_to_pool(domain, args)
+    local args = args or {}
+    local domain = type(domain) == "string" and HotPotato.EventDomains[domain] or domain
+
+    if type(domain) ~= "table" then
+        return false
+    end
+
+    local add, pool_opts = true, {}
+
+    if type(domain.in_pool) == "function" then
+        add, pool_opts = domain:in_pool(args)
+        pool_opts = pool_opts or {}
+    end
+
+    return add and
+        (args.allow_duplicates or pool_opts.allow_duplicates or not (G.GAME.hpot_event_domain_choices_used or {})[domain.key])
+end
+
+function hpot_event_get_domain_pool(args)
+    local args = args or {}
+    local options = args.options or HotPotato.EventDomainPool
+    local pool = {}
+
+    for _, domain in ipairs(options) do
+        if hpot_event_domain_add_to_pool(domain, args) then
+            pool[#pool + 1] = type(domain) == "string" and HotPotato.EventDomains[domain] or domain
+        end
+    end
+
+    if #pool == 0 then
+        pool[#pool + 1] = HotPotato.EventDomains.occurence
+    end
+
+    return pool
+end
+
+function hpot_event_get_event_domain(args)
+    local args = args or {}
+    local options = hpot_event_get_domain_pool(args)
+
+    local total_weight = 0
+
+    for _, domain in ipairs(options) do
+        local weight = type(domain.get_weight) == "function" and domain:get_weight(args) or domain.weight or 1
+        total_weight = total_weight + weight
+    end
+
+    local domain_poll = pseudorandom(args.key or 'hpot_domain_generic')
+    local weight_i = 0
+    for _, domain in ipairs(options) do
+        local weight = type(domain.get_weight) == "function" and domain:get_weight(args) or domain.weight or 1
+        weight_i = weight_i + weight
+        if domain_poll > 1 - (weight_i / total_weight) then
+            return domain.key
+        end
+    end
+end
+
+function hpot_event_get_event_count(args)
+    return 3
+end
+
+function hpot_event_can_appear()
+    return true
+    --return (G.GAME.round_resets.blind_states.Small == "Defeated" and G.GAME.round_resets.blind_states.Big == "Upcoming" and (G.GAME.blind_on_deck == "Small" or G.GAME.blind_on_deck == "Big"))
+end
