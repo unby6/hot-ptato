@@ -357,7 +357,7 @@ function G.FUNCS.nursery_abort(e)
     G.GAME.active_breeding = false
     G.GAME.center_being_duped = nil
     G.GAME.loss_child_xmult = nil
-    SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = "Aborted!" }
+    SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = localize("k_hotpot_aborted") }
 end
 
 function G.FUNCS.can_nursery_abort(e)
@@ -379,7 +379,7 @@ function G.FUNCS.nursery_breed(e)
     mom:juice_up()
     SMODS.calculate_effect {
         card = mom,
-        message = "Impregnated!",
+        message = localize("k_hotpot_impregnated"),
     }
 end
 

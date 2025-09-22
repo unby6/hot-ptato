@@ -2093,6 +2093,14 @@ return {
                     "give {X:mult,C:white}X#1#{} Mult",
                 },
             },
+            j_hpot_social_credit = {
+                name = 'Social Credit',
+                text = {
+                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
+                    '{C:inactive}depending on your performance{}'
+                }
+            },
             j_hpot_local_newspaper = {
                 name = 'Local Newspaper',
                 text = {
@@ -4294,6 +4302,42 @@ return {
             },
         },
     },
+    InfoMenu = {
+        hotpot_training = {
+            name = "Joker Training",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "A mechanic inspired by {E:2,C:dark_edition}Umamusume{}, a",
+                            "Gacha Racing game about {C:attention}Anime Horse girls{}",
+                        },
+                        {
+                            "You can spend {C:blue}Joker Exchange{} to start {C:attention}Training{},",
+                            "giving the Joker a {C:attention}random{} set of stats",
+                        },
+                        {
+                            "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
+                            "the respective stats of the Joker if {C:green}Successful{}",
+                        },
+                    }
+                },
+                {
+                    name = "Page 2",
+                    text = {
+                        {
+                            "This is how you add another {C:attention}page",
+                            "to the {C:attention}info menu{}",
+                        },
+                        {
+                            "{E:2,C:dark_edition}Pretty cool right? :3{}"
+                        }
+                    }
+                },
+            },
+        },
+    },
     misc = {
         challenge_names = {
             c_hpot_amateur_magician = "Amateur Magician",
@@ -4396,6 +4440,7 @@ return {
             k_events = "Events",
             k_drank_ex = "Drunk!",
             k_unscored_ex = "Unscored!",
+            k_page = "Page",
 
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
@@ -4416,6 +4461,8 @@ return {
             hotpot_plinko_reset1 = "Cost reset in",
             hotpot_plinko_reset2_round = " round",
             hotpot_plinko_reset2_ante = " ante",
+
+            hotpot_first_time_disable = "Do not show again",
 
             hotpot_spark_points = "Joker Exchange",
             hotpot_delivery = "Deliveries",
@@ -4445,6 +4492,12 @@ return {
             hotpot_train_mood_up = "Mood Up",
             hotpot_train_mood_down = "Mood Down",
             hotpot_training_pack = "Training Pack",
+
+            hotpot_speed = "Speed",
+            hotpot_stamina = "Stamina",
+            hotpot_power = "Power",
+            hotpot_guts = "Guts",
+            hotpot_wits = "Wits",
 
             hotpot_exchange_title = "Top Up Your ͸s!",
             hotpot_exchange_note = "*Prices are rounded to the nearest integer when charging for simplicity",
@@ -4531,6 +4584,19 @@ return {
             k_oap_too_much_slop = "Too much slop...",
 
             k_plus_czech = "+1 Cheque",
+
+            k_hotpot_metal_detected = "Detected!",
+            k_hotpot_aborted = "Aborted!",
+            k_hotpot_impregnated = "Impregnated!",
+            k_hotpot_butcher_killed = "Killed.",
+            k_hotpot_added = "Added!",
+            k_hotpot_how = "HOW",
+            k_hotpot_lock_in = "Lock in.",
+            k_hotpot_reset_ex = "Reset!",
+            k_hotpot_spam = "Spam!",
+            k_hotpot_trigger_disabled = "Trigger Disabled!",
+            k_hotpot_trigger_enabled = "Trigger Enabled!",
+            
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

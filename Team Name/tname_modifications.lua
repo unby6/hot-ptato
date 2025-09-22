@@ -404,12 +404,12 @@ HPTN.Modification({
 			and SMODS.pseudorandom_probability(card, "hpot_dozing", 1, 3)
 		then
 			card.prevent_trigger = true
-			SMODS.calculate_effect({ message = "Trigger Disabled!" }, card)
+			SMODS.calculate_effect({ message = localize("k_hotpot_trigger_disabled") }, card)
 		end
 
 		if context.leaving_shop and card.prevent_trigger then
 			card.prevent_trigger = nil
-			SMODS.calculate_effect({ message = "Trigger Enabled!" }, card)
+			SMODS.calculate_effect({ message = localize("k_hotpot_trigger_enabled") }, card)
 		end
 	end,
 	hotpot_credits = {
@@ -457,7 +457,7 @@ HPTN.Modification({
 		if context.starting_shop and not (G.STATE == G.STATES.WHEEL or G.STATES.PLINKO) then
 			if card.ability.hpot_trig then
 				card.prevent_trigger = true
-				SMODS.calculate_effect({ message = "Trigger Disabled!" }, card)
+				SMODS.calculate_effect({ message = localize("k_hotpot_trigger_disabled") }, card)
 				card.ability.hpot_trig = nil
 			else
 				card.ability.hpot_trig = true
@@ -466,7 +466,7 @@ HPTN.Modification({
 
 		if context.end_of_round and card.prevent_trigger then
 			card.prevent_trigger = nil
-			SMODS.calculate_effect({ message = "Trigger Enabled!" }, card)
+			SMODS.calculate_effect({ message = localize("k_hotpot_trigger_enabled") }, card)
 		end
 
 		if context.retrigger_joker_check and not context.retrigger_joker and not card.prevent_trigger and context.other_card == card then
