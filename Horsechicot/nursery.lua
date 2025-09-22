@@ -401,7 +401,8 @@ function G.FUNCS.emplace_mother(e)
 end
 
 function G.FUNCS.can_emplace_mother(e)
-    if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 then
+    local jkr = G.jokers.highlighted and G.jokers.highlighted[1]
+    if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 or (jkr and jkr.ability.is_nursery_smalled) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -418,7 +419,8 @@ function G.FUNCS.emplace_father(e)
 end
 
 function G.FUNCS.can_emplace_father(e)
-    if #G.jokers.highlighted ~= 1 or #G.nursery_father.cards ~= 0 then
+    local jkr = G.jokers.highlighted and G.jokers.highlighted[1]
+    if #G.jokers.highlighted ~= 1 or #G.nursery_father.cards ~= 0 or (jkr and jkr.ability.is_nursery_smalled) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -428,7 +430,7 @@ function G.FUNCS.can_emplace_father(e)
 end
 
 function G.FUNCS.can_nursery_breed(e)
-    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.GAME.active_breeding then
+    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.GAME.active_breeding and not (#G.nursery_child.cards == 1) then
         e.config.colour = G.C.HPOT_PINK
         e.config.button = "nursery_breed"
     else
@@ -442,8 +444,8 @@ local old = Card.highlight
 function Card:highlight(is)
     if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) or (G.nursery_child and self.area == G.nursery_child) then
         if #G.jokers.cards >= G.jokers.config.card_limit then
-            alert_no_space(self, G.jokers)
-            return true
+            G.FUNCS.check_for_buy_space(self)
+            return
         else
             local area = self.area
             area:remove_card(self)
