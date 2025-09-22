@@ -4121,6 +4121,42 @@ return {
             },
         },
     },
+    InfoMenu = {
+        hotpot_training = {
+            name = "Joker Training",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "A mechanic inspired by {E:2,C:dark_edition}Umamusume{}, a",
+                            "Gacha Racing game about {C:attention}Anime Horse girls{}",
+                        },
+                        {
+                            "You can spend {C:blue}Joker Exchange{} to start {C:attention}Training{},",
+                            "giving the Joker a {C:attention}random{} set of stats",
+                        },
+                        {
+                            "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
+                            "the respective stats of the Joker if {C:green}Successful{}",
+                        },
+                    }
+                },
+                {
+                    name = "Page 2",
+                    text = {
+                        {
+                            "This is how you add another {C:attention}page",
+                            "to the {C:attention}info menu{}",
+                        },
+                        {
+                            "{E:2,C:dark_edition}Pretty cool right? :3{}"
+                        }
+                    }
+                },
+            },
+        },
+    },
     misc = {
         challenge_names = {
             c_hpot_amateur_magician = "Amateur Magician",
@@ -4223,6 +4259,7 @@ return {
             k_events = "Events",
             k_drank_ex = "Drunk!",
             k_unscored_ex = "Unscored!",
+            k_page = "Page",
 
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
@@ -4243,6 +4280,8 @@ return {
             hotpot_plinko_reset1 = "Cost reset in",
             hotpot_plinko_reset2_round = " round",
             hotpot_plinko_reset2_ante = " ante",
+
+            hotpot_first_time_disable = "Do not show again",
 
             hotpot_spark_points = "Joker Exchange",
             hotpot_delivery = "Deliveries",
@@ -4272,6 +4311,12 @@ return {
             hotpot_train_mood_up = "Mood Up",
             hotpot_train_mood_down = "Mood Down",
             hotpot_training_pack = "Training Pack",
+
+            hotpot_speed = "Speed",
+            hotpot_stamina = "Stamina",
+            hotpot_power = "Power",
+            hotpot_guts = "Guts",
+            hotpot_wits = "Wits",
 
             hotpot_exchange_title = "Top Up Your ͸s!",
             hotpot_exchange_note = "*Prices are rounded to the nearest integer when charging for simplicity",
