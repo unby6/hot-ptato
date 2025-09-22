@@ -31,7 +31,7 @@ SMODS.Joker {
             --make luchador
             if should_trigger then
                 return {
-                    message = "Added!",
+                    message = localize("k_hotpot_added"),
                     func = function()
                         G.E_MANAGER:add_event(Event {
                             func = function()

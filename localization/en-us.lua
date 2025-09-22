@@ -4530,6 +4530,19 @@ return {
             k_oap_too_much_slop = "Too much slop...",
 
             k_plus_czech = "+1 Cheque",
+
+            k_hotpot_metal_detected = "Detected!",
+            k_hotpot_aborted = "Aborted!",
+            k_hotpot_impregnated = "Impregnated!",
+            k_hotpot_butcher_killed = "Killed.",
+            k_hotpot_added = "Added!",
+            k_hotpot_how = "HOW",
+            k_hotpot_lock_in = "Lock in.",
+            k_hotpot_reset_ex = "Reset!",
+            k_hotpot_spam = "Spam!",
+            k_hotpot_trigger_disabled = "Trigger Disabled!",
+            k_hotpot_trigger_enabled = "Trigger Enabled!",
+            
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
