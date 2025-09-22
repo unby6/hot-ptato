@@ -4542,7 +4542,9 @@ return {
             k_hotpot_spam = "Spam!",
             k_hotpot_trigger_disabled = "Trigger Disabled!",
             k_hotpot_trigger_enabled = "Trigger Enabled!",
-            
+            k_hotpot_goodsocial = "yo phone linging",
+            k_hotpot_badsocial = "oh my god bruh",
+
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

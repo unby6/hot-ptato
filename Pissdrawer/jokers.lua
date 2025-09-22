@@ -164,6 +164,11 @@ function win_game()
     return ret
 end
 
+SMODS.Sound {
+    key = 'gong',
+    path = 'sfx_asiangong.ogg'
+}
+
 --#endregion
 
 SMODS.Joker {
@@ -215,12 +220,14 @@ SMODS.Joker {
             hpt.social_credit = hpt.social_credit + hpt.social_credit_max
             if hpt.social_credit < 0 then
                 return {
-                    message = 'oh my god bruh',
-                    colour = G.C.RED
+                    message = localize("k_hotpot_badsocial"),
+                    colour = G.C.RED,
+                    sound = 'hpot_gong'
                 }
             else
                 return {
-                    message = 'yo phone linging'
+                    message = localize("k_hotpot_goodsocial"),
+                    sound = 'hpot_gong'
                 }
             end
 
