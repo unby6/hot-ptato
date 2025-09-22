@@ -9,5 +9,4 @@ quick_push.sh
 /.vscode
 .luarc.json
 .luarc.json
-.ps1
 *.ps1
