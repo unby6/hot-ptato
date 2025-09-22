@@ -2276,7 +2276,7 @@ return {
             v_hpot_domain_extrapolation = {
                 name = "Domain Extrapolation",
                 text = {
-                    "{C:attention}Events{} appear after {C:attention}Boss Blinds{}"
+                    "{C:attention}Events{} appear after {C:attention}Big Blinds{}"
                 }
             },
             v_hpot_domain_expansion = {

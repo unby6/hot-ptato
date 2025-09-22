@@ -106,8 +106,20 @@ HotPotato.EventStep = SMODS.GameObject:extend({
 	inject = function() end,
 })
 
+---@alias EventDomain
+---| 'combat'
+---| 'occurence'
+---| 'encounter'
+---| 'transaction'
+---| 'reward'
+---| 'adventure'
+---| 'wealth'
+---| 'escapade'
+---| 'respite'
+
 HotPotato.EventScenarios = {}
 ---@class HotPotato.EventScenario: SMODS.GameObject
+---@field domain? EventDomain|string Domain pool the scenario belongs to.
 ---@field in_pool? fun(self: HotPotato.EventScenario|table): boolean Determines if this scenario can be chosen.
 ---@field get_weight? fun(self: HotPotato.EventScenario|table): number Determines the weight of the scenario being chosen.
 ---@field weight? number Used if `get_weight` isn't specified.
@@ -126,7 +138,7 @@ HotPotato.EventScenario = SMODS.GameObject:extend({
 	process_loc_text = function(self)
 		SMODS.process_loc_text(G.localization.descriptions.EventScenarios, self.key:lower(), self.loc_txt)
 	end,
-
+	domain = "occurence",
 	weight = 5,
 	in_pool = function(self)
 		return true
@@ -153,7 +165,7 @@ HotPotato.EventScenario = SMODS.GameObject:extend({
 	pos = { x = 0, y = 0, },
 
 	-- Events basically added by me so..
-	-- Haya my goat <3
+    -- Haya my goat <3
 	hotpot_credits = {
 		idea = { "SleepyG11" },
 		code = { "SleepyG11", "Haya" },
@@ -612,7 +624,7 @@ end
 
 function hpot_event_start_scenario()
 	stop_use()
-	local scenario_key = get_next_hpot_event()
+	local scenario_key = get_next_hpot_event(G.GAME.hpot_event_domain)
 	G.GAME.round_resets.hpot_event_encountered = true
 	local scenario = HotPotato.EventScenarios[scenario_key]
 	G.GAME.hpot_event_scenario_data = {}
@@ -641,7 +653,8 @@ function hpot_event_start_scenario()
 	G.hpot_event_ui_choices_area = G.hpot_event_ui:get_UIE_by_ID("choices_area")
 
 	G.hpot_event = {
-		scenario = scenario,
+        scenario = scenario,
+		domain = G.GAME.hpot_event_domain,
 
 		current_step = nil,
 		previous_step = nil,
@@ -813,7 +826,8 @@ function hpot_event_end_scenario()
 					trigger = "immediate",
 					func = function()
 						G.GAME.hpot_event_domain_choices_used = {}
-						G.GAME.hpot_event_domain_choices = {}
+                        G.GAME.hpot_event_domain_choices = {}
+						G.GAME.hpot_event_domain = nil
 
 						G.STATE = G.STATES.BLIND_SELECT
 						G.STATE_COMPLETE = false
@@ -1007,6 +1021,7 @@ end
 function G.FUNCS.hpot_event_select(e)
 	stop_use()
 	if G.hpot_event_select then
+		local domain = e.config.ref_table[e.config.ref_value]
 		G.GAME.facing_hpot_event = true
 		play_sound("timpani", 0.8)
 		play_sound("generic1")
@@ -1038,7 +1053,8 @@ function G.FUNCS.hpot_event_select(e)
 					func = function()
 						G.E_MANAGER:add_event(Event({
 							trigger = "immediate",
-							func = function()
+                            func = function()
+                                G.GAME.hpot_event_domain = domain
 								G.STATE = G.STATES.HOTPOT_EVENT
 								G.STATE_COMPLETE = false
 								return true
@@ -1285,7 +1301,7 @@ end
 
 --
 
-function get_next_hpot_event()
+function get_next_hpot_event(domain)
 	if G.GAME.hpot_event_scenario_forced_key then
 		local result = G.GAME.hpot_event_scenario_forced_key
 		G.GAME.hpot_event_scenario_forced_key = nil
@@ -1293,10 +1309,13 @@ function get_next_hpot_event()
 	end
 	local eligible_events = {}
 	local total_weight = 0
-	for key, event in pairs(HotPotato.EventScenarios) do
-		local weight = event:get_weight()
-		if weight > 0 and event:in_pool() then
-			eligible_events[key] = event
+    for key, event in pairs(HotPotato.EventScenarios) do
+        local event_domain = event.domain or "occurence"
+		if domain and event_domain == domain then
+			local weight = event:get_weight()
+			if weight > 0 and event:in_pool() then
+				eligible_events[key] = event
+			end
 		end
 	end
 

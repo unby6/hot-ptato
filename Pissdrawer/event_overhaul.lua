@@ -1,5 +1,4 @@
--- I will probably move all this to the other event file eventually
-
+-- TODO: maybe make these an SMODS object.
 HotPotato.EventDomainPool = {
     { key = "combat",      weight = 1,   colour = G.C.RED },
     { key = "occurence",   weight = 1,   colour = G.C.PURPLE },
@@ -34,8 +33,11 @@ function hpot_event_domain_add_to_pool(domain, args)
         pool_opts = pool_opts or {}
     end
 
+    local allow_duplicates = (not args.ignore_showman and SMODS.showman("hpot_event_" .. domain.key)) or
+        args.allow_duplicates or pool_opts.allow_duplicates
+
     return add and
-        (args.allow_duplicates or pool_opts.allow_duplicates or not (G.GAME.hpot_event_domain_choices_used or {})[domain.key])
+        (allow_duplicates or not (G.GAME.hpot_event_domain_choices_used or {})[domain.key])
 end
 
 function hpot_event_get_domain_pool(args)
@@ -104,10 +106,10 @@ function hpot_event_can_appear(blind_prototype)
     if blind_prototype.key == "bl_big" and G.GAME.hpot_event_enable_big_blind then
         return true
     end
-    if blind_prototype.boss and G.GAME.hpot_event_enable_boss_blind then
+    if blind_prototype.key == "bl_small" and G.GAME.hpot_event_enable_small_blind then
         return true
     end
-    return blind_prototype.key == "bl_small"
+    return not not blind_prototype.boss
 end
 
 --- Event Cards
@@ -115,8 +117,8 @@ end
 -- Local Newspaper
 SMODS.Joker {
     key = 'local_newspaper',
-    rarity = 1,
-    cost = 5,
+    rarity = 2,
+    cost = 6,
     atlas = "pdr_joker",
     pos = { x = 0, y = 0 },
     hotpot_credits = {
@@ -130,8 +132,8 @@ SMODS.Joker {
 -- Ruan Mei
 SMODS.Joker {
     key = 'ruan_mei',
-    rarity = 1,
-    cost = 5,
+    rarity = 3,
+    cost = 8,
     atlas = "pdr_joker",
     pos = { x = 0, y = 0 },
     hotpot_credits = {
@@ -145,6 +147,7 @@ SMODS.Joker {
 -- Domain Extrapolation
 SMODS.Voucher {
     key = 'domain_extrapolation',
+    pos = { x = 7, y = 0 },
     hotpot_credits = {
         --art = { 'SDM_0' },
         code = { "N'" },
@@ -152,7 +155,7 @@ SMODS.Voucher {
         team = { 'Pissdrawer' }
     },
     redeem = function(self, voucher)
-        G.GAME.hpot_event_enable_boss_blind = true
+        G.GAME.hpot_event_enable_big_blind = true
     end
 }
 
@@ -160,6 +163,7 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'domain_expansion',
     requires = { "v_hpot_domain_extrapolation" },
+    pos = { x = 7, y = 0 },
     hotpot_credits = {
         --art = { 'SDM_0' },
         code = { "N'" },
