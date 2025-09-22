@@ -2115,6 +2115,13 @@ return {
                     'appear more frequently'
                 }
             },
+            j_hpot_goblin_tinkerer = {
+                name = 'Goblin Tinkerer',
+                text = {
+                    '{C:attention}Reforging{} is available',
+                    'and refunded by {C:attention}#1#%{}'
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {

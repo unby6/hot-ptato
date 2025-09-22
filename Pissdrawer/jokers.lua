@@ -278,3 +278,43 @@ SMODS.Joker {
         end
     end
 }
+
+SMODS.Joker {
+    key = 'goblin_tinkerer',
+    rarity = 2,
+    cost = 6,
+    atlas = "pdr_joker",
+    pos = { x = 0, y = 0 },
+    config = { extra = 2 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { math.floor(100 / card.ability.extra) } }
+    end,
+    hotpot_credits = {
+        art = { 'SDM_0' },
+        code = { 'SDM_0' },
+        idea = { 'SDM_0' },
+        team = { 'Pissdrawer' }
+    },
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.goblin_acquired = true
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.goblin_acquired = nil
+    end,
+    calculate = function(self, card, context)
+        if context.reforging and not context.free then
+            if context.currency == "DOLLAR" then
+                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability.extra))
+            elseif context.currency == "CREDIT" then
+                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) / card.ability.extra))
+            elseif context.currency == "SPARKLE" then
+                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) / card.ability.extra))
+            elseif context.currency == "PLINCOIN" then
+                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) / card.ability.extra))
+            elseif context.currency == "CRYPTOCURRENCY" then
+                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) / card.ability.extra))
+            end
+            card:juice_up()
+        end
+    end,
+}
