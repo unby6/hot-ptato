@@ -119,7 +119,7 @@ target = '''=[SMODS _ "src/ui.lua"]'''
 pattern = '''{n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, '''
 position = 'before'
 payload = '''
-args.hp_misc_elements and args.hp_misc_elements() or nil, 
+args.hp_misc_elements and args.hp_misc_elements() or nil,
 '''
 match_indent = true
 
@@ -165,9 +165,9 @@ if self.ability.hpot_train_increase and self.highlighted and self.ability.consum
 end
 if self.ability.set == "Joker" and not self.ability.hp_jtem_mood and G.jokers and self.area == G.jokers then
   self.children.hpot_train_button = UIBox{
-    definition = hpot_joker_train_button_definition(self), 
+    definition = hpot_joker_train_button_definition(self),
     config = {
-      align = "bmi", 
+      align = "bmi",
       offset ={x=0,y=0.7},
       parent = self
     }
@@ -199,7 +199,7 @@ pattern = '''if first_pass and not (_c.set == 'Edition') and badges then'''
 position = 'before'
 payload = '''
 if first_pass and card and card.hpot_event_key then
-  local event = SMODS.EventScenarios[card.hpot_event_key]
+  local event = HotPotato.EventScenarios[card.hpot_event_key]
   local t = { key = card.hpot_event_key, set = 'EventScenarios' }
   local res = {}
   if event.collection_loc_vars and type(event.collection_loc_vars) == 'function' then
@@ -235,7 +235,7 @@ position = 'before'
 payload = '''
 if card.hpot_event_key then
   badges[#badges + 1] = create_badge(localize("hpot_event", "labels"), SMODS.Gradients["hpot_event"])
-  SMODS.create_mod_badges(SMODS.EventScenarios[card.hpot_event_key], badges)
+  SMODS.create_mod_badges(HotPotato.EventScenarios[card.hpot_event_key], badges)
 end
 '''
 match_indent = true
