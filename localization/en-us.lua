@@ -4504,6 +4504,7 @@ return {
             k_confirm = "Confirm",
             k_exit = "Exit",
             k_apply = "Apply",
+            k_teams = 'Teams',
 
             hpot_diy_hand_played = "When Hand is Played",
             hpot_diy_tarot_sold = "When a Tarot Card is sold",

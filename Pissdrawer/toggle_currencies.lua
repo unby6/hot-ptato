@@ -41,7 +41,7 @@ function G.FUNCS.toggle_currencies()
                         blind_chips = G.HUD_blind:get_UIE_by_ID('HUD_blind_count'),
                         blind_spacer = G.HUD:get_UIE_by_ID('blind_spacer')
                     }
-                    G.GAME.blind:set_blind(G.GAME.round_resets.blind)
+                    if G.GAME.blind.in_blind then G.GAME.blind:set_blind(G.GAME.round_resets.blind) end
                     return true
                 end
             }))
