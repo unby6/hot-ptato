@@ -441,9 +441,14 @@ end
 local old = Card.highlight
 function Card:highlight(is)
     if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) or (G.nursery_child and self.area == G.nursery_child) then
-        local area = self.area
-        area:remove_card(self)
-        G.jokers:emplace(self)
+        if #G.jokers.cards >= G.jokers.config.card_limit then
+            alert_no_space(self, G.jokers)
+            return true
+        else
+            local area = self.area
+            area:remove_card(self)
+            G.jokers:emplace(self)
+        end
     elseif not (G.nursery_mother and self.area == G.nursery_mother and G.GAME.active_breeding) then
         old(self, is)
     end
@@ -460,8 +465,8 @@ function G.FUNCS.go_to_menu(e)
 end
 
 --properly cleanup when new running
-local old = G.start_run
-function G.start_run(...)
+local old = Game.start_run
+function Game.start_run(...)
     if G.nursery then
         G.nursery:remove()
         G.nursery = nil

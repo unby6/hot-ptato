@@ -44,7 +44,9 @@ local c_u_h_ref = create_UIBox_HUD
 function create_UIBox_HUD()
 	local nodes = c_u_h_ref()
 
+	--again, why are u hooking and not patching like everyone else??? - fey
 	-- whole lot of padding here
+	if Toggle_currencies then
 	local contents = nodes.nodes[1].nodes[1].nodes
 
 	local scale = 0.4
@@ -122,6 +124,6 @@ function create_UIBox_HUD()
 				},
 			}
 		})
-
+	end
 	return nodes
 end

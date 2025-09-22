@@ -6,11 +6,12 @@ SMODS.Joker {
     pos = { x = 6, y = 1 },
     config = {
         extra = {
-            chips = 20
+            chips = 20,
+            joy_hanafuda_count = 0
         }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.chips, card.ability.extra.chips * (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Hanafuda or 0) } }
+        return { vars = { card.ability.extra.chips, card.ability.extra.chips * ((G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Hanafuda or 0) + card.ability.extra.joy_hanafuda_count) } }
     end,
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == "Hanafuda" then
@@ -19,10 +20,13 @@ SMODS.Joker {
                 colour = G.C.CHIPS
             }
         end
+        if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, "m_joy_hanafuda") then
+            card.ability.extra.joy_hanafuda_count = card.ability.extra.joy_hanafuda_count + 1
+        end
         if context.joker_main then
             return {
                 chips = card.ability.extra.chips *
-                    (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Hanafuda or 0)
+                    ((G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Hanafuda or 0) + card.ability.extra.joy_hanafuda_count)
             }
         end
     end,

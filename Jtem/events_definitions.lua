@@ -2294,3 +2294,183 @@ SMODS.EventStep {
 		G.GAME.abno_choice_music = nil
 	end
 }
+
+-- Pissdrawer Tech Support
+
+SMODS.EventScenario {
+	key = "tech_support",
+	starting_step_key = "hpot_tech_support_start",
+	hotpot_credits = {
+		code = { "SDM_0" },
+		team = { "Pissdrawer" },
+	},
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_start",
+	hide_hand = true,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "hpot_tech_support_ask_n",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_n")
+				end
+			},
+			{
+				key = "hpot_tech_support_ask_eremel",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_eremel")
+				end
+			},
+			{
+				key = "hpot_tech_support_ask_sdm_0",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_sdm_0")
+				end
+			},
+			{
+				key = "hpot_tech_support_ask_bepis",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_bepis")
+				end
+			},
+			{
+				key = "hpot_tech_support_ask_deadbeet",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_deadbeet")
+				end
+			},
+			{
+				key = "hpot_tech_support_ask_fey",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_fey")
+				end
+			},
+			{
+				key = "hpot_tech_support_ask_tacashumi",
+				no_prefix = true,
+				button = function()
+					event.start_step("hpot_tech_support_ask_tacashumi")
+				end
+			},
+		}
+	end,
+	start = function(self, event)
+		local yap = Character("j_hpot_yapper")
+		yap.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				yap.T.scale = yap.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_n",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_eremel",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_sdm_0",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_bepis",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_deadbeet",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_fey",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+SMODS.EventStep {
+	key = "hpot_tech_support_ask_tacashumi",
+	hide_hand = true,
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}

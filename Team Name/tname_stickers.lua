@@ -209,16 +209,17 @@ SMODS.Sticker({
 	rate = 0.05,
 	key = "spores",
 	badge_colour = HEX("4bc292"),
-	loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(card, 1, 2, "hpot_spores")
 		return {
-			vars = { (G.GAME.probabilities.normal or 1) },
+			vars = { numerator, demonimator },
 		}
 	end,
 	calculate = function(self, card, context)
 		if
 			context.joker_main
 			or (context.main_scoring and context.cardarea == G.hand)
-				and pseudorandom("hpot_spores") < G.GAME.probabilities.normal / 2
+				and SMODS.pseudorandom_probability(card, "hpot_spores", 1, 2)
 		then
 			local r = nil
 			local l = nil
@@ -287,13 +288,14 @@ SMODS.Sticker({
 	rate = 0.05,
 	key = "nuke",
 	badge_colour = HEX("a2615e"),
-	loc_vars = function(self, info_queue, center)
+	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(card, 1, 6, "hpot_nuke")
 		return {
-			vars = { (G.GAME.probabilities.normal or 1) },
+			vars = { numerator, demonimator },
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.setting_blind and pseudorandom("tname_nuke") < G.GAME.probabilities.normal / 6 then
+		if context.setting_blind and SMODS.pseudorandom_probability(card, "hpot_nuke", 1, 6) then
 			local destroy_tab = {}
 
 			local area = card.area
@@ -480,16 +482,17 @@ SMODS.Sticker({
 	rate = 0.05,
 	key = "uranium",
 	badge_colour = HEX("85a6ac"),
-	loc_vars = function(self, info_queue, center)
+	loc_vars = function(self, info_queue, card)
+		local numerator, demonimator = SMODS.get_probability_vars(card, 1, 4, "hpot_uranium")
 		return {
-			vars = { (G.GAME.probabilities.normal or 1) },
+			vars = { numerator, demonimator },
 		}
 	end,
 	calculate = function(self, card, context)
 		if
 			context.joker_main
 			or (context.main_scoring and (context.cardarea == G.play or context.cardarea == G.hand))
-				and pseudorandom("hpot_uranium") < G.GAME.probabilities.normal / 4
+				and SMODS.pseudorandom_probability(card, "hpot_uranium", 1, 4)
 		then
 			local r = nil
 			local l = nil

@@ -5,7 +5,10 @@ SMODS.Joker:take_ownership("j_joker", {
 	rarity = "hpot_creditable",
 	cost = 0,
 	loc_txt = { name = "Joker", text = { "{C:attention}Revives{} one character" } },
-	loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
+		if JoyousSpring and not JoyousSpring.config.disable_tooltips and not card.fake_card and not card.debuff then
+            info_queue[#info_queue + 1] = { set = "Other", key = "joy_tooltip_revive" }
+        end
 		return { vars = {} }
 	end,
 	pools = {
@@ -13,6 +16,13 @@ SMODS.Joker:take_ownership("j_joker", {
 	},
 	config = {},
 	calculate = function(self, card, context)
+		if JoyousSpring and context.setting_blind then
+			local revived_card = JoyousSpring.revive_pseudorandom({}, 'hpot_revive', true)
+			if revived_card then
+				return { message = localize("k_joy_revive") }
+			end
+		end
+
 		local ck = math.random(56, 98)
 		if context.end_of_round and context.game_over and context.main_eval then
 			G.E_MANAGER:add_event(Event({

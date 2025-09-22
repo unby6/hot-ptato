@@ -10,7 +10,7 @@
 -- dont mind the G.GAME ones please i was to lazy to change them to use Wheel{}
 Wheel = {
   STATE = {
-    SPUN = nil,  -- is spinning 
+    SPUN = nil,  -- is spinning
     IDLE = true  -- is idle
   },
   should_spin = true, -- should it spin?
@@ -34,11 +34,11 @@ G.FUNCS.show_wheel = function(e) -- taken from plinko files
   stop_use()
 
   hide_shop()
- 
+
   G.STATE = G.STATES.WHEEL
   G.STATE_COMPLETE = false
 
-  
+
 end
 
 --copy pasted plinko
@@ -81,7 +81,7 @@ function G.UIDEF.wheel()
         {card_limit = 1, type = "consumeable", highlight_limit = 0}
     )
 
-    local use_ante = Wheel.ante_left > 0 
+    local use_ante = Wheel.ante_left > 0
     local play_dollars = not not G.GAME.plinko_dollars_cost
 
     local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
@@ -138,9 +138,9 @@ function G.UIDEF.wheel()
                         }} or nil,]]
 
 
-                        -- 
+                        --
                         -- PLINKO INFO
-                        -- 
+                        --
 
                         {n=G.UIT.R, config={align = "cm", id="wheel_info", minw = 2.8, r=0.15, minh = 1.3 }, nodes = {
                           {n=G.UIT.C, config={align = "cm", }, nodes={
@@ -176,7 +176,7 @@ function G.UIDEF.wheel()
 
                     {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2}, nodes={
                       {n=G.UIT.R, config={id = "wheeling_area", align = "cm", colour = G.C.BLACK, }, nodes={
-                        
+
                             {n=G.UIT.C, config={id = "wheeling_area", align = "cm", colour = G.C.BLACK, padding = 0., minw = 2.3, minh = 1.9}, nodes={
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area, align = "cl"}}}},
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area4, align = "cl"}}}},
@@ -195,14 +195,14 @@ function G.UIDEF.wheel()
                                 {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.wheel_area9, align = "cl"}}}},
 
                             }},
-                            
+
 
                       }},
                     }},
 
                 }
               },
-              
+
               }, false)
         }}
     return t
@@ -269,7 +269,7 @@ SMODS.Arrow = SMODS.Joker:extend({ -- the arrow thingy
 
 
 
-for i = 1, 10 do 
+for i = 1, 10 do
 SMODS.Arrow({
 	key = "the_arrow_" .. i,
 	atlas = "tname_wheels",
@@ -285,7 +285,7 @@ SMODS.Arrow({
 end
 
 -- was from JoyousSpring (originally)
-local cardarea_align_cards_ref = CardArea.align_cards  -- <- i dont understand how i made this work either 
+local cardarea_align_cards_ref = CardArea.align_cards  -- <- i dont understand how i made this work either
 function CardArea:align_cards()
 	cardarea_align_cards_ref(self)
 	if G.GAME.should_rotate then
@@ -330,7 +330,7 @@ function CardArea:align_cards()
 										wheel_reward("reward_8")
 									end
                 end
-										
+
 									G.GAME.rotating = nil
 									end
 								end
@@ -470,7 +470,9 @@ function generate_wheel_rewards(_area)
 		G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
 	else
 		G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
+    G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon
 		G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+    G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
 	end
 
 	local rarities = {}
@@ -512,7 +514,7 @@ function grant_wheel_reward(_area, reward_num)
     func = function()
       if first_time then
         first_time = false
-        
+
         remove_wheel_rewards()
 
         G.CONTROLLER:snap_to {node = _area.cards[1]}
@@ -590,7 +592,7 @@ G.FUNCS.wheel_spin = function(e)
   else
     Wheel.cost_up = Wheel.cost_up - 1
   end
-  
+
   spin_for_real_this_time(3)
 
 end
@@ -600,7 +602,7 @@ function spin_for_real_this_time(t)
     t = 3
   end
 	if Wheel.a >= t then
-    set_wheel()  -- set the wheel correctly 
+    set_wheel()  -- set the wheel correctly
 		spin_wheel() -- spin it
     Wheel.should_spin = nil -- its spining so it shouldnt spin
 		Wheel.a = 0 -- set to 0 to restart
@@ -639,7 +641,7 @@ function wheel_reset_cost()
 
 end
 
-function wheel_ante_up(mod) -- check if ante went up 
+function wheel_ante_up(mod) -- check if ante went up
   Wheel.ante_left = math.max(0, Wheel.ante_left - mod)
 
   if Wheel.ante_left <= 0 then
@@ -661,7 +663,7 @@ end
 -- Clicked back to shop
 G.FUNCS.hide_wheel = function(e)
 
-  SMODS.destroy_cards(G.wheel_area5.cards) -- destroy arrow 
+  SMODS.destroy_cards(G.wheel_area5.cards) -- destroy arrow
 
   stop_use()
 
@@ -678,7 +680,7 @@ G.FUNCS.hide_wheel = function(e)
 
 end
 
---idk 
+--idk
 local ca_dref = CardArea.draw
 function CardArea:draw(...)
 	if self == G.hand and (G.STATE == G.STATES.WHEEL) then

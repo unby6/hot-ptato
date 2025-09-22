@@ -153,7 +153,7 @@ return {
                     "from {C:attention}#1#{} selected card"
                 }
             },
-            
+
             c_hpot_iris_1 = {
                 name = "Bridge (Iris)",
                 text = {
@@ -273,7 +273,7 @@ return {
                     "to {C:attention}#1#{} selected card"
                 }
             },
-            
+
             c_hpot_chrysanthemum_1 = {
                 name = "Sake (Chrysanthemum)",
                 text = {
@@ -438,6 +438,12 @@ return {
                     "a hand is leveled up"
                 }
             },
+            b_hpot_ublockdeck = {
+                name = 'uBlock Origin',
+                text = {
+                    'Remove {C:red}Ads'
+                }
+            }
         },
         bottlecap = {
             c_hpot_cap_money = {
@@ -606,7 +612,7 @@ return {
             c_hpot_cap_tname_consumables = {
                 name = 'Team Name Consumables',
                 text = {
-                    "Fills your consumable", 
+                    "Fills your consumable",
                     "slots with",
                     "{C:attention}#1#{} Cards",
                     "{C:inactive}(Must have room)"
@@ -982,7 +988,7 @@ return {
                 text = {
                     "The next {C:attention}#1#{} used consumables",
                     "can affect {C:attention}#2#{} extra card",
-                    "(if applicable)"
+                    "{C:inactive}(if applicable){}"
                 }
             },
             j_hpot_magic_factory = {
@@ -1304,8 +1310,8 @@ return {
             j_hpot_credits_ex = {
                 name = "Credits EX",
                 text = {
-                    {"{X:mult,C:white}X#1#{} Mult"},
-                    {"{C:purple}+#2#c.{} for each hand played this round."}
+                    { "{X:mult,C:white}X#1#{} Mult" },
+                    { "{C:purple}+#2#c.{} for each hand played this round." }
                 }
             },
             j_hpot_jankman = {
@@ -1327,8 +1333,17 @@ return {
                 name = "Sunset",
                 text = {
                     "If played hand contains a card with {C:attention}#1#{} suit,",
-                    "Create a {C:red}Hanafuda{} Card.",
-                    "{C:inactive}(Only works once per round, currently #2#.)"
+                    "Create a {C:red}Hanafuda{} Card",
+                    "{C:inactive}(Only works once per round, currently #2#)"
+                }
+            },
+            j_hpot_sunset_joy = {
+                name = "Sunset",
+                text = {
+                    "If played hand contains a card with {C:attention}#1#{} suit,",
+                    "Create a {C:red}Hanafuda{} Card and",
+                    "{C:attention}1{} {C:joy_normal}\"Flower Cardian\"{}",
+                    "{C:inactive}(Only works once per round, currently #2#)"
                 }
             },
             j_hpot_nxkoo_joker = {
@@ -2062,7 +2077,44 @@ return {
                     'whenever another {C:attention}Food Joker{}',
                     'is {C:red}destroyed'
                 }
-            }
+            },
+            j_hpot_minimum_prize_guarantee = {
+                name = 'Minimum Prize Guarantee',
+                text = {
+                    'Winning a {C:dark_edition}Bad{} {C:attention}Bottlecap{} in {C:hpot_plincoin}Plinko{}',
+                    'creates a {C:hpot_czech}Cheque{} card',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            j_hpot_kindergarten = {
+                name = 'Kindergarten',
+                text = {
+                    "{C:attention}Children{} each",
+                    "give {X:mult,C:white}X#1#{} Mult",
+                },
+            },
+            j_hpot_social_credit = {
+                name = 'Social Credit',
+                text = {
+                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
+                    '{C:inactive}depending on your performance{}'
+                }
+            },
+            j_hpot_local_newspaper = {
+                name = 'Local Newspaper',
+                text = {
+                    'Expands choices by {C:attention}1{}',
+                    'during {C:attention}Event{} selection'
+                }
+            },
+            j_hpot_ruan_mei = {
+                name = 'Ruan Mei',
+                text = {
+                    'Rare {C:attention}Event{} types',
+                    'appear more frequently'
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
@@ -2228,9 +2280,20 @@ return {
                     "When {C:hpot_pink}breeding{}, the child will",
                     "always be a child of the {C:attention}Mother"
                 }
+            },
+            v_hpot_domain_extrapolation = {
+                name = "Domain Extrapolation",
+                text = {
+                    "{C:attention}Events{} appear after {C:attention}Boss Blinds{}"
+                }
+            },
+            v_hpot_domain_expansion = {
+                name = "Domain Expansion",
+                text = {
+                    "{C:attention}Events{} appear after all {C:attention}Blinds{}"
+                }
             }
         },
-        
         Spectral = {
             c_hpot_arcade_machine = {
                 name = "Arcade Machine",
@@ -2246,6 +2309,56 @@ return {
                     "Add a {V:1}Dark Pink Seal{}",
                     "to {C:attention}#1#{} selected",
                     "card in your hand",
+                }
+            },
+            c_hpot_blossom_joy = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "card in your hand",
+                        "and enhance it into a",
+                        "{C:attention}Hanafuda{} card"
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:joy_effect}\"Ash Blossom & Joyous Spring\"{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
+            c_hpot_blossom_pta = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "card in your hand",
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:attention}Joyous Spring{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
+            c_hpot_blossom_joy_pta = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "card in your hand",
+                        "and enhance it into a",
+                        "{C:attention}Hanafuda{} card"
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:attention}Joyous Spring{}",
+                        "or {C:joy_effect}\"Ash Blossom & Joyous Spring\"{}",
+                        "{C:inactive}(Must have room)"
+                    },
                 }
             },
             c_hpot_arcade_machine_p = {
@@ -2798,7 +2911,7 @@ return {
                     [3] = 'be used immediately',
                 }
             },
-            
+
 
             --tname booster ??!?
 
@@ -3620,7 +3733,7 @@ return {
                 }
             },
             hpot_job_application_procrastinate = {
-                text =  {
+                text = {
                     "Uh oh!",
                     "The government has caught you playing Balatro",
                     "instead of applying for a job.",
@@ -3883,6 +3996,14 @@ return {
                     "a chance to see what would happen."
                 }
             },
+            hpot_tech_support_start = {
+                text = {
+                    "You just started your journey onto the modding scene",
+                    "but you're having trouble coding a specific Joker.",
+                    " ",
+                    "Who do you ask for help?"
+                }
+            },
         },
         EventScenarios = {
             hpot_test = {
@@ -4011,6 +4132,12 @@ return {
                     "There's a bizzare machine."
                 }
             },
+            hpot_tech_support = {
+                name = "Joker's Bizarre Modding Adventure",
+                text = {
+                    "How do I mod Balatro?"
+                }
+            }
         },
 
         Modification = {
@@ -4077,7 +4204,7 @@ return {
                 }
             },
 
-            modif_hpot_sharpened= {
+            modif_hpot_sharpened = {
                 name = "Sharpened",
                 text = {
                     "{C:mult}+10{C:green} Mult if triggered during scoring"
@@ -4400,7 +4527,9 @@ return {
             k_oap_fine_print_no_small = "*Does not apply on Small Blind",
             k_oap_fine_print_no_first_hand = "*Does not apply on first hand of round",
 
-            k_oap_too_much_slop = "Too much slop..."
+            k_oap_too_much_slop = "Too much slop...",
+
+            k_plus_czech = "+1 Cheque",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -4411,7 +4540,7 @@ return {
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" },
-            a_cards = {"+#1# Cards"},
+            a_cards = { "+#1# Cards" },
 
             hotpot_exchange_for_jx_line_1 = "Buy ͸",
             hotpot_exchange_for_jx_line_2 = "for #1#",
@@ -4553,7 +4682,15 @@ return {
             hpot_roffle_spec_baron_btn = "Speculative Baron",
 
             hpot_bizzare_machine_take_coin = "Just take the coin.",
-            hpot_bizzare_machine_insert_coin = "Insert the coin in the slot."
+            hpot_bizzare_machine_insert_coin = "Insert the coin in the slot.",
+
+            hpot_tech_support_ask_n = "Ask N'",
+            hpot_tech_support_ask_eremel = "Ask Eremel",
+            hpot_tech_support_ask_sdm_0 = "Ask SDM_0",
+            hpot_tech_support_ask_bepis = "Ask Bepis",
+            hpot_tech_support_ask_deadbeet = "Ask Deadbeet",
+            hpot_tech_support_ask_fey = "Ask Fey",
+            hpot_tech_support_ask_tacashumi = "Ask Tacashumi"
         }
     }
 }

@@ -1292,6 +1292,7 @@ end
 local cash_out_hook_for_refresh_card = G.FUNCS.cash_out
 function G.FUNCS.cash_out(e)
     local x = cash_out_hook_for_refresh_card(e)
+    hotpot_jtem_init_extra_shops_area()
     simple_add_event(function()
         hotpot_delivery_refresh_card()
         return true
