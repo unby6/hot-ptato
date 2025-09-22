@@ -59,3 +59,49 @@ SMODS.Joker {
         return false
     end
 }
+
+SMODS.Joker {
+    key = 'social_credit',
+    atlas = "pdr_joker",
+    pos = { x = 0, y = 0 },
+    config = {
+        extra = {
+            credit_gain = 0.1,
+            social_credit = 0,
+            social_credit_max = 1,
+
+        }
+    },
+    unlocked = true,
+    discovered = false,
+    rarity = 1,
+    cost = 5,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = false,
+    hotpot_credits = {
+        art = { 'deadbeet' },
+        code = { 'deadbeet' },
+        idea = { 'deadbeet' },
+        team = { 'Pissdrawer' }
+    },
+    calculate = function(self, card, context)
+        local hpt = card.ability.extra
+        if context.end_of_round then
+            HTPN.ease_credits(hpt.credits * math.floor(hpt.social_credit / 100))
+        end
+    end,
+    loc_vars = function(self, info_queue, card)
+        local hpt = card.ability.extra
+        return {
+            hpt.credit_gain,
+            hpt.social_credit,
+            hpt.social_credit_max
+        }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.china = (Pissdrawer and Pissdrawer.allcalcs[
+            math.floor(pseudorandom('china', 1, #Pissdrawer.allcalcs))]) or
+            ':3'
+    end
+}

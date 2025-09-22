@@ -1310,8 +1310,8 @@ return {
             j_hpot_credits_ex = {
                 name = "Credits EX",
                 text = {
-                    {"{X:mult,C:white}X#1#{} Mult"},
-                    {"{C:purple}+#2#c.{} for each hand played this round"}
+                    { "{X:mult,C:white}X#1#{} Mult" },
+                    { "{C:purple}+#2#c.{} for each hand played this round" }
                 }
             },
             j_hpot_jankman = {
@@ -2075,6 +2075,13 @@ return {
                     'Winning a {C:dark_edition}Bad{} {C:attention}Bottlecap{} in {C:hpot_plincoin}Plinko{}',
                     'creates a {C:hpot_czech}Cheque{} card',
                     '{C:inactive}(Must have room)'
+                }
+            },
+            j_hpot_social_credit = {
+                name = 'Social Credit',
+                text = {
+                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {C:red}Social{} {C:yellow}Credit{} at end of round',
+                    '{C:inactive}(Social Credit (Currently {C:red}#2#{C:inactive}) will alter depending on your performance){}'
                 }
             },
         },
@@ -3634,7 +3641,7 @@ return {
                 }
             },
             hpot_job_application_procrastinate = {
-                text =  {
+                text = {
                     "Uh oh!",
                     "The government has caught you playing Balatro",
                     "instead of applying for a job.",
@@ -4105,7 +4112,7 @@ return {
                 }
             },
 
-            modif_hpot_sharpened= {
+            modif_hpot_sharpened = {
                 name = "Sharpened",
                 text = {
                     "{C:mult}+10{C:green} Mult if triggered during scoring"
@@ -4396,7 +4403,7 @@ return {
             hotpot_code = { "Code: #1#" },
             hotpot_idea = { "Idea: #1#" },
             hotpot_team = { "Team: #1#" },
-            a_cards = {"+#1# Cards"},
+            a_cards = { "+#1# Cards" },
 
             hotpot_exchange_for_jx_line_1 = "Buy ͸",
             hotpot_exchange_for_jx_line_2 = "for #1#",
