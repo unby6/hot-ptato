@@ -357,7 +357,7 @@ function G.FUNCS.nursery_abort(e)
     G.GAME.active_breeding = false
     G.GAME.center_being_duped = nil
     G.GAME.loss_child_xmult = nil
-    SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = "Aborted!" }
+    SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = localize("k_hotpot_aborted") }
 end
 
 function G.FUNCS.can_nursery_abort(e)
@@ -379,7 +379,7 @@ function G.FUNCS.nursery_breed(e)
     mom:juice_up()
     SMODS.calculate_effect {
         card = mom,
-        message = "Impregnated!",
+        message = localize("k_hotpot_impregnated"),
     }
 end
 
@@ -401,9 +401,7 @@ function G.FUNCS.emplace_mother(e)
 end
 
 function G.FUNCS.can_emplace_mother(e)
-    local jkr = G.jokers.highlighted and G.jokers.highlighted[1]
-    if jkr then print(jkr.ability) end
-    if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 or (jkr and jkr.ability.is_nursery_smalled) then
+    if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -420,8 +418,7 @@ function G.FUNCS.emplace_father(e)
 end
 
 function G.FUNCS.can_emplace_father(e)
-    local jkr = G.jokers.highlighted and G.jokers.highlighted[1]
-    if #G.jokers.highlighted ~= 1 or #G.nursery_father.cards ~= 0 or (jkr and jkr.ability.is_nursery_smalled) then
+    if #G.jokers.highlighted ~= 1 or #G.nursery_father.cards ~= 0 then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -431,7 +428,7 @@ function G.FUNCS.can_emplace_father(e)
 end
 
 function G.FUNCS.can_nursery_breed(e)
-    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.GAME.active_breeding and not (#G.nursery_child.cards == 1) then
+    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.GAME.active_breeding then
         e.config.colour = G.C.HPOT_PINK
         e.config.button = "nursery_breed"
     else
@@ -445,8 +442,8 @@ local old = Card.highlight
 function Card:highlight(is)
     if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) or (G.nursery_child and self.area == G.nursery_child) then
         if #G.jokers.cards >= G.jokers.config.card_limit then
-            G.FUNCS.check_for_buy_space(self)
-            return
+            alert_no_space(self, G.jokers)
+            return true
         else
             local area = self.area
             area:remove_card(self)
@@ -520,11 +517,11 @@ function end_round()
             local to_dupe = G.GAME.center_being_duped
             if to_dupe then
                 G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
-                if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 1) then
+                if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
-                    local card = SMODS.create_card { key = to_dupe.key, skip_materialize = true }
+                    local card = SMODS.create_card { key = to_dupe.key }
                     --make children smaller
                     card.T.w = card.T.w * 0.75
                     card.T.h = card.T.h * 0.75

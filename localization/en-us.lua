@@ -1311,7 +1311,7 @@ return {
                 name = "Credits EX",
                 text = {
                     { "{X:mult,C:white}X#1#{} Mult" },
-                    { "{C:purple}+#2#c.{} for each hand played this round." }
+                    { "{C:purple}+#2#c.{} for each hand played this round" }
                 }
             },
             j_hpot_jankman = {
@@ -2115,13 +2115,6 @@ return {
                     'appear more frequently'
                 }
             },
-            j_hpot_goblin_tinkerer = {
-                name = 'Goblin Tinkerer',
-                text = {
-                    '{C:attention}Reforging{} is available',
-                    'and refunded by {C:attention}#1#%{}'
-                }
-            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
@@ -2291,7 +2284,7 @@ return {
             v_hpot_domain_extrapolation = {
                 name = "Domain Extrapolation",
                 text = {
-                    "{C:attention}Events{} appear after {C:attention}Boss Blinds{}"
+                    "{C:attention}Events{} appear after {C:attention}Big Blinds{}"
                 }
             },
             v_hpot_domain_expansion = {
@@ -3149,9 +3142,63 @@ return {
                 }
             },
             hpot_event_encounter = {
-                name = "Event Encounter",
+                name = "Event",
                 text = {
                     "Choices, choices, choices..."
+                }
+            },
+            hpot_event_encounter_combat = {
+                name = "Combat",
+                text = {
+                    "Overcome a challenge"
+                }
+            },
+            hpot_event_encounter_occurence = {
+                name = "Occurence",
+                text = {
+                    "Choices, choices, choices..."
+                }
+            },
+            hpot_event_encounter_reward = {
+                name = "Reward",
+                text = {
+                    "You deserve it"
+                }
+            },
+            hpot_event_encounter_encounter = {
+                name = "Encounter",
+                text = {
+                    "Face a difficult foe"
+                }
+            },
+            hpot_event_encounter_transaction = {
+                name = "Transaction",
+                text = {
+                    "The Jimbo Exchange"
+                }
+            },
+            hpot_event_encounter_adventure = {
+                name = "Adventure",
+                text = {
+                    "Have some fun"
+                }
+            },
+            hpot_event_encounter_wealth = {
+                name = "Wealth",
+                text = {
+                    "Get some riches"
+                }
+            },
+            hpot_event_encounter_escapade = {
+                name = "Escapade",
+                text = {
+                    "Take a break"
+                }
+            },
+            hpot_event_encounter_respite = {
+                name = "Respite",
+                text = {
+                    "The calm before the storm"
                 }
             },
             hpot_jtem_mood_depressed = {
@@ -4255,6 +4302,42 @@ return {
             },
         },
     },
+    InfoMenu = {
+        hotpot_training = {
+            name = "Joker Training",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "A mechanic inspired by {E:2,C:dark_edition}Umamusume{}, a",
+                            "Gacha Racing game about {C:attention}Anime Horse girls{}",
+                        },
+                        {
+                            "You can spend {C:blue}Joker Exchange{} to start {C:attention}Training{},",
+                            "giving the Joker a {C:attention}random{} set of stats",
+                        },
+                        {
+                            "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
+                            "the respective stats of the Joker if {C:green}Successful{}",
+                        },
+                    }
+                },
+                {
+                    name = "Page 2",
+                    text = {
+                        {
+                            "This is how you add another {C:attention}page",
+                            "to the {C:attention}info menu{}",
+                        },
+                        {
+                            "{E:2,C:dark_edition}Pretty cool right? :3{}"
+                        }
+                    }
+                },
+            },
+        },
+    },
     misc = {
         challenge_names = {
             c_hpot_amateur_magician = "Amateur Magician",
@@ -4357,6 +4440,7 @@ return {
             k_events = "Events",
             k_drank_ex = "Drunk!",
             k_unscored_ex = "Unscored!",
+            k_page = "Page",
 
             b_imaginary_cards = "Imaginary Cards",
             k_imaginary = "Imaginary",
@@ -4377,6 +4461,8 @@ return {
             hotpot_plinko_reset1 = "Cost reset in",
             hotpot_plinko_reset2_round = " round",
             hotpot_plinko_reset2_ante = " ante",
+
+            hotpot_first_time_disable = "Do not show again",
 
             hotpot_spark_points = "Joker Exchange",
             hotpot_delivery = "Deliveries",
@@ -4406,6 +4492,12 @@ return {
             hotpot_train_mood_up = "Mood Up",
             hotpot_train_mood_down = "Mood Down",
             hotpot_training_pack = "Training Pack",
+
+            hotpot_speed = "Speed",
+            hotpot_stamina = "Stamina",
+            hotpot_power = "Power",
+            hotpot_guts = "Guts",
+            hotpot_wits = "Wits",
 
             hotpot_exchange_title = "Top Up Your ͸s!",
             hotpot_exchange_note = "*Prices are rounded to the nearest integer when charging for simplicity",
@@ -4492,6 +4584,21 @@ return {
             k_oap_too_much_slop = "Too much slop...",
 
             k_plus_czech = "+1 Cheque",
+
+            k_hotpot_metal_detected = "Detected!",
+            k_hotpot_aborted = "Aborted!",
+            k_hotpot_impregnated = "Impregnated!",
+            k_hotpot_butcher_killed = "Killed.",
+            k_hotpot_added = "Added!",
+            k_hotpot_how = "HOW",
+            k_hotpot_lock_in = "Lock in.",
+            k_hotpot_reset_ex = "Reset!",
+            k_hotpot_spam = "Spam!",
+            k_hotpot_trigger_disabled = "Trigger Disabled!",
+            k_hotpot_trigger_enabled = "Trigger Enabled!",
+            k_hotpot_goodsocial = "yo phone linging",
+            k_hotpot_badsocial = "oh my god bruh",
+
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

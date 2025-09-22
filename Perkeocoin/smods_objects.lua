@@ -184,7 +184,7 @@ SMODS.Joker{ --Metal Detector
                     end)}))
                 end
                 card.ability.extra.skipped = 0
-                card_eval_status_text(card, 'jokers', nil, nil, nil, {message = 'Detected!', colour = G.C.FILTER})
+                card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("k_hotpot_metal_detected"), colour = G.C.FILTER})
             end
         end
     end

@@ -174,7 +174,7 @@ end
 --- Reforges a card, replacing its current modification (if it has one) with its new one.
 ---
 --- @param card table|nil The card to consider for reforging.
-function reforge_card(card, free, currency)
+function reforge_card(card, free)
     if not card then return nil end
 
     local reforge_degree_v2_voucher_acquired = G.GAME.used_vouchers
@@ -200,7 +200,7 @@ function reforge_card(card, free, currency)
             card.ability.reforge_count = (card.ability.reforge_count or 0) + 1
         end
     end
-    SMODS.calculate_context({ reforging = true, card = card, free = free or false, currency = currency })
+    SMODS.calculate_context({ reforging = true, card = card })
 end
 
 --- Checks the amount of money it would cost to reforge a given card, in dollars.
@@ -323,8 +323,8 @@ end
 --- Converts currency from one type into another type.
 ---
 --- @param amount number The amount of money in the original starting currency.
---- @param starting_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN"|"CRYPTOCURRENCY" The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
---- @param ending_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN"|"CRYPTOCURRENCY" The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
+--- @param starting_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert from. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
+--- @param ending_currency "DOLLAR"|"CREDIT"|"SPARKLE"|"PLINCOIN" The currency to convert to. Valid options for currencies currently include: "DOLLAR", "CREDIT", "SPARKLE", "PLINCOIN".
 function convert_currency(amount, starting_currency, ending_currency)
     local money                      = amount or 0
     starting_currency                = starting_currency or "PLINCOIN"
