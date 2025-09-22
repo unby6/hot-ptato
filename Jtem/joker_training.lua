@@ -71,7 +71,7 @@ end
 ---@return integer
 function hpot_calc_failure_rate(energy)
 	-- if special week is here then no failure
-	if next(SMODS.find_card("j_hpot_jtem_special_week")) then return 0 end
+if next(SMODS.find_card("j_hpot_jtem_special_week")) then return 0 end
 	-- energy with atlast 70 or above yields always success
 	if energy >= 70 then return 0 end
 	-- no one can save you
@@ -86,55 +86,55 @@ end
 --- @return string
 --- @return table|SMODS.Gradient
 function hpot_get_rank_and_colour(score)
-	if score >= 1900 then
+	if score > 1900 then
 		return "US", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1800 then
+	elseif score > 1800 then
 		return "UA", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1700 then
+	elseif score > 1700 then
 		return "UB", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1600 then
+	elseif score > 1600 then
 		return "UC", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1500 then
+	elseif score > 1500 then
 		return "UD", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1400 then
+	elseif score > 1400 then
 		return "UE", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1300 then
+	elseif score > 1300 then
 		return "UF", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1200 then
+	elseif score > 1200 then
 		return "UG", SMODS.Gradients["hpot_jtem_training_ug"]
-	elseif score >= 1150 then
+	elseif score > 1150 then
 		return "SS+", G.C.HP_JTEM.RANKS.SS
-	elseif score >= 1100 then
+	elseif score > 1100 then
 		return "SS", G.C.HP_JTEM.RANKS.SS
-	elseif score >= 1050 then
+	elseif score > 1050 then
 		return "S+", G.C.HP_JTEM.RANKS.S
-	elseif score >= 1000 then
+	elseif score > 1000 then
 		return "S", G.C.HP_JTEM.RANKS.S
-	elseif score >= 800 then
+	elseif score > 800 then
 		return "A+", G.C.HP_JTEM.RANKS.A
-	elseif score >= 700 then
+	elseif score > 700 then
 		return "A", G.C.HP_JTEM.RANKS.A
-	elseif score >= 600 then
+	elseif score > 600 then
 		return "B+", G.C.HP_JTEM.RANKS.B
-	elseif score >= 500 then
+	elseif score > 500 then
 		return "B", G.C.HP_JTEM.RANKS.B
-	elseif score >= 450 then
+	elseif score > 450 then
 		return "C+", G.C.HP_JTEM.RANKS.C
-	elseif score >= 400 then
+	elseif score > 400 then
 		return "C", G.C.HP_JTEM.RANKS.C
-	elseif score >= 350 then
+	elseif score > 350 then
 		return "D+", G.C.HP_JTEM.RANKS.D
-	elseif score >= 300 then
+	elseif score > 300 then
 		return "D", G.C.HP_JTEM.RANKS.D
-	elseif score >= 250 then
+	elseif score > 250 then
 		return "E+", G.C.HP_JTEM.RANKS.E
-	elseif score >= 200 then
+	elseif score > 200 then
 		return "E", G.C.HP_JTEM.RANKS.E
-	elseif score >= 150 then
+	elseif score > 150 then
 		return "F+", G.C.HP_JTEM.RANKS.F
-	elseif score >= 100 then
+	elseif score > 100 then
 		return "F", G.C.HP_JTEM.RANKS.F
-	elseif score >= 50 then
+	elseif score > 50 then
 		return "G+", G.C.HP_JTEM.RANKS.G
 	end
 	return "G", G.C.HP_JTEM.RANKS.G
@@ -371,9 +371,6 @@ function G.FUNCS.hpot_start_training_joker(e)
 			SMODS.Stickers["hpot_jtem_mood"]:apply(card, true)
 			-- This process is irreversible!
 			card.ability.hpot_training_mode = true
-			if not G.GAME.hpot_training_has_ever_been_done and not G.PROFILES[G.SETTINGS.profile].disable_training_tips then
-				open_hotpot_info("hotpot_training")
-			end
 			G.GAME.hpot_training_has_ever_been_done = true
 			card:juice_up(0.3, 0.3)
 			play_sound('gold_seal', 1.2, 0.4)
@@ -510,7 +507,6 @@ function hpot_training_tarot_use(self, card, area, copier)
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
 					{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
 			end
-			--[[
 			-- reduce energy if possible
 			if energy_changed and energy_changed ~= 0 then
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
@@ -535,7 +531,6 @@ function hpot_training_tarot_use(self, card, area, copier)
 			if stats.wits and stats.wits > 150 then
 				joker.sell_cost = joker.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50)
 			end
-			]]
 			-- increase/decrease mood if possible
 			if card.ability.hpot_mood_change then
 				hot_mod_mood(joker, card.ability.hpot_mood_change * (success and 1 or -1))

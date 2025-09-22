@@ -26,25 +26,6 @@ function G.FUNCS.toggle_currencies()
                     return true
                 end
             }))
-            G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                func = function()
-                    G.hand_text_area = {
-                        chips = G.HUD:get_UIE_by_ID('hand_chips'),
-                        mult = G.HUD:get_UIE_by_ID('hand_mult'),
-                        ante = G.HUD:get_UIE_by_ID('ante_UI_count'),
-                        round = G.HUD:get_UIE_by_ID('round_UI_count'),
-                        chip_total = G.HUD:get_UIE_by_ID('hand_chip_total'),
-                        handname = G.HUD:get_UIE_by_ID('hand_name'),
-                        hand_level = G.HUD:get_UIE_by_ID('hand_level'),
-                        game_chips = G.HUD:get_UIE_by_ID('chip_UI_count'),
-                        blind_chips = G.HUD_blind:get_UIE_by_ID('HUD_blind_count'),
-                        blind_spacer = G.HUD:get_UIE_by_ID('blind_spacer')
-                    }
-                    G.GAME.blind:set_blind(G.GAME.round_resets.blind)
-                    return true
-                end
-            }))
             return true
         end
     }))

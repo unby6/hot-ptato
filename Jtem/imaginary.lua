@@ -14,7 +14,6 @@ SMODS.ConsumableType {
     shop_rate = 1,
     default = "c_hpot_imag_stars",
     text_colour = HEX("333333"),
-    no_collection = true,
 }
 
 SMODS.Consumable{

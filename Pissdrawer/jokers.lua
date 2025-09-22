@@ -164,11 +164,6 @@ function win_game()
     return ret
 end
 
-SMODS.Sound {
-    key = 'gong',
-    path = 'sfx_asiangong.ogg'
-}
-
 --#endregion
 
 SMODS.Joker {
@@ -220,14 +215,12 @@ SMODS.Joker {
             hpt.social_credit = hpt.social_credit + hpt.social_credit_max
             if hpt.social_credit < 0 then
                 return {
-                    message = localize("k_hotpot_badsocial"),
-                    colour = G.C.RED,
-                    sound = 'hpot_gong'
+                    message = 'oh my god bruh',
+                    colour = G.C.RED
                 }
             else
                 return {
-                    message = localize("k_hotpot_goodsocial"),
-                    sound = 'hpot_gong'
+                    message = 'yo phone linging'
                 }
             end
 
@@ -249,32 +242,41 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = 'togore',
-    loc_txt = {name = 'Togore', text = {
-        'When hand is {C:attention}played{},',
-        '{C:attention}non-played{} cards held in', 
-        'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
-    }},
+    key = 'goblin_tinkerer',
+    rarity = 2,
+    cost = 6,
+    atlas = "pdr_joker",
+    pos = { x = 0, y = 0 },
+    config = { extra = 2 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { math.floor(100 / card.ability.extra) } }
+    end,
     hotpot_credits = {
-        art = { 'Tacashumi' },
-        code = { 'fey <3' },
-        idea = { 'Tacashumi' },
+        art = { 'SDM_0' },
+        code = { 'SDM_0' },
+        idea = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
-    config = {extra = {chips = 10}},
-    loc_vars = function(self,info_queue,card)
-        return {vars = {
-            card.ability.extra.chips
-        }}
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.goblin_acquired = true
     end,
-    rarity = 1, cost = 3,
-    atlas = 'pdr_togore',
-    calculate = function(self,card,context)
-        if context.individual and context.cardarea == G.hand then
-            context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
-            return {
-                message = '+'..card.ability.extra.chips..' Chips', colour = G.C.CHIPS
-            }
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.goblin_acquired = nil
+    end,
+    calculate = function(self, card, context)
+        if context.reforging and not context.free then
+            if context.currency == "DOLLAR" then
+                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability.extra))
+            elseif context.currency == "CREDIT" then
+                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) / card.ability.extra))
+            elseif context.currency == "SPARKLE" then
+                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) / card.ability.extra))
+            elseif context.currency == "PLINCOIN" then
+                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) / card.ability.extra))
+            elseif context.currency == "CRYPTOCURRENCY" then
+                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) / card.ability.extra))
+            end
+            card:juice_up()
         end
-    end
+    end,
 }

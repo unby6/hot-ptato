@@ -14,7 +14,7 @@ SMODS.Seal {
                 }
             else
                 return{
-                    message = localize("k_no_room_ex")
+                    message = "No Room!"
                 }
             end
         end

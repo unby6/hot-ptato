@@ -45,7 +45,7 @@ SMODS.Joker {
                     end
                 }
             elseif #hot_potato_cards == 0 then
-                return { message = localize("k_hotpot_how"), colour = G.C.RED }
+                return { message = "HOW", colour = G.C.RED }
             end
         end
     end

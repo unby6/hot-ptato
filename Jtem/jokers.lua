@@ -382,7 +382,7 @@ SMODS.Joker {
         if context.end_of_round and context.main_eval then
             create_ads(card.ability.extra.eggs)
             return {
-                message = localize("k_hotpot_spam")
+                message = "Spam!"
             }
         end
     end,

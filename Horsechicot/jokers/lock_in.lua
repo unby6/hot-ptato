@@ -28,7 +28,7 @@ function end_round()
         card.ability.was_clicked = false
         card.ability.start_time = love.timer.getTime()
         G.draw_lockin_background = true
-        SMODS.calculate_effect({ message = localize("k_hotpot_lock_in") }, card)
+        SMODS.calculate_effect({ message = "Lock in." }, card)
         local time_given = (G.GAME.chips / G.GAME.blind.chips) * card.ability.leniency
         local last_juice_time = love.timer.getTime()
         G.jokers:remove_card(card)
@@ -94,7 +94,7 @@ function SMODS.calculate_context(context, ...)
     if context.game_over then
         if G.lock_in_card then
             if G.lock_in_card.ability.was_clicked then
-                SMODS.calculate_effect({message = localize("k_saved_ex")}, G.lock_in_card)
+                SMODS.calculate_effect({message = "Saved!"}, G.lock_in_card)
                 SMODS.destroy_cards(G.lock_in_card)
                 SMODS.saved = true
                 G.saved_by_lock_in = true

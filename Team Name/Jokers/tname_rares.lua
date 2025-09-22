@@ -69,7 +69,7 @@ SMODS.Joker {
 			GoldenLeaf = function(self, card, context)
 				if context.joker_main then
 					HPTN.ease_credits(fuck.GoldenLeaf[1], false)
-					return { message = localize("k_hotpot_added") }
+					return { message = "Added!" }
 				end
 			end,
 			Jogla = function(self, card, context)

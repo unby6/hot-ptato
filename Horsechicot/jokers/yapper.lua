@@ -26,7 +26,7 @@ SMODS.Joker {
         if context.after then
             card.ability.current = pseudorandom_element(HPJTTT.text, "hc_yapper")
             return {
-                message = localize("k_hotpot_reset_ex")
+                message = "Reset!"
             }
         elseif context.joker_main then
             return {

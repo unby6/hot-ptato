@@ -46,7 +46,7 @@ SMODS.Joker {
                     end
                 }))
                 return {
-                    message = localize("k_hotpot_butcher_killed"),
+                    message = "Killed.",
                     colour = G.C.ORANGE,
                     no_juice = true
                 }
