@@ -14,6 +14,7 @@ HotPotato.EventDomainPool = {
 
 HotPotato.EventDomains = {}
 
+-- TODO: do this on initialization instead for crossmod stuff
 for _, domain in ipairs(HotPotato.EventDomainPool) do
     HotPotato.EventDomains[domain.key] = domain
 end
@@ -78,10 +79,31 @@ function hpot_event_get_event_domain(args)
 end
 
 function hpot_event_get_event_count(args)
-    return 3
+    if next(SMODS.find_card("j_hopt_local_newspaper")) then
+        return 3
+    end
+    return 2
 end
 
-function hpot_event_can_appear()
-    return true
-    --return (G.GAME.round_resets.blind_states.Small == "Defeated" and G.GAME.round_resets.blind_states.Big == "Upcoming" and (G.GAME.blind_on_deck == "Small" or G.GAME.blind_on_deck == "Big"))
+-- TODO: test any weird blind choice cases or, better yet, PR SMODS a better blind tracker
+function hpot_event_can_appear(blind_prototype)
+    if not blind_prototype then return true end
+    return blind_prototype.key == "bl_small"
 end
+
+--- Event Jokers
+
+-- Local Newspaper
+SMODS.Joker {
+    key = 'local_newspaper',
+    rarity = 1,
+    cost = 5,
+    atlas = "pdr_joker",
+    pos = { x = 0, y = 0 },
+    hotpot_credits = {
+        --art = { 'SDM_0' },
+        code = { "N'" },
+        idea = { "N'" },
+        team = { 'Pissdrawer' }
+    }
+}
