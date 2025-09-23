@@ -112,7 +112,8 @@ function G.UIDEF.hotpot_horsechicot_market_section()
           },
         }
       },
-      { n = G.UIT.R, config = { minw = 3, minh = 3.5, colour = G.C.CLEAR }, nodes = {} }
+      { n = G.UIT.R, config = { minw = 3, minh = 3.5, colour = G.C.CLEAR }, nodes = {} },
+      G.UIDEF.hotpot_pd_training_section()
 end
 
 function remove_if_exists(thingy)
