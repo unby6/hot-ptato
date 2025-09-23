@@ -113,7 +113,6 @@ HotPotato.allcalcs = HotPotato.allcalcs or {
     "remove_playing_cards",
     "debuffed_hand",
     "end_of_round",
-    "setting_blind",
     "pre_discard",
     "discard",
     "open_booster",
@@ -143,7 +142,6 @@ HotPotato.allcalcs = HotPotato.allcalcs or {
     "modify_hand",
     "drawing_cards",
     "pseudorandom_result",
-    "from_roll",
     "result",
     "initial_scoring_step",
     "joker_type_destroyed",
@@ -174,7 +172,10 @@ SMODS.Sound {
 SMODS.Joker {
     key = 'social_credit',
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = {
+        x = 2,
+        y = 0
+    },
     config = {
         china = 'piss',
         trig = false,
@@ -230,8 +231,6 @@ SMODS.Joker {
                     sound = 'hpot_gong'
                 }
             end
-
-            card.ability.trig = false
         end
         if context.end_of_round then
             HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / 100))
@@ -242,6 +241,14 @@ SMODS.Joker {
                 HPTN.set_credits(0)
             }
         end
+        if context.post_trigger and context.other_card == card and card.ability.trig == true then
+            if hpt.social_credit < 0 then
+                card.children.center:set_sprite_pos({ x = 3, y = 0 })
+            else
+                card.children.center:set_sprite_pos({ x = 2, y = 0 })
+            end
+            card.ability.trig = false
+        end
     end,
     in_pool = function(self, args)
         return true, { allow_duplicates = true }
@@ -250,30 +257,33 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = 'togore',
-    loc_txt = {name = 'Togore', text = {
+    loc_txt = { name = 'Togore', text = {
         'When hand is {C:attention}played{},',
-        '{C:attention}non-played{} cards held in', 
+        '{C:attention}non-played{} cards held in',
         'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
-    }},
+    } },
     hotpot_credits = {
         art = { 'Tacashumi' },
         code = { 'fey <3' },
         idea = { 'Tacashumi' },
         team = { 'Pissdrawer' }
     },
-    config = {extra = {chips = 10}},
-    loc_vars = function(self,info_queue,card)
-        return {vars = {
-            card.ability.extra.chips
-        }}
+    config = { extra = { chips = 10 } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips
+            }
+        }
     end,
     rarity = 1, cost = 3,
-    atlas = 'pdr_togore',
-    calculate = function(self,card,context)
+    atlas = 'pdr_joker',
+    pos = { x = 5, y = 0 },
+    calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand then
             context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
             return {
-                message = '+'..card.ability.extra.chips..' Chips', colour = G.C.CHIPS
+                message = '+' .. card.ability.extra.chips .. ' Chips', colour = G.C.CHIPS
             }
         end
     end
@@ -284,7 +294,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = { x = 4, y = 0 },
     config = { extra = 2 },
     loc_vars = function(self, info_queue, card)
         return { vars = { math.floor(100 / card.ability.extra) } }
@@ -304,17 +314,45 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.reforging and not context.free then
             if context.currency == "DOLLAR" then
-                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability.extra))
+                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability
+                    .extra))
             elseif context.currency == "CREDIT" then
-                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) / card.ability.extra))
+                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) /
+                    card.ability.extra))
             elseif context.currency == "SPARKLE" then
-                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) / card.ability.extra))
+                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) /
+                    card.ability.extra))
             elseif context.currency == "PLINCOIN" then
-                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) / card.ability.extra))
+                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) /
+                    card.ability.extra))
             elseif context.currency == "CRYPTOCURRENCY" then
-                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) / card.ability.extra))
+                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) /
+                    card.ability.extra))
             end
             card:juice_up()
         end
     end,
+}
+
+SMODS.Joker {
+    key = "birthdayboy",
+    loc_txt = {
+        name = "Birthday Boy",
+        text = { {"Happy Birthday, N'!"}, {'Where would Jujutsu', 'Jokers be without you...'} }
+    },
+    hotpot_credits = {
+        art = { "deadbeet" },
+        code = { "deadbeet" },
+        team = { "Pissdrawer" }
+    },
+    atlas = "pdr_joker",
+    pos = { x = 6, y = 0 },
+    soul_pos = { x = 7, y = 0 },
+    unlocked = true,
+    discovered = true,
+    rarity = 4,
+    no_collection = true,
+    in_pool = function(self, args)
+        return false
+    end
 }
