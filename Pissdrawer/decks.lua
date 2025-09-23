@@ -24,19 +24,21 @@ SMODS.Back {
     skip_materialize = true,
     config = { stones = 30 },
     apply = function(self, back)
-        G.E_MANAGER:add_event({
+        G.E_MANAGER:add_event(Event({
             func = function()
                 for _ = 1, self.config.stones do
-                    SMODS.add_card {
+                    local stone = SMODS.add_card {
                         set = "Base",
                         enhancement = "m_stone",
-                        edition = 'e_polychrome',
                         rank = '2',
-                        area = G.playing_cards,
+                        suit = 'Clubs',
+                        area = G.deck,
                     }
+                    stone.set_edition(self, 'e_polychrome', true, true)
                 end
                 return true
             end
-        })
+        }))
     end
 }
+--#endregion
