@@ -173,7 +173,7 @@ SMODS.Joker {
     key = 'social_credit',
     atlas = "pdr_joker",
     pos = {
-        x = 1,
+        x = 2,
         y = 0
     },
     config = {
@@ -209,9 +209,9 @@ SMODS.Joker {
     end,
     set_sprites = function(self, card, front)
         if card.area and card.area == G.jokers and card.ability.extra.social_credit < 0 then
-            card.children.center:set_sprite_pos({ x = 2, y = 0 })
+            card.children.center:set_sprite_pos({ x = 3, y = 0 })
         else
-            card.children.center:set_sprite_pos({ x = 1, y = 0 })
+            card.children.center:set_sprite_pos({ x = 2, y = 0 })
         end
     end,
     add_to_deck = function(self, card, from_debuff)
