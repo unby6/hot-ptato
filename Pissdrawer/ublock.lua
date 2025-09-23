@@ -1,5 +1,6 @@
 SMODS.Back {
     key = 'ublockdeck',
+    atlas = 'pdr_ublock',
     discovered = true
 }
 
