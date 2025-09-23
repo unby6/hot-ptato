@@ -4607,6 +4607,10 @@ return {
             k_hotpot_goodsocial = "yo phone linging",
             k_hotpot_badsocial = "oh my god bruh",
 
+            hotpot_perkeocoin_fortnite = "Fortnite",
+            hotpot_perkeocoin_direct_deposit = "Plink X",
+            hotpot_perkeocoin_ad_removed = "Ad Removed!",
+            hotpot_perkeocoin_stay_tuned = "Stay Tuned!",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
