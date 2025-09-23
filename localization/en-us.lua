@@ -443,7 +443,15 @@ return {
                 text = {
                     'Remove {C:red}Ads'
                 }
-            }
+            },
+            b_hpot_poopdeck = {
+                name = 'Poop Deck',
+                text = {
+                    'Start with a standard 52 card deck and',
+                    '30 {C:edition}Polychrome{} Stone cards',
+                    '{C:inactive}Land Ahoy!'
+                }
+            },
         },
         bottlecap = {
             c_hpot_cap_money = {
