@@ -38,6 +38,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
     local btny = 0
     local localized = "hotpot_delivery"
     local func = "hotpot_jtem_toggle_delivery"
+    local has_sprite = not not (btntype and type(btntype) == "table" and btntype.atlas)
     local atlas = "hpot_jtem_pkg"
     -- Wrapper to prevent crashes due to use of the original function
     if type(btntype) == "string" or not btntype then
@@ -59,7 +60,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
         n = G.UIT.R,
         config = { colour = G.C.RED, padding = 0.05, r = 0.02, w = 0.1, h = 0.1, shadow = true, button = func, hover = true },
         nodes = {
-            {
+            has_sprite and {
                 n = G.UIT.R,
                 config = {},
                 nodes = {
@@ -70,7 +71,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
                         }
                     },
                 }
-            },
+            } or nil,
             {
                 n = G.UIT.R,
                 config = { align = "cm" },
@@ -100,6 +101,10 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
                 loc_txt = "hotpot_go_market",
                 button = "hotpot_horsechicot_toggle_market",
                 atlas = "hpot_horsechicot_market"
+            },
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                loc_txt = "hotpot_go_training",
+                button = "hotpot_pd_toggle_training",
             },
             {
                 n = G.UIT.R,
@@ -147,6 +152,24 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
             G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
                 loc_txt = "hotpot_delivery_back",
                 button = "hotpot_horsechicot_toggle_market",
+                atlas = "hpot_tname_shop_reforge",
+                pos = { x = 1, y = 0 }
+            },
+            {
+                n = G.UIT.R,
+                nodes = {
+                    {
+                        n = G.UIT.B,
+                        config = {
+                            h = 10.5,
+                            w = 0.1
+                        }
+                    }
+                }
+            },
+            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                loc_txt = "hotpot_delivery_back",
+                button = "hotpot_pd_toggle_training",
                 atlas = "hpot_tname_shop_reforge",
                 pos = { x = 1, y = 0 }
             },

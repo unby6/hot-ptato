@@ -4476,6 +4476,7 @@ return {
             hotpot_delivery_back = "Back to Shop",
             hotpot_go_reforge = "Reforge",
             hotpot_go_market = "Black Market",
+            hotpot_go_training = "Training Grounds",
             hotpot_request_joker_line_1 = "Request",
             hotpot_request_joker_line_2 = "a Joker",
             hotpot_request_joker_line_3 = "Once every ante",
@@ -4504,7 +4505,7 @@ return {
             hotpot_stamina = "Stamina",
             hotpot_power = "Power",
             hotpot_guts = "Guts",
-            hotpot_wits = "Wits",
+            hotpot_wits = "Wit",
 
             hotpot_exchange_title = "Top Up Your ͸s!",
             hotpot_exchange_note = "*Prices are rounded to the nearest integer when charging for simplicity",
@@ -4611,6 +4612,9 @@ return {
             hotpot_perkeocoin_direct_deposit = "Plink X",
             hotpot_perkeocoin_ad_removed = "Ad Removed!",
             hotpot_perkeocoin_stay_tuned = "Stay Tuned!",
+
+            hotpot_training_joker = "UNDER TRAINING",
+            hotpot_training_level = "Level ",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
