@@ -1186,6 +1186,8 @@ function G.UIDEF.hpot_event(scenario)
 		})
 	end
 
+	local blind_col = (HotPotato.EventDomains[G.GAME.hpot_event_domain] or {}).colour or nil
+
 	return {
 		n = G.UIT.ROOT,
 		config = {
@@ -1294,7 +1296,7 @@ function G.UIDEF.hpot_event(scenario)
 						},
 					},
 				},
-			}),
+			}, nil, blind_col, blind_col and mix_colours(G.C.BLACK, blind_col, 0.8) or nil),
 		},
 	}
 end

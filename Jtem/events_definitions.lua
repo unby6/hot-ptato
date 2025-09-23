@@ -266,7 +266,6 @@ HotPotato.EventStep {
 	end,
 }
 
--- TODO: you can't even get imaginary cards T-T
 HotPotato.EventScenario {
 	key = "trade1",
 	domains = { reward = true },
@@ -3369,6 +3368,196 @@ HotPotato.EventStep {
 
 --#endregion
 
+--#region I Hope This Holds Your Interest
+
+HotPotato.EventScenario {
+	key = "interest_1",
+	loc_txt = {
+		name = "I Hope This Holds Your Interest (Part I)",
+		text = {
+			"I think it's in your best interest",
+			"to hold on to these"
+		}
+	},
+	domains = { reward = true },
+	starting_step_key = "hpot_interest_1_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "interest_1_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"Hey, I'm bored of these. You can play with them if you want",
+			"but give them back, will you?\""
+		},
+		choices = {
+			accept = "Take Interests"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "accept",
+				button = function()
+					event.start_step("hpot_interest_1_finish")
+				end,
+			},
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("c_hpot_imag_duck")
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+}
+
+HotPotato.EventStep {
+	key = "interest_1_finish",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"I'm just going back to my Switch 2.\"",
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		G.GAME.hpot_event_interest = true
+		for i = 1, 5 do
+			SMODS.add_card { key = "c_hpot_imag_duck" }
+		end
+	end
+}
+
+HotPotato.EventScenario {
+	key = "interest_2",
+	loc_txt = {
+		name = "I Hope This Holds Your Interest (Part II)",
+		text = {
+			"Being nice doesn't make you interesting, you know?"
+		}
+	},
+	domains = { reward = true },
+	starting_step_key = "hpot_interest_2_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+	in_pool = function(self)
+		return G.GAME.hpot_event_interest
+	end
+}
+
+HotPotato.EventStep {
+	key = "interest_2_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"I take it back. I want to play with them again,",
+			"can you give them back?\""
+		},
+		choices = {
+			accept = "Give Interests"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "accept",
+				button = function()
+					if #SMODS.find_card("c_hpot_imag_duck") >= 5 then
+						for i, card in ipairs(SMODS.find_card("c_hpot_imag_duck")) do
+							if i > 5 then break end
+							SMODS.destroy_cards(card)
+						end
+						event.start_step("hpot_interest_2_give")
+					else
+						event.start_step("hpot_interest_2_finish")
+					end
+				end,
+			},
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("c_hpot_imag_duck")
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+}
+
+HotPotato.EventStep {
+	key = "interest_2_finish",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"What? But... I didn't look like I needed them?",
+			"How dare you?",
+			" ",
+			"I hope you're ready to pay for them.\""
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+	finish = function(self, event)
+		HPTN.ease_credits(-50 * (5 - #SMODS.find_card("c_hpot_imag_duck")))
+		for i, card in ipairs(SMODS.find_card("c_hpot_imag_duck")) do
+			SMODS.destroy_cards(card)
+		end
+	end
+}
+
+HotPotato.EventStep {
+	key = "interest_2_give",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"Hahaha, I don't know how I ever go bored of these.",
+			" ",
+			"Thanks, have this.\""
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+	finish = function(self, event)
+		for i = 1, 10 do
+			SMODS.add_card { set = "Spectral", edition = 'e_negative' }
+		end
+	end
+}
+
+--#endregion
+
 --- Wealth
 
 --#region Cool Gal
@@ -3440,65 +3629,547 @@ HotPotato.EventStep {
 
 --#region Gambling
 
--- HotPotato.EventScenario {
--- 	key = "gambling",
--- 	loc_txt = {
--- 		name = "Let's Go Gambling!",
--- 		text = {
--- 			"Aw dang it."
--- 		}
--- 	},
--- 	domains = { wealth = true },
--- 	starting_step_key = "hpot_gambling_start",
--- 	hotpot_credits = {
--- 		code = { "N'" },
--- 		team = { "Pissdrawer" },
--- 	},
--- }
+HotPotato.EventScenario {
+	key = "gambling",
+	loc_txt = {
+		name = "Let's Go Gambling!",
+		text = {
+			"Aw dang it."
+		}
+	},
+	domains = { wealth = true },
+	starting_step_key = "hpot_gambling_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+	in_pool = function(self)
+		return G.GAME.dollars >= 5
+	end
+}
 
--- HotPotato.EventStep {
--- 	key = "gambling_start",
--- 	hide_hand = true,
--- 	loc_txt = {
--- 		text = {
--- 			""
--- 		},
--- 	},
--- 	get_choices = function(self, event)
--- 		return {
--- 			moveon()
--- 		}
--- 	end,
--- 	start = function(self, event)
--- 		local chara = Character("j_hit_the_road")
--- 		chara.states.collide.can = false
--- 		G.E_MANAGER:add_event(Event({
--- 			trigger = "immediate",
--- 			blockable = false,
--- 			blocking = false,
--- 			func = function()
--- 				chara.T.scale = chara.T.scale * 0.75
--- 				return true
--- 			end,
--- 		}))
--- 	end,
--- 	finish = function(self, event)
--- 		local poll = pseudorandom("hpo_event_cool_gal", 1, 5)
--- 		if poll == 1 then
--- 			ease_dollars(10)
--- 		elseif poll == 2 then
--- 			ease_plincoins(2)
--- 		elseif poll == 3 then
--- 			HPTN.ease_credits(20)
--- 		elseif poll == 4 then
--- 			ease_spark_points(2000)
--- 		elseif poll == 5 then
--- 			ease_cryptocurrency(2)
--- 		end
--- 	end
--- }
+local hpot_event_gambling_func = function(amount, event)
+	event.ability.gambling = (event.ability.gambling or 0) + 1
+	local success = pseudorandom("hpot_event_gambling") >= 0.25 * event.ability.gambling
+	if success then
+		ease_dollars(amount)
+	else
+		ease_dollars(-amount)
+	end
+	if event.ability.gambling >= 4 then
+		if event.ability.initial_money > G.GAME.dollars then
+			event.start_step("hpot_gambling_finish_pos")
+		else
+			event.start_step("hpot_gambling_finish_neg")
+		end
+	elseif success then
+		event.start_step("hpot_gambling_success")
+	else
+		event.start_step("hpot_gambling_fail")
+	end
+end
+
+HotPotato.EventStep {
+	key = "gambling_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"You encounter a slot machine.",
+			" ",
+			"How much will you bet?"
+		},
+		choices = {
+			bet5 = "Bet {C:money}$5{}",
+			bet10 = "Bet {C:money}$10{}",
+			bet20 = "Bet {C:money}$20{}",
+			bet40 = "Bet {C:money}$40{}",
+			ignore = "Ignore"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "bet5",
+				button = function()
+					hpot_event_gambling_func(5, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 5
+				end
+			},
+			{
+				key = "bet10",
+				button = function()
+					hpot_event_gambling_func(10, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 10
+				end
+			},
+			{
+				key = "bet20",
+				button = function()
+					hpot_event_gambling_func(20, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 20
+				end
+			},
+			{
+				key = "bet40",
+				button = function()
+					hpot_event_gambling_func(40, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 40
+				end
+			},
+			{
+				key = "ignore",
+				button = hpot_event_end_scenario,
+			}
+		}
+	end,
+	start = function(self, event)
+		event.ability.initial_money = G.GAME.dollars
+	end
+}
+
+HotPotato.EventStep {
+	key = "gambling_success",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"I can't stop winning!",
+			" ",
+			"How much will you bet next?"
+		},
+		choices = {
+			bet5 = "Bet {C:money}$5{}",
+			bet10 = "Bet {C:money}$10{}",
+			bet20 = "Bet {C:money}$20{}",
+			bet40 = "Bet {C:money}$40{}",
+			stop = "Stop"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "bet5",
+				button = function()
+					hpot_event_gambling_func(5, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 5
+				end
+			},
+			{
+				key = "bet10",
+				button = function()
+					hpot_event_gambling_func(10, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 10
+				end
+			},
+			{
+				key = "bet20",
+				button = function()
+					hpot_event_gambling_func(20, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 20
+				end
+			},
+			{
+				key = "bet40",
+				button = function()
+					hpot_event_gambling_func(40, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 40
+				end
+			},
+			{
+				key = "stop",
+				button = hpot_event_end_scenario,
+			}
+		}
+	end,
+}
+
+HotPotato.EventStep {
+	key = "gambling_fail",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"Aw dang it!",
+			" ",
+			"How much will you bet next?"
+		},
+		choices = {
+			bet5 = "Bet {C:money}$5{}",
+			bet10 = "Bet {C:money}$10{}",
+			bet20 = "Bet {C:money}$20{}",
+			bet40 = "Bet {C:money}$40{}",
+			stop = "Stop"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "bet5",
+				button = function()
+					hpot_event_gambling_func(5, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 5
+				end
+			},
+			{
+				key = "bet10",
+				button = function()
+					hpot_event_gambling_func(10, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 10
+				end
+			},
+			{
+				key = "bet20",
+				button = function()
+					hpot_event_gambling_func(20, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 20
+				end
+			},
+			{
+				key = "bet40",
+				button = function()
+					hpot_event_gambling_func(40, event)
+				end,
+				func = function()
+					return G.GAME.dollars >= 40
+				end
+			},
+			{
+				key = "stop",
+				button = hpot_event_end_scenario,
+			}
+		}
+	end,
+}
+
+HotPotato.EventStep {
+	key = "gambling_finish_pos",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"Maybe stop while you're ahead..."
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+}
+
+HotPotato.EventStep {
+	key = "gambling_finish_neg",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"You want to keep going by your brain knows better..."
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+}
+
+--#endregion
+
+--#region PBA 10
+
+local random_pack_tag = function(seed)
+	return pseudorandom_element({
+		"tag_hpot_mega_hanafuda",
+		"tag_hpot_mega_auras",
+		"tag_hpot_job",
+		"tag_buffoon",
+		"tag_charm",
+		"tag_ethereal",
+		"tag_meteor",
+		"tag_standard"
+	}, seed or "hpot_pack_tag")
+end
+
+HotPotato.EventScenario {
+	key = "pba10",
+	loc_txt = {
+		name = "PBA 10",
+		text = {
+			"Sometimes the hobby is to ruin the hobby"
+		}
+	},
+	domains = { wealth = true },
+	starting_step_key = "hpot_pba10_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "pba10_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"Dude, you gotta check this out. This is crazy!",
+			"My Trading Card got rated a PBA 10! This is gonna sell for thousands!\"",
+			" ",
+			"\"What? Playing? Of course I'm not playing! This is an investment!\"",
+			" ",
+			"\"Here, take some of my packs. They will give you the rush.",
+			"Oh, and don't worry I already weighted them."
+		},
+		choices = {
+			accept = "Take packs"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "accept",
+				button = hpot_event_end_scenario,
+			},
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_trading")
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+	finish = function(self, event)
+		for i = 1, 3 do
+			add_tag(Tag(random_pack_tag("hpot_event_pba10")))
+		end
+	end
+}
+
+--#endregion
 
 --- Escapade
+
+--#region Small Seed
+
+HotPotato.EventScenario {
+	key = "small_seed",
+	loc_txt = {
+		name = "Small Seed",
+		text = {
+			"All you need to change the future"
+		}
+	},
+	domains = { escapade = true },
+	starting_step_key = "hpot_small_seed_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "small_seed_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"On your way to the next blind you see a small sapling.",
+			" ",
+			"What do you do?"
+		},
+		choices = {
+			water = "Water it",
+			ignore = "Ignore it"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "water",
+				button = function()
+					event.start_step("hpot_small_seed_water")
+				end,
+			},
+			{
+				key = "ignore",
+				button = function()
+					event.start_step("hpot_small_seed_ignore")
+				end,
+			},
+		}
+	end,
+}
+
+HotPotato.EventStep {
+	key = "small_seed_water",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"Changing the world one nice act at the time.",
+			" ",
+			"You feel a change in your deck."
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local editionless_cards = SMODS.Edition:get_edition_cards(G.deck, true)
+
+		local choice = pseudorandom_element(editionless_cards, "hpot_event_small_seed")
+		if choice then
+			choice:set_edition("e_negative")
+		end
+	end
+}
+
+HotPotato.EventStep {
+	key = "small_seed_ignore",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"So that's the kind of person you are, huh?",
+			" ",
+			"You feel a change in your deck."
+		},
+	},
+	get_choices = function(self, event)
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		for _, pcard in ipairs(G.playing_cards) do
+			if pcard.ability.set == "Default" then
+				pcard:set_ability("m_glass")
+			end
+		end
+	end
+}
+
+--#endregion
+
+--#region Ruan Mei
+
+HotPotato.EventScenario {
+	key = "ruan_mei",
+	loc_txt = {
+		name = "Ruan Mei",
+		text = {
+			"Don't tell Herta and Screwllum about this."
+		}
+	},
+	domains = { escapade = true },
+	starting_step_key = "hpot_ruan_mei_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "ruan_mei_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"You catch a whiff of the aroma of warm pastries.",
+			"As you lift your feet from the ground and float",
+			"towards them in a cartoonis fashion, a dark-haired lady",
+			"addresses you.",
+			" ",
+			"\"This is the simulated lab, my miniature petri dish.",
+			"I nurtured this miniature slice by myself and embedded it into the code of te game.\"",
+			" ",
+			"\"I'll give you some things,\" she says, ",
+			"good things. But they don't come for free.\""
+		},
+		choices = {
+			ruan_mei = "You are... Ruan Mei?",
+			aeons = "Worship Aeons",
+			money = "Want lots of money"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "ruan_mei",
+				button = function()
+					for _, joker in ipairs(G.jokers.cards) do
+						if not joker.edition then
+							joker:set_edition("e_negative")
+						end
+					end
+					ease_dollars(500)
+					hpot_event_end_scenario()
+				end,
+				func = function()
+					return not not next(SMODS.find_card("j_hpot_ruan_mei"))
+				end
+			},
+			{
+				key = "aeons",
+				button = function()
+					for _, joker in ipairs(G.jokers.cards) do
+						if not joker.edition then
+							joker:set_edition("e_negative")
+						end
+					end
+					hpot_event_end_scenario()
+				end,
+				func = function()
+					return #SMODS.Edition:get_edition_cards(G.jokers, true) > 0
+				end
+			},
+			{
+				key = "money",
+				button = function()
+					ease_dollars(500)
+					hpot_event_end_scenario()
+				end,
+			},
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_hpot_ruan_mei")
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+	end
+}
+
+--#endregion
 
 --- Combat
 
