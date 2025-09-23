@@ -4177,4 +4177,223 @@ HotPotato.EventStep {
 
 --- Adventure
 
+--#region Black Jack
+
+HotPotato.EventScenario {
+	key = "bj",
+	loc_txt = {
+		name = "Blackjack",
+		text = {
+			"What's 9+10?"
+		}
+	},
+	domains = { adventure = true },
+	starting_step_key = "hpot_bj_in",
+	hotpot_credits = {
+		code = { "fey <3" },
+		team = { "Pissdrawer" },
+	},
+	in_pool = function()
+		if #G.deck.cards >= 2 and G.GAME.dollars > 0 then return true end
+	end,
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_in",
+	loc_txt = {
+		text = {
+			"You see a shady figure with a set of cards",
+			"infront of him, a 'normal' 52 card deck.",
+			'',
+			"\"Up for a game of Black Jack, pal?\" He sounds",
+			"like he's straight out of the 'slammer'..."
+		},
+		choices = {
+			start = "I'm all in!",
+			stop = "On second thought, maybe not..."
+		}
+	},
+	start = function(self, event)
+		G.GAME.BJ_CARDS = {TOTAL = 0}
+		local to = Character("j_ring_master")
+		to.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				to.T.scale = to.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "start",
+				button = function()
+					event.start_step('hpot_bj_start')
+				end
+			},
+			{
+				key = "stop",
+				button = function()
+					hpot_event_end_scenario()
+				end
+			},
+		}
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_start",
+	start = function(self, event)
+		G.GAME.BJ_CARDS.MONEY = G.GAME.dollars
+		ease_dollars(-G.GAME.dollars)
+		G.GAME.BJ_CARDS.HANDSIZE = G.hand.config.card_limit
+
+		G.hand:change_size(2 - G.hand.config.card_limit)
+
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_deck_to_hand()
+				return true;
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.BJ_CARDS.DEALER_CARDS = {SMODS.create_card{ set = "Base" }, SMODS.create_card{ set = "Base" }}
+				G.GAME.BJ_CARDS.DEALER = G.GAME.BJ_CARDS.DEALER_CARDS[1].base.nominal + G.GAME.BJ_CARDS.DEALER_CARDS[2].base.nominal
+				G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
+				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 9.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9	
+				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 11.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
+				return true
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				event.start_step("hpot_bj_check")
+				return true;
+			end
+		}))
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_hit",
+	start = function(self, event)
+		draw_card(G.deck, G.hand, 1, 'up', true)
+		event.start_step('hpot_bj_check')
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_check",
+	loc_txt = {
+		choices = {
+			hit = "Lady Luck gimme a kiss! (Hit)",
+			stand = "Wee hee hee! (Stand)"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = 'hit',
+				button = function()
+					event.start_step('hpot_bj_hit')
+				end,
+				func = function()
+					return G.GAME.BJ_CARDS.TOTAL < 21
+				end
+			},
+			{
+				key = 'stand',
+				button = function()
+					event.start_step('hpot_bj_eval')
+				end
+			} 
+		}
+	end,
+	start = function(self, event)
+		local count = 0
+		for i, v in ipairs(G.hand.cards) do
+			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+				count = count + 1
+			else
+				count = count + v.base.nominal
+			end
+		end
+		G.GAME.BJ_CARDS.TOTAL = count
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_eval",
+	start = function(self, event)
+		G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
+		local count = 0
+		for i, v in ipairs(G.hand.cards) do
+			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+				count = count + 1
+			else
+				count = count + v.base.nominal
+			end
+		end
+		G.GAME.BJ_CARDS.TOTAL = count
+		G.GAME.BJ_CARDS.FINAL_MONEY = 0
+		if G.GAME.BJ_CARDS.TOTAL <= 21 and G.GAME.BJ_CARDS.TOTAL > G.GAME.BJ_CARDS.DEALER then
+			G.GAME.BJ_CARDS.WON = true
+			G.GAME.BJ_CARDS.FINAL_MONEY = G.GAME.BJ_CARDS.MONEY * 2
+		end
+		event.start_step("hpot_bj_final")
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_final",
+	loc_txt = {
+		text = {
+			"Looks like you #1# {C:money}$#2#{}!"
+		},
+		choices = {
+			cashin = 'Cash in!'
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "cashin",
+				button = function()
+					ease_dollars(G.GAME.BJ_CARDS.FINAL_MONEY)
+					G.GAME.BJ_CARDS.DEALER_CARDS[1]:remove()
+					G.GAME.BJ_CARDS.DEALER_CARDS[2]:remove()
+					hpot_event_end_scenario()
+				end
+			} 
+		}
+	end,
+	loc_vars = function(self)
+		return {
+			vars = {
+				G.GAME.BJ_CARDS.WON and 'won' or 'lost',
+				G.GAME.BJ_CARDS.FINAL_MONEY
+			}
+		}
+	end,
+	finish = function(self, event)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_hand_to_deck()
+				G.deck:shuffle('bj' .. G.GAME.round_resets.ante)
+
+				G.hand:change_size(G.GAME.BJ_CARDS.HANDSIZE - 2)
+				G.GAME.BJ_CARDS.HANDSIZE = nil
+				return true
+			end
+		}))
+	end
+}
+
+--#endregion
+
 --- Transaction/Respite
