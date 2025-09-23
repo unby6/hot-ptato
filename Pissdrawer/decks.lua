@@ -1,7 +1,8 @@
 --#region UBlock Deck
 SMODS.Back {
     key = 'ublockdeck',
-    atlas = 'pdr_ublock',
+    atlas = 'pdr_decks',
+    pos = { x = 1, y = 0 },
     discovered = true
 }
 
