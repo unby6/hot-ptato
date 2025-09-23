@@ -277,7 +277,8 @@ SMODS.Joker {
         }
     end,
     rarity = 1, cost = 3,
-    atlas = 'pdr_togore',
+    atlas = 'pdr_joker',
+    pos = { x = 5, y = 0 },
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand then
             context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
@@ -293,7 +294,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = { x = 4, y = 0 },
     config = { extra = 2 },
     loc_vars = function(self, info_queue, card)
         return { vars = { math.floor(100 / card.ability.extra) } }
@@ -331,4 +332,27 @@ SMODS.Joker {
             card:juice_up()
         end
     end,
+}
+
+SMODS.Joker {
+    key = "birthdayboy",
+    loc_txt = {
+        name = "Birthday Boy",
+        text = { {"Happy Birthday, N'!"}, {'Where would Jujutsu', 'Jokers be without you...'} }
+    },
+    hotpot_credits = {
+        art = { "deadbeet" },
+        code = { "deadbeet" },
+        team = { "Pissdrawer" }
+    },
+    atlas = "pdr_joker",
+    pos = { x = 6, y = 0 },
+    soul_pos = { x = 7, y = 0 },
+    unlocked = true,
+    discovered = true,
+    rarity = 4,
+    no_collection = true,
+    in_pool = function(self, args)
+        return false
+    end
 }
