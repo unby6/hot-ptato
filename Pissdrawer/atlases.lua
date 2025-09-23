@@ -4,7 +4,7 @@ SMODS.Atlas {
     px = 71, py = 95
 }
 SMODS.Atlas {
-    key = "pdr_ublock",
-    path = "Pissdrawer/ublockdeck.png",
+    key = "pdr_decks",
+    path = "Pissdrawer/pdr_decks.png",
     px = 71, py = 95
 }

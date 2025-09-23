@@ -60,7 +60,6 @@ SMODS.Joker{ --19 plincoin fortnite card
     end,
 
     calculate = function(self, card, context)
-
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if G.GAME.blind.boss then
                 card.ability.extra.bosses = card.ability.extra.bosses - 1
@@ -74,7 +73,7 @@ SMODS.Joker{ --19 plincoin fortnite card
                         end
                     })) 
                     return {
-                        message = "Fortnite",
+                        message = localize("hotpot_perkeocoin_fortnite"),
                         colour = G.C.GREEN
                     }
                 end
@@ -116,12 +115,10 @@ SMODS.Joker{ --Plink
     end,
 
     calculate = function(self, card, context)
-
-        if context.cardarea == G.jokers and context.joker_main then
+        if context.joker_main then
             if G.GAME.balls_dropped > 0 then
                 return{
-                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult * G.GAME.balls_dropped}},
-                    mult_mod = card.ability.extra.mult * G.GAME.balls_dropped
+                    mult = card.ability.extra.mult * G.GAME.balls_dropped
                 }
             end
         end
@@ -220,12 +217,10 @@ SMODS.Joker{ --Tribcoin
     end,
 
     calculate = function(self, card, context)
-
-        if context.cardarea == G.jokers and context.joker_main then
+        if context.joker_main then
             if G.GAME.plincoins > 0 then
                 return{
-                    message = localize{type='variable',key='a_xmult',vars={1 + (G.GAME.plincoins * card.ability.extra.Xmult)}},
-                    Xmult_mod = 1 + (G.GAME.plincoins * card.ability.extra.Xmult)
+                    xmult = 1 + (G.GAME.plincoins * card.ability.extra.Xmult)
                 }
             end
         end
@@ -262,12 +257,10 @@ SMODS.Joker{ --Adspace
     end,
 
     calculate = function(self, card, context)
-
-        if context.cardarea == G.jokers and context.joker_main then
+        if context.joker_main then
             if #G.GAME.hotpot_ads > 0 then
                 return{
-                    message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips * #G.GAME.hotpot_ads}},
-                    chip_mod = card.ability.extra.chips * #G.GAME.hotpot_ads
+                    chips = card.ability.extra.chips * #G.GAME.hotpot_ads
                 }
             end
         end
@@ -325,7 +318,7 @@ SMODS.Joker{ -- Kitchen Gun
                 message_colour = G.C.RED
             })
         end
-        if context.joker_main and context.cardarea == G.jokers and card.ability.extra.xmult > 1 then
+        if context.joker_main and card.ability.extra.xmult > 1 then
             return{
                     Xmult = card.ability.extra.xmult
                 }
@@ -382,24 +375,21 @@ SMODS.Joker{ --TV Dinner
     end,
 
     calculate = function(self, card, context)
-
-        if context.cardarea == G.jokers and context.joker_main then
+        if context.joker_main then
             if card.ability.extra.mult > 0 then
                 return{
-                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                    mult_mod = card.ability.extra.mult
+                    mult = card.ability.extra.mult
                 }
             end
-
         elseif context.close_ad and not context.blueprint then
             if card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then 
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
                 }
             else
-                SMODS.scale_card(self, {
+                SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "mult",
                     scalar_value = "mult_mod",
@@ -447,12 +437,10 @@ SMODS.Joker{ --Free To Use
     end,
 
     calculate = function(self, card, context)
-
         if context.cardarea == G.play and context.repetition then
             if SMODS.pseudorandom_probability(card, 'perky_free!', card.ability.extra.num, card.ability.extra.den, 'free_to_use') then
                 create_ads(card.ability.extra.reps)
                 return {
-                    message = localize('k_again_ex'),
                     repetitions = 1,
                     card = card
                 }
@@ -500,7 +488,7 @@ SMODS.Joker{ --Direct Deposit
                 new_config.dollars = 0
                 if card.ability.extra.so_far >= card.ability.extra.dollars then
                     ease_plincoins(math.floor(card.ability.extra.so_far / card.ability.extra.dollars))
-                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink X"..tostring(math.floor(card.ability.extra.so_far / card.ability.extra.dollars)).."!", colour = G.C.MONEY})
+                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_direct_deposit")..tostring(math.floor(card.ability.extra.so_far / card.ability.extra.dollars)).."!", colour = G.C.MONEY})
                     card.ability.extra.so_far = card.ability.extra.so_far % card.ability.extra.dollars
                 else
                     card_eval_status_text(card, 'jokers', nil, nil, nil, {message = tostring(card.ability.extra.so_far).."/"..tostring(card.ability.extra.dollars), colour = G.C.FILTER})
@@ -610,12 +598,12 @@ SMODS.Joker{ --Balatro **PREMIUM**
         if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual and not context.blueprint then
             ease_dollars(-card.ability.extra.dollars)
             return {
-                message = "-$"..card.ability.extra.dollars,
+                message = "-"..localize("$")..card.ability.extra.dollars,
                 colour = G.C.MONEY
             }
 
         elseif context.close_ad and not context.blueprint then
-            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Ad Removed!", colour = G.C.FILTER})
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_ad_removed"), colour = G.C.FILTER})
         end
    
     end
@@ -749,7 +737,7 @@ SMODS.Joker{ --Don't Touch That Dial!
         if context.end_of_round and G.GAME.current_round.discards_left > 0 and not (context.blueprint or context.individual or context.repetition) then
             ease_plincoins(G.GAME.current_round.discards_left)
             create_ads(G.GAME.current_round.discards_left)
-            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Stay Tuned!", colour = G.C.MONEY})
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_stay_tuned"), colour = G.C.MONEY})
         end
     end
 
@@ -1603,17 +1591,3 @@ SMODS.Voucher {
         end
     end
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
