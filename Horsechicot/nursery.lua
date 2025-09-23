@@ -196,7 +196,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
 
                                                 {
                                                     n = G.UIT.R,
-                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'emplace_father', func = 'can_emplace_father', hover = true, shadow = true },
+                                                    config = { id = "wheel_credits", align = "cm", minw = 2.8, minh = 1, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'emplace_father', func = 'can_emplace_father', hover = true, shadow = true },
                                                     nodes = {
                                                         {
                                                             n = G.UIT.C,
@@ -523,12 +523,11 @@ function end_round()
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
                     G.GAME.center_being_duped = false
-                    local card = SMODS.create_card { key = to_dupe.key }
+                    local card = SMODS.add_card { key = to_dupe.key, area = G.nursery_child, skip_materialize = true }
                     --make children smaller
                     card.T.w = card.T.w * 0.75
                     card.T.h = card.T.h * 0.75
                     card.ability.is_nursery_smalled = true
-                    G.nursery_child:emplace(card)
                     if to_dupe.key == 'j_hpot_loss' then
                         card.ability.extra.Xmult = G.GAME.loss_child_xmult
                         G.GAME.loss_child_xmult = nil
