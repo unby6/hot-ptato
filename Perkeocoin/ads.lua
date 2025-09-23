@@ -157,7 +157,7 @@ function create_UIBox_ad(args)
 
     if tutorial then
         tutorial_banner = Sprite(0,0,(150/49)*scale,(31/49)*scale,G.ASSET_ATLAS['hpot_TutorialAdBanner'], {x=0,y=0})
-        tutorial_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
+        tutorial_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cr'}, nodes = {
                         {n = G.UIT.O, config = {object = tutorial_banner, r = 0.3}}
                         }}
                     
