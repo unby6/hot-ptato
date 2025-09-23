@@ -49,6 +49,7 @@ SMODS.Tag {
             if SMODS.pseudorandom_probability(tag, "double_jx", tag.config.extras.odds, tag.config.extras.denom) then
                 tag:yep("+", G.C.BLUE, function()
                     ease_spark_points(G.GAME.spark_points - tag.config.extras.xgive_jx * G.GAME.spark_points)
+                    return true
                 end)
             else
                 tag:nope()
