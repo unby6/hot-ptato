@@ -1,4 +1,3 @@
-
 -- mmm tag
 SMODS.Tag {
     key = "jokerexchange",
@@ -18,20 +17,20 @@ SMODS.Tag {
         end
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        idea = {'MissingNumber'},
-        code = {'Haya'},
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        idea = { 'MissingNumber' },
+        code = { 'Haya' },
+        team = { 'Jtem' }
     },
 }
 
 
-SMODS.Tag{
+SMODS.Tag {
     key = "double_jx",
     config = {
-        extras = {odds = 1, denom = 2, xgive_jx = 2}
+        extras = { odds = 1, denom = 2, xgive_jx = 2 }
     },
-    loc_vars = function (self, info_queue, tag)
+    loc_vars = function(self, info_queue, tag)
         local n, d = SMODS.get_probability_vars(tag, tag.config.extras.odds, tag.config.extras.denom, "double_jx")
         return {
             vars = {
@@ -41,15 +40,16 @@ SMODS.Tag{
             }
         }
     end,
-    atlas = "jtem_jxtag_dobule", pos = { x = 0, y = 0},
-    apply = function (self, tag, context)
+    atlas = "jtem_jxtag_dobule", pos = { x = 0, y = 0 },
+    apply = function(self, tag, context)
         if context.type == 'immediate' then
             local lock = tag.ID
             G.GAME.spark_points = G.GAME.spark_points or 0
             G.CONTROLLER.locks[lock] = true
-            if SMODS.pseudorandom_probability(tag,  "double_jx", tag.config.extras.odds, tag.config.extras.denom) then
-                tag:yep("+",G.C.BLUE,function ()
-                    ease_spark_points(G.GAME.spark_points - tag.config.extras.give_jx * G.GAME.spark_points)
+            if SMODS.pseudorandom_probability(tag, "double_jx", tag.config.extras.odds, tag.config.extras.denom) then
+                tag:yep("+", G.C.BLUE, function()
+                    ease_spark_points(G.GAME.spark_points - tag.config.extras.xgive_jx * G.GAME.spark_points)
+                    return true
                 end)
             else
                 tag:nope()
@@ -57,12 +57,12 @@ SMODS.Tag{
             tag.triggered = true
             G.CONTROLLER.locks[lock] = nil
             return true
-        end 
+        end
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        idea = {'Aikoyori'},
-        code = {'Aikoyori'},
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        idea = { 'Aikoyori' },
+        code = { 'Aikoyori' },
+        team = { 'Jtem' }
     },
 }

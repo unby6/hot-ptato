@@ -113,7 +113,6 @@ HotPotato.allcalcs = HotPotato.allcalcs or {
     "remove_playing_cards",
     "debuffed_hand",
     "end_of_round",
-    "setting_blind",
     "pre_discard",
     "discard",
     "open_booster",
@@ -143,7 +142,6 @@ HotPotato.allcalcs = HotPotato.allcalcs or {
     "modify_hand",
     "drawing_cards",
     "pseudorandom_result",
-    "from_roll",
     "result",
     "initial_scoring_step",
     "joker_type_destroyed",
@@ -174,7 +172,10 @@ SMODS.Sound {
 SMODS.Joker {
     key = 'social_credit',
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = {
+        x = 1,
+        y = 0
+    },
     config = {
         china = 'piss',
         trig = false,
@@ -205,6 +206,13 @@ SMODS.Joker {
                 card.ability.extra.social_credit_max
             }
         }
+    end,
+    set_sprites = function(self, card, front)
+        if card.area and card.area == G.jokers and card.ability.extra.social_credit < 0 then
+            card.children.center:set_sprite_pos({ x = 2, y = 0 })
+        else
+            card.children.center:set_sprite_pos({ x = 1, y = 0 })
+        end
     end,
     add_to_deck = function(self, card, from_debuff)
         card.ability.china = (HotPotato and HotPotato.allcalcs[math.floor(pseudorandom('china', 1, #HotPotato.allcalcs))]) or
@@ -250,30 +258,32 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = 'togore',
-    loc_txt = {name = 'Togore', text = {
+    loc_txt = { name = 'Togore', text = {
         'When hand is {C:attention}played{},',
-        '{C:attention}non-played{} cards held in', 
+        '{C:attention}non-played{} cards held in',
         'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
-    }},
+    } },
     hotpot_credits = {
         art = { 'Tacashumi' },
         code = { 'fey <3' },
         idea = { 'Tacashumi' },
         team = { 'Pissdrawer' }
     },
-    config = {extra = {chips = 10}},
-    loc_vars = function(self,info_queue,card)
-        return {vars = {
-            card.ability.extra.chips
-        }}
+    config = { extra = { chips = 10 } },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips
+            }
+        }
     end,
     rarity = 1, cost = 3,
     atlas = 'pdr_togore',
-    calculate = function(self,card,context)
+    calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand then
             context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
             return {
-                message = '+'..card.ability.extra.chips..' Chips', colour = G.C.CHIPS
+                message = '+' .. card.ability.extra.chips .. ' Chips', colour = G.C.CHIPS
             }
         end
     end
@@ -304,15 +314,20 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.reforging and not context.free then
             if context.currency == "DOLLAR" then
-                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability.extra))
+                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability
+                    .extra))
             elseif context.currency == "CREDIT" then
-                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) / card.ability.extra))
+                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) /
+                    card.ability.extra))
             elseif context.currency == "SPARKLE" then
-                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) / card.ability.extra))
+                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) /
+                    card.ability.extra))
             elseif context.currency == "PLINCOIN" then
-                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) / card.ability.extra))
+                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) /
+                    card.ability.extra))
             elseif context.currency == "CRYPTOCURRENCY" then
-                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) / card.ability.extra))
+                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) /
+                    card.ability.extra))
             end
             card:juice_up()
         end
