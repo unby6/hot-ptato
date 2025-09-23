@@ -207,13 +207,6 @@ SMODS.Joker {
             }
         }
     end,
-    set_sprites = function(self, card, front)
-        if card.area and card.area == G.jokers and card.ability.extra.social_credit < 0 then
-            card.children.center:set_sprite_pos({ x = 3, y = 0 })
-        else
-            card.children.center:set_sprite_pos({ x = 2, y = 0 })
-        end
-    end,
     add_to_deck = function(self, card, from_debuff)
         card.ability.china = (HotPotato and HotPotato.allcalcs[math.floor(pseudorandom('china', 1, #HotPotato.allcalcs))]) or
             'piss'
@@ -238,8 +231,6 @@ SMODS.Joker {
                     sound = 'hpot_gong'
                 }
             end
-
-            card.ability.trig = false
         end
         if context.end_of_round then
             HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / 100))
@@ -249,6 +240,14 @@ SMODS.Joker {
                 message = 'bad puppy...',
                 HPTN.set_credits(0)
             }
+        end
+        if context.post_trigger and context.other_card == card and card.ability.trig == true then
+            if hpt.social_credit < 0 then
+                card.children.center:set_sprite_pos({ x = 3, y = 0 })
+            else
+                card.children.center:set_sprite_pos({ x = 2, y = 0 })
+            end
+            card.ability.trig = false
         end
     end,
     in_pool = function(self, args)
