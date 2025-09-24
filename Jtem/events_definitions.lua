@@ -4173,6 +4173,280 @@ HotPotato.EventStep {
 
 --- Combat
 
+-- TODO: turn this into an SMODS.GameObject thingy too
+HotPotato.CombatEvents = {}
+HotPotato.CombatEvents.test = {
+	blind_key = "bl_serpent",        -- blind to face
+	calculate = function(self, context) -- calculate
+		if context.end_of_round and context.main_eval then
+			return {
+				dollars = 50
+			}
+		end
+	end,
+	defeat = function(self) -- on defeat (use for rewards)
+		ease_dollars(50)
+	end
+}
+
+HotPotato.CombatEvents.generic = {
+	blind_key = "bl_big",
+	calculate = function(self, context)
+		local effect = G.GAME.blind.effect.hpot_combat_bonus
+		if not effect then return end
+
+		if context.setting_blind then
+			if effect.change_size then
+				G.GAME.blind.chips = G.GAME.blind.chips * effect.change_size
+				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+			end
+
+			if effect.total_hands or effect.hands then
+				ease_hands_played((effect.total_hands and (-G.GAME.round_resets.hands + effect.total_hands) or 0) +
+					(effect.hands or 0))
+			end
+
+			if effect.total_discards or effect.discards then
+				ease_discard((effect.total_discards and (-G.GAME.current_round.discards_left + effect.total_discards) or 0) +
+					(effect.discards or 0))
+			end
+
+			effect.hpot_hands = {}
+			for _, poker_hand in ipairs(G.handlist) do
+				effect.hpot_hands[poker_hand] = false
+			end
+		end
+
+		if context.debuff_card and effect.debuff then
+			if context.debuff_card.area == G.jokers then
+				if effect.debuff.jokers then
+					return {
+						debuff = true
+					}
+				end
+			else
+				if effect.debuff.suit and context.debuff_card:is_suit(effect.debuff.suit, true) then
+					return {
+						debuff = true
+					}
+				end
+				if effect.debuff.face and context.debuff_card:is_face(true) then
+					return {
+						debuff = true
+					}
+				end
+				if effect.debuff.played_this_ante and context.debuff_card.ability.played_this_ante then
+					return {
+						debuff = true
+					}
+				end
+			end
+		end
+
+		if context.debuff_hand and (effect.debuff or effect.set_to_zero) then
+			local set_to_zero = false
+			local debuff = false
+			if context.scoring_name == G.GAME.current_round.most_played_poker_hand then
+				if effect.set_to_zero and effect.set_to_zero.most_played_hand then
+					set_to_zero = true
+				end
+				if effect.debuff and effect.debuff.most_played_hand then
+					debuff = true
+				end
+			end
+			if effect.set_to_zero and context.scoring_name == effect.set_to_zero.scoring_name then
+				set_to_zero = true
+			end
+			if effect.debuff and context.scoring_name == effect.debuff.scoring_name then
+				debuff = true
+			end
+			if effect.no_repeat_hands then
+				if effect.hpot_hands[context.scoring_name] then
+					debuff = true
+				end
+				if not context.check then
+					effect.hpot_hands[context.scoring_name] = true
+				end
+			end
+			if effect.one_hand_type then
+				if effect.hpot_only_hand and effect.hpot_only_hand ~= context.scoring_name then
+					return {
+						debuff = true
+					}
+				end
+			end
+
+			if not context.check then
+				effect.hpot_only_hand = context.scoring_name
+			end
+			if set_to_zero then
+				if not context.check then
+					if effect.set_to_zero.dollars then
+						ease_dollars(math.min(0, -G.GAME.dollars), true)
+					end
+					if effect.set_to_zero.plincoins then
+						ease_plincoins(math.min(0, -G.GAME.plincoins), true)
+					end
+					if effect.set_to_zero.credits then
+						HPTN.ease_credits(math.min(0, -G.PROFILES[G.SETTINGS.profile].TNameCredits), true)
+					end
+					if effect.set_to_zero.sparkle then
+						ease_spark_points(math.min(0, -G.GAME.spark_points), true)
+					end
+					if effect.set_to_zero.crypto then
+						ease_cryptocurrency(math.min(0, -G.GAME.cryptocurrency), true)
+					end
+				end
+			end
+			if debuff then
+				return {
+					debuff = true
+				}
+			end
+		end
+
+		if context.stay_flipped and context.to_area == G.hand and effect.flipped then
+			if effect.flipped.suit and context.other_card:is_suit(effect.debuff.suit, true) then
+				return {
+					stay_flipped = true
+				}
+			end
+			if effect.flipped.face and context.other_card:is_face(true) then
+				return {
+					stay_flipped = true
+				}
+			end
+			if effect.flipped.played_this_ante and context.other_card.ability.played_this_ante then
+				return {
+					stay_flipped = true
+				}
+			end
+			if effect.flipped.first_hand and
+				G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 then
+				return {
+					stay_flipped = true
+				}
+			end
+		end
+
+		if context.modify_hand then
+			if effect.base_score_halved then
+				mult = mod_mult(math.max(math.floor(mult * 0.5 + 0.5), 1))
+				hand_chips = mod_chips(math.max(math.floor(hand_chips * 0.5 + 0.5), 0))
+				update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
+			end
+		end
+	end,
+	defeat = function(self)
+		SMODS.add_card { set = "Joker", rarity = 'Common' }
+	end
+}
+
+local hpot_event_get_random_boss = function(seed)
+	local eligible_bosses = {}
+	for k, v in pairs(G.P_BLINDS) do
+		local res, options = SMODS.add_to_pool(v)
+		eligible_bosses[k] = res and true or nil
+	end
+	for k, v in pairs(G.GAME.banned_keys) do
+		if eligible_bosses[k] then eligible_bosses[k] = nil end
+	end
+	local _, boss = pseudorandom_element(eligible_bosses, seed or "hpot_event_boss")
+	return boss or "bl_wall"
+end
+
+local hpot_event_get_random_combat_effect = function(seed)
+	-- TODO: localize these
+	local effects = {
+		{ change_size = 2,                                           text = "but Blind size is doubled" },
+		{ total_hands = 1,                                           text = "with only 1 hand" },
+		{ total_discards = 0,                                        text = "with 0 discards" },
+		{ debuff = { jokers = true },                                text = "but all Jokers are debuffed" },
+		{ debuff = { suit = true },                                  text = "but all [suit] are debuffed" }, -- not valid, randomizes later
+		{ debuff = { face = true },                                  text = "but all face cards are debuffed" },
+		{ debuff = { played_this_ante = true },                      text = "but all cards played this ante are debuffed" },
+		{ debuff = { most_played_hand = true },                      text = "but " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " is not allowed" },
+		{ set_to_zero = { most_played_hand = true, dollars = true }, text = "but playing " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " sets money to 0" },
+		{ no_repeat_hands = true,                                    text = "but no repeat hand types" },
+		{ one_hand_type = true,                                      text = "but ony one hand type can be played" },
+		{ flipped = { suit = true },                                 text = "but all [suit] are drawn facedown" }, -- not valid, randomizes later
+		{ flipped = { face = true },                                 text = "but all face cards are drawn facedown" },
+		{ flipped = { played_this_ante = true },                     text = "but all cards played this ante are drawn facedown" },
+		{ flipped = { first_hand = true },                           text = "but first hand is drawn facedown" },
+		{ base_score_halved = true,                                  text = "but base Chips and Mult are halved" },
+	}
+
+	local chosen_effect = pseudorandom_element(effects, seed or "hpot_event_combat_effect")
+	if not chosen_effect then return end
+	if chosen_effect.debuff and chosen_effect.debuff.suit then
+		local suit = pseudorandom_element(SMODS.Suits, (seed or "hpot_event_combat_effect") .. "suit_debuff")
+		chosen_effect.debuff.suit = (suit or {}).key or "Spades"
+		chosen_effect.text = "but all " .. localize(chosen_effect.debuff.suit, "suits_plural") .. " are debuffed"
+	end
+	if chosen_effect.flipped and chosen_effect.flipped.suit then
+		local suit = pseudorandom_element(SMODS.Suits, (seed or "hpot_event_combat_effect") .. "suit_flip")
+		chosen_effect.flipped.suit = (suit or {}).key or "Diamonds"
+		chosen_effect.text = "but all " .. localize(chosen_effect.flipped.suit, "suits_plural") .. " are drawn facedown"
+	end
+
+	return chosen_effect
+end
+
+HotPotato.EventScenario {
+	key = "the_tavern",
+	loc_txt = {
+		name = "The Tavern",
+		text = {
+			"You think you can be in this part of town",
+			"looking all cool? Yes, you can."
+		}
+	},
+	domains = { combat = true, encounter = true },
+	starting_step_key = "hpot_the_tavern_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "the_tavern_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"This person over here thinks they're so tough.\"",
+			" ",
+			"\"Really? Let's see you beat this.\"",
+			" ",
+			"Face {C:attention}#1#{} #2#",
+			"{C:money}Reward:{} 1 random {C:blue}Common{} Joker",
+			"{C:inactive}(Regular Blind rewards are also obtained){}"
+		},
+		choices = {
+			fight = "Fight!",
+		}
+	},
+	loc_vars = function(self, event)
+		if not event.ability.blind then -- very hacky. dont like it
+			event.ability.blind = event.domain == "encounter" and hpot_event_get_random_boss() or "bl_big"
+			event.ability.effect = hpot_event_get_random_combat_effect()
+		end
+		return { localize { type = 'name_text', key = event.ability.blind or "bl_big", set = 'Blind' },
+			event.ability.effect.text or "" }
+	end,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "fight",
+				button = function()
+					hpot_event_start_combat("generic", event.ability.blind, event.ability.effect)
+				end,
+			},
+			moveon()
+		}
+	end,
+}
+
 --- Encounter
 
 --- Adventure

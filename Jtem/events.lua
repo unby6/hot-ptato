@@ -549,6 +549,7 @@ function create_UIBox_hpot_event_select()
 	local choice_count = hpot_event_get_event_count({ source = "generic" }) or 2
 	G.GAME.hpot_event_domain_choices_used = G.GAME.hpot_event_domain_choices_used or {}
 	G.GAME.hpot_event_domain_choices = G.GAME.hpot_event_domain_choices or {}
+	G.GAME.hpot_event_domains_this_run = G.GAME.hpot_event_domains_this_run or {}
 
 	for i = 1, choice_count do
 		local domain_key
@@ -558,6 +559,7 @@ function create_UIBox_hpot_event_select()
 			domain_key = hpot_event_get_event_domain()
 			G.GAME.hpot_event_domain_choices_used[domain_key] = true
 			G.GAME.hpot_event_domain_choices[i] = domain_key
+			G.GAME.hpot_event_domains_this_run[domain_key] = true
 		end
 
 		local blind_col = HotPotato.EventDomains[domain_key].colour or event_colour
@@ -788,7 +790,7 @@ function hpot_event_start_step(key)
 	end
 end
 
-function hpot_event_end_scenario()
+function hpot_event_end_scenario(to_combat)
 	if G.hpot_event then
 		stop_use()
 		G.GAME.facing_hpot_event = nil
@@ -828,9 +830,10 @@ function hpot_event_end_scenario()
 						G.GAME.hpot_event_domain_choices_used = {}
 						G.GAME.hpot_event_domain_choices = {}
 						G.GAME.hpot_event_domain = nil
-
-						G.STATE = G.STATES.BLIND_SELECT
-						G.STATE_COMPLETE = false
+						if not to_combat then
+							G.STATE = G.STATES.BLIND_SELECT
+							G.STATE_COMPLETE = false
+						end
 						return true
 					end,
 				}))
