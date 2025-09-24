@@ -2112,7 +2112,7 @@ return {
             j_hpot_local_newspaper = {
                 name = 'Local Newspaper',
                 text = {
-                    'Expands choices by {C:attention}1{}',
+                    '{C:attention}3{} {C:attention}Event{} options are available',
                     'during {C:attention}Event{} selection'
                 }
             },
@@ -4625,6 +4625,8 @@ return {
 
             hotpot_training_joker = "UNDER TRAINING",
             hotpot_training_level = "Level ",
+
+            k_hotpot_combat_event_fail = "Better luck next time!"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

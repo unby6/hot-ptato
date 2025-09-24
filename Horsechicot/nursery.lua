@@ -476,8 +476,7 @@ function Game.start_run(...)
     old(...)
     for i, v in pairs(G.I.CARD) do
         if v.ability and v.ability.is_nursery_smalled then
-            v.T.w = v.T.w * 0.75
-            v.T.h = v.T.h * 0.75
+            v.T.scale = v.T.scale * 0.75
         end
     end
 end
@@ -525,8 +524,7 @@ function end_round()
                     G.GAME.center_being_duped = false
                     local card = SMODS.add_card { key = to_dupe.key, area = G.nursery_child, skip_materialize = true }
                     --make children smaller
-                    card.T.w = card.T.w * 0.75
-                    card.T.h = card.T.h * 0.75
+                    card.T.scale = card.T.scale * 0.75
                     card.ability.is_nursery_smalled = true
                     if to_dupe.key == 'j_hpot_loss' then
                         card.ability.extra.Xmult = G.GAME.loss_child_xmult
