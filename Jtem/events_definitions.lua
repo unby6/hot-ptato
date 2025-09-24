@@ -27,6 +27,7 @@ HotPotato.EventStep({
 })
 HotPotato.EventScenario({
 	key = "nothing",
+	hide_image_area = true,
 	starting_step_key = "hpot_nothing_1",
 
 	loc_txt = {
@@ -753,6 +754,7 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "spam_email",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_spam_1",
 	hotpot_credits = {
@@ -1396,6 +1398,7 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "nuclear_explosion",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_nuclear_explosion_1",
 	hotpot_credits = {
@@ -1505,6 +1508,7 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "job_application",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_job_application_1",
 	hotpot_credits = {
@@ -1618,6 +1622,7 @@ end
 
 HotPotato.EventStep {
 	key = "hpot_trolley_1",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1683,6 +1688,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_trolley_joker_killed",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1716,6 +1722,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_trolley_cards_killed",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1749,6 +1756,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_trolley_bribe",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1990,6 +1998,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario {
 	key = "fishing",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_fishing_1",
 	hotpot_credits = {
@@ -2212,6 +2221,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario {
 	key = "bizzare_machine",
+	hide_image_area = true,
 	starting_step_key = "hpot_bizzare_machine_start",
 	hotpot_credits = {
 		code = { "Mysthaps" },
@@ -3631,6 +3641,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario {
 	key = "gambling",
+	hide_image_area = true,
 	loc_txt = {
 		name = "Let's Go Gambling!",
 		text = {
@@ -3993,6 +4004,7 @@ HotPotato.EventScenario {
 
 HotPotato.EventStep {
 	key = "small_seed_start",
+	hide_image_area = true,
 	hide_hand = true,
 	loc_txt = {
 		text = {
@@ -4306,7 +4318,7 @@ HotPotato.CombatEvents.generic = {
 		end
 
 		if context.stay_flipped and context.to_area == G.hand and effect.flipped then
-			if effect.flipped.suit and context.other_card:is_suit(effect.debuff.suit, true) then
+			if effect.flipped.suit and context.other_card:is_suit(effect.flipped.suit, true) then
 				return {
 					stay_flipped = true
 				}
@@ -4338,7 +4350,189 @@ HotPotato.CombatEvents.generic = {
 		end
 	end,
 	defeat = function(self)
-		SMODS.add_card { set = "Joker", rarity = 'Common' }
+		local reward = (G.GAME.blind.effect.hpot_combat_bonus or {}).reward
+		if not reward then return end
+
+		if reward.jokers then
+			for _, joker in ipairs(reward.jokers) do
+				for i = 1, (joker.amount or 1) do
+					if not joker.need_room or (#G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit) then
+						SMODS.add_card { set = "Joker", rarity = joker.rarity, edition = joker.edition, no_edition = joker.no_edition, stickers = joker.stickers, key_append = joker.key_append or "hpot_combat_reward", key = joker.key, area = G.jokers }
+					end
+				end
+			end
+		end
+
+		if reward.consumables then
+			for _, consumable in ipairs(reward.consumables) do
+				for i = 1, (consumable.amount or 1) do
+					if not consumable.need_room or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) then
+						SMODS.add_card { set = consumable.set, edition = consumable.edition, key_append = consumable.key_append or "hpot_combat_reward", key = consumable.key, area = G.consumeables }
+					end
+				end
+			end
+		end
+
+		if reward.tags then
+			for _, tag_key in ipairs(reward.tags.keys or {}) do
+				add_tag(Tag(tag_key, false, 'Small'))
+			end
+			if reward.tags.random_amount then
+				local tag_pool = get_current_pool('Tag')
+				for i = 1, reward.tags.random_amount do
+					local selected_tag = pseudorandom_element(tag_pool, 'hpot_combat_reward')
+					local it = 1
+					while selected_tag == 'UNAVAILABLE' do
+						it = it + 1
+						selected_tag = pseudorandom_element(tag_pool, 'hpot_combat_reward_resample' .. it)
+					end
+					add_tag(Tag(selected_tag, false, 'Small'))
+				end
+			end
+		end
+
+		if reward.vouchers then
+			local vouchers_to_redeem = {}
+			for _, voucher_key in ipairs(reward.vouchers.keys or {}) do
+				vouchers_to_redeem[#vouchers_to_redeem + 1] = voucher_key
+			end
+			if reward.vouchers.random_amount then
+				local voucher_pool = get_current_pool('Voucher')
+				for i = 1, reward.vouchers.random_amount do
+					local selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed')
+					local it = 1
+					while selected_voucher == 'UNAVAILABLE' do
+						it = it + 1
+						selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed' .. it)
+					end
+					vouchers_to_redeem[#vouchers_to_redeem + 1] = selected_voucher
+				end
+			end
+			for _, voucher_key in ipairs(vouchers_to_redeem) do
+				local voucher_card = SMODS.create_card({ area = G.play, key = voucher_key })
+				voucher_card:start_materialize()
+				voucher_card.cost = 0
+				G.play:emplace(voucher_card)
+				delay(0.8)
+				voucher_card:redeem()
+
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					delay = 0.5,
+					func = function()
+						voucher_card:start_dissolve()
+						return true
+					end
+				}))
+			end
+		end
+
+		if reward.playing_cards then
+			for _, pcard in ipairs(reward.playing_cards) do
+				for i = 1, (pcard.amount or 1) do
+					-- TODO: account for modded ranks I guess
+					local rank = pcard.rank or
+						(pcard.face and pseudorandom_element({ "King", "Queen", "Jack" }, "hpot_event_combat_reward")) or
+						(pcard.numbered and tostring(pseudorandom("hpot_event_combat_reward", 2, 10)))
+					SMODS.add_card { set = (pcard.enhanced and "Enhanced") or (pcard.base and "Base") or "Playing Card", edition = pcard.edition, stickers = pcard.stickers, enhancement = pcard.enhancement, key_append = pcard.key_append or "hpot_combat_reward", rank = rank, suit = pcard.suit, seal = pcard.seal, area = G.deck }
+				end
+			end
+		end
+
+		if reward.enhance_deck then
+			for _, mod in ipairs(reward.enhance_deck) do
+				local amount = mod.amount or 1
+				local valid_cards = {}
+				local chosen_cards = {}
+				local conditions = mod.conditions or {}
+
+				for _, pcard in ipairs(G.playing_cards) do
+					local valid = true
+					if conditions.suits then
+						local has_suit = false
+						for _, suit in ipairs(conditions.suits) do
+							if pcard:is_suit(suit) then
+								has_suit = true
+								break
+							end
+						end
+						if not has_suit then valid = false end
+					end
+					if valid and conditions.ranks then
+						local has_rank = false
+						for _, rank in ipairs(conditions.ranks) do
+							if pcard.base.value == rank then
+								has_rank = true
+								break
+							end
+						end
+						if not has_rank then valid = false end
+					end
+					if valid and conditions.no_enhancement then
+						if pcard.ability.set == "Enhanced" then
+							valid = false
+						end
+					end
+					if valid and conditions.no_edition then
+						if pcard.edition then
+							valid = false
+						end
+					end
+					if valid and conditions.no_seal then
+						if pcard.seal then
+							valid = false
+						end
+					end
+					if valid then
+						valid_cards[#valid_cards + 1] = pcard
+					end
+				end
+
+				for i = 1, amount do
+					local chosen = pseudorandom_element(valid_cards, "hpot_event_combat_reward")
+					chosen_cards[#chosen_cards + 1] = chosen
+				end
+
+				for _, pcard in ipairs(chosen_cards) do
+					if mod.change_base then
+						-- TODO: account for modded ranks I guess
+						local rank = mod.change_base.rank or
+							(mod.change_base.face and pseudorandom_element({ "King", "Queen", "Jack" }, "hpot_event_combat_reward")) or
+							(mod.change_base.numbered and tostring(pseudorandom("hpot_event_combat_reward", 2, 10)))
+						assert(SMODS.change_base(pcard, mod.change_base.suit, rank))
+					end
+					if mod.edition then
+						pcard:set_edition(mod.edition)
+					end
+					if mod.enhancement then
+						pcard:set_ability(mod.enhancement)
+					end
+					if mod.seal then
+						pcard:set_seal(mod.seal)
+					end
+				end
+			end
+		end
+
+		if reward.dollars then
+			ease_dollars(reward.dollars)
+		end
+		if reward.plincoins then
+			ease_dollars(reward.plincoins)
+		end
+		if reward.credits then
+			HPTN.ease_credits(reward.credits)
+		end
+		if reward.sparkle then
+			ease_spark_points(reward.sparkle)
+		end
+		if reward.crypto then
+			ease_cryptocurrency(reward.crypto)
+		end
+
+		if reward.level_up_hand then
+			SMODS.smart_level_up_hand(nil, reward.level_up_hand.key, nil, reward.level_up_hand.amount)
+		end
 	end
 }
 
@@ -4392,8 +4586,258 @@ local hpot_event_get_random_combat_effect = function(seed)
 	return chosen_effect
 end
 
+local hpot_event_get_random_combat_reward = function(domain, seed)
+	-- TODO: localize these
+	local combat_rewards = {
+		{ jokers = { { rarity = "Common" } },                                           text = "A random Common Joker (Doesn't need room)" },
+		{ jokers = { { rarity = "Uncommon", need_room = true } },                       text = "A random Uncommon Joker (Must have room)" },
+		{ consumables = { { set = "Tarot", need_room = true, amount = 2 } },            text = "Up to 2 random Tarot cards (Must have room)" },
+		{ consumables = { { set = "Planet", need_room = true, amount = 2 } },           text = "Up to 2 random Planet cards (Must have room)" },
+		{ consumables = { { set = "bottlecap_Common", need_room = true, amount = 2 } }, text = "Up to 2 random Common Bottlecaps (Must have room)" },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true } },           text = "1 random Uncommon Bottlecap (Must have room)" },
+		{ consumables = { { set = "Czech", need_room = true } },                        text = "1 random Cheque card (Must have room)" },
+		{ consumables = { { set = "Hanafuda", need_room = true, amount = 2 } },         text = "Up to 2 random Hanafuda cards (Must have room)" },
+		{ tags = { random_amount = 2 },                                                 text = "2 random Tags" },
+		{ tags = { keys = { "tag_double" } },                                           text = "A Double Tag" },
+		{ dollars = 4,                                                                  text = "$4" },
+		{ credits = 30,                                                                 text = "30 credits" },
+		{ sparkle = 100,                                                                text = "100 Joker Exchange" },
+		{ crypto = 0.5,                                                                 text = "0.5 Cryptocurrency" },
+	}
+
+	local encounter_rewards = {
+		{ jokers = { { rarity = "Uncommon" } },                                           text = "A random Uncommon Joker (Doesn't need room)" },
+		{ jokers = { { rarity = "Rare", need_room = true } },                             text = "A random Rare Joker (Must have room)" },
+		{ consumables = { { set = "Spectral", need_room = true, amount = 2 } },           text = "1 random Spectral card (Must have room)" },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true, amount = 2 } }, text = "Up to 2 random Uncommon Bottlecaps (Must have room)" },
+		{ consumables = { { set = "bottlecap_Rare", need_room = true } },                 text = "1 random Rare Bottlecap (Must have room)" },
+		{ consumables = { { set = "Czech", need_room = true, amount = 2 } },              text = "Up to 2 random Cheque cards (Must have room)" },
+		{ tags = { random_amount = 5 },                                                   text = "5 random Tags" },
+		{ tags = { keys = { "tag_double", "tag_double" } },                               text = "2 Double Tags" },
+		{ dollars = 8,                                                                    text = "$8" },
+		{ credits = 100,                                                                  text = "100 credits" },
+		{ sparkle = 300,                                                                  text = "300 Joker Exchange" },
+		{ crypto = 2,                                                                     text = "2 Cryptocurrency" },
+	}
+
+	local _handname, _played = 'High Card', -1
+	for hand_key, hand in pairs(G.GAME.hands) do
+		if hand.played > _played then
+			_played = hand.played
+			_handname = hand_key
+		end
+	end
+	local most_played = _handname
+
+	combat_rewards[#combat_rewards + 1] = {
+		level_up_hand = { key = most_played, amount = 2 },
+		text = "Level up " ..
+			localize(most_played, "poker_hands") .. " 2 times"
+	}
+	encounter_rewards[#encounter_rewards + 1] = {
+		level_up_hand = { key = most_played, amount = 4 },
+		text = "Level up " ..
+			localize(most_played, "poker_hands") .. " 4 times"
+	}
+
+	local _poker_hands = {}
+	for handname, _ in pairs(G.GAME.hands) do
+		if SMODS.is_poker_hand_visible(handname) and handname ~= most_played then
+			_poker_hands[#_poker_hands + 1] = handname
+		end
+	end
+
+	local chosen_hand = pseudorandom_element(_poker_hands, seed or "hpot_event_combat_reward")
+
+	if chosen_hand then
+		combat_rewards[#combat_rewards + 1] = {
+			level_up_hand = { key = chosen_hand, amount = 2 },
+			text = "Level up " ..
+				localize(chosen_hand, "poker_hands") .. " 2 times"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			level_up_hand = { key = chosen_hand, amount = 4 },
+			text = "Level up " ..
+				localize(chosen_hand, "poker_hands") .. " 4 times"
+		}
+	end
+
+	local add_rank = pseudorandom("hpot_event_combat_reward", 1, 3)
+	local add_enhancement = SMODS.poll_enhancement({ guaranteed = true })
+	local add_seal = SMODS.poll_seal({ guaranteed = true }) or "Red"
+
+	local add_rank_text = (add_rank == 1 and "Ace") or (add_rank == 2 and "Face card") or "Numbered card"
+	local add_enhancement_text = localize { type = "name_text", set = "Enhanced", key = add_enhancement }
+	local add_seal_text = localize { type = "name_text", set = "Other", key = add_seal:lower() .. "_seal" }
+
+	if pseudorandom("hpot_event_combat_reward") < 0.5 then
+		combat_rewards[#combat_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					edition = "e_foil",
+					amount = 2
+				}
+			},
+			text = "Add 2 random Foil " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					edition = "e_holo",
+					amount = 2
+				}
+			},
+			text = "Add 2 random Holographic " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					edition = "e_polychrome",
+					amount = 1
+				}
+			},
+			text = "Add 1 random Polychrome " .. add_rank_text .. " to the deck"
+		}
+		combat_rewards[#combat_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhanced = true,
+					amount = 2
+				}
+			},
+			text = "Add 2 random Enhanced " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhanced = true,
+					amount = 5
+				}
+			},
+			text = "Add 5 random Enhanced " .. add_rank_text .. "s to the deck"
+		}
+		combat_rewards[#combat_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhancement = add_enhancement,
+					amount = 2
+				}
+			},
+			text = "Add 2 random " .. add_enhancement_text .. " " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhancement = add_enhancement,
+					amount = 5
+				}
+			},
+			text = "Add 5 random " .. add_enhancement_text .. " " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					seal = add_seal,
+					amount = 2
+				}
+			},
+			text = "Add 2 random " .. add_seal_text .. " " .. add_rank_text .. "s to the deck"
+		}
+	else
+		combat_rewards[#combat_rewards + 1] = {
+			enhance_deck = {
+				{
+					edition = "e_foil",
+					amount = 2
+				}
+			},
+			text = "Turn 2 random cards in deck Foil"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{
+					edition = "e_holo",
+					amount = 2
+				}
+			},
+			text = "Turn 2 random cards in deck Holographic"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{
+					edition = "e_polychrome",
+					amount = 1
+				}
+			},
+			text = "Turn a random card in deck Polychrome"
+		}
+		combat_rewards[#combat_rewards + 1] = {
+			enhance_deck = {
+				{
+					change_base = {
+						rank = add_rank == 1 and "Ace" or nil,
+						face = add_rank == 2 or nil,
+						numbered = add_rank == 3 or nil,
+					},
+					enhancement = add_enhancement,
+					amount = 1
+				}
+			},
+			text = "Change a random card in deck into a " .. add_enhancement_text .. " " .. add_rank_text
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{
+					change_base = {
+						rank = add_rank == 1 and "Ace" or nil,
+						face = add_rank == 2 or nil,
+						numbered = add_rank == 3 or nil,
+					},
+					enhancement = add_enhancement,
+					amount = 3
+				}
+			},
+			text = "Change 3 random cards in deck into " .. add_enhancement_text .. " " .. add_rank_text .. "s"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{ seal = add_seal }
+			},
+			text = "Add " .. add_seal_text .. "to a random card in the deck"
+		}
+	end
+
+	return pseudorandom_element(domain == "encounter" and encounter_rewards or combat_rewards,
+		seed or "hpot_event_combat_reward")
+end
+
 HotPotato.EventScenario {
 	key = "the_tavern",
+	hide_image_area = true,
 	loc_txt = {
 		name = "The Tavern",
 		text = {
@@ -4419,7 +4863,7 @@ HotPotato.EventStep {
 			"\"Really? Let's see you beat this.\"",
 			" ",
 			"Face {C:attention}#1#{} #2#",
-			"{C:money}Reward:{} 1 random {C:blue}Common{} Joker",
+			"{C:money}Reward:{} #3#",
 			"{C:inactive}(Regular Blind rewards are also obtained){}"
 		},
 		choices = {
@@ -4430,9 +4874,10 @@ HotPotato.EventStep {
 		if not event.ability.blind then -- very hacky. dont like it
 			event.ability.blind = event.domain == "encounter" and hpot_event_get_random_boss() or "bl_big"
 			event.ability.effect = hpot_event_get_random_combat_effect()
+			event.ability.effect.reward = hpot_event_get_random_combat_reward(event.domain)
 		end
 		return { localize { type = 'name_text', key = event.ability.blind or "bl_big", set = 'Blind' },
-			event.ability.effect.text or "" }
+			event.ability.effect.text or "", event.ability.effect.reward.text or "" }
 	end,
 	get_choices = function(self, event)
 		return {
@@ -4474,6 +4919,7 @@ HotPotato.EventScenario {
 
 HotPotato.EventStep {
 	key = "hpot_bj_in",
+	hide_hand = false,
 	loc_txt = {
 		text = {
 			"You see a shady figure with a set of cards",
@@ -4488,7 +4934,7 @@ HotPotato.EventStep {
 		}
 	},
 	start = function(self, event)
-		G.GAME.BJ_CARDS = {TOTAL = 0}
+		G.GAME.BJ_CARDS = { TOTAL = 0 }
 		local to = Character("j_ring_master")
 		to.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
@@ -4521,6 +4967,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_bj_start",
+	hide_hand = false,
 	start = function(self, event)
 		G.GAME.BJ_CARDS.MONEY = G.GAME.dollars
 		ease_dollars(-G.GAME.dollars)
@@ -4536,10 +4983,11 @@ HotPotato.EventStep {
 		}))
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				G.GAME.BJ_CARDS.DEALER_CARDS = {SMODS.create_card{ set = "Base" }, SMODS.create_card{ set = "Base" }}
-				G.GAME.BJ_CARDS.DEALER = G.GAME.BJ_CARDS.DEALER_CARDS[1].base.nominal + G.GAME.BJ_CARDS.DEALER_CARDS[2].base.nominal
+				G.GAME.BJ_CARDS.DEALER_CARDS = { SMODS.create_card { set = "Base" }, SMODS.create_card { set = "Base" } }
+				G.GAME.BJ_CARDS.DEALER = G.GAME.BJ_CARDS.DEALER_CARDS[1].base.nominal +
+					G.GAME.BJ_CARDS.DEALER_CARDS[2].base.nominal
 				G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
-				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 9.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9	
+				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 9.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9
 				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 11.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
 				return true
 			end
@@ -4555,6 +5003,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_bj_hit",
+	hide_hand = false,
 	start = function(self, event)
 		draw_card(G.deck, G.hand, 1, 'up', true)
 		event.start_step('hpot_bj_check')
@@ -4563,6 +5012,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_bj_check",
+	hide_hand = false,
 	loc_txt = {
 		choices = {
 			hit = "Lady Luck gimme a kiss! (Hit)",
@@ -4585,7 +5035,7 @@ HotPotato.EventStep {
 				button = function()
 					event.start_step('hpot_bj_eval')
 				end
-			} 
+			}
 		}
 	end,
 	start = function(self, event)
@@ -4603,6 +5053,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_bj_eval",
+	hide_hand = false,
 	start = function(self, event)
 		G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
 		local count = 0
@@ -4625,6 +5076,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_bj_final",
+	hide_hand = false,
 	loc_txt = {
 		text = {
 			"Looks like you #1# {C:money}$#2#{}!"
@@ -4643,7 +5095,7 @@ HotPotato.EventStep {
 					G.GAME.BJ_CARDS.DEALER_CARDS[2]:remove()
 					hpot_event_end_scenario()
 				end
-			} 
+			}
 		}
 	end,
 	loc_vars = function(self)
