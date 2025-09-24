@@ -2471,10 +2471,10 @@ HotPotato.EventStep {
 	key = "hpot_tech_support_ask_fey",
 	loc_txt = {
 		text = {
-			"She's sleeping... wait! No!"
+			"She's sleeping... wait! No!",
 			"Stop stealing her code!"
 		}
-	}
+	},
 	hide_hand = true,
 	get_choices = function()
 		return {
