@@ -4615,6 +4615,8 @@ return {
             k_hotpot_trigger_enabled = "Trigger Enabled!",
             k_hotpot_goodsocial = "yo phone linging",
             k_hotpot_badsocial = "oh my god bruh",
+            k_hotpot_scurvy = "Scurvy!",
+            k_hotpot_rocks = "God Valley!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",

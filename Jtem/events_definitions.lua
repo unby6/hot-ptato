@@ -2479,6 +2479,12 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_fey",
+	loc_txt = {
+		text = {
+			"She's sleeping... wait! No!",
+			"Stop stealing her code!"
+		}
+	},
 	hide_hand = true,
 	get_choices = function()
 		return {
@@ -2486,8 +2492,17 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-	end,
-	finish = function(self, event)
+		delay(1)
+		pool = {}
+		for i,v in pairs(G.P_CENTERS) do
+			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
+				table.insert(pool, v)
+			end
+		end
+		if G.jokers.config.card_count < G.jokers.config.card_limit then
+			local chosen = pseudorandom_element(pool. pseudoseed('fey_tsup'))
+			SMODS.add_card({key = chosen.key})
+		end
 	end
 }
 
@@ -4086,6 +4101,79 @@ HotPotato.EventStep {
 
 --#endregion
 
+--#region Cursed Womb
+
+HotPotato.EventScenario {
+	key = "cursed_womb",
+	loc_txt = {
+		name = "Cursed Womb",
+		text = {
+			"Fey not again..."
+		}
+	},
+	domains = { escapade = true },
+	starting_step_key = "hpot_cursed_womb_start",
+	hotpot_credits = {
+		code = { "fey <3" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "cursed_womb_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"A grueling scent floods your nose,",
+			"you whip around looking for any hint",
+			"towards the vile stench.",
+			" ",
+			"\"IS THAT A HUMAN FINGER!? Why is it so... shrivelled?",
+			"No, it looks like it should have decomposed by now...\"",
+			" ",
+			"A sudden feeling comes over you, wait no!",
+			"You want to eat the finger... no, don't!"
+		},
+		choices = {
+			eat_finger = "Hell yeahh!",
+			ignore_finger = "Ah hell no!"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "eat_finger",
+				button = function()
+					SMODS.add_card({set = 'Joker', rarity = 1})
+					hpot_event_end_scenario()
+				end
+			},
+			{
+				key = "ignore_finger",
+				button = function()
+					SMODS.add_card({key = 'j_four_fingers', stickers = {'eternal'}, edition = 'e_negative'})
+					hpot_event_end_scenario()
+				end
+			}
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_sixth_sense")
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+	end
+}
+
+--#endregion
+
 --#region Ruan Mei
 
 HotPotato.EventScenario {
@@ -4894,7 +4982,7 @@ HotPotato.EventStep {
 
 --- Encounter
 
---- Adventure
+--- bizzure
 
 --#region Black Jack
 
