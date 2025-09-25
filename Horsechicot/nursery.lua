@@ -354,8 +354,8 @@ function G.FUNCS.nursery_abort(e)
             v.ability.father = nil
         end
     end
+    G.nursery_child.cards[1]:remove()
     G.GAME.active_breeding = false
-    G.GAME.center_being_duped = nil
     G.GAME.loss_child_xmult = nil
     SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = localize("k_hotpot_aborted") }
 end
@@ -486,27 +486,72 @@ end
 G.C.HPOT_PINK = HEX("fe89d0")
 G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother_center, father_center)
-    local center_to_dupe
     if mother_center.key == 'j_hpot_loss' or father_center.key == 'j_hpot_loss' then
         local loss_card = mother_center.key == 'j_hpot_loss' and G.nursery_mother.cards[1] or G.nursery_father.cards[1]
-        center_to_dupe = loss_card.config.center
         G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
-    elseif G.GAME.guaranteed_breed_center == "mother" then
-        center_to_dupe = mother_center
     else
         local poll = pseudorandom("hc_breed_result")
-        --we choose which parent to make a new joker of
+        --we choose which parent to make a new joker of || not anymore, quantum time
         if poll > 0.5 then
-            G.GAME.child_color = G.C.HPOT_PINK
-            center_to_dupe = mother_center
+            G.GAME.child_colour = G.C.HPOT_PINK
+            G.GAME.child_prio = G.nursery_mother.cards[1]
+            G.GAME.child_sec = G.nursery_father.cards[1]
         else
-            G.GAME.child_color = G.C.BLUE
-            center_to_dupe = father_center
+            G.GAME.child_colour = G.C.BLUE
+            G.GAME.child_prio = G.nursery_father.cards[1]
+            G.GAME.child_sec = G.nursery_mother.cards[1]
         end
     end
+    local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true, 
+        edition = G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
+    card.states.visible = false
+
+    --setting child abilities
+    card.ability.name = 'Baby ' .. G.GAME.child_prio.ability.name
+    card.ability.extra_value = G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost - 1
+    card:set_cost()
+
+    card.ability.quantum = {}
+    card.ability.quantum[1] = Quantum({
+                fake_card = true,
+                card_to = card,
+                key = G.GAME.child_prio.config.center_key,
+                ability = copy_table(G.GAME.child_prio.ability),
+                config = {
+                    center = G.GAME.child_prio.config.center
+                },
+            })
+    card.ability.quantum[2] = Quantum({
+                fake_card = true,
+                card_to = card,
+                key = G.GAME.child_sec.config.center_key,
+                ability = copy_table(G.GAME.child_sec.ability),
+                config = {
+                    center = G.GAME.child_sec.config.center
+                },
+            })
+    
+    update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
+
+    --make children smaller
+    card.T.scale = card.T.scale * 0.75
+    card.ability.is_nursery_smalled = true
     G.GAME.active_breeding = true
-    G.GAME.center_being_duped = center_to_dupe
     G.GAME.breeding_rounds_passed = 0
+end
+
+function update_child_atlas(self, new_atlas, new_pos)
+    if not self.children.front then
+        self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[new_atlas.name], new_pos)
+        self.children.front.states.hover = self.states.hover
+        self.children.front.states.click = self.states.click
+        self.children.front.states.drag = self.states.drag
+        self.children.front.states.collide.can = false
+        self.children.front:set_role({major = self, role_type = 'Glued', draw_major = self})
+    end
+    self.children.front.sprite_pos = new_pos
+    self.children.front.atlas.name = new_atlas and (new_atlas.key or new_atlas.name) or 'Joker'
+    self.children.front:reset() 
 end
 
 --pregnancy checks
@@ -515,21 +560,12 @@ function end_round()
     old()
     G.E_MANAGER:add_event(Event {
         func = function()
-            local to_dupe = G.GAME.center_being_duped
-            if to_dupe then
+            if G.GAME.active_breeding then
                 G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
                 if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
-                    G.GAME.center_being_duped = false
-                    local card = SMODS.add_card { key = to_dupe.key, area = G.nursery_child, skip_materialize = true }
-                    --make children smaller
-                    card.T.scale = card.T.scale * 0.75
-                    card.ability.is_nursery_smalled = true
-                    if to_dupe.key == 'j_hpot_loss' then
-                        card.ability.extra.Xmult = G.GAME.loss_child_xmult
-                        G.GAME.loss_child_xmult = nil
-                    end
+
                     local mom, dad = G.nursery_mother.cards[1], nil
                     G.nursery_mother.cards[1].ability.mother = nil
                 end
@@ -538,4 +574,3 @@ function end_round()
         end
     })
 end
-

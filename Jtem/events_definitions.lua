@@ -4132,7 +4132,7 @@ HotPotato.EventStep {
 			{
 				key = "eat_finger",
 				button = function()
-					SMODS.add_card({set = 'Joker', rarity = 1})
+					SMODS.add_card({set = 'Joker', legendary = true, edition = 'e_negative'})
 					hpot_event_end_scenario()
 				end
 			},

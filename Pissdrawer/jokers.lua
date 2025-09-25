@@ -338,7 +338,7 @@ SMODS.Joker {
     key = "birthdayboy",
     loc_txt = {
         name = "Birthday Boy",
-        text = { {"Happy Birthday, N'!"}, {'Where would Jujutsu', 'Jokers be without you...'} }
+        text = { { "Happy Birthday, N'!" }, { 'Where would Jujutsu', 'Jokers be without you...' } }
     },
     hotpot_credits = {
         art = { "deadbeet" },
@@ -355,4 +355,45 @@ SMODS.Joker {
     in_pool = function(self, args)
         return false
     end
+}
+
+SMODS.Joker {
+    key = 'child',
+    loc_txt = { name = '#1#', text = { '{s:0.000001} ' } },
+    no_collection = true,
+    loc_vars = function(self, info_queue, card)
+        local main_end = {}
+        if next(card.ability.quantum) then
+            main_end = {
+
+            }
+        end
+        return { vars = {card.ability.name or 'Baby Alex'},
+            main_end = main_end
+        }
+    end,
+    calculate = function(self, card, context)
+        if card.ability.quantum[1] and card.ability.quantum[2] then
+            local ret, trig = card.ability.quantum[1]:calculate_joker(context)
+            local ret2, trig2 = card.ability.quantum[2]:calculate_joker(context)
+            if ret and ret2 then
+                for i,v in pairs(ret) do
+                    if ret2[i]  and type(v) == 'number' then ret[i] = v + ret2[i] end
+                end
+            end
+            if ret then ret.card = card end
+            if ret2 then ret2.card = card end
+            return ret or ret2, trig or trig2
+        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        if card.ability.quantum[1] or card.ability.quantum[2] then
+            local ret1 = card.calculate_dollar_bonus(card.ability.quantum[1])
+            local ret2 = card.calculate_dollar_bonus(card.ability.quantum[2])
+            if ret1 and ret2 and type(ret1) == 'number' and type(ret2) == 'number' then
+                ret1 = ret1 + ret2
+            end
+            return ret1 or ret2
+        end
+	end,
 }
