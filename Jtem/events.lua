@@ -77,7 +77,7 @@ HotPotato.EventStep = SMODS.GameObject:extend({
 		extra = {},
 	},
 
-	hide_hand = false,
+	hide_hand = true,
 	hide_deck = false,
 
 	get_choices = function(self, scenario)
@@ -120,6 +120,7 @@ HotPotato.EventStep = SMODS.GameObject:extend({
 HotPotato.EventScenarios = {}
 ---@class HotPotato.EventScenario: SMODS.GameObject
 ---@field domains? table<EventDomain|string, true> Domain pool the scenario belongs to.
+---@field hide_image_area? boolean Hides image area for this event.
 ---@field in_pool? fun(self: HotPotato.EventScenario|table): boolean Determines if this scenario can be chosen.
 ---@field get_weight? fun(self: HotPotato.EventScenario|table): number Determines the weight of the scenario being chosen.
 ---@field weight? number Used if `get_weight` isn't specified.
@@ -140,6 +141,7 @@ HotPotato.EventScenario = SMODS.GameObject:extend({
 	end,
 	domains = { occurence = true },
 	weight = 5,
+	hide_image_area = false,
 	in_pool = function(self)
 		return true
 	end,
@@ -1126,7 +1128,6 @@ function G.UIDEF.hpot_event_choice_button(step, choice)
 			r = 0.75,
 			hover = true,
 			colour = choice.colour or G.C.GREY,
-			one_press = true,
 			shadow = true,
 			func = "hpot_event_can_execute_choice",
 			button = "hpot_event_execute_choice",
@@ -1156,7 +1157,7 @@ end
 
 function G.UIDEF.hpot_event(scenario)
 	local container_H = 5.6
-	local container_W = 14.9
+	local container_W = G.hand.T.w + 0.15
 	local container_padding = 0.1
 
 	local header_H = 0.6
@@ -1167,9 +1168,10 @@ function G.UIDEF.hpot_event(scenario)
 	local content_W = container_W - container_padding * 2
 	local content_padding = 0.1
 
-	local image_area_size = container_H - container_padding * 2 - header_H - content_padding * 2
+	local image_area_size = (container_H - container_padding * 2 - header_H - content_padding * 2) / 1.25
 	local choices_H = 2.4
-	local text_H = image_area_size - content_padding * 2 - choices_H
+	local text_H = (image_area_size * 1.25 - content_padding * 2 - choices_H)
+		* ((G.GAME.hpot_event_domain == "transaction" or G.GAME.hpot_event_domain == "respite") and 0.5 or 1)
 
 	local event_text_name = {}
 	localize({
@@ -1191,6 +1193,91 @@ function G.UIDEF.hpot_event(scenario)
 
 	local blind_col = (HotPotato.EventDomains[G.GAME.hpot_event_domain] or {}).colour or nil
 
+	local main_nodes = {}
+
+	if not scenario.hide_image_area then
+		main_nodes[#main_nodes + 1] = {
+			n = G.UIT.C,
+			config = {
+				minw = image_area_size,
+				maxw = image_area_size,
+				minh = image_area_size,
+				maxh = image_area_size,
+				colour = { 0, 0, 0, 0.1 },
+				r = 0.1,
+				id = "image_area",
+			},
+		}
+	end
+	main_nodes[#main_nodes + 1] = {
+		n = G.UIT.C,
+		config = {
+			minw = 0.1,
+			maxw = 0.1,
+		},
+	}
+	main_nodes[#main_nodes + 1] = {
+		n = G.UIT.C,
+		nodes = {
+			{
+				n = G.UIT.R,
+				config = {
+					minh = text_H,
+					maxh = text_H,
+					align = "c",
+					padding = 0.1,
+				},
+				nodes = {
+					{
+						n = G.UIT.O,
+						config = {
+							id = "text_area",
+							object = Moveable(),
+						},
+					},
+				},
+			},
+			{
+				n = G.UIT.R,
+				config = { minh = 0.1 },
+			},
+			{
+				n = G.UIT.R,
+				nodes = {
+					{
+						n = G.UIT.C,
+						config = {
+							minw = 0.23,
+							maxw = 0.23,
+						},
+					},
+					{
+						n = G.UIT.C,
+						nodes = {
+							{
+								n = G.UIT.R,
+								config = {
+									align = "c",
+									minh = choices_H,
+									maxh = choices_H,
+								},
+								nodes = {
+									{
+										n = G.UIT.O,
+										config = {
+											id = "choices_area",
+											object = Moveable(),
+										},
+									},
+								},
+							},
+						}
+					},
+				}
+			},
+
+		},
+	}
 	return {
 		n = G.UIT.ROOT,
 		config = {
@@ -1233,71 +1320,7 @@ function G.UIDEF.hpot_event(scenario)
 						maxw = content_W,
 						align = "c",
 					},
-					nodes = {
-						{
-							n = G.UIT.C,
-							config = {
-								minw = image_area_size,
-								maxw = image_area_size,
-								minh = image_area_size,
-								maxh = image_area_size,
-								colour = { 0, 0, 0, 0.1 },
-								r = 0.1,
-								id = "image_area",
-							},
-						},
-						{
-							n = G.UIT.C,
-							config = {
-								minw = 0.1,
-								maxw = 0.1,
-							},
-						},
-						{
-							n = G.UIT.C,
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = {
-										minh = text_H,
-										maxh = text_H,
-										align = "c",
-										padding = 0.1,
-									},
-									nodes = {
-										{
-											n = G.UIT.O,
-											config = {
-												id = "text_area",
-												object = Moveable(),
-											},
-										},
-									},
-								},
-								{
-									n = G.UIT.R,
-									config = { minh = 0.1 },
-								},
-								{
-									n = G.UIT.R,
-									config = {
-										align = "c",
-										minh = choices_H,
-										maxh = choices_H,
-									},
-									nodes = {
-										{
-											n = G.UIT.O,
-											config = {
-												id = "choices_area",
-												object = Moveable(),
-											},
-										},
-									},
-								},
-							},
-						},
-					},
+					nodes = main_nodes,
 				},
 			}, nil, blind_col, blind_col and mix_colours(G.C.BLACK, blind_col, 0.8) or nil),
 		},
@@ -1360,7 +1383,7 @@ function CardArea:draw(...)
 	if self == G.hand and (G.STATE == G.STATES.HOTPOT_EVENT_SELECT) then
 		return
 	end
-	if G.STATE == G.STATES.HOTPOT_EVENT then
+	if G.STATE == G.STATES.HOTPOT_EVENT or (G.STATE == G.STATES.SMODS_REDEEM_VOUCHER and G.hpot_event) then
 		local step = G.hpot_event and G.hpot_event.current_step or {}
 		if self == G.hand and step.hide_hand then
 			return
@@ -1395,9 +1418,12 @@ end
 function get_hpot_event_image_center(card_w, card_h)
 	if G.hpot_event then
 		local image_area = G.hpot_event.image_area
-		local x = image_area.T.x + image_area.T.w / 2 - (card_w or G.CARD_W) / 2
-		local y = image_area.T.y + image_area.T.h / 2 - (card_h or G.CARD_H) / 2
-		return x, y
+		if image_area then
+			local x = image_area.T.x + image_area.T.w / 2 - (card_w or G.CARD_W) / 2
+			local y = image_area.T.y + image_area.T.h / 2 - (card_h or G.CARD_H) / 2
+			return x, y
+		end
+		return 0, 0
 	else
 		return 0, 0
 	end

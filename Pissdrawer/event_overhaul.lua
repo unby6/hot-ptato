@@ -78,6 +78,12 @@ end
 
 function hpot_event_get_event_domain(args)
     local args = args or {}
+
+    if not args.ignore_respite and (G.GAME.round_resets.ante) % G.GAME.win_ante == 0
+        and G.GAME.round_resets.blind.key == "bl_big" then
+        return "respite"
+    end
+
     local options = hpot_event_get_domain_pool(args)
 
     local total_weight = 0
@@ -99,6 +105,11 @@ function hpot_event_get_event_domain(args)
 end
 
 function hpot_event_get_event_count(args)
+    local args = args or {}
+    if not args.ignore_respite and (G.GAME.round_resets.ante) % G.GAME.win_ante == 0
+        and G.GAME.round_resets.blind.key == "bl_big" then
+        return 1
+    end
     if next(SMODS.find_card("j_hpot_local_newspaper")) then
         return 3
     end
@@ -108,6 +119,9 @@ end
 -- TODO: test any weird blind choice cases or, better yet, PR SMODS a better blind tracker
 function hpot_event_can_appear(blind_prototype)
     if G.GAME.hpot_event_enable_all_blinds or type(blind_prototype) ~= "table" then return true end
+    if (G.GAME.round_resets.ante) % G.GAME.win_ante == 0 and blind_prototype.key == "bl_big" then
+        return true
+    end
     if blind_prototype.key == "bl_big" and G.GAME.hpot_event_enable_big_blind then
         return true
     end

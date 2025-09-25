@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = -10
+priority = -1
 
 # Handle buying cards that require ~~pyrox~~ CREDITS
 [[patches]]
@@ -140,7 +140,9 @@ target = 'functions/button_callbacks.lua'
 pattern = '''if c1.cost ~= 0 then'''
 position = 'at'
 payload = '''
-if c1.config and c1.config.center and c1.config.center.credits and not c1.market_cost then
+if c1.hpot_transaction_price then
+  ease_currency(c1.hpot_transaction_price.currency, -c1.hpot_transaction_price.price)
+elseif c1.config and c1.config.center and c1.config.center.credits and not c1.market_cost then
 	HPTN.ease_credits(-c1.config.center.credits)
 elseif c1.market_cost then
   if not Entropy or (not Entropy.has_rune("rune_entr_naudiz") or not G.GAME.providence) then
@@ -206,8 +208,7 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
-pattern = '''
-  for _, v in ipairs({'''
+pattern = '''{type = 'Spectral', val = G.GAME.spectral_rate},'''
 position = 'after'
 payload = '''
 {type = 'CreditablePool', val = G.GAME.creditable_rate},
@@ -215,4 +216,13 @@ payload = '''
 match_indent = true
 times = 1
 
-
+# fuck your life
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''local total_rate = G.GAME.joker_rate + G.GAME.playing_card_rate'''
+position = 'after'
+payload = '''
+total_rate = total_rate + G.GAME.creditable_rate
+'''
+match_indent = true

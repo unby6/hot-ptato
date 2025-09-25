@@ -4434,7 +4434,43 @@ return {
             bc_16 = {
                 [1] = 'Generally, buying an Eternal',
                 [2] = 'Cartomancer is a bad move!'
-            }
+            },
+            transaction_welcome_1 = {
+                "Welcome!"
+            },
+            transaction_welcome_2 = {
+                "Good to see you back!"
+            },
+            transaction_welcome_3 = {
+                "Feel free to look around!"
+            },
+            transaction_bye_1 = {
+                "Thanks for stopping by!"
+            },
+            transaction_bye_2 = {
+                "See you next time!"
+            },
+            transaction_bye_3 = {
+                "Hace a nice day!"
+            },
+            transaction_welcome_shady_1 = {
+                "Hey, kiddo"
+            },
+            transaction_welcome_shady_2 = {
+                "What do you want?"
+            },
+            transaction_welcome_shady_3 = {
+                "Hurry up"
+            },
+            transaction_bye_shady_1 = {
+                "..."
+            },
+            transaction_bye_shady_2 = {
+                "Is that it?"
+            },
+            transaction_bye_shady_3 = {
+                "Go home, kid"
+            },
         },
         dictionary = {
             k_bad = "Bad",
@@ -4626,7 +4662,8 @@ return {
             hotpot_training_joker = "UNDER TRAINING",
             hotpot_training_level = "Level ",
 
-            k_hotpot_combat_event_fail = "Better luck next time!"
+            k_hotpot_transaction_sign = "Express",
+            k_hotpot_transaction_shady_sign = "Back Alley"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
