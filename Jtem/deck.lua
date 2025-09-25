@@ -31,6 +31,31 @@ local deck = SMODS.Back {
             ease_spark_points(1)
             HPTN.ease_credits(1)
         end
+        --Pissdrawer addition: Chips and mult from highest poker hand held in hand is added to scoring
+        if context.initial_scoring_step then
+            if G.hand and G.hand.cards and #G.hand.cards > 0 then
+                local old_hand = G.GAME.current_round.current_hand.handname
+                local poker_hand, disp_text = G.FUNCS.get_poker_hand_info(G.hand.cards)
+                update_hand_text(
+                    { nopulse = nil, delay = 0 },
+                    { handname = disp_text, level = G.GAME.hands[poker_hand].level, mult = mult, chips = hand_chips }
+                )
+                update_hand_text({sound = 'chips2', volume = 0.7, pitch = 1.1, delay = 0}, {chips = '+' .. G.GAME.hands[poker_hand].chips, StatusText = true})
+                update_hand_text({sound = 'multhit1', volume = 0.7, pitch = 1.1, delay = 1.25}, {mult = '+' .. G.GAME.hands[poker_hand].mult, StatusText = true})
+                update_hand_text(
+                    { nopulse = nil, delay = 0 },
+                    { handname = old_hand, level = G.GAME.hands[old_hand].level, mult = mult, chips = hand_chips }
+                )
+                return {
+                    chips = G.GAME.hands[poker_hand].chips,
+                    remove_default_message = true,
+                    extra = {
+                        mult = G.GAME.hands[poker_hand].mult,
+                        remove_default_message = true
+                    }
+                }
+            end
+        end
     end
 }
 

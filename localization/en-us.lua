@@ -418,9 +418,11 @@ return {
                 text = {
                     "Starting cards have",
                     "a random {C:attention}sticker{},",
-                    "Jokers give {C:hpot_advert,f:hpot_plincoin}£0.05{} when triggered,",
+                    "Trigger effects gives {C:hpot_advert,f:hpot_plincoin}£0.05{},",
                     "Gain {C:attention}1{} of each currency",
-                    "when {C:attention}Boss Blind{} is defeated"
+                    "when {C:attention}Boss Blind{} is defeated,",
+                    "Highest poker hand held in hand",
+                    "is added to {C:chips}Chips{} and {C:mult}Mult{}"
                 }
             },
             b_hpot_unstable = {
