@@ -416,9 +416,13 @@ return {
             b_hpot_domn = {
                 name = "The Deck of Many Names",
                 text = {
-                    "(Replace text during final teams turn)",
-                    "This is meant to be a deck that", "every team adds ideas to",
-                    "go ham, deck is at Jtem/deck.lua"
+                    "Starting cards have",
+                    "a random {C:attention}sticker{},",
+                    "Trigger effects gives {C:hpot_advert,f:hpot_plincoin}£0.05{},",
+                    "Gain {C:attention}1{} of each currency",
+                    "when {C:attention}Boss Blind{} is defeated,",
+                    "Highest poker hand held in hand",
+                    "is added to {C:chips}Chips{} and {C:mult}Mult{}"
                 }
             },
             b_hpot_unstable = {
