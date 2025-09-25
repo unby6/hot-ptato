@@ -395,7 +395,6 @@ HPJTTT = {
         "If I sneeze, say \"Bless you\", not \"How did you get in?\"",
         "Is your fridge running?",
         "Shoutout to LocalThunk",
-        "You lost \"The Game\"",
         "Featuring +1000 commits!",
         "card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('hello_world')})",
         "Ad-Free!",
