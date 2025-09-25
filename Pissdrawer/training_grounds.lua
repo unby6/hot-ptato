@@ -275,28 +275,30 @@ end
 
 local toHook = Card.stop_drag
 function Card:stop_drag()
-    local area = self.area
-    self.hp_oldarea = self.area or self.hp_oldarea
-    for i, k in ipairs(G.CONTROLLER.collision_list) do
-        if (k:is(CardArea)) then
-            area = k
-            break
-        end
-        
-        if (k:is(Card)) and false then
-            area = k.area
-            break
-        end
-    end
-    if self.hp_oldarea ~= area and (area == G.train_jokers and G.train_jokers.cards and #(G.train_jokers.cards or {}) <= 0) or (area == G.jokers and self.hp_oldarea == G.train_jokers) then
-        HotPotato.draw_card(self.hp_oldarea, area, 1, 'up', nil, self ,0)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                self.hp_oldarea = nil
-                return true 
+    if G.jokers and G.train_jokers then
+        local area = self.area
+        self.hp_oldarea = self.area or self.hp_oldarea
+        for i, k in ipairs(G.CONTROLLER.collision_list) do
+            if (k:is(CardArea)) then
+                area = k
+                break
             end
-        }))
-        area:align_cards()
+            
+            if (k:is(Card)) and false then
+                area = k.area
+                break
+            end
+        end
+        if self.hp_oldarea ~= area and (area == G.train_jokers and G.train_jokers.cards and #(G.train_jokers.cards or {}) <= 0) or (area == G.jokers and self.hp_oldarea == G.train_jokers) then
+            HotPotato.draw_card(self.hp_oldarea, area, 1, 'up', nil, self ,0)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    self.hp_oldarea = nil
+                    return true 
+                end
+            }))
+            area:align_cards()
+        end
     end
     local c = toHook(self)
     return c

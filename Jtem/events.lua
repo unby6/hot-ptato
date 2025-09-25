@@ -1128,7 +1128,6 @@ function G.UIDEF.hpot_event_choice_button(step, choice)
 			r = 0.75,
 			hover = true,
 			colour = choice.colour or G.C.GREY,
-			one_press = true,
 			shadow = true,
 			func = "hpot_event_can_execute_choice",
 			button = "hpot_event_execute_choice",
@@ -1171,7 +1170,8 @@ function G.UIDEF.hpot_event(scenario)
 
 	local image_area_size = (container_H - container_padding * 2 - header_H - content_padding * 2) / 1.25
 	local choices_H = 2.4
-	local text_H = image_area_size * 1.25 - content_padding * 2 - choices_H
+	local text_H = (image_area_size * 1.25 - content_padding * 2 - choices_H)
+		* ((G.GAME.hpot_event_domain == "transaction" or G.GAME.hpot_event_domain == "respite") and 0.5 or 1)
 
 	local event_text_name = {}
 	localize({
@@ -1383,7 +1383,7 @@ function CardArea:draw(...)
 	if self == G.hand and (G.STATE == G.STATES.HOTPOT_EVENT_SELECT) then
 		return
 	end
-	if G.STATE == G.STATES.HOTPOT_EVENT then
+	if G.STATE == G.STATES.HOTPOT_EVENT or (G.STATE == G.STATES.SMODS_REDEEM_VOUCHER and G.hpot_event) then
 		local step = G.hpot_event and G.hpot_event.current_step or {}
 		if self == G.hand and step.hide_hand then
 			return

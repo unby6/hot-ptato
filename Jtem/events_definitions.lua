@@ -2494,14 +2494,14 @@ HotPotato.EventStep {
 	start = function(self, event)
 		delay(1)
 		pool = {}
-		for i,v in pairs(G.P_CENTERS) do
+		for i, v in pairs(G.P_CENTERS) do
 			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
 				table.insert(pool, v)
 			end
 		end
 		if G.jokers.config.card_count < G.jokers.config.card_limit then
-			local chosen = pseudorandom_element(pool. pseudoseed('fey_tsup'))
-			SMODS.add_card({key = chosen.key})
+			local chosen = pseudorandom_element(pool.pseudoseed('fey_tsup'))
+			SMODS.add_card({ key = chosen.key })
 		end
 	end
 }
@@ -2607,6 +2607,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_triboulet")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -2679,6 +2680,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_triboulet")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -2735,7 +2737,7 @@ HotPotato.EventStep {
 		},
 		choices = {
 			dollars = "Pay {C:money}$",
-			plincoins = "Pay {C:blue,f:hpot_plincoin}͸",
+			plincoins = "Pay {C:hpot_plincoin,f:hpot_plincoin}$",
 			crypto = "Pay {C:hpot_advert,f:hpot_plincoin}£",
 			spark = "Pay {C:blue,f:hpot_plincoin}͸",
 		}
@@ -2783,6 +2785,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_triboulet")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -2862,6 +2865,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_curi")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3242,6 +3246,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_stars")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3326,6 +3331,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_stars")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3437,6 +3443,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_duck")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3522,6 +3529,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_duck")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3623,6 +3631,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_hit_the_road")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3977,6 +3986,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_trading")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -4144,14 +4154,14 @@ HotPotato.EventStep {
 			{
 				key = "eat_finger",
 				button = function()
-					SMODS.add_card({set = 'Joker', rarity = 1})
+					SMODS.add_card({ set = 'Joker', rarity = 1 })
 					hpot_event_end_scenario()
 				end
 			},
 			{
 				key = "ignore_finger",
 				button = function()
-					SMODS.add_card({key = 'j_four_fingers', stickers = {'eternal'}, edition = 'e_negative'})
+					SMODS.add_card({ key = 'j_four_fingers', stickers = { 'eternal' }, edition = 'e_negative' })
 					hpot_event_end_scenario()
 				end
 			}
@@ -4159,6 +4169,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_sixth_sense")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -4256,6 +4267,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_hpot_ruan_mei")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -4272,6 +4284,8 @@ HotPotato.EventStep {
 --#endregion
 
 --- Combat
+
+--#region Combat effects
 
 -- TODO: turn this into an SMODS.GameObject thingy too
 HotPotato.CombatEvents = {}
@@ -4923,6 +4937,10 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 		seed or "hpot_event_combat_reward")
 end
 
+--#endregion
+
+-- The Tavern
+
 HotPotato.EventScenario {
 	key = "the_tavern",
 	hide_image_area = true,
@@ -4982,7 +5000,7 @@ HotPotato.EventStep {
 
 --- Encounter
 
---- bizzure
+--- Adventure
 
 --#region Black Jack
 
@@ -5211,3 +5229,658 @@ HotPotato.EventStep {
 --#endregion
 
 --- Transaction/Respite
+
+local hpot_event_transaction_cost_conversion = function(number, to_currency, from_black_market)
+	if to_currency == "dollars" then return number end
+	if to_currency == "credits" then return number * 30 end
+	if to_currency == "plincoin" then return number end
+	if to_currency == "joker_exchange" then return number * 2500 end
+	if to_currency == "crypto" then
+		return number * (not from_black_market and 0.2 or (G.GAME.dark_connections and 0.075 or 0.1))
+	end
+	return number
+end
+
+local hpot_event_transaction_change_shop_price = function(card, from_black_market)
+	if not card.hpot_transaction_price or not card.children.price then return end
+
+	local price_table = card.hpot_transaction_price
+	local currency = price_table.currency
+	local currency_text = generate_currency_string_args(currency) -- just learned this existed thank you jtem - N'
+
+	price_table.price = hpot_event_transaction_cost_conversion(card.cost, currency, from_black_market)
+
+	local price_dynatext = card.children.price.UIRoot.children[1].children[1].config.object
+
+	price_dynatext.font = currency_text.font
+	price_dynatext.colours[1] = currency_text.colour
+	price_dynatext.config.string[1] = { ref_table = price_table, ref_value = "price" }
+	G.E_MANAGER:add_event(Event({
+		func = (function()
+			-- plicoin symbol seems to get cache'd to $ so i have to do this
+			price_dynatext.config.string[1].prefix = currency_text.symbol
+			return true
+		end)
+	}))
+end
+
+local card_set_cost_ref = Card.set_cost
+function Card:set_cost(...)
+	card_set_cost_ref(self, ...)
+	hpot_event_transaction_change_shop_price(self, G.HP_HC_MARKET_VISIBLE)
+end
+
+local g_funcs_can_buy_ref = G.FUNCS.can_buy
+G.FUNCS.can_buy = function(e)
+	g_funcs_can_buy_ref(e)
+	local card = e.config.ref_table
+	if card.hpot_transaction_price then
+		local total = get_currency_amount(card.hpot_transaction_price.currency)
+		if card.hpot_transaction_price.currency == "dollars" then
+			total = total - G.GAME.bankrupt_at
+		end
+		local price = card.hpot_transaction_price.price
+		if (price > total) and (price > 0) then
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			e.config.colour = G.C.ORANGE
+			e.config.button = 'buy_from_shop'
+		end
+	end
+end
+
+local g_funcs_can_buy_and_use_ref = G.FUNCS.can_buy_and_use
+G.FUNCS.can_buy_and_use = function(e)
+	g_funcs_can_buy_and_use_ref(e)
+	local card = e.config.ref_table
+	if card.hpot_transaction_price then
+		local total = get_currency_amount(card.hpot_transaction_price.currency)
+		if card.hpot_transaction_price.currency == "dollars" then
+			total = total - G.GAME.bankrupt_at
+		end
+		local price = card.hpot_transaction_price.price
+		if ((price > total) and (price > 0)) or (not card:can_use_consumeable()) then
+			e.UIBox.states.visible = false
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			if e.config.ref_table.highlighted then
+				e.UIBox.states.visible = true
+			end
+			e.config.colour = G.C.ORANGE
+			e.config.button = 'buy_from_shop'
+		end
+	end
+end
+
+HotPotato.EventScenario {
+	key = "postlatro",
+	loc_txt = {
+		name = "Postlatro Express",
+		text = {
+			"Where everything is 0% off!"
+		}
+	},
+	domains = { transaction = true, respite = true },
+	starting_step_key = "hpot_postlatro_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "hpot_postlatro_start",
+	loc_txt = {
+		text = {
+			"{s:1.2}Currency Exchange"
+		},
+		choices = {
+			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5,000",
+			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
+			credits = "{C:money}$10{} > {C:purple}c.100",
+			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
+			from_spark = "{C:blue,f:hpot_plincoin}͸10,000{} > {C:money}$1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
+			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
+			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
+			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
+			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100,000{}"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "spark",
+				button = function()
+					ease_currency("dollars", -1)
+					ease_currency("joker_exchange", 5000)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 1
+				end
+			},
+			{
+				key = "plincoins",
+				button = function()
+					ease_currency("dollars", -10)
+					ease_currency("plincoin", 1)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+				end
+			},
+			{
+				key = "credits",
+				button = function()
+					ease_currency("dollars", -10)
+					ease_currency("credits", 100)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+				end
+			},
+			{
+				key = "crypto",
+				button = function()
+					ease_currency("dollars", -20)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 20
+				end
+			},
+			{
+				key = "from_spark",
+				button = function()
+					ease_currency("joker_exchange", -10000)
+					ease_currency("dollars", 1)
+				end,
+				func = function()
+					return get_currency_amount("joker_exchange") >= 10000
+				end
+			},
+			{
+				key = "from_plincoins",
+				button = function()
+					ease_currency("plincoin", -1)
+					ease_currency("dollars", 5)
+				end,
+				func = function()
+					return get_currency_amount("plincoin") >= 1
+				end
+			},
+			{
+				key = "from_credits",
+				button = function()
+					ease_currency("credits", -100)
+					ease_currency("dollars", 5)
+				end,
+				func = function()
+					return get_currency_amount("credits") >= 100
+				end
+			},
+			{
+				key = "from_crypto",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("dollars", 10)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "trade_dreams",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_stars"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_stars")[1]:start_dissolve()
+					ease_currency("plincoin", 10)
+				end,
+			},
+			{
+				key = "trade_interests",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_duck"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_duck")[1]:start_dissolve()
+					ease_currency("joker_exchange", 100000)
+				end,
+			},
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_hpot_jtem_flash", nil, nil, -1)
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+
+		local quip = "transaction_welcome_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+
+		local shop_sign = AnimatedSprite(0, 0, 4.4, 2.2, G.ANIMATION_ATLAS['hpot_jtem_postlatro'])
+		shop_sign:define_draw_steps({
+			{ shader = 'dissolve', shadow_height = 0.05 },
+			{ shader = 'dissolve' }
+		})
+		G.SHOP_SIGN = UIBox {
+			definition =
+			{ n = G.UIT.ROOT, config = { colour = G.C.DYN_UI.MAIN, emboss = 0.05, align = 'cm', r = 0.1, padding = 0.1 }, nodes = {
+				{ n = G.UIT.R, config = { align = "cm", padding = 0.1, minw = 4.72, minh = 3.1, colour = G.C.DYN_UI.DARK, r = 0.1 }, nodes = {
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = shop_sign } }
+					} },
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = DynaText({ string = { localize('k_hotpot_transaction_sign') }, colours = { lighten(G.C.GOLD, 0.3) }, shadow = true, rotate = true, float = true, bump = true, scale = 0.5, spacing = 1, pop_in = 1.5, maxw = 4.3 }) } }
+					} },
+				} },
+			} },
+			config = {
+				align = "cm",
+				offset = { x = 0, y = -15 },
+				major = G.HUD:get_UIE_by_ID('row_blind'),
+				bond = 'Weak'
+			}
+		}
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = 0
+				return true
+			end)
+		}))
+		G.HP_JTEM_DELIVERY_VISIBLE = true
+		G.shop_jokers = CardArea(
+			G.hand.T.x + (G.hand.T.w - 5 * 1.02 * G.CARD_W) / 2,
+			G.hand.T.y,
+			5 * 1.02 * G.CARD_W,
+			1.05 * G.CARD_H,
+			{ card_limit = 5, type = 'shop', highlight_limit = 1, negative_info = true })
+		local currencies = { "dollars", "joker_exchange", "plincoin", "credits", "crypto" }
+		for i = 1, 5 do
+			local voucher_poll = pseudorandom("hpot_event_transaction_voucher")
+			if voucher_poll < 0.98 then
+				local old_spectral = G.GAME.spectral_rate
+				G.GAME.spectral_rate = G.GAME.spectral_rate > 2 and G.GAME.spectral_rate or 2
+				local old_playing_card = G.GAME.playing_card_rate
+				G.GAME.playing_card_rate = G.GAME.playing_card_rate > 1 and G.GAME.playing_card_rate or 1
+				local old_illusion = G.GAME.used_vouchers["v_illusion"]
+				G.GAME.used_vouchers["v_illusion"] = true
+				local old_aura = G.GAME.aura_rate
+				G.GAME.aura_rate = G.GAME.aura_rate > 1 and G.GAME.aura_rate or 1
+				local old_hanafuda = G.GAME.hanafuda_rate
+				G.GAME.hanafuda_rate = G.GAME.hanafuda_rate > 1 and G.GAME.hanafuda_rate or 1
+
+				local new_shop_card = create_card_for_shop(G.shop_jokers)
+
+				G.GAME.spectral_rate = old_spectral
+				G.GAME.playing_card_rate = old_playing_card
+				G.GAME.used_vouchers["v_illusion"] = old_illusion
+				G.GAME.aura_rate = old_aura
+				G.GAME.hanafuda_rate = old_hanafuda
+
+				G.shop_jokers:emplace(new_shop_card)
+				new_shop_card:juice_up()
+				new_shop_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if new_shop_card.children.price then
+							hpot_event_transaction_change_shop_price(new_shop_card)
+							return true
+						end
+					end)
+				}))
+			else
+				local voucher_pool = get_current_pool('Voucher')
+				local selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed')
+				local it = 1
+				while selected_voucher == 'UNAVAILABLE' do
+					it = it + 1
+					selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed' .. it)
+				end
+				local voucher_card = SMODS.create_card({ area = G.shop_jokers, key = selected_voucher })
+
+				voucher_card.shop_voucher = true
+				create_shop_card_ui(voucher_card, 'Voucher', G.shop_jokers)
+				G.shop_jokers:emplace(voucher_card)
+				voucher_card:juice_up()
+				voucher_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if voucher_card.children.price then
+							hpot_event_transaction_change_shop_price(voucher_card)
+							return true
+						end
+					end)
+				}))
+			end
+		end
+	end,
+	finish = function(self, event)
+		local quip = "transaction_bye_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		local chara = G.hpot_event_ui_image_area.children.jimbo_card
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+		delay(2)
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = -10
+
+				G.E_MANAGER:add_event(Event({
+					trigger = 'immediate',
+					func = (function()
+						G.HP_JTEM_DELIVERY_VISIBLE = nil
+						G.SHOP_SIGN:remove()
+						G.shop_jokers:remove()
+						return true
+					end)
+				}))
+				return true
+			end)
+		}))
+	end
+}
+
+HotPotato.EventScenario {
+	key = "black_markey_alley",
+	loc_txt = {
+		name = "Black Market Dealer",
+		text = {
+			"Where you are 0% off."
+		}
+	},
+	domains = { transaction = true },
+	starting_step_key = "hpot_black_markey_alley_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "hpot_black_markey_alley_start",
+	loc_txt = {
+		text = {
+			"{s:1.2}Currency Exchange"
+		},
+		choices = {
+			dollars = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$20{}",
+			spark = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:blue,f:hpot_plincoin}͸100,000",
+			plincoins = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:hpot_plincoin,f:hpot_plincoin}$8",
+			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.800",
+			from_dollars = "{C:money}$30{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_spark = "{C:blue,f:hpot_plincoin}͸300,000{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$6{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_credits = "{C:purple}c.600{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			trade_questions = "Sell Questions for {C:hpot_advert,f:hpot_plincoin}£10{}",
+			trade_emotions = "Sell Emotions for {C:hpot_advert,f:hpot_plincoin}£10{}"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "dollars",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("dollars", 20)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "spark",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("joker_exchange", 100000)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "plincoins",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("plincoin", 8)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "credits",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("credits", 800)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "from_dollars",
+				button = function()
+					ease_currency("dollars", -30)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+				end
+			},
+			{
+				key = "from_spark",
+				button = function()
+					ease_currency("joker_exchange", -300000)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("joker_exchange") >= 10000
+				end
+			},
+			{
+				key = "from_plincoins",
+				button = function()
+					ease_currency("plincoin", -6)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("plincoin") >= 1
+				end
+			},
+			{
+				key = "from_credits",
+				button = function()
+					ease_currency("credits", -600)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("credits") >= 100
+				end
+			},
+			{
+				key = "trade_questions",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_curi"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_curi")[1]:start_dissolve()
+					ease_currency("crypto", 10)
+				end,
+			},
+			{
+				key = "trade_emotions",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_drop"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_drop")[1]:start_dissolve()
+					ease_currency("crypto", 10)
+				end,
+			},
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_hpot_shady", nil, nil, -1)
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+
+		local quip = "transaction_welcome_shady_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+
+		local shop_sign = AnimatedSprite(0, 0, 4.4, 2.2, G.ANIMATION_ATLAS['hpot_hc_shop_sign'])
+		shop_sign:define_draw_steps({
+			{ shader = 'dissolve', shadow_height = 0.05 },
+			{ shader = 'dissolve' }
+		})
+		G.SHOP_SIGN = UIBox {
+			definition =
+			{ n = G.UIT.ROOT, config = { colour = G.C.DYN_UI.MAIN, emboss = 0.05, align = 'cm', r = 0.1, padding = 0.1 }, nodes = {
+				{ n = G.UIT.R, config = { align = "cm", padding = 0.1, minw = 4.72, minh = 3.1, colour = G.C.DYN_UI.DARK, r = 0.1 }, nodes = {
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = shop_sign } }
+					} },
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = DynaText({ string = { localize('k_hotpot_transaction_shady_sign') }, colours = { lighten(G.C.GOLD, 0.3) }, shadow = true, rotate = true, float = true, bump = true, scale = 0.5, spacing = 1, pop_in = 1.5, maxw = 4.3 }) } }
+					} },
+				} },
+			} },
+			config = {
+				align = "cm",
+				offset = { x = 0, y = -15 },
+				major = G.HUD:get_UIE_by_ID('row_blind'),
+				bond = 'Weak'
+			}
+		}
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = 0
+				return true
+			end)
+		}))
+		G.HP_HC_MARKET_VISIBLE = true
+		G.shop_jokers = CardArea(
+			G.hand.T.x + (G.hand.T.w - 5 * 1.02 * G.CARD_W) / 2,
+			G.hand.T.y,
+			5 * 1.02 * G.CARD_W,
+			1.05 * G.CARD_H,
+			{ card_limit = 5, type = 'shop', highlight_limit = 1, negative_info = true })
+		for i = 1, 5 do
+			local voucher_poll = pseudorandom("hpot_event_transaction_voucher")
+			if voucher_poll < 0.98 then
+				local old_spectral = G.GAME.spectral_rate
+				G.GAME.spectral_rate = G.GAME.spectral_rate > 2 and G.GAME.spectral_rate or 2
+				local old_playing_card = G.GAME.playing_card_rate
+				G.GAME.playing_card_rate = G.GAME.playing_card_rate > 1 and G.GAME.playing_card_rate or 1
+				local old_illusion = G.GAME.used_vouchers["v_illusion"]
+				G.GAME.used_vouchers["v_illusion"] = true
+				local old_aura = G.GAME.aura_rate
+				G.GAME.aura_rate = G.GAME.aura_rate > 1 and G.GAME.aura_rate or 1
+				local old_hanafuda = G.GAME.hanafuda_rate
+				G.GAME.hanafuda_rate = G.GAME.hanafuda_rate > 1 and G.GAME.hanafuda_rate or 1
+
+				local new_shop_card = create_card_for_shop(G.shop_jokers)
+
+				G.GAME.spectral_rate = old_spectral
+				G.GAME.playing_card_rate = old_playing_card
+				G.GAME.used_vouchers["v_illusion"] = old_illusion
+				G.GAME.aura_rate = old_aura
+				G.GAME.hanafuda_rate = old_hanafuda
+
+				G.shop_jokers:emplace(new_shop_card)
+				new_shop_card:juice_up()
+				new_shop_card.hpot_transaction_price = { currency = "crypto", price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if new_shop_card.children.price then
+							hpot_event_transaction_change_shop_price(new_shop_card, true)
+							return true
+						end
+					end)
+				}))
+			else
+				local voucher_pool = get_current_pool('Voucher')
+				local selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed')
+				local it = 1
+				while selected_voucher == 'UNAVAILABLE' do
+					it = it + 1
+					selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed' .. it)
+				end
+				local voucher_card = SMODS.create_card({ area = G.shop_jokers, key = selected_voucher })
+
+				voucher_card.shop_voucher = true
+				create_shop_card_ui(voucher_card, 'Voucher', G.shop_jokers)
+				G.shop_jokers:emplace(voucher_card)
+				voucher_card:juice_up()
+				voucher_card.hpot_transaction_price = { currency = "crypto", price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if voucher_card.children.price then
+							hpot_event_transaction_change_shop_price(voucher_card, true)
+							return true
+						end
+					end)
+				}))
+			end
+		end
+	end,
+	finish = function(self, event)
+		local quip = "transaction_bye_shady_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		local chara = G.hpot_event_ui_image_area.children.jimbo_card
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+		delay(2)
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = -10
+
+				G.E_MANAGER:add_event(Event({
+					trigger = 'immediate',
+					func = (function()
+						G.HP_HC_MARKET_VISIBLE = nil
+						G.SHOP_SIGN:remove()
+						G.shop_jokers:remove()
+						return true
+					end)
+				}))
+				return true
+			end)
+		}))
+	end
+}

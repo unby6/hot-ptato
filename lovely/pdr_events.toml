@@ -59,3 +59,30 @@ G.FUNCS.draw_from_hand_to_discard()
 if G.GAME.blind:get_type() == 'Boss' and not G.GAME.hpot_combat_event then
 '''
 match_indent = true
+
+# G.FUNCS.use_card
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''G.CONTROLLER.interrupt.focus = nil
+if card.ability.set == 'Voucher' then'''
+payload = '''
+G.CONTROLLER.interrupt.focus = nil
+if card.ability.set == 'Voucher' and G.shop then
+'''
+match_indent = true
+
+# Card:redeem
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if self.cost ~= 0 then'''
+position = 'at'
+payload = '''
+if self.hpot_transaction_price then
+  ease_currency(self.hpot_transaction_price.currency, -self.hpot_transaction_price.price)
+elseif self.cost ~= 0 then
+'''
+match_indent = true
+times = 1
