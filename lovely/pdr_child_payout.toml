@@ -1,0 +1,37 @@
+
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+position = 'at'
+pattern = '''
+table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
+'''
+payload = '''
+table.insert(left_text, {
+    n = G.UIT.O,
+    config = {
+        object = DynaText({
+            string = (
+                config.card.config.center.key == 'j_hpot_child'
+                and config.card.ability.name
+                or localize{
+                    type = 'name_text',
+                    set = config.card.config.center.set,
+                    key = config.card.config.center.key
+                }
+            ),
+            colours = {G.C.FILTER},
+            shadow = true,
+            pop_in = 0,
+            scale = 0.6 * scale,
+            silent = true
+        })
+    }
+})
+'''
+match_indent = true

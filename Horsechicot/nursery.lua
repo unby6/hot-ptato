@@ -508,7 +508,7 @@ function Horsechicot.breed(mother_center, father_center)
 
     --setting child abilities
     card.ability.name = 'Baby ' .. G.GAME.child_prio.ability.name
-    card.ability.extra_value = G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost - 1
+    card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
     card:set_cost()
 
     card.ability.quantum = {}

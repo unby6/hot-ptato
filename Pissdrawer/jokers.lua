@@ -363,12 +363,22 @@ SMODS.Joker {
     no_collection = true,
     loc_vars = function(self, info_queue, card)
         local main_end = {}
-        if next(card.ability.quantum) then
+        if card.ability.quantum[1] and card.ability.quantum[2] then
             main_end = {
-
+                {n=G.UIT.R, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06}, nodes={
+                        {n=G.UIT.T, config={text = card.ability.quantum[1].ability.name ,colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                    }}
+                }},
+                {n=G.UIT.R, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06}, nodes={
+                        {n=G.UIT.T, config={text = card.ability.quantum[2].ability.name ,colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                    }}
+                }}
             }
         end
-        return { vars = {card.ability.name or 'Baby Alex'},
+        return {
+            vars = { card.ability.name or 'Baby Alex' },
             main_end = main_end
         }
     end,
@@ -377,8 +387,8 @@ SMODS.Joker {
             local ret, trig = card.ability.quantum[1]:calculate_joker(context)
             local ret2, trig2 = card.ability.quantum[2]:calculate_joker(context)
             if ret and ret2 then
-                for i,v in pairs(ret) do
-                    if ret2[i]  and type(v) == 'number' then ret[i] = v + ret2[i] end
+                for i, v in pairs(ret) do
+                    if ret2[i] and type(v) == 'number' then ret[i] = v + ret2[i] end
                 end
             end
             if ret then ret.card = card end
@@ -395,5 +405,29 @@ SMODS.Joker {
             end
             return ret1 or ret2
         end
-	end,
+    end,
+    add_to_deck = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                if card.ability.quantum and card.ability.quantum[1] and card.ability.quantum[2] then
+                    card.add_to_deck(card.ability.quantum[1])
+                    card.add_to_deck(card.ability.quantum[2])
+                    return true
+                end
+            end
+        }))
+    end,
+    remove_from_deck = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                if card.ability.quantum and card.ability.quantum[1] and card.ability.quantum[2] then
+                    card.remove_from_deck(card.ability.quantum[1])
+                    card.remove_from_deck(card.ability.quantum[2])
+                    return true
+                end
+            end
+        }))
+    end
 }
