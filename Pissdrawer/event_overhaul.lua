@@ -154,9 +154,9 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = { x = 1, y = 3 },
     hotpot_credits = {
-        art = { 'SDM_0' },
+        art = { 'BepisFever' },
         code = { "N'" },
         idea = { "N'" },
         team = { 'Pissdrawer' }
