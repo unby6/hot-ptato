@@ -10,10 +10,229 @@ G.dynamic_train_messages = {
     stats_power = "",
     stats_guts = "",
     stats_wits = "",
+
+    energy = 0,
+    dummy_energy_cost = 0,
+
+    speed_level = "Level 1",
+    stamina_level = "Level 1",
+    power_level = "Level 1",
+    guts_level = "Level 1",
+    wits_level = "Level 1",
+
+    failure_rate_speed = "0%",
+    failure_rate_stamina = "0%",
+    failure_rate_power = "0%",
+    failure_rate_guts = "0%",
+    failure_rate_wits = "0%",
+}
+G.training_boost = {
+    level_1 = {
+        speed = {
+            speed = 10,
+            power = 5
+        },
+        stamina = {
+            stamina = 9,
+            guts = 4
+        },
+        power = {
+            power = 8,
+            stamina = 5,
+        },
+        guts = {
+            guts = 8,
+            speed = 4,
+            power = 4,
+        },
+        wits = {
+            wits = 9,
+            speed = 2
+        },
+    },
+    level_2 = {
+        speed = {
+            speed = 11,
+            power = 5
+        },
+        stamina = {
+            stamina = 10,
+            guts = 4
+        },
+        power = {
+            power = 9,
+            stamina = 7,
+        },
+        guts = {
+            guts = 9,
+            speed = 4,
+            power = 4,
+        },
+        wits = {
+            wits = 10,
+            speed = 2
+        },
+    },
+    level_3 = {
+        speed = {
+            speed = 12,
+            power = 5
+        },
+        stamina = {
+            stamina = 11,
+            guts = 4
+        },
+        power = {
+            power = 10,
+            stamina = 5,
+        },
+        guts = {
+            guts = 10,
+            speed = 4,
+            power = 4,
+        },
+        wits = {
+            wits = 11,
+            speed = 2
+        },
+    },
+    level_4 = {
+        speed = {
+            speed = 13,
+            power = 6
+        },
+        stamina = {
+            stamina = 12,
+            guts = 5
+        },
+        power = {
+            power = 11,
+            stamina = 5,
+        },
+        guts = {
+            guts = 11,
+            speed = 5,
+            power = 4,
+        },
+        wits = {
+            wits = 12,
+            speed = 3
+        },
+    },
+    level_5 = {
+        speed = {
+            speed = 14,
+            power = 7
+        },
+        stamina = {
+            stamina = 13,
+            guts = 6
+        },
+        power = {
+            power = 12,
+            stamina = 5,
+        },
+        guts = {
+            guts = 12,
+            speed = 5,
+            power = 5,
+        },
+        wits = {
+            wits = 13,
+            speed = 4
+        },
+    },
 }
 
-local update_ref = Game.update
+function acc_hp_calc_failure_rate(energy, train)
+    if next(SMODS.find_card("j_hpot_jtem_special_week")) then return 0 end
+    local energy = math.max(energy, 0)
+    local energy_start_calc = 0
+    local max_failure_rate = 0
+    if train == "speed" then
+        energy_start_calc = 40
+        max_failure_rate = 0.99
+    elseif train == "stamina" then
+        energy_start_calc = 42
+        max_failure_rate = 0.99
+    elseif train == "power" then
+        energy_start_calc = 38
+        max_failure_rate = 0.99
+    elseif train == "guts" then
+        energy_start_calc = 35
+        max_failure_rate = 0.99
+    elseif train == "wits" then
+        energy_start_calc = 50
+        max_failure_rate = 0.4
+    end
 
+    if energy > energy_start_calc then
+        return 0
+    end
+    local failureRate = max_failure_rate * (1 - energy / energy_start_calc)
+
+    return math.max(0, math.min(max_failure_rate, failureRate)) 
+end
+
+function calc_energy_cost(joker_stats, energy)
+    if not joker_stats then return energy or 0 end
+    return ((energy or 0) >= 0 and math.ceil(energy * (1 - math.min(joker_stats.stamina / 800, 0.9)))) or (math.ceil((energy or 0) * (1 + (joker_stats.stamina / 1200))))
+end
+
+function Card:mod_training_stat(stat, num)
+    if self.ability.hp_jtem_stats then
+        self.ability.hp_jtem_stats[stat] = (self.ability.hp_jtem_stats[stat] or 0) + num
+        self:create_train_popup(stat, num)
+    end
+end
+
+local update_ref = Game.update
+function Game:update(...)
+    local ret = update_ref(self,...)
+    local stats = {"speed", "stamina", "power", "guts", "wits"}
+    local joker_stats = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1].ability.hp_jtem_stats
+    if G.GAME.hovered_train and joker_stats then
+        local dummy_cost = calc_energy_cost(joker_stats, G.GAME.training_cost[G.GAME.hovered_train])
+        if dummy_cost < 0 then
+            dummy_cost = math.ceil(dummy_cost * (1 - math.min(joker_stats.stamina / 800, 0.9)))
+        else
+            dummy_cost = math.ceil(dummy_cost * (1 + (joker_stats.stamina / 1200)))
+        end
+        G.dynamic_train_messages.dummy_energy_cost = dummy_cost
+    else
+        G.dynamic_train_messages.dummy_energy_cost = 0
+    end
+    if joker_stats then
+        local card = G.train_jokers.cards[1]
+        G.dynamic_train_messages.energy = math.min(card.ability.hp_jtem_energy - G.dynamic_train_messages.dummy_energy_cost, 100)
+    else
+        G.dynamic_train_messages.energy = 0
+    end
+    if G.GAME.training_level then
+        for i,v in pairs(G.GAME.training_level) do
+            G.dynamic_train_messages[i.."_level"] = localize("hotpot_training_level")..v
+        end
+    end
+    for _,v in ipairs(stats) do
+        if joker_stats then
+            local card = G.train_jokers.cards[1]    
+            local stats = card.ability.hp_jtem_stats
+            local specific_stat = stats[v]
+
+            G.dynamic_train_messages[v] = hpot_get_rank_and_colour(specific_stat)
+            G.dynamic_train_messages["stats_"..v] = specific_stat
+
+            local energy = G.train_jokers.cards[1].ability.hp_jtem_energy
+            if energy then
+                G.dynamic_train_messages["failure_rate_"..v] = math.ceil((acc_hp_calc_failure_rate(energy, v) * 100)).."%"
+            end
+        else
+            G.dynamic_train_messages[v] = "?"
+            G.dynamic_train_messages["stats_"..v] = "?"
+        end
+    end
+    return ret
+end
 
 -- this moves the shop up and down along with slide whistle sound :joy::ok_hand:
 function G.FUNCS.hotpot_pd_toggle_training()
@@ -61,12 +280,295 @@ function Game:start_run(args)
         guts = 0,
         wits = 0
     }
+    G.GAME.training_boost = G.GAME.training_boost or copy_table(G.training_boost.level_1)
+    G.GAME.training_cost = G.GAME.training_cost or {
+        speed = 20,
+        stamina = 18,
+        power = 18,
+        guts = 22,
+        wits = -5
+    }
 
     return ret
 end
 
 function G.FUNCS.hotpot_training_grounds_train(e)
+    local config = e.config
+    local train = config.train
+    local card = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1]
+    if card then
+        local joker_stats = card.ability.hp_jtem_stats
+        local energy = card.ability.hp_jtem_energy
+        local buff = G.GAME.training_boost[train]
+        local failure_rate = acc_hp_calc_failure_rate(energy, train)
+        G.GAME.training_count[train] = G.GAME.training_count[train] + 1
+        if G.GAME.training_level[train] < 5 and G.GAME.training_count[train]%5 == 0 and math.floor(G.GAME.training_count[train]/5) >= G.GAME.training_level[train] then
+            G.GAME.training_level[train] = G.GAME.training_level[train] + 1
+            G.GAME.training_boost[train] = copy_table(G.training_boost["level_"..G.GAME.training_level[train]][train])
+            ease_colour(G.C.training_colors[train], G.C.level_colors["level_"..G.GAME.training_level[train]])
+        end
+        if failure_rate then
+            if pseudorandom("hpot_fail_train") >= failure_rate and not card.ability.hpot_skip_fail_check then
+                local cost = calc_energy_cost(joker_stats,G.GAME.training_cost[train])
+                card.ability.hp_jtem_energy = math.max(math.min(card.ability.hp_jtem_energy - cost,100),0)
+                for i,v in pairs(buff) do
+                    local multiplier = hpot_calc_stat_multiplier(card, i)
+                    card:mod_training_stat(i,math.ceil(v*multiplier))
+                end
+            else
+                if train == "wits" then
+                    card.ability.hp_jtem_energy = math.min(card.ability.hp_jtem_energy - calc_energy_cost(joker_stats,-5),100)
+                else
+                    local reduc = buff[train]
+                    if reduc then
+                        card:mod_training_stat(train,-reduc)
+                    end
+                end
+            end
+        end
+    end
+end
 
+function G.FUNCS.hotpot_training_grounds_stats_func(e)
+    local config = e.config
+    local train = config.stat
+    local joker_stats = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1].ability.hp_jtem_stats
+
+    if joker_stats and train then
+        local _,colour = hpot_get_rank_and_colour(joker_stats[train])
+        config.colour = colour or G.C.UI.TEXT_DARK
+    else
+        config.colour = G.C.UI.TEXT_DARK
+    end
+end
+
+function hpot_hover_train_button_arrow(colour)
+	return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+        {n = G.UIT.C, config = {align = "cm", padding = 0, colour = G.C.CLEAR}, nodes = {
+            {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+                {n = G.UIT.T, config = {shadow = true, text = "^", colour = colour or G.C.FILTER, scale = 1}},
+            }},
+        }}
+    }}
+end
+
+function hpot_hover_train_button_failure_rate(colours, train)
+	return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+        {n = G.UIT.C, config = {align = "cm", padding = 0.05, colour = (colours or {})[1] or G.C.BLUE, minw = 3, r = 0.3}, nodes = {
+            {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+                {n = G.UIT.T, config = {shadow = true, text = "Failure", colour = (colours or {})[2] or G.C.UI.TEXT_LIGHT, scale = 0.4}},
+            }},
+            {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+                {n = G.UIT.T, config = {shadow = true, ref_table = G.dynamic_train_messages, ref_value = "failure_rate_"..train, colour = (colours or {})[2] or G.C.UI.TEXT_LIGHT, scale = 0.4}},
+            }},
+        }}
+    }}
+end
+
+function hpot_hover_train_button_stat(colour, num)
+    return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+        {n = G.UIT.C, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+            {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+                {n = G.UIT.T, config = {shadow = true, text = (((num or 0) >= 0 and "+") or nil)..num, colour = colour or G.C.FILTER, scale = 0.6}},
+            }},
+        }}
+    }}
+end
+
+local ui_hover_ref = UIElement.hover
+function UIElement:hover(...)
+    local ret = ui_hover_ref(self,...)
+    if self.config and self.config.is_train_button then
+        local pos = {x = 0, y = -0.25}
+        local destination = {x = 0, y = 0}
+        if not self.config.original_offset then
+            self.config.original_offset = copy_table(self.role.offset)
+        end
+        for i,_ in pairs(destination) do
+            destination[i] = pos[i] + (self.config.original_offset[i] - self.role.offset[i])
+        end
+        G.E_MANAGER.queues[self.config.id] = G.E_MANAGER.queues[self.config.id] or {}
+        G.E_MANAGER:clear_queue(self.config.id)
+        self:ease_move(destination, 6, self.config.id, true, true)
+
+        G.GAME.arrow_popup = (G.GAME.arrow_popup or 0) + 1
+        local popup = G.GAME.arrow_popup
+        repeat
+            if G.C["train_button_arrow"..popup] then
+                popup = popup + 1
+            end
+        until not G.C["train_button_arrow"..popup]
+        G.E_MANAGER.queues["train_button_arrow"..popup] = G.E_MANAGER.queues["train_button_arrow"..popup] or {}
+        G.E_MANAGER:clear_queue("train_button_arrow"..popup)
+        G.C["train_button_arrow"..popup] = copy_table(G.C.FILTER)
+        G.C["train_button_arrow"..popup][4] = 0
+        ease_colour_queue(G.C["train_button_arrow"..popup], G.C.FILTER, nil, "train_button_arrow"..popup)
+        self.children["train_button_arrow"..popup] = UIBox{
+            definition = hpot_hover_train_button_arrow(G.C["train_button_arrow"..popup]),
+            config = {
+                align = "bmi", 
+                offset = {x = 0, y = 1.5},
+                parent = self
+            }
+        }
+        local text_node = self.children["train_button_arrow"..popup].UIRoot.children[1].children[1].children[1]
+        text_node:ease_move{x = 0, y = -0.625}
+
+        G.GAME.failure_popup = (G.GAME.failure_popup or 0) + 1
+        local f_popup = G.GAME.failure_popup
+        repeat
+            if G.C["train_button_failure"..f_popup] or G.C["text_".."train_button_failure"..f_popup] then
+                f_popup = f_popup + 1
+            end
+        until not G.C["train_button_failure"..f_popup] and not G.C["text_".."train_button_failure"..f_popup]
+        G.E_MANAGER.queues["train_button_failure"..f_popup] = G.E_MANAGER.queues["train_button_failure"..f_popup] or {}
+        G.E_MANAGER:clear_queue("train_button_failure"..f_popup)
+        G.C["train_button_failure"..f_popup] = copy_table(G.C.BLUE)
+        G.C["train_button_failure"..f_popup][4] = 0
+        ease_colour_queue(G.C["train_button_failure"..f_popup], G.C.BLUE, nil, "train_button_failure"..f_popup)
+
+        G.E_MANAGER.queues["text_".."train_button_failure"..f_popup] = G.E_MANAGER.queues["text_".."train_button_failure"..f_popup] or {}
+        G.E_MANAGER:clear_queue("text_".."train_button_failure"..f_popup)
+        G.C["text_".."train_button_failure"..f_popup] = copy_table(G.C.UI.TEXT_LIGHT)
+        G.C["text_".."train_button_failure"..f_popup][4] = 0
+        ease_colour_queue(G.C["text_".."train_button_failure"..f_popup], G.C.UI.TEXT_LIGHT, nil, "text_".."train_button_failure"..f_popup)
+        self.children["train_button_failure"..f_popup] = UIBox{
+            definition = hpot_hover_train_button_failure_rate({G.C["train_button_failure"..f_popup], G.C["text_".."train_button_failure"..f_popup]}, self.config.train),
+            config = {
+                align = "tmi", 
+                offset = {x = 0, y = -1.5},
+                parent = self
+            }
+        }
+        local node = self.children["train_button_failure"..f_popup].UIRoot.children[1]
+        node:ease_move{x = 0, y = 0.4}
+
+        local stat_gains = G.GAME.training_boost[self.config.train]
+        if stat_gains and G.shop then
+            for i,v in pairs(stat_gains) do
+                local stat_container = G.shop:get_UIE_by_ID("stat_train_"..i)
+                if stat_container then
+                    G.GAME.stat_popup = (G.GAME.stat_popup or 0) + 1
+                    local popup = G.GAME.stat_popup
+                    repeat
+                        if stat_container.children["stat_gains"..popup] then
+                            popup = popup + 1
+                        end
+                    until not stat_container.children["stat_gains"..popup]
+                    for i,v in pairs(stat_container.children) do
+                        if string.find(i, "stat_gains") then
+                            v:remove()
+                            stat_container.children[i] = nil
+                            G.GAME.stat_popup = (G.GAME.stat_popup or 1) - 1
+                        end
+                    end
+                    G.GAME["stop_removing_children_".."stat_gains"..popup] = true
+                    G.GAME.hovered_train = self.config.train
+                    local multiplier = 1
+                    if G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) then
+                        local card = G.train_jokers.cards[1]
+                        multiplier = hpot_calc_stat_multiplier(card, i)
+                    end
+                    stat_container.children["stat_gains"..popup] = UIBox{
+                        definition = hpot_hover_train_button_stat(G.C.FILTER, v*multiplier),
+                        config = {
+                            align = "tmi", 
+                            offset = {x = 0, y = -0.45},
+                            parent = stat_container,
+                            train = i
+                        }
+                    }
+                    stat_container.stat_gains = {"stat_gains"..popup}
+                    local node = stat_container.children["stat_gains"..popup].UIRoot.children[1]
+                    node:ease_move{x = 0, y = -0.2}
+                end
+            end
+        end
+
+        --G.shop is the UIBox with everything in the shop
+    end
+    return ret
+end
+
+local ui_stop_hover_ref = UIElement.stop_hover
+function UIElement:stop_hover(...)
+    local ret = ui_stop_hover_ref(self,...)
+    if self.config and self.config.is_train_button then
+        local pos = {x = 0, y = 0.25}
+        local destination = {x = 0, y = 0}
+        if not self.config.original_offset then
+            self.config.original_offset = copy_table(self.role.offset)
+        end
+        G.E_MANAGER.queues[self.config.id] = G.E_MANAGER.queues[self.config.id] or {}
+        G.E_MANAGER:clear_queue(self.config.id)
+        for i,_ in pairs(destination) do
+            destination[i] = pos[i] + (self.config.original_offset[i] - pos[i] - self.role.offset[i])
+        end
+        self:ease_move(destination, 6, self.config.id, true, true)
+        for i,v in pairs(self.children) do
+            if string.find(i, "train_button_arrow") then
+                local node = v.UIRoot.children[1].children[1].children[1]
+                ease_colour_queue(G.C[i], {G.C.FILTER[1], G.C.FILTER[2], G.C.FILTER[3], 0}, nil, i)
+                node:ease_move({x = 0, y = 0.5}, nil, nil, nil, nil, nil, nil, {after_func = function(node)
+                    G.GAME.arrow_popup = (G.GAME.arrow_popup or 1) - 1
+                    G.E_MANAGER.queues[i] = G.E_MANAGER.queues[i] or {}
+                    G.E_MANAGER:clear_queue(i)
+                    G.C[i] = nil
+                    v:remove()
+                    self.children[i] = nil
+                end})
+            elseif string.find(i, "train_button_failure") then
+                local node = v.UIRoot.children[1]
+                ease_colour_queue(G.C[i], {G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3], 0}, nil, i)
+                ease_colour_queue(G.C["text_"..i], {G.C.UI.TEXT_LIGHT[1], G.C.UI.TEXT_LIGHT[2], G.C.UI.TEXT_LIGHT[3], 0}, nil, "text_"..i)
+                node:ease_move({x = 0, y = -0.4}, nil, nil, nil, nil, nil, nil, {after_func = function(node)
+                    G.GAME.failure_popup = (G.GAME.failure_popup or 1) - 1
+                    G.E_MANAGER.queues[i] = G.E_MANAGER.queues[i] or {}
+                    G.E_MANAGER:clear_queue(i)
+                    G.C[i] = nil
+
+                    G.E_MANAGER.queues["text_"..i] = G.E_MANAGER.queues["text_"..i] or {}
+                    G.E_MANAGER:clear_queue("text_"..i)
+                    G.C["text_"..i] = nil
+
+                    v:remove()
+                    self.children[i] = nil
+                end})
+            end
+        end
+
+        local stat_gains = G.GAME.training_boost[self.config.train]
+        if stat_gains and G.shop then
+            for i,_ in pairs(stat_gains) do
+                local stat_container = G.shop:get_UIE_by_ID("stat_train_"..i)
+                if stat_container and G.GAME.hovered_train == self.config.train then
+                    for ii,vv in pairs(stat_container.children) do
+                        if string.find(ii, "stat_gains") then
+                            vv:remove()
+                            stat_container.children[ii] = nil
+                            G.GAME.stat_popup = (G.GAME.stat_popup or 1) - 1
+                        end
+                    end
+                elseif stat_container and G.GAME.hovered_train ~= self.config.train then
+                    local to_delete = copy_table(G.GAME.training_boost[self.config.train] or {})
+                    for ii,_ in pairs(G.GAME.training_boost[G.GAME.hovered_train]) do
+                        if to_delete[ii] then
+                            to_delete[ii] = nil
+                        end
+                    end
+                    for ii,vv in pairs(stat_container.children) do
+                        if vv.config and vv.config.train and to_delete[vv.config.train] then
+                            vv:remove()
+                            stat_container.children[ii] = nil
+                            G.GAME.stat_popup = (G.GAME.stat_popup or 1) - 1
+                        end
+                    end
+                end
+            end
+        end
+        if G.GAME.hovered_train == self.config.train then G.GAME.hovered_train = nil end
+    end
+    return ret
 end
 
 function G.UIDEF.hotpot_pd_training_section()
@@ -94,29 +596,29 @@ function G.UIDEF.hotpot_pd_training_section()
 
     local button_minsize = 1.5
     local function create_train_button(train)
-        return {n = G.UIT.C, config = {align = "cm", padding = 0.05, r = 0.2, colour = G.C.training_colors[train], minw = button_minsize, minh = button_minsize, outline_colour = G.C.WHITE, outline = 1.6, button = "hotpot_training_grounds_train", train = train, hover = true, shadow = true}, nodes = {
+        return {n = G.UIT.C, config = {align = "cm", padding = 0.05, r = 0.2, colour = G.C.training_colors[train], minw = button_minsize, minh = button_minsize, outline_colour = G.C.WHITE, outline = 1.6, button = "hotpot_training_grounds_train", train = train, hover = true, shadow = true, id = "button_train_"..train, is_train_button = true}, nodes = {
             {n = G.UIT.R, config = {align = "cm"}, nodes = {
                 {n = G.UIT.T, config = {text = localize("hotpot_"..train), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
             }},
             {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                {n = G.UIT.T, config = {text = localize("hotpot_training_level")..training_level[train], scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = train.."_level", scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
             }},
         }}
     end
     local function create_stat_display(stat)
-        return {n = G.UIT.C, config = {align = "tm"}, nodes = {
+        return {n = G.UIT.C, config = {align = "tm", id = "stat_train_"..stat}, nodes = {
             {n = G.UIT.R, config = {align = "cm", colour = G.C.hotpot_default_stat_color, minh = 0.4, padding = 0.05}, nodes = {
                 {n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
             }},
             {n = G.UIT.R, config = {align = "cm", padding = 0.025}, nodes = {
                 {n = G.UIT.C, config = {align = "cm", padding = 0.02}, nodes = {
                     {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                        {n = G.UIT.T, config = {text = "F", scale = 0.6, colour = G.C.UI.TEXT_DARK, shadow = true}},
+                        {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = stat, scale = 0.6, colour = G.C.UI.TEXT_DARK, func = "hotpot_training_grounds_stats_func", stat = stat, shadow = true}},
                     }},
                 }},
                 {n = G.UIT.C, config = {align = "cm", padding = 0.02}, nodes = {
                     {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                        {n = G.UIT.T, config = {text = "60", scale = 0.425, colour = G.C.UI.TEXT_DARK, shadow = true}},
+                        {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = "stats_"..stat, scale = 0.425, colour = G.C.UI.TEXT_DARK, shadow = true}},
                     }},
                     {n = G.UIT.R, config = {align = "cm"}, nodes = {
                         {n = G.UIT.T, config = {text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK, shadow = true}},
@@ -134,6 +636,16 @@ function G.UIDEF.hotpot_pd_training_section()
     return {n = G.UIT.R, config = {minw = 3, minh = 2.5, colour = G.C.CLEAR}, nodes = {}},
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
             {n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
+                {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                    {n = G.UIT.C, config = {align = "cm", minh = 0.65, minw = 1.5, r = 0.2, colour = G.C.L_BLACK}, nodes = {
+                        {n = G.UIT.R, config = {align = "cm", padding = 0.1}, nodes = {
+                            {n = G.UIT.C, config = {align = "cl"}, nodes = {
+                                {n = G.UIT.T, config = {text = "Energy", scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                            }},
+                            {n = G.UIT.C, config = {align = "cm", colour = G.C.BLUE, minw = 3.5, minh = 0.4, r = 0.2, ease_progress_bar = {max = 100, ref_table = G.dynamic_train_messages, ref_value = "energy", empty_col = darken(G.C.BLUE, 0.5), filled_col = G.C.BLUE, ease = "quad"}}},
+                        }},
+                    }}
+                }},
                 {n = G.UIT.R, config = {align = "cm"}, nodes = {
                     {n = G.UIT.C, config = {align = "cm", padding = 0.125, r = 0.2, colour = G.C.L_BLACK, minw = 3, minh = 3.75}, nodes = {
                         {n = G.UIT.R, config = {align = "cm"}, nodes = {
@@ -165,7 +677,7 @@ function G.UIDEF.hotpot_pd_training_section()
                         }},
                     }},
                 }},
-                {n = G.UIT.R, config = {align = "cm", minh = 0.3}},
+                {n = G.UIT.R, config = {align = "cm", minh = 0.45}},
                 {n = G.UIT.R, config = {align = "cm", padding = 0.2}, nodes = {
                     create_train_button("speed"),
                     create_train_button("stamina"),
@@ -275,28 +787,30 @@ end
 
 local toHook = Card.stop_drag
 function Card:stop_drag()
-    local area = self.area
-    self.hp_oldarea = self.area or self.hp_oldarea
-    for i, k in ipairs(G.CONTROLLER.collision_list) do
-        if (k:is(CardArea)) then
-            area = k
-            break
-        end
-        
-        if (k:is(Card)) and false then
-            area = k.area
-            break
-        end
-    end
-    if self.hp_oldarea ~= area and (area == G.train_jokers and G.train_jokers.cards and #(G.train_jokers.cards or {}) <= 0) or (area == G.jokers and self.hp_oldarea == G.train_jokers) then
-        HotPotato.draw_card(self.hp_oldarea, area, 1, 'up', nil, self ,0)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                self.hp_oldarea = nil
-                return true 
+    if G.jokers and G.jokers.cards and G.train_jokers then
+        local area = self.area
+        self.hp_oldarea = self.area or self.hp_oldarea
+        for i, k in ipairs(G.CONTROLLER.collision_list) do
+            if (k:is(CardArea)) then
+                area = k
+                break
             end
-        }))
-        area:align_cards()
+            
+            if (k:is(Card)) and false then
+                area = k.area
+                break
+            end
+        end
+        if self.hp_oldarea ~= area and (area == G.train_jokers and G.train_jokers.cards and #(G.train_jokers.cards or {}) <= 0) or (area == G.jokers and self.hp_oldarea == G.train_jokers) then
+            HotPotato.draw_card(self.hp_oldarea, area, 1, 'up', nil, self ,0)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    self.hp_oldarea = nil
+                    return true 
+                end
+            }))
+            area:align_cards()
+        end
     end
     local c = toHook(self)
     return c
