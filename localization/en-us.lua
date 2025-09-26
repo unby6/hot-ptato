@@ -2168,6 +2168,12 @@ return {
                     "{C:inactive}(Currently {C:money}$#3#{C:inactive})"
                 }
             },
+            j_hpot_vremade_joker = {
+                name = "vremade_Joker",
+                text = {
+                    "{C:red,s:1.1}+#1#{} Mult"
+                }
+            }
         },
         Enhanced = {
             m_hpot_oap_lead = {

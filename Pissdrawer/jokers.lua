@@ -465,6 +465,30 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
+    key = "vremade_joker",
+    hotpot_credits = {
+        idea = { "N'" },
+        art = { "LocalThunk" },
+        code = { "N'" },
+        team = { "Pissdrawer" }
+    },
+    rarity = 1,
+    blueprint_compat = true,
+    cost = 2,
+    config = { extra = { mult = 4 }, },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
+SMODS.Joker {
     key = "smods",
     hotpot_credits = {
         idea = { "Eremel" },
