@@ -27,6 +27,7 @@ HotPotato.EventStep({
 })
 HotPotato.EventScenario({
 	key = "nothing",
+	hide_image_area = true,
 	starting_step_key = "hpot_nothing_1",
 
 	loc_txt = {
@@ -753,6 +754,7 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "spam_email",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_spam_1",
 	hotpot_credits = {
@@ -1396,6 +1398,7 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "nuclear_explosion",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_nuclear_explosion_1",
 	hotpot_credits = {
@@ -1505,6 +1508,7 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "job_application",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_job_application_1",
 	hotpot_credits = {
@@ -1618,6 +1622,7 @@ end
 
 HotPotato.EventStep {
 	key = "hpot_trolley_1",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1683,6 +1688,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_trolley_joker_killed",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1716,6 +1722,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_trolley_cards_killed",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1749,6 +1756,7 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_trolley_bribe",
+	hide_hand = false,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1990,6 +1998,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario {
 	key = "fishing",
+	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_fishing_1",
 	hotpot_credits = {
@@ -2212,6 +2221,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario {
 	key = "bizzare_machine",
+	hide_image_area = true,
 	starting_step_key = "hpot_bizzare_machine_start",
 	hotpot_credits = {
 		code = { "Mysthaps" },
@@ -2349,7 +2359,11 @@ HotPotato.EventStep {
 				key = "hpot_tech_support_ask_sdm_0",
 				no_prefix = true,
 				button = function()
-					event.start_step("hpot_tech_support_ask_sdm_0")
+					if pseudorandom(pseudoseed('sdm_event'), 0, 1) == 1 then
+						event.start_step("hpot_tech_support_ask_sdm_0_win")
+					else
+						event.start_step("hpot_tech_support_ask_sdm_0_lose")
+					end
 				end
 			},
 			{
@@ -2426,14 +2440,48 @@ HotPotato.EventStep {
 }
 
 HotPotato.EventStep {
-	key = "hpot_tech_support_ask_sdm_0",
+	key = "hpot_tech_support_ask_sdm_0_win",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"SDM_0 is too busy playing Plinko.",
+			"",
+			"He throws some plincoins at you",
+			"to play more Plinko"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		ease_plincoins(2)
+	end,
+	finish = function(self, event)
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_tech_support_ask_sdm_0_lose",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"SDM_0 is too busy playing Plinko",
+			"",
+			"He runs away with your plincoins",
+			"to play more Plinko"
+		}
+	},
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local win = pseudorandom(pseudoseed('sdm_event'), 0, 1)
+		ease_plincoins(-G.GAME.plincoins)
+		
 	end,
 	finish = function(self, event)
 	end
@@ -2469,6 +2517,12 @@ HotPotato.EventStep {
 
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_fey",
+	loc_txt = {
+		text = {
+			"She's sleeping... wait! No!",
+			"Stop stealing her code!"
+		}
+	},
 	hide_hand = true,
 	get_choices = function()
 		return {
@@ -2476,8 +2530,17 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-	end,
-	finish = function(self, event)
+		delay(1)
+		pool = {}
+		for i, v in pairs(G.P_CENTERS) do
+			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
+				table.insert(pool, v)
+			end
+		end
+		if G.jokers.config.card_count < G.jokers.config.card_limit then
+			local chosen = pseudorandom_element(pool.pseudoseed('fey_tsup'))
+			SMODS.add_card({ key = chosen.key })
+		end
 	end
 }
 
@@ -2582,6 +2645,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_triboulet")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -2654,6 +2718,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_triboulet")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -2710,7 +2775,7 @@ HotPotato.EventStep {
 		},
 		choices = {
 			dollars = "Pay {C:money}$",
-			plincoins = "Pay {C:blue,f:hpot_plincoin}͸",
+			plincoins = "Pay {C:hpot_plincoin,f:hpot_plincoin}$",
 			crypto = "Pay {C:hpot_advert,f:hpot_plincoin}£",
 			spark = "Pay {C:blue,f:hpot_plincoin}͸",
 		}
@@ -2758,6 +2823,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_triboulet")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -2837,6 +2903,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_curi")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3217,6 +3284,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_stars")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3301,6 +3369,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_stars")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3412,6 +3481,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_duck")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3497,6 +3567,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("c_hpot_imag_duck")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3598,6 +3669,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_hit_the_road")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3631,6 +3703,7 @@ HotPotato.EventStep {
 
 HotPotato.EventScenario {
 	key = "gambling",
+	hide_image_area = true,
 	loc_txt = {
 		name = "Let's Go Gambling!",
 		text = {
@@ -3951,6 +4024,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_trading")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -3993,6 +4067,7 @@ HotPotato.EventScenario {
 
 HotPotato.EventStep {
 	key = "small_seed_start",
+	hide_image_area = true,
 	hide_hand = true,
 	loc_txt = {
 		text = {
@@ -4069,6 +4144,82 @@ HotPotato.EventStep {
 				pcard:set_ability("m_glass")
 			end
 		end
+	end
+}
+
+--#endregion
+
+--#region Cursed Womb
+
+HotPotato.EventScenario {
+	key = "cursed_womb",
+	loc_txt = {
+		name = "Cursed Womb",
+		text = {
+			"Fey not again..."
+		}
+	},
+	domains = { escapade = true },
+	starting_step_key = "hpot_cursed_womb_start",
+	hotpot_credits = {
+		code = { "fey <3" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "cursed_womb_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"A grueling scent floods your nose,",
+			"you whip around looking for any hint",
+			"towards the vile stench.",
+			" ",
+			"\"IS THAT A HUMAN FINGER!? Why is it so... shrivelled?",
+			"No, it looks like it should have decomposed by now...\"",
+			" ",
+			"A sudden feeling comes over you, wait no!",
+			"You want to eat the finger... no, don't!"
+		},
+		choices = {
+			eat_finger = "Hell yeahh!",
+			ignore_finger = "Ah hell no!"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "eat_finger",
+				button = function()
+					SMODS.add_card({set = 'Joker', legendary = true, edition = 'e_negative'})
+					hpot_event_end_scenario()
+				end
+			},
+			{
+				key = "ignore_finger",
+				button = function()
+					for i = 1, 5 do
+						SMODS.add_card({ key = 'j_four_fingers', edition = 'e_negative' })
+					end
+					hpot_event_end_scenario()
+				end
+			}
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_four_fingers")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
 	end
 }
 
@@ -4156,6 +4307,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local chara = Character("j_hpot_ruan_mei")
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
@@ -4173,8 +4325,1606 @@ HotPotato.EventStep {
 
 --- Combat
 
+--#region Combat effects
+
+-- TODO: turn this into an SMODS.GameObject thingy too
+HotPotato.CombatEvents = {}
+HotPotato.CombatEvents.test = {
+	blind_key = "bl_serpent",        -- blind to face
+	calculate = function(self, context) -- calculate
+		if context.end_of_round and context.main_eval then
+			return {
+				dollars = 50
+			}
+		end
+	end,
+	defeat = function(self) -- on defeat (use for rewards)
+		ease_dollars(50)
+	end
+}
+
+HotPotato.CombatEvents.generic = {
+	blind_key = "bl_big",
+	calculate = function(self, context)
+		local effect = G.GAME.blind.effect.hpot_combat_bonus
+		if not effect then return end
+
+		if context.setting_blind then
+			if effect.change_size then
+				G.GAME.blind.chips = G.GAME.blind.chips * effect.change_size
+				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+			end
+
+			if effect.total_hands or effect.hands then
+				ease_hands_played((effect.total_hands and (-G.GAME.round_resets.hands + effect.total_hands) or 0) +
+					(effect.hands or 0))
+			end
+
+			if effect.total_discards or effect.discards then
+				ease_discard((effect.total_discards and (-G.GAME.current_round.discards_left + effect.total_discards) or 0) +
+					(effect.discards or 0))
+			end
+
+			effect.hpot_hands = {}
+			for _, poker_hand in ipairs(G.handlist) do
+				effect.hpot_hands[poker_hand] = false
+			end
+		end
+
+		if context.debuff_card and effect.debuff then
+			if context.debuff_card.area == G.jokers then
+				if effect.debuff.jokers then
+					return {
+						debuff = true
+					}
+				end
+			else
+				if effect.debuff.suit and context.debuff_card:is_suit(effect.debuff.suit, true) then
+					return {
+						debuff = true
+					}
+				end
+				if effect.debuff.face and context.debuff_card:is_face(true) then
+					return {
+						debuff = true
+					}
+				end
+				if effect.debuff.played_this_ante and context.debuff_card.ability.played_this_ante then
+					return {
+						debuff = true
+					}
+				end
+			end
+		end
+
+		if context.debuff_hand and (effect.debuff or effect.set_to_zero) then
+			local set_to_zero = false
+			local debuff = false
+			if context.scoring_name == G.GAME.current_round.most_played_poker_hand then
+				if effect.set_to_zero and effect.set_to_zero.most_played_hand then
+					set_to_zero = true
+				end
+				if effect.debuff and effect.debuff.most_played_hand then
+					debuff = true
+				end
+			end
+			if effect.set_to_zero and context.scoring_name == effect.set_to_zero.scoring_name then
+				set_to_zero = true
+			end
+			if effect.debuff and context.scoring_name == effect.debuff.scoring_name then
+				debuff = true
+			end
+			if effect.no_repeat_hands then
+				if effect.hpot_hands[context.scoring_name] then
+					debuff = true
+				end
+				if not context.check then
+					effect.hpot_hands[context.scoring_name] = true
+				end
+			end
+			if effect.one_hand_type then
+				if effect.hpot_only_hand and effect.hpot_only_hand ~= context.scoring_name then
+					return {
+						debuff = true
+					}
+				end
+			end
+
+			if not context.check then
+				effect.hpot_only_hand = context.scoring_name
+			end
+			if set_to_zero then
+				if not context.check then
+					if effect.set_to_zero.dollars then
+						ease_dollars(math.min(0, -G.GAME.dollars), true)
+					end
+					if effect.set_to_zero.plincoins then
+						ease_plincoins(math.min(0, -G.GAME.plincoins), true)
+					end
+					if effect.set_to_zero.credits then
+						HPTN.ease_credits(math.min(0, -G.PROFILES[G.SETTINGS.profile].TNameCredits), true)
+					end
+					if effect.set_to_zero.sparkle then
+						ease_spark_points(math.min(0, -G.GAME.spark_points), true)
+					end
+					if effect.set_to_zero.crypto then
+						ease_cryptocurrency(math.min(0, -G.GAME.cryptocurrency), true)
+					end
+				end
+			end
+			if debuff then
+				return {
+					debuff = true
+				}
+			end
+		end
+
+		if context.stay_flipped and context.to_area == G.hand and effect.flipped then
+			if effect.flipped.suit and context.other_card:is_suit(effect.flipped.suit, true) then
+				return {
+					stay_flipped = true
+				}
+			end
+			if effect.flipped.face and context.other_card:is_face(true) then
+				return {
+					stay_flipped = true
+				}
+			end
+			if effect.flipped.played_this_ante and context.other_card.ability.played_this_ante then
+				return {
+					stay_flipped = true
+				}
+			end
+			if effect.flipped.first_hand and
+				G.GAME.current_round.hands_played == 0 and G.GAME.current_round.discards_used == 0 then
+				return {
+					stay_flipped = true
+				}
+			end
+		end
+
+		if context.modify_hand then
+			if effect.base_score_halved then
+				mult = mod_mult(math.max(math.floor(mult * 0.5 + 0.5), 1))
+				hand_chips = mod_chips(math.max(math.floor(hand_chips * 0.5 + 0.5), 0))
+				update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
+			end
+		end
+	end,
+	defeat = function(self)
+		local reward = (G.GAME.blind.effect.hpot_combat_bonus or {}).reward
+		if not reward then return end
+
+		if reward.jokers then
+			for _, joker in ipairs(reward.jokers) do
+				for i = 1, (joker.amount or 1) do
+					if not joker.need_room or (#G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit) then
+						SMODS.add_card { set = "Joker", rarity = joker.rarity, edition = joker.edition, no_edition = joker.no_edition, stickers = joker.stickers, key_append = joker.key_append or "hpot_combat_reward", key = joker.key, area = G.jokers }
+					end
+				end
+			end
+		end
+
+		if reward.consumables then
+			for _, consumable in ipairs(reward.consumables) do
+				for i = 1, (consumable.amount or 1) do
+					if not consumable.need_room or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) then
+						SMODS.add_card { set = consumable.set, edition = consumable.edition, key_append = consumable.key_append or "hpot_combat_reward", key = consumable.key, area = G.consumeables }
+					end
+				end
+			end
+		end
+
+		if reward.tags then
+			for _, tag_key in ipairs(reward.tags.keys or {}) do
+				add_tag(Tag(tag_key, false, 'Small'))
+			end
+			if reward.tags.random_amount then
+				local tag_pool = get_current_pool('Tag')
+				for i = 1, reward.tags.random_amount do
+					local selected_tag = pseudorandom_element(tag_pool, 'hpot_combat_reward')
+					local it = 1
+					while selected_tag == 'UNAVAILABLE' do
+						it = it + 1
+						selected_tag = pseudorandom_element(tag_pool, 'hpot_combat_reward_resample' .. it)
+					end
+					add_tag(Tag(selected_tag, false, 'Small'))
+				end
+			end
+		end
+
+		if reward.vouchers then
+			local vouchers_to_redeem = {}
+			for _, voucher_key in ipairs(reward.vouchers.keys or {}) do
+				vouchers_to_redeem[#vouchers_to_redeem + 1] = voucher_key
+			end
+			if reward.vouchers.random_amount then
+				local voucher_pool = get_current_pool('Voucher')
+				for i = 1, reward.vouchers.random_amount do
+					local selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed')
+					local it = 1
+					while selected_voucher == 'UNAVAILABLE' do
+						it = it + 1
+						selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed' .. it)
+					end
+					vouchers_to_redeem[#vouchers_to_redeem + 1] = selected_voucher
+				end
+			end
+			for _, voucher_key in ipairs(vouchers_to_redeem) do
+				local voucher_card = SMODS.create_card({ area = G.play, key = voucher_key })
+				voucher_card:start_materialize()
+				voucher_card.cost = 0
+				G.play:emplace(voucher_card)
+				delay(0.8)
+				voucher_card:redeem()
+
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					delay = 0.5,
+					func = function()
+						voucher_card:start_dissolve()
+						return true
+					end
+				}))
+			end
+		end
+
+		if reward.playing_cards then
+			for _, pcard in ipairs(reward.playing_cards) do
+				for i = 1, (pcard.amount or 1) do
+					-- TODO: account for modded ranks I guess
+					local rank = pcard.rank or
+						(pcard.face and pseudorandom_element({ "King", "Queen", "Jack" }, "hpot_event_combat_reward")) or
+						(pcard.numbered and tostring(pseudorandom("hpot_event_combat_reward", 2, 10)))
+					SMODS.add_card { set = (pcard.enhanced and "Enhanced") or (pcard.base and "Base") or "Playing Card", edition = pcard.edition, stickers = pcard.stickers, enhancement = pcard.enhancement, key_append = pcard.key_append or "hpot_combat_reward", rank = rank, suit = pcard.suit, seal = pcard.seal, area = G.deck }
+				end
+			end
+		end
+
+		if reward.enhance_deck then
+			for _, mod in ipairs(reward.enhance_deck) do
+				local amount = mod.amount or 1
+				local valid_cards = {}
+				local chosen_cards = {}
+				local conditions = mod.conditions or {}
+
+				for _, pcard in ipairs(G.playing_cards) do
+					local valid = true
+					if conditions.suits then
+						local has_suit = false
+						for _, suit in ipairs(conditions.suits) do
+							if pcard:is_suit(suit) then
+								has_suit = true
+								break
+							end
+						end
+						if not has_suit then valid = false end
+					end
+					if valid and conditions.ranks then
+						local has_rank = false
+						for _, rank in ipairs(conditions.ranks) do
+							if pcard.base.value == rank then
+								has_rank = true
+								break
+							end
+						end
+						if not has_rank then valid = false end
+					end
+					if valid and conditions.no_enhancement then
+						if pcard.ability.set == "Enhanced" then
+							valid = false
+						end
+					end
+					if valid and conditions.no_edition then
+						if pcard.edition then
+							valid = false
+						end
+					end
+					if valid and conditions.no_seal then
+						if pcard.seal then
+							valid = false
+						end
+					end
+					if valid then
+						valid_cards[#valid_cards + 1] = pcard
+					end
+				end
+
+				for i = 1, amount do
+					local chosen = pseudorandom_element(valid_cards, "hpot_event_combat_reward")
+					chosen_cards[#chosen_cards + 1] = chosen
+				end
+
+				for _, pcard in ipairs(chosen_cards) do
+					if mod.change_base then
+						-- TODO: account for modded ranks I guess
+						local rank = mod.change_base.rank or
+							(mod.change_base.face and pseudorandom_element({ "King", "Queen", "Jack" }, "hpot_event_combat_reward")) or
+							(mod.change_base.numbered and tostring(pseudorandom("hpot_event_combat_reward", 2, 10)))
+						assert(SMODS.change_base(pcard, mod.change_base.suit, rank))
+					end
+					if mod.edition then
+						pcard:set_edition(mod.edition)
+					end
+					if mod.enhancement then
+						pcard:set_ability(mod.enhancement)
+					end
+					if mod.seal then
+						pcard:set_seal(mod.seal)
+					end
+				end
+			end
+		end
+
+		if reward.dollars then
+			ease_dollars(reward.dollars)
+		end
+		if reward.plincoins then
+			ease_dollars(reward.plincoins)
+		end
+		if reward.credits then
+			HPTN.ease_credits(reward.credits)
+		end
+		if reward.sparkle then
+			ease_spark_points(reward.sparkle)
+		end
+		if reward.crypto then
+			ease_cryptocurrency(reward.crypto)
+		end
+
+		if reward.level_up_hand then
+			SMODS.smart_level_up_hand(nil, reward.level_up_hand.key, nil, reward.level_up_hand.amount)
+		end
+	end
+}
+
+local hpot_event_get_random_boss = function(seed)
+	local eligible_bosses = {}
+	for k, v in pairs(G.P_BLINDS) do
+		local res, options = SMODS.add_to_pool(v)
+		eligible_bosses[k] = res and true or nil
+	end
+	for k, v in pairs(G.GAME.banned_keys) do
+		if eligible_bosses[k] then eligible_bosses[k] = nil end
+	end
+	local _, boss = pseudorandom_element(eligible_bosses, seed or "hpot_event_boss")
+	return boss or "bl_wall"
+end
+
+local hpot_event_get_random_combat_effect = function(seed)
+	-- TODO: localize these
+	local effects = {
+		{ change_size = 2,                                           text = "but Blind size is doubled" },
+		{ total_hands = 1,                                           text = "with only 1 hand" },
+		{ total_discards = 0,                                        text = "with 0 discards" },
+		{ debuff = { jokers = true },                                text = "but all Jokers are debuffed" },
+		{ debuff = { suit = true },                                  text = "but all [suit] are debuffed" }, -- not valid, randomizes later
+		{ debuff = { face = true },                                  text = "but all face cards are debuffed" },
+		{ debuff = { played_this_ante = true },                      text = "but all cards played this ante are debuffed" },
+		{ debuff = { most_played_hand = true },                      text = "but " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " is not allowed" },
+		{ set_to_zero = { most_played_hand = true, dollars = true }, text = "but playing " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " sets money to 0" },
+		{ no_repeat_hands = true,                                    text = "but no repeat hand types" },
+		{ one_hand_type = true,                                      text = "but ony one hand type can be played" },
+		{ flipped = { suit = true },                                 text = "but all [suit] are drawn facedown" }, -- not valid, randomizes later
+		{ flipped = { face = true },                                 text = "but all face cards are drawn facedown" },
+		{ flipped = { played_this_ante = true },                     text = "but all cards played this ante are drawn facedown" },
+		{ flipped = { first_hand = true },                           text = "but first hand is drawn facedown" },
+		{ base_score_halved = true,                                  text = "but base Chips and Mult are halved" },
+	}
+
+	local chosen_effect = pseudorandom_element(effects, seed or "hpot_event_combat_effect")
+	if not chosen_effect then return end
+	if chosen_effect.debuff and chosen_effect.debuff.suit then
+		local suit = pseudorandom_element(SMODS.Suits, (seed or "hpot_event_combat_effect") .. "suit_debuff")
+		chosen_effect.debuff.suit = (suit or {}).key or "Spades"
+		chosen_effect.text = "but all " .. localize(chosen_effect.debuff.suit, "suits_plural") .. " are debuffed"
+	end
+	if chosen_effect.flipped and chosen_effect.flipped.suit then
+		local suit = pseudorandom_element(SMODS.Suits, (seed or "hpot_event_combat_effect") .. "suit_flip")
+		chosen_effect.flipped.suit = (suit or {}).key or "Diamonds"
+		chosen_effect.text = "but all " .. localize(chosen_effect.flipped.suit, "suits_plural") .. " are drawn facedown"
+	end
+
+	return chosen_effect
+end
+
+local hpot_event_get_random_combat_reward = function(domain, seed)
+	-- TODO: localize these
+	local combat_rewards = {
+		{ jokers = { { rarity = "Common" } },                                           text = "A random Common Joker (Doesn't need room)" },
+		{ jokers = { { rarity = "Uncommon", need_room = true } },                       text = "A random Uncommon Joker (Must have room)" },
+		{ consumables = { { set = "Tarot", need_room = true, amount = 2 } },            text = "Up to 2 random Tarot cards (Must have room)" },
+		{ consumables = { { set = "Planet", need_room = true, amount = 2 } },           text = "Up to 2 random Planet cards (Must have room)" },
+		{ consumables = { { set = "bottlecap_Common", need_room = true, amount = 2 } }, text = "Up to 2 random Common Bottlecaps (Must have room)" },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true } },           text = "1 random Uncommon Bottlecap (Must have room)" },
+		{ consumables = { { set = "Czech", need_room = true } },                        text = "1 random Cheque card (Must have room)" },
+		{ consumables = { { set = "Hanafuda", need_room = true, amount = 2 } },         text = "Up to 2 random Hanafuda cards (Must have room)" },
+		{ tags = { random_amount = 2 },                                                 text = "2 random Tags" },
+		{ tags = { keys = { "tag_double" } },                                           text = "A Double Tag" },
+		{ dollars = 4,                                                                  text = "$4" },
+		{ credits = 30,                                                                 text = "30 credits" },
+		{ sparkle = 100,                                                                text = "100 Joker Exchange" },
+		{ crypto = 0.5,                                                                 text = "0.5 Cryptocurrency" },
+	}
+
+	local encounter_rewards = {
+		{ jokers = { { rarity = "Uncommon" } },                                           text = "A random Uncommon Joker (Doesn't need room)" },
+		{ jokers = { { rarity = "Rare", need_room = true } },                             text = "A random Rare Joker (Must have room)" },
+		{ consumables = { { set = "Spectral", need_room = true, amount = 2 } },           text = "1 random Spectral card (Must have room)" },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true, amount = 2 } }, text = "Up to 2 random Uncommon Bottlecaps (Must have room)" },
+		{ consumables = { { set = "bottlecap_Rare", need_room = true } },                 text = "1 random Rare Bottlecap (Must have room)" },
+		{ consumables = { { set = "Czech", need_room = true, amount = 2 } },              text = "Up to 2 random Cheque cards (Must have room)" },
+		{ tags = { random_amount = 5 },                                                   text = "5 random Tags" },
+		{ tags = { keys = { "tag_double", "tag_double" } },                               text = "2 Double Tags" },
+		{ dollars = 8,                                                                    text = "$8" },
+		{ credits = 100,                                                                  text = "100 credits" },
+		{ sparkle = 300,                                                                  text = "300 Joker Exchange" },
+		{ crypto = 2,                                                                     text = "2 Cryptocurrency" },
+	}
+
+	local _handname, _played = 'High Card', -1
+	for hand_key, hand in pairs(G.GAME.hands) do
+		if hand.played > _played then
+			_played = hand.played
+			_handname = hand_key
+		end
+	end
+	local most_played = _handname
+
+	combat_rewards[#combat_rewards + 1] = {
+		level_up_hand = { key = most_played, amount = 2 },
+		text = "Level up " ..
+			localize(most_played, "poker_hands") .. " 2 times"
+	}
+	encounter_rewards[#encounter_rewards + 1] = {
+		level_up_hand = { key = most_played, amount = 4 },
+		text = "Level up " ..
+			localize(most_played, "poker_hands") .. " 4 times"
+	}
+
+	local _poker_hands = {}
+	for handname, _ in pairs(G.GAME.hands) do
+		if SMODS.is_poker_hand_visible(handname) and handname ~= most_played then
+			_poker_hands[#_poker_hands + 1] = handname
+		end
+	end
+
+	local chosen_hand = pseudorandom_element(_poker_hands, seed or "hpot_event_combat_reward")
+
+	if chosen_hand then
+		combat_rewards[#combat_rewards + 1] = {
+			level_up_hand = { key = chosen_hand, amount = 2 },
+			text = "Level up " ..
+				localize(chosen_hand, "poker_hands") .. " 2 times"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			level_up_hand = { key = chosen_hand, amount = 4 },
+			text = "Level up " ..
+				localize(chosen_hand, "poker_hands") .. " 4 times"
+		}
+	end
+
+	local add_rank = pseudorandom("hpot_event_combat_reward", 1, 3)
+	local add_enhancement = SMODS.poll_enhancement({ guaranteed = true })
+	local add_seal = SMODS.poll_seal({ guaranteed = true }) or "Red"
+
+	local add_rank_text = (add_rank == 1 and "Ace") or (add_rank == 2 and "Face card") or "Numbered card"
+	local add_enhancement_text = localize { type = "name_text", set = "Enhanced", key = add_enhancement }
+	local add_seal_text = localize { type = "name_text", set = "Other", key = add_seal:lower() .. "_seal" }
+
+	if pseudorandom("hpot_event_combat_reward") < 0.5 then
+		combat_rewards[#combat_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					edition = "e_foil",
+					amount = 2
+				}
+			},
+			text = "Add 2 random Foil " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					edition = "e_holo",
+					amount = 2
+				}
+			},
+			text = "Add 2 random Holographic " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					edition = "e_polychrome",
+					amount = 1
+				}
+			},
+			text = "Add 1 random Polychrome " .. add_rank_text .. " to the deck"
+		}
+		combat_rewards[#combat_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhanced = true,
+					amount = 2
+				}
+			},
+			text = "Add 2 random Enhanced " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhanced = true,
+					amount = 5
+				}
+			},
+			text = "Add 5 random Enhanced " .. add_rank_text .. "s to the deck"
+		}
+		combat_rewards[#combat_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhancement = add_enhancement,
+					amount = 2
+				}
+			},
+			text = "Add 2 random " .. add_enhancement_text .. " " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					enhancement = add_enhancement,
+					amount = 5
+				}
+			},
+			text = "Add 5 random " .. add_enhancement_text .. " " .. add_rank_text .. "s to the deck"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			playing_cards = {
+				{
+					rank = add_rank == 1 and "Ace" or nil,
+					face = add_rank == 2 or nil,
+					numbered = add_rank == 3 or nil,
+					seal = add_seal,
+					amount = 2
+				}
+			},
+			text = "Add 2 random " .. add_seal_text .. " " .. add_rank_text .. "s to the deck"
+		}
+	else
+		combat_rewards[#combat_rewards + 1] = {
+			enhance_deck = {
+				{
+					edition = "e_foil",
+					amount = 2
+				}
+			},
+			text = "Turn 2 random cards in deck Foil"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{
+					edition = "e_holo",
+					amount = 2
+				}
+			},
+			text = "Turn 2 random cards in deck Holographic"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{
+					edition = "e_polychrome",
+					amount = 1
+				}
+			},
+			text = "Turn a random card in deck Polychrome"
+		}
+		combat_rewards[#combat_rewards + 1] = {
+			enhance_deck = {
+				{
+					change_base = {
+						rank = add_rank == 1 and "Ace" or nil,
+						face = add_rank == 2 or nil,
+						numbered = add_rank == 3 or nil,
+					},
+					enhancement = add_enhancement,
+					amount = 1
+				}
+			},
+			text = "Change a random card in deck into a " .. add_enhancement_text .. " " .. add_rank_text
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{
+					change_base = {
+						rank = add_rank == 1 and "Ace" or nil,
+						face = add_rank == 2 or nil,
+						numbered = add_rank == 3 or nil,
+					},
+					enhancement = add_enhancement,
+					amount = 3
+				}
+			},
+			text = "Change 3 random cards in deck into " .. add_enhancement_text .. " " .. add_rank_text .. "s"
+		}
+		encounter_rewards[#encounter_rewards + 1] = {
+			enhance_deck = {
+				{ seal = add_seal }
+			},
+			text = "Add " .. add_seal_text .. "to a random card in the deck"
+		}
+	end
+
+	return pseudorandom_element(domain == "encounter" and encounter_rewards or combat_rewards,
+		seed or "hpot_event_combat_reward")
+end
+
+--#endregion
+
+-- The Tavern
+
+HotPotato.EventScenario {
+	key = "the_tavern",
+	hide_image_area = true,
+	loc_txt = {
+		name = "The Tavern",
+		text = {
+			"You think you can be in this part of town",
+			"looking all cool? Yes, you can."
+		}
+	},
+	domains = { combat = true, encounter = true },
+	can_repeat = true,
+	starting_step_key = "hpot_the_tavern_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "the_tavern_start",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"\"This person over here thinks they're so tough.\"",
+			" ",
+			"\"Really? Let's see you beat this.\"",
+			" ",
+			"Face {C:attention}#1#{} #2#",
+			"{C:money}Reward:{} #3#",
+			"{C:inactive}(Regular Blind rewards are also obtained){}"
+		},
+		choices = {
+			fight = "Fight!",
+		}
+	},
+	loc_vars = function(self, event)
+		if not event.ability.blind then -- very hacky. dont like it
+			event.ability.blind = event.domain == "encounter" and hpot_event_get_random_boss() or "bl_big"
+			event.ability.effect = hpot_event_get_random_combat_effect()
+			event.ability.effect.reward = hpot_event_get_random_combat_reward(event.domain)
+		end
+		return { localize { type = 'name_text', key = event.ability.blind or "bl_big", set = 'Blind' },
+			event.ability.effect.text or "", event.ability.effect.reward.text or "" }
+	end,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "fight",
+				button = function()
+					hpot_event_start_combat("generic", event.ability.blind, event.ability.effect)
+				end,
+			},
+			moveon()
+		}
+	end,
+}
+
 --- Encounter
 
 --- Adventure
 
+--#region Black Jack
+
+HotPotato.EventScenario {
+	key = "bj",
+	loc_txt = {
+		name = "Blackjack",
+		text = {
+			"What's 9+10?"
+		}
+	},
+	domains = { adventure = true },
+	can_repeat = true,
+	starting_step_key = "hpot_bj_in",
+	hotpot_credits = {
+		code = { "fey <3" },
+		team = { "Pissdrawer" },
+	},
+	in_pool = function()
+		if #G.deck.cards >= 2 and G.GAME.dollars > 0 then return true end
+	end,
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_in",
+	hide_hand = false,
+	loc_txt = {
+		text = {
+			"You see a shady figure with a set of cards",
+			"infront of him, a 'normal' 52 card deck.",
+			'',
+			"\"Up for a game of Black Jack, pal?\" He sounds",
+			"like he's straight out of the 'slammer'..."
+		},
+		choices = {
+			start = "I'm all in!",
+			stop = "On second thought, maybe not..."
+		}
+	},
+	start = function(self, event)
+		G.GAME.BJ_CARDS = { TOTAL = 0 }
+		local to = Character("j_ring_master")
+		to.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				to.T.scale = to.T.scale * 0.75
+				return true
+			end,
+		}))
+	end,
+	get_choices = function(self, event)
+		return {
+			{
+				key = "start",
+				button = function()
+					event.start_step('hpot_bj_start')
+				end
+			},
+			{
+				key = "stop",
+				button = function()
+					hpot_event_end_scenario()
+				end
+			},
+		}
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_start",
+	hide_hand = false,
+	start = function(self, event)
+		G.GAME.BJ_CARDS.MONEY = G.GAME.dollars
+		ease_dollars(-G.GAME.dollars)
+		G.GAME.BJ_CARDS.HANDSIZE = G.hand.config.card_limit
+
+		G.hand:change_size(2 - G.hand.config.card_limit)
+
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_deck_to_hand()
+				return true;
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.BJ_CARDS.DEALER_CARDS = { SMODS.create_card { set = "Base" }, SMODS.create_card { set = "Base" } }
+				G.GAME.BJ_CARDS.DEALER = G.GAME.BJ_CARDS.DEALER_CARDS[1].base.nominal +
+					G.GAME.BJ_CARDS.DEALER_CARDS[2].base.nominal
+				G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
+				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 9.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9
+				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 11.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
+				return true
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				event.start_step("hpot_bj_check")
+				return true;
+			end
+		}))
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_hit",
+	hide_hand = false,
+	start = function(self, event)
+		draw_card(G.deck, G.hand, 1, 'up', true)
+		event.start_step('hpot_bj_check')
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_check",
+	hide_hand = false,
+	loc_txt = {
+		choices = {
+			hit = "Lady Luck gimme a kiss! (Hit)",
+			stand = "Wee hee hee! (Stand)"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = 'hit',
+				button = function()
+					event.start_step('hpot_bj_hit')
+				end,
+				func = function()
+					return G.GAME.BJ_CARDS.TOTAL < 21
+				end
+			},
+			{
+				key = 'stand',
+				button = function()
+					event.start_step('hpot_bj_eval')
+				end
+			}
+		}
+	end,
+	start = function(self, event)
+		local count = 0
+		for i, v in ipairs(G.hand.cards) do
+			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+				count = count + 1
+			else
+				count = count + v.base.nominal
+			end
+		end
+		G.GAME.BJ_CARDS.TOTAL = count
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_eval",
+	hide_hand = false,
+	start = function(self, event)
+		G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
+		local count = 0
+		for i, v in ipairs(G.hand.cards) do
+			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+				count = count + 1
+			else
+				count = count + v.base.nominal
+			end
+		end
+		G.GAME.BJ_CARDS.TOTAL = count
+		G.GAME.BJ_CARDS.FINAL_MONEY = 0
+		if G.GAME.BJ_CARDS.TOTAL <= 21 and G.GAME.BJ_CARDS.TOTAL > G.GAME.BJ_CARDS.DEALER then
+			G.GAME.BJ_CARDS.WON = true
+			G.GAME.BJ_CARDS.FINAL_MONEY = G.GAME.BJ_CARDS.MONEY * 2
+		end
+		event.start_step("hpot_bj_final")
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_bj_final",
+	hide_hand = false,
+	loc_txt = {
+		text = {
+			"Looks like you #1# {C:money}$#2#{}!"
+		},
+		choices = {
+			cashin = 'Cash in!'
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "cashin",
+				button = function()
+					ease_dollars(G.GAME.BJ_CARDS.FINAL_MONEY)
+					G.GAME.BJ_CARDS.DEALER_CARDS[1]:remove()
+					G.GAME.BJ_CARDS.DEALER_CARDS[2]:remove()
+					hpot_event_end_scenario()
+				end
+			}
+		}
+	end,
+	loc_vars = function(self)
+		return {
+			vars = {
+				G.GAME.BJ_CARDS.WON and 'won' or 'lost',
+				G.GAME.BJ_CARDS.FINAL_MONEY
+			}
+		}
+	end,
+	finish = function(self, event)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.FUNCS.draw_from_hand_to_deck()
+				G.deck:shuffle('bj' .. G.GAME.round_resets.ante)
+
+				G.hand:change_size(G.GAME.BJ_CARDS.HANDSIZE - 2)
+				G.GAME.BJ_CARDS.HANDSIZE = nil
+				return true
+			end
+		}))
+	end
+}
+
+--#endregion
+
 --- Transaction/Respite
+
+local hpot_event_transaction_cost_conversion = function(number, to_currency, from_black_market)
+	if to_currency == "dollars" then return number end
+	if to_currency == "credits" then return number * 30 end
+	if to_currency == "plincoin" then return number end
+	if to_currency == "joker_exchange" then return number * 2500 end
+	if to_currency == "crypto" then
+		return number * (not from_black_market and 0.2 or (G.GAME.dark_connections and 0.075 or 0.1))
+	end
+	return number
+end
+
+local hpot_event_transaction_change_shop_price = function(card, from_black_market)
+	if not card.hpot_transaction_price or not card.children.price then return end
+
+	local price_table = card.hpot_transaction_price
+	local currency = price_table.currency
+	local currency_text = generate_currency_string_args(currency) -- just learned this existed thank you jtem - N'
+
+	price_table.price = hpot_event_transaction_cost_conversion(card.cost, currency, from_black_market)
+
+	local price_dynatext = card.children.price.UIRoot.children[1].children[1].config.object
+
+	price_dynatext.font = currency_text.font
+	price_dynatext.colours[1] = currency_text.colour
+	price_dynatext.config.string[1] = { ref_table = price_table, ref_value = "price" }
+	G.E_MANAGER:add_event(Event({
+		func = (function()
+			-- plicoin symbol seems to get cache'd to $ so i have to do this
+			price_dynatext.config.string[1].prefix = currency_text.symbol
+			return true
+		end)
+	}))
+end
+
+local card_set_cost_ref = Card.set_cost
+function Card:set_cost(...)
+	card_set_cost_ref(self, ...)
+	hpot_event_transaction_change_shop_price(self, G.HP_HC_MARKET_VISIBLE)
+end
+
+local g_funcs_can_buy_ref = G.FUNCS.can_buy
+G.FUNCS.can_buy = function(e)
+	g_funcs_can_buy_ref(e)
+	local card = e.config.ref_table
+	if card.hpot_transaction_price then
+		local total = get_currency_amount(card.hpot_transaction_price.currency)
+		if card.hpot_transaction_price.currency == "dollars" then
+			total = total - G.GAME.bankrupt_at
+		end
+		local price = card.hpot_transaction_price.price
+		if (price > total) and (price > 0) then
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			e.config.colour = G.C.ORANGE
+			e.config.button = 'buy_from_shop'
+		end
+	end
+end
+
+local g_funcs_can_buy_and_use_ref = G.FUNCS.can_buy_and_use
+G.FUNCS.can_buy_and_use = function(e)
+	g_funcs_can_buy_and_use_ref(e)
+	local card = e.config.ref_table
+	if card.hpot_transaction_price then
+		local total = get_currency_amount(card.hpot_transaction_price.currency)
+		if card.hpot_transaction_price.currency == "dollars" then
+			total = total - G.GAME.bankrupt_at
+		end
+		local price = card.hpot_transaction_price.price
+		if ((price > total) and (price > 0)) or (not card:can_use_consumeable()) then
+			e.UIBox.states.visible = false
+			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+			e.config.button = nil
+		else
+			if e.config.ref_table.highlighted then
+				e.UIBox.states.visible = true
+			end
+			e.config.colour = G.C.ORANGE
+			e.config.button = 'buy_from_shop'
+		end
+	end
+end
+
+HotPotato.EventScenario {
+	key = "postlatro",
+	loc_txt = {
+		name = "Postlatro Express",
+		text = {
+			"Where everything is 0% off!"
+		}
+	},
+	domains = { transaction = true, respite = true },
+	can_repeat = true,
+	starting_step_key = "hpot_postlatro_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+}
+
+HotPotato.EventStep {
+	key = "hpot_postlatro_start",
+	loc_txt = {
+		text = {
+			"{s:1.2}Currency Exchange"
+		},
+		choices = {
+			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5,000",
+			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
+			credits = "{C:money}$10{} > {C:purple}c.100",
+			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
+			from_spark = "{C:blue,f:hpot_plincoin}͸10,000{} > {C:money}$1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
+			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
+			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
+			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
+			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100,000{}"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "spark",
+				button = function()
+					ease_currency("dollars", -1)
+					ease_currency("joker_exchange", 5000)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 1
+				end
+			},
+			{
+				key = "plincoins",
+				button = function()
+					ease_currency("dollars", -10)
+					ease_currency("plincoin", 1)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+				end
+			},
+			{
+				key = "credits",
+				button = function()
+					ease_currency("dollars", -10)
+					ease_currency("credits", 100)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+				end
+			},
+			{
+				key = "crypto",
+				button = function()
+					ease_currency("dollars", -20)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 20
+				end
+			},
+			{
+				key = "from_spark",
+				button = function()
+					ease_currency("joker_exchange", -10000)
+					ease_currency("dollars", 1)
+				end,
+				func = function()
+					return get_currency_amount("joker_exchange") >= 10000
+				end
+			},
+			{
+				key = "from_plincoins",
+				button = function()
+					ease_currency("plincoin", -1)
+					ease_currency("dollars", 5)
+				end,
+				func = function()
+					return get_currency_amount("plincoin") >= 1
+				end
+			},
+			{
+				key = "from_credits",
+				button = function()
+					ease_currency("credits", -100)
+					ease_currency("dollars", 5)
+				end,
+				func = function()
+					return get_currency_amount("credits") >= 100
+				end
+			},
+			{
+				key = "from_crypto",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("dollars", 10)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "trade_dreams",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_stars"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_stars")[1]:start_dissolve()
+					ease_currency("plincoin", 10)
+				end,
+			},
+			{
+				key = "trade_interests",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_duck"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_duck")[1]:start_dissolve()
+					ease_currency("joker_exchange", 100000)
+				end,
+			},
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_hpot_jtem_flash", nil, nil, -1)
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+
+		local quip = "transaction_welcome_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+
+		local shop_sign = AnimatedSprite(0, 0, 4.4, 2.2, G.ANIMATION_ATLAS['hpot_jtem_postlatro'])
+		shop_sign:define_draw_steps({
+			{ shader = 'dissolve', shadow_height = 0.05 },
+			{ shader = 'dissolve' }
+		})
+		G.SHOP_SIGN = UIBox {
+			definition =
+			{ n = G.UIT.ROOT, config = { colour = G.C.DYN_UI.MAIN, emboss = 0.05, align = 'cm', r = 0.1, padding = 0.1 }, nodes = {
+				{ n = G.UIT.R, config = { align = "cm", padding = 0.1, minw = 4.72, minh = 3.1, colour = G.C.DYN_UI.DARK, r = 0.1 }, nodes = {
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = shop_sign } }
+					} },
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = DynaText({ string = { localize('k_hotpot_transaction_sign') }, colours = { lighten(G.C.GOLD, 0.3) }, shadow = true, rotate = true, float = true, bump = true, scale = 0.5, spacing = 1, pop_in = 1.5, maxw = 4.3 }) } }
+					} },
+				} },
+			} },
+			config = {
+				align = "cm",
+				offset = { x = 0, y = -15 },
+				major = G.HUD:get_UIE_by_ID('row_blind'),
+				bond = 'Weak'
+			}
+		}
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = 0
+				return true
+			end)
+		}))
+		G.HP_JTEM_DELIVERY_VISIBLE = true
+		G.shop_jokers = CardArea(
+			G.hand.T.x + (G.hand.T.w - 5 * 1.02 * G.CARD_W) / 2,
+			G.hand.T.y,
+			5 * 1.02 * G.CARD_W,
+			1.05 * G.CARD_H,
+			{ card_limit = 5, type = 'shop', highlight_limit = 1, negative_info = true })
+		local currencies = { "dollars", "joker_exchange", "plincoin", "credits", "crypto" }
+		for i = 1, 5 do
+			local voucher_poll = pseudorandom("hpot_event_transaction_voucher")
+			if voucher_poll < 0.98 then
+				local old_spectral = G.GAME.spectral_rate
+				G.GAME.spectral_rate = G.GAME.spectral_rate > 2 and G.GAME.spectral_rate or 2
+				local old_playing_card = G.GAME.playing_card_rate
+				G.GAME.playing_card_rate = G.GAME.playing_card_rate > 1 and G.GAME.playing_card_rate or 1
+				local old_illusion = G.GAME.used_vouchers["v_illusion"]
+				G.GAME.used_vouchers["v_illusion"] = true
+				local old_aura = G.GAME.aura_rate
+				G.GAME.aura_rate = G.GAME.aura_rate > 1 and G.GAME.aura_rate or 1
+				local old_hanafuda = G.GAME.hanafuda_rate
+				G.GAME.hanafuda_rate = G.GAME.hanafuda_rate > 1 and G.GAME.hanafuda_rate or 1
+
+				local new_shop_card = create_card_for_shop(G.shop_jokers)
+
+				G.GAME.spectral_rate = old_spectral
+				G.GAME.playing_card_rate = old_playing_card
+				G.GAME.used_vouchers["v_illusion"] = old_illusion
+				G.GAME.aura_rate = old_aura
+				G.GAME.hanafuda_rate = old_hanafuda
+
+				G.shop_jokers:emplace(new_shop_card)
+				new_shop_card:juice_up()
+				new_shop_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if new_shop_card.children.price then
+							hpot_event_transaction_change_shop_price(new_shop_card)
+							return true
+						end
+					end)
+				}))
+			else
+				local voucher_pool = get_current_pool('Voucher')
+				local selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed')
+				local it = 1
+				while selected_voucher == 'UNAVAILABLE' do
+					it = it + 1
+					selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed' .. it)
+				end
+				local voucher_card = SMODS.create_card({ area = G.shop_jokers, key = selected_voucher })
+
+				voucher_card.shop_voucher = true
+				create_shop_card_ui(voucher_card, 'Voucher', G.shop_jokers)
+				G.shop_jokers:emplace(voucher_card)
+				voucher_card:juice_up()
+				voucher_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if voucher_card.children.price then
+							hpot_event_transaction_change_shop_price(voucher_card)
+							return true
+						end
+					end)
+				}))
+			end
+		end
+	end,
+	finish = function(self, event)
+		local quip = "transaction_bye_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		local chara = G.hpot_event_ui_image_area.children.jimbo_card
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+		delay(2)
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = -10
+
+				G.E_MANAGER:add_event(Event({
+					trigger = 'immediate',
+					func = (function()
+						G.HP_JTEM_DELIVERY_VISIBLE = nil
+						G.SHOP_SIGN:remove()
+						G.shop_jokers:remove()
+						return true
+					end)
+				}))
+				return true
+			end)
+		}))
+	end
+}
+
+HotPotato.EventScenario {
+	key = "black_market_alley",
+	loc_txt = {
+		name = "Black Market Dealer",
+		text = {
+			"Where you are 0% off."
+		}
+	},
+	domains = { transaction = true },
+	starting_step_key = "hpot_black_market_alley_start",
+	hotpot_credits = {
+		code = { "N'" },
+		team = { "Pissdrawer" },
+	},
+	weight = 2
+}
+
+HotPotato.EventStep {
+	key = "hpot_black_market_alley_start",
+	loc_txt = {
+		text = {
+			"{s:1.2}Currency Exchange"
+		},
+		choices = {
+			dollars = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$20{}",
+			spark = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:blue,f:hpot_plincoin}͸100,000",
+			plincoins = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:hpot_plincoin,f:hpot_plincoin}$8",
+			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.800",
+			from_dollars = "{C:money}$30{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_spark = "{C:blue,f:hpot_plincoin}͸300,000{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$6{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_credits = "{C:purple}c.600{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			trade_questions = "Sell Questions for {C:hpot_advert,f:hpot_plincoin}£10{}",
+			trade_emotions = "Sell Emotions for {C:hpot_advert,f:hpot_plincoin}£10{}"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "dollars",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("dollars", 20)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "spark",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("joker_exchange", 100000)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "plincoins",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("plincoin", 8)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "credits",
+				button = function()
+					ease_currency("crypto", -1)
+					ease_currency("credits", 800)
+				end,
+				func = function()
+					return get_currency_amount("crypto") >= 1
+				end
+			},
+			{
+				key = "from_dollars",
+				button = function()
+					ease_currency("dollars", -30)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+				end
+			},
+			{
+				key = "from_spark",
+				button = function()
+					ease_currency("joker_exchange", -300000)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("joker_exchange") >= 10000
+				end
+			},
+			{
+				key = "from_plincoins",
+				button = function()
+					ease_currency("plincoin", -6)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("plincoin") >= 1
+				end
+			},
+			{
+				key = "from_credits",
+				button = function()
+					ease_currency("credits", -600)
+					ease_currency("crypto", 1)
+				end,
+				func = function()
+					return get_currency_amount("credits") >= 100
+				end
+			},
+			{
+				key = "trade_questions",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_curi"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_curi")[1]:start_dissolve()
+					ease_currency("crypto", 10)
+				end,
+			},
+			{
+				key = "trade_emotions",
+				func = function()
+					return next(SMODS.find_card("c_hpot_imag_drop"))
+				end,
+				button = function()
+					SMODS.find_card("c_hpot_imag_drop")[1]:start_dissolve()
+					ease_currency("crypto", 10)
+				end,
+			},
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local chara = Character("j_hpot_shady", nil, nil, -1)
+		chara.children.particles.colours = { { 0, 0, 0, 0 } }
+		chara.states.collide.can = false
+		G.E_MANAGER:add_event(Event({
+			trigger = "immediate",
+			blockable = false,
+			blocking = false,
+			func = function()
+				chara.T.scale = chara.T.scale * 0.75
+				return true
+			end,
+		}))
+
+		local quip = "transaction_welcome_shady_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+
+		local shop_sign = AnimatedSprite(0, 0, 4.4, 2.2, G.ANIMATION_ATLAS['hpot_hc_shop_sign'])
+		shop_sign:define_draw_steps({
+			{ shader = 'dissolve', shadow_height = 0.05 },
+			{ shader = 'dissolve' }
+		})
+		G.SHOP_SIGN = UIBox {
+			definition =
+			{ n = G.UIT.ROOT, config = { colour = G.C.DYN_UI.MAIN, emboss = 0.05, align = 'cm', r = 0.1, padding = 0.1 }, nodes = {
+				{ n = G.UIT.R, config = { align = "cm", padding = 0.1, minw = 4.72, minh = 3.1, colour = G.C.DYN_UI.DARK, r = 0.1 }, nodes = {
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = shop_sign } }
+					} },
+					{ n = G.UIT.R, config = { align = "cm" }, nodes = {
+						{ n = G.UIT.O, config = { object = DynaText({ string = { localize('k_hotpot_transaction_shady_sign') }, colours = { lighten(G.C.GOLD, 0.3) }, shadow = true, rotate = true, float = true, bump = true, scale = 0.5, spacing = 1, pop_in = 1.5, maxw = 4.3 }) } }
+					} },
+				} },
+			} },
+			config = {
+				align = "cm",
+				offset = { x = 0, y = -15 },
+				major = G.HUD:get_UIE_by_ID('row_blind'),
+				bond = 'Weak'
+			}
+		}
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = 0
+				return true
+			end)
+		}))
+		G.HP_HC_MARKET_VISIBLE = true
+		G.shop_jokers = CardArea(
+			G.hand.T.x + (G.hand.T.w - 5 * 1.02 * G.CARD_W) / 2,
+			G.hand.T.y,
+			5 * 1.02 * G.CARD_W,
+			1.05 * G.CARD_H,
+			{ card_limit = 5, type = 'shop', highlight_limit = 1, negative_info = true })
+		for i = 1, 5 do
+			local voucher_poll = pseudorandom("hpot_event_transaction_voucher")
+			if voucher_poll < 0.98 then
+				local old_spectral = G.GAME.spectral_rate
+				G.GAME.spectral_rate = G.GAME.spectral_rate > 2 and G.GAME.spectral_rate or 2
+				local old_playing_card = G.GAME.playing_card_rate
+				G.GAME.playing_card_rate = G.GAME.playing_card_rate > 1 and G.GAME.playing_card_rate or 1
+				local old_illusion = G.GAME.used_vouchers["v_illusion"]
+				G.GAME.used_vouchers["v_illusion"] = true
+				local old_aura = G.GAME.aura_rate
+				G.GAME.aura_rate = G.GAME.aura_rate > 1 and G.GAME.aura_rate or 1
+				local old_hanafuda = G.GAME.hanafuda_rate
+				G.GAME.hanafuda_rate = G.GAME.hanafuda_rate > 1 and G.GAME.hanafuda_rate or 1
+
+				local new_shop_card = create_card_for_shop(G.shop_jokers)
+
+				G.GAME.spectral_rate = old_spectral
+				G.GAME.playing_card_rate = old_playing_card
+				G.GAME.used_vouchers["v_illusion"] = old_illusion
+				G.GAME.aura_rate = old_aura
+				G.GAME.hanafuda_rate = old_hanafuda
+
+				G.shop_jokers:emplace(new_shop_card)
+				new_shop_card:juice_up()
+				new_shop_card.hpot_transaction_price = { currency = "crypto", price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if new_shop_card.children.price then
+							hpot_event_transaction_change_shop_price(new_shop_card, true)
+							return true
+						end
+					end)
+				}))
+			else
+				local voucher_pool = get_current_pool('Voucher')
+				local selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed')
+				local it = 1
+				while selected_voucher == 'UNAVAILABLE' do
+					it = it + 1
+					selected_voucher = pseudorandom_element(voucher_pool, 'modprefix_seed' .. it)
+				end
+				local voucher_card = SMODS.create_card({ area = G.shop_jokers, key = selected_voucher })
+
+				voucher_card.shop_voucher = true
+				create_shop_card_ui(voucher_card, 'Voucher', G.shop_jokers)
+				G.shop_jokers:emplace(voucher_card)
+				voucher_card:juice_up()
+				voucher_card.hpot_transaction_price = { currency = "crypto", price = 0 }
+				G.E_MANAGER:add_event(Event({
+					func = (function()
+						if not G.shop_jokers then return true end
+						if voucher_card.children.price then
+							hpot_event_transaction_change_shop_price(voucher_card, true)
+							return true
+						end
+					end)
+				}))
+			end
+		end
+	end,
+	finish = function(self, event)
+		local quip = "transaction_bye_shady_" .. pseudorandom("hpot_event_transaction_quip", 1, 3)
+		local chara = G.hpot_event_ui_image_area.children.jimbo_card
+		chara.ui_object_updated = true
+		chara:add_speech_bubble(quip, nil, { quip = true })
+		chara:say_stuff(5, false, quip)
+		delay(2)
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = (function()
+				G.SHOP_SIGN.alignment.offset.y = -10
+
+				G.E_MANAGER:add_event(Event({
+					trigger = 'immediate',
+					func = (function()
+						G.HP_HC_MARKET_VISIBLE = nil
+						G.SHOP_SIGN:remove()
+						G.shop_jokers:remove()
+						return true
+					end)
+				}))
+				return true
+			end)
+		}))
+	end
+}

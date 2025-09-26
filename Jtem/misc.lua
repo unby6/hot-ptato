@@ -36,7 +36,7 @@ SMODS.Sound {
   key = "music_delivery",
   path = "music_delivery.ogg",
   select_music_track = function (self)
-    if G.HP_JTEM_DELIVERY_VISIBLE and G.STATE == G.STATES.SHOP then
+    if G.HP_JTEM_DELIVERY_VISIBLE and (G.STATE == G.STATES.SHOP or G.hpot_event) then
       return 1349
     end
   end

@@ -1,0 +1,88 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# G.FUNCS.cash_out
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''G.STATE = G.STATES.SHOP'''
+payload = '''
+if G.GAME.hpot_combat_event then
+  G.STATE = G.STATES.BLIND_SELECT
+  G.GAME.hpot_combat_event = nil
+else
+  G.STATE = G.STATES.SHOP
+end
+'''
+match_indent = true
+
+# SMODS.get_card_areas
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own individual scoring targets"
+position = 'before'
+match_indent = true
+payload = '''
+if G.GAME.hpot_combat_event then t[#t+1] = { object = HotPotato.CombatEvents[G.GAME.hpot_combat_event], scored_card = G.deck.cards[1] or G.deck } end
+'''
+
+# end_round
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = 'before'
+pattern = '''if game_over then'''
+payload = '''
+if G.GAME.hpot_combat_event then
+  --game_over = false
+  game_won = nil
+  G.GAME.won = nil
+  --G.GAME.saved_text = "k_hotpot_combat_event_fail"
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = 'at'
+pattern = '''
+G.FUNCS.draw_from_hand_to_discard()
+if G.GAME.blind:get_type() == 'Boss' then
+'''
+payload = '''
+G.FUNCS.draw_from_hand_to_discard()
+if G.GAME.blind:get_type() == 'Boss' and not G.GAME.hpot_combat_event then
+'''
+match_indent = true
+
+# G.FUNCS.use_card
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+position = 'at'
+pattern = '''G.CONTROLLER.interrupt.focus = nil
+if card.ability.set == 'Voucher' then'''
+payload = '''
+G.CONTROLLER.interrupt.focus = nil
+if card.ability.set == 'Voucher' and G.shop then
+'''
+match_indent = true
+
+# Card:redeem
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if self.cost ~= 0 then'''
+position = 'at'
+payload = '''
+if self.hpot_transaction_price then
+  ease_currency(self.hpot_transaction_price.currency, -self.hpot_transaction_price.price)
+elseif self.cost ~= 0 then
+'''
+match_indent = true
+times = 1

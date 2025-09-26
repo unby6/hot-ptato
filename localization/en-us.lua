@@ -416,9 +416,13 @@ return {
             b_hpot_domn = {
                 name = "The Deck of Many Names",
                 text = {
-                    "(Replace text during final teams turn)",
-                    "This is meant to be a deck that", "every team adds ideas to",
-                    "go ham, deck is at Jtem/deck.lua"
+                    "Starting cards have",
+                    "a random {C:attention}sticker{},",
+                    "Trigger effects gives {C:hpot_advert,f:hpot_plincoin}£0.05{},",
+                    "Gain {C:attention}1{} of each currency",
+                    "when {C:attention}Boss Blind{} is defeated,",
+                    "Highest poker hand held in hand",
+                    "is added to {C:chips}Chips{} and {C:mult}Mult{}"
                 }
             },
             b_hpot_unstable = {
@@ -441,9 +445,17 @@ return {
             b_hpot_ublockdeck = {
                 name = 'uBlock Origin',
                 text = {
-                    'Remove {C:red}Ads'
+                    'Remove {C:hpot_adverts}Ads'
                 }
-            }
+            },
+            b_hpot_poopdeck = {
+                name = 'Poop Deck',
+                text = {
+                    'Start with a standard 52 card deck and',
+                    '30 {C:edition}Polychrome{} Stone cards',
+                    '{C:inactive}Land Ahoy!'
+                }
+            },
         },
         bottlecap = {
             c_hpot_cap_money = {
@@ -2104,7 +2116,7 @@ return {
             j_hpot_local_newspaper = {
                 name = 'Local Newspaper',
                 text = {
-                    'Expands choices by {C:attention}1{}',
+                    '{C:attention}3{} {C:attention}Event{} options are available',
                     'during {C:attention}Event{} selection'
                 }
             },
@@ -4426,7 +4438,43 @@ return {
             bc_16 = {
                 [1] = 'Generally, buying an Eternal',
                 [2] = 'Cartomancer is a bad move!'
-            }
+            },
+            transaction_welcome_1 = {
+                "Welcome!"
+            },
+            transaction_welcome_2 = {
+                "Good to see you back!"
+            },
+            transaction_welcome_3 = {
+                "Feel free to look around!"
+            },
+            transaction_bye_1 = {
+                "Thanks for stopping by!"
+            },
+            transaction_bye_2 = {
+                "See you next time!"
+            },
+            transaction_bye_3 = {
+                "Hace a nice day!"
+            },
+            transaction_welcome_shady_1 = {
+                "Hey, kiddo"
+            },
+            transaction_welcome_shady_2 = {
+                "What do you want?"
+            },
+            transaction_welcome_shady_3 = {
+                "Hurry up"
+            },
+            transaction_bye_shady_1 = {
+                "..."
+            },
+            transaction_bye_shady_2 = {
+                "Is that it?"
+            },
+            transaction_bye_shady_3 = {
+                "Go home, kid"
+            },
         },
         dictionary = {
             k_bad = "Bad",
@@ -4607,6 +4655,8 @@ return {
             k_hotpot_trigger_enabled = "Trigger Enabled!",
             k_hotpot_goodsocial = "yo phone linging",
             k_hotpot_badsocial = "oh my god bruh",
+            k_hotpot_scurvy = "Scurvy!",
+            k_hotpot_rocks = "God Valley!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",
@@ -4615,6 +4665,9 @@ return {
 
             hotpot_training_joker = "UNDER TRAINING",
             hotpot_training_level = "Level ",
+
+            k_hotpot_transaction_sign = "Express",
+            k_hotpot_transaction_shady_sign = "Back Alley"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
