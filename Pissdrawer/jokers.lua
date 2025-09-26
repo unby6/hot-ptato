@@ -71,7 +71,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.xmult } }
     end,
     hotpot_credits = {
-        art = { 'SDM_0' },
+        art = { 'deadbeet' },
         code = { 'SDM_0' },
         idea = { 'SDM_0' },
         team = { 'Pissdrawer' }
