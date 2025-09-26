@@ -2494,7 +2494,6 @@ HotPotato.EventStep {
 	start = function(self, event)
 		local win = pseudorandom(pseudoseed('sdm_event'), 0, 1)
 		ease_plincoins(-G.GAME.plincoins)
-		
 	end,
 	finish = function(self, event)
 	end
@@ -4255,7 +4254,7 @@ HotPotato.EventStep {
 			{
 				key = "eat_finger",
 				button = function()
-					SMODS.add_card({set = 'Joker', legendary = true, edition = 'e_negative'})
+					SMODS.add_card({ set = 'Joker', legendary = true, edition = 'e_negative' })
 					hpot_event_end_scenario()
 				end
 			},
@@ -5991,3 +5990,52 @@ HotPotato.EventStep {
 		}))
 	end
 }
+
+--#region Well, there is a man here.
+HotPotato.EventScenario {
+	key = "man_ogg",
+	loc_txt = {
+		name = "The Room Between",
+		text = {
+			"Well, there is a man here."
+		}
+	},
+	domains = { aroombetween = true },
+	starting_step_key = "hpot_egg_room_start",
+	hotpot_credits = {
+		code = { "deadbeet'" },
+		team = { "Pissdrawer" },
+	},
+
+}
+
+HotPotato.EventStep {
+	key = "hpot_egg_room_start",
+	loc_txt = {
+		text = {
+			"Well, there is a man here."
+		},
+		choices = {
+			egg = "Yes",
+			leave = "No"
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "egg",
+				button = function()
+					SMODS.add_card({ key = "j_egg", edition = 'e_negative' })
+				end
+			},
+			{
+				key = "leave",
+				button = function()
+					hpot_event_end_scenario()
+				end
+			},
+			moveon()
+		}
+	end,
+}
+--#endregion
