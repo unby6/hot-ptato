@@ -2599,7 +2599,7 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_tacashumi",
 	hide_hand = true,
-		loc_txt = {
+	loc_txt = {
 		text = {
 			"Tacashumi is too busy at work to answer you",
 			"",
@@ -5992,6 +5992,17 @@ HotPotato.EventStep {
 }
 
 --#region Well, there is a man here.
+SMODS.Sound {
+	key = "music_man",
+	path = "music_man.ogg",
+	pitch = 1,
+	select_music_track = function(self)
+		if G.hpot_event and G.hpot_event.scenario.key == "hpot_man_ogg" then
+			return 1666
+		end
+	end
+}
+
 HotPotato.EventScenario {
 	key = "man_ogg",
 	loc_txt = {
@@ -6010,14 +6021,14 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-	key = "hpot_egg_room_start",
+	key = "egg_room_start",
 	loc_txt = {
 		text = {
 			"Well, there is a man here."
 		},
 		choices = {
 			egg = "Yes",
-			leave = "No"
+			eggnt = "No"
 		}
 	},
 	get_choices = function(self, event)
@@ -6026,16 +6037,26 @@ HotPotato.EventStep {
 				key = "egg",
 				button = function()
 					SMODS.add_card({ key = "j_egg", edition = 'e_negative' })
+					hpot_event_end_scenario()
 				end
 			},
 			{
-				key = "leave",
+				key = "eggnt",
 				button = function()
 					hpot_event_end_scenario()
 				end
 			},
-			moveon()
 		}
 	end,
+	start = function(self, event)
+		ease_background_colour {
+			new_colour = darken(G.C.BLACK, 0.2),
+			special_colour = G.C.BLACK,
+			contrast = 5
+		}
+	end,
+	finish = function(self, event)
+		ease_background_colour_blind(G.STATE, 'Small Blind')
+	end
 }
 --#endregion
