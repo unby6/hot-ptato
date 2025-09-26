@@ -18,17 +18,20 @@ payload = '''
 if HPJTTT.balala then
     t.title = "Balala"
 else
-t.title = "Balatro: "..HPJTTT.text[HPJTTT.chosen]
+t.title = "Balatro: ".. HPJTTT.text[HPJTTT.chosen]
 end'''
 match_indent = true
 
-# Add title text as a splash graphic
+# Add title text as a splash graphic || hi im fey from the hit game balatro i want images :3
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
 position = 'after'
 pattern = "G.SPLASH_LOGO.dissolve = 1   "
 payload = '''
+HPJTTT.chosen = #HPJTTT.text
+if type(HPJTTT.text[HPJTTT.chosen]) == 'string' then
+Splash_text_type = 'str'
 G.SPLASH_TEXT = DynaText {
 	string = HPJTTT.text[HPJTTT.chosen],
 	colours = { G.C.EDITION },
@@ -42,13 +45,21 @@ G.SPLASH_TEXT.T.r = -0.2
 -- Starts at 0 scale initially
 G.SPLASH_TEXT.scale_mod = 0
 G.SPLASH_TEXT:update_text(true)
+G.E_MANAGER.queues.splash_text = G.E_MANAGER.queues.splash_text or {}
+elseif type(HPJTTT.text[HPJTTT.chosen]) == 'table' then
+Splash_text_type = 'img'
+local img = G.ASSET_ATLAS[HPJTTT.text[HPJTTT.chosen][1]]
+G.SPLASH_TEXT = Sprite(0, 0, 
+        4*SC_scale, 
+        4*SC_scale*(img.py/img.px),
+        img, {x=0,y=0})
+end
 G.SPLASH_TEXT:set_alignment({
     major = G.title_top,
     type = 'cm',
     bond = 'Strong',
     offset = {x=5,y=2}
 })
-G.E_MANAGER.queues.splash_text = G.E_MANAGER.queues.splash_text or {}
 '''
 match_indent = true
 
@@ -58,7 +69,7 @@ target = 'game.lua'
 position = 'after'
 pattern = "ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, 2.3)"
 payload = '''
-ease_splash_text(0.1)
+if Splash_text_type == 'str' then ease_splash_text(0.1) end
 '''
 match_indent = true
 
@@ -68,7 +79,7 @@ target = 'game.lua'
 position = 'after'
 pattern = "ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, change_context == 'splash' and 2.3 or 0.9)"
 payload = '''
-ease_splash_text(0.1)
+if Splash_text_type == 'str' then ease_splash_text(0.1) end
 '''
 match_indent = true
 

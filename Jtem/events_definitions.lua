@@ -2359,7 +2359,11 @@ HotPotato.EventStep {
 				key = "hpot_tech_support_ask_sdm_0",
 				no_prefix = true,
 				button = function()
-					event.start_step("hpot_tech_support_ask_sdm_0")
+					if pseudorandom(pseudoseed('sdm_event'), 0, 1) == 1 then
+						event.start_step("hpot_tech_support_ask_sdm_0_win")
+					else
+						event.start_step("hpot_tech_support_ask_sdm_0_lose")
+					end
 				end
 			},
 			{
@@ -2436,14 +2440,48 @@ HotPotato.EventStep {
 }
 
 HotPotato.EventStep {
-	key = "hpot_tech_support_ask_sdm_0",
+	key = "hpot_tech_support_ask_sdm_0_win",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"SDM_0 is too busy playing Plinko.",
+			"",
+			"He throws some plincoins at you",
+			"to play more Plinko"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		ease_plincoins(2)
+	end,
+	finish = function(self, event)
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_tech_support_ask_sdm_0_lose",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"SDM_0 is too busy playing Plinko",
+			"",
+			"He runs away with your plincoins",
+			"to play more Plinko"
+		}
+	},
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+		local win = pseudorandom(pseudoseed('sdm_event'), 0, 1)
+		ease_plincoins(-G.GAME.plincoins)
+		
 	end,
 	finish = function(self, event)
 	end
@@ -4154,21 +4192,23 @@ HotPotato.EventStep {
 			{
 				key = "eat_finger",
 				button = function()
-					SMODS.add_card({ set = 'Joker', rarity = 1 })
+					SMODS.add_card({set = 'Joker', legendary = true, edition = 'e_negative'})
 					hpot_event_end_scenario()
 				end
 			},
 			{
 				key = "ignore_finger",
 				button = function()
-					SMODS.add_card({ key = 'j_four_fingers', stickers = { 'eternal' }, edition = 'e_negative' })
+					for i = 1, 5 do
+						SMODS.add_card({ key = 'j_four_fingers', edition = 'e_negative' })
+					end
 					hpot_event_end_scenario()
 				end
 			}
 		}
 	end,
 	start = function(self, event)
-		local chara = Character("j_sixth_sense")
+		local chara = Character("j_four_fingers")
 		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
