@@ -2149,6 +2149,12 @@ return {
                     "{C:attention}#2#{} cards in your deck",
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} discard(s))"
                 }
+            },
+            j_hpot_vremade_joker = {
+                name = "vremade_Joker",
+                text = {
+                    "{C:red,s:1.1}+#1#{} Mult"
+                }
             }
         },
         Enhanced = {
