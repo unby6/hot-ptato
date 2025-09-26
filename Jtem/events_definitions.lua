@@ -5283,8 +5283,8 @@ HotPotato.EventStep {
 				G.GAME.BJ_CARDS.DEALER = G.GAME.BJ_CARDS.DEALER_CARDS[1].base.nominal +
 					G.GAME.BJ_CARDS.DEALER_CARDS[2].base.nominal
 				G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
-				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 9.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9
-				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 11.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
+				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 12.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9
+				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 14.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
 				return true
 			end
 		}))
@@ -5351,6 +5351,8 @@ HotPotato.EventStep {
 	key = "hpot_bj_eval",
 	hide_hand = false,
 	start = function(self, event)
+		event.ability.won = nil
+		event.ability.final_money = 0
 		G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
 		local count = 0
 		for i, v in ipairs(G.hand.cards) do
@@ -5365,6 +5367,8 @@ HotPotato.EventStep {
 		if G.GAME.BJ_CARDS.TOTAL <= 21 and G.GAME.BJ_CARDS.TOTAL > G.GAME.BJ_CARDS.DEALER then
 			G.GAME.BJ_CARDS.WON = true
 			G.GAME.BJ_CARDS.FINAL_MONEY = G.GAME.BJ_CARDS.MONEY * 2
+			event.ability.won = G.GAME.BJ_CARDS.WON
+			event.ability.final_money = G.GAME.BJ_CARDS.FINAL_MONEY
 		end
 		event.start_step("hpot_bj_final")
 	end
@@ -5394,12 +5398,10 @@ HotPotato.EventStep {
 			}
 		}
 	end,
-	loc_vars = function(self)
+	loc_vars = function(self, event)
 		return {
-			vars = {
-				G.GAME.BJ_CARDS.WON and 'won' or 'lost',
-				G.GAME.BJ_CARDS.FINAL_MONEY
-			}
+			event.ability.won and 'won' or 'lost',
+			event.ability.final_money
 		}
 	end,
 	finish = function(self, event)
@@ -5410,6 +5412,7 @@ HotPotato.EventStep {
 
 				G.hand:change_size(G.GAME.BJ_CARDS.HANDSIZE - 2)
 				G.GAME.BJ_CARDS.HANDSIZE = nil
+				G.GAME.BJ_CARDS.DEALER_CARDS = nil
 				return true
 			end
 		}))

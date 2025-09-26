@@ -323,7 +323,7 @@ function event_collection_domains_ui()
             object_tabs[#object_tabs + 1] = UIBox_button({
                 button = 'your_collection_hpot_events_domain',
                 label = { loc_name },
-                minw = 5,
+                minw = 3,
                 colour = domain.colour,
                 ref_table = chosen
             })
