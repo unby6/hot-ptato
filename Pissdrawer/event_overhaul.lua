@@ -11,10 +11,18 @@ HotPotato.EventDomainPool = {
     {
         key = "respite",
         weight = 0,
-        colour = G.C.GREEN,                                                                 --toma reformats her event tables because she's a rebellious bitch and everyone loves her
+        colour = G.C.GREEN,
         reward_text_amount = 2
     },
-    { key = "aroombetween", weight = 0.0666666666666666666666666666666, colour = HEX("DE2041"), rare = true, once_per_run = true, no_collection = true },
+    --toma reformats her event tables because she's a rebellious bitch and everyone loves her
+    {
+        key = "aroombetween",
+        weight = 0.0666666666666666666666666666666,
+        colour = HEX("DE2041"),
+        rare = true,
+        once_per_run = true,
+        no_collection = true
+    },
     {
         key = "swoon",
         weight = 0.4,
