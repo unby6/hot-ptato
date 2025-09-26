@@ -458,8 +458,9 @@ HPJTTT = {
         "Wait, no. Not another run. Please...",
         "The family's fighting again.",
         "...All right! All right, fine! FINE, I ADMIT IT! Maybe I AM a little GLOOBY sometimes!! I AM!!! I'm GLOOBY!!! WHAT'S wrong with THAT, HUH!? We're ALL a little GLOOBY sometimes!! YOU INCLUDED, NXKOO! So DON'T give me that look! That \"Oh, I've never been Glooby\" look! YOU ARE! YOU HAVE BEEN! You HAVE TO be! It CAN'T just be me! Just ME... alone. Glooby... against the whole world... it can't be...",
-        --imgs (follow example below)
-        {'hpot_pdr_todo'}
+        --imgs (follow example below, must be the name of an atlas)
+        {'hpot_pdr_todo'},
+        {'hpot_pdr_choso'}
     }
 }
 

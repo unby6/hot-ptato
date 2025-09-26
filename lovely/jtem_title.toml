@@ -29,6 +29,7 @@ target = 'game.lua'
 position = 'after'
 pattern = "G.SPLASH_LOGO.dissolve = 1   "
 payload = '''
+HPJTTT.chosen = #HPJTTT.text
 if type(HPJTTT.text[HPJTTT.chosen]) == 'string' then
 Splash_text_type = 'str'
 G.SPLASH_TEXT = DynaText {
@@ -49,8 +50,8 @@ elseif type(HPJTTT.text[HPJTTT.chosen]) == 'table' then
 Splash_text_type = 'img'
 local img = G.ASSET_ATLAS[HPJTTT.text[HPJTTT.chosen][1]]
 G.SPLASH_TEXT = Sprite(0, 0, 
-        13*SC_scale, 
-        13*SC_scale*(img.py/img.px),
+        4*SC_scale, 
+        4*SC_scale*(img.py/img.px),
         img, {x=0,y=0})
 end
 G.SPLASH_TEXT:set_alignment({
