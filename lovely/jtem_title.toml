@@ -29,7 +29,6 @@ target = 'game.lua'
 position = 'after'
 pattern = "G.SPLASH_LOGO.dissolve = 1   "
 payload = '''
-HPJTTT.chosen = #HPJTTT.text
 if type(HPJTTT.text[HPJTTT.chosen]) == 'string' then
 Splash_text_type = 'str'
 G.SPLASH_TEXT = DynaText {
