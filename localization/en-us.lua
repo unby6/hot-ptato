@@ -3242,6 +3242,12 @@ return {
                     "There is a room between...",
                 }
             },
+            hpot_event_encounter_swoon = {
+                name = "SUPER Bonus!",
+                text = {
+                    "Get something awesome!",
+                }
+            },
             hpot_jtem_mood_depressed = {
                 name = "Depressed",
                 text = {

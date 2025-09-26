@@ -6112,7 +6112,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		ease_background_colour {
-			new_colour = darken(G.C.BLACK, 0.2),
+			new_colour = darken(HEX("DE2041"), 0.2),
 			special_colour = G.C.BLACK,
 			contrast = 5
 		}
@@ -6122,3 +6122,136 @@ HotPotato.EventStep {
 	end
 }
 --#endregion
+
+--#region SWOON.
+HotPotato.jokersthatcanspellkrisorliterallyarekris = {
+	"j_stencil",
+	"j_invisible",
+	"j_hpot_balatro_free_smods_download_2025",
+	"j_hpot_notajoker",
+	"j_hpot_nxkoodead",
+	"j_hpot_retriggered",
+	"j_hpot_labubu",
+	"j_hpot_jtem_special_week",
+	"j_hpot_sticker_master",
+	"j_hpot_sticker_dealer"
+}
+
+local drawhook = love.draw
+function love.draw()
+	drawhook()
+	function loadmyimageistg(fn)
+		local full_path = (HotPotato.path
+			.. "assets/customimages/" .. fn)
+		local file_data = assert(NFS.newFileData(full_path), ("Epic fail"))
+		local tempimagedata = assert(love.image.newImageData(file_data), ("Epic fail 2"))
+		--print ("LTFNI: Successfully loaded " .. fn)
+		return (assert(love.graphics.newImage(tempimagedata), ("Epic fail 3")))
+	end
+
+	local _xscale = love.graphics.getWidth() / 1920
+	local _yscale = love.graphics.getHeight() / 1080
+	-- SWOON screen
+	if G.swoon and (G.swoon > 0) then
+		if HotPotato.swooned == nil then HotPotato.swooned = loadmyimageistg("swoonslash.png") end
+		love.graphics.setColor(1, 1, 1, 1)
+		love.graphics.draw(HotPotato.swooned, 0 * _xscale * 2, 0 * _yscale * 2, 0, _xscale * 2 * 2, _yscale * 2 * 2)
+	end
+end
+
+local upd = Game.update
+function Game:update(dt)
+	upd(self, dt)
+
+	-- tick based events
+	if HotPotato.ticks == nil then HotPotato.ticks = 0 end
+	if HotPotato.dtcounter == nil then HotPotato.dtcounter = 0 end
+	HotPotato.dtcounter = HotPotato.dtcounter + dt
+	HotPotato.dt = dt
+
+	while HotPotato.dtcounter >= 0.010 do
+		HotPotato.ticks = HotPotato.ticks + 1
+		HotPotato.dtcounter = HotPotato.dtcounter - 0.010
+		if G.swoon and G.swoon > 0 then G.swoon = G.swoon - 1 end
+	end
+end
+
+SMODS.Sound {
+	key = "hpot_swoon",
+	path = "sfx_swoon.ogg",
+	pitch = 1,
+}
+
+HotPotato.EventScenario {
+	key = "swoon",
+	loc_txt = {
+		name = "Big Bonus!",
+		text = {
+			" "
+		}
+	},
+	domains = { swoon = true },
+	starting_step_key = "hpot_big_bonus_start",
+	hotpot_credits = {
+		code = { "deadbeet'" },
+		team = { "Pissdrawer" },
+	},
+
+}
+
+HotPotato.EventStep {
+	key = "big_bonus_start",
+	loc_txt = {
+		text = {
+			" "
+		},
+		choices = {
+			no = "Proceed."
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "no",
+				button = function()
+					hpot_event_end_scenario()
+				end
+			},
+		}
+	end,
+	start = function(self, event)
+		ease_background_colour {
+			new_colour = darken(G.C.BLACK, 0.2),
+			special_colour = G.C.BLACK,
+			contrast = 5
+		}
+		HotPotato.vol = G.SETTINGS.SOUND.music_volume
+		G.SETTINGS.SOUND.music_volume = 0
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			blocking = false,
+			func = (function()
+				G.swoon = 60 * G.SETTINGS.GAMESPEED
+				play_sound("hpot_swoon", 1, 1)
+				return true
+			end),
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = 1 * G.SETTINGS.GAMESPEED,
+				blocking = false,
+				func = (function()
+					for _, j in ipairs(G.jokers.cards) do
+						if not HotPotato.jokersthatcanspellkrisorliterallyarekris[j.label] then
+							SMODS.debuff_card(j, true, "swoon")
+						end
+					end
+					return true
+				end)
+			}))
+		}))
+	end,
+	finish = function(self, event)
+		ease_background_colour_blind(G.STATE, 'Small Blind')
+		G.SETTINGS.SOUND.music_volume = HotPotato.vol
+	end
+}
