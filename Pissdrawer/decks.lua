@@ -5,7 +5,7 @@ SMODS.Back {
     pos = { x = 1, y = 0 },
     discovered = true,
     apply = function(self,back)
-        G.GAME.ad_blocker = G.GAME.ad_blocker + 1 
+        G.GAME.ad_blocker = (G.GAME.ad_blocker or 0) + 1 
     end
 }
 

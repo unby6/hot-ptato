@@ -10,7 +10,7 @@ end
 
 -- For the splash text
 function ease_splash_text(delta, reset)
-	if not G.SPLASH_TEXT then
+	if not G.SPLASH_TEXT or type(HPJTTT.text[HPJTTT.chosen]) ~= 'string' then
 		return
 	end
 	G.SPLASH_TEXT.scale_mod = G.SPLASH_TEXT.scale_mod or 0

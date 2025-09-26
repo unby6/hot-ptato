@@ -357,8 +357,19 @@ SMODS.Joker {
     end
 }
 
+SMODS.Rarity{
+    key = "child",
+    loc_txt = {name = "Child"},
+    badge_colour = G.C.HPOT_PINK,
+}
+
 SMODS.Joker {
     key = 'child',
+    rarity = 'hpot_child',
+    hotpot_credits = {
+        code = { "fey <3" },
+        team = { "Pissdrawer" }
+    },
     loc_txt = { name = '#1#', text = { '{s:0.000001} ' } },
     no_collection = true,
     loc_vars = function(self, info_queue, card)
