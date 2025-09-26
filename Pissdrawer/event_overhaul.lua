@@ -1,22 +1,20 @@
 -- TODO: maybe make these an SMODS object.
 HotPotato.EventDomainPool = {
-    { key = "combat",      weight = 1,    colour = G.C.RED },
-    { key = "occurence",   weight = 1,    colour = G.C.PURPLE },
-    { key = "encounter",   weight = 0.7,  colour = darken(G.C.RED, 0.2) },
-    { key = "transaction", weight = 0.5,  colour = G.C.GREEN },
-    { key = "reward",      weight = 0.4,  colour = G.C.HPOT_PINK or HEX("fe89d0"), rare = true },
-    { key = "adventure",   weight = 0.2,  colour = G.C.ORANGE,                     rare = true },
-    { key = "wealth",      weight = 0.2,  colour = G.C.MONEY,                      rare = true },
-    { key = "escapade",    weight = 0.01, colour = HEX("A17CFF"),                  rare = true, once_per_run = true },
-    { key = "respite",     weight = 0,    colour = G.C.GREEN },
-    --toma reformats her event tables because she's a rebellious bitch and everyone loves her
+    { key = "combat",      weight = 1,    colour = G.C.RED,                        reward_text_amount = 1 },
+    { key = "occurence",   weight = 1,    colour = G.C.PURPLE,                     reward_text_amount = 1 },
+    { key = "encounter",   weight = 0.7,  colour = darken(G.C.RED, 0.2),           reward_text_amount = 2 },
+    { key = "transaction", weight = 0.5,  colour = G.C.GREEN,                      reward_text_amount = 2 },
+    { key = "reward",      weight = 0.4,  colour = G.C.HPOT_PINK or HEX("fe89d0"), rare = true,           reward_text_amount = 3 },
+    { key = "adventure",   weight = 0.2,  colour = G.C.ORANGE,                     rare = true,           reward_text_amount = 4 },
+    { key = "wealth",      weight = 0.2,  colour = G.C.MONEY,                      rare = true,           reward_text_amount = 4 },
+    { key = "escapade",    weight = 0.01, colour = HEX("A17CFF"),                  rare = true,           once_per_run = true,   reward_text_amount = 5 },
     {
-        key = "aroombetween",
-        weight = 0.0666666666666666666666666666666,
-        colour = HEX("DE2041"),
-        rare = true,
-        once_per_run = true
+        key = "respite",
+        weight = 0,
+        colour = G.C.GREEN,                                                                 --toma reformats her event tables because she's a rebellious bitch and everyone loves her
+        reward_text_amount = 2
     },
+    { key = "aroombetween", weight = 0.0666666666666666666666666666666, colour = HEX("DE2041"), rare = true, once_per_run = true, no_collection = true },
     {
         key = "swoon",
         weight = 0.4,
@@ -27,10 +25,13 @@ HotPotato.EventDomainPool = {
 }
 
 HotPotato.EventDomains = {}
+G.C.HPOT_EVENTS = {}
 
 -- TODO: do this on initialization instead for crossmod stuff
 for _, domain in ipairs(HotPotato.EventDomainPool) do
     HotPotato.EventDomains[domain.key] = domain
+    G.C.HPOT_EVENTS[domain.key] = domain.colour
+    G.ARGS.LOC_COLOURS["hpot_event_" .. domain.key] = domain.colour
 end
 
 function hpot_event_domain_add_to_pool(domain, args)
@@ -242,6 +243,12 @@ function hpot_event_bonus_new_round(blind_key, extra_config)
             G.GAME.blind_on_deck = 'Combat'
             G.GAME.blind:set_blind(G.P_BLINDS[blind_key])
             G.GAME.blind.effect.hpot_combat_bonus = extra_config or {}
+            for _, v in ipairs(G.playing_cards) do
+                SMODS.recalc_debuff(v)
+            end
+            for _, v in ipairs(G.jokers.cards) do
+                SMODS.recalc_debuff(v)
+            end
             G.GAME.last_blind.boss = nil
             G.HUD_blind.alignment.offset.y = -10
             G.HUD_blind:recalculate(false)
@@ -294,22 +301,24 @@ function event_collection_domains_ui()
     local curr_col = 1
     local object_tabs = {}
     for _, domain in ipairs(HotPotato.EventDomainPool) do
-        local loc_name = localize({
-            type = "name_text",
-            key = "hpot_event_encounter" ..
-                (domain.key and ("_" .. domain.key) or ""),
-            set = "Other"
-        })
+        if not domain.no_collection then
+            local loc_name = localize({
+                type = "name_text",
+                key = "hpot_event_encounter" ..
+                    (domain.key and ("_" .. domain.key) or ""),
+                set = "Other"
+            })
 
-        local chosen = { key = domain.key or "occurence" }
+            local chosen = { key = domain.key or "occurence" }
 
-        object_tabs[#object_tabs + 1] = UIBox_button({
-            button = 'your_collection_hpot_events_domain',
-            label = { loc_name },
-            minw = 5,
-            colour = domain.colour,
-            ref_table = chosen
-        })
+            object_tabs[#object_tabs + 1] = UIBox_button({
+                button = 'your_collection_hpot_events_domain',
+                label = { loc_name },
+                minw = 5,
+                colour = domain.colour,
+                ref_table = chosen
+            })
+        end
     end
     local custom_gameobject_rows = {}
     if #object_tabs > 0 then

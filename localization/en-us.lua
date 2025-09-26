@@ -4428,6 +4428,48 @@ return {
                 },
             },
         },
+        hotpot_events = {
+            name = "Events",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "Experience all different kinds of random events where",
+                            "your choices influence the outcome! (Somewhat)",
+                        },
+                        {
+                            "After a {C:attention}Boss Blind{}'s shop you get a choice",
+                            "between 2 {C:attention}Event types{} that can have different kinds of events"
+                        },
+                        {
+                            "Some items can increase the amount of Event type choices,",
+                            "make rare Events more common or make events more frequent"
+                        },
+                    }
+                },
+                {
+                    name = "Event Types",
+                    text = {
+                        {
+                            "{C:hpot_event_occurence}Occurence{}: Random events with varying effects",
+                            "{C:hpot_event_reward}Rewards{}: Random events with good prizes",
+                            "{C:hpot_event_wealth}Wealth{}: Random events that reward you with currency",
+                            "{C:hpot_event_escapade}Escapade{}: Random events with powerful effects {C:inactive}(Up to once per run){}",
+                        },
+                        {
+                            "{C:hpot_event_combat}Combat{}: Face an extra {C:attention}Big Blind{} with added challenge for a small reward",
+                            "{C:hpot_event_encounter}Encounter{}: Face an extra {C:attention}Boss Blind{} with added challenge for a big reward",
+                            "{C:hpot_event_adventure}Adventure{}: Face a minigame for a random reward",
+                        },
+                        {
+                            "{C:hpot_event_transaction}Transaction{}: Extra shop with special offers and a currency exchange",
+                            "{C:hpot_event_respite}Respite{}: Guaranteed special {C:hpot_event_transaction}Transaction{} Event before the final Blind",
+                        }
+                    }
+                },
+            },
+        },
     },
     misc = {
         challenge_names = {
