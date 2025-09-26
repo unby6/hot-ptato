@@ -2370,7 +2370,11 @@ HotPotato.EventStep {
 				key = "hpot_tech_support_ask_bepis",
 				no_prefix = true,
 				button = function()
-					event.start_step("hpot_tech_support_ask_bepis")
+					if pseudorandom(pseudoseed('sdm_event'), 0, 1) == 1 then
+						event.start_step("hpot_tech_support_ask_bepis_n")
+					else
+						event.start_step("hpot_tech_support_ask_bepis_eremel")
+					end
 				end
 			},
 			{
@@ -2428,12 +2432,21 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_eremel",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"Eremel asks you to check the latest SMODS release",
+			"(if you have enough space that is)"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		if G.jokers.config.card_count < G.jokers.config.card_limit then
+			SMODS.add_card({ key = "j_hpot_smods" })
+		end
 	end,
 	finish = function(self, event)
 	end
@@ -2488,8 +2501,34 @@ HotPotato.EventStep {
 }
 
 HotPotato.EventStep {
-	key = "hpot_tech_support_ask_bepis",
+	key = "hpot_tech_support_ask_bepis_n",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"Bepis is too busy with UI",
+			"and tells you to ask N'",
+		}
+	},
+	get_choices = function()
+		return {
+			moveon()
+		}
+	end,
+	start = function(self, event)
+	end,
+	finish = function(self, event)
+	end
+}
+
+HotPotato.EventStep {
+	key = "hpot_tech_support_ask_bepis_eremel",
+	hide_hand = true,
+	loc_txt = {
+		text = {
+			"Bepis is too busy with UI",
+			"and tells you to ask Eremel",
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
@@ -2504,12 +2543,26 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_deadbeet",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"You ask Deadbeet how to-",
+			"",
+			"Hey where is she going?",
+			"",
+			"Where did your wallet go?"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		ease_dollars(-G.GAME.dollars)
+		HPTN.ease_credits(-G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		ease_spark_points(-G.GAME.spark_points)
+		ease_plincoins(-G.GAME.plincoins)
+		ease_cryptocurrency(-G.GAME.cryptocurrency)
 	end,
 	finish = function(self, event)
 	end
@@ -2547,12 +2600,22 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_tacashumi",
 	hide_hand = true,
+		loc_txt = {
+		text = {
+			"Tacashumi is too busy at work to answer you",
+			"",
+			"Have a random joker instead (if you got room that is)"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		if G.jokers.config.card_count < G.jokers.config.card_limit then
+			SMODS.add_card({ set = "Joker" })
+		end
 	end,
 	finish = function(self, event)
 	end
