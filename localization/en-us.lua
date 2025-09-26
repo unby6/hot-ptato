@@ -3209,7 +3209,7 @@ return {
             hpot_event_encounter_transaction = {
                 name = "Transaction",
                 text = {
-                    "The Jimbo Exchange"
+                    "The Hot Potato Marketplace"
                 }
             },
             hpot_event_encounter_adventure = {

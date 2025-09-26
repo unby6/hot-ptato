@@ -271,3 +271,68 @@ function Blind:defeat(silent)
 end
 
 --#endregion
+
+--#region UI
+
+function event_collection_domains_ui()
+    local custom_gameobject_tabs = { {} }
+    local curr_height = 0
+    local curr_col = 1
+    local object_tabs = {}
+    for _, domain in ipairs(HotPotato.EventDomainPool) do
+        local loc_name = localize({
+            type = "name_text",
+            key = "hpot_event_encounter" ..
+                (domain.key and ("_" .. domain.key) or ""),
+            set = "Other"
+        })
+
+        local chosen = { key = domain.key or "occurence" }
+
+        object_tabs[#object_tabs + 1] = UIBox_button({
+            button = 'your_collection_hpot_events_domain',
+            label = { loc_name },
+            minw = 5,
+            colour = domain.colour,
+            ref_table = chosen
+        })
+    end
+    local custom_gameobject_rows = {}
+    if #object_tabs > 0 then
+        for _, gameobject_tabs in ipairs(object_tabs) do
+            table.insert(custom_gameobject_tabs[curr_col], gameobject_tabs)
+            curr_height = curr_height + gameobject_tabs.nodes[1].config.minh
+            if curr_height > 2 then
+                curr_height = 0
+                curr_col = curr_col + 1
+                custom_gameobject_tabs[curr_col] = {}
+            end
+        end
+        for _, v in ipairs(custom_gameobject_tabs) do
+            table.insert(custom_gameobject_rows, { n = G.UIT.C, config = { align = "cm", padding = 0.15 }, nodes = v })
+        end
+
+        local t = {
+            n = G.UIT.C,
+            config = { align = "cm", r = 0.1, colour = G.C.BLACK, padding = 0.1, emboss = 0.05, minw = 7 },
+            nodes = {
+                { n = G.UIT.R, config = { align = "cm", padding = 0.15 }, nodes = custom_gameobject_rows }
+            }
+        }
+
+        return create_UIBox_generic_options({
+            colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_colour or
+                (G.ACTIVE_MOD_UI.ui_config or {}).colour),
+            bg_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_bg_colour or
+                (G.ACTIVE_MOD_UI.ui_config or {}).bg_colour),
+            back_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_back_colour or
+                (G.ACTIVE_MOD_UI.ui_config or {}).back_colour),
+            outline_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_outline_colour or
+                (G.ACTIVE_MOD_UI.ui_config or {}).outline_colour),
+            back_func = 'your_collection_other_gameobjects',
+            contents = { t }
+        })
+    end
+end
+
+--#endregion
