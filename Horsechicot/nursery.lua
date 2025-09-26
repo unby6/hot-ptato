@@ -530,7 +530,9 @@ function Horsechicot.breed(mother_center, father_center)
                     center = G.GAME.child_sec.config.center
                 },
             })
-    
+    scale_ability(card.ability.quantum[1].ability, {scale = 0.5, min = 3})
+    scale_ability(card.ability.quantum[2].ability, {scale = 0.5, min = 3})
+    card.ability.rarity = math.floor((mother_center.rarity + father_center.rarity) / 2)
     update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
 
     --make children smaller

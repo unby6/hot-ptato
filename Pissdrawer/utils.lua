@@ -122,3 +122,20 @@ end]]
 function G.FUNCS.collection_pdr(e)
     
 end
+
+-- for recursive loops of scaling the ability table by a set amount
+--args.min is the lowest number that would be scaled and scale is what said numbers will be * by
+function scale_ability(table, args)
+    args = args or {}
+    if args.scale then
+    for i,v in ipairs(table) do
+        if type(v) == 'number' then
+            if args.min and v => args.min then
+                table[i] = math.floor((v * args.scale) + 0.5)
+            end
+        elseif type(v) == 'table' then
+            scale_ability(v, args)
+        end
+    end
+    end
+end

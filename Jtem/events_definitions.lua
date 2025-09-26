@@ -4199,14 +4199,16 @@ HotPotato.EventStep {
 			{
 				key = "ignore_finger",
 				button = function()
-					SMODS.add_card({ key = 'j_four_fingers', stickers = { 'eternal' }, edition = 'e_negative' })
+					for i = 1, 5 do
+						SMODS.add_card({ key = 'j_four_fingers', edition = 'e_negative' })
+					end
 					hpot_event_end_scenario()
 				end
 			}
 		}
 	end,
 	start = function(self, event)
-		local chara = Character("j_sixth_sense")
+		local chara = Character("j_four_fingers")
 		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
