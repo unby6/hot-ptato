@@ -25,10 +25,11 @@ HotPotato.EventDomainPool = {
     },
     {
         key = "swoon",
-        weight = 0.4,
+        weight = 0.05,
         colour = G.C.RED,
         rare = true,
-        once_per_run = true
+        once_per_run = true,
+        no_collection = true
     },
 }
 
