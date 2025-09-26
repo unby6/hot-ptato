@@ -31,21 +31,26 @@ function move_train_text(node, positive)
 end
 
 function Card:create_train_popup(stat, num)
-    G.GAME.train_popup_num = G.GAME.train_popup_num or 0
-    G.GAME.train_popup_num = G.GAME.train_popup_num + 1
-    local train_popup = G.GAME.train_popup_num
-    
-    if (num or 0) >= 0 then
-        G.C["hpot_train"..train_popup] = copy_table(G.C.FILTER)
-    else
-        G.C["hpot_train"..train_popup] = copy_table(G.C.BLUE)
-    end
-    G.C["hpot_train_stat"..train_popup] = copy_table(G.C.UI.TEXT_LIGHT)
-
+    local train_popup = nil
     hotpot_add_event{
         trigger = "before",
-        delay = 1,
+        delay = 0.2,
         func = function()
+            G.GAME.train_popup_num = G.GAME.train_popup_num or 0
+            G.GAME.train_popup_num = G.GAME.train_popup_num + 1
+            train_popup = G.GAME.train_popup_num
+            repeat
+                if self.children["hpot_train"..train_popup] then
+                    train_popup = train_popup + 1
+                end
+            until not self.children["hpot_train"..train_popup]
+            
+            if (num or 0) >= 0 then
+                G.C["hpot_train"..train_popup] = copy_table(G.C.FILTER)
+            else
+                G.C["hpot_train"..train_popup] = copy_table(G.C.BLUE)
+            end
+            G.C["hpot_train_stat"..train_popup] = copy_table(G.C.UI.TEXT_LIGHT)
             self:juice_up(0.1,0.1)
             self.children["hpot_train"..train_popup] = UIBox{
                 definition = hpot_joker_train_indicator_definition(stat, num, {G.C["hpot_train"..train_popup], G.C["hpot_train_stat"..train_popup]}), 

@@ -1,29 +1,68 @@
-function UIElement:ease_move(T, speed)
+function HotPotato.round(number, digit_position) 
+    digit_position = digit_position or 0
+    if not number then return end
+    local precision = 10 ^ -digit_position
+    number = number + (precision / 2)
+    return math.floor(number / precision) * precision
+end
+
+function UIElement:ease_move(T, speed, queue, blocking, blockable, save_pos, toggle, funcs)
     self.T_destination = {x = T.x or 0, y = T.y or 0}
     self.T_ease = {x = 0, y = 0}
 
-    G.E_MANAGER.queues.ease_move = G.E_MANAGER.queues.ease_move or {}
+    G.E_MANAGER.queues[queue or "ease_move"] = G.E_MANAGER.queues[queue or "ease_move"] or {}
+    if save_pos then
+        save_pos.ref_table[save_pos.ref_value] = {x = 0, y = 0}
+    end
+    if toggle then
+        toggle.ref_table[toggle.ref_value] = true
+    end
     G.E_MANAGER:add_event(Event({
-        blocking = false,
-        blockable = false,
+        blocking = blocking or false,
+        blockable = blockable or false,
         func = function() 
             if not self or not self.T_destination then return true end
             for i,v in pairs(self.T_destination) do
                 self.T_ease[i] = v/(speed or 10)
+                if save_pos then
+                    local target = save_pos.ref_table[save_pos.ref_value]
+                    target = target or {x = 0, y = 0}
+                    target[i] = (target[i] or 0) + v/(speed or 10)
+                end
                 self.T_destination[i] = self.T_destination[i] - v/(speed or 10)
+            end
+            if funcs and type(funcs) == "table" then
+                if funcs.ease_func and type(funcs.ease_func) == "function" then
+                    funcs.ease_func(self)
+                end
             end
             self:align(self.T_ease.x, self.T_ease.y)
             local all_low = true
-            for i,v in pairs(self.T_destination) do
-                if math.abs(v) >= 0.1 then all_low = false; break end
+            for _,v in pairs(self.T_destination) do
+                if math.abs(v) >= 0.01 then all_low = false; break end
             end
             if all_low then
+                self:align(self.T_destination.x, self.T_destination.y)
+                if save_pos then
+                    local target = save_pos.ref_table[save_pos.ref_value]
+                    target = target or {x = 0, y = 0}
+                    target.x = T.x
+                    target.y = T.y
+                end
+                if toggle then
+                    toggle.ref_table[toggle.ref_value] = false
+                end
+                if funcs and type(funcs) == "table" then
+                    if funcs.after_func and type(funcs.after_func) == "function" then
+                        funcs.after_func(self)
+                    end
+                end
                 self.T_destination = nil
                 self.T_ease = nil
                 return true
             end
         end
-    }), "ease_move")
+    }), queue or "ease_move")
 end
 
 function hotpot_add_event(args)
@@ -37,7 +76,6 @@ function Card:hotpot_resize(mod)
     self.children.shadow = Moveable(0, 0, 0, 0)
     self:set_sprites(self.config.center, self.base.id and self.config.card)
 end
-
 
 function HotPotato.create_fake_card(c_key, area)
     local area = area or {T = {x = 0, y = 0, w = 0, h = 0}}
@@ -373,4 +411,33 @@ function HotPotato.recursive_check(t,func,depth)
             func(v,i,t)
         end
     end
+end
+
+function ease_colour_queue(old_colour, new_colour, delay, queue)
+    ease_value_queue(old_colour, 1, new_colour[1] - old_colour[1], false, 'REAL', nil, delay, nil, queue)
+    ease_value_queue(old_colour, 2, new_colour[2] - old_colour[2], false, 'REAL', nil, delay, nil, queue)
+    ease_value_queue(old_colour, 3, new_colour[3] - old_colour[3], false, 'REAL', nil, delay, nil, queue)
+    ease_value_queue(old_colour, 4, new_colour[4] - old_colour[4], false, 'REAL', nil, delay, nil, queue)
+end
+
+function ease_value_queue(ref_table, ref_value, mod, floored, timer_type, not_blockable, delay, ease_type, queue)
+    mod = mod or 0
+
+    if queue then
+        G.E_MANAGER.queues[queue] = G.E_MANAGER.queues[queue] or {}
+    end
+
+    --Ease from current chips to the new number of chips
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        blockable = (not_blockable == false),
+        blocking = false,
+        ref_table = ref_table,
+        ref_value = ref_value,
+        ease_to = ref_table[ref_value] + mod,
+        timer = timer_type,
+        delay =  delay or 0.3,
+        type = ease_type or nil,
+        func = (function(t) if floored then return math.floor(t) else return t end end)
+    }), queue)
 end
