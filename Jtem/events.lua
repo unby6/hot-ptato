@@ -317,6 +317,10 @@ function Game:update_hpot_event_select(dt)
 						G.ROOM.jiggle = G.ROOM.jiggle + 3
 						G.hpot_event_select.alignment.offset.x = 0
 						G.CONTROLLER.lock_input = false
+						if not G.GAME.hpot_event_first_time then
+							open_hotpot_info("hotpot_events")
+							G.GAME.hpot_event_first_time = true
+						end
 						return true
 					end,
 				}))
@@ -357,6 +361,14 @@ function create_UIBox_hpot_event_choice(domain_key, index)
 	})
 	local text_table = loc_target
 	local blind_col = HotPotato.EventDomains[domain_key].colour or event_colour
+	local loc_reward = ""
+	if HotPotato.EventDomains[domain_key].reward_text_amount then
+		for i = 1, HotPotato.EventDomains[domain_key].reward_text_amount do
+			loc_reward = loc_reward .. "$"
+		end
+	else
+		loc_reward = "???"
+	end
 
 	local t = {
 		n = G.UIT.R,
@@ -541,7 +553,7 @@ function create_UIBox_hpot_event_choice(domain_key, index)
 														n = G.UIT.O,
 														config = {
 															object = DynaText({
-																string = { "???" },
+																string = { loc_reward },
 																colours = { G.C.MONEY },
 																float = true,
 																spacing = 3,
