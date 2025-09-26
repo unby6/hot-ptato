@@ -2134,6 +2134,22 @@ return {
                     'and refunded by {C:attention}#1#%{}'
                 }
             },
+            j_hpot_smods = {
+                name = "SMODS",
+                text = {
+                    "{C:white,X:mult}X4{} Mult in the",
+                    "next{C:attention} SMODS release{}"
+                }
+            },
+            j_hpot_red_deck_joker = {
+                name = "Red Deck Joker",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "gain {C:red}+#1#{} discard for every",
+                    "{C:attention}#2#{} cards in your deck",
+                    "{C:inactive}(Currently {C:red}+#3#{C:inactive} discard(s))"
+                }
+            }
         },
         Enhanced = {
             m_hpot_oap_lead = {
@@ -3431,14 +3447,58 @@ return {
                     "card {C:attention}#1#{} times"
                 }
             },
-
             hpot_sonloaf_comment = {
                 name = "trif comment",
                 text = {
                     "please give this guy a sprite :pensive:",
                     "its a dan hentschel thing look it up"
                 }
-            }
+            },
+            hpot_smods_quip_1 = {
+                name = "What's changed?",
+                text = {
+                    "Support animated Mod Credits"
+                }
+            },
+            hpot_smods_quip_2 = {
+                name = "What's changed?",
+                text = {
+                    "Removed lovely patches",
+                    "and hooks"
+                }
+            },
+            hpot_smods_quip_3 = {
+                name = "What's changed?",
+                text = {
+                    "Added \"context.streaming_balatro\""
+                }
+            },
+            hpot_smods_quip_4 = {
+                name = "What's changed?",
+                text = {
+                    "Added \"hand_type\" to",
+                    "\"quit\" button"
+                }
+            },
+            hpot_smods_quip_5 = {
+                name = "What's changed?",
+                text = {
+                    "Updated \"galactic_alphabet.lua\"",
+                }
+            },
+            hpot_smods_quip_6 = {
+                name = "What's changed?",
+                text = {
+                    "Fixed \"SMODS.merge_effects\"",
+                    "not merging divorced parents"
+                }
+            },
+            hpot_smods_quip_7 = {
+                name = "What's changed?",
+                text = {
+                    "Added \"Card:leak_bank_details()\""
+                }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -4206,7 +4266,7 @@ return {
                 }
             },
             hpot_tech_support = {
-                name = "Joker's Bizarre Modding Adventure",
+                name = "Tech Support",
                 text = {
                     "How do I mod Balatro?"
                 }
