@@ -2149,7 +2149,25 @@ return {
                     "{C:attention}#2#{} cards in your deck",
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} discard(s))"
                 }
-            }
+            },
+            j_hpot_blue_deck_joker = {
+                name = "Blue Deck Joker",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "gain {C:blue}+#1#{} hand for every",
+                    "{C:attention}#2#{} cards in your deck",
+                    "{C:inactive}(Currently {C:blue}+#3#{C:inactive} hand(s))"
+                }
+            },
+            j_hpot_yellow_deck_joker = {
+                name = "Yellow Deck Joker",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "earn {C:money}$#1#{} for every",
+                    "{C:attention}#2#{} cards in your deck",
+                    "{C:inactive}(Currently {C:money}$#3#{C:inactive})"
+                }
+            },
         },
         Enhanced = {
             m_hpot_oap_lead = {
