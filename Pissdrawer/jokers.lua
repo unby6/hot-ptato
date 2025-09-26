@@ -472,8 +472,8 @@ SMODS.Joker {
     },
     config = { extra = {queue_rounds = 0, order_quips = {1, 2, 3, 4, 5, 6}}},
     atlas = "pdr_joker",
-    pos = { x = 0, y = 1 },
-    soul_pos = { x = 1, y = 1},
+    pos = { x = 1, y = 1 },
+    soul_pos = { x = 2, y = 1},
     rarity = 4,
     cost = 0,
     in_pool = function(self, args)
@@ -495,7 +495,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.discards, card.ability.extra.cards_req, discards } }
     end,
     atlas = "pdr_joker",
-    pos = { x = 2, y = 1 },
+    pos = { x = 4, y = 1 },
     rarity = 2,
     calculate = function(self, card, context)
         if context.setting_blind then
