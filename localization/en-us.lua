@@ -3236,6 +3236,12 @@ return {
                     "The calm before the storm"
                 }
             },
+            hpot_event_encounter_aroombetween = {
+                name = "A Room Between...",
+                text = {
+                    "There is a room between...",
+                }
+            },
             hpot_jtem_mood_depressed = {
                 name = "Depressed",
                 text = {

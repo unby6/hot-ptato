@@ -1,15 +1,15 @@
 -- TODO: maybe make these an SMODS object.
 HotPotato.EventDomainPool = {
-    { key = "combat",       weight = 1,    colour = G.C.RED,                        reward_text_amount = 1 },
-    { key = "occurence",    weight = 1,    colour = G.C.PURPLE,                     reward_text_amount = 1 },
-    { key = "encounter",    weight = 0.7,  colour = darken(G.C.RED, 0.2),           reward_text_amount = 2 },
-    { key = "transaction",  weight = 0.5,  colour = G.C.GREEN,                      reward_text_amount = 2 },
-    { key = "reward",       weight = 0.4,  colour = G.C.HPOT_PINK or HEX("fe89d0"), rare = true,           reward_text_amount = 3 },
-    { key = "adventure",    weight = 0.2,  colour = G.C.ORANGE,                     rare = true,           reward_text_amount = 4 },
-    { key = "wealth",       weight = 0.2,  colour = G.C.MONEY,                      rare = true,           reward_text_amount = 4 },
-    { key = "escapade",     weight = 0.01, colour = HEX("A17CFF"),                  rare = true,           once_per_run = true,   reward_text_amount = 5 },
-    { key = "respite",      weight = 0,    colour = G.C.GREEN,                      reward_text_amount = 2 },
-    { key = "aroombetween", weight = 0.01, colour = HEX("DE2041"),                  rare = true,           once_per_run = true,   no_collection = true },
+    { key = "combat",       weight = 1,                                 colour = G.C.RED,                        reward_text_amount = 1 },
+    { key = "occurence",    weight = 1,                                 colour = G.C.PURPLE,                     reward_text_amount = 1 },
+    { key = "encounter",    weight = 0.7,                               colour = darken(G.C.RED, 0.2),           reward_text_amount = 2 },
+    { key = "transaction",  weight = 0.5,                               colour = G.C.GREEN,                      reward_text_amount = 2 },
+    { key = "reward",       weight = 0.4,                               colour = G.C.HPOT_PINK or HEX("fe89d0"), rare = true,           reward_text_amount = 3 },
+    { key = "adventure",    weight = 0.2,                               colour = G.C.ORANGE,                     rare = true,           reward_text_amount = 4 },
+    { key = "wealth",       weight = 0.2,                               colour = G.C.MONEY,                      rare = true,           reward_text_amount = 4 },
+    { key = "escapade",     weight = 0.01,                              colour = HEX("A17CFF"),                  rare = true,           once_per_run = true,   reward_text_amount = 5 },
+    { key = "respite",      weight = 0,                                 colour = G.C.GREEN,                      reward_text_amount = 2 },
+    { key = "aroombetween", weight = 0.0666666666666666666666666666666, colour = HEX("DE2041"),                  rare = true,           once_per_run = true,   no_collection = true },
 }
 
 HotPotato.EventDomains = {}
