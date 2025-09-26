@@ -3,11 +3,11 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = { x = 4, y = 1 },
     hotpot_credits = {
-        art = { 'SDM_0' },
-        code = { 'SDM_0' },
         idea = { 'SDM_0' },
+        art = { 'Tacashumi' },
+        code = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
@@ -44,9 +44,9 @@ SMODS.Joker {
     atlas = "pdr_joker",
     pos = { x = 0, y = 0 },
     hotpot_credits = {
+        idea = { 'fey <3' },
         art = { 'SDM_0' },
         code = { 'fey <3' },
-        idea = { 'fey <3' },
         team = { 'Pissdrawer' }
     },
     add_to_deck = function(self, card)
@@ -71,9 +71,9 @@ SMODS.Joker {
         return { vars = { card.ability.extra.xmult } }
     end,
     hotpot_credits = {
+        idea = { 'SDM_0' },
         art = { 'deadbeet' },
         code = { 'SDM_0' },
-        idea = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
@@ -186,9 +186,9 @@ SMODS.Joker {
         }
     },
     hotpot_credits = {
+        idea = { 'deadbeet' },
         art = { 'deadbeet' },
         code = { 'deadbeet' },
-        idea = { 'deadbeet' },
         team = { 'Pissdrawer' }
     },
     unlocked = true,
@@ -263,9 +263,9 @@ SMODS.Joker {
         'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
     } },
     hotpot_credits = {
+        idea = { 'Tacashumi' },
         art = { 'Tacashumi' },
         code = { 'fey <3' },
-        idea = { 'Tacashumi' },
         team = { 'Pissdrawer' }
     },
     config = { extra = { chips = 10 } },
@@ -300,9 +300,9 @@ SMODS.Joker {
         return { vars = { math.floor(100 / card.ability.extra) } }
     end,
     hotpot_credits = {
+        idea = { 'SDM_0' },
         art = { 'SDM_0' },
         code = { 'SDM_0' },
-        idea = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
     add_to_deck = function(self, card, from_debuff)
@@ -341,6 +341,7 @@ SMODS.Joker {
         text = { { "Happy Birthday, N'!" }, { 'Where would Jujutsu', 'Jokers be without you...' } }
     },
     hotpot_credits = {
+        idea = { "deadbeet" },
         art = { "deadbeet" },
         code = { "deadbeet" },
         team = { "Pissdrawer" }
@@ -367,6 +368,7 @@ SMODS.Joker {
     key = 'child',
     rarity = 'hpot_child',
     hotpot_credits = {
+        idea = { "fey <3" },
         code = { "fey <3" },
         team = { "Pissdrawer" }
     },
