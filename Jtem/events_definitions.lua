@@ -2418,12 +2418,46 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_n",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"After some rounds N' gets tired and makes your Joker for you",
+			"(Check deliveries)"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		local _pool, _pool_key = get_current_pool("Joker")
+		local _t2 = {}
+		for _, v in ipairs(_pool) do
+			if v ~= "UNAVAILABLE" and not G.P_CENTERS[v].original_mod then
+				table.insert(_t2, v)
+			end
+		end
+		local amount = event.ability.from_bepis and 2 or 1
+		for i = 1, amount do
+			local center_key, index = pseudorandom_element(_t2, _pool_key)
+			if center_key then
+				local delivery_table = {
+					key = center_key,
+					rounds_passed = 0,
+					rounds_total = 3,
+					price = 0,
+					currency = "dollars",
+					extras = {},
+					create_card_args = {},
+				}
+				G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
+				table.insert(G.GAME.hp_jtem_delivery_queue, delivery_table)
+				if G.hp_jtem_delivery_queue then
+					hotpot_delivery_refresh_card()
+				end
+			end
+			table.remove(_t2, index)
+		end
 	end,
 	finish = function(self, event)
 	end
@@ -2435,7 +2469,7 @@ HotPotato.EventStep {
 	loc_txt = {
 		text = {
 			"Eremel asks you to check the latest SMODS release",
-			"(if you have enough space that is)"
+			"(Check deliveries)"
 		}
 	},
 	get_choices = function()
@@ -2444,8 +2478,22 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-		if G.jokers.config.card_count < G.jokers.config.card_limit then
-			SMODS.add_card({ key = "j_hpot_smods" })
+		local amount = event.ability.from_bepis and 2 or 1
+		for i = 1, amount do
+			local delivery_table = {
+				key = "j_hpot_smods",
+				rounds_passed = 0,
+				rounds_total = 1,
+				price = 0,
+				currency = "dollars",
+				extras = {},
+				create_card_args = {},
+			}
+			G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
+			table.insert(G.GAME.hp_jtem_delivery_queue, delivery_table)
+			if G.hp_jtem_delivery_queue then
+				hotpot_delivery_refresh_card()
+			end
 		end
 	end,
 	finish = function(self, event)
@@ -2508,9 +2556,16 @@ HotPotato.EventStep {
 			"and tells you to ask N'",
 		}
 	},
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
-			moveon()
+			{
+				key = "hpot_tech_support_ask_n",
+				no_prefix = true,
+				button = function()
+					event.ability.from_bepis = true
+					event.start_step("hpot_tech_support_ask_n")
+				end
+			},
 		}
 	end,
 	start = function(self, event)
@@ -2528,9 +2583,16 @@ HotPotato.EventStep {
 			"and tells you to ask Eremel",
 		}
 	},
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
-			moveon()
+			{
+				key = "hpot_tech_support_ask_eremel",
+				no_prefix = true,
+				button = function()
+					event.ability.from_bepis = true
+					event.start_step("hpot_tech_support_ask_eremel")
+				end
+			},
 		}
 	end,
 	start = function(self, event)
@@ -2599,7 +2661,7 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_tacashumi",
 	hide_hand = true,
-		loc_txt = {
+	loc_txt = {
 		text = {
 			"Tacashumi is too busy at work to answer you",
 			"",

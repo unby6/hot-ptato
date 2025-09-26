@@ -1110,7 +1110,8 @@ function hotpot_jtem_add_card_to_delivery_queue(key, price)
         rounds_total = hotpot_jtem_center_to_round_wait(ct),
         price = value,
         currency = currency,
-        extras = {}
+        extras = {},
+        create_card_args = {},
     }
     -- target patch for custom delivery queue
     ---@type Jtem.Delivery[]
@@ -1337,6 +1338,9 @@ function hotpot_jtem_calculate_deliveries()
     G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
     for _, delivery in pairs(G.GAME.hp_jtem_delivery_queue) do
         delivery.rounds_total = delivery.rounds_total or 999 -- just in case an order was badly made
+        if delivery.key == "j_hpot_smods" then
+            delivery.rounds_total = delivery.rounds_total + 1
+        end
         delivery.rounds_passed = (delivery.rounds_passed or 0) + 1
         if delivery.rounds_passed > delivery.rounds_total then
             local area = G.P_CENTERS[delivery.key].consumeable and G.consumeables or
