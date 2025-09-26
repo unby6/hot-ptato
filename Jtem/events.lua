@@ -120,6 +120,7 @@ HotPotato.EventStep = SMODS.GameObject:extend({
 HotPotato.EventScenarios = {}
 ---@class HotPotato.EventScenario: SMODS.GameObject
 ---@field domains? table<EventDomain|string, true> Domain pool the scenario belongs to.
+---@field can_repeat? boolean If the event can repeat even if all the other events weren't exhausted.
 ---@field hide_image_area? boolean Hides image area for this event.
 ---@field in_pool? fun(self: HotPotato.EventScenario|table): boolean Determines if this scenario can be chosen.
 ---@field get_weight? fun(self: HotPotato.EventScenario|table): number Determines the weight of the scenario being chosen.
@@ -140,6 +141,7 @@ HotPotato.EventScenario = SMODS.GameObject:extend({
 		SMODS.process_loc_text(G.localization.descriptions.EventScenarios, self.key:lower(), self.loc_txt)
 	end,
 	domains = { occurence = true },
+	can_repeat = false,
 	weight = 5,
 	hide_image_area = false,
 	in_pool = function(self)
@@ -1349,12 +1351,14 @@ function get_next_hpot_event(domain)
 	local min_use = 100
 	for k, v in pairs(eligible_events) do
 		eligible_events[k] = G.GAME.hpot_events_encountered[k] or 0
-		min_use = math.min(min_use, eligible_events[k])
+		if not HotPotato.EventScenarios[k].can_repeat then
+			min_use = math.min(min_use, eligible_events[k])
+		end
 	end
 
 	local weighted_events = {}
 	for k, _ in pairs(eligible_events) do
-		if eligible_events[k] <= min_use then
+		if eligible_events[k] <= min_use or HotPotato.EventScenarios[k].can_repeat then
 			local weight = HotPotato.EventScenarios[k]:get_weight()
 			total_weight = total_weight + weight
 			table.insert(weighted_events, {
