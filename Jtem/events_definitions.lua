@@ -6279,3 +6279,4 @@ HotPotato.EventStep {
 		G.SETTINGS.SOUND.music_volume = HotPotato.vol
 	end
 }
+--#endregion
