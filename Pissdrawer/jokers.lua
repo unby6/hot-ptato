@@ -65,7 +65,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 7,
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = { x = 0, y = 1 },
     config = { extra = { xmult = 1.75 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult } }
@@ -357,9 +357,9 @@ SMODS.Joker {
     end
 }
 
-SMODS.Rarity{
+SMODS.Rarity {
     key = "child",
-    loc_txt = {name = "Child"},
+    loc_txt = { name = "Child" },
     badge_colour = G.C.HPOT_PINK,
 }
 
@@ -376,16 +376,32 @@ SMODS.Joker {
         local main_end = {}
         if card.ability.quantum[1] and card.ability.quantum[2] then
             main_end = {
-                {n=G.UIT.R, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = card.ability.quantum[1].ability.name ,colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-                    }}
-                }},
-                {n=G.UIT.R, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = card.ability.quantum[2].ability.name ,colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-                    }}
-                }}
+                {
+                    n = G.UIT.R,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = card.ability.quantum[1].ability.name, colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = card.ability.quantum[2].ability.name, colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
             }
         end
         return {
