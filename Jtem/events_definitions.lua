@@ -4262,14 +4262,16 @@ HotPotato.EventStep {
 			{
 				key = "ignore_finger",
 				button = function()
-					SMODS.add_card({ key = 'j_four_fingers', stickers = { 'eternal' }, edition = 'e_negative' })
+					for i = 1, 5 do
+						SMODS.add_card({ key = 'j_four_fingers', edition = 'e_negative' })
+					end
 					hpot_event_end_scenario()
 				end
 			}
 		}
 	end,
 	start = function(self, event)
-		local chara = Character("j_sixth_sense")
+		local chara = Character("j_four_fingers")
 		chara.children.particles.colours = { { 0, 0, 0, 0 } }
 		chara.states.collide.can = false
 		G.E_MANAGER:add_event(Event({
@@ -5053,6 +5055,7 @@ HotPotato.EventScenario {
 		}
 	},
 	domains = { combat = true, encounter = true },
+	can_repeat = true,
 	starting_step_key = "hpot_the_tavern_start",
 	hotpot_credits = {
 		code = { "N'" },
@@ -5114,6 +5117,7 @@ HotPotato.EventScenario {
 		}
 	},
 	domains = { adventure = true },
+	can_repeat = true,
 	starting_step_key = "hpot_bj_in",
 	hotpot_credits = {
 		code = { "fey <3" },
@@ -5424,6 +5428,7 @@ HotPotato.EventScenario {
 		}
 	},
 	domains = { transaction = true, respite = true },
+	can_repeat = true,
 	starting_step_key = "hpot_postlatro_start",
 	hotpot_credits = {
 		code = { "N'" },
@@ -5702,7 +5707,7 @@ HotPotato.EventStep {
 }
 
 HotPotato.EventScenario {
-	key = "black_markey_alley",
+	key = "black_market_alley",
 	loc_txt = {
 		name = "Black Market Dealer",
 		text = {
@@ -5710,15 +5715,16 @@ HotPotato.EventScenario {
 		}
 	},
 	domains = { transaction = true },
-	starting_step_key = "hpot_black_markey_alley_start",
+	starting_step_key = "hpot_black_market_alley_start",
 	hotpot_credits = {
 		code = { "N'" },
 		team = { "Pissdrawer" },
 	},
+	weight = 2
 }
 
 HotPotato.EventStep {
-	key = "hpot_black_markey_alley_start",
+	key = "hpot_black_market_alley_start",
 	loc_txt = {
 		text = {
 			"{s:1.2}Currency Exchange"
