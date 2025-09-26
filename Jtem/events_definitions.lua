@@ -4518,6 +4518,11 @@ HotPotato.CombatEvents.generic = {
 						debuff = true
 					}
 				end
+				if effect.debuff.rank and context.debuff_card.base.value == effect.debuff.rank then
+					return {
+						debuff = true
+					}
+				end
 			end
 		end
 
@@ -4834,6 +4839,25 @@ local hpot_event_get_random_combat_effect = function(seed)
 		{ flipped = { played_this_ante = true },                     text = "but all cards played this ante are drawn facedown" },
 		{ flipped = { first_hand = true },                           text = "but first hand is drawn facedown" },
 		{ base_score_halved = true,                                  text = "but base Chips and Mult are halved" },
+	}
+
+	local rank_counts = {}
+	for _, pcard in ipairs(G.playing_cards) do
+		if not SMODS.has_no_rank(pcard) then
+			rank_counts[pcard.base.value] = (rank_counts[pcard.base.value] or 0) + 1
+		end
+	end
+	local min_rank, rank_key = 0, "King"
+	for key, value in pairs(rank_counts) do
+		if value >= min_rank then
+			rank_key = key
+			min_rank = value
+		end
+	end
+
+	effects[#effects + 1] = {
+		debuff = { rank = rank_key },
+		text = "but all " .. localize(rank_key, "ranks") .. " are debuffed"
 	}
 
 	local chosen_effect = pseudorandom_element(effects, seed or "hpot_event_combat_effect")

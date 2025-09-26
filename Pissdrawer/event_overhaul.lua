@@ -231,6 +231,12 @@ function hpot_event_bonus_new_round(blind_key, extra_config)
             G.GAME.blind_on_deck = 'Combat'
             G.GAME.blind:set_blind(G.P_BLINDS[blind_key])
             G.GAME.blind.effect.hpot_combat_bonus = extra_config or {}
+            for _, v in ipairs(G.playing_cards) do
+                SMODS.recalc_debuff(v)
+            end
+            for _, v in ipairs(G.jokers.cards) do
+                SMODS.recalc_debuff(v)
+            end
             G.GAME.last_blind.boss = nil
             G.HUD_blind.alignment.offset.y = -10
             G.HUD_blind:recalculate(false)

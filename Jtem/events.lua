@@ -330,7 +330,7 @@ function Game:update_hpot_event_select(dt)
 	end
 end
 
-function create_UIBox_hpot_event_choice(domain_key, index)
+function create_UIBox_hpot_event_choice(domain_key, index, total)
 	local disabled = false
 	local run_info = false
 
@@ -571,9 +571,70 @@ function create_UIBox_hpot_event_choice(domain_key, index)
 					},
 				},
 			},
+			index == total and {
+				n = G.UIT.R,
+				config = {
+					align = "cm",
+					minh = 2,
+					maxh = 2
+				},
+			} or nil,
+			index == total and {
+				n = G.UIT.R,
+				config = {
+					align = "cm",
+					minh = 0.6,
+					maxh = 0.6
+				},
+				nodes = {
+					{
+						n = G.UIT.C,
+						config = {
+							align = "cm",
+							minw = 2.3,
+							maxw = 2.3
+						},
+					},
+					{
+						n = G.UIT.C,
+						config = {
+							align = "cm",
+							colour = G.C.RED,
+							r = 0.01,
+							outline = 1,
+							outline_colour = G.C.WHITE,
+							minw = 0.5,
+							maxw = 0.5,
+							minh = 0.5,
+							maxh = 0.5,
+							button = "hpot_event_tutorial",
+							hover = true,
+							shadow = true,
+						},
+						nodes = {
+							{
+								n = G.UIT.T,
+								config = { text = "?", colour = G.C.UI.TEXT_LIGHT, scale = 0.35 }
+							}
+						}
+					},
+				}
+			} or nil,
+			index == total and {
+				n = G.UIT.R,
+				config = {
+					align = "cm",
+					minh = 0.1,
+					maxh = 0.1
+				},
+			} or nil,
 		},
 	}
 	return t
+end
+
+G.FUNCS.hpot_event_tutorial = function(e)
+	G.FUNCS.hotpot_info { menu_type = "hotpot_events" }
 end
 
 function create_UIBox_hpot_event_select()
@@ -602,7 +663,7 @@ function create_UIBox_hpot_event_select()
 				config = { align = "cm", colour = G.C.CLEAR },
 				nodes = {
 					UIBox_dyn_container(
-						{ create_UIBox_hpot_event_choice(domain_key, i) },
+						{ create_UIBox_hpot_event_choice(domain_key, i, choice_count), },
 						false,
 						blind_col,
 						mix_colours(G.C.BLACK, blind_col, 0.8)
