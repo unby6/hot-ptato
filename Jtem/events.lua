@@ -198,16 +198,25 @@ HotPotato.custom_collection_tabs = function()
 	}
 end
 
-local function event_collection_ui()
-	return SMODS.card_collection_UIBox(G.P_CENTER_POOLS.EventScenarios, { 5, 5 }, {
+local function event_collection_ui(e)
+	local chosen = (e.config.ref_table or {}).key or "occurence"
+	local pool = {}
+
+	for _, event in ipairs(G.P_CENTER_POOLS.EventScenarios) do
+		if event.domains and event.domains[chosen] then
+			pool[#pool + 1] = event
+		end
+	end
+
+	return SMODS.card_collection_UIBox(pool, { 5, 5 }, {
 		snap_back = true,
 		hide_single_page = true,
 		collapse_single_page = true,
 		center = 'c_base',
 		h_mod = 1.18,
-		back_func = 'your_collection_other_gameobjects',
+		back_func = 'your_collection_hpot_events',
 		infotip = {
-			"Events are encountered after the Small Blind shop"
+			"Events are encountered after the Boss Blind shop"
 		},
 		modify_card = function(card, center)
 			local temp_blind = AnimatedSprite(card.children.center.T.x, card.children.center.T.y, 1.3, 1.3,
@@ -239,7 +248,14 @@ end
 G.FUNCS.your_collection_hpot_events = function()
 	G.SETTINGS.paused = true
 	G.FUNCS.overlay_menu {
-		definition = event_collection_ui()
+		definition = event_collection_domains_ui()
+	}
+end
+
+G.FUNCS.your_collection_hpot_events_domain = function(e)
+	G.SETTINGS.paused = true
+	G.FUNCS.overlay_menu {
+		definition = event_collection_ui(e)
 	}
 end
 
