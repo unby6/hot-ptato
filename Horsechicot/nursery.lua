@@ -508,30 +508,18 @@ function Horsechicot.breed(mother_center, father_center)
     G.GAME.breeding_rounds_passed = 0
 end
 
-local old = Card.generate_UIBox_ability_table
-function Card:generate_UIBox_ability_table()
-    if self and self.ability and self.ability.mother then
-        G.FLAG_MOTHER = true
-    end
-    local tbl = old(self)
-    return tbl
-end
-
 local old = generate_card_ui
-function generate_card_ui(_c, uit, ...)
-    if G.FLAG_MOTHER then
-        G.FLAG_MOTHER = false
-        local ret = old(_c, uit, ...)
+function generate_card_ui(card, uitable, ...)
+    local tbl = old(card, uitable, ...)
+    if card and card.ability and card.ability.mother then
         generate_card_ui({
             set = "Other",
             key = "hp_hc_mother"
-        }, ret, {
-           (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rounds_passed
+        }, uitable, {
+           (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rouns_passed
         })
-        return ret
-    else
-        return old(_c, uit, ...)
     end
+    return tbl
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
@@ -564,7 +552,7 @@ function end_round()
                         edition = G.GAME.child_prio and G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
 
                     --setting child abilities
-                    card.ability.name = 'Baby ' .. G.GAME.child_prio.ability.name
+                    card.ability.name = 'Baby ' .. G.GAME.child_prio.config.center.name
                     card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
                     card:set_cost()
 

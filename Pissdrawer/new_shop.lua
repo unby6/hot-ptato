@@ -172,7 +172,7 @@ G.FUNCS.toggle_shop_tab = function(e)
 end
 
 G.FUNCS.open_exchange = function(e)
-    print('open currency exchange page')
+    print('open currency exchange page; NOT FINISHED!!!')
     PissDrawer.Shop.change_shop_sign("hpot_pissdrawer_shop_sign_currency")
 end
 
