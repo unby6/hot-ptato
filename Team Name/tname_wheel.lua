@@ -260,8 +260,8 @@ SMODS.Arrow = SMODS.Joker:extend({ -- the arrow thingy
 	required_params = {
 		"key",
 	},
-  in_pool = function(...)
-    return false
+  in_pool = function(self, args)
+    return args and args.source == "hpot_arrows"
   end,
   no_doe = true,
     inject = function(self)
@@ -358,7 +358,7 @@ function set_wheel(no_arrow, vval_only)
   G.GAME.should_rotate = true
 if not vval_only then
 	if not no_arrow and (G.wheel_area5 and #G.wheel_area5.cards == 0) then
-    local k = pseudorandom_element(Wheel.ARROWS).key
+    local k = pseudorandom_element(Wheel.ARROWS, "hpot_arrows", {source = "hpot_arrows"}).key
 		local card = SMODS.add_card({ key = k, area = G.wheel_area5 })
 		card.no_ui = true
 	end
@@ -483,7 +483,7 @@ function generate_wheel_rewards(_area)
 	for rarity, amount in pairs(G.GAME.plinko_rewards) do
 		rarities[#rarities + 1] = rarity
 	end
-	local rarity = pseudorandom_element(rarities)
+	local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
 	local card = SMODS.create_card({
 		set = "bottlecap_" .. rarity,
 		rarity = rarity,
