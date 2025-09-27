@@ -17,7 +17,7 @@ SMODS.Back {
 
 local ref = create_ads
 function create_ads(e)
-    if G.GAME.ad_blocker <= 0 then
+    if (not G.GAME.ad_blocker) or G.GAME.ad_blocker <= 0 then
         return ref(e)
     end
 end

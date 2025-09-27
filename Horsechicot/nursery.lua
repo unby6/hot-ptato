@@ -326,7 +326,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                             config = { align = "cm", r = 0.2 },
                             nodes = {
                                 UIBox_button {
-                                    label = { "Cancel" },
+                                    label = { "Abort" },
                                     colour = G.C.ETERNAL,
                                     scale = 0.4,
                                     minh = 0.6,
@@ -506,6 +506,20 @@ function Horsechicot.breed(mother_center, father_center)
     end
     G.GAME.active_breeding = true
     G.GAME.breeding_rounds_passed = 0
+end
+
+local old = generate_card_ui
+function generate_card_ui(card, uitable, ...)
+    local tbl = old(card, uitable, ...)
+    if card and card.ability and card.ability.mother then
+        generate_card_ui({
+            set = "Other",
+            key = "hp_hc_mother"
+        }, uitable, {
+           (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rouns_passed
+        })
+    end
+    return tbl
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
