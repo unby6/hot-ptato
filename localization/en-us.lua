@@ -2149,6 +2149,30 @@ return {
                     "{C:attention}#2#{} cards in your deck",
                     "{C:inactive}(Currently {C:red}+#3#{C:inactive} discard(s))"
                 }
+            },
+            j_hpot_blue_deck_joker = {
+                name = "Blue Deck Joker",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "gain {C:blue}+#1#{} hand for every",
+                    "{C:attention}#2#{} cards in your deck",
+                    "{C:inactive}(Currently {C:blue}+#3#{C:inactive} hand(s))"
+                }
+            },
+            j_hpot_yellow_deck_joker = {
+                name = "Yellow Deck Joker",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "earn {C:money}$#1#{} for every",
+                    "{C:attention}#2#{} cards in your deck",
+                    "{C:inactive}(Currently {C:money}$#3#{C:inactive})"
+                }
+            },
+            j_hpot_vremade_joker = {
+                name = "vremade_Joker",
+                text = {
+                    "{C:red,s:1.1}+#1#{} Mult"
+                }
             }
         },
         Enhanced = {
@@ -3234,6 +3258,18 @@ return {
                 name = "Respite",
                 text = {
                     "The calm before the storm"
+                }
+            },
+            hpot_event_encounter_aroombetween = {
+                name = "A Room Between...",
+                text = {
+                    "There is a room between...",
+                }
+            },
+            hpot_event_encounter_swoon = {
+                name = "SUPER Bonus!",
+                text = {
+                    "Get something awesome!",
                 }
             },
             hpot_jtem_mood_depressed = {
@@ -4411,6 +4447,48 @@ return {
                         },
                         {
                             "{E:2,C:dark_edition}Pretty cool right? :3{}"
+                        }
+                    }
+                },
+            },
+        },
+        hotpot_events = {
+            name = "Events",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "Experience all different kinds of random events where",
+                            "your choices influence the outcome! (Somewhat)",
+                        },
+                        {
+                            "After a {C:attention}Boss Blind{}'s shop you get a choice",
+                            "between 2 {C:attention}Event types{} that can have different kinds of events"
+                        },
+                        {
+                            "Some items can increase the amount of Event type choices,",
+                            "make rare Events more common or make events more frequent"
+                        },
+                    }
+                },
+                {
+                    name = "Event Types",
+                    text = {
+                        {
+                            "{C:hpot_event_occurence}Occurence{}: Random events with varying effects",
+                            "{C:hpot_event_reward}Rewards{}: Random events with good prizes",
+                            "{C:hpot_event_wealth}Wealth{}: Random events that reward you with currency",
+                            "{C:hpot_event_escapade}Escapade{}: Random events with powerful effects {C:inactive}(Up to once per run){}",
+                        },
+                        {
+                            "{C:hpot_event_combat}Combat{}: Face an extra {C:attention}Big Blind{} with added challenge for a small reward",
+                            "{C:hpot_event_encounter}Encounter{}: Face an extra {C:attention}Boss Blind{} with added challenge for a big reward",
+                            "{C:hpot_event_adventure}Adventure{}: Face a minigame for a random reward",
+                        },
+                        {
+                            "{C:hpot_event_transaction}Transaction{}: Extra shop with special offers and a currency exchange",
+                            "{C:hpot_event_respite}Respite{}: Guaranteed special {C:hpot_event_transaction}Transaction{} Event before the final Blind",
                         }
                     }
                 },

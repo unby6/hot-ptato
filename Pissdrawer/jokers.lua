@@ -3,11 +3,11 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     atlas = "pdr_joker",
-    pos = { x = 0, y = 0 },
+    pos = { x = 4, y = 1 },
     hotpot_credits = {
-        art = { 'SDM_0' },
-        code = { 'SDM_0' },
         idea = { 'SDM_0' },
+        art = { 'Tacashumi' },
+        code = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
@@ -44,9 +44,9 @@ SMODS.Joker {
     atlas = "pdr_joker",
     pos = { x = 0, y = 0 },
     hotpot_credits = {
+        idea = { 'fey <3' },
         art = { 'SDM_0' },
         code = { 'fey <3' },
-        idea = { 'fey <3' },
         team = { 'Pissdrawer' }
     },
     add_to_deck = function(self, card)
@@ -71,9 +71,9 @@ SMODS.Joker {
         return { vars = { card.ability.extra.xmult } }
     end,
     hotpot_credits = {
+        idea = { 'SDM_0' },
         art = { 'deadbeet' },
         code = { 'SDM_0' },
-        idea = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
@@ -186,9 +186,9 @@ SMODS.Joker {
         }
     },
     hotpot_credits = {
+        idea = { 'deadbeet' },
         art = { 'deadbeet' },
         code = { 'deadbeet' },
-        idea = { 'deadbeet' },
         team = { 'Pissdrawer' }
     },
     unlocked = true,
@@ -263,9 +263,9 @@ SMODS.Joker {
         'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
     } },
     hotpot_credits = {
+        idea = { 'Tacashumi' },
         art = { 'Tacashumi' },
         code = { 'fey <3' },
-        idea = { 'Tacashumi' },
         team = { 'Pissdrawer' }
     },
     config = { extra = { chips = 10 } },
@@ -300,9 +300,9 @@ SMODS.Joker {
         return { vars = { math.floor(100 / card.ability.extra) } }
     end,
     hotpot_credits = {
+        idea = { 'SDM_0' },
         art = { 'SDM_0' },
         code = { 'SDM_0' },
-        idea = { 'SDM_0' },
         team = { 'Pissdrawer' }
     },
     add_to_deck = function(self, card, from_debuff)
@@ -341,6 +341,7 @@ SMODS.Joker {
         text = { { "Happy Birthday, N'!" }, { 'Where would Jujutsu', 'Jokers be without you...' } }
     },
     hotpot_credits = {
+        idea = { "deadbeet" },
         art = { "deadbeet" },
         code = { "deadbeet" },
         team = { "Pissdrawer" }
@@ -367,6 +368,7 @@ SMODS.Joker {
     key = 'child',
     rarity = 'hpot_child',
     hotpot_credits = {
+        idea = { "fey <3" },
         code = { "fey <3" },
         team = { "Pissdrawer" }
     },
@@ -463,6 +465,30 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
+    key = "vremade_joker",
+    hotpot_credits = {
+        idea = { "N'" },
+        art = { "LocalThunk" },
+        code = { "N'" },
+        team = { "Pissdrawer" }
+    },
+    rarity = 1,
+    blueprint_compat = true,
+    cost = 2,
+    config = { extra = { mult = 4 }, },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+
+SMODS.Joker {
     key = "smods",
     hotpot_credits = {
         idea = { "Eremel" },
@@ -504,6 +530,70 @@ SMODS.Joker {
                     local discards = card.ability.extra.discards * (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if discards > 0 then
                         ease_discard(discards, nil, true)
+                    end
+                    return true
+                end
+            }))
+            return nil, true
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "blue_deck_joker",
+    hotpot_credits = {
+        idea = { "Tacashumi" },
+        art = { "SDM_0" },
+        code = { "SDM_0" },
+        team = { "Pissdrawer" }
+    },
+    config = { extra = { hands = 1, cards_req = 20 } },
+    loc_vars = function(self, info_queue, card)
+        local hands = card.ability.extra.hands * (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+        return { vars = { card.ability.extra.hands, card.ability.extra.cards_req, hands } }
+    end,
+    atlas = "pdr_joker",
+    pos = { x = 6, y = 1 },
+    rarity = 2,
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local hands = card.ability.extra.hands * (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    if hands > 0 then
+                        ease_hands_played(hands)
+                    end
+                    return true
+                end
+            }))
+            return nil, true
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "yellow_deck_joker",
+    hotpot_credits = {
+        idea = { "Tacashumi" },
+        art = { "SDM_0" },
+        code = { "SDM_0" },
+        team = { "Pissdrawer" }
+    },
+    config = { extra = { dollars = 3, cards_req = 20 } },
+    loc_vars = function(self, info_queue, card)
+        local dollars = card.ability.extra.dollars * (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+        return { vars = { card.ability.extra.dollars, card.ability.extra.cards_req, dollars } }
+    end,
+    atlas = "pdr_joker",
+    pos = { x = 7, y = 1 },
+    rarity = 2,
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local dollars = card.ability.extra.dollars * (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    if dollars > 0 then
+                        ease_dollars(dollars)
                     end
                     return true
                 end

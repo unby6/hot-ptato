@@ -2418,12 +2418,46 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_n",
 	hide_hand = true,
+	loc_txt = {
+		text = {
+			"After some rounds N' gets tired and makes your Joker for you",
+			"(Check deliveries)"
+		}
+	},
 	get_choices = function()
 		return {
 			moveon()
 		}
 	end,
 	start = function(self, event)
+		local _pool, _pool_key = get_current_pool("Joker")
+		local _t2 = {}
+		for _, v in ipairs(_pool) do
+			if v ~= "UNAVAILABLE" and not G.P_CENTERS[v].original_mod then
+				table.insert(_t2, v)
+			end
+		end
+		local amount = event.ability.from_bepis and 2 or 1
+		for i = 1, amount do
+			local center_key, index = pseudorandom_element(_t2, _pool_key)
+			if center_key then
+				local delivery_table = {
+					key = center_key,
+					rounds_passed = 0,
+					rounds_total = 3,
+					price = 0,
+					currency = "dollars",
+					extras = {},
+					create_card_args = {},
+				}
+				G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
+				table.insert(G.GAME.hp_jtem_delivery_queue, delivery_table)
+				if G.hp_jtem_delivery_queue then
+					hotpot_delivery_refresh_card()
+				end
+			end
+			table.remove(_t2, index)
+		end
 	end,
 	finish = function(self, event)
 	end
@@ -2435,7 +2469,7 @@ HotPotato.EventStep {
 	loc_txt = {
 		text = {
 			"Eremel asks you to check the latest SMODS release",
-			"(if you have enough space that is)"
+			"(Check deliveries)"
 		}
 	},
 	get_choices = function()
@@ -2444,8 +2478,22 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-		if G.jokers.config.card_count < G.jokers.config.card_limit then
-			SMODS.add_card({ key = "j_hpot_smods" })
+		local amount = event.ability.from_bepis and 2 or 1
+		for i = 1, amount do
+			local delivery_table = {
+				key = "j_hpot_smods",
+				rounds_passed = 0,
+				rounds_total = 1,
+				price = 0,
+				currency = "dollars",
+				extras = {},
+				create_card_args = {},
+			}
+			G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
+			table.insert(G.GAME.hp_jtem_delivery_queue, delivery_table)
+			if G.hp_jtem_delivery_queue then
+				hotpot_delivery_refresh_card()
+			end
 		end
 	end,
 	finish = function(self, event)
@@ -2508,9 +2556,16 @@ HotPotato.EventStep {
 			"and tells you to ask N'",
 		}
 	},
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
-			moveon()
+			{
+				key = "hpot_tech_support_ask_n",
+				no_prefix = true,
+				button = function()
+					event.ability.from_bepis = true
+					event.start_step("hpot_tech_support_ask_n")
+				end
+			},
 		}
 	end,
 	start = function(self, event)
@@ -2528,9 +2583,16 @@ HotPotato.EventStep {
 			"and tells you to ask Eremel",
 		}
 	},
-	get_choices = function()
+	get_choices = function(self, event)
 		return {
-			moveon()
+			{
+				key = "hpot_tech_support_ask_eremel",
+				no_prefix = true,
+				button = function()
+					event.ability.from_bepis = true
+					event.start_step("hpot_tech_support_ask_eremel")
+				end
+			},
 		}
 	end,
 	start = function(self, event)
@@ -2599,7 +2661,7 @@ HotPotato.EventStep {
 HotPotato.EventStep {
 	key = "hpot_tech_support_ask_tacashumi",
 	hide_hand = true,
-		loc_txt = {
+	loc_txt = {
 		text = {
 			"Tacashumi is too busy at work to answer you",
 			"",
@@ -4456,6 +4518,11 @@ HotPotato.CombatEvents.generic = {
 						debuff = true
 					}
 				end
+				if effect.debuff.rank and context.debuff_card.base.value == effect.debuff.rank then
+					return {
+						debuff = true
+					}
+				end
 			end
 		end
 
@@ -4772,6 +4839,25 @@ local hpot_event_get_random_combat_effect = function(seed)
 		{ flipped = { played_this_ante = true },                     text = "but all cards played this ante are drawn facedown" },
 		{ flipped = { first_hand = true },                           text = "but first hand is drawn facedown" },
 		{ base_score_halved = true,                                  text = "but base Chips and Mult are halved" },
+	}
+
+	local rank_counts = {}
+	for _, pcard in ipairs(G.playing_cards) do
+		if not SMODS.has_no_rank(pcard) then
+			rank_counts[pcard.base.value] = (rank_counts[pcard.base.value] or 0) + 1
+		end
+	end
+	local min_rank, rank_key = 0, "King"
+	for key, value in pairs(rank_counts) do
+		if value >= min_rank then
+			rank_key = key
+			min_rank = value
+		end
+	end
+
+	effects[#effects + 1] = {
+		debuff = { rank = rank_key },
+		text = "but all " .. localize(rank_key, "ranks") .. " are debuffed"
 	}
 
 	local chosen_effect = pseudorandom_element(effects, seed or "hpot_event_combat_effect")
@@ -5197,8 +5283,8 @@ HotPotato.EventStep {
 				G.GAME.BJ_CARDS.DEALER = G.GAME.BJ_CARDS.DEALER_CARDS[1].base.nominal +
 					G.GAME.BJ_CARDS.DEALER_CARDS[2].base.nominal
 				G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
-				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 9.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9
-				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 11.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
+				G.GAME.BJ_CARDS.DEALER_CARDS[1].T.x = 12.52; G.GAME.BJ_CARDS.DEALER_CARDS[1].T.y = 3.9
+				G.GAME.BJ_CARDS.DEALER_CARDS[2].T.x = 14.52; G.GAME.BJ_CARDS.DEALER_CARDS[2].T.y = 3.9
 				return true
 			end
 		}))
@@ -5265,6 +5351,8 @@ HotPotato.EventStep {
 	key = "hpot_bj_eval",
 	hide_hand = false,
 	start = function(self, event)
+		event.ability.won = nil
+		event.ability.final_money = 0
 		G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
 		local count = 0
 		for i, v in ipairs(G.hand.cards) do
@@ -5279,6 +5367,8 @@ HotPotato.EventStep {
 		if G.GAME.BJ_CARDS.TOTAL <= 21 and G.GAME.BJ_CARDS.TOTAL > G.GAME.BJ_CARDS.DEALER then
 			G.GAME.BJ_CARDS.WON = true
 			G.GAME.BJ_CARDS.FINAL_MONEY = G.GAME.BJ_CARDS.MONEY * 2
+			event.ability.won = G.GAME.BJ_CARDS.WON
+			event.ability.final_money = G.GAME.BJ_CARDS.FINAL_MONEY
 		end
 		event.start_step("hpot_bj_final")
 	end
@@ -5308,12 +5398,10 @@ HotPotato.EventStep {
 			}
 		}
 	end,
-	loc_vars = function(self)
+	loc_vars = function(self, event)
 		return {
-			vars = {
-				G.GAME.BJ_CARDS.WON and 'won' or 'lost',
-				G.GAME.BJ_CARDS.FINAL_MONEY
-			}
+			event.ability.won and 'won' or 'lost',
+			event.ability.final_money
 		}
 	end,
 	finish = function(self, event)
@@ -5324,6 +5412,7 @@ HotPotato.EventStep {
 
 				G.hand:change_size(G.GAME.BJ_CARDS.HANDSIZE - 2)
 				G.GAME.BJ_CARDS.HANDSIZE = nil
+				G.GAME.BJ_CARDS.DEALER_CARDS = nil
 				return true
 			end
 		}))
@@ -5992,6 +6081,17 @@ HotPotato.EventStep {
 }
 
 --#region Well, there is a man here.
+SMODS.Sound {
+	key = "music_man",
+	path = "music_man.ogg",
+	pitch = 1,
+	select_music_track = function(self)
+		if G.hpot_event and G.hpot_event.scenario.key == "hpot_man_ogg" then
+			return 1666
+		end
+	end
+}
+
 HotPotato.EventScenario {
 	key = "man_ogg",
 	loc_txt = {
@@ -6010,14 +6110,14 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-	key = "hpot_egg_room_start",
+	key = "egg_room_start",
 	loc_txt = {
 		text = {
 			"Well, there is a man here."
 		},
 		choices = {
 			egg = "Yes",
-			leave = "No"
+			eggnt = "No"
 		}
 	},
 	get_choices = function(self, event)
@@ -6026,16 +6126,160 @@ HotPotato.EventStep {
 				key = "egg",
 				button = function()
 					SMODS.add_card({ key = "j_egg", edition = 'e_negative' })
+					hpot_event_end_scenario()
 				end
 			},
 			{
-				key = "leave",
+				key = "eggnt",
 				button = function()
 					hpot_event_end_scenario()
 				end
 			},
-			moveon()
 		}
 	end,
+	start = function(self, event)
+		ease_background_colour {
+			new_colour = darken(HEX("DE2041"), 0.2),
+			special_colour = G.C.BLACK,
+			contrast = 5
+		}
+	end,
+	finish = function(self, event)
+		ease_background_colour_blind(G.STATE, 'Small Blind')
+	end
+}
+--#endregion
+
+--#region SWOON.
+HotPotato.jokersthatcanspellkrisorliterallyarekris = {
+	"j_stencil",
+	"j_invisible",
+	"j_hpot_balatro_free_smods_download_2025",
+	"j_hpot_notajoker",
+	"j_hpot_nxkoodead",
+	"j_hpot_retriggered",
+	"j_hpot_labubu",
+	"j_hpot_jtem_special_week",
+	"j_hpot_sticker_master",
+	"j_hpot_sticker_dealer"
+}
+
+local drawhook = love.draw
+function love.draw()
+	drawhook()
+	function loadmyimageistg(fn)
+		local full_path = (HotPotato.path
+			.. "assets/customimages/" .. fn)
+		local file_data = assert(NFS.newFileData(full_path), ("Epic fail"))
+		local tempimagedata = assert(love.image.newImageData(file_data), ("Epic fail 2"))
+		--print ("LTFNI: Successfully loaded " .. fn)
+		return (assert(love.graphics.newImage(tempimagedata), ("Epic fail 3")))
+	end
+
+	local _xscale = love.graphics.getWidth() / 1920
+	local _yscale = love.graphics.getHeight() / 1080
+	-- SWOON screen
+	if G.swoon and (G.swoon > 0) then
+		if HotPotato.swooned == nil then HotPotato.swooned = loadmyimageistg("swoonslash.png") end
+		love.graphics.setColor(1, 1, 1, 1)
+		love.graphics.draw(HotPotato.swooned, 0 * _xscale * 2, 0 * _yscale * 2, 0, _xscale * 2 * 2, _yscale * 2 * 2)
+	end
+end
+
+local upd = Game.update
+function Game:update(dt)
+	upd(self, dt)
+
+	-- tick based events
+	if HotPotato.ticks == nil then HotPotato.ticks = 0 end
+	if HotPotato.dtcounter == nil then HotPotato.dtcounter = 0 end
+	HotPotato.dtcounter = HotPotato.dtcounter + dt
+	HotPotato.dt = dt
+
+	while HotPotato.dtcounter >= 0.010 do
+		HotPotato.ticks = HotPotato.ticks + 1
+		HotPotato.dtcounter = HotPotato.dtcounter - 0.010
+		if G.swoon and G.swoon > 0 then G.swoon = G.swoon - 1 end
+	end
+end
+
+SMODS.Sound {
+	key = "hpot_swoon",
+	path = "sfx_swoon.ogg",
+	pitch = 1,
+}
+
+HotPotato.EventScenario {
+	key = "swoon",
+	loc_txt = {
+		name = "Big Bonus!",
+		text = {
+			" "
+		}
+	},
+	domains = { swoon = true },
+	starting_step_key = "hpot_big_bonus_start",
+	hotpot_credits = {
+		code = { "deadbeet'" },
+		team = { "Pissdrawer" },
+	},
+
+}
+
+HotPotato.EventStep {
+	key = "big_bonus_start",
+	loc_txt = {
+		text = {
+			" "
+		},
+		choices = {
+			no = "Proceed."
+		}
+	},
+	get_choices = function(self, event)
+		return {
+			{
+				key = "no",
+				button = function()
+					hpot_event_end_scenario()
+				end
+			},
+		}
+	end,
+	start = function(self, event)
+		ease_background_colour {
+			new_colour = darken(G.C.BLACK, 0.2),
+			special_colour = G.C.BLACK,
+			contrast = 5
+		}
+		HotPotato.vol = G.SETTINGS.SOUND.music_volume
+		G.SETTINGS.SOUND.music_volume = 0
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			blocking = false,
+			func = (function()
+				G.swoon = 60 * G.SETTINGS.GAMESPEED
+				play_sound("hpot_swoon", 1, 1)
+				return true
+			end),
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = 1 * G.SETTINGS.GAMESPEED,
+				blocking = false,
+				func = (function()
+					for _, j in ipairs(G.jokers.cards) do
+						if not HotPotato.jokersthatcanspellkrisorliterallyarekris[j.label] then
+							SMODS.debuff_card(j, true, "swoon")
+						end
+					end
+					return true
+				end)
+			}))
+		}))
+	end,
+	finish = function(self, event)
+		ease_background_colour_blind(G.STATE, 'Small Blind')
+		G.SETTINGS.SOUND.music_volume = HotPotato.vol
+	end
 }
 --#endregion
