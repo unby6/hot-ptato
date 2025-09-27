@@ -5816,12 +5816,12 @@ HotPotato.EventStep {
 		choices = {
 			dollars = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$20{}",
 			spark = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:blue,f:hpot_plincoin}͸100k",
-			plincoins = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:hpot_plincoin,f:hpot_plincoin}$8",
-			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.800",
+			plincoins = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:hpot_plincoin,f:hpot_plincoin}$6",
+			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.600",
 			from_dollars = "{C:money}$30{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			from_spark = "{C:blue,f:hpot_plincoin}͸300k{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
-			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$6{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
-			from_credits = "{C:purple}c.600{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$8{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_credits = "{C:purple}c.800{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			trade_questions = "Sell Questions for {C:hpot_advert,f:hpot_plincoin}£10{}",
 			trade_emotions = "Sell Emotions for {C:hpot_advert,f:hpot_plincoin}£10{}"
 		}
@@ -5852,7 +5852,7 @@ HotPotato.EventStep {
 				key = "plincoins",
 				button = function()
 					ease_currency("crypto", -1)
-					ease_currency("plincoin", 8)
+					ease_currency("plincoin", 6)
 				end,
 				func = function()
 					return get_currency_amount("crypto") >= 1
@@ -5862,7 +5862,7 @@ HotPotato.EventStep {
 				key = "credits",
 				button = function()
 					ease_currency("crypto", -1)
-					ease_currency("credits", 800)
+					ease_currency("credits", 600)
 				end,
 				func = function()
 					return get_currency_amount("crypto") >= 1
@@ -5891,7 +5891,7 @@ HotPotato.EventStep {
 			{
 				key = "from_plincoins",
 				button = function()
-					ease_currency("plincoin", -6)
+					ease_currency("plincoin", -8)
 					ease_currency("crypto", 1)
 				end,
 				func = function()
@@ -5901,7 +5901,7 @@ HotPotato.EventStep {
 			{
 				key = "from_credits",
 				button = function()
-					ease_currency("credits", -600)
+					ease_currency("credits", -800)
 					ease_currency("crypto", 1)
 				end,
 				func = function()
