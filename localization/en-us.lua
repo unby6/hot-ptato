@@ -4418,6 +4418,69 @@ return {
         },
     },
     InfoMenu = {
+        hotpot_delivery = {
+            name = "Delivery",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "A mechanic inspired by {E:2,C:attention}delivery services{},",
+                            "which allows a client to receive",
+                            "{C:attention}various products{} from around the world",
+                        },
+                        {
+                            "You can spend {C:attention}various currencies{} to queue",
+                            "{C:attention}Jokers{}, receiving them after a few {C:attention}rounds{}",
+                        },
+                    }
+                },
+            },
+        },
+        hotpot_reforge = {
+            name = "Reforge",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "A mechanic inspired by Terraria's {E:2,C:attention}reforge{} system,",
+                            "which grants different {C:attention}traits{} to an item",
+                        },
+                        {
+                            "This mechanic requires specific",
+                            "{C:attention}vouchers{} or {C:attention}Joker{} to be used"
+                        },
+                        {
+                            "You can spend {C:attention}any currency{} to add",
+                            "a {C:attention}modification{} to a Joker",
+                        },
+                    }
+                },
+            },
+        },
+        hotpot_black_market = {
+            name = "Black Market",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "A mechanic inspired by world {E:2,C:attention}illegal markets{},",
+                            "which dwells in different {C:attention}shady deals{}",
+                        },
+                        {
+                            "You can spend {C:hpot_advert,f:hpot_plincoin}Cryptocurrency{}",
+                            "to purchase an {C:attention}item{}",
+                        },
+                        {
+                            "You can also sacrifice {C:attention}Jokers{}",
+                            "to earn {C:hpot_advert,f:hpot_plincoin}Cryptocurrency{}",
+                        },
+                    }
+                },
+            },
+        },
         hotpot_training = {
             name = "Joker Training",
             text = {
@@ -4436,18 +4499,6 @@ return {
                             "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
                             "the respective stats of the Joker if {C:green}Successful{}",
                         },
-                    }
-                },
-                {
-                    name = "Page 2",
-                    text = {
-                        {
-                            "This is how you add another {C:attention}page",
-                            "to the {C:attention}info menu{}",
-                        },
-                        {
-                            "{E:2,C:dark_edition}Pretty cool right? :3{}"
-                        }
                     }
                 },
             },
