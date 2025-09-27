@@ -326,7 +326,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                             config = { align = "cm", r = 0.2 },
                             nodes = {
                                 UIBox_button {
-                                    label = { "Cancel" },
+                                    label = { "Abort" },
                                     colour = G.C.ETERNAL,
                                     scale = 0.4,
                                     minh = 0.6,
@@ -488,7 +488,8 @@ G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother_center, father_center)
     if mother_center.key == 'j_hpot_loss' or father_center.key == 'j_hpot_loss' then
         local loss_card = mother_center.key == 'j_hpot_loss' and G.nursery_mother.cards[1] or G.nursery_father.cards[1]
-        G.GAME.child_prio = loss_card; G.GAME.child_sec = G.nursery_mother.cards[1] == loss_card and G.nursery_father.cards[1] or G.nursery_mother.cards[1]
+        G.GAME.child_prio = loss_card; G.GAME.child_sec = G.nursery_mother.cards[1] == loss_card and
+        G.nursery_father.cards[1] or G.nursery_mother.cards[1]
         G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
     else
         local poll = pseudorandom("hc_breed_result")
@@ -503,41 +504,22 @@ function Horsechicot.breed(mother_center, father_center)
             G.GAME.child_sec = G.nursery_mother.cards[1]
         end
     end
-    local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true, 
-        edition = G.GAME.child_prio and G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
-    card.states.visible = false
-
-    --setting child abilities
-    card.ability.name = 'Baby ' .. G.GAME.child_prio.ability.name
-    card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
-    card:set_cost()
-
-    card.ability.quantum = {}
-    card.ability.quantum[1] = Quantum({
-                fake_card = true,
-                card_to = card,
-                key = G.GAME.child_prio.config.center_key,
-                ability = copy_table(G.GAME.child_prio.ability),
-                config = {
-                    center = G.GAME.child_prio.config.center
-                },
-            })
-    card.ability.quantum[2] = Quantum({
-                fake_card = true,
-                card_to = card,
-                key = G.GAME.child_sec.config.center_key,
-                ability = copy_table(G.GAME.child_sec.ability),
-                config = {
-                    center = G.GAME.child_sec.config.center
-                },
-            })
-    card.ability.rarity = math.floor((mother_center.rarity + father_center.rarity) / 2)
-    update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
-    --make children smaller
-    card.T.scale = card.T.scale * 0.75
-    card.ability.is_nursery_smalled = true
     G.GAME.active_breeding = true
     G.GAME.breeding_rounds_passed = 0
+end
+
+local old = generate_card_ui
+function generate_card_ui(card, uitable, ...)
+    local tbl = old(card, uitable, ...)
+    if card and card.ability and card.ability.mother then
+        generate_card_ui({
+            set = "Other",
+            key = "hp_hc_mother"
+        }, uitable, {
+           (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rouns_passed
+        })
+    end
+    return tbl
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
@@ -547,11 +529,11 @@ function update_child_atlas(self, new_atlas, new_pos)
         self.children.front.states.click = self.states.click
         self.children.front.states.drag = self.states.drag
         self.children.front.states.collide.can = false
-        self.children.front:set_role({major = self, role_type = 'Glued', draw_major = self})
+        self.children.front:set_role({ major = self, role_type = 'Glued', draw_major = self })
     end
     self.children.front.sprite_pos = new_pos
     self.children.front.atlas.name = new_atlas and (new_atlas.key or new_atlas.name) or 'Joker'
-    self.children.front:reset() 
+    self.children.front:reset()
 end
 
 --pregnancy checks
@@ -565,6 +547,38 @@ function end_round()
                 if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
+
+                    local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true,
+                        edition = G.GAME.child_prio and G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
+
+                    --setting child abilities
+                    card.ability.name = 'Baby ' .. G.GAME.child_prio.ability.name
+                    card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
+                    card:set_cost()
+
+                    card.ability.quantum = {}
+                    card.ability.quantum[1] = Quantum({
+                        fake_card = true,
+                        card_to = card,
+                        key = G.GAME.child_prio.config.center_key,
+                        ability = copy_table(G.GAME.child_prio.ability),
+                        config = {
+                            center = G.GAME.child_prio.config.center
+                        },
+                    })
+                    card.ability.quantum[2] = Quantum({
+                        fake_card = true,
+                        card_to = card,
+                        key = G.GAME.child_sec.config.center_key,
+                        ability = copy_table(G.GAME.child_sec.ability),
+                        config = {
+                            center = G.GAME.child_sec.config.center
+                        },
+                    })
+                    update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
+                    --make children smaller
+                    card.T.scale = card.T.scale * 0.75
+                    card.ability.is_nursery_smalled = true
 
                     local mom, dad = G.nursery_mother.cards[1], nil
                     G.nursery_mother.cards[1].ability.mother = nil
