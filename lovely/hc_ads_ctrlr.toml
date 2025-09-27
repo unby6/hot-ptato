@@ -12,10 +12,10 @@ if self.hovering.target and self.hovering.target:is(Card) then
 position = "before"
 payload = '''
 do
-	local isAd = controller.hovering.target and controller.hovering.target.config and controller.hovering.target.config.ad
+	local isAd = self.hovering.target and self.hovering.target.config and self.hovering.target.config.ad
 	if isAd then
 		if key == "r" then
-		   G.FUNCS.remove_ad(controller.hovering.target.config.id)
+		   G.FUNCS.remove_ad(self.hovering.target.config.id)
 		end
 	end
 end
