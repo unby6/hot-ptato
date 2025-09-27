@@ -40,7 +40,7 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 - RGBeet
 - basil_squared
 
-### The four horsechicots of the potatocalypse - Week 6
+### The four horsechicots of the potatolypse - Week 6
 - lord.ruby
 - nxkoo
 - Lily Felli
