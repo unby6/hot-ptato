@@ -35,7 +35,6 @@ SMODS.Joker {
         local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
         local compatible2 = other_joker2 and other_joker2 ~= card and other_joker2.config.center.blueprint_compat
         local none = not jokers[1]
-        local none2 = not jokers[#jokers]
         local main_end = {
             {
                 n = G.UIT.C,

@@ -76,10 +76,8 @@ function ease_cryptocurrency(plink, instant)
     local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
     mod = mod or 0
     local text = '+£'
-    local col = G.C.MONEY
     if mod < 0 then
       text = '-£'
-      col = G.C.RED
     end
 
     G.GAME.cryptocurrency = G.GAME.cryptocurrency + plink
@@ -127,7 +125,6 @@ G.FUNCS.reroll_market = function(e)
   stop_use()
   G.CONTROLLER.locks.shop_reroll = true
   if G.CONTROLLER:save_cardarea_focus('market_jokers') then G.CONTROLLER.interrupt.focus = true end
-  local market_reroll_cost = G.GAME.current_round.market_reroll_cost
   if G.GAME.current_round.market_reroll_cost > 0 then
     ease_cryptocurrency(-G.GAME.current_round.market_reroll_cost)
   end

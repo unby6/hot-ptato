@@ -194,7 +194,6 @@ function HotPotato.manipulate_value(num, args, is_big, name)
 		num = args.func(num, args, is_big, name)
 	else
 		if args.min and args.max then
-			local new_args = args
 			local big_min = (args.min)
 			local big_max = (args.max)
 			local new_value = HotPotato.log_random(

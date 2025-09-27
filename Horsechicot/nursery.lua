@@ -595,7 +595,6 @@ function end_round()
                     card.T.scale = card.T.scale * 0.75
                     card.ability.is_nursery_smalled = true
 
-                    local mom, dad = G.nursery_mother.cards[1], nil
                     G.nursery_mother.cards[1].ability.mother = nil
                 end
             end
