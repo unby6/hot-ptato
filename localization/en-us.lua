@@ -2915,6 +2915,13 @@ return {
                 }
             },
 
+            hp_hc_mother = {
+                name = "{C:hpot_pink}Mother",
+                text = {
+                    "{C:attention}#1#{} rounds left before birth"
+                }
+            },
+
             --Apocalypse comments
             hc_ruby_apocalypse = {
                 name = "Ruby's Comment :",
