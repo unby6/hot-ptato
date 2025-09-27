@@ -7,6 +7,7 @@ SMODS.Consumable {
     discovered = true,
     loc_vars = function(self, info_queue, card)
         -- commenting this because they didnt add a plural key and i need the field :p -N'
+        -- I'm bringing back the plural part and just putting it at the end. -UnusedParadox
         local key = self.key
         -- if (G.GAME.max_highlighted_mod or 0) > 0 then
         --     key = key .. "_p"
@@ -20,7 +21,10 @@ SMODS.Consumable {
             end
             key = key .. (JoyousSpring and "_joy" or "").. (PTASaka and "_pta" or "")
         end
-        return { key = key, vars = { math.max(1, card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)), numerator, denominator, colours = {HEX('800058')}} }
+        if (G.GAME.max_highlighted_mod or 0) > 0 then
+            key = key .. "_p"
+        end
+        return { key = key, vars = { card.ability.max_highlighted, numerator, denominator, colours = {HEX('800058')}} }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({

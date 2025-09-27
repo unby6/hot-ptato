@@ -12,14 +12,3 @@ payload = '''
 init_sillyposting(self.GAME)
 '''
 match_indent = true
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-position = 'at'
-pattern = '''
-if self.ability.consumeable.mod_num >= #G.hand.highlighted and #G.hand.highlighted >= (self.ability.consumeable.min_highlighted or 1) then
-'''
-payload = '''
-if (self.ability.consumeable.mod_num + G.GAME.max_highlighted_mod) >= #G.hand.highlighted and #G.hand.highlighted >= (self.ability.consumeable.min_highlighted or 1) then
-'''
-match_indent = true
