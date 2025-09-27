@@ -4,7 +4,7 @@ SMODS.Back {
     atlas = 'pdr_decks',
     pos = { x = 1, y = 0 },
     discovered = true,
-    apply = function(self,back)
+    apply = function(self, back)
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
@@ -24,8 +24,8 @@ end
 
 local start_run_old = Game.start_run
 function Game:start_run(args)
-	start_run_old(self, args)
-	if args and args.savetext and args.savetext.ad_blocker then
+    start_run_old(self, args)
+    if args and args.savetext and args.savetext.ad_blocker then
         self.GAME.ad_blocker = args.savetext.ad_blocker
     elseif not args.savetext then
         self.GAME.ad_blocker = 0
@@ -121,7 +121,7 @@ SMODS.Back {
             if SMODS.has_enhancement(context.other_card, 'm_stone') then
                 if context.other_card.edition.key == 'e_polychrome' then
                     context.other_card.ability.perma_h_x_mult = context.other_card.ability.perma_h_x_mult +
-                        (xmystery / 20)
+                        (xmystery / 25)
                 else
                     context.other_card.ability.perma_h_x_chips = context.other_card.ability.perma_h_x_chips +
                         (xmystery / 10)
