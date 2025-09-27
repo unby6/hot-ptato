@@ -114,21 +114,6 @@ function hotpot_create_info_UI(args)
                             {n = G.UIT.C, config = {align = "cr", colour = G.C.CLEAR}, nodes = {
                                 create_toggle({label = localize("hotpot_first_time_disable"), ref_table = G.PROFILES[G.SETTINGS.profile].first_time_disable, ref_value = menu_type, callback = function() end }),
                             }},
-                            {n = G.UIT.C, config = {align = "cm", minw = 0.5, minh = 0.5, maxh = 0.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.BLACK, shadow = true, button = "hotpot_previous_info_page", menu_type = menu_type, page = page, max_page = (#(loc.text or {}) or 1)}, nodes = {
-                                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-                                    {n = G.UIT.T, config = {text = "<", scale = 0.4, colour = G.C.UI.TEXT_LIGHT}}
-                                }}
-                            }},
-                            {n = G.UIT.C, config = {align = "cm", minw = 0.5, minh = 0.5, maxh = 0.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.BLACK, shadow = true}, nodes = {
-                                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-                                    {n = G.UIT.T, config = {text = localize("k_page").." "..page.."/"..(#(loc.text or {}) or 1), scale = 0.4, colour = G.C.UI.TEXT_LIGHT}}
-                                }}
-                            }}, 
-                            {n = G.UIT.C, config = {align = "cm", minw = 0.5, minh = 0.5, maxh = 0.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.BLACK, shadow = true, button = "hotpot_next_info_page", menu_type = menu_type, page = page, max_page = (#(loc.text or {}) or 1)}, nodes = {
-                                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-                                    {n = G.UIT.T, config = {text = ">", scale = 0.4, colour = G.C.UI.TEXT_LIGHT}}
-                                }}
-                            }},
                         }},
                         {n = G.UIT.R, config = {align = "cm", minh = 0.1}}
                     }},
@@ -144,6 +129,28 @@ function hotpot_create_info_UI(args)
             }},
         }},
     }}
+    if loc and loc.text and #loc.text > 1 then
+        local pages = {
+            {n = G.UIT.C, config = {align = "cm", minw = 0.5, minh = 0.5, maxh = 0.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.BLACK, shadow = true, button = "hotpot_previous_info_page", menu_type = menu_type, page = page, max_page = (#(loc.text or {}) or 1)}, nodes = {
+                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+                    {n = G.UIT.T, config = {text = "<", scale = 0.4, colour = G.C.UI.TEXT_LIGHT}}
+                }}
+            }},
+            {n = G.UIT.C, config = {align = "cm", minw = 0.5, minh = 0.5, maxh = 0.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.BLACK, shadow = true}, nodes = {
+                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+                    {n = G.UIT.T, config = {text = localize("k_page").." "..page.."/"..(#(loc.text or {}) or 1), scale = 0.4, colour = G.C.UI.TEXT_LIGHT}}
+                }}
+            }}, 
+            {n = G.UIT.C, config = {align = "cm", minw = 0.5, minh = 0.5, maxh = 0.5, padding = 0.1, r = 0.1, hover = true, colour = G.C.BLACK, shadow = true, button = "hotpot_next_info_page", menu_type = menu_type, page = page, max_page = (#(loc.text or {}) or 1)}, nodes = {
+                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+                    {n = G.UIT.T, config = {text = ">", scale = 0.4, colour = G.C.UI.TEXT_LIGHT}}
+                }}
+            }},
+        }
+        for _,v in ipairs(pages) do
+            ret.nodes[1].nodes[1].nodes[1].nodes[1].nodes[4].nodes[#ret.nodes[1].nodes[1].nodes[1].nodes[1].nodes[4].nodes+1] = v
+        end
+    end
 
     return ret
 end

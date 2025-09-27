@@ -68,7 +68,7 @@ target = 'game.lua'
 position = 'after'
 pattern = "ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, 2.3)"
 payload = '''
-if Splash_text_type == 'str' then ease_splash_text(0.1) end
+if Splash_text_type == 'str' then ease_splash_text(0.1) else rotate_image(G.SPLASH_TEXT) end
 '''
 match_indent = true
 
@@ -78,7 +78,7 @@ target = 'game.lua'
 position = 'after'
 pattern = "ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, change_context == 'splash' and 2.3 or 0.9)"
 payload = '''
-if Splash_text_type == 'str' then ease_splash_text(0.1) end
+if Splash_text_type == 'str' then ease_splash_text(0.1) else rotate_image(G.SPLASH_TEXT) end
 '''
 match_indent = true
 
