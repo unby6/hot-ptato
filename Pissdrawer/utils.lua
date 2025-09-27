@@ -7,16 +7,16 @@ end
 
 function create_UIBox_teams()
     local leftside_nodes = {
-        UIBox_button({button = 'collection_pdr', label = {'Piss Drawer'}, minw = 5, colour = HEX('b8860b')}),
-        UIBox_button({button = 'your_collection_teams', label = {'O!AP'}, minw = 5, colour = HEX('80f1c3')}),
-        UIBox_button({button = 'your_collection_teams', label = {'Team Name'}, minw = 5, colour = HEX('fdd48e')}),
-        UIBox_button({button = 'your_collection_teams', label = {'Horse Chicot'}, minw = 5, colour = HEX('fd5f55')}),
+        UIBox_button({ button = 'collection_pdr', label = { 'Piss Drawer' }, minw = 5, colour = HEX('b8860b') }),
+        UIBox_button({ button = 'your_collection_teams', label = { 'O!AP' }, minw = 5, colour = HEX('80f1c3') }),
+        UIBox_button({ button = 'your_collection_teams', label = { 'Team Name' }, minw = 5, colour = HEX('fdd48e') }),
+        UIBox_button({ button = 'your_collection_teams', label = { 'Horse Chicot' }, minw = 5, colour = HEX('fd5f55') }),
     }
     local rightside_nodes = {
-        UIBox_button({button = 'your_collection_teams', label = {'Team :)'}, minw = 5, colour = HEX('ffd71d')}),
-        UIBox_button({button = 'your_collection_teams', label = {'Jtem'}, minw = 5, colour = HEX('ebc8dd')}),
-        UIBox_button({button = 'your_collection_teams', label = {'Silly Posting'}, minw = 5, colour = HEX('77269b')}),
-        UIBox_button({button = 'your_collection_teams', label = {'PerkeoCoin'}, minw = 5, colour = HEX('17b117')}),
+        UIBox_button({ button = 'your_collection_teams', label = { 'Team :)' }, minw = 5, colour = HEX('ffd71d') }),
+        UIBox_button({ button = 'your_collection_teams', label = { 'Jtem' }, minw = 5, colour = HEX('ebc8dd') }),
+        UIBox_button({ button = 'your_collection_teams', label = { 'Silly Posting' }, minw = 5, colour = HEX('77269b') }),
+        UIBox_button({ button = 'your_collection_teams', label = { 'PerkeoCoin' }, minw = 5, colour = HEX('17b117') }),
     }
 
     local t = create_UIBox_generic_options({
@@ -24,7 +24,8 @@ function create_UIBox_teams()
         contents = {
             { n = G.UIT.C, config = { align = "cm", padding = 0.15 }, nodes = leftside_nodes },
             { n = G.UIT.C, config = { align = "cm", padding = 0.15 }, nodes = rightside_nodes }
-    }})
+        }
+    })
     return t
 end
 
@@ -120,5 +121,18 @@ end
 end]]
 
 function G.FUNCS.collection_pdr(e)
-    
+
+end
+
+function rotate_image(self)
+    local scale_mod = 0.07 + 0.02 * math.sin(1.8 * G.TIMERS.REAL) +
+        0.00 * math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL)) * math.pi * 14) *
+        (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 3
+    local rotate_mod = 2 * math.sin(G.TIMERS.REAL * math.pi * 0.5)
+
+
+
+    self:draw_shader('dissolve', 0, nil, nil, self, scale_mod, rotate_mod, nil,
+        0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
+    --self:draw_shader('dissolve', nil, nil, nil, self, scale_mod, rotate_mod)
 end
