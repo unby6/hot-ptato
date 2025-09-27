@@ -1,5 +1,48 @@
-function change_max_highlight(amount)
+create_card_ref = create_card
+function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+    local card = create_card_ref(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+    if card.ability and type(card.ability) == "table" then
+        if card.ability.consumeable and type(card.ability.consumeable) == "table" then
+            if card.ability.consumeable.max_highlighted then
+                card.ability.consumeable.max_highlighted = card.ability.consumeable.max_highlighted +
+                    (G.GAME.max_highlighted_mod or 0)
+                if card.ability.consumeable.max_highlighted < 1 then card.ability.consumeable.max_highlighted = 1 end
+            end
+        elseif card.ability.extra and type(card.ability.extra) == "table" then
+            if card.ability.extra.max_highlighted then
+                card.ability.extra.max_highlighted = card.ability.extra.max_highlighted +
+                    (G.GAME.max_highlighted_mod or 0)
+                if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
+            end
+        elseif card.ability.max_highlighted then
+            card.ability.max_highlighted = card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0)
+        end
+    end
+    return card
+end
+function change_max_highlight(amount) --modifies the max_highlighted_mod variable and updates all existing consumables automatically
     G.GAME.max_highlighted_mod = (G.GAME.max_highlighted_mod or 0) + amount
+    for _, card in pairs(G.I.CARD) do
+        if card.ability and type(card.ability) == "table" then
+            if card.ability.consumeable and card.ability.consumeable.max_highlighted then
+                card.ability.consumeable.og_max_highlighted = card.ability.consumeable.og_max_highlighted or card.ability.consumeable.max_highlighted
+                card.ability.consumeable.max_highlighted = card.ability.consumeable.og_max_highlighted + G.GAME.max_highlighted_mod
+                if card.ability.consumeable.max_highlighted < 1 then card.ability.consumeable.max_highlighted = 1 end
+            end
+            if card.ability.extra and type(card.ability.extra) == "table" then
+                if card.ability.extra.max_highlighted then
+                    card.ability.extra.og_max_highlighted = card.ability.extra.og_max_highlighted or card.ability.extra.max_highlighted
+                    card.ability.extra.max_highlighted = card.ability.extra.og_max_highlighted + G.GAME.max_highlighted_mod
+                    if card.ability.extra.max_highlighted < 1 then card.ability.extra.max_highlighted = 1 end
+                end
+            end
+            if card.ability.max_highlighted then
+                card.ability.og_max_highlighted = card.ability.og_max_highlighted or card.ability.max_highlighted
+                card.ability.max_highlighted = card.ability.og_max_highlighted + G.GAME.max_highlighted_mod
+                if card.ability.max_highlighted < 1 then card.ability.max_highlighted = 1 end
+            end
+        end
+    end
 end
 function init_sillyposting(game)
   game.max_highlighted_mod = game.max_highlighted_mod or 0

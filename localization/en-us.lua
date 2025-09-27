@@ -2420,6 +2420,64 @@ return {
                     },
                 }
             },
+            c_hpot_blossom_p = {
+                name = "Blossom",
+                text = {
+                    "Add a {V:1}Dark Pink Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                }
+            },
+            c_hpot_blossom_joy_p = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "cards in your hand",
+                        "and enhance them into",
+                        "{C:attention}Hanafuda{} cards"
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:joy_effect}\"Ash Blossom & Joyous Spring\"{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
+            c_hpot_blossom_pta_p = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "cards in your hand",
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:attention}Joyous Spring{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
+            c_hpot_blossom_joy_pta_p = {
+                name = "Blossom",
+                text = {
+                    {
+                        "Add a {V:1}Dark Pink Seal{}",
+                        "to {C:attention}#1#{} selected",
+                        "cards in your hand",
+                        "and enhance them into",
+                        "{C:attention}Hanafuda{} cards"
+                    },
+                    {
+                        "{C:green}#2# in #3#{} chance",
+                        "to create {C:attention}Joyous Spring{}",
+                        "or {C:joy_effect}\"Ash Blossom & Joyous Spring\"{}",
+                        "{C:inactive}(Must have room)"
+                    },
+                }
+            },
             c_hpot_arcade_machine_p = {
                 name = "Arcade Machine",
                 text = {
