@@ -1925,7 +1925,7 @@ HotPotato.EventStep {
 				end,
 				func = function()
 					return G.GAME.dollars >= 5 and
-						#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+						#G.consumeables.cards < G.consumeables.config.card_limit
 				end
 			},
 			{
