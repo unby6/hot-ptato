@@ -4782,7 +4782,7 @@ return {
             k_plus_czech = "+1 Cheque",
 
             k_hotpot_metal_detected = "Detected!",
-            k_hotpot_aborted = "Aborted!",
+            k_hotpot_aborted = "Cancelled",
             k_hotpot_impregnated = "Impregnated!",
             k_hotpot_butcher_killed = "Killed.",
             k_hotpot_added = "Added!",
