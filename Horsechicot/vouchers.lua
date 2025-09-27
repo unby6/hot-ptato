@@ -95,7 +95,7 @@ SMODS.Voucher {
     end,
     redeem = function (self, voucher)
         G.GAME.dark_connections = true
-        for i, v in pairs(G.market_jokers.cards or {}) do
+        for i, v in pairs((G.market_jokers or {}).cards or {}) do
             v:set_cost()
         end
     end,
