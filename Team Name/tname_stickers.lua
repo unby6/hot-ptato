@@ -490,9 +490,9 @@ SMODS.Sticker({
 	end,
 	calculate = function(self, card, context)
 		if
-			context.joker_main
-			or (context.main_scoring and (context.cardarea == G.play or context.cardarea == G.hand))
-				and SMODS.pseudorandom_probability(card, "hpot_uranium", 1, 4)
+			(context.joker_main and SMODS.pseudorandom_probability(card, "hpot_uranium", 1, 4))
+			or ((context.main_scoring and (context.cardarea == G.play or context.cardarea == G.hand))
+				and SMODS.pseudorandom_probability(card, "hpot_uranium", 1, 4))
 		then
 			local r = nil
 			local l = nil
