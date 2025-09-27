@@ -49,7 +49,7 @@ local function load_files(path, dirs_only)
 	table.sort(info, function (a, b)
 		return a.name < b.name
 	end)
-	for i, v in pairs(info) do
+	for i, v in ipairs(info) do
 		if v.type == "directory" and not blacklist[v.name] then	
 			load_files(path.."/"..v.name)
 		elseif not dirs_only then
