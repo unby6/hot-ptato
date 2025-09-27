@@ -10,7 +10,6 @@ SMODS.Joker {
     pos = { x = 0, y = 0 },
     config = { extra = { bonus_highlight = 1 } },
     loc_vars = function (self, info_queue, card)
-        info_queue[#info_queue+1] = { set = "Other", key = "highlight_mod_warning" }
         return { vars = { card.ability.extra.bonus_highlight } }
     end,
     add_to_deck = function (self, card, from_debuff)
