@@ -36,9 +36,30 @@ function Card:save()
     local cardTable = cs(self)
     if self.ability and self.ability.quantum and type(self.ability.quantum) ~= 'string' then
         cardTable.quantum = cardTable.quantum or {}
-        for i,v in pairs(self.ability.quantum) do
-            cardTable.quantum[i] = Quantum.save(v)
+        for i,v in ipairs(self.ability.quantum) do
+            cardTable.quantum[i] = v.save()
         end
     end
     return cardTable
+end
+
+local ju = Card.juice_up
+function Card:juice_up(a, b)
+    if not self.quantum then
+        return ju(self, a, b)
+    end
+end
+
+local sd = Card.start_dissolve
+function Card:start_dissolve(...)
+    if self.quantum then 
+        for i,v in pairs(SMODS.get_card_areas('jokers')) do
+            for _,c in pairs(v.cards or {}) do
+                for p,q in pairs(c.ability.quantum or {}) do
+                    if q == self then sd(self, ...) return end
+                end
+            end
+        end
+    end
+    sd(self, ...)
 end

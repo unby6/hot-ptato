@@ -26,7 +26,7 @@ to_number = to_number or function(x) return x end
 --#region File Loading
 local nativefs = NFS
 
-local function load_file_native(path, id)
+local function load_file_native(path)
     if not path or path == "" then
         error("No path was provided to load.")
     end
@@ -46,7 +46,10 @@ local blacklist = {
 }
 local function load_files(path, dirs_only)
 	local info = nativefs.getDirectoryItemsInfo(path)
-	for i, v in pairs(info) do
+	table.sort(info, function (a, b)
+		return a.name < b.name
+	end)
+	for _, v in ipairs(info) do
 		if v.type == "directory" and not blacklist[v.name] then	
 			load_files(path.."/"..v.name)
 		elseif not dirs_only then
@@ -146,14 +149,6 @@ function SMODS.create_mod_badges(obj, badges)
 					},
 				},
 			}
-			local function eq_col(x, y)
-				for i = 1, 4 do
-					if x[i] ~= y[i] then
-						return false
-					end
-				end
-				return true
-			end
 			for i = 1, #badges do	
 				if badges[i].nodes[1].nodes[2].config.object.string == HotPotato.display_name then --this was meant to be a hex code but it just doesnt work for like no reason so its hardcoded
 					badges[i].nodes[1].nodes[2].config.object:remove()

@@ -167,13 +167,18 @@ G.FUNCS.shop_tab_active = function(e)
 end
 
 G.FUNCS.toggle_shop_tab = function(e)
+    if PissDrawer.Shop.active_tab.exchange then
+        PissDrawer.Shop.active_tab.exchange.config.colour = G.C.BLACK
+    end
     PissDrawer.Shop.active_tab = e.config.id
     G.FUNCS[e.config.destination]()
 end
 
 G.FUNCS.open_exchange = function(e)
-    print('open currency exchange page; NOT FINISHED!!!')
+    PissDrawer.Shop.active_tab = {exchange = e}
+    e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2)
     PissDrawer.Shop.change_shop_sign("hpot_pissdrawer_shop_sign_currency")
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.currency_exchange)
 end
 
 PissDrawer.Shop.change_shop_sign = function(atlas, sound)
@@ -775,7 +780,7 @@ end
 
 function PissDrawer.Shop.reforge_emplace(card)
 	return
-    {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.4 * card.T.h,
+    {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minh = 0.4 * card.T.h,
         hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'reforge_place', func = 'place_return_reforge' }, nodes = {
         {n=G.UIT.R, config={align = 'cm'}, nodes = {{n = G.UIT.T, config = { text = localize('hotpot_go_reforge'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}}}
     }}
@@ -783,23 +788,27 @@ end
 
 function PissDrawer.Shop.training_emplace(card)
 	return
-    {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.4 * card.T.h,
+    {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minh = 0.4 * card.T.h,
         hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'training_emplace', func = 'can_emplace_training' }, nodes = {
-        {n=G.UIT.R, config={align = 'cm'}, nodes = {{n = G.UIT.T, config = { text = localize('hotpot_go_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}}}
+        {n = G.UIT.T, config = { text = localize('hotpot_go_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}
     }}
 end
 
 G.FUNCS.training_emplace = function ()
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
         local c = G.jokers.highlighted[1]
-        HotPotato.draw_card(G.jokers, G.train_jokers, 1, 'up', nil, c ,0)
+        c.children.hpot_move_to_train:remove()
+        c.children.hpot_move_to_train = nil
+        HPTN.move_card(c, G.train_jokers)
     end
 end
 
 G.FUNCS.training_return = function ()
     if G.train_jokers and G.train_jokers.cards then
-        if #G.train_jokers.cards > 0 then
-            HotPotato.draw_card(G.train_jokers, G.jokers, 1, 'up', nil, nil ,0)
+        if #G.train_jokers.cards > 0 and G.FUNCS.check_for_buy_space(G.train_jokers.cards[1]) then
+            G.train_jokers.cards[1].children.hpot_move_to_train:remove()
+            G.train_jokers.cards[1].children.hpot_move_to_train = nil
+            HPTN.move_card(G.train_jokers.cards[1], G.jokers)
         end
     end
 end
@@ -807,7 +816,8 @@ end
 function G.FUNCS.can_emplace_training(e)
     if e.config.ref_table.area == G.jokers then
         e.children[1].config.text = localize('hotpot_go_train')
-        if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
+        e.children[1].config.scale = 0.4
+        if G.train_jokers and G.train_jokers.cards and #G.train_jokers.cards > 0 then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
@@ -816,14 +826,9 @@ function G.FUNCS.can_emplace_training(e)
         end
     else
         e.children[1].config.text = localize('hotpot_leave_train')
-        if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-            e.config.colour = G.C.BLUE
-            e.config.button = 'training_return'
-        else
-            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-            e.config.button = nil
-
-        end
+        e.children[1].config.scale = 0.3
+        e.config.colour = G.C.BLUE
+        e.config.button = 'training_return'
     end
 end
 
@@ -861,4 +866,52 @@ function PissDrawer.Shop.black_market()
             }},
         }}
     }}
+end
+
+function PissDrawer.Shop.currency_exchange()
+    return
+    {n=G.UIT.C, config = {minh = 10, align = 'tm', padding = 0.1}, nodes = {
+        {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+            {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                {n=G.UIT.O, config = {object = DynaText({ string = {localize('hotpot_exchange_title')}, font = SMODS.Fonts.hpot_plincoin, scale = 0.65, float = true, colours = {G.C.BLUE}, shadow = true})}},
+            }}
+        }},
+        {n=G.UIT.R, config = {align = 'cm', padding = 0.1, id = 'exchange_UI'}, nodes ={
+            hp_jtem_buy_jx_row( "dollars" )
+        }},
+        {n=G.UIT.R, config = {align = "tm", padding = 0.1}, nodes = {
+            {n=G.UIT.T, config = { text = localize("hotpot_exchange_note"), scale = 0.3, colour = G.C.GREY }}
+        }},
+        {n=G.UIT.R, config = {align = 'cm', padding = 0.2}, nodes = {
+            PissDrawer.Shop.spark_exchange_button({currency = 'dollars', text_colour = G.C.GOLD}),
+            PissDrawer.Shop.spark_exchange_button({currency = 'plincoins', font = SMODS.Fonts.hpot_plincoin,}),
+            PissDrawer.Shop.spark_exchange_button({currency = 'cryptocurrency', font = SMODS.Fonts.hpot_plincoin,}),
+            PissDrawer.Shop.spark_exchange_button({currency = 'credits', font = SMODS.Fonts.hpot_plincoin,}),
+        }}
+    }}
+end
+
+PissDrawer.Shop.spark_exchange_button = function(args)
+    return
+    {n = G.UIT.C, config = {minw = 1.3, align = 'cm', r=0.1, padding = 0.1, emboss = 0.1, colour = args.colour or G.C.L_BLACK, currency = args.currency, button = 'switch_spark_exchange', func = 'can_switch_spark_exchange', text_colour = args.text_colour, hover = true, button_dist = 0.5}, nodes = {
+        {n=G.UIT.O, config={id = 'spark_exchange_'..args.currency, object = DynaText({string = {localize('hotpot_reforge_'..args.currency)},
+            maxw = 1, colours = {G.C.GREY}, font = args.font, shadow = true, spacing = 1, scale = 0.35})}}
+    }}
+end
+
+G.FUNCS.switch_spark_exchange = function(e)
+    local exchange_display = e.parent.UIBox:get_UIE_by_ID('exchange_UI')
+    exchange_display:remove()
+    exchange_display.UIBox:add_child(hp_jtem_buy_jx_row(e.config.currency), exchange_display)
+end
+
+G.FUNCS.can_switch_spark_exchange = function(e)
+    local tab = {config = {}}
+    local curr = e.config.currency
+    if curr == 'cryptocurrency' then curr = 'b' end
+    curr = string.sub(curr, 1, 1)
+    G.FUNCS['hp_jtem_can_exchange_'..curr..'2j'](tab)
+    e.children[1].config.object.colours = {tab.config.button and tab.config.colour or G.C.GREY}
+    e.config.colour = tab.config.button and mix_colours(G.C.L_BLACK, G.C.BLUE, 0.8) or G.C.BLACK
+    e.config.button = tab.config.button and 'switch_spark_exchange' or nil
 end
