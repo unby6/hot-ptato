@@ -11,7 +11,8 @@ SMODS.Joker {
                 ["team name"] = 307,
                 ["team :)"] = 16,
                 horsechicot = 540,
-                ["oops! all programmers"] = 145
+                ["oops! all programmers"] = 145,
+                pissdrawer = 208
             },
             xmult_base = 1,
             xmult_inc = 0.01
@@ -40,7 +41,7 @@ SMODS.Joker {
 function reset_commit_farmer()
     G.GAME.current_round.hpot_commit_farmer_team = G.GAME.current_round.hpot_commit_farmer_team or "Sillyposting"
     local teams = {}
-    for k, v in ipairs({"Perkeocoin", "Sillyposting", "Jtem", "Team Name", "Team :)", "Horsechicot", "Oops! All Programmers"}) do -- add more for last week pls
+    for k, v in ipairs({"Perkeocoin", "Sillyposting", "Jtem", "Team Name", "Team :)", "Horsechicot", "Oops! All Programmers", "PissDrawer"}) do
         if v ~= G.GAME.current_round.hpot_commit_farmer_team then
             teams[#teams+1] = v
         end
