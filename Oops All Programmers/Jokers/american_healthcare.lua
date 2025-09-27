@@ -9,21 +9,25 @@ SMODS.Joker {
         extra = {
             xmult = 1,
             inc = 0.5,
+            dollar_loss = 3,
             this_round = false
         }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.inc, card.ability.extra.xmult } }
+        return { vars = { card.ability.extra.inc, card.ability.extra.xmult, card.ability.extra.dollar_loss } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult
+                xmult = card.ability.extra.xmult,
             }
         end
         if context.pregnant and not card.ability.extra.this_round and not context.blueprint then
             card.ability.extra.this_round = true
             SMODS.scale_card(card, {ref_table = card.ability.extra, ref_value = "xmult", scalar_value = "inc"})
+            return {
+                dollars = -card.ability.extra.dollar_loss
+            }
         end
         if context.leaving_shop then
             card.ability.extra.this_round = false

@@ -354,7 +354,9 @@ function G.FUNCS.nursery_abort(e)
             v.ability.father = nil
         end
     end
-    G.nursery_child.cards[1]:remove()
+    if G.nursery_child.cards[1] then
+        G.nursery_child.cards[1]:remove()
+    end
     G.GAME.active_breeding = false
     G.GAME.loss_child_xmult = nil
     SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = localize("k_hotpot_aborted") }
