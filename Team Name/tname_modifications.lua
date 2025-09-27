@@ -407,7 +407,7 @@ HPTN.Modification({
 			SMODS.calculate_effect({ message = localize("k_hotpot_trigger_disabled") }, card)
 		end
 
-		if context.leaving_shop and card.prevent_trigger then
+		if context.ending_shop and card.prevent_trigger then
 			card.prevent_trigger = nil
 			SMODS.calculate_effect({ message = localize("k_hotpot_trigger_enabled") }, card)
 		end
