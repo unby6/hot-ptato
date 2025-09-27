@@ -6,12 +6,16 @@ HPJTTT = {
     chosen = 1,
     text = {
         -- patch target
+        "Inaccessible to 98% of Balatro fans!",
+        "If you're dumb enough to install a new mod this weekend, you're a big enough shmuck to install Hot Potato!";
+        "Bring your Lovely, bring your Steamodded, bring your Talisman! We'll Oops! The game crashed: attempt to compare number with table! That's right, we'll Oops! The game crashed: attempt to compare number with table!";
         "Also try Nubby's Number Factory!",
         "HotPot Edition",
         "Joker Poker",
         "The Original                                      Rougelike",
         "18+",
         "Plant Vs Faces",
+        "the plant is coming the plant is coming the plant is coming",
         "how LOVELY",
         "guess you're really feeling the BALATRO",
         "Hey folks! In today's video we're back with another unseeded high score Balatro run. Here, after running a lot of Baron/Mime builds recently, I decided to work towards an Idol after receiving a lot of Queens and several Immolates in the early game. The result was one of the best Flush Five builds I've ever put together. Enjoy the video! ",
@@ -31,6 +35,8 @@ HPJTTT = {
         "You should use Photon Mod Manager!",
         "You should play An Atture Asorment!",
         "You should play Judgement!",
+        "You should play Paradox's Stupid Ideas!",
+        "You should play Rabbit Hole!",
         "You should play [INSERT SELF PLUG HERE]!",
         "You should play Balatro!",
         "Nxkoo found dead in Miami",
