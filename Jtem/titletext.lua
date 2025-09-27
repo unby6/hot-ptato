@@ -472,10 +472,15 @@ HPJTTT = {
         {'hpot_pdr_jumping'},
         {'hpot_pdr_goatji'},
         {'hpot_pdr_unckuna'},
-    }
+    },
+    text_only = {}
 }
 
-
+for i, v in ipairs(HPJTTT.text) do
+    if type(v) == "string" then
+        HPJTTT.text_only[i] = v
+    end
+end
 
 HPJTTT.chosen = (math.floor(os.time()) % #HPJTTT.text) + 1
 
