@@ -29,7 +29,7 @@ SMODS.Joker {
                 dollars = -card.ability.extra.dollar_loss
             }
         end
-        if context.leaving_shop then
+        if context.ending_shop then
             card.ability.extra.this_round = false
         end
     end,
