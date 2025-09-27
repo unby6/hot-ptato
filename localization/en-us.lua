@@ -452,7 +452,7 @@ return {
                 name = 'Poop Deck',
                 text = {
                     'Start with a standard 52 card deck and',
-                    '30 {C:edition}Polychrome{} Stone cards',
+                    '30 {C:dark_edition}Polychrome{} Stone cards',
                     '{C:inactive}Land Ahoy!'
                 }
             },
@@ -1190,35 +1190,35 @@ return {
             j_hpot_grand_finale = {
                 name = "Grand Finale",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}plastic{}.",
+                    "A {C:attention}bizarre{} object, associated with {C:dark_edition}plastic{}.",
                     "{C:inactive}({C:attention}+#1#{C:inactive} Joker Slots)"
                 }
             },
             j_hpot_grand_diagonal = {
                 name = "Grand Diagonal",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}metal{}.",
+                    "A {C:attention}bizarre{} object, associated with {C:dark_edition}metal{}.",
                     "{C:inactive}({C:attention}+#1#{C:inactive} Consumable Slots)"
                 }
             },
             j_hpot_grand_spectral = {
                 name = "Grand Spectral",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}smoke{}.",
+                    "A {C:attention}bizarre{} object, associated with {C:dark_edition}smoke{}.",
                     "{C:inactive}(Turns all tarots in shop to {C:attention}Spectral{C:inactive} Cards)"
                 }
             },
             j_hpot_grand_brachial = {
                 name = "Grand Brachial",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}meat{}.",
+                    "A {C:attention}bizarre{} object, associated with {C:dark_edition}meat{}.",
                     "{C:inactive}(Copy both the leftmost and rightmost Jokers.)"
                 }
             },
             j_hpot_grand_chocolatier = {
                 name = "Grand Chocolatier",
                 text = {
-                    "A {C:attention}bizarre{} object, associated with {C:edition}sugar{}.",
+                    "A {C:attention}bizarre{} object, associated with {C:dark_edition}sugar{}.",
                     "{C:inactive}({C:white,X:mult}X#1#{C:inactive} Mult)"
                 }
             },
@@ -1677,7 +1677,7 @@ return {
             j_hpot_cardstack = {
                 name = "Card Stack",
                 text = {
-                    "{C:attention}Played{} cards have",
+                    "Played {C:attention}unenhanced{} cards have",
                     "{C:green}#3# in #2#{} chance",
                     "to gain {C:attention}#1#{} retrigger"
                 }
@@ -4052,7 +4052,7 @@ return {
             },
             hpot_mb_2 = {
                 text = {
-                    "Ooh, neat! A {C:edition,E:1}Five Star{}!",
+                    "Ooh, neat! A {C:dark_edition,E:1}Five Star{}!",
                     " ",
                     "Shame it isn't of use to you, though.",
                     "Oh, well! Maybe {C:attention}next time{}?"

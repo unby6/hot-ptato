@@ -73,7 +73,7 @@ HotPotato.EventStep({
 					event.start_step("hpot_test_3")
 				end,
 				func = function()
-					return G.GAME.dollars >= self.config.extra.rich
+					return to_big(G.GAME.dollars) >= to_big(self.config.extra.rich)
 				end,
 			},
 			{
@@ -527,7 +527,7 @@ HotPotato.EventStep {
 				key = "taxespay",
 				loc_vars = {},
 				func = function()
-					return G.GAME.dollars >= G.GAME.dollars - taxcalc(G.GAME.dollars)
+					return to_big(G.GAME.dollars) >= to_big(G.GAME.dollars - taxcalc(G.GAME.dollars))
 				end,
 				button = function()
 					ease_dollars(-taxcalc(G.GAME.dollars))
@@ -536,7 +536,7 @@ HotPotato.EventStep {
 			{
 				key = "bribe",
 				func = function()
-					return G.GAME.dollars >= self.config.extra.req
+					return to_big(G.GAME.dollars) >= to_big(self.config.extra.req)
 				end,
 				button = function()
 					ease_dollars(-self.config.extra.req)
@@ -1165,7 +1165,7 @@ HotPotato.EventStep({
 					event.start_step("hpot_currency_exchange_success")
 				end,
 				func = function()
-					return convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR") > 0
+					return to_big(convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR")) > to_big(0)
 				end,
 			},
 			{
@@ -1179,7 +1179,7 @@ HotPotato.EventStep({
 					event.start_step("hpot_currency_exchange_success")
 				end,
 				func = function()
-					return convert_currency(G.GAME.plincoins, "PLINCOIN", "DOLLAR") > 0
+					return to_big(convert_currency(G.GAME.plincoins, "PLINCOIN", "DOLLAR")) > to_big(0)
 				end,
 			},
 			{
@@ -1193,7 +1193,7 @@ HotPotato.EventStep({
 					event.start_step("hpot_currency_exchange_success")
 				end,
 				func = function()
-					return convert_currency(G.GAME.spark_points, "SPARKLE", "DOLLAR") > 0
+					return to_big(convert_currency(G.GAME.spark_points, "SPARKLE", "DOLLAR")) > to_big(0)
 				end,
 			},
 			{
@@ -1647,7 +1647,7 @@ HotPotato.EventStep {
 					event.start_step('hpot_trolley_bribe')
 				end,
 				func = function()
-					return G.GAME.dollars >= 20
+					return to_big(G.GAME.dollars) >= to_big(20)
 				end
 			},
 		}
@@ -1924,7 +1924,7 @@ HotPotato.EventStep {
 					event.start_step('hpot_refreshing_purchase')
 				end,
 				func = function()
-					return G.GAME.dollars >= 5 and
+					return to_big(G.GAME.dollars) >= to_big(5) and
 						#G.consumeables.cards < G.consumeables.config.card_limit
 				end
 			},
@@ -1966,7 +1966,7 @@ HotPotato.EventStep {
 					event.start_step('hpot_refreshing_purchase')
 				end,
 				func = function()
-					return G.GAME.dollars >= 5 and
+					return to_big(G.GAME.dollars) >= to_big(5) and
 						#G.consumeables.cards < G.consumeables.config.card_limit
 				end
 			},
@@ -3840,7 +3840,7 @@ HotPotato.EventScenario {
 		team = { "Pissdrawer" },
 	},
 	in_pool = function(self)
-		return G.GAME.dollars >= 5
+		return to_big(G.GAME.dollars) >= to_big(5)
 	end
 }
 
@@ -3853,7 +3853,7 @@ local hpot_event_gambling_func = function(amount, event)
 		ease_dollars(-amount)
 	end
 	if event.ability.gambling >= 4 then
-		if event.ability.initial_money > G.GAME.dollars then
+		if to_big(event.ability.initial_money) > to_big(G.GAME.dollars) then
 			event.start_step("hpot_gambling_finish_pos")
 		else
 			event.start_step("hpot_gambling_finish_neg")
@@ -3890,7 +3890,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(5, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 5
+					return to_big(G.GAME.dollars) >= to_big(5)
 				end
 			},
 			{
@@ -3899,7 +3899,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(10, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 10
+					return to_big(G.GAME.dollars) >= to_big(10)
 				end
 			},
 			{
@@ -3908,7 +3908,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(20, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 20
+					return to_big(G.GAME.dollars) >= to_big(20)
 				end
 			},
 			{
@@ -3917,7 +3917,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(40, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 40
+					return to_big(G.GAME.dollars) >= to_big(40)
 				end
 			},
 			{
@@ -3956,7 +3956,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(5, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 5
+					return to_big(G.GAME.dollars) >= to_big(5)
 				end
 			},
 			{
@@ -3965,7 +3965,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(10, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 10
+					return to_big(G.GAME.dollars) >= to_big(10)
 				end
 			},
 			{
@@ -3974,7 +3974,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(20, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 20
+					return to_big(G.GAME.dollars) >= to_big(20)
 				end
 			},
 			{
@@ -3983,7 +3983,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(40, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 40
+					return to_big(G.GAME.dollars) >= to_big(40)
 				end
 			},
 			{
@@ -4019,7 +4019,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(5, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 5
+					return to_big(G.GAME.dollars) >= to_big(5)
 				end
 			},
 			{
@@ -4028,7 +4028,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(10, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 10
+					return to_big(G.GAME.dollars) >= to_big(10)
 				end
 			},
 			{
@@ -4037,7 +4037,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(20, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 20
+					return to_big(G.GAME.dollars) >= to_big(20)
 				end
 			},
 			{
@@ -4046,7 +4046,7 @@ HotPotato.EventStep {
 					hpot_event_gambling_func(40, event)
 				end,
 				func = function()
-					return G.GAME.dollars >= 40
+					return to_big(G.GAME.dollars) >= to_big(40)
 				end
 			},
 			{
@@ -5472,7 +5472,7 @@ G.FUNCS.can_buy = function(e)
 			total = total - G.GAME.bankrupt_at
 		end
 		local price = card.hpot_transaction_price.price
-		if (price > total) and (price > 0) then
+		if (to_big(price) > to_big(total)) and (to_big(price) > to_big(0)) then
 			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
 			e.config.button = nil
 		else
@@ -5492,7 +5492,7 @@ G.FUNCS.can_buy_and_use = function(e)
 			total = total - G.GAME.bankrupt_at
 		end
 		local price = card.hpot_transaction_price.price
-		if ((price > total) and (price > 0)) or (not card:can_use_consumeable()) then
+		if ((to_big(price) > to_big(total)) and (to_big(price) > to_big(0))) or (not card:can_use_consumeable()) then
 			e.UIBox.states.visible = false
 			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
 			e.config.button = nil
@@ -5550,7 +5550,7 @@ HotPotato.EventStep {
 					ease_currency("joker_exchange", 5000)
 				end,
 				func = function()
-					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 1
+					return to_big(get_currency_amount("dollars") - G.GAME.bankrupt_at) >= to_big(1)
 				end
 			},
 			{
@@ -5560,7 +5560,7 @@ HotPotato.EventStep {
 					ease_currency("plincoin", 1)
 				end,
 				func = function()
-					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+					return to_big(get_currency_amount("dollars") - G.GAME.bankrupt_at) >= to_big(10)
 				end
 			},
 			{
@@ -5570,7 +5570,7 @@ HotPotato.EventStep {
 					ease_currency("credits", 100)
 				end,
 				func = function()
-					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+					return to_big(get_currency_amount("dollars") - G.GAME.bankrupt_at) >= to_big(10)
 				end
 			},
 			{
@@ -5580,7 +5580,7 @@ HotPotato.EventStep {
 					ease_currency("crypto", 1)
 				end,
 				func = function()
-					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 20
+					return to_big(get_currency_amount("dollars") - G.GAME.bankrupt_at) >= to_big(20)
 				end
 			},
 			{
@@ -5876,7 +5876,7 @@ HotPotato.EventStep {
 					ease_currency("crypto", 1)
 				end,
 				func = function()
-					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 30
+					return to_big(get_currency_amount("dollars") - G.GAME.bankrupt_at) >= to_big(30)
 				end
 			},
 			{

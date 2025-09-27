@@ -178,7 +178,7 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
 end
 
 G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
-    if (0 > G.GAME.dollars - G.GAME.bankrupt_at) then
+    if (to_big(0) > to_big(G.GAME.dollars - G.GAME.bankrupt_at)) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -187,7 +187,7 @@ G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
-    if (0 > G.GAME.plincoins) or not G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
+    if (to_big(0) > to_big(G.GAME.plincoins)) or not G.GAME.hp_jtem_should_allow_buying_jx_from_plincoin then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -196,7 +196,7 @@ G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
-    if (0 > G.PROFILES[G.SETTINGS.profile].TNameCredits) or not G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
+    if (to_big(0) > to_big(G.PROFILES[G.SETTINGS.profile].TNameCredits)) or not G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -205,7 +205,7 @@ G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_b2j = function(e)
-    if (0 > G.GAME.cryptocurrency) or not G.GAME.hp_jtem_should_allow_buying_jx_from_crypto then
+    if (to_big(0) > to_big(G.GAME.cryptocurrency)) or not G.GAME.hp_jtem_should_allow_buying_jx_from_crypto then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
