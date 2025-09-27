@@ -488,6 +488,7 @@ G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother_center, father_center)
     if mother_center.key == 'j_hpot_loss' or father_center.key == 'j_hpot_loss' then
         local loss_card = mother_center.key == 'j_hpot_loss' and G.nursery_mother.cards[1] or G.nursery_father.cards[1]
+        G.GAME.child_prio = loss_card; G.GAME.child_sec = G.nursery_mother.cards[1] == loss_card and G.nursery_father.cards[1] or G.nursery_mother.cards[1]
         G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
     else
         local poll = pseudorandom("hc_breed_result")
