@@ -172,7 +172,6 @@ end
 G.FUNCS.hotpot_pissdrawer_toggle_training = function()
     PissDrawer.Shop.change_shop_sign("hpot_pissdrawer_shop_sign_training")
     PissDrawer.Shop.change_shop_panel(G.UIDEF.hotpot_pd_training_section, PissDrawer.Shop.create_training_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.training)
-    print('not yet implemented')
 end
 
 local shop = G.UIDEF.shop
@@ -548,6 +547,7 @@ function PissDrawer.Shop.create_training_areas()
 end
 
 function PissDrawer.Shop.create_black_market_areas()
+    G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 2
     G.market_jokers = CardArea(
       G.hand.T.x + 0,
       G.hand.T.y + G.ROOM.T.y + 9,
