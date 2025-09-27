@@ -42,8 +42,8 @@ SMODS.Sound {
     key = "music_market",
     path = "music_market.ogg",
     select_music_track = function (self)
-      if G.HP_HC_MARKET_VISIBLE then
-        return 1225
+      if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_horsechicot_toggle_market" then
+        return 1325
       end
     end
 }
