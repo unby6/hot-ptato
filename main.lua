@@ -26,7 +26,7 @@ to_number = to_number or function(x) return x end
 --#region File Loading
 local nativefs = NFS
 
-local function load_file_native(path, id)
+local function load_file_native(path)
     if not path or path == "" then
         error("No path was provided to load.")
     end
@@ -49,7 +49,7 @@ local function load_files(path, dirs_only)
 	table.sort(info, function (a, b)
 		return a.name < b.name
 	end)
-	for i, v in ipairs(info) do
+	for _, v in ipairs(info) do
 		if v.type == "directory" and not blacklist[v.name] then	
 			load_files(path.."/"..v.name)
 		elseif not dirs_only then
