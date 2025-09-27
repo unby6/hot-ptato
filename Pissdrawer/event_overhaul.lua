@@ -191,9 +191,10 @@ SMODS.Joker {
 -- Domain Extrapolation
 SMODS.Voucher {
     key = 'domain_extrapolation',
-    pos = { x = 7, y = 0 },
+    pos = { x = 0, y = 0 },
+    atlas = 'pdr_vouchers',
     hotpot_credits = {
-        --art = { 'SDM_0' },
+        art = { 'SDM_0' },
         code = { "N'" },
         idea = { "N'" },
         team = { 'Pissdrawer' }
@@ -207,9 +208,10 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'domain_expansion',
     requires = { "v_hpot_domain_extrapolation" },
-    pos = { x = 7, y = 0 },
+    pos = { x = 0, y = 1 },
+    atlas = 'pdr_vouchers',
     hotpot_credits = {
-        --art = { 'SDM_0' },
+        art = { 'SDM_0' },
         code = { "N'" },
         idea = { "N'" },
         team = { 'Pissdrawer' }

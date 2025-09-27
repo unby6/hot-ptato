@@ -42,3 +42,6 @@ hi guys i'm in the readme messages too
 
 ### message from myst
 good fucking god stop adding currencies yall
+
+### message from n'
+hii friends

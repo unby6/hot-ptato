@@ -205,7 +205,7 @@ end
 local set_costref = Card.set_cost
 function Card:set_cost(...)
   set_costref(self, ...)
-  if self.area == G.market_jokers then
+  if self.area and self.area == G.market_jokers then
     self.market_cost = self:get_market_cost()
   end
 end
