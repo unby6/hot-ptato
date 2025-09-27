@@ -48,7 +48,7 @@ SMODS.Joker{
 local ease_ref = ease_dollars
 function ease_dollars(mod, ...)
     ease_ref(mod, ...)
-    if mod > 0 then
+    if to_big(mod) > to_big(0) then
         G.GAME.dollars_ante = (G.GAME.dollars_ante or 0) + mod
     end
 end
