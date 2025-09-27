@@ -326,7 +326,7 @@ function G.UIDEF.hotpot_horsechicot_nursery_section()
                             config = { align = "cm", r = 0.2 },
                             nodes = {
                                 UIBox_button {
-                                    label = { "Abort" },
+                                    label = { "Cancel" },
                                     colour = G.C.ETERNAL,
                                     scale = 0.4,
                                     minh = 0.6,
