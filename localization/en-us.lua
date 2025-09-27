@@ -1677,7 +1677,7 @@ return {
             j_hpot_cardstack = {
                 name = "Card Stack",
                 text = {
-                    "{C:attention}Played{} cards have",
+                    "Played {C:attention}unenhanced{} cards have",
                     "{C:green}#3# in #2#{} chance",
                     "to gain {C:attention}#1#{} retrigger"
                 }
