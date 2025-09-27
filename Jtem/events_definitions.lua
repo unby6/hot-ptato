@@ -1508,7 +1508,6 @@ HotPotato.EventStep({
 
 HotPotato.EventScenario {
 	key = "job_application",
-	hide_image_area = true,
 	domains = { occurence = true },
 	starting_step_key = "hpot_job_application_1",
 	hotpot_credits = {
@@ -2211,7 +2210,7 @@ HotPotato.EventStep {
 				area = G.jokers,
 			})
 			b.T.h = b.T.h * 0.8
-			apply_modification(b,  random_modif("BAD", b).key)
+			apply_modification(b, random_modif("BAD", b).key)
 		end
 	end
 }
@@ -5982,7 +5981,7 @@ HotPotato.EventStep {
 				return true
 			end)
 		}))
-		
+
 		G.HP_HC_MARKET_VISIBLE = true
 		G.shop_jokers = CardArea(
 			G.hand.T.x + (G.hand.T.w - 5 * 1.02 * G.CARD_W) / 2,
