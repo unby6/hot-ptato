@@ -3975,10 +3975,10 @@ HotPotato.EventStep {
 				end,
 				func = function()
 					return to_big(G.GAME.dollars) >= to_big(20)
-				endto_big(
+				end
 			},
 			{
-				key) = "to_big(bet40)",
+				key = "bet40",
 				button = function()
 					hpot_event_gambling_func(40, event)
 				end,
