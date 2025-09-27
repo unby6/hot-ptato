@@ -4466,7 +4466,7 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "A mechanic inspired by world {E:2,C:attention}illegal markets{},",
+                            "A mechanic inspired by {E:2,C:attention}illegal markets{},",
                             "which dwells in different {C:attention}shady deals{}",
                         },
                         {
