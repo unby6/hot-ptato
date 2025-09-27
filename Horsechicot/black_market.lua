@@ -1,13 +1,5 @@
-function G.UIDEF.hotpot_horsechicot_market_section()
+function hotpot_horsechicot_market_section_init_cards()
   G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 2
-  if not G.market_jokers or not G.market_jokers.cards then
-    G.market_jokers = CardArea(
-      G.hand.T.x + 0,
-      G.hand.T.y + G.ROOM.T.y + 9,
-      math.min(G.GAME.shop.market_joker_max * 1.02 * G.CARD_W, 4.08 * G.CARD_W),
-      1.05 * G.CARD_H,
-      { card_limit = G.GAME.shop.market_joker_max, type = 'shop', highlight_limit = 1, negative_info = true })
-  end
   if G.GAME.market_table then
     G.market_jokers:load(G.GAME.market_table)
     G.GAME.market_table = nil
@@ -38,82 +30,13 @@ function G.UIDEF.hotpot_horsechicot_market_section()
     end
   end
   G.harvest_cost = G.harvest_cost or 0
-  return { n = G.UIT.R, config = { minw = 3, minh = 2.5, colour = G.C.CLEAR }, nodes = {} },
-      {
-        n = G.UIT.R,
-        config = { align = "cm", padding = 0.05 },
-        nodes = {
-          {
-            n = G.UIT.C,
-            config = { align = "cm", padding = 0.1 },
-            nodes = {
-              {
-                n = G.UIT.R,
-                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = SMODS.Gradients.hpot_advert, button = 'reroll_market', func = 'can_reroll_market', hover = true, shadow = true },
-                nodes = {
-                  {
-                    n = G.UIT.R,
-                    config = { align = "cm", padding = 0.07, focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' },
-                    nodes = {
-                      {
-                        n = G.UIT.R,
-                        config = { align = "cm", maxw = 1.3 },
-                        nodes = {
-                          { n = G.UIT.T, config = { text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE, shadow = true } },
-                        }
-                      },
-                      {
-                        n = G.UIT.R,
-                        config = { align = "cm", maxw = 1.3, minw = 1 },
-                        nodes = {
-                          { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], scale = 0.7, colour = G.C.WHITE, shadow = true } },
-                          { n = G.UIT.T, config = { ref_table = G.GAME.current_round, ref_value = 'market_reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                n = G.UIT.R,
-                config = { align = "cm", minw = 2.8, minh = 1.6, r = 0.15, colour = SMODS.Gradients.hpot_advert, button = 'harvest_market', func = 'can_harvest_market', hover = true, shadow = true },
-                nodes = {
-                  {
-                    n = G.UIT.R,
-                    config = { align = "cm", padding = 0.07, focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' },
-                    nodes = {
-                      {
-                        n = G.UIT.R,
-                        config = { align = "cm", maxw = 1.3 },
-                        nodes = {
-                          { n = G.UIT.T, config = { text = localize('k_harvest'), scale = 0.4, colour = G.C.WHITE, shadow = true } },
-                        }
-                      },
-                      {
-                        n = G.UIT.R,
-                        config = { align = "cm", maxw = 1.3, minw = 1 },
-                        nodes = {
-                          { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], scale = 0.7, colour = G.C.WHITE, shadow = true } },
-                          { n = G.UIT.T, config = { ref_table = G, ref_value = 'harvest_cost', scale = 0.75, colour = G.C.WHITE, shadow = true } },
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-            }
-          },
-          {
-            n = G.UIT.C,
-            config = { align = "cm", padding = 0.2, r = 0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.2 },
-            nodes = {
-              { n = G.UIT.O, config = { object = G.market_jokers } },
-            }
-          },
-        }
-      },
-      { n = G.UIT.R, config = { minw = 3, minh = 3.5, colour = G.C.CLEAR }, nodes = {} },
-      G.UIDEF.hotpot_pd_training_section()
+end
+
+function G.UIDEF.hotpot_horsechicot_market_section()
+  G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 2
+  
+  G.harvest_cost = G.harvest_cost or 0
+  
 end
 
 function remove_if_exists(thingy)
@@ -123,53 +46,8 @@ end
 G.FUNCS.hotpot_horsechicot_toggle_market = function() -- takn from deliveries
   if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
   stop_use()
-  local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
-  if not G.HP_HC_MARKET_VISIBLE then
-    --starting market
-    ease_background_colour({
-      new_colour = G.C.BLACK,
-      special_colour = darken(G.C.BLACK, 0.6),
-      tertiary_colour = darken(
-        G.C.BLACK, 0.4),
-      contrast = 3
-    })
-    G.shop.alignment.offset.y = -48.3
-    G.HP_HC_MARKET_VISIBLE = true
-    simple_add_event(function()
-      sign_sprite.pinch.y = true
-      delay(0.5)
-      simple_add_event(function()
-        sign_sprite.atlas = G.ANIMATION_ATLAS["hpot_hc_shop_sign"]
-        sign_sprite.pinch.y = false
-        return true
-      end)
-      return true
-    end, { trigger = "after", delay = 0 })
-    play_sound("hpot_sfx_whistleup", 1.3, 0.25)
-    for i, v in pairs(G.market_jokers.cards) do
-      remove_if_exists(v.children.price)
-      remove_if_exists(v.children.buy_and_use_button)
-      remove_if_exists(v.children.buy_button)
-      create_market_card_ui(v)
-    end
-  else
-    --exiting market
-    ease_background_colour_blind(G.STATES.SHOP)
-    G.shop.alignment.offset.y = -5.3
-    G.HP_HC_MARKET_VISIBLE = false
-    G.FUNCS.market_return()
-    simple_add_event(function()
-      sign_sprite.pinch.y = true
-      delay(0.5)
-      simple_add_event(function()
-        sign_sprite.atlas = G.ANIMATION_ATLAS["shop_sign"]
-        sign_sprite.pinch.y = false
-        return true
-      end)
-      return true
-    end, { trigger = "after", delay = 0 })
-    play_sound("hpot_sfx_whistledown", 1.3, 0.25)
-  end
+  PissDrawer.Shop.change_shop_sign("hpot_hc_shop_sign", {percent = 1.3})
+  PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.black_market, PissDrawer.Shop.create_black_market_areas, PissDrawer.Shop.black_market_post, PissDrawer.Shop.area_keys.black_market)
 end
 
 G.FUNCS.market_return = function()

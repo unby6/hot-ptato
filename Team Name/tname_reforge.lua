@@ -58,93 +58,6 @@ function UIBox_adv_button (args)
     }
 end
 
-
-G.UIDEF.hotpot_tname_reforge_section = function ()
-    G.reforge_area = CardArea(
-        0, 0, 1, 1,
-        {card_limit = 1, type = "shop", highlight_limit = 0}
-    )
-	return 
-	{n = G.UIT.R, config = {minw = 3, minh = 5.5, colour = G.C.CLEAR}, nodes = {}},
-	{n = G.UIT.R, config = {minw = 3, minh = 9, colour = G.C.CLEAR, align = "cm"}, nodes = {
-		{n = G.UIT.R, config = {align = "cm", minw = 2, minh = 3}, nodes = {
-
-			{n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
-				{n = G.UIT.R, config = {align = "cm"}, nodes = {{n = G.UIT.T, config = {text = localize("k_reforge_big"), colour = G.C.GREY, scale = 0.7, align = "cm"}}}},
-				{n = G.UIT.R, config = {minh = 0.2}},
-				UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_credits")},{ref_table = G.GAME, ref_value = "cost_credits"}}},
-                    text_scale = 0.5,
-                    button = 'reforge_with_credits',
-                    func = "can_reforge_with_creds",
-                    colour = G.C.PURPLE
-                },
-                UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_dollars")},{ref_table = G.GAME, ref_value = "cost_dollars"}}},
-                    text_scale = 0.5,
-                    button = 'reforge_with_dollars',
-                    func = "can_reforge_with_dollars",
-                    colour = G.C.GOLD
-                },
-                UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_joker_exchange"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_sparks"}}},
-                    text_scale = 0.5,
-                    button = 'reforge_with_sparks',
-                    func = "can_reforge_with_joker_exchange",
-                    colour = G.C.BLUE
-                },
-                UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_plincoins"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_plincoins"}}},
-                    text_scale = 0.5,
-                    button = 'reforge_with_plincoins',
-                    func = "can_reforge_with_plincoins",
-                    colour = SMODS.Gradients["hpot_plincoin"]
-                },
-                UIBox_adv_button{
-                    label = {{{localize("hotpot_reforge_cryptocurrency"), font = "hpot_plincoin"},{ref_table = G.GAME, ref_value = "cost_cryptocurrency"}}},
-                    text_scale = 0.5,
-                    button = 'reforge_with_cryptocurrency',
-                    func = "can_reforge_with_cryptocurrency",
-                    colour = G.C.ORANGE
-                },
-			}},
-
-			{n = G.UIT.C, config = {minw = 0.1}},
-
-			{n = G.UIT.C, config = {align = "cm", colour = G.C.GREY, r = 0.1, padding = 0.2}, nodes = {
-                {n = G.UIT.C, config = {colour = G.C.BLACK, minw = 4, minh = 5, r = 0.1, align = "cm", padding = 0.1}, nodes = {
-                    {n = G.UIT.R, config = {align = "tm"}, nodes = {{n = G.UIT.T, config = {text = localize("k_place_card_text"), colour = G.C.GREY, scale = 0.4, align = "tm"}}}},
-                    {n = G.UIT.R, config = {align = "cm",minw = G.CARD_W, minh = G.CARD_H}, nodes = {{n = G.UIT.O, config = {object = G.reforge_area, align = "cm"}}}},
-				}},
-			}},
-		}},
-        {n = G.UIT.R, config = {minh = 0.2}},
-        {n = G.UIT.R, config = {align = "cm"}, nodes = {
-            UIBox_adv_button{
-                label = {{{localize("k_place_button")}}},
-                text_scale = 0.5,
-                w = 3, h = 1,
-                button = 'reforge_place',
-                func = "place_return_reforge",
-                colour = G.C.GREEN,
-                type = "C"
-            },
-            {n = G.UIT.C, config = {align = "cm", padding = 0.1}},
-            UIBox_adv_button{
-                label = {{{localize("k_return_button")}}},
-                text_scale = 0.5,
-                w = 3, h = 1,
-                button = 'reforge_return',
-                func = "return_place_reforge",
-                colour = G.C.RED,
-                type = "C"
-            },
-        }}
-	}},
-	{n = G.UIT.R, config = {minw = 3, minh = 3, colour = G.C.CLEAR}, nodes = {}},
-    G.UIDEF.hotpot_horsechicot_market_section()
-end
-
 function HPTN.move_card(card, _area) -- Moving cards from one area to another easily
     local area = card.area
 	if not card.getting_sliced then	
@@ -166,14 +79,27 @@ if G.reforge_area and G.reforge_area.cards then
 end
 
 function G.FUNCS.place_return_reforge(e)
-    if (G.jokers and G.jokers.highlighted and #G.jokers.highlighted <= 0) or (G.reforge_area and #G.reforge_area.cards > 0) then -- what the fuck 
+    if e.config.ref_table.area == G.jokers then
+        e.children[1].config.text = localize('hotpot_go_reforge')
+        if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
-            e.config.colour = G.C.GREEN
+            e.config.colour = G.C.RED
             e.config.button = 'reforge_place'
         end
+    else
+        e.children[1].config.text = localize('hotpot_leave_reforge')
+        if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
+            e.config.colour = G.C.RED
+            e.config.button = 'reforge_return'
+        else
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+
+        end
     end
+end
 
 G.FUNCS.reforge_place = function ()
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
@@ -199,51 +125,24 @@ end
 G.FUNCS.hotpot_tname_toggle_reforge = function () -- takn from deliveries
     if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
     stop_use()
-    local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
-    if not G.HP_TNAME_REFORGE_VISIBLE then
-		ease_background_colour({new_colour = G.C.BLACK, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
-        G.shop.alignment.offset.y = -35
-        G.HP_TNAME_REFORGE_VISIBLE = true
-		simple_add_event(function()
-            sign_sprite.pinch.y = true
-            delay(0.5)
-            simple_add_event(function()
-                sign_sprite.atlas = G.ANIMATION_ATLAS["hpot_tname_shop_sign"]
-                sign_sprite.pinch.y = false
-                return true
-            end)
-            return true
-        end, { trigger = "after", delay = 0 })
-        play_sound("hpot_sfx_whistleup", 1.3, 0.25)
-    else
-        if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
-            local acard = G.reforge_area.cards[1]
-            final_ability_values()
-            HPTN.move_card(acard, G.jokers)
-            G.GAME.ref_placed = nil
-            reset_reforge_cost()
-        end
-        ease_background_colour_blind(G.STATES.SHOP)
-        G.shop.alignment.offset.y = -5.3
-        G.HP_TNAME_REFORGE_VISIBLE = false
-        G.FUNCS.reforge_return()
-		simple_add_event(function()
-            sign_sprite.pinch.y = true
-            delay(0.5)
-            simple_add_event(function()
-                sign_sprite.atlas = G.ANIMATION_ATLAS["shop_sign"]
-                sign_sprite.pinch.y = false
-                return true
-            end)
-            return true
-        end, { trigger = "after", delay = 0 })
-        play_sound("hpot_sfx_whistledown", 1.3, 0.25)
-    end
+    PissDrawer.Shop.change_shop_sign("hpot_tname_shop_sign", {percent = 1.3})
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.reforge_shop, PissDrawer.Shop.create_reforge_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.reforge)
+
 end
 
 
 -- self explanatory
-function G.FUNCS.can_reforge_with_creds(e)
+function G.FUNCS.can_reforge(e)
+    local currency = e.config.currency
+    local result = {config = {button = 'true'}}
+    G.FUNCS['can_reforge_with_'..currency](result)
+    e.config.button = result.config.button
+    e.config.colour = result.config.button and G.C.L_BLACK or G.C.BLACK
+    e.config.hover = result.config.button and true or nil
+    e.UIBox:get_UIE_by_ID('text_'..currency).config.object.colours = {result.config.colour}
+end
+
+function G.FUNCS.can_reforge_with_credits(e)
     if G.PROFILES[G.SETTINGS.profile].TNameCredits < G.GAME.cost_credits or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
@@ -263,7 +162,7 @@ function G.FUNCS.can_reforge_with_dollars(e)
         end
     end
 
-function G.FUNCS.can_reforge_with_joker_exchange(e)
+function G.FUNCS.can_reforge_with_sparks(e)
     if not (G.GAME.used_vouchers["v_hpot_ref_joker_exc"] or G.GAME.goblin_acquired) or G.GAME.spark_points < G.GAME.cost_sparks or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
@@ -288,7 +187,7 @@ function G.FUNCS.can_reforge_with_cryptocurrency(e)
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
-            e.config.colour = G.C.ORANGE
+            e.config.colour = SMODS.Gradients['hpot_advert']
             e.config.button = 'reforge_with_cryptocurrency'
         end
     end

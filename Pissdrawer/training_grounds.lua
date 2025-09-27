@@ -354,13 +354,11 @@ end
 
 function hpot_hover_train_button_failure_rate(colours, train)
 	return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
-        {n = G.UIT.C, config = {align = "cm", padding = 0.05, colour = (colours or {})[1] or G.C.BLUE, minw = 3, r = 0.3}, nodes = {
-            {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
-                {n = G.UIT.T, config = {shadow = true, text = "Failure", colour = (colours or {})[2] or G.C.UI.TEXT_LIGHT, scale = 0.4}},
-            }},
+        {n = G.UIT.C, config = {align = "cm", padding = 0.05, colour = (colours or {})[1] or G.C.BLUE, minw = 2, minh = 0.6, r = 0.3}, nodes = {
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
                 {n = G.UIT.T, config = {shadow = true, ref_table = G.dynamic_train_messages, ref_value = "failure_rate_"..train, colour = (colours or {})[2] or G.C.UI.TEXT_LIGHT, scale = 0.4}},
-            }},
+                {n = G.UIT.T, config = {shadow = true, text = localize('hpot_training_failure'), colour = (colours or {})[2] or G.C.UI.TEXT_LIGHT, scale = 0.4}},
+            }}
         }}
     }}
 end
@@ -379,7 +377,7 @@ local ui_hover_ref = UIElement.hover
 function UIElement:hover(...)
     local ret = ui_hover_ref(self,...)
     if self.config and self.config.is_train_button then
-        local pos = {x = 0, y = -0.25}
+        local pos = {x = 0, y = -0.15}
         local destination = {x = 0, y = 0}
         if not self.config.original_offset then
             self.config.original_offset = copy_table(self.role.offset)
@@ -406,13 +404,14 @@ function UIElement:hover(...)
         self.children["train_button_arrow"..popup] = UIBox{
             definition = hpot_hover_train_button_arrow(G.C["train_button_arrow"..popup]),
             config = {
-                align = "bmi", 
-                offset = {x = 0, y = 1.5},
+                align = "tmi", 
+                offset = {x = 0, y = -0.5},
                 parent = self
             }
         }
         local text_node = self.children["train_button_arrow"..popup].UIRoot.children[1].children[1].children[1]
-        text_node:ease_move{x = 0, y = -0.625}
+        text_node.states.hover.can = false
+        text_node:ease_move{x = 0, y = -0.125}
 
         G.GAME.failure_popup = (G.GAME.failure_popup or 0) + 1
         local f_popup = G.GAME.failure_popup
@@ -436,12 +435,13 @@ function UIElement:hover(...)
             definition = hpot_hover_train_button_failure_rate({G.C["train_button_failure"..f_popup], G.C["text_".."train_button_failure"..f_popup]}, self.config.train),
             config = {
                 align = "tmi", 
-                offset = {x = 0, y = -1.5},
-                parent = self
+                offset = {x = 0, y = 1.1},
+                parent = self,
             }
         }
         local node = self.children["train_button_failure"..f_popup].UIRoot.children[1]
-        node:ease_move{x = 0, y = 0.4}
+        node.states.hover.can = false
+        node:ease_move{x = 0, y = 0.3}
 
         local stat_gains = G.GAME.training_boost[self.config.train]
         if stat_gains and G.shop then
@@ -572,16 +572,6 @@ function UIElement:stop_hover(...)
 end
 
 function G.UIDEF.hotpot_pd_training_section()
-    if not G.train_jokers or not G.train_jokers.cards then
-        G.train_jokers = CardArea(
-            G.hand.T.x + 0,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'title', highlight_limit = 0, negative_info = true }
-        )
-        G.train_jokers.states.collide.can = true
-    end
     if G.GAME.train_table then
         G.train_jokers:load(G.GAME.train_table)
         G.GAME.train_table = nil
@@ -594,7 +584,7 @@ function G.UIDEF.hotpot_pd_training_section()
         wits = 1
     }
 
-    local button_minsize = 1.5
+    local button_minsize = 1.3
     local function create_train_button(train)
         return {n = G.UIT.C, config = {align = "cm", padding = 0.05, r = 0.2, colour = G.C.training_colors[train], minw = button_minsize, minh = button_minsize, outline_colour = G.C.WHITE, outline = 1.6, button = "hotpot_training_grounds_train", train = train, hover = true, shadow = true, id = "button_train_"..train, is_train_button = true}, nodes = {
             {n = G.UIT.R, config = {align = "cm"}, nodes = {
@@ -606,8 +596,8 @@ function G.UIDEF.hotpot_pd_training_section()
         }}
     end
     local function create_stat_display(stat)
-        return {n = G.UIT.C, config = {align = "tm", id = "stat_train_"..stat}, nodes = {
-            {n = G.UIT.R, config = {align = "cm", colour = G.C.hotpot_default_stat_color, minh = 0.4, padding = 0.05}, nodes = {
+        return {n = G.UIT.C, config = {align = "tm", id = "stat_train_"..stat, minw = 1.4}, nodes = {
+            {n = G.UIT.R, config = {align = "cm", colour = G.C.hotpot_default_stat_color, minh = 0.4, minw = 1.4, padding = 0.05}, nodes = {
                 {n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
             }},
             {n = G.UIT.R, config = {align = "cm", padding = 0.025}, nodes = {
@@ -633,23 +623,48 @@ function G.UIDEF.hotpot_pd_training_section()
         }}
     end
 
-    return {n = G.UIT.R, config = {minw = 3, minh = 2.5, colour = G.C.CLEAR}, nodes = {}},
+    return 
+    {n=G.UIT.C, config = {align = 'tm', minh = 8}, nodes={
+        PissDrawer.Shop.help_button('training_help'),
         {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
-            {n = G.UIT.C, config = {align = "cm", padding = 0.1}, nodes = {
-                {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                    {n = G.UIT.C, config = {align = "cm", minh = 0.65, minw = 1.5, r = 0.2, colour = G.C.L_BLACK}, nodes = {
-                        {n = G.UIT.R, config = {align = "cm", padding = 0.1}, nodes = {
-                            {n = G.UIT.C, config = {align = "cl"}, nodes = {
-                                {n = G.UIT.T, config = {text = "Energy", scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
-                            }},
-                            {n = G.UIT.C, config = {align = "cm", colour = G.C.BLUE, minw = 3.5, minh = 0.4, r = 0.2, ease_progress_bar = {max = 100, ref_table = G.dynamic_train_messages, ref_value = "energy", empty_col = darken(G.C.BLUE, 0.5), filled_col = G.C.BLUE, ease = "quad"}}},
+                    {n = G.UIT.C, config = {align = "tm", padding = 0.1}, nodes = {
+                        {n=G.UIT.R, nodes = {
+                            {n=G.UIT.C, nodes = {
+                                {n=G.UIT.R, config = {colour = G.C.CLEAR, minh = 0.2}},
+                                {n = G.UIT.R, config = {align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = G.C.hotpot_default_stat_color, outline = 1}, nodes = {
+                                    create_stat_display("speed"),
+                                    create_stat_display_gap(),
+                                    create_stat_display("stamina"),
+                                    create_stat_display_gap(),
+                                    create_stat_display("power"),
+                                }},
+                                {n=G.UIT.R, config = {colour = G.C.CLEAR, minh = 0.1}},
+                                {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                    
+                                    {n = G.UIT.R, config = {align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = G.C.hotpot_default_stat_color, outline = 1}, nodes = {
+                                        create_stat_display("guts"),
+                                        create_stat_display_gap(),
+                                        create_stat_display("wits"),
+                                    }},
+                                }}
+                            }}
                         }},
-                    }}
-                }},
-                {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                    {n = G.UIT.C, config = {align = "cm", padding = 0.125, r = 0.2, colour = G.C.L_BLACK, minw = 3, minh = 3.75}, nodes = {
+                        {n=G.UIT.R, config = {minh = 0.5}},
                         {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                            {n = G.UIT.T, config = {text = localize("hotpot_training_joker"), scale = 0.45, colour = G.C.BLACK}},
+                            {n = G.UIT.C, config = {align = "cm", minh = 0.65, minw = 1.5, r = 0.2, colour = G.C.L_BLACK}, nodes = {
+                                {n = G.UIT.R, config = {align = "cm", padding = 0.1}, nodes = {
+                                    {n = G.UIT.C, config = {align = "cl"}, nodes = {
+                                        {n = G.UIT.T, config = {text = "Energy", scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                                    }},
+                                    {n = G.UIT.C, config = {align = "cm", colour = G.C.BLUE, minw = 3.5, minh = 0.4, r = 0.2, ease_progress_bar = {max = 100, ref_table = G.dynamic_train_messages, ref_value = "energy", empty_col = darken(G.C.BLUE, 0.5), filled_col = G.C.BLUE, ease = "quad"}}},
+                                }},
+                            }}
+                        }},
+                    }},
+                    {n=G.UIT.C, config = {minw = 1}},
+                    {n = G.UIT.C, config = {align = "cm", padding = 0.125, r = 0.2, emboss = 0.05, colour = G.C.L_BLACK}, nodes = {
+                        {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                            {n = G.UIT.T, config = {text = localize("hotpot_training_joker"), scale = 0.4, colour = G.C.BLACK}},
                         }},
                         {n = G.UIT.R, config = {align = "cm"}, nodes = {
                             {n = G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.2, colour = G.C.BLACK}, nodes = {
@@ -660,24 +675,6 @@ function G.UIDEF.hotpot_pd_training_section()
                     }},
                 }},
                 {n = G.UIT.R, config = {align = "cm", minh = 0.5}},
-                {n = G.UIT.R, config = {align = "tm"}, nodes = {
-                    {n = G.UIT.C, config = {align = "tm"}, nodes = {
-                        {n = G.UIT.R, config = {align = "tm", colour = G.C.WHITE, r = 0.15, outline_colour = G.C.hotpot_default_stat_color, outline = 1}, nodes = {
-                            create_stat_display_gap(0.45),
-                            create_stat_display("speed"),
-                            create_stat_display_gap(),
-                            create_stat_display("stamina"),
-                            create_stat_display_gap(),
-                            create_stat_display("power"),
-                            create_stat_display_gap(),
-                            create_stat_display("guts"),
-                            create_stat_display_gap(),
-                            create_stat_display("wits"),
-                            create_stat_display_gap(0.45),
-                        }},
-                    }},
-                }},
-                {n = G.UIT.R, config = {align = "cm", minh = 0.45}},
                 {n = G.UIT.R, config = {align = "cm", padding = 0.2}, nodes = {
                     create_train_button("speed"),
                     create_train_button("stamina"),
@@ -685,9 +682,7 @@ function G.UIDEF.hotpot_pd_training_section()
                     create_train_button("guts"),
                     create_train_button("wits"),
                 }},
-            }},
-        }},
-        { n = G.UIT.R, config = { minw = 3, minh = 7, colour = G.C.CLEAR }, nodes = {} }
+            }}
 end
 
 G.C = G.C or {}

@@ -174,9 +174,3 @@ SMODS.Sound {
     key = "correct",
     path = "sfx_correct.mp3"
 }
-
-local toggle_shopref = G.FUNCS.toggle_shop
-G.FUNCS.toggle_shop = function(e)
-    toggle_shopref(e)
-    G.deck.states.visible = true
-end

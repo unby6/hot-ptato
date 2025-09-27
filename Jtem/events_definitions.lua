@@ -374,7 +374,7 @@ HotPotato.EventStep({
 			card:set_perishable(false)
 			card:set_eternal(true)
 			local delivery = copy_card(card)
-			local delivery_obj = card.hp_delivery_obj
+			local delivery_obj = card.ability.hp_delivery_obj
 			if delivery_obj then
 				delivery_obj.extras = delivery_obj.extras or {}
 				delivery_obj.extras.eternal = true
@@ -574,7 +574,7 @@ HotPotato.EventStep({
 					local card = pseudorandom_element(G.hp_jtem_delivery_queue.cards,
 						'postman_retrieve_' .. G.GAME.round_resets.ante)
 					if card then
-						local delivery = card.hp_delivery_obj
+						local delivery = card.ability.hp_delivery_obj
 						remove_element_from_list(G.GAME.hp_jtem_delivery_queue, delivery)
 						card:remove()
 						local cct = { key = delivery.key, skip_materialize = true }

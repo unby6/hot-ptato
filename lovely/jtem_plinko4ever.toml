@@ -176,24 +176,6 @@ if not nosave_shop and not plinko then G.E_MANAGER:add_event(Event({ func = func
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-position = 'at'
-pattern = '''G.shop = G.shop or UIBox{
-            definition = G.UIDEF.shop(),
-            config = {align='tmi', offset = {x=0,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
-        }'''
-payload = '''
-if not plinko then
-    G.deck.states.visible = false
-	G.shop = G.shop or UIBox{
-		definition = G.UIDEF.shop(),
-		config = {align='tmi', offset = {x=1.5,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
-	}
-end
-'''
-match_indent = true
 
 [[patches]]
 [patches.pattern]
@@ -213,7 +195,7 @@ pattern = '''G.shop.alignment.offset.y = -5.3
                     G.shop.alignment.offset.x = 0'''
 payload = '''
 if G.shop then
-	G.shop.alignment.offset.y = -5.3
+	G.shop.alignment.offset.y = -4.3
 	G.shop.alignment.offset.x = 0
 end
 '''

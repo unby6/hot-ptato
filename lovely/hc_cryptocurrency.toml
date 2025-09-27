@@ -62,8 +62,8 @@ G.shop.alignment.offset.y = -5.3
 G.shop.alignment.offset.x = 0
 '''
 payload = '''
-G.shop.alignment.offset.y = -5.3
-G.shop.alignment.offset.x = 0.75
+G.shop.alignment.offset.y = -5.9
+G.shop.alignment.offset.x = 0
 '''
 match_indent = true
 

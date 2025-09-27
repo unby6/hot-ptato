@@ -177,340 +177,6 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn()
     }
 end
 
-function G.UIDEF.hotpot_jtem_shop_delivery_section()
-    -- dollars to jx
-    G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
-    G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
-    G.GAME.hp_jtem_c2j_rate = G.GAME.hp_jtem_c2j_rate or { from = 1, to = 833 }
-    G.GAME.hp_jtem_b2j_rate = G.GAME.hp_jtem_b2j_rate or { from = 1, to = 50000 }
-    return
-        {
-            n = G.UIT.R,
-            nodes = {
-                {
-                    n = G.UIT.B,
-                    config = {
-                        h = 6,
-                        w = 0.1
-                    }
-                }
-            }
-        },
-        {
-            n = G.UIT.R,
-            config = {
-                padding = 0.05,
-            },
-            nodes = {
-                {
-                    n = G.UIT.C,
-                    config = { padding = 0.1, minw = 2.8 },
-                    nodes = {
-                        {
-                            n = G.UIT.R,
-                            config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 1, shadow = true, button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true },
-                            nodes = {
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize("hotpot_request_joker_line_1"), scale = 0.5, colour = G.C.WHITE, }
-                                    },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize("hotpot_request_joker_line_2"), scale = 0.3, colour = G.C.WHITE, }
-                                    },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize("hotpot_request_joker_line_3"), scale = 0.2, colour = G.C.WHITE, }
-                                    },
-                                    }
-                                },
-                            }
-                        },
-                        {
-                            n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_d2j', func = "hp_jtem_can_exchange_d2j", hover = true },
-                            nodes = {
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_d2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                    },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$" } }), scale = 0.3, colour = G.C.WHITE }
-                                    },
-                                    }
-                                },
-                            }
-                        },
-                        {
-                            n = G.UIT.R,
-                            config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 2.8, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_p2j', func = "hp_jtem_can_exchange_p2j", hover = true },
-                            nodes = {
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_p2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                    },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.R,
-                                    config = { align = "cm" },
-                                    nodes = { {
-                                        n = G.UIT.T,
-                                        config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "$" } }), scale = 0.3, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                    },
-                                    }
-                                },
-                            }
-                        },
-                        {
-                            n = G.UIT.R,
-                            config = {},
-                            nodes = {
-                                {
-                                    n = G.UIT.C,
-                                    config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_c2j', func = "hp_jtem_can_exchange_c2j", hover = true },
-                                    nodes = {
-                                        {
-                                            n = G.UIT.R,
-                                            config = { align = "cm" },
-                                            nodes = { {
-                                                n = G.UIT.T,
-                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_c2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                            },
-                                            }
-                                        },
-                                        {
-                                            n = G.UIT.R,
-                                            config = { align = "cm" },
-                                            nodes = { {
-                                                n = G.UIT.T,
-                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "c." } }), scale = 0.3, colour = G.C.WHITE }
-                                            },
-                                            }
-                                        },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.c,
-                                    config = { minw = 0.1 },
-                                    nodes = {},
-                                },
-                                {
-                                    n = G.UIT.C,
-                                    config = { colour = G.C.BLUE, align = "cm", padding = 0.05, r = 0.02, minw = 1.4, minh = 0.8, shadow = true, button = 'hp_jtem_exchange_b2j', func = "hp_jtem_can_exchange_b2j", hover = true },
-                                    nodes = {
-                                        {
-                                            n = G.UIT.R,
-                                            config = { align = "cm" },
-                                            nodes = { {
-                                                n = G.UIT.T,
-                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_1", vars = { G.GAME.hp_jtem_b2j_rate.to } }), scale = 0.5, colour = G.C.WHITE, font = SMODS.Fonts['hpot_plincoin'] }
-                                            },
-                                            }
-                                        },
-                                        {
-                                            n = G.UIT.R,
-                                            config = { align = "cm" },
-                                            nodes = { {
-                                                n = G.UIT.T,
-                                                config = { text = localize({ type = "variable", key = "hotpot_exchange_for_jx_line_2", vars = { "£" } }), scale = 0.3, colour = G.C.WHITE }
-                                            },
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        }
-                    }
-                },
-                {
-                    n = G.UIT.C,
-                    config = { padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm", font = SMODS.Fonts['hpot_plincoin'] },
-                    nodes = {
-                        {
-                            n = G.UIT.R,
-                            config = {
-                                align = "cm",
-                                padding = 0.2,
-                                r = 0.2,
-                                colour = G.C.BLACK,
-                            },
-                            nodes = {
-                                {
-                                    n = G.UIT.C,
-                                    config = {
-                                        minw = 0.5,
-                                        align = "cm",
-                                    },
-                                    nodes = {
-                                        { n = G.UIT.T, config = { text = localize("hpot_delivery_queue"), scale = 0.45, colour = G.C.L_BLACK, vert = true } },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.C,
-                                    nodes = {
-                                        {
-                                            n = G.UIT.B,
-                                            config = {
-                                                w = 0.4,
-                                                h = 1,
-                                            }
-                                        }
-                                    }
-                                },
-                                {
-                                    n = G.UIT.O,
-                                    config = {
-                                        object = G.hp_jtem_delivery_queue,
-                                    }
-                                },
-                                {
-                                    n = G.UIT.C,
-                                    nodes = {
-                                        {
-                                            n = G.UIT.B,
-                                            config = {
-                                                w = 0.5,
-                                                h = 1,
-                                            }
-                                        }
-                                    }
-                                },
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        {
-            n = G.UIT.R,
-            nodes = {
-                {
-                    n = G.UIT.B,
-                    config = {
-                        h = 0.1,
-                        w = 0.1
-                    }
-                }
-            }
-        },
-        {
-            n = G.UIT.R,
-            config = {
-                padding = 0.05,
-            },
-            nodes = {
-                {
-                    n = G.UIT.C,
-                    nodes = {
-                        {
-                            n = G.UIT.B,
-                            config = {
-                                h = 0.1,
-                                w = 0.05,
-                            }
-                        }
-                    }
-                },
-                {
-                    n = G.UIT.C,
-                    config = { padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, minw = 8.2, aligm = "cm" },
-                    nodes = {
-                        {
-                            n = G.UIT.R,
-                            config = {
-                                align = "cm",
-                                padding = 0.2,
-                                r = 0.2,
-                                colour = G.C.BLACK,
-                            },
-                            nodes = {
-                                {
-                                    n = G.UIT.C,
-                                    config = {
-                                        minw = 0.5,
-                                        align = "cm",
-                                    },
-                                    nodes = {
-                                        { n = G.UIT.T, config = { text = localize("hpot_special_deals"), scale = 0.45, colour = G.C.L_BLACK, vert = true } },
-                                    }
-                                },
-                                {
-                                    n = G.UIT.C,
-                                    nodes = {
-                                        {
-                                            n = G.UIT.B,
-                                            config = {
-                                                w = 0,
-                                                h = 1,
-                                            }
-                                        }
-                                    }
-                                },
-                                {
-                                    n = G.UIT.O,
-                                    config = {
-                                        object = G.hp_jtem_delivery_special_deals,
-                                    }
-                                },
-                                {
-                                    n = G.UIT.C,
-                                    nodes = {
-                                        {
-                                            n = G.UIT.B,
-                                            config = {
-                                                w = 0,
-                                                h = 1,
-                                            }
-                                        }
-                                    }
-                                },
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        {
-            n = G.UIT.R,
-            nodes = {
-                {
-                    n = G.UIT.B,
-                    config = {
-                        h = 0.5,
-                        w = 0.1
-                    }
-                }
-            }
-        },
-        G.UIDEF.hotpot_tname_reforge_section()
-end
-
 G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
     if (0 > G.GAME.dollars - G.GAME.bankrupt_at) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
@@ -549,7 +215,7 @@ G.FUNCS.hp_jtem_can_exchange_b2j = function(e)
 end
 G.FUNCS.hp_jtem_can_order = function(e)
     local _c = e.config.ref_table
-    if (_c.hp_jtem_currency_bought_value > get_currency_amount(_c.hp_jtem_currency_bought) - (_c.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
+    if (_c.ability.hp_jtem_currency_bought_value > get_currency_amount(_c.ability.hp_jtem_currency_bought) - (_c.ability.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -740,7 +406,7 @@ G.FUNCS.hp_jtem_order = function(e)
         e.disable_button = nil
         return
     end
-    local object = card.hp_delivery_obj
+    local object = card.ability.hp_delivery_obj
     ease_currency(object.currency, -object.price)
     table.insert(G.GAME.hp_jtem_delivery_queue, object)
     remove_element_from_list(G.GAME.round_resets.hp_jtem_special_offer, object)
@@ -757,14 +423,14 @@ G.FUNCS.hp_jtem_order = function(e)
         card.children.hp_jtem_cancel_order:remove()
         card.children.hp_jtem_cancel_order = nil
     end
-    local args = generate_currency_string_args(card.hp_jtem_currency_bought)
+    local args = generate_currency_string_args(card.ability.hp_jtem_currency_bought)
     local temp_str = { str = (object.rounds_passed .. "/" .. object.rounds_total) }
     hpot_jtem_create_delivery_boxes(card, { { ref_table = temp_str, ref_value = 'str' } }, args)
     --hotpot_delivery_refresh_card()
 end
 G.FUNCS.hp_jtem_cancel = function(e)
     local card = e.config.ref_table
-    local object = card.hp_delivery_obj
+    local object = card.ability.hp_delivery_obj
     local returncost = math.ceil(object.price * 0.5)
     ease_currency(object.currency, returncost)
     remove_element_from_list(G.GAME.hp_jtem_delivery_queue, object)
@@ -812,7 +478,7 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                                 n = G.UIT.C,
                                 config = {},
                                 nodes = {
-                                    { n = G.UIT.T, config = { font = args.font, text = ((args.symbol) .. number_format(math.ceil(card.hp_jtem_currency_bought_value * 0.5))), colour = G.C.WHITE, scale = 0.4, shadow = true } }
+                                    { n = G.UIT.T, config = { font = args.font, text = ((args.symbol) .. number_format(math.ceil(card.ability.hp_jtem_currency_bought_value * 0.5))), colour = G.C.WHITE, scale = 0.4, shadow = true } }
                                 }
                             },
                         }
@@ -840,26 +506,6 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
                     parent = card
 
                 } }
-
-
-            local t3 = {
-                n = G.UIT.ROOT,
-                config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.RED, shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_cancel', one_press = true, button = 'hp_jtem_cancel', hover = true },
-                nodes = {
-                    { n = G.UIT.T, config = { text = localize('hotpot_delivery_order_cancel'), colour = G.C.WHITE, scale = 0.5 } }
-                }
-            }
-
-            card.children.hp_jtem_cancel_order = UIBox {
-                definition = t3,
-                config = {
-                    align = "bm",
-                    offset = { x = 0, y = -0.4 },
-                    major = card,
-                    bond = 'Weak',
-                    parent = card
-                }
-            }
             card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.38
             return true
         end)
@@ -889,7 +535,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
                         n = G.UIT.R,
                         config = { align = "cm", r = 0.1, minw = 1, minh = 0.2, emboss = 0.05, padding = 0.01 },
                         nodes = {
-                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.hp_delivery_obj.rounds_total } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
+                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.ability.hp_delivery_obj.rounds_total } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
                         }
                     },
                     { n = G.UIT.R, nodes = { { n = G.UIT.B, config = { h = 0.2, w = 0.1 } } } },
@@ -897,15 +543,7 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
                 }
             }
 
-            local t2 = {
-                n = G.UIT.ROOT,
-                config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_order', one_press = true, button = 'hp_jtem_order', hover = true },
-                nodes = {
-                    { n = G.UIT.T, config = { text = localize('hotpot_delivery_order'), colour = G.C.WHITE, scale = 0.5 } }
-                }
-            }
-
-            card.children.price = UIBox {
+            card.children.price = card.children.price or UIBox {
                 definition = t1,
                 config = {
                     align = "tm",
@@ -916,22 +554,13 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
 
                 }
             }
+            
+            card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.425
             G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
             G.GAME.hp_jtem_p2j_rate = G.GAME.hp_jtem_p2j_rate or { from = 1, to = 32000 }
             G.GAME.hp_jtem_c2j_rate = G.GAME.hp_jtem_c2j_rate or { from = 1, to = 833 }
 
 
-            card.children.hp_jtem_price_side = UIBox {
-                definition = t2,
-                config = {
-                    align = "bm",
-                    offset = { x = 0, y = -0.34 },
-                    major = card,
-                    bond = 'Weak',
-                    parent = card
-                }
-            }
-            card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.425
             return true
         end)
     }))
@@ -942,15 +571,15 @@ function hotpot_jtem_init_extra_shops_area()
     G.hp_jtem_delivery_special_deals = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        9.375,
-        1.15 * G.CARD_H,
-        { card_limit = 4, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W, lr_padding = 0.1 })
+        2.95 * G.CARD_W,
+        1.15 * G.CARD_H * PissDrawer.shop_scale,
+        { card_limit = 4, type = 'shop', highlight_limit = 1, lr_padding = 0.1, hotpot_shop = true })
     G.hp_jtem_delivery_queue = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        5.525,
-        1.15 * G.CARD_H,
-        { card_limit = 2, type = 'shop', highlight_limit = 0, card_w = 1.27 * G.CARD_W })
+        1.82 * G.CARD_W,
+        1.05 * G.CARD_H * PissDrawer.shop_scale,
+        { card_limit = 2, type = 'shop', highlight_limit = 1, hotpot_shop = true })
     G.hp_jtem_delivery_queue.cards = G.hp_jtem_delivery_queue.cards or {}
     G.hp_jtem_delivery_special_deals.cards = G.hp_jtem_delivery_special_deals.cards or {}
     G.hp_jtem_y_queue = G.hp_jtem_y_queue or {}
@@ -1063,11 +692,11 @@ end
 function ease_currency(currency, value, instant)
     currency = currency or "dollars"
     value = value or 0
-    if currency == "credits" then HPTN.ease_credits(value, instant) end
-    if currency == "dollars" then ease_dollars(value, instant) end
-    if currency == "plincoin" then ease_plincoins(value, instant) end
-    if currency == "joker_exchange" then ease_spark_points(value, instant) end
-    if currency == "cryptocurrency" or currency == "crypto" then ease_cryptocurrency(value, instant) end
+    if currency == "credits" or currency == 'all' then HPTN.ease_credits(value, instant) end
+    if currency == "dollars" or currency == 'all' then ease_dollars(value, instant) end
+    if currency == "plincoin" or currency == 'all' then ease_plincoins(value, instant) end
+    if currency == "joker_exchange" or currency == 'all' then ease_spark_points(value, instant) end
+    if currency == "cryptocurrency" or currency == "crypto" or currency == 'all' then ease_cryptocurrency(value, instant) end
     -- patches for other currencies ease
 end
 
@@ -1154,6 +783,7 @@ function hotpot_jtem_generate_special_deals(deals)
     -- feel free to tweak the balanced
     ---@type Jtem.Delivery[]
     G.GAME.round_resets.hp_jtem_special_offer = {}
+    PissDrawer.Shop.delivery_spawn = false
     G.GAME.hp_jtem_special_offer_count = G.GAME.hp_jtem_special_offer_count or 3
     for i = 1, (deals or G.GAME.hp_jtem_special_offer_count) do
         local _pool, _pool_key = get_current_pool("Joker")
@@ -1238,10 +868,10 @@ function hotpot_delivery_refresh_card()
             cct[k] = v
         end
         local _c = SMODS.create_card(cct)
-        _c.hp_jtem_currency_bought = _obj.currency
-        _c.hp_jtem_currency_bought_value = _obj.price
-        _c.hp_delivery_obj = _obj
-        local args = generate_currency_string_args(_c.hp_jtem_currency_bought)
+        _c.ability.hp_jtem_currency_bought = _obj.currency
+        _c.ability.hp_jtem_currency_bought_value = _obj.price
+        _c.ability.hp_delivery_obj = _obj
+        local args = generate_currency_string_args(_c.ability.hp_jtem_currency_bought)
         hpot_jtem_create_delivery_boxes(_c, { { ref_table = temp_str, ref_value = 'str' } }, args)
         if _obj.extras then
             for k, v in pairs(_obj.extras) do
@@ -1256,12 +886,12 @@ function hotpot_delivery_refresh_card()
             cct[k] = v
         end
         local _c = SMODS.create_card(cct)
-        _c.hp_jtem_currency_bought = _obj.currency
-        _c.hp_jtem_currency_bought_value = _obj.price
-        _c.hp_delivery_obj = _obj
-        local args = generate_currency_string_args(_c.hp_jtem_currency_bought)
+        _c.ability.hp_jtem_currency_bought = _obj.currency
+        _c.ability.hp_jtem_currency_bought_value = _obj.price
+        _c.ability.hp_delivery_obj = _obj
+        local args = generate_currency_string_args(_c.ability.hp_jtem_currency_bought)
         hpot_jtem_create_special_deal_boxes(_c,
-            { { prefix = args.symbol, ref_table = _c, ref_value = "hp_jtem_currency_bought_value" } }, args)
+            { { prefix = args.symbol, ref_table = _c.ability, ref_value = "hp_jtem_currency_bought_value" } }, args)
         if _obj.extras then
             for k, v in pairs(_obj.extras) do
                 _c.ability[k] = v
@@ -1275,24 +905,24 @@ end
 local card_init_val = Card.init
 function Card:init(x, y, w, h, _card, _center, _params)
     local _c = card_init_val(self, x, y, w, h, _card, _center, _params)
-    self.hp_jtem_currency_bought = self.hp_jtem_currency_bought or "dollars"
-    self.hp_jtem_currency_bought_value = self.hp_jtem_currency_bought_value or 0
+    self.ability.hp_jtem_currency_bought = self.ability.hp_jtem_currency_bought or "dollars"
+    self.ability.hp_jtem_currency_bought_value = self.ability.hp_jtem_currency_bought_value or 0
     return _c
 end
 
 local card_save_additional_props = Card.save
 function Card:save()
     local st = card_save_additional_props(self)
-    st.hp_jtem_currency_bought = self.hp_jtem_currency_bought or "dollars"
-    st.hp_jtem_currency_bought_value = self.hp_jtem_currency_bought_value or 0
+    st.ability.hp_jtem_currency_bought = self.ability.hp_jtem_currency_bought or "dollars"
+    st.ability.hp_jtem_currency_bought_value = self.ability.hp_jtem_currency_bought_value or 0
     return st
 end
 
 local card_load_additional_props = Card.load
 function Card:load(ct, oc)
     local st = card_load_additional_props(self, ct, oc)
-    self.hp_jtem_currency_bought = ct.hp_jtem_currency_bought or "dollars"
-    self.hp_jtem_currency_bought_value = ct.hp_jtem_currency_bought_value or 0
+    self.ability.hp_jtem_currency_bought = ct.ability.hp_jtem_currency_bought or "dollars"
+    self.ability.hp_jtem_currency_bought_value = ct.ability.hp_jtem_currency_bought_value or 0
     return st
 end
 
@@ -1402,36 +1032,6 @@ end
 function G.FUNCS.hotpot_jtem_toggle_delivery()
     if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
     stop_use()
-    local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
-    if not G.HP_JTEM_DELIVERY_VISIBLE then
-        ease_background_colour({ new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK, 0.4), contrast = 3 })
-        G.shop.alignment.offset.y = -20
-        G.HP_JTEM_DELIVERY_VISIBLE = true
-        simple_add_event(function()
-            sign_sprite.pinch.y = true
-            delay(0.5)
-            simple_add_event(function()
-                sign_sprite.atlas = G.ANIMATION_ATLAS["hpot_jtem_postlatro"]
-                sign_sprite.pinch.y = false
-                return true
-            end)
-            return true
-        end, { trigger = "after", delay = 0 })
-        play_sound("hpot_sfx_whistleup", nil, 0.25)
-    else
-        ease_background_colour_blind(G.STATES.SHOP)
-        G.shop.alignment.offset.y = -5.3
-        G.HP_JTEM_DELIVERY_VISIBLE = nil
-        simple_add_event(function()
-            sign_sprite.pinch.y = true
-            delay(0.5)
-            simple_add_event(function()
-                sign_sprite.atlas = G.ANIMATION_ATLAS["shop_sign"]
-                sign_sprite.pinch.y = false
-                return true
-            end)
-            return true
-        end, { trigger = "after", delay = 0 })
-        play_sound("hpot_sfx_whistledown", nil, 0.25)
-    end
+    PissDrawer.Shop.change_shop_sign("hpot_jtem_postlatro")
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.delivery_shop, hotpot_jtem_init_extra_shops_area, PissDrawer.Shop.delivery_post, PissDrawer.Shop.area_keys.delivery)
 end

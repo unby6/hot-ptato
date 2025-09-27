@@ -543,7 +543,7 @@ HPTN.Modification({
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
 		if context.post_trigger and context.other_card == card then
-			SMODS.calculate_effect({ mult = 10 }, card)
+			return { mult = 10 }
 		end
 	end,
 	hotpot_credits = {

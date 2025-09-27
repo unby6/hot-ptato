@@ -4277,7 +4277,7 @@ return {
             modif_hpot_ruthless = {
                 name = "Ruthless",
                 text = {
-                    "{X:mult,C:white}X%20{C:green} Mult if triggered during scoring"
+                    "{X:mult,C:white}X%20{C:green} Mult when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_greedy = {
@@ -4289,31 +4289,31 @@ return {
             modif_hpot_jumpy = {
                 name = "Jumpy",
                 text = {
-                    "{X:mult,C:white}X1.1{C:green} Mult if triggered during scoring"
+                    "{X:mult,C:white}X1.1{C:green} Mult when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_invested = {
                 name = "Invested",
                 text = {
-                    "{C:money}+$1{C:green} sell value at the end of a round"
+                    "{C:money}+$1{C:green} sell value","{C:green}at end of round"
                 }
             },
             modif_hpot_damaged = {
                 name = "Damaged",
                 text = {
-                    "{C:dark_edition}#1# in 2 Chance to self-destruct when triggered"
+                    "{C:dark_edition}#1# in 2 Chance to","{C:red,E:2}self-destruct{C:dark_edition} when triggered"
                 }
             },
             modif_hpot_supported = {
                 name = "Supported",
                 text = {
-                    "{X:mult,C:white}X%10{C:green} Mult if triggered during scoring"
+                    "{X:mult,C:white}X%10{C:green} Mult when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_dozing = {
                 name = "Dozing",
                 text = {
-                    "{C:dark_edition}#1# in 3 Chance to not trigger for a round"
+                    "{C:dark_edition}#1# in 3 Chance to","{C:dark_edition}not trigger for a round"
                 }
             },
             modif_hpot_hyper = {
@@ -4327,56 +4327,56 @@ return {
             modif_hpot_smudged = {
                 name = "Smudged",
                 text = {
-                    "{X:mult,C:white}X0.9{C:dark_edition} Mult if triggered during scoring"
+                    "{X:mult,C:white}X0.9{C:dark_edition} Mult when triggered","{C:dark_edition}during scoring"
                 }
             },
             modif_hpot_depreciating = {
                 name = "Depreciating",
                 text = {
-                    "{C:money}-$1{C:dark_edition} sell value at the end of a round"
+                    "{C:money}-$1{C:dark_edition} sell value","{C:dark_edition}at end of round"
                 }
             },
 
             modif_hpot_sharpened = {
                 name = "Sharpened",
                 text = {
-                    "{C:mult}+10{C:green} Mult if triggered during scoring"
+                    "{C:mult}+10{C:green} Mult when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_dull = {
                 name = "Dull",
                 text = {
-                    "{C:mult}-5{C:green} Mult if triggered during scoring"
+                    "{C:mult}-5{C:green} Mult when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_jagged = {
                 name = "Jagged",
                 text = {
-                    "{C:blue}+50{C:green} Chips if triggered during scoring"
+                    "{C:blue}+50{C:green} Chips when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_spiked = {
                 name = "Spiked",
                 text = {
-                    "{X:blue,C:white}X1.2{C:green} Chips if triggered during scoring"
+                    "{X:blue,C:white}X1.2{C:green} Chips when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_menacing = {
                 name = "Menacing",
                 text = {
-                    "{X:blue,C:white}X%5{C:green} Chips if triggered during scoring"
+                    "{X:blue,C:white}X%5{C:green} Chips when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_rusty = {
                 name = "Rusty",
                 text = {
-                    "{C:blue}-25{C:green} Chips if triggered during scoring"
+                    "{C:blue}-25{C:green} Chips when triggered","{C:green}during scoring"
                 }
             },
             modif_hpot_flawed = {
                 name = "Flawed",
                 text = {
-                    "{X:blue,C:white}X0.8{C:green} Chips if triggered during scoring"
+                    "{X:blue,C:white}X0.8{C:green} Chips when triggered","{C:green}during scoring"
                 }
             },
         },
@@ -4582,11 +4582,12 @@ return {
             hotpot_spark_points = "Joker Exchange",
             hotpot_delivery = "Deliveries",
             hotpot_delivery_back = "Back to Shop",
-            hotpot_go_reforge = "Reforge",
+            hotpot_go_reforge = "REFORGE",
+            hotpot_leave_reforge = "RETURN",
             hotpot_go_market = "Black Market",
             hotpot_go_training = "Training Grounds",
-            hotpot_request_joker_line_1 = "Request",
-            hotpot_request_joker_line_2 = "a Joker",
+            hotpot_request_joker_line_1 = "Request a Joker",
+            hotpot_request_joker_line_2 = "Redeem",
             hotpot_request_joker_line_3 = "Once every ante",
             hotpot_search = "Search",
             hotpot_delivery_order = "ORDER",
@@ -4643,7 +4644,7 @@ return {
 
             hotpot_reforge_credits = "c.", -- 50
             hotpot_reforge_dollars = "$", -- 10
-            hotpot_reforge_joker_exchange = "͸", -- 10 K
+            hotpot_reforge_sparks = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
             hotpot_reforge_cryptocurrency = "£",
             k_changedperson = "Changed!",
@@ -4727,7 +4728,11 @@ return {
             hotpot_training_level = "Level ",
 
             k_hotpot_transaction_sign = "Express",
-            k_hotpot_transaction_shady_sign = "Back Alley"
+            k_hotpot_transaction_shady_sign = "Back Alley",
+
+            hpot_training_failure = ' failure',
+            hotpot_go_train = 'TRAIN',
+            hotpot_leave_train = 'RETURN'
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

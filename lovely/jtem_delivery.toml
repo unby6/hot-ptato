@@ -29,19 +29,6 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
-position = 'after'
-pattern = '''                        {n=G.UIT.O, config={object = G.shop_booster}},
-                      }},
-                    }}'''
-payload = '''
-,G.UIDEF.hotpot_jtem_shop_delivery_section(),
---G.UIDEF.hotpot_tname_reforge_section()
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
 target = 'functions/state_events.lua'
 position = 'after'
 pattern = '''            -- TARGET: setting_blind effects'''

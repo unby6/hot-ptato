@@ -256,6 +256,7 @@ function end_round()
         local number_of_ads = 1+(math.ceil((pseudorandom('ad_num')-0.5)*2))
         create_ads(number_of_ads)
         G.GAME.market_filled = nil
+        PissDrawer.Shop.market_spawn = false
     else
         local number_of_ads = math.floor(pseudorandom('ad_num')*2)
         create_ads(number_of_ads)
