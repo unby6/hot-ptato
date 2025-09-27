@@ -17,6 +17,11 @@ SMODS.Atlas {
 	py = 32
 }
 
+--talisman
+to_big = to_big or function(x) return x end
+to_number = to_number or function(x) return x end
+--oh my fucking god at this point just install luajit2
+
 -- FILE LOADING
 --#region File Loading
 local nativefs = NFS
