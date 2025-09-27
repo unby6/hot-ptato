@@ -340,7 +340,7 @@ SMODS.Consumable({
 		return {
 			vars = {
 				hpt.credits,
-				math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits),
+				math.max(0, math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits)),
 				((math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits) < 0) and "") or "+" }
 		}
 	end,
