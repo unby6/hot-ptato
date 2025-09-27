@@ -1967,7 +1967,7 @@ HotPotato.EventStep {
 				end,
 				func = function()
 					return G.GAME.dollars >= 5 and
-						#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+						#G.consumeables.cards < G.consumeables.config.card_limit
 				end
 			},
 			{
@@ -2020,7 +2020,7 @@ HotPotato.EventStep {
 					event.start_step('hpot_fishing_cast_line')
 				end,
 				func = function()
-					return #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+					return #G.consumeables.cards < G.consumeables.config.card_limit
 				end
 			},
 			{
