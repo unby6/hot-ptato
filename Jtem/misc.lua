@@ -35,8 +35,8 @@ SMODS.Sound {
 SMODS.Sound {
   key = "music_delivery",
   path = "music_delivery.ogg",
-  select_music_track = function (self)
-    if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_jtem_toggle_delivery" then
+    select_music_track = function(self)
+    if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_jtem_toggle_delivery" or (G.HP_JTEM_DELIVERY_VISIBLE and G.hpot_event) then
       return 1349
     end
   end

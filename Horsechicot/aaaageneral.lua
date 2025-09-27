@@ -41,8 +41,8 @@ SMODS.Atlas{
 SMODS.Sound {
     key = "music_market",
     path = "music_market.ogg",
-    select_music_track = function (self)
-      if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_horsechicot_toggle_market" then
+    select_music_track = function(self)
+        if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_horsechicot_toggle_market" or (G.hpot_event and G.HP_HC_MARKET_VISIBLE) then
         return 1325
       end
     end
