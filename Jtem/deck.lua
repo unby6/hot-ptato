@@ -56,7 +56,12 @@ local deck = SMODS.Back {
                 }
             end
         end
-    end
+    end,
+    hotpot_credits = {
+        art = {'Squidguset'},
+        code = {'All of us'},
+        team = {'Everyone'}
+    },
 }
 
 -- gives the deck a shader (stolen from TMD teehee :3)
