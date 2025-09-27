@@ -46,6 +46,9 @@ local blacklist = {
 }
 local function load_files(path, dirs_only)
 	local info = nativefs.getDirectoryItemsInfo(path)
+	table.sort(info, function (a, b)
+		return a.name < b.name
+	end)
 	for i, v in pairs(info) do
 		if v.type == "directory" and not blacklist[v.name] then	
 			load_files(path.."/"..v.name)
