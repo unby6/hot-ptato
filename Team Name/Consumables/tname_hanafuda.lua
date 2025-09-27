@@ -1196,8 +1196,7 @@ SMODS.Consumable({
 	end,
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
-			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(random_joker, true)
+			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
 		unhighlight_hj()
     end,
@@ -1235,8 +1234,7 @@ SMODS.Consumable({
 	end,
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
-			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(G.jokers.highlighted[i], true)
+			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
 		unhighlight_hj()
     end,
@@ -1274,8 +1272,7 @@ SMODS.Consumable({
 	end,
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
-			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(G.jokers.highlighted[i], true)
+			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
 		unhighlight_hj()
     end,
@@ -1313,8 +1310,7 @@ SMODS.Consumable({
 	end,
 	use = function(self, card, area, copier)
 		for i = 1, #G.jokers.highlighted do
-			poll_modification(1, G.jokers.highlighted[i], nil, { BAD = 0 })
-			reforge_card(G.jokers.highlighted[i], true)
+			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
 		unhighlight_hj()
     end,

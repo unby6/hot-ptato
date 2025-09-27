@@ -155,6 +155,24 @@ function poll_modification(chance, card, morality, odds)
     return nil
 end
 
+
+-- idk how to use corobo's Function
+function random_modif(m, card)
+    local vvrrr = {}
+    for k, v in pairs(HPTN.Modifications) do
+        if v.morality == m then
+            if card then
+                if not card.ability[k] then
+                    table.insert(vvrrr, v)
+                end
+            else
+                table.insert(vvrrr, v)
+            end
+        end
+    end
+    return pseudorandom_element(vvrrr)
+end
+
 --- Gets the key for the modification of a card, located in card.ability.
 ---
 --- @param card table|nil The card to consider for modification inquiry.
@@ -201,6 +219,22 @@ function reforge_card(card, free, currency)
         end
     end
     SMODS.calculate_context({ reforging = true, card = card, free = free or false, currency = currency })
+end
+
+
+-- dont see this
+function apply_modification(card,modif)
+    if not card then return nil end
+    
+    local old_modification = get_modification(card)
+    if old_modification then
+     HPTN.Modifications[old_modification]:apply(card, false)
+    end
+
+    HPTN.Modifications[modif]:apply(card, true)
+
+    card:juice_up()
+
 end
 
 --- Checks the amount of money it would cost to reforge a given card, in dollars.

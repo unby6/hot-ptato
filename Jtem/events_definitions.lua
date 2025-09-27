@@ -2211,8 +2211,7 @@ HotPotato.EventStep {
 				area = G.jokers,
 			})
 			b.T.h = b.T.h * 0.8
-			poll_modification(1, b, nil, { BAD = 100 })
-			reforge_card(b, true)
+			apply_modification(b,  random_modif("BAD", b).key)
 		end
 	end
 }

@@ -1697,8 +1697,7 @@ in_pool = function(self, args)
         end
         if can_use then
             local random_joker = pseudorandom_element(G.jokers.cards)
-            poll_modification(1, random_joker, nil, { [card.ability.extra.chosen] = 0 })
-            reforge_card(random_joker, true)
+            apply_modification(random_joker, random_modif(card.ability.extra[card.ability.extra.chosen], card).key)
         else
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             attention_text({
