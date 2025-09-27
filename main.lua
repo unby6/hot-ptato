@@ -149,14 +149,6 @@ function SMODS.create_mod_badges(obj, badges)
 					},
 				},
 			}
-			local function eq_col(x, y)
-				for i = 1, 4 do
-					if x[i] ~= y[i] then
-						return false
-					end
-				end
-				return true
-			end
 			for i = 1, #badges do	
 				if badges[i].nodes[1].nodes[2].config.object.string == HotPotato.display_name then --this was meant to be a hex code but it just doesnt work for like no reason so its hardcoded
 					badges[i].nodes[1].nodes[2].config.object:remove()
