@@ -25,6 +25,8 @@ G.dynamic_train_messages = {
     failure_rate_power = "0%",
     failure_rate_guts = "0%",
     failure_rate_wits = "0%",
+
+    spark_per_turn = 45000,
 }
 G.training_boost = {
     level_1 = {
@@ -191,45 +193,48 @@ function Game:update(...)
     local ret = update_ref(self,...)
     local stats = {"speed", "stamina", "power", "guts", "wits"}
     local joker_stats = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1].ability.hp_jtem_stats
-    if G.GAME.hovered_train and joker_stats then
-        local dummy_cost = calc_energy_cost(joker_stats, G.GAME.training_cost[G.GAME.hovered_train])
-        if dummy_cost < 0 then
-            dummy_cost = math.ceil(dummy_cost * (1 - math.min(joker_stats.stamina / 800, 0.9)))
-        else
-            dummy_cost = math.ceil(dummy_cost * (1 + (joker_stats.stamina / 1200)))
-        end
-        G.dynamic_train_messages.dummy_energy_cost = dummy_cost
-    else
-        G.dynamic_train_messages.dummy_energy_cost = 0
-    end
-    if joker_stats then
-        local card = G.train_jokers.cards[1]
-        G.dynamic_train_messages.energy = math.min(card.ability.hp_jtem_energy - G.dynamic_train_messages.dummy_energy_cost, 100)
-    else
-        G.dynamic_train_messages.energy = 0
-    end
-    if G.GAME.training_level then
-        for i,v in pairs(G.GAME.training_level) do
-            G.dynamic_train_messages[i.."_level"] = localize("hotpot_training_level")..v
-        end
-    end
-    for _,v in ipairs(stats) do
-        if joker_stats then
-            local card = G.train_jokers.cards[1]    
-            local stats = card.ability.hp_jtem_stats
-            local specific_stat = stats[v]
-
-            G.dynamic_train_messages[v] = hpot_get_rank_and_colour(specific_stat)
-            G.dynamic_train_messages["stats_"..v] = specific_stat
-
-            local energy = G.train_jokers.cards[1].ability.hp_jtem_energy
-            if energy then
-                G.dynamic_train_messages["failure_rate_"..v] = math.ceil((acc_hp_calc_failure_rate(energy, v) * 100)).."%"
+    if G.GAME then
+        G.dynamic_train_messages.spark_per_turn = G.GAME.spark_per_turn or 45000
+        if G.GAME.hovered_train and joker_stats then
+            local dummy_cost = calc_energy_cost(joker_stats, G.GAME.training_cost[G.GAME.hovered_train])
+            if dummy_cost < 0 then
+                dummy_cost = math.ceil(dummy_cost * (1 - math.min(joker_stats.stamina / 800, 0.9)))
+            else
+                dummy_cost = math.ceil(dummy_cost * (1 + (joker_stats.stamina / 1200)))
             end
+            G.dynamic_train_messages.dummy_energy_cost = dummy_cost
         else
-            G.dynamic_train_messages[v] = "?"
-            G.dynamic_train_messages["stats_"..v] = "?"
+            G.dynamic_train_messages.dummy_energy_cost = 0
         end
+        if joker_stats then
+            local card = G.train_jokers.cards[1]
+            G.dynamic_train_messages.energy = math.min(card.ability.hp_jtem_energy - G.dynamic_train_messages.dummy_energy_cost, 100)
+        else
+            G.dynamic_train_messages.energy = 0
+        end
+        if G.GAME.training_level then
+            for i,v in pairs(G.GAME.training_level) do
+                G.dynamic_train_messages[i.."_level"] = localize("hotpot_training_level")..v
+            end
+        end
+        for _,v in ipairs(stats) do
+            if joker_stats then
+                local card = G.train_jokers.cards[1]    
+                local stats = card.ability.hp_jtem_stats
+                local specific_stat = stats[v]
+
+                G.dynamic_train_messages[v] = hpot_get_rank_and_colour(specific_stat)
+                G.dynamic_train_messages["stats_"..v] = specific_stat
+
+                local energy = G.train_jokers.cards[1].ability.hp_jtem_energy
+                if energy then
+                    G.dynamic_train_messages["failure_rate_"..v] = math.ceil((acc_hp_calc_failure_rate(energy, v) * 100)).."%"
+                end
+            else
+                G.dynamic_train_messages[v] = "?"
+                G.dynamic_train_messages["stats_"..v] = "?"
+            end
+        end 
     end
     return ret
 end
@@ -288,6 +293,7 @@ function Game:start_run(args)
         guts = 22,
         wits = -5
     }
+    G.GAME.spark_per_turn = G.GAME.spark_per_turn or 45000
 
     return ret
 end
@@ -296,7 +302,8 @@ function G.FUNCS.hotpot_training_grounds_train(e)
     local config = e.config
     local train = config.train
     local card = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1]
-    if card then
+    if card and G.GAME and G.GAME.spark_points and G.GAME.spark_points >= G.GAME.spark_per_turn then
+        ease_currency("joker_exchange", -G.GAME.spark_per_turn)
         local joker_stats = card.ability.hp_jtem_stats
         local energy = card.ability.hp_jtem_energy
         local buff = G.GAME.training_boost[train]
@@ -389,7 +396,7 @@ function UIElement:hover(...)
         G.E_MANAGER:clear_queue(self.config.id)
         self:ease_move(destination, 6, self.config.id, true, true)
 
-        G.GAME.arrow_popup = (G.GAME.arrow_popup or 0) + 1
+       --[[G.GAME.arrow_popup = (G.GAME.arrow_popup or 0) + 1
         local popup = G.GAME.arrow_popup
         repeat
             if G.C["train_button_arrow"..popup] then
@@ -411,7 +418,7 @@ function UIElement:hover(...)
         }
         local text_node = self.children["train_button_arrow"..popup].UIRoot.children[1].children[1].children[1]
         text_node.states.hover.can = false
-        text_node:ease_move{x = 0, y = -0.25}
+        text_node:ease_move{x = 0, y = -0.25}]]
 
         G.GAME.failure_popup = (G.GAME.failure_popup or 0) + 1
         local f_popup = G.GAME.failure_popup
@@ -435,13 +442,13 @@ function UIElement:hover(...)
             definition = hpot_hover_train_button_failure_rate({G.C["train_button_failure"..f_popup], G.C["text_".."train_button_failure"..f_popup]}, self.config.train),
             config = {
                 align = "tmi", 
-                offset = {x = 0, y = 1.1},
+                offset = {x = 0, y = -0.5},
                 parent = self,
             }
         }
         local node = self.children["train_button_failure"..f_popup].UIRoot.children[1]
         node.states.hover.can = false
-        node:ease_move{x = 0, y = 0.3}
+        node:ease_move{x = 0, y = -0.25}
 
         local stat_gains = G.GAME.training_boost[self.config.train]
         if stat_gains and G.shop then
@@ -507,7 +514,7 @@ function UIElement:stop_hover(...)
         self:ease_move(destination, 6, self.config.id, true, true)
         for i,v in pairs(self.children) do
             if string.find(i, "train_button_arrow") then
-                local node = v.UIRoot.children[1].children[1].children[1]
+                --[[local node = v.UIRoot.children[1].children[1].children[1]
                 ease_colour_queue(G.C[i], {G.C.FILTER[1], G.C.FILTER[2], G.C.FILTER[3], 0}, nil, i)
                 node:ease_move({x = 0, y = 0.5}, nil, nil, nil, nil, nil, nil, {after_func = function(node)
                     G.GAME.arrow_popup = (G.GAME.arrow_popup or 1) - 1
@@ -516,7 +523,7 @@ function UIElement:stop_hover(...)
                     G.C[i] = nil
                     v:remove()
                     self.children[i] = nil
-                end})
+                end})]]
             elseif string.find(i, "train_button_failure") then
                 local node = v.UIRoot.children[1]
                 ease_colour_queue(G.C[i], {G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3], 0}, nil, i)
@@ -640,7 +647,6 @@ function G.UIDEF.hotpot_pd_training_section()
                                 }},
                                 {n=G.UIT.R, config = {colour = G.C.CLEAR, minh = 0.1}},
                                 {n=G.UIT.R, config = {align = 'cm'}, nodes = {
-                                    
                                     {n = G.UIT.R, config = {align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = G.C.hotpot_default_stat_color, outline = 1}, nodes = {
                                         create_stat_display("guts"),
                                         create_stat_display_gap(),
@@ -649,7 +655,18 @@ function G.UIDEF.hotpot_pd_training_section()
                                 }}
                             }}
                         }},
-                        {n=G.UIT.R, config = {minh = 0.5}},
+                        {n=G.UIT.R, config = {minh = 0.1}},
+                        {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                            {n = G.UIT.C, config = {align = "cm", minh = 0.65, minw = 1.5, r = 0.2, colour = G.C.WHITE, outline_colour = G.C.BLUE, outline = 1}, nodes = {
+                                {n = G.UIT.R, config = {align = "cm", colour = G.C.BLUE, padding = 0.05}, nodes = {
+                                    {n = G.UIT.T, config = {text = localize("k_spark_per_turn"), scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                                }},
+                                {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                                    {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = "spark_per_turn", scale = 0.3, colour = G.C.BLUE, shadow = true}},
+                                }},
+                            }}
+                        }},
+                        {n=G.UIT.R, config = {minh = 0.2}},
                         {n = G.UIT.R, config = {align = "cm"}, nodes = {
                             {n = G.UIT.C, config = {align = "cm", minh = 0.65, minw = 1.5, r = 0.2, colour = G.C.L_BLACK}, nodes = {
                                 {n = G.UIT.R, config = {align = "cm", padding = 0.1}, nodes = {

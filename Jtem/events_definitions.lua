@@ -5877,7 +5877,7 @@ HotPotato.EventStep {
 					ease_currency("crypto", 1)
 				end,
 				func = function()
-					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 10
+					return get_currency_amount("dollars") - G.GAME.bankrupt_at >= 30
 				end
 			},
 			{
@@ -5887,7 +5887,7 @@ HotPotato.EventStep {
 					ease_currency("crypto", 1)
 				end,
 				func = function()
-					return get_currency_amount("joker_exchange") >= 10000
+					return get_currency_amount("joker_exchange") >= 300000
 				end
 			},
 			{
@@ -5897,7 +5897,7 @@ HotPotato.EventStep {
 					ease_currency("crypto", 1)
 				end,
 				func = function()
-					return get_currency_amount("plincoin") >= 1
+					return get_currency_amount("plincoin") >= 6
 				end
 			},
 			{
@@ -5907,7 +5907,7 @@ HotPotato.EventStep {
 					ease_currency("crypto", 1)
 				end,
 				func = function()
-					return get_currency_amount("credits") >= 100
+					return get_currency_amount("credits") >= 600
 				end
 			},
 			{
