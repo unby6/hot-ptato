@@ -260,6 +260,10 @@ SMODS.Arrow = SMODS.Joker:extend({ -- the arrow thingy
 	required_params = {
 		"key",
 	},
+  in_pool = function(...)
+    return false
+  end,
+  no_doe = true,
     inject = function(self)
     SMODS.Center.inject(self) -- ~i placed this in the wrong spot~  not anymore
 
