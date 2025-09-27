@@ -30,7 +30,8 @@ SMODS.Sticker({
 			}
 		end
 
-		if context.end_of_round and context.main_eval then
+	if card.ability.set == "Default" or card.ability.set == "Enhanced" then
+		if context.end_of_round then
 			if card.ability.over_tally == nil then
 				card.ability.over_tally = G.GAME.overclock_timer - 1
 			end
@@ -52,6 +53,31 @@ SMODS.Sticker({
 				SMODS.debuff_card(card, true, card.config.center.key) -- source
 			end
 		end
+	else
+		if context.end_of_round and context.main_eval then
+			
+			if card.ability.over_tally == nil then
+				card.ability.over_tally = G.GAME.overclock_timer - 1
+			end
+			if card.ability.over_tally > 1 then
+				card.ability.over_tally = card.ability.over_tally - 1
+				card_eval_status_text(card, "extra", nil, nil, nil, {
+					message = localize({
+						type = "variable",
+						key = "a_remaining",
+						vars = {
+							card.ability.over_tally,
+						},
+					}),
+					colour = G.C.FILTER,
+					delay = 0.45,
+				})
+			else
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_debuffed") })
+				SMODS.debuff_card(card, true, card.config.center.key) -- source
+			end
+		end
+	end
 	end,
 	atlas = "tname_stickers",
 	pos = {
