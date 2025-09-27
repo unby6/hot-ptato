@@ -390,6 +390,7 @@ end
 -- was from JoyousSpring (originally)
 local cardarea_align_cards_ref = CardArea.align_cards -- <- i dont understand how i made this work either
 -- made this actually work but im bad at math so it's kinda janky so TODO -N'
+-- fuck do you mean "make this actually work" whats the issue
 function CardArea:align_cards()
   cardarea_align_cards_ref(self)
   if G.GAME.should_rotate then
