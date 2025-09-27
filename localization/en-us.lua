@@ -4808,13 +4808,15 @@ return {
             k_hotpot_transaction_sign = "Express",
             k_hotpot_transaction_shady_sign = "Back Alley",
 
-            hpot_training_failure = ' failure',
+            hpot_training_failure = ' Failure',
             hotpot_go_train = 'TRAIN',
             hotpot_leave_train = 'RETURN',
 
             k_plinko = "Plinko",
             k_wheel = "Wheel",
-            k_nursery = "Nursery"
+            k_nursery = "Nursery",
+
+            k_spark_per_turn = "Joker Currency needed per turn",
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
