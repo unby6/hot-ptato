@@ -503,7 +503,7 @@ function Horsechicot.breed(mother_center, father_center)
         end
     end
     local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true, 
-        edition = G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
+        edition = G.GAME.child_prio and G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
     card.states.visible = false
 
     --setting child abilities
