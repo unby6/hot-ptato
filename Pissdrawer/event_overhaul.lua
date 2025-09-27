@@ -58,8 +58,7 @@ function hpot_event_domain_add_to_pool(domain, args)
         pool_opts = pool_opts or {}
     end
 
-    local allow_duplicates = (not args.ignore_showman and SMODS.showman("hpot_event_" .. domain.key)) or
-        args.allow_duplicates or pool_opts.allow_duplicates
+    local allow_duplicates = args.allow_duplicates or pool_opts.allow_duplicates
 
     if domain.once_per_run and not args.ignore_once_per_run
         and G.GAME.hpot_event_domains_this_run and G.GAME.hpot_event_domains_this_run[domain.key] then
