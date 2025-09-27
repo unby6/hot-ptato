@@ -1535,8 +1535,9 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
+		local hpt = card.ability.extra
         if context.end_of_round and context.main_eval then
-            card.ability.extra_value = (card.ability.extra_value or 0) + 1
+            card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
             card:set_cost()
         end
 		return joy_hanafuda_score({"Water Iris with Bridge"}, context)
@@ -1571,8 +1572,9 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
+		local hpt = card.ability.extra
         if context.end_of_round and context.main_eval then
-            card.ability.extra_value = (card.ability.extra_value or 0) + 1
+            card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
             card:set_cost()
         end
 		return joy_hanafuda_score({"Water Iris with Ribbon"}, context)
@@ -1607,8 +1609,9 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
+		local hpt = card.ability.extra
         if context.end_of_round and context.main_eval then
-            card.ability.extra_value = (card.ability.extra_value or 0) + 1
+            card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
             card:set_cost()
         end
 		return joy_hanafuda_score({"Water Iris", "Water Iris_2"}, context)
@@ -1643,8 +1646,9 @@ SMODS.Consumable({
 		return false
 	end,
 	calculate = function(self, card, context)
+		local hpt = card.ability.extra
 		if context.end_of_round and context.main_eval then
-			card.ability.extra_value = (card.ability.extra_value or 0) + 1
+			card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
 			card:set_cost()
 		end
 		return joy_hanafuda_score({"Water Iris", "Water Iris_2"}, context)
