@@ -67,6 +67,7 @@ function Game:start_run(args)
   if saveTable and saveTable.cardAreas then
     G.GAME.market_table = saveTable.cardAreas.market_jokers
   end
+  G.GAME.cryptocurrency = G.GAME.cryptocurrency or 0
   return ret
 end
 
