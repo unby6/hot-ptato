@@ -5379,7 +5379,7 @@ HotPotato.EventStep {
 	hide_hand = false,
 	loc_txt = {
 		text = {
-			"Looks like you #1# {C:money}$#2#{}!"
+			"Looks like you #1#, cash in for {C:money}$#2#{}!"
 		},
 		choices = {
 			cashin = 'Cash in!'

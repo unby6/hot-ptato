@@ -496,10 +496,10 @@ SMODS.Joker {
         code = { "SDM_0" },
         team = { "Pissdrawer" }
     },
-    config = { extra = {queue_rounds = 0, order_quips = {1, 2, 3, 4, 5, 6}}},
+    config = { extra = { queue_rounds = 0, order_quips = { 1, 2, 3, 4, 5, 6 } } },
     atlas = "pdr_joker",
     pos = { x = 1, y = 1 },
-    soul_pos = { x = 2, y = 1},
+    soul_pos = { x = 2, y = 1 },
     rarity = 4,
     cost = 0,
     in_pool = function(self, args)
@@ -517,7 +517,8 @@ SMODS.Joker {
     },
     config = { extra = { discards = 1, cards_req = 20 } },
     loc_vars = function(self, info_queue, card)
-        local discards = card.ability.extra.discards * (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+        local discards = card.ability.extra.discards *
+            (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
         return { vars = { card.ability.extra.discards, card.ability.extra.cards_req, discards } }
     end,
     atlas = "pdr_joker",
@@ -527,7 +528,8 @@ SMODS.Joker {
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local discards = card.ability.extra.discards * (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    local discards = card.ability.extra.discards *
+                        (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if discards > 0 then
                         ease_discard(discards, nil, true)
                     end
@@ -549,7 +551,8 @@ SMODS.Joker {
     },
     config = { extra = { hands = 1, cards_req = 20 } },
     loc_vars = function(self, info_queue, card)
-        local hands = card.ability.extra.hands * (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+        local hands = card.ability.extra.hands *
+            (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
         return { vars = { card.ability.extra.hands, card.ability.extra.cards_req, hands } }
     end,
     atlas = "pdr_joker",
@@ -559,7 +562,8 @@ SMODS.Joker {
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local hands = card.ability.extra.hands * (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    local hands = card.ability.extra.hands *
+                        (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if hands > 0 then
                         ease_hands_played(hands)
                     end
@@ -581,7 +585,8 @@ SMODS.Joker {
     },
     config = { extra = { dollars = 3, cards_req = 20 } },
     loc_vars = function(self, info_queue, card)
-        local dollars = card.ability.extra.dollars * (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+        local dollars = card.ability.extra.dollars *
+            (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
         return { vars = { card.ability.extra.dollars, card.ability.extra.cards_req, dollars } }
     end,
     atlas = "pdr_joker",
@@ -591,7 +596,8 @@ SMODS.Joker {
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local dollars = card.ability.extra.dollars * (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    local dollars = card.ability.extra.dollars *
+                        (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if dollars > 0 then
                         ease_dollars(dollars)
                     end
@@ -599,6 +605,46 @@ SMODS.Joker {
                 end
             }))
             return nil, true
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "polymorph",
+    loc_txt = {
+        name = "Polymorphine",
+        text = {
+            "On {C:attention}selecting a blind{}, all",
+            'Jokers to the {C:attention}left{} of this',
+            'card become the {C:attention}next',
+            'Joker relative to the',
+            '{C:attention}collection order'
+        }
+    },
+    hotpot_credits = {
+        idea = { "Tacashumi" },
+        art = { "Tacashumi" },
+        code = { "fey <3" },
+        team = { "Pissdrawer" }
+    },
+    atlas = "pdr_polymorphine",
+    rarity = 3,
+    cost = 8,
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            local pos = 1
+            for i, v in ipairs(card.area.cards) do
+                if v == card then
+                    pos = i
+                end
+            end
+            if pos ~= 1 then
+                for i = 1, pos - 1 do
+                    local order = card.area.cards[i].config.center.order
+                    if order > #G.P_CENTER_POOLS.Joker then order = 1 end
+                    if card.area.cards[i].config.center.set == 'Joker' then card.area.cards[i]:set_ability(G.P_CENTER_POOLS.Joker[order + 1]) end
+                end
+            end
         end
     end
 }

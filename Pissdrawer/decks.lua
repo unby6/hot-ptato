@@ -5,13 +5,19 @@ SMODS.Back {
     pos = { x = 1, y = 0 },
     discovered = true,
     apply = function(self,back)
-        G.GAME.ad_blocker = (G.GAME.ad_blocker or 0) + 1 
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                G.GAME.ad_blocker = 1
+                return true
+            end
+        }))
     end
 }
 
 local ref = create_ads
 function create_ads(e)
-    if G.GAME.ad_blocker < 1 then
+    if G.GAME.ad_blocker <= 0 then
         return ref(e)
     end
 end
@@ -21,7 +27,7 @@ function Game:start_run(args)
 	start_run_old(self, args)
 	if args and args.savetext and args.savetext.ad_blocker then
         self.GAME.ad_blocker = args.savetext.ad_blocker
-    else
+    elseif not args.savetext then
         self.GAME.ad_blocker = 0
     end
 end
