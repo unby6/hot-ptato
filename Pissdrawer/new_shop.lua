@@ -557,15 +557,15 @@ PissDrawer.Shop.help_button = function(func)
 end
 
 G.FUNCS.delivery_help = function()
-    print('show delivery help screen')
+    G.FUNCS.hotpot_info{menu_type = "hotpot_delivery"}
 end
 
 G.FUNCS.reforge_help = function()
-    print('show reforge help screen')
+    G.FUNCS.hotpot_info{menu_type = "hotpot_reforge"}
 end
 
 G.FUNCS.black_market_help = function()
-    print('show black market help screen')
+    G.FUNCS.hotpot_info{menu_type = "hotpot_black_market"}
 end
 
 G.FUNCS.training_help = function()
