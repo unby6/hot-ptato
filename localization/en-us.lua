@@ -56,7 +56,7 @@ return {
                     "{C:red}Remove ALL Credits{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
                     "for every {C:purple}#1# Credits{} removed.",
-                    "{C:inactive}(Currently +#2# Copies.)"
+                    "{C:inactive}(Currently #3##2# Copies.)"
                 }
             },
         },
@@ -4378,7 +4378,7 @@ return {
             modif_hpot_ruthless = {
                 name = "Ruthless",
                 text = {
-                    "{X:mult,C:white}X%20{C:green} Mult when triggered","{C:green}during scoring"
+                    "{X:mult,C:white}X%20{C:green} Mult when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_greedy = {
@@ -4390,31 +4390,31 @@ return {
             modif_hpot_jumpy = {
                 name = "Jumpy",
                 text = {
-                    "{X:mult,C:white}X1.1{C:green} Mult when triggered","{C:green}during scoring"
+                    "{X:mult,C:white}X1.1{C:green} Mult when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_invested = {
                 name = "Invested",
                 text = {
-                    "{C:money}+$1{C:green} sell value","{C:green}at end of round"
+                    "{C:money}+$1{C:green} sell value", "{C:green}at end of round"
                 }
             },
             modif_hpot_damaged = {
                 name = "Damaged",
                 text = {
-                    "{C:dark_edition}#1# in 2 Chance to","{C:red,E:2}self-destruct{C:dark_edition} when triggered"
+                    "{C:dark_edition}#1# in 2 Chance to", "{C:red,E:2}self-destruct{C:dark_edition} when triggered"
                 }
             },
             modif_hpot_supported = {
                 name = "Supported",
                 text = {
-                    "{X:mult,C:white}X%10{C:green} Mult when triggered","{C:green}during scoring"
+                    "{X:mult,C:white}X%10{C:green} Mult when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_dozing = {
                 name = "Dozing",
                 text = {
-                    "{C:dark_edition}#1# in 3 Chance to","{C:dark_edition}not trigger for a round"
+                    "{C:dark_edition}#1# in 3 Chance to", "{C:dark_edition}not trigger for a round"
                 }
             },
             modif_hpot_hyper = {
@@ -4428,56 +4428,56 @@ return {
             modif_hpot_smudged = {
                 name = "Smudged",
                 text = {
-                    "{X:mult,C:white}X0.9{C:dark_edition} Mult when triggered","{C:dark_edition}during scoring"
+                    "{X:mult,C:white}X0.9{C:dark_edition} Mult when triggered", "{C:dark_edition}during scoring"
                 }
             },
             modif_hpot_depreciating = {
                 name = "Depreciating",
                 text = {
-                    "{C:money}-$1{C:dark_edition} sell value","{C:dark_edition}at end of round"
+                    "{C:money}-$1{C:dark_edition} sell value", "{C:dark_edition}at end of round"
                 }
             },
 
             modif_hpot_sharpened = {
                 name = "Sharpened",
                 text = {
-                    "{C:mult}+10{C:green} Mult when triggered","{C:green}during scoring"
+                    "{C:mult}+10{C:green} Mult when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_dull = {
                 name = "Dull",
                 text = {
-                    "{C:mult}-5{C:green} Mult when triggered","{C:green}during scoring"
+                    "{C:mult}-5{C:green} Mult when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_jagged = {
                 name = "Jagged",
                 text = {
-                    "{C:blue}+50{C:green} Chips when triggered","{C:green}during scoring"
+                    "{C:blue}+50{C:green} Chips when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_spiked = {
                 name = "Spiked",
                 text = {
-                    "{X:blue,C:white}X1.2{C:green} Chips when triggered","{C:green}during scoring"
+                    "{X:blue,C:white}X1.2{C:green} Chips when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_menacing = {
                 name = "Menacing",
                 text = {
-                    "{X:blue,C:white}X%5{C:green} Chips when triggered","{C:green}during scoring"
+                    "{X:blue,C:white}X%5{C:green} Chips when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_rusty = {
                 name = "Rusty",
                 text = {
-                    "{C:blue}-25{C:green} Chips when triggered","{C:green}during scoring"
+                    "{C:blue}-25{C:green} Chips when triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_flawed = {
                 name = "Flawed",
                 text = {
-                    "{X:blue,C:white}X0.8{C:green} Chips when triggered","{C:green}during scoring"
+                    "{X:blue,C:white}X0.8{C:green} Chips when triggered", "{C:green}during scoring"
                 }
             },
         },
