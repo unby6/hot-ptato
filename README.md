@@ -1,47 +1,69 @@
-# It's your turn to add to Hot Potato!
+# Developer Chaos
+Hot Potato is a Balatro Mod Developer Event where teams were created and given a week on their own to contribute to a mod. Cross-team communication was not allowed outside of major bugfixing efforts. The ordeal took 2 months, and this mod is the culmination of this work.
 
-### As a reminder, there are a few rules you must follow for this event:
-1. You and your team can only do work on your contributions during your one-week period. You are not allowed to make edits before or after your week period
-2. Your access to the repo will be revoked 30 minutes before the next team gets their turn to add to the mod. This will happen around 15:30 UTC
-3. You are not allowed to remove features implemented by teams before you. Editing the code of a feature is fine, but removing it or changing its function to be unrecognizable is prohibited
-4. Communication between developers not within your team is strictly prohibited outside of critical bugfixing. Because of this, commenting your code is highly encouraged!
-5. Using JokerForge or generating assets with AI is not allowed! You must manually create/code your contributions (with an exception for custom sound effects)
-6. Using external libraries (outside of Steamodded and cross-mod support) is not allowed
-7. This mod is not to be developed with Talisman in mind
-8. No NSFW or griefing in the mod whatsoever. Just because you can add “anything” doesn’t mean you can be absolutely stupid with it
+## These are your teams:
 
-### There are also a few standards that should be followed
-1. Credits - The base repo comes with credits implementation similar to Cryptid's. These can be implemented for your objects with the following format:
-```
-hotpot_credits = {
-  art = {"string"},
-  idea = {"string"},
-  code = {"string"},
-  team = {"string"}
-}
-```
-2. File loading - Files will be loaded automatically via recursive indexing. It is highly recommended you and your team makes a folder containing all of the lua files your team creates. Lovely files should be prefixed with some sort of identifier as well
+### Perkeocoin - Week 1
+- Opal
+- dottykitty
+- CampfireCollective
+- stupxd
+- Omegaflowey18
+- Prod.By.Proto
 
+### Sillyposting - Week 2
+- Jaydchw
+- Eris
+- UnusedParadox
+- PokerThePoker
+- Superb
+- Victin
 
-Best of luck with your time, and most importantly, have fun! If any problems come up, please contact Astra and it will be looked into as soon as possible
-### message from team name
-pls dont add more currencies :(
+### Jtem - Week 3
+- aikoyori
+- Haya
+- SleepyG11
+- squidguset
+- missingnumber
 
-### message from ruby
-please ctrl + f for TODO
-some of this is things only the last team can do really
+### Team Name - Week 4
+- Corobo
+- Revo
+- GoldenLeaf
+- GhostSalt
+- Jogla
+- Violet
 
-### message from wix
-please don't be disruptive with cross-team messages.
+### Team :) -  - Week 5
+- notmario
+- PokeRen
+- RGBeet
+- basil_squared
 
-### message from Nxkoo
-Pissdrawer, PLEASE add a button and an UI to condense all of this currency into one singular UI/Panel, its overwhelming
+### The four horsechicots of the potatocalypse - Week 6
+- lord.ruby
+- nxkoo
+- Lily Felli
+- cg223
+- pangaea47
+- baccon4
 
-### message from trif
-hi guys i'm in the readme messages too
+### Oops! All Programmers - Week 7
+- theAstra
+- Mysthaps
+- th30ne
+- trif
+- Liafeon
+- SadCube
 
-### message from myst
-good fucking god stop adding currencies yall
+### pissdrawer - Week 8
+- N'
+- Eremel
+- tomatose
+- SDM_0
+- BepisFever
+- Fey
+- tacashumi
 
-### message from n'
-hii friends
+## Note:
+Hot Potato was not designed with cross-mod compatibility in mind. It is recommended to not play Hot Potato with other mods installed. If you forego this warning, expect things to break!!
