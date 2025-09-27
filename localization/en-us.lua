@@ -618,7 +618,7 @@ return {
             c_hpot_cap_credits = {
                 name = 'Credits',
                 text = {
-                    "{C:purple}+#1#{} Credits"
+                    "Earn {C:purple}c.#1#{}"
                 }
             },
             c_hpot_cap_tname_consumables = {
@@ -3632,7 +3632,7 @@ return {
             tag_hpot_credits_tag = {
                 name = "Creditable Tag",
                 text = {
-                    "Gain {C:blue}+#1#{} Credits",
+                    "Gain {C:purple}+#1#{} Credits",
                     "immediately"
                 }
             },
