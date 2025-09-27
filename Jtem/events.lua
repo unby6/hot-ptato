@@ -1052,6 +1052,18 @@ function hpot_event_render_current_step()
 			})
 		end
 
+		event_buttons_content = { {
+			n = G.UIT.R,
+			config = {
+				padding = 0.075,
+			},
+			nodes = event_buttons_content
+		} }
+
+		if G.hpot_event.domain == "transaction" or G.hpot_event.domain == "respite" then
+			table.insert(event_buttons_content, 1, PissDrawer.Shop.currency_display_small())
+		end
+
 		local text_objects = G.hpot_event_ui_text_objects
 		for i = G.hpot_event_ui_next_text_object, #G.hpot_event_ui_text_objects do
 			local object = text_objects[i]
@@ -1262,7 +1274,7 @@ function G.UIDEF.hpot_event(scenario)
 	local image_area_size = (container_H - container_padding * 2 - header_H - content_padding * 2) / 1.25
 	local choices_H = 2.4
 	local text_H = (image_area_size * 1.25 - content_padding * 2 - choices_H)
-		* ((G.GAME.hpot_event_domain == "transaction" or G.GAME.hpot_event_domain == "respite") and 0.5 or 1)
+		* ((G.GAME.hpot_event_domain == "transaction" or G.GAME.hpot_event_domain == "respite") and 0 or 1)
 
 	local event_text_name = {}
 	localize({
@@ -1369,6 +1381,7 @@ function G.UIDEF.hpot_event(scenario)
 
 		},
 	}
+
 	return {
 		n = G.UIT.ROOT,
 		config = {

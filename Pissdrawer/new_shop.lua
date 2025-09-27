@@ -61,35 +61,68 @@ end
 function PissDrawer.Shop.currency_node(args)
     assert(type(args) == 'table', 'No table provided to shop_currency_node')
 
-    return {n=G.UIT.C, config = {align = 'cm', minh = 0.6, minw = 2, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1}, nodes = {
+    return {n=G.UIT.C, config = {align = 'cm', minh = args.minh or 0.6, minw = args.minw or 2, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1}, nodes = {
                 {n=G.UIT.R, config = {align='cm'}, nodes = {
                     {n=G.UIT.O, config={object = DynaText({string = {{ref_table = args.ref_table or G.GAME, ref_value = args.ref_value, prefix = args.symbol}},
-                        maxw = 2, colours = {args.colour}, font = args.font, shadow = true, spacing = 2, bump = not args.no_bump, scale = 0.5})}}
+                        maxw = args.maxw or 2, colours = {args.colour}, font = args.font, shadow = true, spacing = 2, bump = not args.no_bump, scale = args.scale or 0.5})}}
                 }}
             }}
 end
 
 function PissDrawer.Shop.currency_display()
+    return {
+        n = G.UIT.R,
+        config = { align = 'cm', colour = G.C.L_BLACK, r = 0.1, padding = 0.1 },
+        nodes = {
+            PissDrawer.Shop.currency_node({
+                symbol = localize('$'), colour = G.C.GOLD, ref_value = 'dollars', no_bump = true
+            }),
+            PissDrawer.Shop.currency_node({
+                symbol = '$', font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients["hpot_plincoin"], ref_value =
+            'plincoins'
+            }),
+            PissDrawer.Shop.currency_node({
+                symbol = '£', font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients["hpot_advert"], ref_value =
+            'cryptocurrency'
+            }),
+            PissDrawer.Shop.currency_node({
+                symbol = localize('hotpot_reforge_sparks'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.BLUE, ref_value =
+            'spark_points', no_bump = true
+            }),
+            PissDrawer.Shop.currency_node({
+                symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value =
+            'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true
+            }),
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1 },
+                nodes = {
+                    { n = G.UIT.O, config = { object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 }) } },
+                }
+            }
+        }
+    }
+end
+
+function PissDrawer.Shop.currency_display_small()
+    local minh, minw, maxw, scale = 0.5, 1.4, 1.4, 0.4
     return {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.1, padding = 0.1}, nodes = {
-                PissDrawer.Shop.currency_node({
-                    symbol = localize('$'), colour = G.C.GOLD, ref_value = 'dollars', no_bump = true
-                }),
-                PissDrawer.Shop.currency_node({
-                    symbol = '$', font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients["hpot_plincoin"], ref_value = 'plincoins'
-                }),
-                PissDrawer.Shop.currency_node({
-                    symbol = '£', font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients["hpot_advert"], ref_value = 'cryptocurrency'
-                }),
-                PissDrawer.Shop.currency_node({
-                    symbol = localize('hotpot_reforge_sparks'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.BLUE, ref_value = 'spark_points', no_bump = true
-                }),
-                PissDrawer.Shop.currency_node({
-                    symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value = 'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true
-                }),
-                {n=G.UIT.C, config = {align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1}, nodes = {
-                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 })}},
-                }}
-            }}
+        PissDrawer.Shop.currency_node({
+            symbol = localize('$'), colour = G.C.GOLD, ref_value = 'dollars', no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
+        }),
+        PissDrawer.Shop.currency_node({
+            symbol = '$', font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients["hpot_plincoin"], ref_value = 'plincoins', minh = minh, minw = minw, maxw = maxw, scale = scale
+        }),
+        PissDrawer.Shop.currency_node({
+            symbol = '£', font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients["hpot_advert"], ref_value = 'cryptocurrency', minh = minh, minw = minw, maxw = maxw, scale = scale
+        }),
+        PissDrawer.Shop.currency_node({
+            symbol = localize('hotpot_reforge_sparks'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.BLUE, ref_value = 'spark_points', no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
+        }),
+        PissDrawer.Shop.currency_node({
+            symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value = 'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
+        })
+    }}
 end
 
 function PissDrawer.Shop.tab_button(args)

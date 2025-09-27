@@ -5528,19 +5528,18 @@ HotPotato.EventStep {
 	key = "hpot_postlatro_start",
 	loc_txt = {
 		text = {
-			"{s:1.2}Currency Exchange"
 		},
 		choices = {
-			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5,000",
+			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
 			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
 			credits = "{C:money}$10{} > {C:purple}c.100",
 			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
-			from_spark = "{C:blue,f:hpot_plincoin}͸10,000{} > {C:money}$1{}",
+			from_spark = "{C:blue,f:hpot_plincoin}͸10k{} > {C:money}$1{}",
 			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
 			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
 			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
 			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
-			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100,000{}"
+			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}
 	},
 	get_choices = function(self, event)
@@ -5815,15 +5814,14 @@ HotPotato.EventStep {
 	key = "hpot_black_market_alley_start",
 	loc_txt = {
 		text = {
-			"{s:1.2}Currency Exchange"
 		},
 		choices = {
 			dollars = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$20{}",
-			spark = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:blue,f:hpot_plincoin}͸100,000",
+			spark = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:blue,f:hpot_plincoin}͸100k",
 			plincoins = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:hpot_plincoin,f:hpot_plincoin}$8",
 			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.800",
 			from_dollars = "{C:money}$30{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
-			from_spark = "{C:blue,f:hpot_plincoin}͸300,000{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_spark = "{C:blue,f:hpot_plincoin}͸300k{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$6{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			from_credits = "{C:purple}c.600{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			trade_questions = "Sell Questions for {C:hpot_advert,f:hpot_plincoin}£10{}",
