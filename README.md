@@ -65,5 +65,8 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 - Fey
 - tacashumi
 
+### Teamless contributors (bug fixes)
+- WilsontheWolf
+
 ## Note:
 Hot Potato was not designed with cross-mod compatibility in mind. It is recommended to not play Hot Potato with other mods installed. If you forego this warning, expect things to break!!
