@@ -346,7 +346,7 @@ function hpot_hover_train_button_arrow(colour)
 	return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
         {n = G.UIT.C, config = {align = "cm", padding = 0, colour = G.C.CLEAR}, nodes = {
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
-                {n = G.UIT.T, config = {shadow = true, text = "^", colour = colour or G.C.FILTER, scale = 1}},
+                {n = G.UIT.T, config = {shadow = true, text = "v", colour = colour or G.C.FILTER, scale = 1}},
             }},
         }}
     }}
@@ -405,13 +405,13 @@ function UIElement:hover(...)
             definition = hpot_hover_train_button_arrow(G.C["train_button_arrow"..popup]),
             config = {
                 align = "tmi", 
-                offset = {x = 0, y = -0.5},
+                offset = {x = 0, y = -0.6},
                 parent = self
             }
         }
         local text_node = self.children["train_button_arrow"..popup].UIRoot.children[1].children[1].children[1]
         text_node.states.hover.can = false
-        text_node:ease_move{x = 0, y = -0.125}
+        text_node:ease_move{x = 0, y = -0.25}
 
         G.GAME.failure_popup = (G.GAME.failure_popup or 0) + 1
         local f_popup = G.GAME.failure_popup

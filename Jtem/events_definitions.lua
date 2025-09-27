@@ -3344,7 +3344,7 @@ HotPotato.EventStep {
 	hide_hand = true,
 	loc_txt = {
 		text = {
-			"{s:1.2}\"This is who yuo are!\"",
+			"{s:1.2}\"This is who you are!\"",
 			" ",
 			"A picture of yourself appears on the screen.",
 			" ",

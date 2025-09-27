@@ -4810,7 +4810,11 @@ return {
 
             hpot_training_failure = ' failure',
             hotpot_go_train = 'TRAIN',
-            hotpot_leave_train = 'RETURN'
+            hotpot_leave_train = 'RETURN',
+
+            k_plinko = "Plinko",
+            k_wheel = "Wheel",
+            k_nursery = "Nursery"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

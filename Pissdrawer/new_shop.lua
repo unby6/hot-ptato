@@ -294,16 +294,16 @@ function PissDrawer.Shop.main_shop()
                 {n=G.UIT.O, config={object = G.shop_jokers}},
             }},
             {n=G.UIT.C, config = {align='cm', padding = 0.1}, nodes = {
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR}, nodes = {
-                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 0, y = 0 }), shadow = true, hover = true, button = 'show_plinko', button_dist = 0.63}},
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_plinko_button", button = 'show_plinko', shadow = true}, nodes = {
+                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 0, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR}, nodes = {
-                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 1, y = 0 }), shadow = true, hover = true, button = 'show_wheel', button_dist = 0.63}},
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_wheel_button", button = 'show_wheel', shadow = true}, nodes = {
+                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 1, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR}, nodes = {
-                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 2, y = 0 }), shadow = true, hover = true, button = 'show_nursery', button_dist = 0.63}},
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_nursery_button", button = 'show_nursery', shadow = true}, nodes = {
+                    {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 2, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
             }}
         }},
@@ -322,6 +322,86 @@ function PissDrawer.Shop.main_shop()
             }},
         }}
     }}
+end
+
+function hpot_hover_button_name(name)
+    return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+        {n = G.UIT.C, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+            {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
+                {n = G.UIT.T, config = {shadow = true, text = name, colour = G.C.UI.TEXT_LIGHT, scale = 0.45}},
+            }},
+        }}
+    }}
+end
+
+local ui_hover_ref = UIElement.hover
+function UIElement:hover(...)
+    local ret = ui_hover_ref(self,...)
+
+    if self.config and (self.config.id == "show_plinko_button" or self.config.id == "show_wheel_button" or self.config.id == "show_nursery_button") then
+        local pos = {x = 0, y = -0.15}
+        local destination = {x = 0, y = 0}
+        if not self.config.original_offset then
+            self.config.original_offset = copy_table(self.role.offset)
+        end
+        for i,_ in pairs(destination) do
+            destination[i] = pos[i] + (self.config.original_offset[i] - self.role.offset[i])
+        end
+        G.E_MANAGER.queues[self.config.id] = G.E_MANAGER.queues[self.config.id] or {}
+        G.E_MANAGER:clear_queue(self.config.id)
+        self:ease_move(destination, 6, self.config.id, true, true)
+
+        G.GAME.name_popup = (G.GAME.name_popup or 0) + 1
+        local popup = G.GAME.name_popup
+        repeat
+            if self.children["name_popup"..popup] then
+                popup = popup + 1
+            end
+        until not self.children["name_popup"..popup]
+        local node_name = "name_popup"..popup
+        self.children[node_name] = UIBox{
+            definition = hpot_hover_button_name(self.config.id == "show_plinko_button" and localize("k_plinko") or self.config.id == "show_wheel_button" and localize("k_wheel") or self.config.id == "show_nursery_button" and localize("k_nursery")),
+            config = {
+                align = "tmi", 
+                offset = {x = 0, y = -0.4},
+                parent = self
+            }
+        }
+        local text_node = self.children[node_name].UIRoot.children[1].children[1].children[1]
+        text_node.states.hover.can = false
+        text_node:ease_move{x = 0, y = -0.125}
+    end
+
+    return ret
+end
+
+local ui_stop_hover_ref = UIElement.stop_hover
+function UIElement:stop_hover(...)
+    local ret = ui_stop_hover_ref(self,...)
+
+    if self.config and (self.config.id == "show_plinko_button" or self.config.id == "show_wheel_button" or self.config.id == "show_nursery_button") then
+        local pos = {x = 0, y = -0.15}
+        local destination = {x = 0, y = 0}
+        if not self.config.original_offset then
+            self.config.original_offset = copy_table(self.role.offset)
+        end
+        for i,_ in pairs(destination) do
+            destination[i] = pos[i] + (self.config.original_offset[i] - pos[i] - self.role.offset[i])
+        end
+        G.E_MANAGER.queues[self.config.id] = G.E_MANAGER.queues[self.config.id] or {}
+        G.E_MANAGER:clear_queue(self.config.id)
+        self:ease_move(destination, 6, self.config.id, true, true)
+
+        for i,v in pairs(self.children) do
+            if string.find(i, "name_popup") then
+                v:remove()
+                self.children[i] = nil
+                G.GAME.name_popup = (G.GAME.name_popup or 1) - 1
+            end
+        end
+    end
+
+    return ret
 end
 
 function PissDrawer.Shop.delivery_shop()
