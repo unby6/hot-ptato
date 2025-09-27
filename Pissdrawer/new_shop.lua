@@ -39,7 +39,7 @@ SMODS.Atlas({
 local pissdrawer_cardarea_align_cards = CardArea.align_cards
 function CardArea:align_cards()
     pissdrawer_cardarea_align_cards(self)
-    if self.config.hotpot_shop then 
+    if self.config.hotpot_shop then
         for _, card in ipairs(self.cards or {}) do
             if not card.pissdrawer then
                 card.pissdrawer = {original_scale = card.T.scale, original_VT_scale = card.VT.scale}
@@ -104,9 +104,11 @@ function PissDrawer.Shop.currency_display()
     }
 end
 
-function PissDrawer.Shop.currency_display_small()
+function PissDrawer.Shop.currency_display_small(args)
+    local args = args or {}
     local minh, minw, maxw, scale = 0.5, 1.4, 1.4, 0.4
-    return {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.1, padding = 0.1}, nodes = {
+
+    local currencies = {
         PissDrawer.Shop.currency_node({
             symbol = localize('$'), colour = G.C.GOLD, ref_value = 'dollars', no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
         }),
@@ -122,14 +124,20 @@ function PissDrawer.Shop.currency_display_small()
         PissDrawer.Shop.currency_node({
             symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value = 'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
         })
-    }}
+    }
+
+    if args.remove_dollars then
+        table.remove(currencies, 1)
+    end
+
+    return {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.1, padding = 0.1}, nodes = currencies }
 end
 
 function PissDrawer.Shop.tab_button(args)
     assert(type(args) == 'table', 'No table provided to shop_tab_button')
 
 
-    return 
+    return
         {n=G.UIT.C, config = {align = 'bm'}, nodes = {
             {n=G.UIT.R, config = {align = 'tl', padding = 0.1, r = 0.1, colour = G.C.DYN_UI.MAIN, minh = 0.75, hover = true, func = 'shop_tab_active', button = 'toggle_shop_tab', destination = args.destination, id = 'hotpot_shop_tab_'..args.destination}, nodes = {
                 {n=G.UIT.R, config = {align = 'cl'}, nodes = {
@@ -142,7 +150,7 @@ end
 
 G.FUNCS.shop_tab_active = function(e)
     if e.config.id == PissDrawer.Shop.active_tab then
-        e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2) 
+        e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2)
         if e.config.minh ~= 1.1 then
             e.config.minh = 1.1
             e.UIBox:recalculate()
@@ -256,7 +264,7 @@ function G.UIDEF.shop()
     end
 
 function PissDrawer.Shop.main_shop()
-    return 
+    return
     {n=G.UIT.C, nodes = {
         {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
             {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
@@ -267,8 +275,8 @@ function PissDrawer.Shop.main_shop()
                     }},
                     {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                     {n=G.UIT.T, config={text = localize('b_next_round_2'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
-                    }}   
-                }},              
+                    }}
+                }},
                 }},
                 {n=G.UIT.R, config={align = "cm", minw = 1.8, minh = 1.3, r=0.15,colour = G.C.GREEN, button = 'reroll_shop', func = 'can_reroll', hover = true,shadow = true}, nodes = {
                 {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
@@ -280,7 +288,7 @@ function PissDrawer.Shop.main_shop()
                     {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
                     }}
                 }}
-                }},                                    
+                }},
             }},
             {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.0}, nodes={
                 {n=G.UIT.O, config={object = G.shop_jokers}},
@@ -289,11 +297,11 @@ function PissDrawer.Shop.main_shop()
                 {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 0, y = 0 }), shadow = true, hover = true, button = 'show_plinko', button_dist = 0.63}},
                 }},
-                
+
                 {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 1, y = 0 }), shadow = true, hover = true, button = 'show_wheel', button_dist = 0.63}},
                 }},
-                
+
                 {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 2, y = 0 }), shadow = true, hover = true, button = 'show_nursery', button_dist = 0.63}},
                 }},
@@ -313,11 +321,11 @@ function PissDrawer.Shop.main_shop()
                 {n=G.UIT.O, config={object = G.shop_booster}},
             }},
         }}
-    }} 
+    }}
 end
 
 function PissDrawer.Shop.delivery_shop()
-    return 
+    return
     {n=G.UIT.C, nodes = {
         PissDrawer.Shop.help_button('delivery_help'),
         {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
@@ -352,7 +360,7 @@ function PissDrawer.Shop.delivery_shop()
             {n=G.UIT.R, config = {minw = 6.7, align = 'cm'}, nodes = {
                 {n=G.UIT.C, config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.1, minw = 2.8, minh = 1, shadow = true,
                  button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true }, nodes = {
-                    G.GAME.hp_jtem_should_allow_custom_order and 
+                    G.GAME.hp_jtem_should_allow_custom_order and
                     {n=G.UIT.C, config = {padding = 0.05}, nodes = {
                         {n=G.UIT.R, config = { align = "cm" }, nodes = {
                             {n=G.UIT.T, config = { text = localize("hotpot_request_joker_line_1"), scale = 0.5, colour = G.C.WHITE}},
@@ -377,7 +385,7 @@ end
 G.FUNCS.update_modification_info = function(e)
     for _, child in ipairs(e.children) do
         child.children[1].config.text = ''
-    end     
+    end
     if G.reforge_area.cards[1] and get_modification(G.reforge_area.cards[1]) then
         local mod = get_modification(G.reforge_area.cards[1])
         e.children[1].children[1].config.text = localize({set = 'Modification', key = mod, type = 'name_text'})
@@ -387,7 +395,7 @@ G.FUNCS.update_modification_info = function(e)
             if e.children[i+1] then
                 e.children[i+1].children[1].config.text = desc[i]
             end
-        end    
+        end
     end
     e.UIBox:recalculate()
 end
@@ -397,7 +405,7 @@ function PissDrawer.Shop.reforge_shop()
     if G.reforge_area.cards[1] then
         localize({desc_nodes = name, set = 'Modification', key = get_modification(G.reforge_area.cards[1]), type = 'name'})
     end
-    return 
+    return
     {n=G.UIT.C, config = {minh = 10, align = 'tm'}, nodes = {
         PissDrawer.Shop.help_button('reforge_help'),
         {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
@@ -412,11 +420,11 @@ function PissDrawer.Shop.reforge_shop()
                 {n=G.UIT.R, config = {align = 'cm'}, nodes = {
                     {n=G.UIT.T, config = {text = '', scale = 0.35, colour = G.C.WHITE}}
                 }},
-                
+
             }},
             {n=G.UIT.C, config = {minw = 0.3}},
             {n=G.UIT.C, config = {align = 'cm'}, nodes = {
-                
+
                 {n=G.UIT.C, config = {padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, align = "tm", minw = 0.5 }, nodes = {
                     {n=G.UIT.C, config = {align = "cm", padding = 0.2, r = 0.2, colour = G.C.BLACK}, nodes = {
                         {n=G.UIT.R, config = {align = "cm"}, nodes = {
@@ -543,7 +551,7 @@ function PissDrawer.Shop.create_shop_areas()
       G.hand.T.x+0,
       G.hand.T.y+G.ROOM.T.y + 9,
       math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,3.6*G.CARD_W),
-      1.15*G.CARD_H * PissDrawer.shop_scale, 
+      1.15*G.CARD_H * PissDrawer.shop_scale,
       {card_limit = G.GAME.shop.joker_max, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true})
 
 
@@ -551,14 +559,14 @@ function PissDrawer.Shop.create_shop_areas()
         G.hand.T.x+0,
         G.hand.T.y+G.ROOM.T.y + 9,
         2.1*G.CARD_W,
-        1.05*G.CARD_H * PissDrawer.shop_scale, 
+        1.05*G.CARD_H * PissDrawer.shop_scale,
         {card_limit = 1, type = 'shop', highlight_limit = 1, hotpot_shop = true})
 
     G.shop_booster = CardArea(
         G.hand.T.x+0,
         G.hand.T.y+G.ROOM.T.y + 9,
         2.4*G.CARD_W,
-        1.15*G.CARD_H * PissDrawer.shop_scale, 
+        1.15*G.CARD_H * PissDrawer.shop_scale,
         {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.22*G.CARD_W, hotpot_shop = true})
 end
 
@@ -595,12 +603,12 @@ SMODS.draw_ignore_keys.hpot_move_to_train = true
 function PissDrawer.Shop.create_delivery_order_button(card)
     if card.highlighted then
         local t2 = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
-            {n=G.UIT.C, config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, 
+            {n=G.UIT.C, config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD,
                 shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_order', one_press = true, button = 'hp_jtem_order', hover = true }, nodes = {
                 {n=G.UIT.T, config = { text = localize('hotpot_delivery_order'), colour = G.C.WHITE, scale = 0.5 } }
             }}
         }}
-    
+
         card.children.hp_jtem_price_side = UIBox {
             definition = t2,
             config = {
@@ -610,19 +618,19 @@ function PissDrawer.Shop.create_delivery_order_button(card)
             }
         }
     elseif card.children.hp_jtem_price_side then
-        card.children.hp_jtem_price_side:remove() 
+        card.children.hp_jtem_price_side:remove()
     end
 end
 
 function PissDrawer.Shop.create_delivery_refund_button(card)
     if card.highlighted then
         local t2 = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
-            {n=G.UIT.C, config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.RED, 
+            {n=G.UIT.C, config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.RED,
                 shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_cancel', one_press = true, button = 'hp_jtem_cancel', hover = true }, nodes = {
                 {n=G.UIT.T, config = { text = localize('hotpot_delivery_order_cancel'), colour = G.C.WHITE, scale = 0.5 } }
             }}
         }}
-    
+
         card.children.hp_jtem_cancel_order = UIBox {
             definition = t2,
             config = {
@@ -632,7 +640,7 @@ function PissDrawer.Shop.create_delivery_refund_button(card)
             }
         }
     elseif card.children.hp_jtem_cancel_order then
-        card.children.hp_jtem_cancel_order:remove() 
+        card.children.hp_jtem_cancel_order:remove()
     end
 end
 
@@ -645,7 +653,7 @@ PissDrawer.Shop.black_market_post = function(keys)
     PissDrawer.Shop.reload_shop_areas(keys)
     if not PissDrawer.Shop.market_spawn then hotpot_horsechicot_market_section_init_cards(); PissDrawer.Shop.market_spawn = true end
 end
-    
+
 
 local pissdrawer_card_highlight = Card.highlight
 function Card:highlight(highlighted)
@@ -686,7 +694,7 @@ function Card:highlight(highlighted)
 end
 
 function PissDrawer.Shop.reforge_emplace(card)
-	return 
+	return
     {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.4 * card.T.h,
         hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'reforge_place', func = 'place_return_reforge' }, nodes = {
         {n=G.UIT.R, config={align = 'cm'}, nodes = {{n = G.UIT.T, config = { text = localize('hotpot_go_reforge'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}}}
@@ -694,7 +702,7 @@ function PissDrawer.Shop.reforge_emplace(card)
 end
 
 function PissDrawer.Shop.training_emplace(card)
-	return 
+	return
     {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.4 * card.T.h,
         hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'training_emplace', func = 'can_emplace_training' }, nodes = {
         {n=G.UIT.R, config={align = 'cm'}, nodes = {{n = G.UIT.T, config = { text = localize('hotpot_go_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}}}
@@ -740,7 +748,7 @@ function G.FUNCS.can_emplace_training(e)
 end
 
 function PissDrawer.Shop.black_market()
-    return 
+    return
     {n=G.UIT.C, config = {align = 'tm', minh = 8}, nodes = {
         PissDrawer.Shop.help_button('black_market_help'),
         {n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = {

@@ -3,7 +3,7 @@
 --its ease_dollars for plincoins
 function ease_plincoins(plink, instant)
     local function _mod(mod)
-        local dollar_UI = G.HUD:get_UIE_by_ID('plincoin_text_UI')
+        local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
         mod = mod or 0
         local text = '+$'
         local col = G.C.MONEY
@@ -13,20 +13,20 @@ function ease_plincoins(plink, instant)
         end
 
         G.GAME.plincoins = G.GAME.plincoins + plink
-        if Toggle_currencies then
-            dollar_UI.config.object:update()
-            G.HUD:recalculate()
-            --Popup text next to the chips in UI showing number of chips gained/lost
-            attention_text({
-                text = text .. tostring(math.abs(mod)),
-                scale = 0.8,
-                hold = 0.7,
-                cover = dollar_UI.parent,
-                cover_colour = col,
-                align = 'cm',
-                font = SMODS.Fonts.hpot_plincoin
-            })
-        end
+
+        dollar_UI.config.object:update()
+        G.HUD:recalculate()
+        --Popup text next to the chips in UI showing number of chips gained/lost
+        attention_text({
+            text = text .. tostring(math.abs(mod)),
+            scale = 0.8,
+            hold = 0.7,
+            cover = dollar_UI.parent,
+            cover_colour = col,
+            align = 'cm',
+            font = SMODS.Fonts.hpot_plincoin
+        })
+
         --Play a chip sound
         play_sound('coin1')
     end

@@ -130,7 +130,7 @@ local cuh = create_UIBox_HUD
 function create_UIBox_HUD()
   local nodes = cuh()
 
-  if Toggle_currencies then
+  if false then -- sorry -N'
   local contents_buttons = nodes.nodes[1].nodes[1].nodes[5].nodes[1].nodes[1].nodes
 
   local scale = 0.4

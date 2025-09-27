@@ -385,9 +385,9 @@ function HPTN.ease_credits(amount, instant)
         amount = amount * 3
     end
     local function _mod(mod) -- Taken from ease_plincoins()
-        local dollar_UI = G.HUD:get_UIE_by_ID('credits_UI_text')
+        local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
         mod = mod or 0
-        local text = '+'
+        local text = '+c.'
         local col = G.C.PURPLE
         if mod < 0 then
             text = '-'
@@ -396,7 +396,7 @@ function HPTN.ease_credits(amount, instant)
 
         G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits + amount
         G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
-        if Toggle_currencies then
+
             dollar_UI.config.object:update()
             if amount ~= 0 then
                 G.HUD:recalculate()
@@ -416,7 +416,7 @@ function HPTN.ease_credits(amount, instant)
                     play_sound("hpot_tname_losecred")
                 end
             end
-        end
+
     end
 
     if instant then
