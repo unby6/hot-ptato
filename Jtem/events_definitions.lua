@@ -5983,6 +5983,7 @@ HotPotato.EventStep {
 				return true
 			end)
 		}))
+		
 		G.HP_HC_MARKET_VISIBLE = true
 		G.shop_jokers = CardArea(
 			G.hand.T.x + (G.hand.T.w - 5 * 1.02 * G.CARD_W) / 2,
