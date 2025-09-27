@@ -250,7 +250,7 @@ HPJTTT = {
         "Shoutouts to gay foxgirls",
         "In a Cargo Box?",
         "Two Hotties, One potato.",
-        "-- TODO: your mom",
+        "-- TO".."DO: your mom",
         Entropy and "You are not immune to Propaganda" or "generic message", --holes bad?
         "The Oldest Anarchy Mod In Balatro",
         "D1D7",
