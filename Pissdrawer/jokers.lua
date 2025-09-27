@@ -386,7 +386,8 @@ SMODS.Joker {
                             n = G.UIT.C,
                             config = { ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06 },
                             nodes = {
-                                { n = G.UIT.T, config = { text = card.ability.quantum[1].ability.name, colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                                { n = G.UIT.T, config = { text = localize{type = 'name', set = 'Joker', key = card.ability.quantum[1].config.cente.key, vars = {}}[1].nodes[1].nodes[1].config.object.config.string[1],
+                                colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
                             }
                         }
                     }
@@ -413,8 +414,10 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if card.ability.quantum[1] and card.ability.quantum[2] then
-            local ret, trig = card.ability.quantum[1]:calculate_joker(context)
-            local ret2, trig2 = card.ability.quantum[2]:calculate_joker(context)
+            --local ret, trig = card.ability.quantum[1]:calculate_joker(context)
+            local ret, trig = card.calculate_joker(card.ability.quantum[1], context)
+            --local ret2, trig2 = card.ability.quantum[2]:calculate_joker(context)
+            local ret2, trig2 = card.calculate_joker(card.ability.quantum[2], context)
             if ret and ret2 then
                 for i, v in pairs(ret) do
                     if ret2[i] and type(v) == 'number' then ret[i] = v + ret2[i] end
