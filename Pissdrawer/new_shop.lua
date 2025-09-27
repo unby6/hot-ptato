@@ -518,14 +518,14 @@ function PissDrawer.Shop.create_shop_areas()
      G.shop_vouchers = CardArea(
         G.hand.T.x+0,
         G.hand.T.y+G.ROOM.T.y + 9,
-        G.GAME.ortalab.vouchers.mythos_shop_slot and 1.5*G.CARD_W or 2.1*G.CARD_W,
+        2.1*G.CARD_W,
         1.05*G.CARD_H * PissDrawer.shop_scale, 
         {card_limit = 1, type = 'shop', highlight_limit = 1, hotpot_shop = true})
 
     G.shop_booster = CardArea(
         G.hand.T.x+0,
         G.hand.T.y+G.ROOM.T.y + 9,
-        G.GAME.ortalab.vouchers.mythos_shop_slot and 2.0*G.CARD_W or 2.4*G.CARD_W,
+        2.4*G.CARD_W,
         1.15*G.CARD_H * PissDrawer.shop_scale, 
         {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.22*G.CARD_W, hotpot_shop = true})
 end
