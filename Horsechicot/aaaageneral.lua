@@ -139,10 +139,10 @@ function Horsechicot.post_load()
     
     local old = end_round
     function end_round()
-        if not G.GAME.round_end_lock then
-            G.GAME.round_end_lock = true
+        if not G.round_end_lock then
+            G.round_end_lock = true
             old()
-            G.E_MANAGER:add_event(Event{func = function() G.GAME.round_end_lock = false return true end})
+            G.E_MANAGER:add_event(Event{func = function() G.round_end_lock = false return true end})
         end
     end
 end
