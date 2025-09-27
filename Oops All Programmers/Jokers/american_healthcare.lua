@@ -8,7 +8,8 @@ SMODS.Joker {
     config = {
         extra = {
             xmult = 1,
-            inc = 0.5
+            inc = 0.5,
+            this_round = false
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -20,8 +21,12 @@ SMODS.Joker {
                 xmult = card.ability.extra.xmult
             }
         end
-        if context.pregnant and not context.blueprint then
+        if context.pregnant and not card.ability.extra.this_round and not context.blueprint then
+            card.ability.extra.this_round = true
             SMODS.scale_card(card, {ref_table = card.ability.extra, ref_value = "xmult", scalar_value = "inc"})
+        end
+        if context.leaving_shop then
+            card.ability.extra.this_round = false
         end
     end,
     hotpot_credits = {

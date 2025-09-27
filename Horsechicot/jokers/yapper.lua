@@ -16,7 +16,7 @@ SMODS.Joker {
         return {vars = { card.ability.amt, card.ability.current or HPJTTT.text[1], string.len(card.ability.current) * card.ability.amt}}
     end,
     collection_loc_vars = function(self, info_queue, card)
-        local str = pseudorandom_element(HPJTTT.text, "hc_yapper_collection")
+        local str = pseudorandom_element(HPJTTT.text_only, "hc_yapper_collection")
         return {vars = { card.ability.amt, str, string.len(str) * card.ability.amt}}
     end,
     blueprint_compat = true,
