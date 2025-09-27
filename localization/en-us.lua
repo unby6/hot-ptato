@@ -4438,18 +4438,6 @@ return {
                         },
                     }
                 },
-                {
-                    name = "Page 2",
-                    text = {
-                        {
-                            "This is how you add another {C:attention}page",
-                            "to the {C:attention}info menu{}",
-                        },
-                        {
-                            "{E:2,C:dark_edition}Pretty cool right? :3{}"
-                        }
-                    }
-                },
             },
         },
         hotpot_events = {
