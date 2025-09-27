@@ -552,7 +552,7 @@ function end_round()
                         edition = G.GAME.child_prio and G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
 
                     --setting child abilities
-                    card.ability.name = 'Baby ' .. G.GAME.child_prio.ability.name
+                    card.ability.name = 'Baby ' .. G.GAME.child_prio.config.center.name
                     card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
                     card:set_cost()
 
