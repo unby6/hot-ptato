@@ -508,18 +508,31 @@ function Horsechicot.breed(mother_center, father_center)
     G.GAME.breeding_rounds_passed = 0
 end
 
+
+local old = Card.generate_UIBox_ability_table
+function Card:generate_UIBox_ability_table()
+    if self and self.ability and self.ability.mother then
+        G.FLAG_MOTHER = true
+    end
+    local tbl = old(self)
+    return tbl
+end
+
 local old = generate_card_ui
-function generate_card_ui(card, uitable, ...)
-    local tbl = old(card, uitable, ...)
-    if card and card.ability and card.ability.mother then
+function generate_card_ui(_c, uit, ...)
+    if G.FLAG_MOTHER then
+        G.FLAG_MOTHER = false
+        local ret = old(_c, uit, ...)
         generate_card_ui({
             set = "Other",
             key = "hp_hc_mother"
-        }, uitable, {
-           (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rouns_passed
+        }, ret, {
+           (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rounds_passed
         })
+        return ret
+    else
+        return old(_c, uit, ...)
     end
-    return tbl
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
