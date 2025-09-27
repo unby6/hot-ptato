@@ -182,7 +182,7 @@ G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
-        e.config.colour = G.C.BLUE
+        e.config.colour = G.C.GOLD
         e.config.button = 'hp_jtem_exchange_d2j'
     end
 end
@@ -191,7 +191,7 @@ G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
-        e.config.colour = G.C.BLUE
+        e.config.colour = SMODS.Gradients["hpot_plincoin"]
         e.config.button = 'hp_jtem_exchange_p2j'
     end
 end
@@ -200,7 +200,7 @@ G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
-        e.config.colour = G.C.BLUE
+        e.config.colour = G.C.PURPLE
         e.config.button = 'hp_jtem_exchange_c2j'
     end
 end
@@ -209,7 +209,7 @@ G.FUNCS.hp_jtem_can_exchange_b2j = function(e)
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
-        e.config.colour = G.C.BLUE
+        e.config.colour = SMODS.Gradients["hpot_advert"]
         e.config.button = 'hp_jtem_exchange_b2j'
     end
 end

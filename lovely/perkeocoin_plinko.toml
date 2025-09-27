@@ -91,6 +91,10 @@ if G.plinko then
   G.plinko:remove()
   G.plinko = nil
 end
+if G.shop then
+  G.shop:remove()
+  G.shop = nil
+end
 '''
 match_indent = true
 

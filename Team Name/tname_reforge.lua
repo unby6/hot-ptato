@@ -80,7 +80,7 @@ end
 
 function G.FUNCS.place_return_reforge(e)
     if e.config.ref_table.area == G.jokers then
-        e.children[1].config.text = localize('hotpot_go_reforge')
+        e.children[1].children[1].config.text = localize('hotpot_go_reforge')
         if G.reforge_area and G.reforge_area.cards and #G.reforge_area.cards > 0 then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
@@ -89,15 +89,9 @@ function G.FUNCS.place_return_reforge(e)
             e.config.button = 'reforge_place'
         end
     else
-        e.children[1].config.text = localize('hotpot_leave_reforge')
-        if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
+        e.children[1].children[1].config.text = localize('hotpot_leave_reforge')
             e.config.colour = G.C.RED
             e.config.button = 'reforge_return'
-        else
-            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-            e.config.button = nil
-
-        end
     end
 end
 
@@ -113,7 +107,7 @@ end
 
 G.FUNCS.reforge_return = function ()
     if G.reforge_area and G.reforge_area.cards then
-        if #G.reforge_area.cards > 0 then
+        if #G.reforge_area.cards > 0 and G.FUNCS.check_for_buy_space(G.reforge_area.cards[1])then
             final_ability_values() -- save the final table (not needed pobably)
             HPTN.move_card(G.reforge_area.cards[1], G.jokers)
             G.GAME.ref_placed = nil

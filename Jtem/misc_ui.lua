@@ -8,11 +8,13 @@ local index_to_jx_mult = {
 }
 local function hp_jtem_buy_jx_individual( b_type, index )
     local am
-    if b_type == "plincoin" then
+    if b_type == "plincoins" then
+        b_type = 'plincoin'
         am = "p2j"
     elseif b_type == "credits" then
         am = "c2j"
-    elseif b_type == "crypto" then
+    elseif b_type == "cryptocurrency" then
+        b_type = 'crypto'
         am = "b2j"
     else
         am = "d2j"
@@ -28,95 +30,43 @@ local function hp_jtem_buy_jx_individual( b_type, index )
     end
     local args = generate_currency_string_args(b_type)
     local _y = b_type == "plincoin" and 1 or 0
-    if b_type == "crypto" then
-        _y = 3
-    end
+    if b_type == 'credits' then _y = 2 end
+    if b_type == "crypto" then _y = 3 end
+    gives_out = {gives_out}
     local numbertext = {
-        {
-            n = G.UIT.C,
-            config = { align = "cm" },
-            nodes = {
-                {
-                    n = G.UIT.T,
-                    config = { text = "͸"..(number_format(gives_out, 1e10)), colour = G.C.BLUE, scale = 0.6, font = SMODS.Fonts.hpot_plincoin }
-                }
-            }
-        },
+        {n = G.UIT.C, config = { align = "cm" }, nodes = {
+            {n=G.UIT.R, config = {align='cm', maxw = 1.8}, nodes ={
+                -- {n = G.UIT.T, config = { text = "͸"..(number_format(gives_out, 1e10)), colour = G.C.BLUE, scale = 0.35, font = SMODS.Fonts.hpot_plincoin }}
+                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = gives_out, ref_value = 1, prefix = "͸"}},
+                        maxw = 1.8, colours = {G.C.BLUE}, font = SMODS.Fonts.hpot_plincoin, shadow = true, scale = 0.35})}}
+            }}
+        }}
     }
 
     if not G.GAME.jp_jtem_has_ever_bought_jx then
-        table.insert(numbertext, {
-            n = G.UIT.C,
-            config = { align = "cm" },
-            nodes = {
-                {
-                    n = G.UIT.T,
-                    config = { text = localize{type = "variable", vars = {number_format(first_time_bonus, 1e10)}, key = "hotpot_exchange_bonus"}, colour = G.C.RED, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
-                }
-            }
-        })
+        table.insert(numbertext[1].nodes, {n=G.UIT.R, config = {align='cm', maxw = 1.8}, nodes={
+            -- {n=G.UIT.T, config = { text = localize{type = "variable", vars = {number_format(first_time_bonus, 1e10)}, key = "hotpot_exchange_bonus"}, colour = G.C.RED, scale = 0.23, font = SMODS.Fonts.hpot_plincoin }}
+            {n=G.UIT.O, config={object = DynaText({string = {localize{type = "variable", vars = {number_format(first_time_bonus, 1e10)}, key = "hotpot_exchange_bonus"}},
+                        maxw = 1.8, colours = {G.C.RED}, font = args.font, shadow = true, scale = 0.23})}}
+        }})
     end
-    if b_type == "credits" then
-        return {
-            n = G.UIT.C,
-            config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
-            nodes = {
-                { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                        {
-                            n = G.UIT.O,
-                            config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = b_type == "credits" and 2 or 0})}
-                        },
-                    }
-                },
-                { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = { text = localize("hotpot_exchange_option_"..(b_type == "credits" and "cred_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
-                        },
-                    }
-                },
-                { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
-                },
-            { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
-                        }
-                    }
-                },
-            }
-        }
-    else
-        return {
-            n = G.UIT.C,
-            config = { minw = 3.5, minh = 4, maxw = 3.5, maxh = 4, align = "cm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1},
-            nodes = {
-                { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                        {
-                            n = G.UIT.O,
-                            config = {object = Sprite(0,0,2,2,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = _y})}
-                        },
-                    }
-                },
-                { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = { text = localize("hotpot_exchange_option_"..(b_type == "plincoin" and "plin_" or b_type == "crypto" and "crypto_" or "")..index), colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts.hpot_plincoin }
-                        },
-                    }
-                },
-                { n = G.UIT.R, config = { align = "cm" }, nodes = numbertext
-                },
-            { n = G.UIT.R, config = { align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.1, r = 0.05,minw = 3.5}, nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.5, font = args.font }
-                        }
-                    }
-                },
-            }
-        }
-    end
+        return 
+        {n=G.UIT.C, config = { minw = 1.8, minh = 2.7, maxw = 1.8, maxh = 2.7, align = "bm", padding = 0.1, colour = G.C.UI.TRANSPARENT_DARK, r = 0.1}, nodes = {
+            {n=G.UIT.R, config = { align = "cm" }, nodes = {
+                {n = G.UIT.O, config = {object = Sprite(0,0,1.3,1.3,G.ASSET_ATLAS['hpot_jtem_jx_bundle'],{ x = index - 1, y = _y})}},
+            }},
+            {n=G.UIT.R, config = { align = "bm", maxw = 1.8, minh = 0.4, maxh = 0.4 }, nodes = {
+                {n=G.UIT.O, config={object = DynaText({string = {localize("hotpot_exchange_option_"..(b_type == "plincoin" and "plin_" or b_type == "credits" and "cred_" or b_type == "crypto" and "crypto_" or "")..index)},
+                    maxw = 1.8, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true, scale = 0.3})}}
+            }},
+            {n=G.UIT.R, config = { align = "cm", maxw = 1.8 }, nodes = numbertext},
+            {n=G.UIT.R, config = {maxh = 0.75, minh = 0.55, maxw = 1.8, align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out[1] + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.05, r = 0.05,minw = 1.8}, nodes = {
+                -- {n=G.UIT.T, config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.3, font = args.font }}
+                {n=G.UIT.O, config={object = DynaText({string = {args.symbol..price_display},
+                        maxw = 1.8, colours = {G.C.WHITE}, font = args.font, shadow = true, scale = 0.35})}}
+            }}
+        }}
+    
 end
 
 G.FUNCS.hpot_can_buy_jx_screen = function (e)
@@ -137,10 +87,12 @@ G.FUNCS.hpot_buy_jx_screen = function (e)
     G.GAME.jp_jtem_has_ever_bought_jx = true
     ease_currency(buy_table.currency,-buy_table.take)
     ease_spark_points(buy_table.gives)
-    G.FUNCS.exit_overlay_menu()
+    local disp = e.parent.UIBox:get_UIE_by_ID('exchange_UI')
+    disp:remove()
+    disp.UIBox:add_child(hp_jtem_buy_jx_row(e.config.currency), disp)
 end
 
-local function hp_jtem_buy_jx_row( type )
+function hp_jtem_buy_jx_row( type )
     local ch = {}
     for i = 1, 5 do 
         table.insert(ch, hp_jtem_buy_jx_individual(type, i))
