@@ -119,7 +119,7 @@ SMODS.Back {
             end
             local xmystery = pseudorandom('xmystery', 1, stones)
             if SMODS.has_enhancement(context.other_card, 'm_stone') then
-                if context.other_card.edition.key == 'e_polychrome' then
+                if context.other_card.edition and context.other_card.edition.key == 'e_polychrome' then
                     context.other_card.ability.perma_h_x_mult = context.other_card.ability.perma_h_x_mult +
                         (xmystery / 25)
                 else
