@@ -386,7 +386,7 @@ SMODS.Joker {
                             n = G.UIT.C,
                             config = { ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06 },
                             nodes = {
-                                { n = G.UIT.T, config = { text = localize{type = 'name', set = 'Joker', key = card.ability.quantum[1].config.cente.key, vars = {}}[1].nodes[1].nodes[1].config.object.config.string[1],
+                                { n = G.UIT.T, config = { text = localize{type = 'name', set = 'Joker', key = card.ability.quantum[1].config.center.key, vars = {}}[1].nodes[1].nodes[1].config.object.config.string[1],
                                 colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
                             }
                         }

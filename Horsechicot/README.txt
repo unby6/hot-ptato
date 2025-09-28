@@ -7,7 +7,7 @@ hi! -ruby
 hi! -cg
 
 ## Index - cg
-Look in aaaageneral.lua for stuff that we want loading before our other content (todo: make this portable)
+Look in aaaageneral.lua for stuff that we want loading before our other content
 
 Nursery.lua and black_market.lua contain our shop tabs
 

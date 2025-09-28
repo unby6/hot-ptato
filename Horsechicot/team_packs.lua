@@ -8,20 +8,17 @@ function get_team_card(team, seed)
     return pseudorandom_element(cards, pseudoseed(seed))
 end
 
---TODO: remove this safety function when all teams have finished
 function get_teams()
-    if G.SETTINGS.paused then
-        return {
-            "[RANDOM TEAM]"
-        }
-    end
-    local teams = {}
-    for i, v in pairs(G.P_CENTERS) do
-        if v.set ~= "Enhanced" and v.set ~= "Edition" and not v.hidden and v.hotpot_credits and v.hotpot_credits.team then
-            teams[#teams+1] = v.hotpot_credits.team[1]
-        end
-    end
-    return teams
+    return {
+        "Sillyposting",
+        ":)",
+        "Perkeocoin",
+        "Pissdrawer",
+        "Team Name",
+        "Oops! All Programmers",
+        "Jtem",
+        "Horsechicot"
+    }
 end
 
 SMODS.Booster {
