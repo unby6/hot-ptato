@@ -5,7 +5,7 @@ return {
                 name = "Aura of Justice",
                 text = {
                     "{C:red}-#1# Joker Slots{},",
-                    "{C:purple}+#2# Credits"
+                    "{C:purple}+c#2#"
                 }
             },
             c_hpot_fear = {
