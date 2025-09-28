@@ -386,8 +386,15 @@ SMODS.Joker {
                             n = G.UIT.C,
                             config = { ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06 },
                             nodes = {
-                                { n = G.UIT.T, config = { text = localize{type = 'name', set = 'Joker', key = card.ability.quantum[1].config.center.key, vars = {}}[1].nodes[1].nodes[1].config.object.config.string[1],
-                                colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                                {
+                                    n = G.UIT.T,
+                                    config = {
+                                        text = localize { type = 'name', set = 'Joker', key = card.ability.quantum[1].config.center.key, vars = {} }
+                                            [1].nodes[1].nodes[1].config.object.config.string[1],
+                                        colour = G.C.UI.TEXT_LIGHT,
+                                        scale = 0.32 * 0.8
+                                    }
+                                },
                             }
                         }
                     }
@@ -635,6 +642,7 @@ SMODS.Joker {
     cost = 8,
     calculate = function(self, card, context)
         if context.setting_blind then
+            print('Polymorphine activated')
             local pos = 1
             for i, v in ipairs(card.area.cards) do
                 if v == card then
@@ -643,9 +651,12 @@ SMODS.Joker {
             end
             if pos ~= 1 then
                 for i = 1, pos - 1 do
-                    local order = card.area.cards[i].config.center.order
-                    if order > #G.P_CENTER_POOLS.Joker then order = 1 end
-                    if card.area.cards[i].config.center.set == 'Joker' then card.area.cards[i]:set_ability(G.P_CENTER_POOLS.Joker[order + 1]) end
+                    local blard = card.area.cards[i]
+                    local order = jokerOrder[blard.config.center.key] + 1
+                    if order >= #G.P_CENTER_POOLS.Joker then order = 1 end
+                    if blard.config.center.set == 'Joker' then
+                        blard:set_ability(G.P_CENTER_POOLS.Joker[order])
+                    end
                 end
             end
         end
