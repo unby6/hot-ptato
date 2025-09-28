@@ -398,7 +398,6 @@ HPJTTT = {
         "Shaw!",
         "Why aren't you playing silk-song?",
         "Unfun Fact: ",
-        "Fun Fact: 7 out of 8 teams are downright TERRIBLE at making a functional mod! (Not including GhostSalt)",
         "I think we might've made this into a roguelite?",
         "You should Gold Stake yourself NOW!",
         "How do I lovely patch?",
