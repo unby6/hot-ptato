@@ -165,4 +165,4 @@ SMODS.Atlas{key = "hcnumberslop", path = "Ads/numberslop.png", px=169, py=55}
 SMODS.Atlas{key = "hcred", path = "Ads/red.png", px=169, py=55}
 SMODS.Atlas{key = "hcmustard", path = "Ads/mustard.png", px=169, py=55}
 SMODS.Atlas{key = "hcwindows", path = "Ads/WindowDeck.png", px=154, py=139}
---SMODS.Atlas{key = "hpot_hchorseyworseys", path = "Ads/Horseys.png", px=200, py=150}
+SMODS.Atlas{key = "hpot_hchorseyworseys", path = "Ads/Horseys.png", px=200, py=150}
