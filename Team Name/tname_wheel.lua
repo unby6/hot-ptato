@@ -26,7 +26,8 @@ Wheel = {
   default_cost_up = 2,   --resets
   ARROWS = {             -- the arrows yippe
 
-  }
+  },
+  accel = 0.6
 }
 
 
@@ -406,12 +407,14 @@ function CardArea:align_cards()
           Wheel.t = Wheel.t or 6
           if not G.GAME.vval then G.GAME.vval = Wheel.KeepVval end
           Wheel.b = Wheel.b or 0
-          card.T.r = card.T.r + 0.1 - math.min((Wheel.b / Wheel.t) * 0.1, 0.09)
+          card.T.r = card.T.r + Wheel.accel - math.min((Wheel.b / Wheel.t) * 0.1, 0.09)
+          Wheel.accel = Wheel.accel - 0.001
+          if Wheel.accel < 0.1 then Wheel.accel = 0.1 end
           if card.T.r >= ((Wheel.b + 1) * math.pi * 2) then
             Wheel.b = Wheel.b + 1
           end
           G.GAME.keep_rotation = card.T.r
-          if Wheel.b >= Wheel.t and math.ceil((card.T.r - (Wheel.b) * math.pi * 2) * 10) == G.GAME.vval then
+          if Wheel.b >= Wheel.t and math.ceil((card.T.r - (Wheel.b) * math.pi * 2) * 10) == G.GAME.vval and Wheel.accel <= 0.1 then
             G.GAME.keep_rotation = card.T.r - (Wheel.b) * math.pi * 2
             if not G.GAME.fake_rotate then
               if in_between(0.1, 0.89, G.GAME.keep_rotation) then
@@ -521,6 +524,7 @@ function spin_wheel(fake) -- spinning the wheel
 
   Wheel.STATE.IDLE = nil -- set states
   Wheel.STATE.SPUN = true
+  Wheel.accel = 0.5
 
   if fake then
     G.GAME.fake_rotate = true
