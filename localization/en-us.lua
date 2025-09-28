@@ -4498,8 +4498,9 @@ return {
                             "{C:attention}various products{} from around the world",
                         },
                         {
-                            "You can spend {C:attention}various currencies{} to queue",
+                            "You can spend {C:attention}different currencies{} to queue",
                             "{C:attention}Jokers{}, receiving them after a few {C:attention}rounds{}",
+                            "into your {C:dark_edition}Joker slots{}"
                         },
                     }
                 },
@@ -4516,8 +4517,8 @@ return {
                             "which grants different {C:attention}traits{} to an item",
                         },
                         {
-                            "This mechanic requires specific",
-                            "{C:attention}vouchers{} or {C:attention}Joker{} to be used"
+                            "{C:red}Warning!{} Reforging requires specific {C:attention}items{}",
+                            "such as {C:attention}vouchers{} to be used"
                         },
                         {
                             "You can spend {C:attention}any currency{} to add",
@@ -4542,8 +4543,9 @@ return {
                             "to purchase an {C:attention}item{}",
                         },
                         {
-                            "You can also sacrifice {C:attention}Jokers{}",
+                            "You can also harvest {C:attention}Jokers{}",
                             "to earn {C:hpot_advert,f:hpot_plincoin}Cryptocurrency{}",
+                            "{C:inactive}(Once per shop)"
                         },
                     }
                 },
