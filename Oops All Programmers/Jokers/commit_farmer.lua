@@ -23,27 +23,31 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         local team = G.GAME.current_round.hpot_commit_farmer_team or "Sillyposting"
         local commits = card.ability.extra.commits[team:lower()] or 0
-        local xmult = card.ability.extra.xmult_inc * commits
-        return {vars={card.ability.extra.xmult_inc, team, xmult}}
+        local xmult = card.ability.extra.xmult_inc * commits + card.ability.extra.xmult_base
+        return { vars = { card.ability.extra.xmult_inc, team, xmult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return { xmult = card.ability.extra.xmult_inc * (card.ability.extra.commits[G.GAME.current_round.hpot_commit_farmer_team:lower()] or 0) }
+            return {
+                xmult = card.ability.extra.xmult_inc *
+                    (card.ability.extra.commits[G.GAME.current_round.hpot_commit_farmer_team:lower()] or 0) +
+                    card.ability.extra.xmult_base
+            }
         end
     end,
     hotpot_credits = {
-        art = {'th30ne'},
-        code = {'trif'},
-        idea = {'trif'},
-        team = {'Oops! All Programmers'}
+        art = { 'th30ne' },
+        code = { 'trif' },
+        idea = { 'trif' },
+        team = { 'Oops! All Programmers' }
     }
 }
 function reset_commit_farmer()
     G.GAME.current_round.hpot_commit_farmer_team = G.GAME.current_round.hpot_commit_farmer_team or "Sillyposting"
     local teams = {}
-    for k, v in ipairs({"Perkeocoin", "Sillyposting", "Jtem", "Team Name", "Team :)", "Horsechicot", "Oops! All Programmers", "PissDrawer"}) do
+    for k, v in ipairs({ "Perkeocoin", "Sillyposting", "Jtem", "Team Name", "Team :)", "Horsechicot", "Oops! All Programmers", "PissDrawer" }) do
         if v ~= G.GAME.current_round.hpot_commit_farmer_team then
-            teams[#teams+1] = v
+            teams[#teams + 1] = v
         end
     end
     local team = pseudorandom_element(teams, "commit_farmer_" .. G.GAME.round_resets.ante)
