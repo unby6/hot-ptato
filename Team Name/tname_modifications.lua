@@ -408,11 +408,11 @@ HPTN.Modification({
 					card.modif_delay = true
 				end
 			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ xmult = HPTN.perc(mult, 10) }, card)
+				SMODS.calculate_effect({ xmult = 1 + HPTN.perc(mult, 10) }, card)
 			end
 		end
 		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ xmult = HPTN.perc(mult, 10) }, card)
+			SMODS.calculate_effect({ xmult = 1 + HPTN.perc(mult, 10) }, card)
 			card.modif_delay = nil
 		end
 	end,
