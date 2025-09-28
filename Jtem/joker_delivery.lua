@@ -577,6 +577,12 @@ end
 
 function hotpot_jtem_init_extra_shops_area()
     -- i just copied this from the shop definition lol
+    if G.hp_jtem_delivery_special_deals then
+        G.hp_jtem_delivery_special_deals:remove()
+    end
+    if G.hp_jtem_delivery_queue then
+        G.hp_jtem_delivery_queue:remove()
+    end
     G.hp_jtem_delivery_special_deals = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
@@ -597,10 +603,15 @@ function hotpot_jtem_init_extra_shops_area()
 end
 
 -- destroy all cards in an area, I am too lazy to make a god damn loop damn it
+-- I do! - SleepyG11
 function hotpot_jtem_destroy_all_card_in_an_area(area, nofx)
     if not area or not area.cards then return end
-    for i = #area.cards, 1, -1 do
-        local _c = area.cards[i]
+    local cards_to_remove = {}
+    for _, card in pairs(area.cards) do
+        table.insert(cards_to_remove, card)
+    end
+
+    for i, _c in ipairs(cards_to_remove) do
         area:remove_card(_c)
         if nofx then
             _c:remove()
