@@ -27,7 +27,8 @@ SMODS.Sound {
     if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "czech", 0, true) ~= nil then
       return 1339
     end
-  end
+  end,
+  hpot_title = "Cheque Booster Theme (OST Mix)",
 }
 
 SMODS.Joker{ --19 plincoin fortnite card

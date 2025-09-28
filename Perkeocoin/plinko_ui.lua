@@ -90,7 +90,8 @@ SMODS.Sound {
     if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then
       return 1337
     end
-  end
+  end,
+  hpot_title = "Plinko Theme (OST Mix)",
 }
 
 SMODS.Sound {
@@ -100,7 +101,8 @@ SMODS.Sound {
     if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.changed == "stupid" then
       return 1338
     end
-  end
+  end,
+  hpot_title = "Meowsynthwave (OST Mix)",
 }
 
 
