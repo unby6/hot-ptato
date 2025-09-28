@@ -105,7 +105,7 @@ SMODS.Tag({
 	key = "credit_econ",
 	atlas = "tname_tags",
 	pos = { x = 2, y = 0 },
-	config = { max = 25 },
+	config = { max = 45 },
 	loc_vars = function(self, info_queue, tag)
 		return { vars = { tag.config.max } }
 	end,

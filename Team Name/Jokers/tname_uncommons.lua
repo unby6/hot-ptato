@@ -53,19 +53,19 @@ SMODS.Joker({
 		x = 2,
 		y = 2
 	},
-    config = { extra = { max = 25, min = -40 } },
+    config = { extra = { max = 45, min = -20 } },
     loc_vars = function(self, info_queue, card)
         local r_mults = {}
 		local jank = ""
         for i = card.ability.extra.min, card.ability.extra.max do
 			if i < 0 then
-				jank = " - "
+				jank = " - c."
 			else
-				jank = " + " 
+				jank = " + c." 
 			end
             r_mults[#r_mults + 1] = jank..math.abs(i)
         end
-        local loc_mult = {string = ' ' .. (localize('k_credits')) .. ' ', colour = G.C.PURPLE}
+        local loc_mult = {string = ' ', colour = G.C.PURPLE}
         main_start = {
             { n = G.UIT.O, config = { object = DynaText({ string = r_mults, colours = { G.C.PURPLE }, pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0 }) } },
             {
@@ -249,13 +249,14 @@ SMODS.Joker({
 		extra = {
 			xmult = 2,
 			xmultm = 0.2,
-			xmultg = 0.3
+			xmultg = 0.3,
+			min = 1
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 			return {
-				vars = { hpt.xmult, hpt.xmultm,hpt.xmultg,},
+				vars = { hpt.xmult, hpt.xmultm,hpt.xmultg,hpt.min},
 			}
 	end,
 	pos = {x=2,y=1},
@@ -277,6 +278,7 @@ SMODS.Joker({
 				operation = "-"
 			})
 		end
+		hpt.xmult = math.max(hpt.xmult, hpt.min)
 		if context.joker_main then
 			return {
 				xmult = hpt.xmult

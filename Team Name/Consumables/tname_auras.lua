@@ -24,8 +24,8 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			slots = 2,
-			credits = 60
+			slots = 1,
+			credits = 70
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -72,7 +72,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			credits = 10
+			credits = 30
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -135,8 +135,8 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			leavinghands = 1,
-			credits = 20
+			leavinghands = 2,
+			credits = 30
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -223,8 +223,8 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			slots = 2,
-			credits = 30
+			slots = 1,
+			credits = 40
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -266,8 +266,8 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			max = 45,
-			credits = 1.1
+			max = 65,
+			credits = 2
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -305,7 +305,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			credits = 1
+			credits = 3
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -332,7 +332,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			credits = 50
+			credits = 150
 		},
 	},
 	loc_vars = function(self, info_queue, card)

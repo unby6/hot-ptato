@@ -58,7 +58,7 @@ SMODS.Joker({
 		y = 1,
 	},
 	cost = 0,
-	credits = 500,
+	credits = 600,
 	config = {
 		extra = {
 			slots = 3,
@@ -107,7 +107,7 @@ SMODS.Joker({
 		y = 1,
 	},
 	cost = 0,
-	credits = 500,
+	credits = 600,
 	config = {
 		extra = {
 			slots = 2,
@@ -179,7 +179,7 @@ SMODS.Joker({
 		}))
 	end,
 	cost = 0,
-	credits = 500,
+	credits = 600,
 	hotpot_credits = {
 		art = { "GoldenLeaf" },
 		idea = { "GoldenLeaf" },
@@ -200,7 +200,7 @@ SMODS.Joker({
 		CreditablePool = true,
 	},
 	cost = 0,
-	credits = 500,
+	credits = 600,
 	calculate = function(self, card, context)
 		local ret = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
 		local ret2 = SMODS.blueprint_effect(card, G.jokers.cards[#G.jokers.cards], context)
@@ -239,7 +239,7 @@ SMODS.Joker({
 		y = 2,
 	},
 	cost = 0,
-	credits = 500,
+	credits = 600,
 	config = {
 		extra = {
 			xmult = 7,

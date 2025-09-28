@@ -41,13 +41,13 @@ return {
                 name = "Aura of Tenacity",
                 text = {
                     "{C:red}Destroy all Jokers{},",
-                    "{X:purple,C:white}X#2#c.{C:inactive} (Max of #1#)"
+                    "{X:purple,C:white}Xc.#2#{C:inactive} (Max of #1#)"
                 }
             },
             c_hpot_lunacy = {
                 name = "Aura of Lunacy",
                 text = {
-                    "{C:purple}+#1#c.{C:inactive}"
+                    "{C:purple}+c.#1#{C:inactive}"
                 }
             },
             c_hpot_power = {
@@ -1380,6 +1380,7 @@ return {
                     "{X:mult,C:white}X#1#{} Mult",
                     "{X:mult,C:white}-X#2#{} after each played hand",
                     "{X:mult,C:white}+X#3#{} after each joker destroyed",
+                    "{C:inactive}(Minimum of X#4#)"
                 }
             },
             j_hpot_upsidedownsmiley = {
