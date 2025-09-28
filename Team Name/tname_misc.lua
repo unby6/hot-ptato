@@ -31,3 +31,23 @@ SMODS.Sound {
 HPTN.C = {
 	BROWN = HEX("916400"),
 }
+
+
+-- for iris select button
+
+G.FUNCS.can_pull_card = function(e)
+	local card = e.config.ref_table
+	if #G.consumeables.cards < G.consumeables.config.card_limit then
+		e.config.colour = G.C.RED
+		e.config.button = "pull_card"
+	else
+		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+		e.config.button = nil
+	end
+end
+G.FUNCS.pull_card = function(e)
+	local card = e.config.ref_table
+	card.area:remove_card(card)
+	card:add_to_deck()
+	G.consumeables:emplace(card)
+end
