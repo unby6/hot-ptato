@@ -37,7 +37,7 @@ function Card:save()
     if self.ability and self.ability.quantum and type(self.ability.quantum) ~= 'string' then
         cardTable.quantum = cardTable.quantum or {}
         for i,v in ipairs(self.ability.quantum) do
-            cardTable.quantum[i] = v.save()
+            cardTable.quantum[i] = v:save()
         end
     end
     return cardTable
