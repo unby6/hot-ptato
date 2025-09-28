@@ -96,7 +96,9 @@ G.FUNCS.precognition_exit = function(args)
 end
 G.FUNCS.precognition_confirm = function(args)
     G.FUNCS:exit_overlay_menu()
-    G.GAME.precognition_guess = G.GAME.precognition_guess or true
+    if G.GAME.precognition_guess == nil then
+        G.GAME.precognition_guess = true
+    end
 end
 
 G.FUNCS.can_use_joker = function(e)
