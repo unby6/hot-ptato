@@ -19,20 +19,10 @@ SMODS.Joker {
 		if context.after then
 			card.ability.extra.active = false
 		end
-		if card.ability.extra.active then
-            local chips_count = 0
-			for _, v in ipairs(G.jokers.cards) do
-				if v.ability.name ~= 'Blueprint' and v.ability.name ~= 'Brainstorm' and v.ability.name ~= "j_hpot_charlie" and v.ability.name ~= "j_hpot_melvin" then
-					context.blueprint = nil
-					local ret = SMODS.blueprint_effect(card, v, context)
-					if ret and ret.chips then
-                        chips_count = chips_count + 1
-					end
-				end
-			end
-            if chips_count > 0 then
+		if card.ability.extra.active and context.post_trigger then
+            if context.other_ret and context.other_ret.chips and context.other_ret.chips ~= 0 then
                 return {
-                    mult = (chips_count * card.ability.extra.mult),
+                    mult = card.ability.extra.mult
                 }
             end
 		end
