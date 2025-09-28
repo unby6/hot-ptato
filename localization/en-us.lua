@@ -1679,7 +1679,7 @@ return {
                 name = "Card Stack",
                 text = {
                     "Played {C:attention}unenhanced{} cards have",
-                    "a {C:green}#2# {}in {C:green}#3#{} chance",
+                    "a {C:green}#2# in #3#{} chance",
                     "to gain {C:attention}#1#{} permanent retrigger.",
                     "{C:green}Denominator{} is increased by {C:attention}#4#",
                     "for every permanent retrigger"
