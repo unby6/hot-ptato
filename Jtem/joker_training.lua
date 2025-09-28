@@ -489,7 +489,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 				else
 					energy_changed = math.ceil(energy_changed * (1 + (stats.stamina / 1200)))
 				end
-				joker.ability.hp_jtem_energy = joker.ability.hp_jtem_energy + energy_changed
+				joker.ability.hp_jtem_energy = math.min(100, math.max(0, joker.ability.hp_jtem_energy + energy_changed))
 			end
 		end
 	end
