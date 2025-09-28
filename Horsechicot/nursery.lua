@@ -592,7 +592,8 @@ function end_round()
                     })
                     update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
                     --make children smaller
-                    card.T.scale = card.T.scale * 0.75
+                    card.T.h = G.GAME.child_prio.T.h * 0.75
+                    card.T.w = G.GAME.child_prio.T.w * 0.75
                     card.ability.is_nursery_smalled = true
 
                     G.nursery_mother.cards[1].ability.mother = nil

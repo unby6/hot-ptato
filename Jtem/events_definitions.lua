@@ -2642,7 +2642,6 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-		delay(1)
 		pool = {}
 		for i, v in pairs(G.P_CENTERS) do
 			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
@@ -2650,7 +2649,7 @@ HotPotato.EventStep {
 			end
 		end
 		if G.jokers.config.card_count < G.jokers.config.card_limit then
-			local chosen = pseudorandom_element(pool.pseudoseed('fey_tsup'))
+			local chosen = pseudorandom_element(pool, pseudoseed('fey_tsup'))
 			SMODS.add_card({ key = chosen.key })
 		end
 	end

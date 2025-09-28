@@ -1,4 +1,15 @@
 Quantum = Card:extend()
+
+--to fix funcs like juice_up || someone pls help
+for key, func in pairs(Card) do
+    if type(func) == 'function' then
+        Quantum[key] = function(self, ...)
+            if self.quantum then self = self.card_to end
+            return Card[key](self, ...)
+        end
+    end
+end
+
 function Quantum:init(args)
     --ty eremel <3
     self.base_cost = args.base_cost or 0
@@ -16,16 +27,17 @@ function Quantum:init(args)
     self.quantum = true
 end
 
-function Quantum:save()
+function quantumsave(card)
     local cardTable = {
-        base_cost = self.base_cost,
-        extra_cost = self.extra_cost,
-        cost = self.cost,
-        sell_cost = self.sell_cost,
-        ability = self.ability,
+        base_cost = card.base_cost,
+        extra_cost = card.extra_cost,
+        cost = card.cost,
+        card_to = card.card_to,
+        sell_cost = card.sell_cost,
+        ability = card.ability,
         fake_card = true,
         config = {
-            center = self.config.center.key
+            center = card.config.center
         },
     }
     return cardTable
@@ -35,31 +47,25 @@ local cs = Card.save
 function Card:save()
     local cardTable = cs(self)
     if self.ability and self.ability.quantum and type(self.ability.quantum) ~= 'string' then
-        cardTable.quantum = cardTable.quantum or {}
+        cardTable.ability.quantum = cardTable.ability.quantum or {}
         for i,v in ipairs(self.ability.quantum) do
-            cardTable.quantum[i] = v:save()
+            cardTable.ability.quantum[i] = quantumsave(v)
         end
     end
     return cardTable
 end
 
-local ju = Card.juice_up
-function Card:juice_up(a, b)
-    if not self.quantum then
-        return ju(self, a, b)
+local cl = Card.load
+function Card:load(...)
+    local ret = cl(self, ...)
+    if self.config.center.key == 'j_hpot_child' then
+        update_child_atlas(self, G.ASSET_ATLAS[self.ability.quantum[1].config.center.atlas or 'Joker'], self.ability.quantum[1].config.center.pos)
     end
+    return ret
 end
 
-local sd = Card.start_dissolve
-function Card:start_dissolve(...)
-    if self.quantum then 
-        for i,v in pairs(SMODS.get_card_areas('jokers')) do
-            for _,c in pairs(v.cards or {}) do
-                for p,q in pairs(c.ability.quantum or {}) do
-                    if q == self then sd(self, ...) return end
-                end
-            end
-        end
-    end
-    sd(self, ...)
+local cest = card_eval_status_text
+function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+    if card.quantum then card = card.card_to end
+    cest(card, eval_type, amt, percent, dir, extra)
 end
