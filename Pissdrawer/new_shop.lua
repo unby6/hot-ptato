@@ -920,3 +920,18 @@ G.FUNCS.can_switch_spark_exchange = function(e)
     e.config.colour = tab.config.button and mix_colours(G.C.L_BLACK, G.C.BLUE, 0.8) or G.C.BLACK
     e.config.button = tab.config.button and 'switch_spark_exchange' or nil
 end
+
+function format_ui_value(value)
+    if type(value) ~= "number" then
+        return tostring(value)
+    end
+    local ret = number_format(value, 1000000)
+    if value > 0 and value < 0.00001 then
+        local tbl = {}
+        for i, _ in string.gmatch(ret, '([^e]+)') do tbl[#tbl+1] = i end
+        if tbl[1] then
+            ret = tbl[1]:sub(1, 3).."e"..tbl[2]
+        end
+    end
+    return ret
+end
