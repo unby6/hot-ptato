@@ -733,7 +733,8 @@ end
 
 PissDrawer.Shop.delivery_post = function(keys)
     PissDrawer.Shop.reload_shop_areas(keys)
-    if not PissDrawer.Shop.delivery_spawn then hotpot_delivery_refresh_card(); PissDrawer.Shop.delivery_spawn = true end
+    hotpot_delivery_refresh_card()
+    if not PissDrawer.Shop.delivery_spawn then PissDrawer.Shop.delivery_spawn = true end
 end
 
 PissDrawer.Shop.black_market_post = function(keys)
