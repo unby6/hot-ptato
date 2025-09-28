@@ -1,0 +1,16 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+pattern = '''
+self.extra = self.extra or {center = 'j_joker'}
+'''
+position = "at"
+payload = '''
+self.extra = self.extra or {center = 'j_hpot_vremade_joker'}
+'''
+match_indent = true
