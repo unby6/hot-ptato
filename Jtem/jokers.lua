@@ -131,7 +131,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.retriggers } }
     end,
     calculate = function(self, card, context)
-        if (context.repetition) or (context.retrigger_joker_check and not context.retrigger_joker) then
+        if (context.repetition) then
             return {
                 repetitions = card.ability.extra.retriggers,
                 sound = "hpot_ws_again"

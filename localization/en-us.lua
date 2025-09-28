@@ -1056,9 +1056,9 @@ return {
             j_hpot_retriggered = {
                 name = "what if there was a joker that retriggered",
                 text = {
-                    "Retriggers every card",
+                    "Retriggers every played card",
                     "{C:attention}#1#{} additional time",
-                    "{C:inactive}Wait, isn't this just Boredom?",
+                    "{C:inactive}Wait, isn't this just persistent Dusk?",
                     "{C:inactive}You'll see."
                 }
             },
