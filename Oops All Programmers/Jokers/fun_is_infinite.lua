@@ -7,7 +7,9 @@ SMODS.Joker {
     pos = { x = 5, y = 1 },
     config = { extra = { xmult = 1.75 } },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = { key = "eternal", set = "Other" }
+        if not card.ability.eternal then
+            info_queue[#info_queue+1] = { key = "eternal", set = "Other" }
+        end
         return { vars = { card.ability.extra.xmult } }
     end,
     calculate = function(self, card, context)
