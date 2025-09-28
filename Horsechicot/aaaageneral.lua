@@ -1,13 +1,13 @@
 Horsechicot = {}
 function Horsechicot.credit(coders, arters, ideaers)
     if type(coders) == "string" then
-        coders = {coders}
+        coders = { coders }
     end
     if type(arters) == "string" then
-        arters = {arters}
+        arters = { arters }
     end
     if type(ideaers) == "string" then
-        ideaers = {ideaers}
+        ideaers = { ideaers }
     end
     return {
         code = coders,
@@ -17,22 +17,21 @@ function Horsechicot.credit(coders, arters, ideaers)
     }
 end
 
+SMODS.Atlas { key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95 }
+SMODS.Atlas { key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 95 }
+SMODS.Atlas { key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95 }
+SMODS.Atlas { key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95 }
+SMODS.Atlas { key = "hc_placeholder", path = "Horsechicot/placeholders.png", px = 71, py = 95 }
+SMODS.Atlas { key = "hc_consumables", path = "Horsechicot/hc_consumables.png", px = 71, py = 95 }
 
-SMODS.Atlas{key = "hc_jokers", path = "Horsechicot/hc_jokers.png", px = 71, py = 95}
-SMODS.Atlas{key = "hc_decks", path = "Horsechicot/hc_decks.png", px = 71, py = 95}
-SMODS.Atlas{key = "hc_boosters", path = "Horsechicot/hc_boosters.png", px = 71, py = 95}
-SMODS.Atlas{key = "hc_vouchers", path = "Horsechicot/hc_vouchers.png", px = 71, py = 95}
-SMODS.Atlas{key = "hc_placeholder", path = "Horsechicot/placeholders.png", px=71, py=95}
-SMODS.Atlas{key = "hc_consumables", path = "Horsechicot/hc_consumables.png", px=71, py=95}
 
-
-SMODS.Atlas{
+SMODS.Atlas {
     key = "horsechicot_market",
     path = "Horsechicot/shop_button.png",
     px = 34, py = 34,
 }
 
-SMODS.Atlas{
+SMODS.Atlas {
     key = "hc_tags",
     path = "Horsechicot/hc_tags.png",
     px = 34, py = 34,
@@ -43,8 +42,8 @@ SMODS.Sound {
     path = "music_market.ogg",
     select_music_track = function(self)
         if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_horsechicot_toggle_market" or (G.hpot_event and G.HP_HC_MARKET_VISIBLE) then
-        return 1325
-      end
+            return 1325
+        end
     end,
     hpot_title = "Black Market Theme",
     hpot_artist = "???" -- Someone fill this up
@@ -54,7 +53,7 @@ SMODS.Sound {
 SMODS.Atlas {
     key = "hc_plinkos",
     path = "Horsechicot/plinkos.png",
-    px = 40,py = 40,
+    px = 40, py = 40,
 }
 
 function Horsechicot:calculate(context)
@@ -63,11 +62,9 @@ function Horsechicot:calculate(context)
     end
 end
 
-
-
 local oldfunc = Game.main_menu
 Game.main_menu = function(change_context)
-    local ret = oldfunc(change_context) 
+    local ret = oldfunc(change_context)
     G.E_MANAGER:add_event(Event({
         trigger = "after",
         delay = 0,
@@ -102,6 +99,10 @@ Game.main_menu = function(change_context)
             return true
         end
     }))
+    jokerOrder = {}
+    for i, v in ipairs(G.P_CENTER_POOLS.Joker) do
+        jokerOrder[v.key] = i
+    end
     return ret
 end
 
@@ -138,7 +139,7 @@ function Horsechicot.post_load()
         default = "c_wraith",
         cards = cards
     }
-    
+
     if not post_loaded then
         post_loaded = true
         SMODS.ObjectTypes.BlackMarket:inject()
@@ -147,12 +148,14 @@ function Horsechicot.post_load()
             if not G.round_end_lock then
                 G.round_end_lock = true
                 old()
-                G.E_MANAGER:add_event(Event{func = function() G.round_end_lock = false return true end})
+                G.E_MANAGER:add_event(Event { func = function()
+                    G.round_end_lock = false
+                    return true
+                end })
             end
         end
     end
 end
-
 
 local loadmodsref = SMODS.injectItems
 function SMODS.injectItems(...)
@@ -160,15 +163,14 @@ function SMODS.injectItems(...)
     Horsechicot.post_load()
 end
 
-
 function HotPotato.reload_localization()
-	SMODS.handle_loc_file(HotPotato.path)
-	return init_localization()
+    SMODS.handle_loc_file(HotPotato.path)
+    return init_localization()
 end
 
-SMODS.Atlas{key = "hcbananaad", path = "Ads/BananaAd.png", px=169, py=55}
-SMODS.Atlas{key = "hcnumberslop", path = "Ads/numberslop.png", px=169, py=55}
-SMODS.Atlas{key = "hcred", path = "Ads/red.png", px=169, py=55}
-SMODS.Atlas{key = "hcmustard", path = "Ads/mustard.png", px=169, py=55}
-SMODS.Atlas{key = "hcwindows", path = "Ads/WindowDeck.png", px=154, py=139}
-SMODS.Atlas{key = "hpot_hchorseyworseys", path = "Ads/Horseys.png", px=200, py=150}
+SMODS.Atlas { key = "hcbananaad", path = "Ads/BananaAd.png", px = 169, py = 55 }
+SMODS.Atlas { key = "hcnumberslop", path = "Ads/numberslop.png", px = 169, py = 55 }
+SMODS.Atlas { key = "hcred", path = "Ads/red.png", px = 169, py = 55 }
+SMODS.Atlas { key = "hcmustard", path = "Ads/mustard.png", px = 169, py = 55 }
+SMODS.Atlas { key = "hcwindows", path = "Ads/WindowDeck.png", px = 154, py = 139 }
+SMODS.Atlas { key = "hpot_hchorseyworseys", path = "Ads/Horseys.png", px = 200, py = 150 }
