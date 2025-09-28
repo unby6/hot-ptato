@@ -54,8 +54,8 @@ G.FUNCS.market_return = function()
 
 end
 
-local start_run_ref = G.start_run
-function G:start_run(args)
+local start_run_ref = Game.start_run
+function Game:start_run(args)
   G.HP_HC_MARKET_VISIBLE = nil
   local ret = start_run_ref(self, args)
   local saveTable = args.savetext or nil
