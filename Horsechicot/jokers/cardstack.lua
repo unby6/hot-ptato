@@ -25,7 +25,8 @@ SMODS.Joker {
                 }
             end
         end
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("Nxkoo", "pangaea47")
 }
 
 -- the EXACT same code from Tangents i know
