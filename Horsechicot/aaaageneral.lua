@@ -45,7 +45,9 @@ SMODS.Sound {
         if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_horsechicot_toggle_market" or (G.hpot_event and G.HP_HC_MARKET_VISIBLE) then
         return 1325
       end
-    end
+    end,
+    hpot_title = "Black Market Theme",
+    hpot_artist = "???" -- Someone fill this up
 }
 
 
