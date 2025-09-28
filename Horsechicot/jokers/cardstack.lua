@@ -9,7 +9,7 @@ SMODS.Joker {
     cost = 6,
     config = { extra = { retriggers = 1, numerator = 1, denominator = 3, denom_inc = 3 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.denominator, card.ability.extra.numerator, 'bruh')
+        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.numerator, card.ability.extra.denominator, 'bruh')
         return {
             vars = { card.ability.extra.retriggers, numerator, denominator, card.ability.extra.denom_inc }
         }
