@@ -103,6 +103,11 @@ function JTJukebox.read_music_tags(path, music_name)
 	local idx = string.find(str, 'vorbis')
 	---@type Jtem.MusicTag
 	local info = { key = music_name }
+	-- POST: Check if we defined this in the SMODS.Sound definition instead
+	if SMODS.Sounds[info.key] then
+		info.title = SMODS.Sounds[info.key].hpot_title or nil
+		info.artist = SMODS.Sounds[info.key].hpot_artist or nil
+	end
 	if idx > 0 then
 		-- find second vorbis string
 		local v = string.find(str, 'vorbis', idx + 6)
@@ -133,7 +138,7 @@ function JTJukebox.read_music_tags(path, music_name)
 					else
 						print("Failed to create atlas image for music " .. music_name)
 					end
-				else
+				elseif not info[comment_name] then
 					-- add it to our info
 					info[comment_name] = value
 				end
