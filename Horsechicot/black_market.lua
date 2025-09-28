@@ -57,6 +57,7 @@ end
 local start_run_ref = Game.start_run
 function Game:start_run(args)
   G.HP_HC_MARKET_VISIBLE = nil
+  PissDrawer.Shop.market_spawn = false
   local ret = start_run_ref(self, args)
   local saveTable = args.savetext or nil
   if not saveTable then

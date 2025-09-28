@@ -633,6 +633,33 @@ function PissDrawer.Shop.reload_shop_areas(keys)
     end
 end
 
+local pissdrawer_save_run = save_run
+function save_run()
+    pissdrawer_save_run()
+    G.culled_table.pissdrawer_shop = {}
+    for _, tab in pairs(PissDrawer.Shop.area_keys) do
+        for _, key in ipairs(tab) do
+            G.culled_table.pissdrawer_shop[key] = PissDrawer.Shop['load_'..key]
+        end
+    end
+end
+
+local pissdrawer_start_run = Game.start_run
+function Game:start_run(args)
+    local save = args.savetext
+    for _, tab in pairs(PissDrawer.Shop.area_keys) do
+        for _, key in ipairs(tab) do
+            PissDrawer.Shop['load_'..key] = nil
+        end
+    end
+    if save and save.pissdrawer_shop then
+        for key, v in pairs(save.pissdrawer_shop) do
+            PissDrawer.Shop['load_'..key] = v
+        end
+    end
+    local ret = pissdrawer_start_run(self, args)
+end
+
 function PissDrawer.Shop.create_shop_areas()
     G.shop_jokers = CardArea(
       G.hand.T.x+0,
