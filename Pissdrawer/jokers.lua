@@ -237,7 +237,7 @@ SMODS.Joker {
         end
         if context.selling_self and not context.blueprint then
             return {
-                message = 'bad puppy...',
+                message = 'No! Bad!',
                 HPTN.set_credits(0)
             }
         end
