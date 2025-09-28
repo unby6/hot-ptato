@@ -7,16 +7,16 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     cost = 6,
-    config = { extra = { retriggers = 1, numerator = 1, denominator = 3 } },
+    config = { extra = { retriggers = 1, numerator = 1, denominator = 3, denom_inc = 3 } },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.denominator, card.ability.extra.numerator, 'bruh')
         return {
-            vars = { card.ability.extra.retriggers, numerator, denominator }
+            vars = { card.ability.extra.retriggers, numerator, denominator, card.ability.extra.denom_inc }
         }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
-            if not next(SMODS.get_enhancements(context.other_card)) and SMODS.pseudorandom_probability(card, 'meth', card.ability.extra.numerator, card.ability.extra.denominator) then
+            if not next(SMODS.get_enhancements(context.other_card)) and SMODS.pseudorandom_probability(card, 'hc_cardstack', card.ability.extra.numerator, card.ability.extra.denominator + (context.other_card.ability.perma_repetitions or 0) * card.ability.extra.denom_inc) then
                 context.other_card.ability.perma_repetitions = (context.other_card.ability.perma_repetitions or 0) +
                 card.ability.extra.retriggers
                 return {

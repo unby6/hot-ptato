@@ -1679,7 +1679,9 @@ return {
                 text = {
                     "Played {C:attention}unenhanced{} cards have",
                     "{C:green}#3# in #2#{} chance",
-                    "to gain {C:attention}#1#{} retrigger"
+                    "to gain {C:attention}#1#{} retrigger.",
+                    "{C:green}Denominator{} is increased by {C:attention}#4#",
+                    "for every permanent retrigger"
                 }
             },
             j_hpot_apocalypse_ruby = {
