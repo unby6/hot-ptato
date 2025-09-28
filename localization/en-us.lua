@@ -3635,7 +3635,7 @@ return {
             tag_hpot_credits_tag = {
                 name = "Creditable Tag",
                 text = {
-                    "Gain {C:purple}+#1#{} Credits",
+                    "Gain {C:purple}+c.#1#{}",
                     "immediately"
                 }
             },
@@ -3656,7 +3656,7 @@ return {
             tag_hpot_credit_econ = {
                 name = "Economy Tag?",
                 text = {
-                    "Doubles your",
+                    "{C:attention}Doubles{} your",
                     "{C:purle}Credits{}",
                     "{C:inactive}(Max of #1#)"
                 }

@@ -1,6 +1,6 @@
 SMODS.Tag({
 	key = "credits_tag",
-	config = { add = 15 },
+	config = { add = 35 },
 	atlas = "tname_tags",
 	pos = { x = 3, y = 0 },
 	loc_vars = function(self, info_queue, tag)
