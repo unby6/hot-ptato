@@ -1,0 +1,22 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+# Remove this once found a better solution for "context.main_eval" not working with stickers on playing cards
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'before'
+pattern = '''if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end'''
+payload = '''
+if G and G.deck and G.deck.cards then
+    for k, v in pairs(G.deck.cards) do
+        if v.temp_check then
+            v.temp_check = nil
+        end
+    end
+end
+'''
+match_indent = true
