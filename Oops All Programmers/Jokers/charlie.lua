@@ -19,7 +19,7 @@ SMODS.Joker {
 		if context.after then
 			card.ability.extra.active = false
 		end
-		if card.ability.extra.active and context.post_trigger then
+		if card.ability.extra.active and context.post_trigger and context.other_card.config.center.key ~= "j_hpot_melvin"  then
             if context.other_ret and context.other_ret.chips and context.other_ret.chips ~= 0 then
                 return {
                     mult = card.ability.extra.mult
