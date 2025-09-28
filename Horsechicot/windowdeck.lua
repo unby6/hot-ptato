@@ -17,9 +17,9 @@ end
 
 function product(tbl)
     local total = 1
-    for i, v in pairs(tbl) do 
+    for i, v in pairs(tbl) do
         if v ~= 0 then
-            total = total * v 
+            total = total * v
         end
     end
     return total
@@ -35,39 +35,51 @@ SMODS.Scoring_Calculation {
         local scale = 0.4
         local w = math.max(2 - 0.4 * (G.GAME.windows_unlocked or 0), 0.25)
         local nodes = {
-            {n=G.UIT.C, config={align = 'cm', id = 'hand_chips_container'}, nodes = {
-                SMODS.GUI.score_container({
-                    type = 'chips',
-                    text = 'chip_text',
-                    align = 'cr',
-                    w = w,
-                    scale = math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)
-                })
-            }},
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', id = 'hand_chips_container' },
+                nodes = {
+                    SMODS.GUI.score_container({
+                        type = 'chips',
+                        text = 'chip_text',
+                        align = 'cr',
+                        w = w,
+                        scale = math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)
+                    })
+                }
+            },
             SMODS.GUI.operator(math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)),
-            {n=G.UIT.C, config={align = 'cm', id = 'hand_mult_container'}, nodes = {
-                SMODS.GUI.score_container({
-                    type = 'mult',
-                    w = w,
-                    scale = math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)
-                })
-            }}
+            {
+                n = G.UIT.C,
+                config = { align = 'cm', id = 'hand_mult_container' },
+                nodes = {
+                    SMODS.GUI.score_container({
+                        type = 'mult',
+                        w = w,
+                        scale = math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)
+                    })
+                }
+            }
         }
         if G.GAME.windows_unlocked and G.GAME.windows_unlocked > 0 then
             for i = 1, G.GAME.windows_unlocked do
-                nodes[#nodes+1] = SMODS.GUI.operator(math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w)
-                nodes[#nodes+1] = window_container(i, math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w)
+                nodes[#nodes + 1] = SMODS.GUI.operator(math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w)
+                nodes[#nodes + 1] = window_container(i, math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w)
             end
         end
-        return {n=G.UIT.R, config={align = "cm", minh = 1, padding = 0.1}, nodes=nodes}
+        return { n = G.UIT.R, config = { align = "cm", minh = 1, padding = 0.1 }, nodes = nodes }
     end
-} 
+}
 
 function window_container(i, scale, w)
-    return 
-    {n=G.UIT.C, config={align = 'cm', id = 'hand_'..i..'_container'}, nodes = {
-        score_container(i, {w = w, scale = scale})
-    }}
+    return
+    {
+        n = G.UIT.C,
+        config = { align = 'cm', id = 'hand_' .. i .. '_container' },
+        nodes = {
+            score_container(i, { w = w, scale = scale })
+        }
+    }
 end
 
 function score_container(i, args)
@@ -76,28 +88,46 @@ function score_container(i, args)
     local colour = args.colour or G.GAME.window_colours[i]
     local align = args.align or 'cl'
     local func = args.func or 'hand_type_UI_set'
-    local text = args.text or i..'_text'
+    local text = args.text or i .. '_text'
     local w = args.w or 2
     local h = args.h or 1
     return
-    {n=G.UIT.R, config={align = align, minw = w, minh = h, r = 0.1, colour = colour, id = 'hand_'..type..'_area', emboss = 0.05}, nodes={
-        {n=G.UIT.O, config={func = 'flame_handler', no_role = true, id = 'flame_mult', object = Moveable(0,0,0,0), w = 0, h = 0, _w = w * 1.25, _h = h * 2.5}},
-        align == 'cl' and {n=G.UIT.B, config={w = 0.1, h = 0.1}} or nil,
-        {n=G.UIT.O, config={id = 'hand_'..type, func = func, text = text, type = type, scale = scale*2.3, object = DynaText({
-            string = {{ref_table = G.GAME.current_round.current_hand.scores, ref_value = i}},
-            colours = {G.C.UI.TEXT_LIGHT}, font = G.LANGUAGES['en-us'].font, shadow = true, float = true, scale = scale*2.3
-        })}},
-        align ~= 'cl' and {n=G.UIT.B, config={w = 0.1, h = 0.1}} or nil,
-    }}
+    {
+        n = G.UIT.R,
+        config = { align = align, minw = w, minh = h, r = 0.1, colour = colour, id = 'hand_' .. type .. '_area', emboss = 0.05 },
+        nodes = {
+            { n = G.UIT.O, config = { func = 'flame_handler', no_role = true, id = 'flame_mult', object = Moveable(0, 0, 0, 0), w = 0, h = 0, _w = w * 1.25, _h = h * 2.5 } },
+            align == 'cl' and { n = G.UIT.B, config = { w = 0.1, h = 0.1 } } or nil,
+            {
+                n = G.UIT.O,
+                config = {
+                    id = 'hand_' .. type,
+                    func = func,
+                    text = text,
+                    type = type,
+                    scale = scale * 2.3,
+                    object = DynaText({
+                        string = { { ref_table = G.GAME.current_round.current_hand.scores, ref_value = i } },
+                        colours = { G.C.UI.TEXT_LIGHT },
+                        font = G.LANGUAGES['en-us'].font,
+                        shadow = true,
+                        float = true,
+                        scale = scale * 2.3
+                    })
+                }
+            },
+            align ~= 'cl' and { n = G.UIT.B, config = { w = 0.1, h = 0.1 } } or nil,
+        }
+    }
 end
 
 local parse_highlighted_ref = CardArea.parse_highlighted
 function CardArea:parse_highlighted(...)
     if G.GAME.modifiers.windows then
-        local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
+        local text, disp_text, poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
         if G.GAME.windows_unlocked then
             for i = 1, G.GAME.windows_unlocked do
-                if G.GAME.hands[text] then 
+                if G.GAME.hands[text] then
                     G.GAME.current_round.current_hand.scores[i] = 1 + (G.GAME.hands[text][i] or 0)
                 else
                     G.GAME.current_round.current_hand.scores[i] = 0
@@ -113,7 +143,7 @@ function level_up_hand(c, hand, ...)
     level_up_handref(c, hand, ...)
     if G.GAME.windows_unlocked and G.GAME.windows_unlocked > 0 and G.GAME.hands[hand] then
         for i = 1, G.GAME.windows_unlocked do
-            G.GAME.hands[hand][i] = (G.GAME.hands[hand][i] or 0) + 1./i
+            G.GAME.hands[hand][i] = (G.GAME.hands[hand][i] or 0) + 1. / i
         end
     end
 end
@@ -123,9 +153,6 @@ SMODS.Back {
     key = "window",
     pos = { x = 0, y = 0 },
     atlas = "hc_decks",
-    apply = function()
-        G.GAME.modifiers.window = true
-    end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.individual and not context.blueprint and not context.repetition and G.GAME.blind.boss then
             G.GAME.windows_unlocked = math.min((G.GAME.windows_unlocked or 0) + 1, 37)
@@ -137,8 +164,13 @@ SMODS.Back {
         end
     end,
     apply = function()
-        generate_windows()
-        SMODS.set_scoring_calculation("hpot_multiply_but_gay")
         G.GAME.modifiers.windows = true
+        G.E_MANAGER:add_event(Event {
+            func = function()
+                generate_windows()
+                SMODS.set_scoring_calculation("hpot_multiply_but_gay")
+                return true
+            end
+        })
     end
 }
