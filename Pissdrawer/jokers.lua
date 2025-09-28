@@ -642,7 +642,6 @@ SMODS.Joker {
     cost = 8,
     calculate = function(self, card, context)
         if context.setting_blind then
-            print('Polymorphine activated')
             local pos = 1
             for i, v in ipairs(card.area.cards) do
                 if v == card then
