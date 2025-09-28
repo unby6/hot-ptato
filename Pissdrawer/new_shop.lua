@@ -475,7 +475,9 @@ G.FUNCS.update_modification_info = function(e)
         local mod = get_modification(G.reforge_area.cards[1])
         e.children[1].children[1].config.text = localize({set = 'Modification', key = mod, type = 'name_text'})
         e.children[1].children[1].config.colour = HPTN.Modifications[mod].morality == 'GOOD' and G.C.GREEN or G.C.RED
-        local desc = localize({set = 'Modification', key = mod, type = 'raw_descriptions'})
+        local amod = HPTN.Modifications[get_modification(G.reforge_area.cards[1])]
+        local loc_vars = (amod.loc_vars and amod:loc_vars({}, G.reforge_area.cards[1]) or {}).vars
+        local desc = localize({set = 'Modification', key = mod, type = 'raw_descriptions', vars = loc_vars})
         for i, line in ipairs(desc) do
             if e.children[i+1] then
                 e.children[i+1].children[1].config.text = desc[i]
