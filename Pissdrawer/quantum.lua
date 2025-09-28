@@ -4,8 +4,7 @@ Quantum = Card:extend()
 for key, func in pairs(Card) do
     if type(func) == 'function' then
         Quantum[key] = function(self, ...)
-            if self.quantum then self = self.card_to end
-            return Card[key](self, ...)
+            return Card[key](self.card_to, ...)
         end
     end
 end
