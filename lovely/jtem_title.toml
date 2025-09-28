@@ -18,7 +18,7 @@ payload = '''
 if HPJTTT.balala then
     t.title = "Balala"
 else
-t.title = "Balatro: ".. (type(HPJTTT.text[HPJTTT.chosen]) == 'string' and HPJTTT.text[HPJTTT.chosen]) or 'Now with images!'
+t.title = "Balatro: ".. ((type(HPJTTT.text[HPJTTT.chosen]) == 'string' and HPJTTT.text[HPJTTT.chosen]) or 'Now with images!')
 end'''
 match_indent = true
 
