@@ -933,5 +933,12 @@ function format_ui_value(value)
             ret = tbl[1]:sub(1, 3).."e"..tbl[2]
         end
     end
+    if value < 0 and value > -0.00001 then
+        local tbl = {}
+        for i, _ in string.gmatch(ret, '([^e]+)') do tbl[#tbl+1] = i end
+        if tbl[1] then
+            ret = tbl[1]:sub(1, 4).."e"..tbl[2]
+        end
+    end
     return ret
 end
