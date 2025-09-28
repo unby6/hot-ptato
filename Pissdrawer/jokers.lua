@@ -3,7 +3,7 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     atlas = "pdr_joker",
-    pos = { x = 4, y = 1 },
+    pos = { x = 5, y = 1 },
     hotpot_credits = {
         idea = { 'SDM_0' },
         art = { 'Tacashumi' },
