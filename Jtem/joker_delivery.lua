@@ -447,6 +447,12 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
         blockable = false,
         func = (function()
             if card.opening then return true end
+            if card.children.price then
+                card.children.price:remove()
+            end
+            if card.children.hp_jtem_price_side then
+                card.children.hp_jtem_price_side:remove()
+            end
             local t1 = {
                 n = G.UIT.ROOT,
                 config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
@@ -520,40 +526,43 @@ function hpot_jtem_create_special_deal_boxes(card, price_text, args)
         blockable = false,
         func = (function()
             if card.opening then return true end
-            local t1 = {
-                n = G.UIT.ROOT,
-                config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03 },
-                        nodes = {
-                            { n = G.UIT.O, config = { object = DynaText({ string = { unpack(price_text) }, colours = { args.colour or G.C.MONEY }, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5, font = args.font or SMODS.Fonts["hpot_plincoin"] }) } },
-                        }
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm", r = 0.1, minw = 1, minh = 0.2, emboss = 0.05, padding = 0.01 },
-                        nodes = {
-                            { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.ability.hp_delivery_obj.rounds_total } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
-                        }
-                    },
-                    { n = G.UIT.R, nodes = { { n = G.UIT.B, config = { h = 0.2, w = 0.1 } } } },
 
+            if not card.children.price then
+                local t1 = {
+                    n = G.UIT.ROOT,
+                    config = { minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1 },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = { align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03 },
+                            nodes = {
+                                { n = G.UIT.O, config = { object = DynaText({ string = { unpack(price_text) }, colours = { args.colour or G.C.MONEY }, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5, font = args.font or SMODS.Fonts["hpot_plincoin"] }) } },
+                            }
+                        },
+                        {
+                            n = G.UIT.R,
+                            config = { align = "cm", r = 0.1, minw = 1, minh = 0.2, emboss = 0.05, padding = 0.01 },
+                            nodes = {
+                                { n = G.UIT.T, config = { text = localize { key = "hotpot_round_total_eta", type = "variable", vars = { card.ability.hp_delivery_obj.rounds_total } }, colour = G.C.WHITE, scale = 0.4, font = SMODS.Fonts["hpot_plincoin"] } },
+                            }
+                        },
+                        { n = G.UIT.R, nodes = { { n = G.UIT.B, config = { h = 0.2, w = 0.1 } } } },
+
+                    }
                 }
-            }
 
-            card.children.price = card.children.price or UIBox {
-                definition = t1,
-                config = {
-                    align = "tm",
-                    offset = { x = 0, y = 1.5 },
-                    major = card,
-                    bond = 'Weak',
-                    parent = card
+                card.children.price = UIBox {
+                    definition = t1,
+                    config = {
+                        align = "tm",
+                        offset = { x = 0, y = 1.5 },
+                        major = card,
+                        bond = 'Weak',
+                        parent = card
 
+                    }
                 }
-            }
+            end
             
             card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.425
             G.GAME.hp_jtem_d2j_rate = G.GAME.hp_jtem_d2j_rate or { from = 1, to = 5000 }
@@ -568,6 +577,12 @@ end
 
 function hotpot_jtem_init_extra_shops_area()
     -- i just copied this from the shop definition lol
+    if G.hp_jtem_delivery_special_deals then
+        G.hp_jtem_delivery_special_deals:remove()
+    end
+    if G.hp_jtem_delivery_queue then
+        G.hp_jtem_delivery_queue:remove()
+    end
     G.hp_jtem_delivery_special_deals = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
@@ -588,10 +603,15 @@ function hotpot_jtem_init_extra_shops_area()
 end
 
 -- destroy all cards in an area, I am too lazy to make a god damn loop damn it
+-- I do! - SleepyG11
 function hotpot_jtem_destroy_all_card_in_an_area(area, nofx)
     if not area or not area.cards then return end
-    for i = #area.cards, 1, -1 do
-        local _c = area.cards[i]
+    local cards_to_remove = {}
+    for _, card in pairs(area.cards) do
+        table.insert(cards_to_remove, card)
+    end
+
+    for i, _c in ipairs(cards_to_remove) do
         area:remove_card(_c)
         if nofx then
             _c:remove()

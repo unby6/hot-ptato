@@ -9,47 +9,47 @@ SMODS.Atlas {
 SMODS.Joker {
     key = "jtemj",
     atlas = "jtem_jokers",
-    config = {x_mult = 1.1},
+    config = { x_mult = 1.1 },
     blueprint_compat = true,
-    loc_vars = function(self,info_queue,card)
-        return {vars = {card.ability.x_mult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
     end,
     hotpot_credits = {
-        art = {'LocalThunk'},
-        code = {'Squidguset'},
-        team = {'Jtem'}
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
     },
 }
 
 SMODS.Joker {
     key = "jtemo",
     atlas = "jtem_jokers",
-    pos = {x=1,y=0},
-    config = {x_mult = 1.1},
+    pos = { x = 1, y = 0 },
+    config = { x_mult = 1.1 },
     blueprint_compat = true,
-    loc_vars = function(self,info_queue,card)
-        return {vars = {card.ability.x_mult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
     end,
     hotpot_credits = {
-        art = {'LocalThunk'},
-        code = {'Squidguset'},
-        team = {'Jtem'}
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
     },
 }
 
 SMODS.Joker {
     key = "jtemk",
     atlas = "jtem_jokers",
-    pos = {x=2,y=0},
-    config = {x_mult = 1.1},
+    pos = { x = 2, y = 0 },
+    config = { x_mult = 1.1 },
     blueprint_compat = true,
-    loc_vars = function(self,info_queue,card)
-        return {vars = {card.ability.x_mult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
     end,
     hotpot_credits = {
-        art = {'LocalThunk'},
-        code = {'Squidguset'},
-        team = {'Jtem'}
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
     },
 }
 
@@ -57,16 +57,16 @@ SMODS.Joker {
 SMODS.Joker {
     key = "jteme",
     atlas = "jtem_jokers",
-    pos = {x=3,y=0},
-    config = {x_mult = 1.1},
+    pos = { x = 3, y = 0 },
+    config = { x_mult = 1.1 },
     blueprint_compat = true,
-    loc_vars = function(self,info_queue,card)
-        return {vars = {card.ability.x_mult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
     end,
     hotpot_credits = {
-        art = {'LocalThunk'},
-        code = {'Squidguset'},
-        team = {'Jtem'}
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
     },
 }
 
@@ -74,45 +74,49 @@ SMODS.Joker {
 SMODS.Joker {
     key = "jtemr",
     atlas = "jtem_jokers",
-    pos = {x=4,y=0},
-    config = {x_mult = 1.1},
+    pos = { x = 4, y = 0 },
+    config = { x_mult = 1.1 },
     blueprint_compat = true,
-    loc_vars = function(self,info_queue,card)
-        return {vars = {card.ability.x_mult}}
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
     end,
     hotpot_credits = {
-        art = {'LocalThunk'},
-        code = {'Squidguset'},
-        team = {'Jtem'}
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
     },
 }
 
 SMODS.Joker {
     key = "nxkoodead",
     atlas = "jtem_jokers",
-    pos = {x=0,y=1},
-    config = {extra = {gain = 0.1,per = 100,}},
-    soul_pos = {x=1,y=1},
+    pos = { x = 0, y = 1 },
+    config = { extra = { gain = 0.1, per = 100, } },
+    soul_pos = { x = 1, y = 1 },
     rarity = 4,
     blueprint_compat = true,
-    loc_vars = function (self,info_queue,card)
+    loc_vars = function(self, info_queue, card)
         local save = G.PROFILES[G.SETTINGS.profile]
-        return {vars = {
-            card.ability.extra.per, card.ability.extra.gain,math.min((math.floor((save.JtemNXkilled or 0)/card.ability.extra.per) * card.ability.extra.gain)+1,15)
-        }}
+        return {
+            vars = {
+                card.ability.extra.per, card.ability.extra.gain, math.min(
+                (math.floor((save.JtemNXkilled or 0) / card.ability.extra.per) * card.ability.extra.gain) + 1, 15)
+            }
+        }
     end,
-    calculate = function(self,card,context)
+    calculate = function(self, card, context)
         local save = G.PROFILES[G.SETTINGS.profile]
         if context.joker_main then
             return {
-                xmult = math.min((math.floor((save.JtemNXkilled or 0)/card.ability.extra.per) * card.ability.extra.gain)+1,15)
+                xmult = math.min(
+                    (math.floor((save.JtemNXkilled or 0) / card.ability.extra.per) * card.ability.extra.gain) + 1, 15)
             }
         end
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        code = {'Squidguset'},
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
     },
 }
 
@@ -135,10 +139,10 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        code = {'Haya'},
-        idea = {'MissingNumber'}, -- No one adds this for some reason. For future mods please do :pray:
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        code = { 'Haya' },
+        idea = { 'MissingNumber' }, -- No one adds this for some reason. For future mods please do :pray:
+        team = { 'Jtem' }
     }
 }
 
@@ -147,7 +151,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "greedybastard",
     atlas = "jtem_jokers",
-    pos = {x=4,y=1},
+    pos = { x = 4, y = 1 },
     rarity = 2,
     config = {
         mult = 0,
@@ -155,7 +159,7 @@ SMODS.Joker {
             gain = 12
         }
     },
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extra.gain,
@@ -163,7 +167,7 @@ SMODS.Joker {
             }
         }
     end,
-    calculate = function (self,card,context)
+    calculate = function(self, card, context)
         if context.hp_card_destroyed and not context.blueprint and not context.is_being_sold then
             local key = context.card_being_destroyed.config.center.key
             if (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.Food) then
@@ -177,15 +181,14 @@ SMODS.Joker {
                         })
                     end,
                 }
-                
             end
         end
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        code = {'Squidguset'},
-        idea = {'MissingNumber'}, -- No one adds this for some reason. For future mods please do :pray:
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        code = { 'Squidguset' },
+        idea = { 'MissingNumber' }, -- No one adds this for some reason. For future mods please do :pray:
+        team = { 'Jtem' }
     }
 }
 
@@ -193,7 +196,7 @@ function hpot_jtem_scale_card(card, key)
     SMODS.scale_card(card, {
         ref_table = card.ability.extra,
         ref_value = key,
-        scalar_value = key.."_mod",
+        scalar_value = key .. "_mod",
         operation = "+",
         no_message = true
     })
@@ -202,7 +205,7 @@ end
 SMODS.Joker {
     key = "labubu",
     atlas = "jtem_jokers",
-    pos = {x=0,y=2},
+    pos = { x = 0, y = 2 },
     rarity = 2,
     config = { extra = { xmult = 1, xmult_mod = 0.1, cion = 1 } },
     blueprint_compat = true,
@@ -211,22 +214,23 @@ SMODS.Joker {
             for k, v in pairs(context.scoring_hand) do
                 if SMODS.has_enhancement(v, "m_glass") and not v.shattered then
                     hpot_jtem_scale_card(card, "xmult")
-                    G.E_MANAGER:add_event(Event{
+                    G.E_MANAGER:add_event(Event {
                         func = function()
                             v:juice_up()
                             return true
                         end
                     })
-                    SMODS.calculate_effect( {
+                    SMODS.calculate_effect({
                         message = localize('k_upgrade_ex'),
                         delay = 0.4
-                    }, card )
+                    }, card)
                 end
             end
         end
         if context.remove_playing_cards and context.scoring_hand then
-            ease_plincoins(card.ability.extra.cion*#context.removed)
-            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.cion*#context.removed).."", colour = G.C.MONEY})
+            ease_plincoins(card.ability.extra.cion * #context.removed)
+            card_eval_status_text(card, 'jokers', nil, nil, nil,
+                { message = "Plink +" .. tostring(card.ability.extra.cion * #context.removed) .. "", colour = G.C.MONEY })
         end
         if context.joker_main then
             return {
@@ -234,14 +238,14 @@ SMODS.Joker {
             }
         end
     end,
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult, card.ability.extra.cion } }
     end,
     hotpot_credits = {
-        art = {'Haya'},
-        code = {'Haya'},
-        idea = {'triple6lexi'},
-        team = {'Jtem'}
+        art = { 'Haya' },
+        code = { 'Haya' },
+        idea = { 'triple6lexi' },
+        team = { 'Jtem' }
     }
 }
 
@@ -250,7 +254,6 @@ function G.FUNCS.sell_card(e)
     e.config.ref_table.HP_JTEM_IS_BEING_SOLD = true
     return sellcardhook(e)
 end
-
 
 local showman_ref = SMODS.showman
 function SMODS.showman(key)
@@ -263,14 +266,14 @@ end
 SMODS.Joker {
     key = "jtem_slop_live",
     atlas = "jtem_slop_live",
-    pos = {x=0,y=0},
+    pos = { x = 0, y = 0 },
     rarity = 3,
     config = {
         extras = {
             xmult = 1.25,
         }
     },
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extras.xmult,
@@ -278,7 +281,7 @@ SMODS.Joker {
             }
         }
     end,
-    calculate = function (self,card,context)
+    calculate = function(self, card, context)
         if context.joker_main then
             return {
                 xmult = card.ability.extras.xmult
@@ -287,23 +290,23 @@ SMODS.Joker {
         if context.skip_blind and context.cardarea == G.jokers then
             if #G.jokers.cards < G.jokers.config.card_limit then
                 return {
-                    func = function ()
+                    func = function()
                         ---@type Card
                         simple_add_event(
-                        function() 
-                            local _c = copy_card(card,nil,nil,nil,true)
-                            --print(inspect(context))
-                            _c:add_to_deck()
-                            G.jokers:emplace(_c)
-                            return true
-                        end)
+                            function()
+                                local _c = copy_card(card, nil, nil, nil, true)
+                                --print(inspect(context))
+                                _c:add_to_deck()
+                                G.jokers:emplace(_c)
+                                return true
+                            end)
                     end
                 }
             end
         end
         if context.end_of_round and context.cardarea == G.jokers and G.GAME.current_round.hands_left == 1 then
             return {
-                func = function ()
+                func = function()
                     ---@type Card[]
                     local potential_jokers = {}
                     for _, _jk in ipairs(G.jokers.cards) do
@@ -311,13 +314,16 @@ SMODS.Joker {
                         _jk = _jk
                         if _jk.config.center_key == card.config.center_key then
                             if _jk.slop_live_removing then return end -- only destroy one copy
-                            table.insert(potential_jokers,_jk)
+                            table.insert(potential_jokers, _jk)
                         end
                     end
-                    local selected_joker = pseudorandom_element(potential_jokers,pseudoseed("hpot_jtem_slop_random"))
+                    local selected_joker = pseudorandom_element(potential_jokers, pseudoseed("hpot_jtem_slop_random"))
                     if selected_joker then
                         selected_joker.slop_live_removing = true
-                        simple_add_event(function() selected_joker:start_dissolve() return true end)
+                        simple_add_event(function()
+                            selected_joker:start_dissolve()
+                            return true
+                        end)
                         local tg = Tag("tag_buffoon")
                         add_tag(tg)
                     end
@@ -326,10 +332,10 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'Aikoyori'},
-        code = {'Aikoyori'},
-        idea = {'Aikoyori'},
-        team = {'Jtem'}
+        art = { 'Aikoyori' },
+        code = { 'Aikoyori' },
+        idea = { 'Aikoyori' },
+        team = { 'Jtem' }
     }
 }
 
@@ -342,7 +348,7 @@ SMODS.Joker {
     },
     pos_extra = { x = 6, y = 2 },
     hpot_anim_extra = {
-        { x = 6, y = 2, t = 4 },
+        { x = 6,                             y = 2, t = 4 },
         { xrange = { first = 7, last = 11 }, y = 2, t = 0.1 },
     },
     config = { extra = { plincoin = 1, consumeables = 2 } },
@@ -355,7 +361,8 @@ SMODS.Joker {
             if card.ability.consumeables_used >= card.ability.extra.consumeables then
                 card.ability.consumeables_used = 0
                 ease_plincoins(card.ability.extra.plincoin)
-                card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "Plink +"..tostring(card.ability.extra.plincoin).."", colour = G.C.MONEY})
+                card_eval_status_text(card, 'jokers', nil, nil, nil,
+                    { message = "Plink +" .. tostring(card.ability.extra.plincoin) .. "", colour = G.C.MONEY })
             end
         end
     end,
@@ -363,10 +370,10 @@ SMODS.Joker {
         return { vars = { card.ability.extra.plincoin, card.ability.extra.consumeables } }
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        code = {'Haya", "SleepyG11'},
-        idea = {'MissingNumber'},
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        code = { 'Haya, SleepyG11' },
+        idea = { 'MissingNumber' },
+        team = { 'Jtem' }
     }
 }
 
@@ -390,51 +397,51 @@ SMODS.Joker {
         return { vars = { card.ability.extra.eggs } }
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        code = {'Haya'},
-        idea = {'MissingNumber'},
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        code = { 'Haya' },
+        idea = { 'MissingNumber' },
+        team = { 'Jtem' }
     }
 }
 
 SMODS.Joker {
     key = "dupedshovel",
     atlas = "jtem_jokers",
-    pos = {x=3,y=2},
+    pos = { x = 3, y = 2 },
     rarity = 3,
     blueprint_compat = true,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval then
             local cards = {}
-            for x,y in ipairs(G.playing_cards) do
-                if y:is_suit("Spades") then cards[#cards+1] = y end
+            for x, y in ipairs(G.playing_cards) do
+                if y:is_suit("Spades") then cards[#cards + 1] = y end
             end
-            local scard = pseudorandom_element(cards,pseudoseed("dupedshovel"))
+            local scard = pseudorandom_element(cards, pseudoseed("dupedshovel"))
             G.E_MANAGER:add_event(Event({
-				func = function()
-                            scard = copy_card(scard,nil,nil,G.playing_card)
-                            G.deck:emplace(scard)
-                            G.deck.config.card_limit = G.deck.config.card_limit + 1
-                            table.insert(G.playing_cards, scard)
-                            scard:add_to_deck()
-                            card_eval_status_text(
-					            context.blueprint_card or card,
-					            "extra",
-					            nil,
-					            nil,
-					            nil,
-					            { message = localize("k_copied_ex") }
-				            )
-                            return true
-                        end
-                    }))
+                func = function()
+                    scard = copy_card(scard, nil, nil, G.playing_card)
+                    G.deck:emplace(scard)
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    table.insert(G.playing_cards, scard)
+                    scard:add_to_deck()
+                    card_eval_status_text(
+                        context.blueprint_card or card,
+                        "extra",
+                        nil,
+                        nil,
+                        nil,
+                        { message = localize("k_copied_ex") }
+                    )
+                    return true
+                end
+            }))
         end
     end,
     hotpot_credits = {
-        art = {'Squidguset'},
-        code = {'Squidguset'},
-        idea = {'Ornabug'},
-        team = {'Jtem'}
+        art = { 'Squidguset' },
+        code = { 'Squidguset' },
+        idea = { 'Ornabug' },
+        team = { 'Jtem' }
     }
 }
 
@@ -454,10 +461,10 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         -- ps I made this in 15 minutes - Aiko
-        art = {'Aikoyori'},
-        code = {'Haya'},
-        idea = {'Haya'},
-        team = {'Jtem'}
+        art = { 'Aikoyori' },
+        code = { 'Haya' },
+        idea = { 'Haya' },
+        team = { 'Jtem' }
     },
 }
 
@@ -465,10 +472,10 @@ SMODS.Joker {
 SMODS.Joker {
     key = "jtem_flash",
     atlas = "jtem_jokers",
-    pos = {x=0,y=3},
+    pos = { x = 0, y = 3 },
     rarity = 3,
     cost = 9,
-    loc_vars = function (self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extras.fx[1].mult,
@@ -482,25 +489,25 @@ SMODS.Joker {
     config = {
         extras = {
             fx = {
-                { mult = 8 }, -- missingnumber
-                { xmult = 1.25 }, -- lexi
-                { xchips = 1.25 }, -- paya
-                { chips = 25 }, -- aikoyori
-                { dollars = 3 }, -- squidguset
+                { mult = 8 },       -- missingnumber
+                { xmult = 1.25 },   -- lexi
+                { xchips = 1.25 },  -- paya
+                { chips = 25 },     -- aikoyori
+                { dollars = 3 },    -- squidguset
                 { balance = true }, -- sleepyg11}
             }
         },
     },
-    set_ability = function (self, card, initial, delay_sprites)
+    set_ability = function(self, card, initial, delay_sprites)
         simple_add_event(
             function()
                 local append = ""
                 if card.area and card.area.config.collection then
                     append = "_collection"
                 end
-                local x = pseudorandom("hp_jtem_jflash"..append,0,5)
+                local x = pseudorandom("hp_jtem_jflash" .. append, 0, 5)
                 card.ability.extras.person = x + 1
-                card.children.center:set_sprite_pos({ x = x, y = 3})
+                card.children.center:set_sprite_pos({ x = x, y = 3 })
                 return true
             end
         )
@@ -512,12 +519,12 @@ SMODS.Joker {
                 func = function()
                     local x = card.ability.extras.person
                     repeat
-                        x = pseudorandom("hp_jtem_jflash",0,5)
+                        x = pseudorandom("hp_jtem_jflash", 0, 5)
                     until x + 1 ~= card.ability.extras.person
                     simple_add_event(
-                        function ()
+                        function()
                             card.ability.extras.person = x + 1
-                            card.children.center:set_sprite_pos({ x = x, y = 3})
+                            card.children.center:set_sprite_pos({ x = x, y = 3 })
                             card:juice_up(0.4, 0.4)
                             return true
                         end
@@ -529,27 +536,27 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'MissingNumber'},
-        code = {'Aikoyori'},
-        idea = {'MissingNumber','Aikoyori'},
-        team = {'Jtem'}
+        art = { 'MissingNumber' },
+        code = { 'Aikoyori' },
+        idea = { 'MissingNumber', 'Aikoyori' },
+        team = { 'Jtem' }
     }
 }
 
-SMODS.Joker:take_ownership( "j_diet_cola",{
+SMODS.Joker:take_ownership("j_diet_cola", {
     calculate = function(self, card, context)
         if context.selling_self then
             G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        if #G.consumeables.cards < G.consumeables.config.card_limit then
-                            SMODS.add_card{
-                                set = "bottlecap_Common",
-                                area = G.consumeables
-                            }
-                        end
-                        return true
-                    end)
-                }))
+                func = (function()
+                    if #G.consumeables.cards < G.consumeables.config.card_limit then
+                        SMODS.add_card {
+                            set = "bottlecap_Common",
+                            area = G.consumeables
+                        }
+                    end
+                    return true
+                end)
+            }))
         end
     end,
 }, true)
@@ -569,9 +576,9 @@ SMODS.Joker {
         return G.GAME.hpot_training_has_ever_been_done
     end,
     hotpot_credits = {
-        art = {'Aikoyori'},
-        code = {'Aikoyori'},
-        idea = {'Haya'},
-        team = {'Jtem'}
+        art = { 'Aikoyori' },
+        code = { 'Aikoyori' },
+        idea = { 'Haya' },
+        team = { 'Jtem' }
     },
 }

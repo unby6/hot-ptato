@@ -424,7 +424,7 @@ function HPTN.ease_credits(amount, instant)
         local text = '+c.'
         local col = G.C.PURPLE
         if mod < 0 then
-            text = '-'
+            text = '-c.'
             col = G.C.RED
         end
 

@@ -15,17 +15,17 @@ SMODS.Joker {
     atlas = "selfinserts",
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself, card.ability.extra.selfinserts * card.ability.extra.obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself } }
+        return { vars = { card.ability.extra.xmult_per_self_insert, card.ability.extra.selfinserts * card.ability.extra.xmult_per_self_insert } }
     end,
     config = {
         extra = {
-            obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself = 1.5,
+            xmult_per_self_insert = 1.5,
             selfinserts = 22
         }
     },
     calculate = function(self, card, context)
         if context.joker_main then
-            return { xmult = card.ability.extra.obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself, card.ability.extra.selfinserts * card.ability.extra.obligatoryxmultbecauseholyshithowmanyselfinsertsinthismodtheressomanyselfinsertsthatitalmostbeatspwxbyitself }
+            return { xmult = card.ability.extra.selfinserts * card.ability.extra.xmult_per_self_insert }
         end
     end,
         hotpot_credits = {

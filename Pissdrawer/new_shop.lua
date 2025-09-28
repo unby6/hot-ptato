@@ -687,6 +687,7 @@ SMODS.draw_ignore_keys.hpot_move_to_train = true
 
 function PissDrawer.Shop.create_delivery_order_button(card)
     if card.highlighted then
+        if card.children.hp_jtem_price_side then card.children.hp_jtem_price_side:remove() end
         local t2 = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
             {n=G.UIT.C, config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD,
                 shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_order', one_press = true, button = 'hp_jtem_order', hover = true }, nodes = {
@@ -709,6 +710,7 @@ end
 
 function PissDrawer.Shop.create_delivery_refund_button(card)
     if card.highlighted then
+        if card.children.hp_jtem_cancel_order then card.children.hp_jtem_cancel_order:remove() end
         local t2 = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
             {n=G.UIT.C, config = { ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.RED,
                 shadow = true, r = 0.08, minh = 0.94, func = 'hp_jtem_can_cancel', one_press = true, button = 'hp_jtem_cancel', hover = true }, nodes = {
