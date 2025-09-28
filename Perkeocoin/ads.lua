@@ -31,6 +31,7 @@ HotPotato.Ads = {
         ad_red = {atlas = "hpot_hcred", pos = {x = 0, y = 0}},
         ad_mustard = {atlas = "hpot_hcmustard", pos = {x = 0, y = 0}},
         ad_windows = {atlas = "hpot_hcwindows", pos = {x = 0, y = 0}},
+        ad_horseyworseys = {atlas = "hpot_hchorseyworseys", pos = {x = 0, y = 0}},
         -- Oops! All Programmers
         ad_roffle = {atlas = "hpot_oap_roffle", pos = {x = 0, y = 0}},
         ad_daniel = {atlas = "hpot_oap_danielad", pos = {x = 0, y = 0}},
