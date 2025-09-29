@@ -3,7 +3,7 @@ Quantum = Card:extend()
 --to fix funcs like juice_up || I'm almost there I can feel it
 for key, func in pairs(Card) do
     if type(func) == 'function' and key ~= 'calculate_joker' then
-        function Quantum[i](...)
+        Quantum[i] = function(...)
             return Card[key](self.card_to, ...)
             -- if not
             -- local f = func
