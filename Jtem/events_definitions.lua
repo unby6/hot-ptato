@@ -6089,6 +6089,9 @@ SMODS.Sound {
 	hpot_discoverable = true,
 	hpot_purpose = {
 		"Well, there is a man here."
+	},
+	hotpot_credits = {
+		team = { "Pissdrawer" }
 	}
 }
 

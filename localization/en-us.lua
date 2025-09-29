@@ -3617,6 +3617,16 @@ return {
                     "Listen to this track",
                     "to figure out what it is"
                 }
+            },
+            hpot_no_track = {
+                name = {
+                    "******",
+                    "{C:edition,s:0.6,E:hpot_glitching}******"
+                },
+                text = {
+                    "No track is playing!",
+                    "Are ya gonna listen or what?"
+                }
             }
         },
         Tag = {
@@ -4813,7 +4823,7 @@ return {
             hpot_special_deals = "SPECIAL DEALS",
 
             hotpot_jukebox_request = "Request Song",
-            hotpot_jukebox_unrequest = "Unrequest Song",
+            hotpot_jukebox_unrequest = "Stop Playback",
             hotpot_jukebox_default_music_title = "*",
 
             b_hpot_train = "TRAIN",
@@ -4953,6 +4963,8 @@ return {
             k_nursery = "Nursery",
 
             k_spark_per_turn = "Joker Currency needed per turn",
+
+            hotpot_current_track = "CURRENT TRACK"
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

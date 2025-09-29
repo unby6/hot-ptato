@@ -32,6 +32,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while selecting",
     "a cheque in a Czech Pack"
+  },
+  hotpot_credits = {
+    team = { "Perkeocoin" }
   }
 }
 

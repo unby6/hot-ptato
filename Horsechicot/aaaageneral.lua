@@ -50,7 +50,8 @@ SMODS.Sound {
     hpot_purpose = {
         "Music that plays in",
         "the Black Market"
-    }
+    },
+    hotpot_credits = Horsechicot.credit()
 }
 
 

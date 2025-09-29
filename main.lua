@@ -86,7 +86,7 @@ function SMODS.create_mod_badges(obj, badges)
 			local scale_fac = calced_text_width > max_text_width and max_text_width / calced_text_width or 1
 			return scale_fac
 		end
-		if obj.hotpot_credits.art or obj.hotpot_credits.code or obj.hotpot_credits.idea or obj.hotpot_credits.custom then
+		if obj.hotpot_credits.art or obj.hotpot_credits.code or obj.hotpot_credits.idea or obj.hotpot_credits.team or obj.hotpot_credits.custom then
 			local scale_fac = {}
 			local min_scale_fac = 1
 			local strings = { HotPotato.display_name }

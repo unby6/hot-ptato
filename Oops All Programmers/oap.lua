@@ -61,5 +61,8 @@ SMODS.Sound{
 	hpot_purpose = {
 		"Music that plays in the",
         "Abnormality Choice event"
-	}
+	},
+    hotpot_credits = {
+        team = { "Oops! All Programmers" }
+    }
 }

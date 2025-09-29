@@ -95,6 +95,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while",
     "playing Plinko"
+  },
+  hotpot_credits = {
+    team = { "Perkeocoin" }
   }
 }
 
@@ -111,7 +114,10 @@ SMODS.Sound {
 	hpot_purpose = {
 		"Music that plays when a plasmid",
     "orb is selected in Plinko"
-	}
+	},
+  hotpot_credits = {
+    team = { "Perkeocoin" }
+  }
 }
 
 

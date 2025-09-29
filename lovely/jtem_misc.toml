@@ -216,7 +216,9 @@ if first_pass and card and card.hpot_event_key then
   end
   info_queue[#info_queue+1] = t
 end
-if first_pass and card and card.hpot_jukebox_key then
+if first_pass and card and card.hpot_jukebox_none then
+  info_queue[#info_queue+1] = { key = "hpot_no_track", set = "Other" }
+elseif first_pass and card and card.hpot_jukebox_key then
   local event = JTJukebox.Music[card.hpot_jukebox_key]
   local t = { key = card.hpot_jukebox_key, set = 'hpot_jukebox' }
   local res = {}
@@ -257,6 +259,12 @@ payload = '''
 if card.hpot_event_key then
   badges[#badges + 1] = create_badge(localize("hpot_event", "labels"), SMODS.Gradients["hpot_event"])
   SMODS.create_mod_badges(HotPotato.EventScenarios[card.hpot_event_key], badges)
+end
+if card.hpot_jukebox_key and not card.hpot_jukebox_none then
+  local tag = JTJukebox.Music[card.hpot_jukebox_key]
+  if not (tag.discoverable and not tag.discovered) then
+    SMODS.create_mod_badges(JTJukebox.Music[card.hpot_jukebox_key], badges)
+  end
 end
 '''
 match_indent = true

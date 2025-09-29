@@ -28,7 +28,10 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while having",
     "a creditable Joker"
-	}
+	},
+  hotpot_credits = {
+    team = { "Team Name" }
+  }
 }
 SMODS.Sound {
   key = "music_hanafuda",
@@ -42,6 +45,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while selecting",
     "a hanafuda card in a Hanafuda Pack"
+  },
+  hotpot_credits = {
+    team = { "Team Name" }
   }
 }
 SMODS.Sound {
@@ -56,6 +62,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while selecting",
     "an aura in an Aura Pack"
+  },
+  hotpot_credits = {
+    team = { "Team Name" }
   }
 }
 SMODS.Sound {
@@ -75,7 +84,10 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays during",
     "the Bluescreen boss blind"
-	}
+	},
+  hotpot_credits = {
+    team = { "Team Name" }
+  }
 }
 SMODS.Sound {
   key = "music_casino",
@@ -89,6 +101,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while",
     "playing the Wheel"
+  },
+  hotpot_credits = {
+    team = { "Team Name" }
   }
 }
 

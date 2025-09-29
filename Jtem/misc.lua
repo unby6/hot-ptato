@@ -17,7 +17,10 @@ SMODS.Sound {
 	hpot_purpose = {
 		"Music that plays when a plasmid",
     "orb is selected in Plinko"
-	}
+	},
+  hotpot_credits = {
+    team = { "Jtem" }
+  }
 }
 
 SMODS.Atlas {
@@ -39,7 +42,10 @@ SMODS.Sound {
 	hpot_purpose = {
 		"Music that plays when a finity",
     "orb is selected in Plinko"
-	}
+	},
+  hotpot_credits = {
+    team = { "Jtem" }
+  }
 }
 
 SMODS.Sound {
@@ -53,6 +59,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays in",
     "the Delivery tab"
+  },
+  hotpot_credits = {
+    team = { "Jtem" }
   }
 }
 

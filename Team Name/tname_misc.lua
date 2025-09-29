@@ -15,6 +15,9 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays while",
     "reforging a Joker"
+  },
+  hotpot_credits = {
+    team = { "Team Name" }
   }
 }
 
