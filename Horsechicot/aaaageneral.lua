@@ -46,7 +46,11 @@ SMODS.Sound {
         end
     end,
     hpot_title = "Black Market Theme",
-    hpot_artist = "???" -- Someone fill this up
+    hpot_artist = "???", -- Someone fill this up
+    hpot_purpose = {
+        "Music that plays in",
+        "the Black Market"
+    }
 }
 
 

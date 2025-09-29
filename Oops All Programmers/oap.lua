@@ -56,5 +56,10 @@ SMODS.Sound{
     select_music_track = function(self)
         if G.GAME.abno_choice_music then return 10000000 end
         return false
-    end
+    end,
+    hpot_discoverable = true,
+	hpot_purpose = {
+		"Music that plays in the",
+        "Abnormality Choice event"
+	}
 }

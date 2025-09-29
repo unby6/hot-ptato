@@ -244,7 +244,7 @@ SMODS.Joker {
     hotpot_credits = {
         art = { 'Haya' },
         code = { 'Haya' },
-        idea = { 'triple6lexi' },
+        idea = { '???' },
         team = { 'Jtem' }
     }
 }
