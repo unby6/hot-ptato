@@ -490,7 +490,7 @@ SMODS.Joker {
         extras = {
             fx = {
                 { mult = 8 },       -- missingnumber
-                { xmult = 1.25 },   -- lexi
+                { xmult = 1.25 },   -- ????
                 { xchips = 1.25 },  -- paya
                 { chips = 25 },     -- aikoyori
                 { dollars = 3 },    -- squidguset
@@ -506,6 +506,11 @@ SMODS.Joker {
                     append = "_collection"
                 end
                 local x = pseudorandom("hp_jtem_jflash" .. append, 0, 5)
+                if x == 1 then
+                    if pseudorandom("hp_jtem_gaster_chance"..append) > 0.1 then
+                        x = 0
+                    end
+                end
                 card.ability.extras.person = x + 1
                 card.children.center:set_sprite_pos({ x = x, y = 3 })
                 return true
@@ -520,6 +525,9 @@ SMODS.Joker {
                     local x = card.ability.extras.person
                     repeat
                         x = pseudorandom("hp_jtem_jflash", 0, 5)
+                        if pseudorandom("hp_jtem_gaster_chance") > 0.1 then
+                            x = 0
+                        end
                     until x + 1 ~= card.ability.extras.person
                     simple_add_event(
                         function()
