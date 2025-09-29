@@ -445,7 +445,7 @@ return {
             b_hpot_ublockdeck = {
                 name = 'uBlock Origin',
                 text = {
-                    'Remove {C:hpot_adverts}Ads'
+                    'Remove {C:hpot_advert}Ads'
                 }
             },
             b_hpot_poopdeck = {
