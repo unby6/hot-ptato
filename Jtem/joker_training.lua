@@ -329,7 +329,7 @@ SMODS.Sticker {
 	hotpot_credits = {
 		art = { "Aikoyori" },
 		idea = { "Haya", "Aikoyori" },
-		code = { "Haya", "Aikoyori" },
+		code = { "Haya", "Aikoyori", "BepisFever" },
 		team = { "Jtem" }
 	}
 }
