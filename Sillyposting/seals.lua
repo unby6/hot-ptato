@@ -27,7 +27,7 @@ SMODS.Seal {
     end,
 
     hotpot_credits = {
-        art = {'Superb Thing'},
+        art = {'Supernova'},
         code = {'Jaydchw'},
         team = {'Sillyposting'}
     },
