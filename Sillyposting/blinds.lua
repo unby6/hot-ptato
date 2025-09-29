@@ -14,7 +14,7 @@ SMODS.Blind {
         end
     end,
     hotpot_credits = {
-        art = {"Superb"},
+        art = {"Supernova"},
         code = {"Eris"},
         team = {"Sillyposting"}
     }
