@@ -117,7 +117,6 @@ function HotPotato.get_blind_font(blind)
     end
 end
 
-local post_loaded = false
 function Horsechicot.post_load()
     local cards = {
         c_death = true,
@@ -144,22 +143,21 @@ function Horsechicot.post_load()
         default = "c_wraith",
         cards = cards
     }
+    SMODS.ObjectTypes.BlackMarket:inject()
+end
 
-    if not post_loaded then
-        post_loaded = true
-        SMODS.ObjectTypes.BlackMarket:inject()
-        local old = end_round
-        function end_round()
-            if not G.round_end_lock then
-                G.round_end_lock = true
-                old()
-                G.E_MANAGER:add_event(Event { func = function()
-                    G.round_end_lock = false
-                    return true
-                end })
-            end
-        end
-    end
+-- I have no idea why this lock is needed in a first place
+-- Without it everything looks like working fine
+-- With it - Lock In stuck, just winning a blind stuck, losing stuck, door stuck
+-- So for now I remove check - SleepyG11
+local old = end_round
+function end_round()
+    G.round_end_lock = true
+    old()
+    G.E_MANAGER:add_event(Event { func = function()
+        G.round_end_lock = false
+        return true
+    end })
 end
 
 local loadmodsref = SMODS.injectItems
