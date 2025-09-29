@@ -285,3 +285,21 @@ end
 -- more buttons!!!
 SMODS.draw_ignore_keys.hp_jtem_price_side = true
 SMODS.draw_ignore_keys.hp_jtem_cancel_order = true
+
+local funny_str = "!\"#$%&'()+-*,./\\:;<=>?[]^_~"
+local font_cache = {}
+
+SMODS.DynaTextEffect {
+	key = "glitching",
+	func = function(dynatext, index, letter)
+		if not letter.normal_letter then
+			letter.normal_letter = letter.letter
+		end
+		local st = pseudorandom('skip_'..index, 1, #funny_str)
+		local rnd = string.sub(funny_str, st, st+1)
+		font_cache[dynatext.font.key or dynatext.font.file] = font_cache[dynatext.font.key or dynatext.font.file] or {}
+		font_cache[dynatext.font.key or dynatext.font.file][rnd] = font_cache[dynatext.font.key or dynatext.font.file][rnd] or love.graphics.newText(dynatext.font.FONT, rnd)
+		--print(rnd)
+		letter.letter = font_cache[dynatext.font.key or dynatext.font.file][rnd]
+  end
+}
