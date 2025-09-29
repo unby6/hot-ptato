@@ -376,7 +376,7 @@ SMODS.Joker {
     no_collection = true,
     loc_vars = function(self, info_queue, card)
         local main_end = {}
-        if card.ability.quantum[1] and card.ability.quantum[2] then
+        if card.ability.quantum_1 and card.ability.quantum_2 then
             main_end = {
                 {
                     n = G.UIT.R,
@@ -389,7 +389,7 @@ SMODS.Joker {
                                 {
                                     n = G.UIT.T,
                                     config = {
-                                        text = localize { type = 'name', set = 'Joker', key = card.ability.quantum[1].config.center.key, vars = {} }
+                                        text = localize { type = 'name', set = 'Joker', key = card.ability.quantum_1.config.center.key, vars = {} }
                                             [1].nodes[1].nodes[1].config.object.config.string[1],
                                         colour = G.C.UI.TEXT_LIGHT,
                                         scale = 0.32 * 0.8
@@ -407,7 +407,7 @@ SMODS.Joker {
                             n = G.UIT.C,
                             config = { ref_table = card, align = "m", colour = G.C.GREEN, r = 0.05, padding = 0.06 },
                             nodes = {
-                                { n = G.UIT.T, config = { text = card.ability.quantum[2].ability.name, colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                                { n = G.UIT.T, config = { text = card.ability.quantum_2.ability.name, colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
                             }
                         }
                     }
@@ -420,25 +420,25 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if card.ability.quantum[1] and card.ability.quantum[2] then
-            --local ret, trig = card.ability.quantum[1]:calculate_joker(context)
-            local ret, trig = card.calculate_joker(card.ability.quantum[1], context)
-            --local ret2, trig2 = card.ability.quantum[2]:calculate_joker(context)
-            local ret2, trig2 = card.calculate_joker(card.ability.quantum[2], context)
+        if card.ability.quantum_1 and card.ability.quantum_2 then
+            --local ret, trig = card.ability.quantum_1:calculate_joker(context)
+            local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
+            --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
+            local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
             if ret and ret2 then
                 for i, v in pairs(ret) do
                     if ret2[i] and type(v) == 'number' then ret[i] = v + ret2[i] end
                 end
             end
-            if ret then ret.card = card end
-            if ret2 then ret2.card = card end
+            if ret and ret.card and ret.card == card.ability.quantum_1 then ret.card = card end
+            if ret2 and ret2.card and ret2.card == card.ability.quantum_2 then ret2.card = card end
             return ret or ret2, trig or trig2
         end
     end,
     calc_dollar_bonus = function(self, card)
-        if card.ability.quantum[1] or card.ability.quantum[2] then
-            local ret1 = card.calculate_dollar_bonus(card.ability.quantum[1])
-            local ret2 = card.calculate_dollar_bonus(card.ability.quantum[2])
+        if card.ability.quantum_1 or card.ability.quantum_2 then
+            local ret1 = Card.calculate_dollar_bonus(card.ability.quantum_1)
+            local ret2 = Card.calculate_dollar_bonus(card.ability.quantum_2)
             if ret1 and ret2 and type(ret1) == 'number' and type(ret2) == 'number' then
                 ret1 = ret1 + ret2
             end
@@ -449,9 +449,9 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
-                if card.ability.quantum and card.ability.quantum[1] and card.ability.quantum[2] then
-                    card.add_to_deck(card.ability.quantum[1])
-                    card.add_to_deck(card.ability.quantum[2])
+                if card.ability.quantum_1 and card.ability.quantum_2 then
+                    Card.add_to_deck(card.ability.quantum_1)
+                    Card.add_to_deck(card.ability.quantum_2)
                     return true
                 end
             end
@@ -461,9 +461,9 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
-                if card.ability.quantum and card.ability.quantum[1] and card.ability.quantum[2] then
-                    card.remove_from_deck(card.ability.quantum[1])
-                    card.remove_from_deck(card.ability.quantum[2])
+                if card.ability.quantum_1 and card.ability.quantum_2 then
+                    Card.remove_from_deck(card.ability.quantum_1)
+                    Card.remove_from_deck(card.ability.quantum_2)
                     return true
                 end
             end
@@ -471,7 +471,18 @@ SMODS.Joker {
     end,
     in_pool = function(self, args)
         return false
-    end
+    end,
+    load = function(self, card, table, other)
+        if table.ability and table.ability.quantum_1 then 
+            local args = table.quantum_1
+            args.config.center = G.P_CENTERS[args.key]
+            table.ability.quantum_1 = Quantum(args)
+            args = table.quantum_2
+            args.config.center = G.P_CENTERS[args.key]
+            table.ability.quantum_2 = Quantum(args)
+            update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key] or 'Joker'], G.P_CENTERS[table.ability.quantum_1.key].pos)
+        end
+    end,
 }
 
 SMODS.Joker {

@@ -539,7 +539,7 @@ end
 
 function update_child_atlas(self, new_atlas, new_pos)
     if not self.children.front then
-        self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[new_atlas.name], new_pos)
+        self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, new_atlas or G.ASSET_ATLAS['Joker'], new_pos)
         self.children.front.states.hover = self.states.hover
         self.children.front.states.click = self.states.click
         self.children.front.states.drag = self.states.drag
@@ -547,7 +547,7 @@ function update_child_atlas(self, new_atlas, new_pos)
         self.children.front:set_role({ major = self, role_type = 'Glued', draw_major = self })
     end
     self.children.front.sprite_pos = new_pos
-    self.children.front.atlas.name = new_atlas and (new_atlas.key or new_atlas.name) or 'Joker'
+    self.children.front.atlas.name = new_atlas and new_atlas.name or 'Joker'
     self.children.front:reset()
 end
 
@@ -571,25 +571,22 @@ function end_round()
                     card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
                     card:set_cost()
 
-                    card.ability.quantum = {}
-                    card.ability.quantum[1] = Quantum({
+                    card.ability.quantum_1 = Quantum({
                         fake_card = true,
-                        card_to = card,
                         key = G.GAME.child_prio.config.center_key,
                         ability = copy_table(G.GAME.child_prio.ability),
                         config = {
                             center = G.GAME.child_prio.config.center
                         },
-                    })
-                    card.ability.quantum[2] = Quantum({
+                    }, card)
+                    card.ability.quantum_2 = Quantum({
                         fake_card = true,
-                        card_to = card,
                         key = G.GAME.child_sec.config.center_key,
                         ability = copy_table(G.GAME.child_sec.ability),
                         config = {
                             center = G.GAME.child_sec.config.center
                         },
-                    })
+                    }, card)
                     update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
                     --make children smaller
                     card.T.h = G.GAME.child_prio.T.h * 0.75
@@ -602,4 +599,48 @@ function end_round()
             return true
         end
     })
+end
+
+-- TEST Function
+-- used to spawn children without having to play :)
+function nursery()
+    if G.GAME.active_breeding then
+        G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
+        if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
+            G.GAME.active_breeding = false
+            G.GAME.breeding_finished = true
+
+            local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true,
+                edition = G.GAME.child_prio and G.GAME.child_prio.edition and G.GAME.child_prio.edition.key or nil }
+
+            --setting child abilities
+            card.ability.name = 'Baby ' .. localize{type = 'name', set = 'Joker', key = G.GAME.child_prio.config.center.key, vars = {}}[1].nodes[1].nodes[1].config.object.config.string[1]
+            card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
+            card:set_cost()
+
+            card.ability.quantum_1 = Quantum({
+                fake_card = true,
+                key = G.GAME.child_prio.config.center_key,
+                ability = copy_table(G.GAME.child_prio.ability),
+                config = {
+                    center = G.GAME.child_prio.config.center
+                },
+            }, card)
+            card.ability.quantum_2 = Quantum({
+                fake_card = true,
+                key = G.GAME.child_sec.config.center_key,
+                ability = copy_table(G.GAME.child_sec.ability),
+                config = {
+                    center = G.GAME.child_sec.config.center
+                },
+            }, card)
+            update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
+            --make children smaller
+            card.T.h = G.GAME.child_prio.T.h * 0.75
+            card.T.w = G.GAME.child_prio.T.w * 0.75
+            card.ability.is_nursery_smalled = true
+
+            G.nursery_mother.cards[1].ability.mother = nil
+        end
+    end
 end
