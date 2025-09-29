@@ -3603,6 +3603,13 @@ return {
                     "Added \"Card:leak_bank_details()\""
                 }
             },
+            hpot_undiscovered_track = {
+                name = "Not Discovered",
+                text = {
+                    "Listen to this track",
+                    "to figure out what it is"
+                }
+            }
         },
         Tag = {
             tag_hpot_job = {

@@ -29,6 +29,10 @@ SMODS.Sound {
     end
   end,
   hpot_title = "Cheque Booster Theme (OST Mix)",
+  hpot_purpose = {
+    "Music that plays while selecting",
+    "a cheque in a Czech Pack"
+  }
 }
 
 SMODS.Joker{ --19 plincoin fortnite card

@@ -6085,7 +6085,11 @@ SMODS.Sound {
 		if G.hpot_event and G.hpot_event.scenario.key == "hpot_man_ogg" then
 			return 1666
 		end
-	end
+	end,
+	hpot_discoverable = true,
+	hpot_purpose = {
+		"Well, there is a man here."
+	}
 }
 
 HotPotato.EventScenario {

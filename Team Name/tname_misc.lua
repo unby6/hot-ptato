@@ -11,7 +11,11 @@ SMODS.Sound {
     if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_tname_toggle_reforge" then
       return 1349
     end
-  end
+  end,
+  hpot_purpose = {
+    "Music that plays while",
+    "reforging a Joker"
+  }
 }
 
 SMODS.Sound {

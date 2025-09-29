@@ -23,7 +23,12 @@ SMODS.Sound {
     if bool then
       return 999999
     end
-  end
+  end,
+  hpot_discoverable = true,
+  hpot_purpose = {
+    "Music that plays while having",
+    "a creditable Joker"
+	}
 }
 SMODS.Sound {
   key = "music_hanafuda",
@@ -33,7 +38,11 @@ SMODS.Sound {
     if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "hanafuda", 0, true) ~= nil then
       return 1339
       end
-  end
+  end,
+  hpot_purpose = {
+    "Music that plays while selecting",
+    "a hanafuda card in a Hanafuda Pack"
+  }
 }
 SMODS.Sound {
   key = "music_aura",
@@ -43,7 +52,11 @@ SMODS.Sound {
     if not G.screenwipe and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and string.find(SMODS.OPENED_BOOSTER.config.center.key, "auras", 0, true) ~= nil then
       return 1339
     end
-  end
+  end,
+  hpot_purpose = {
+    "Music that plays while selecting",
+    "an aura in an Aura Pack"
+  }
 }
 SMODS.Sound {
   key = "music_windows95",
@@ -57,7 +70,12 @@ SMODS.Sound {
         return 1e39
       end
     end
-  end
+  end,
+  hpot_discoverable = true,
+  hpot_purpose = {
+    "Music that plays during",
+    "the Bluescreen boss blind"
+	}
 }
 SMODS.Sound {
   key = "music_casino",
@@ -67,7 +85,11 @@ SMODS.Sound {
     if G.STATE == G.STATES.WHEEL then
       return 1349
     end
-  end
+  end,
+  hpot_purpose = {
+    "Music that plays while",
+    "playing the Wheel"
+  }
 }
 
 SMODS.ObjectType({

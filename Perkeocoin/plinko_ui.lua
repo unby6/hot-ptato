@@ -92,6 +92,10 @@ SMODS.Sound {
     end
   end,
   hpot_title = "Plinko Theme (OST Mix)",
+  hpot_purpose = {
+    "Music that plays while",
+    "playing Plinko"
+  }
 }
 
 SMODS.Sound {
@@ -103,6 +107,11 @@ SMODS.Sound {
     end
   end,
   hpot_title = "Meowsynthwave (OST Mix)",
+  hpot_discoverable = true,
+	hpot_purpose = {
+		"Music that plays when a plasmid",
+    "orb is selected in Plinko"
+	}
 }
 
 

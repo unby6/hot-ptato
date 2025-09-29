@@ -22,10 +22,15 @@ base64 = SMODS.load_file("Jtem/base64.lua")()
 ---@field title string? Title of the music provided. Can be empty.
 ---@field artist string? Artist of the music provided. Can be empty.
 ---@field key string
+---@field discoverable boolean?
+---@field discovered boolean?
 
 JTJukebox = {}
 ---@type Jtem.MusicTag[]
 JTJukebox.MusicTags = {}
+---@type table<string, Jtem.MusicTag>
+JTJukebox.Music = {}
+JTJukebox.Current = 1
 
 -- Turns a 4 character long byte array in little endian into a unsigned 32 bit integer
 ---@param str string Byte array represented as a string
@@ -102,7 +107,7 @@ function JTJukebox.read_music_tags(path, music_name)
 	-- find first 'vorbis' string. determines if its actually a vorbis file
 	local idx = string.find(str, 'vorbis')
 	---@type Jtem.MusicTag
-	local info = { key = music_name }
+	local info = { key = music_name, order = #JTJukebox.MusicTags+1 }
 	-- POST: Check if we defined this in the SMODS.Sound definition instead
 	if SMODS.Sounds[info.key] then
 		info.title = SMODS.Sounds[info.key].hpot_title or nil
@@ -158,8 +163,30 @@ SMODS.Sound.inject = function(self, i)
 	old_inject(self, i)
 	-- for now only filter hot potato's music tracks
 	if string.find(self.key, "music_") and self.mod == HotPotato then
-		_, JTJukebox.MusicTags[#JTJukebox.MusicTags + 1] = pcall(JTJukebox.read_music_tags, self.full_path, self.key)
-		JTJukebox.Current = 3
+		local _, tag = pcall(JTJukebox.read_music_tags, self.full_path, self.key)
+		-- check if it should be discoverable
+		if self.hpot_discoverable then
+			tag.discoverable = true
+		end
+		JTJukebox.Music[tag.key] = tag
+		JTJukebox.MusicTags[#JTJukebox.MusicTags+1] = tag
+		-- process descriptions
+		G.localization.descriptions.hpot_jukebox = G.localization.descriptions.hpot_jukebox or {}
+		G.localization.descriptions.hpot_jukebox[tag.key] = G.localization.descriptions.hpot_jukebox[tag.key] or {}
+		G.localization.descriptions.hpot_jukebox[tag.key].name = G.localization.descriptions.hpot_jukebox[tag.key].name or { tag.title, "{C:dark_edition,s:0.6}"..tag.artist }
+		G.localization.descriptions.hpot_jukebox[tag.key].text = G.localization.descriptions.hpot_jukebox[tag.key].text or self.hpot_purpose or { "???" }
+	end
+end
+
+-- check if we have discovered this
+local set_profile_progress_ref = set_profile_progress
+function set_profile_progress()
+	set_profile_progress_ref()
+	G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] = G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] or {}
+	for tag, t in pairs(JTJukebox.Music) do
+		if G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][tag] and t.discoverable then
+			t.discovered = true
+		end
 	end
 end
 
@@ -302,6 +329,156 @@ function G.FUNCS.hpot_jukebox_go_next(e)
 	JTJukebox.CurrentDesc = JTJukebox.CreateDescription(JTJukebox.MusicTags[JTJukebox.Current])
 end
 
+-- just add my shit bruh
+JTJukebox.create_collection_ui = function(_pool, rows, args)
+    args = args or {}
+    args.w_mod = args.w_mod or 1
+    args.h_mod = args.h_mod or 1
+    args.card_scale = args.card_scale or 1
+    local deck_tables = {}
+    local pool = _pool
+	if #pool == 0 then
+		pool = {}
+		for k, v in pairs(_pool) do
+			pool[#pool+1] = v
+		end
+	end
+
+    G.your_collection = {}
+    local cards_per_page = 0
+    local row_totals = {}
+    for j = 1, #rows do
+        if cards_per_page >= #pool and args.collapse_single_page then
+            rows[j] = nil
+        else
+            row_totals[j] = cards_per_page
+            cards_per_page = cards_per_page + rows[j]
+            G.your_collection[j] = CardArea(
+                G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
+                (args.w_mod*rows[j]+0.25)*G.CARD_W,
+                args.h_mod*G.CARD_H, 
+                {card_limit = rows[j], type = args.area_type or 'title', highlight_limit = 0, collection = true}
+            )
+            table.insert(deck_tables, 
+            {n=G.UIT.R, config={align = "cm", padding = 0.07, no_fill = true}, nodes={
+                {n=G.UIT.O, config={object = G.your_collection[j]}}
+            }})
+        end
+    end
+
+    local options = {}
+    for i = 1, math.ceil(#pool/cards_per_page) do
+        table.insert(options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#pool/cards_per_page)))
+    end
+
+    G.FUNCS.SMODS_card_collection_page = function(e)
+        if not e or not e.cycle_config then return end
+        for j = 1, #G.your_collection do
+            for i = #G.your_collection[j].cards, 1, -1 do
+            local c = G.your_collection[j]:remove_card(G.your_collection[j].cards[i])
+            c:remove()
+            c = nil
+            end
+        end
+        for j = 1, #rows do
+            for i = 1, rows[j] do
+            local center = pool[i+row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))]
+            if not center then break end
+            local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, args.card_w or (G.CARD_W*args.card_scale), args.card_h or (G.CARD_H*args.card_scale), G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
+            if args.modify_card then args.modify_card(card, center, i, j) end
+            if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
+            G.your_collection[j]:emplace(card)
+            end
+        end
+        INIT_COLLECTION_CARD_ALERTS()
+    end
+
+    G.FUNCS.SMODS_card_collection_page{ cycle_config = { current_option = 1 }}
+    
+    local t = create_UIBox_generic_options({
+        colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_colour or (G.ACTIVE_MOD_UI.ui_config or {}).colour),
+        bg_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_bg_colour or (G.ACTIVE_MOD_UI.ui_config or {}).bg_colour),
+        back_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_back_colour or (G.ACTIVE_MOD_UI.ui_config or {}).back_colour),
+        outline_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_outline_colour or
+                (G.ACTIVE_MOD_UI.ui_config or {}).outline_colour),
+        back_func = (args and args.back_func) or G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection', snap_back = args.snap_back, infotip = args.infotip, contents = {
+          {n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, 
+          (not args.hide_single_page or cards_per_page < #pool) and {n=G.UIT.R, config={align = "cm"}, nodes={
+            create_option_cycle({options = options, w = 4.5, cycle_shoulders = true, opt_callback = 'SMODS_card_collection_page', current_option = 1, colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
+          }} or nil,
+      }})
+    return t
+end
+
+local function jukebox_collection_ui(e)
+	return JTJukebox.create_collection_ui(JTJukebox.MusicTags, { 5, 5, 5 }, {
+		snap_back = true,
+		hide_single_page = true,
+		collapse_single_page = true,
+		center = 'c_base',
+		h_mod = 0.8,
+		back_func = G.ACTIVE_MOD_UI and "openModUI_" .. G.ACTIVE_MOD_UI.id or 'your_collection',
+		infotip = {
+			"Some music tracks are unlocked",
+			"when you encounter them for the first time"
+		},
+		modify_card = function(card, center)
+			local temp_blind = Sprite(card.children.center.T.x, card.children.center.T.y, 2.2, 2.2,
+				(center.discoverable and not center.discovered) and G.ASSET_ATLAS["hpot_jukebox_undiscovered"] or G.ASSET_ATLAS[center.key] or G.ASSET_ATLAS["hpot_jukebox_default"], { x = 0, y = 0 })
+			temp_blind.states.click.can = false
+			temp_blind.states.drag.can = false
+			temp_blind.states.hover.can = true
+			card.children.center = temp_blind
+			temp_blind:set_role({ major = card, role_type = 'Glued', draw_major = card })
+			local spr = nil
+			if center.discoverable and not center.discovered then
+				-- create funny thing here
+				card.config.center = SMODS.shallow_copy(card.config.center)
+				card.config.center.soul_pos = { x = 1, y = 0 }
+				spr = Sprite(card.children.center.T.x, card.children.center.T.y, 2.2, 2.2, G.ASSET_ATLAS["hpot_jukebox_undiscovered"], { x = 1, y = 0 })
+				spr.states.click.can = false
+				spr.states.drag.can = false
+				spr.states.hover.can = true
+				spr:set_role({ major = temp_blind, role_type = 'Glued', draw_major = temp_blind })
+				card.children.floating_sprite = spr
+			end
+			card.set_sprites = function(...)
+				local args = { ... }
+				if not args[1].animation then return end -- fix for debug unlock
+				local c = card.children.center
+				Card.set_sprites(...)
+				card.children.center = c
+				card.children.floating_sprite = spr
+			end
+			card.T.w = 2.2
+			card.T.h = 2.2
+			temp_blind:define_draw_steps({
+				{ shader = 'dissolve', shadow_height = 0.05 },
+				{ shader = 'dissolve' }
+			})
+			temp_blind.float = true
+			card.hpot_jukebox_key = center.key
+			local old_click = card.click
+			card.click = function(self)
+				old_click(self)
+				if not (center.discoverable and not center.discovered) then
+					JTJukebox.CurrentlyPlaying = (center.title and (center.title .. " - " .. center.artist) or center.key).." - "
+					JTJukebox.ActuallyPlaying = center.key
+					JTJukebox.Current = JTJukebox.Music[center.key].order
+					G.FUNCS[G.ACTIVE_MOD_UI and "openModUI_" .. G.ACTIVE_MOD_UI.id or 'your_collection'](e)
+				end
+			end
+		end,
+	})
+end
+
+G.FUNCS.your_collection_hpot_jukebox = function()
+	G.SETTINGS.paused = true
+	G.FUNCS.overlay_menu {
+		definition = jukebox_collection_ui()
+	}
+end
+
 function G.FUNCS.hpot_update_current(e)
 	if JTJukebox.LastCurrentDesc ~= JTJukebox.CurrentDesc then
 		JTJukebox.LastCurrentDesc = JTJukebox.CurrentDesc
@@ -367,17 +544,17 @@ end
 function G.FUNCS.hpot_jukebox_play(e)
 	local current = JTJukebox.MusicTags[JTJukebox.Current]
 	if not JTJukebox.ActuallyPlaying then
-		JTJukebox.CurrentlyPlaying = (current.title and (current.title .. " - " .. current.artist) or current.key).." - "
-		JTJukebox.ActuallyPlaying = current.key
-		e.children[1].children[1].config.text = localize('hotpot_jukebox_unrequest')
+		G.FUNCS.your_collection_hpot_jukebox(e)
 	else
 		JTJukebox.CurrentlyPlaying = localize('hotpot_jukebox_default_music_title')
 		JTJukebox.ActuallyPlaying = nil
 		e.children[1].children[1].config.text = localize('hotpot_jukebox_request')
 	end
 	local jukebox_text = e.UIBox:get_UIE_by_ID('hpot_jukebox_text')
-	jukebox_text.config.object:update_text(true)
-	e.UIBox:recalculate()
+	if jukebox_text then
+		jukebox_text.config.object:update_text(true)
+		e.UIBox:recalculate()
+	end
 end
 
 -- Jukebox tab lmao
@@ -423,6 +600,7 @@ function JTJukebox.MusicTab()
 		sprite.states.collide.can = false
 		sprite:set_role({ major = G.ALBUM_CARD, role_type = 'Glued', draw_major = G.ALBUM_CARD })
 		G.ALBUM_CARD.children.center = sprite
+
 		local old_hover = G.ALBUM_CARD.hover
 		G.ALBUM_CARD.hover = function(self)
 			old_hover(self)
@@ -524,32 +702,17 @@ function JTJukebox.MusicTab()
 									padding = 0.2,
 								},
 								nodes = {
-									-- go back
-									{
-										n = G.UIT.C,
-										config = { align = "cm", minh = 0.8, minw = 0.8, colour = G.C.RED, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_go_back' },
-										nodes = {
-											create_center_aligned_text { align = "cm", text = "<", colour = G.C.UI.TEXT_LIGHT, maxw = 0.7, scale = 0.75, shadow = true }
-										}
-									},
 									-- play butan
 									-- NOTE: Originally the plan here was to make this a collection button
 									-- where you would pick the music you want from the collection menu
 									-- to save time I just did this but if you wanna do that then ok
+									-- 09/28 haya: I'm back.
 									{
 										n = G.UIT.C,
 										config = { align = "cm", minh = 0.8, minw = 4, colour = G.C.GREEN, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_play' },
 										nodes = {
 											create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_' .. (JTJukebox.ActuallyPlaying and 'un' or '') .. 'request'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true }
 										},
-									},
-									-- go next
-									{
-										n = G.UIT.C,
-										config = { align = "cm", minh = 0.8, minw = 0.8, colour = G.C.RED, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_go_next' },
-										nodes = {
-											create_center_aligned_text { align = "cm", text = ">", colour = G.C.UI.TEXT_LIGHT, maxw = 0.7, scale = 0.75, shadow = true }
-										}
 									},
 								}
 							},

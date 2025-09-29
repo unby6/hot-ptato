@@ -86,6 +86,11 @@ if JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
 	desired_track = JTJukebox.ActuallyPlaying
 	G.ARGS.push.desired_track = desired_track
 end
+if JTJukebox.Music[desired_track] and JTJukebox.Music[desired_track].discoverable and not JTJukebox.Music[desired_track].discovered then
+  JTJukebox.Music[desired_track].discovered = true
+  G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] = G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] or {}
+  G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][desired_track] = true
+end
 '''
 match_indent = true
 
@@ -211,6 +216,21 @@ if first_pass and card and card.hpot_event_key then
   end
   info_queue[#info_queue+1] = t
 end
+if first_pass and card and card.hpot_jukebox_key then
+  local event = JTJukebox.Music[card.hpot_jukebox_key]
+  local t = { key = card.hpot_jukebox_key, set = 'hpot_jukebox' }
+  local res = {}
+  if event.discoverable and not event.discovered then
+    t = { key = "hpot_undiscovered_track", set = "Other" }
+  end
+  if event.collection_loc_vars and type(event.collection_loc_vars) == 'function' then
+    res = event:collection_loc_vars(info_queue) or {}
+    t.vars = res.vars or {}
+    t.key = res.key or t.key
+    t.set = res.set or t.set
+  end
+  info_queue[#info_queue+1] = t
+end
 '''
 match_indent = true
 
@@ -222,7 +242,7 @@ pattern = '''if _c.set == 'Other' then
         localize{type = 'other', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}'''
 position = 'after'
 payload = '''
-elseif _c.set == 'EventScenarios' then
+elseif _c.set == 'EventScenarios' or _c.set == 'hpot_jukebox' then
   localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = specific_vars or _c.vars}
 '''
 match_indent = true
