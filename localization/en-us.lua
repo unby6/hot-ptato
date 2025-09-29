@@ -1139,16 +1139,24 @@ return {
                 }
             },
             j_hpot_silly = {
-                name = "Still in Love",
+                name = {
+                    "{f:5}スティルインラブ",
+                    "{C:edition,s:0.6}Still in Love"
+                },
                 text = {
                     "{C:attention}Doubles{} all incoming",
                     "training values"
                 }
             },
             j_hpot_jtem_special_week = {
-                name = "{f:5}スペーシャルウィーク{} (Special Week)",
+                name = {
+                    "{f:5}スペーシャルウィーク",
+                    "{C:edition,s:0.6}Special Week"
+                },
                 text = {
                     "Training can {C:attention}never fail{}",
+                    "{C:attention}Quadruples{} all incoming",
+                    "training values"
                 }
             },
             j_hpot_sticker_master = {
