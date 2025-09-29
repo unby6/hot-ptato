@@ -1,7 +1,5 @@
 Quantum = Card:extend()
 
-
-
 function Quantum:init(args)
     --ty eremel <3
     self.base_cost = args.base_cost or 0
