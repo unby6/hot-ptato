@@ -476,7 +476,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			for stat, value in pairs(stats) do
 				local multiplier = hpot_calc_stat_multiplier(joker, stat)
 				if stats_to_increase[stat] then
-					joker:create_train_popup(stat, math.ceil(stats_to_increase[stat] * multiplier))
+					joker:mod_training_stat(stat, math.ceil(stats_to_increase[stat] * multiplier))
 					stats_increased[stat] = math.ceil(stats_to_increase[stat] * multiplier)
 					stats[stat] = value + stats_increased[stat]
 				end
