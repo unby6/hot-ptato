@@ -1,17 +1,6 @@
 Quantum = Card:extend()
 
---to fix funcs like juice_up || I'm almost there I can feel it
-for key, func in pairs(Card) do
-    if type(func) == 'function' and key ~= 'calculate_joker' then
-        function Quantum[i](...)
-            return Card[key](self.card_to, ...)
-            -- if not
-            -- local f = func
-            -- return f(self.card_to, ...)
-            -- return self.card_to:f(...)
-        end
-    end
-end
+
 
 function Quantum:init(args)
     --ty eremel <3
@@ -71,4 +60,16 @@ local cest = card_eval_status_text
 function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
     if card.quantum then card = card.card_to end
     cest(card, eval_type, amt, percent, dir, extra)
+end
+
+--to fix funcs like juice_up || I'm almost there I can feel it
+for key, func in pairs(Card) do
+    if type(func) == 'function' and key ~= 'calculate_joker' and key ~= 'set_ability' then
+        local ori = func
+        func = function(obj, ...)
+            local target = obj.card_to or obj
+            return ori(target, ...)
+        end
+        Quantum[key] = func
+    end
 end
