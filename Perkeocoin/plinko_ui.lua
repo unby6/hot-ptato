@@ -450,6 +450,8 @@ function CardArea:align_cards()
 end
 
 function update_plinko(dt)
+    -- Just in case
+    if G.STAGE ~= G.STAGES.RUN then return end
     PlinkoGame.f.update_plinko_world(dt)
     if not G.STATE_COMPLETE then
         stop_use()
