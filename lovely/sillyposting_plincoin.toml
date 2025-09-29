@@ -15,7 +15,7 @@ payload = '''
             for _, _card in ipairs(area.cards) do
             local ret = _card:calculate_plincoin_bonus()
     
-            -- TARGET: calc_dollar_bonus per card
+            -- TARGET: calc_plincoin_bonus per card
             if ret then
                 i = i+1
                 add_round_eval_plincoins({name='plincoins', plincoins = ret, bonus = true, name='joker'..i, pitch = pitch, card = _card})
@@ -29,13 +29,37 @@ payload = '''
             if _card.config.center.calc_crypto_bonus then
                 local ret = _card.config.center:calc_crypto_bonus(_card)
         
-                -- TARGET: calc_dollar_bonus per card
+                -- TARGET: calc_crypto_bonus per card
                 if ret then
                     i = i+1
                     add_round_eval_crypto({name='cryptocurrency', cryptocurrency = ret, bonus = true, pitch = pitch, card = _card})
                     pitch = pitch + 0.06
                     dollars = dollars + ret
                 end
+            end
+        end
+    end
+'''
+match_indent = true
+
+# Add plincoins on cashout for Direct Deposit. janky as fuck
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = 'after'
+pattern = '''
+add_round_eval_row({name = 'bottom', dollars = dollars})'''
+payload = '''
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+            for _, _card in ipairs(area.cards) do
+            local ret = _card:calculate_plincoin_bonus_delayed()
+    
+            -- TARGET: calc_plincoin_bonus_delayed per card
+            if ret then
+                i = i+1
+                add_round_eval_plincoins({name='plincoins', plincoins = ret, bonus = true, name='joker'..i, pitch = pitch, card = _card})
+                pitch = pitch + 0.06
+                dollars = dollars + ret
             end
         end
     end

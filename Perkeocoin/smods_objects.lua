@@ -65,26 +65,39 @@ SMODS.Joker{ --19 plincoin fortnite card
             if G.GAME.blind.boss then
                 card.ability.extra.bosses = card.ability.extra.bosses - 1
                 if card.ability.extra.bosses <= 0 then
-                    ease_plincoins(card.ability.extra.fortnite)
+                    --[[ease_plincoins(card.ability.extra.fortnite)
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
                             card:start_dissolve()
                             return true
                         end
-                    })) 
+                    }))]]--
                     return {
                         message = localize("hotpot_perkeocoin_fortnite"),
                         colour = G.C.GREEN
                     }
                 end
-            return {
-                message = localize{type='variable',key='a_remaining',vars={card.ability.extra.bosses}},
-                colour = G.C.GREEN
-            }
+                return {
+                    message = localize{type='variable',key='a_remaining',vars={card.ability.extra.bosses}},
+                    colour = G.C.GREEN
+                }
+            end
         end
+    end,
+    calc_plincoin_bonus = function(self, card)
+        if card.ability.extra.bosses <= 0 then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card:start_dissolve()
+                    return true
+                end
+            }))
+            return card.ability.extra.fortnite
+        end
+        return nil
     end
-end
 }
 
 SMODS.Joker{ --Plink
@@ -458,7 +471,8 @@ SMODS.Joker{ --Direct Deposit
         extra = {
             dollars = 5,
             plincoins = 1,
-            so_far = 0
+            so_far = 0,
+            earnings = 0
         }
     },
     pos = { x = 3, y = 2 },
@@ -488,7 +502,7 @@ SMODS.Joker{ --Direct Deposit
                 card.ability.extra.so_far = card.ability.extra.so_far + new_config.dollars
                 new_config.dollars = 0
                 if card.ability.extra.so_far >= card.ability.extra.dollars then
-                    ease_plincoins(math.floor(card.ability.extra.so_far / card.ability.extra.dollars))
+                    card.ability.extra.earnings = card.ability.extra.earnings + math.floor(card.ability.extra.so_far / card.ability.extra.dollars)
                     card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_direct_deposit")..tostring(math.floor(card.ability.extra.so_far / card.ability.extra.dollars)).."!", colour = G.C.MONEY})
                     card.ability.extra.so_far = card.ability.extra.so_far % card.ability.extra.dollars
                 else
@@ -498,7 +512,12 @@ SMODS.Joker{ --Direct Deposit
             return{
                 new_config = new_config
             }
+        elseif context.ending_shop and not context.blueprint then
+            card.ability.extra.earnings = 0
         end
+    end,
+    calc_plincoin_bonus_delayed = function(self, card)
+        if card.ability.extra.earnings > 0 then return card.ability.extra.earnings end
     end
 
 }
@@ -736,12 +755,21 @@ SMODS.Joker{ --Don't Touch That Dial!
 
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.current_round.discards_left > 0 and not (context.blueprint or context.individual or context.repetition) then
-            ease_plincoins(G.GAME.current_round.discards_left)
+            --ease_plincoins(G.GAME.current_round.discards_left)
             create_ads(G.GAME.current_round.discards_left)
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_stay_tuned"), colour = G.C.MONEY})
         end
+    end,
+    calc_dollar_bonus = function(self, card)
+        if G.GAME.current_round.discards_left > 0 then
+            return G.GAME.current_round.discards_left
+        end
+    end,
+    calc_plincoin_bonus = function(self, card)
+        if G.GAME.current_round.discards_left > 0 then
+            return G.GAME.current_round.discards_left
+        end
     end
-
 }
 
 SMODS.Joker{ --Tipping Point
