@@ -335,15 +335,11 @@ local function normalize(vec)
     return vec
 end
 
-screen_center = {
-    10, 5
-}
-
 local game_update = Game.update
 function Game:update(...)
     if G.real_dt and G.GAME and G.GAME.hotpot_ads then
 
-        local center_x, center_y = screen_center[1], screen_center[2]
+        local center_x, center_y = 10, 5
         local speed = G.real_dt * 0.1
         for _, ad in pairs(G.GAME.hotpot_ads) do
             local dir_vector = normalize {
