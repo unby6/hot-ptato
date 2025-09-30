@@ -70,6 +70,18 @@ function PissDrawer.Shop.currency_node(args)
 end
 
 function PissDrawer.Shop.currency_display()
+    local jank = 
+    PissDrawer.Shop.currency_node({
+        symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value =
+    'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true
+    })
+    if G.GAME.seeded then
+        jank = 
+    PissDrawer.Shop.currency_node({
+        symbol = localize('hotpot_reforge_budget'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.ORANGE, ref_value =
+    'budget', ref_table = G.GAME, no_bump = true
+    })
+    end
     return {
         n = G.UIT.R,
         config = { align = 'cm', colour = G.C.L_BLACK, r = 0.1, padding = 0.1 },
@@ -89,10 +101,7 @@ function PissDrawer.Shop.currency_display()
                 symbol = localize('hotpot_reforge_sparks'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.BLUE, ref_value =
             'spark_points', no_bump = true
             }),
-            PissDrawer.Shop.currency_node({
-                symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value =
-            'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true
-            }),
+            jank,
             {
                 n = G.UIT.C,
                 config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1 },
@@ -107,7 +116,14 @@ end
 function PissDrawer.Shop.currency_display_small(args)
     local args = args or {}
     local minh, minw, maxw, scale = 0.5, 1.4, 1.4, 0.4
-
+    local jank = PissDrawer.Shop.currency_node({
+            symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value = 'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
+        })
+        if G.GAME.seeded then
+jank = PissDrawer.Shop.currency_node({
+            symbol = localize('hotpot_reforge_budget'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.ORANGE, ref_value = 'budget', ref_table = G.GAME, no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
+        })
+        end
     local currencies = {
         PissDrawer.Shop.currency_node({
             symbol = localize('$'), colour = G.C.GOLD, ref_value = 'dollars', no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
@@ -121,9 +137,7 @@ function PissDrawer.Shop.currency_display_small(args)
         PissDrawer.Shop.currency_node({
             symbol = localize('hotpot_reforge_sparks'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.BLUE, ref_value = 'spark_points', no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
         }),
-        PissDrawer.Shop.currency_node({
-            symbol = localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.PURPLE, ref_value = 'TNameCredits', ref_table = G.PROFILES[G.SETTINGS.profile], no_bump = true, minh = minh, minw = minw, maxw = maxw, scale = scale
-        })
+        jank
     }
 
     if args.remove_dollars then

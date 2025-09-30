@@ -468,32 +468,85 @@ function HPTN.ease_credits(amount, instant)
 
     G:save_progress()
 else
-    local jank = G.HUD:get_UIE_by_ID('dollar_text_UI')
-    attention_text({
-        text = localize("teamname_seeded"),
-        scale = 0.8,
-        hold = 0.7,
-        cover = jank.parent,
-        cover_colour = G.C.RED,
-        align = 'cm',
-    })
+    amount = amount or 0
+    if ExtraCredit and (amount > 0) then
+        amount = amount * 3
+    end
+    local function _mod(mod) -- Taken from ease_plincoins()
+        local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
+        mod = mod or 0
+        local text = '+e.'
+        local col = G.C.ORANGE
+        if mod < 0 then
+            text = '-e.'
+            col = G.C.RED
+        end
+
+        G.GAME.budget = G.GAME.budget + amount
+        G.GAME.credits_text = G.GAME.budget
+
+            dollar_UI.config.object:update()
+            if amount ~= 0 then
+                G.HUD:recalculate()
+                --Popup text next to the chips in UI showing number of chips gained/lost
+                attention_text({
+                    text = text .. tostring(math.abs(mod)),
+                    scale = 0.8,
+                    hold = 0.7,
+                    cover = dollar_UI.parent,
+                    cover_colour = col,
+                    align = 'cm',
+                })
+                --Play a chip sound
+                if amount > 0 then
+                    play_sound("hpot_tname_gaincred")
+                else
+                    play_sound("hpot_tname_losecred")
+                end
+            end
+
+    end
+
+    if instant then
+        _mod(amount)
+    else
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                _mod(amount)
+                return true
+            end
+        }))
+    end
+
+    G:save_progress()
 end
 end
 
 function HPTN.set_credits(amount)
+    if not G.GAME.seeded then
     G.PROFILES[G.SETTINGS.profile].TNameCredits = amount
     G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
+    else
+    G.GAME.budget = amount
+    G.GAME.credits_text = G.GAME.budget
+    end
 end
 
 function HPTN.check_if_enough_credits(cost)
-    if G.GAME.seeded then
-        return false
-    end
+    if not G.GAME.seeded then
     local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
     if (credits - cost) >= 0 then
         return true
     end
     return false
+else
+    local credits = G.GAME.budget
+    if (credits - cost) >= 0 then
+        return true
+    end
+    return false
+end
 end
 
 G.FUNCS.credits_UI_set = function(e)

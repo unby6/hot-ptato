@@ -4790,6 +4790,7 @@ return {
             k_imaginary = "Imaginary",
 
             k_credits = "Credits",
+            teamname_budget = "Set Budget",
             teamname_seeded = "Seeded!",
             teamname_off_reference = "Revived",
             teamname_replaced = "Replaced!",
@@ -4873,6 +4874,7 @@ return {
             hotpot_exchange_option_crypto_5 = "A Giant Premium Cargo Load of ͸",
 
             hotpot_reforge_credits = "c.", -- 50
+            hotpot_reforge_budget = "e.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_sparks = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
