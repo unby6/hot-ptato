@@ -44,13 +44,12 @@ HotPotato.trigger_options = {
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
     "hpot_diy_earn_plincoins",
-    "hpot_diy_earn_credits", --G.GAME.seeded and "hpot_diy_earn_budget" or (why was that there obviously that wont work)
+    "hpot_diy_earn_credits",
     "hpot_diy_earn_sparks",
     "hpot_diy_earn_crypto",
     "hpot_diy_random_consumable",
     "hpot_diy_random_card"
 }
-
 --as in the order they are above. if HotPotato.diy_trigger(blah) then
 function HotPotato.diy_trigger(self, card, context)
     if not G.GAME.hotpot_diy then return end
