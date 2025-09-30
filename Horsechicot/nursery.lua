@@ -528,17 +528,15 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
-    if not self.children.front then
-        self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, new_atlas or G.ASSET_ATLAS['Joker'], new_pos)
-        self.children.front.states.hover = self.states.hover
-        self.children.front.states.click = self.states.click
-        self.children.front.states.drag = self.states.drag
-        self.children.front.states.collide.can = false
-        self.children.front:set_role({ major = self, role_type = 'Glued', draw_major = self })
+    self.children.center.sprite_pos = new_pos
+    self.children.center.atlas.name = new_atlas and new_atlas.key or 'Joker'
+    self.children.center:reset()
+    if self.ability.quantum_1 and self.ability.quantum_1.config.center.soul_pos and not self.children.floating_sprite then 
+        self.children.floating_sprite = Sprite(self.T.x, self.T.y, self.T.w*0.75, self.T.h*0.75, G.ASSET_ATLAS[self.ability.quantum_1.config.center.atlas], self.ability.quantum_1.config.center.soul_pos)
+        self.children.floating_sprite.role.draw_major = self
+        self.children.floating_sprite.states.hover.can = false
+        self.children.floating_sprite.states.click.can = false
     end
-    self.children.front.sprite_pos = new_pos
-    self.children.front.atlas.name = new_atlas and new_atlas.name or 'Joker'
-    self.children.front:reset()
 end
 
 --pregnancy checks
@@ -577,10 +575,12 @@ function end_round()
                             center = G.GAME.child_sec.config.center
                         },
                     }, card)
-                    update_child_atlas(card, G.ASSET_ATLAS[G.GAME.child_prio.config.center.atlas or 'Joker'], G.GAME.child_prio.config.center.pos)
                     --make children smaller
                     card.T.h = G.GAME.child_prio.T.h * 0.75
                     card.T.w = G.GAME.child_prio.T.w * 0.75
+
+                    card.loaded = true
+
                     card.ability.is_nursery_smalled = true
 
                     G.nursery_mother.cards[1].ability.mother = nil
