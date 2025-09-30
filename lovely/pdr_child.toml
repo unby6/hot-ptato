@@ -36,3 +36,14 @@ table.insert(left_text, {
 })
 '''
 match_indent = true
+
+# blueprint compat for children
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+position = 'at'
+pattern = '''            if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then'''
+payload = '''            if other_joker and other_joker ~= self and (other_joker.config.center.blueprint_compat or other_joker.ability.quantum_1 and other_joker.ability.quantum_2
+                                                                                                                and (other_joker.ability.quantum_1.config.center.blueprint_compat
+                                                                                                                    or other_joker.ability.quantum_2.config.center.blueprint_compat)) then'''
+match_indent = true
