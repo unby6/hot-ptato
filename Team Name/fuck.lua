@@ -4,7 +4,8 @@ HPTN = {
     is_shitfuck = true,
     Profile = G.SETTINGS.profile,
     nxkoofactor = 15,
-    cheapkoofactor = 10
+    cheapkoofactor = 10,
+    during_scoring = false,
 }
 -- awesome lua file name
 SMODS.Sound {
@@ -135,7 +136,7 @@ SMODS.Atlas{key = "tname_stakes", path = "Team Name/tname_stakes.png", px = 29,p
 G.FUNCS.can_sell_card = function(e)
     if e.config.ref_table:can_sell_card() then 
         if e.config.ref_table.config.center.credits then
-        e.config.colour = G.C.PURPLE
+        e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
         e.config.button = 'sell_card'
         else
         e.config.colour = G.C.GREEN

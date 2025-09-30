@@ -129,8 +129,8 @@ function PlinkoUI.f.init_sprites()
     PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
   end
 
-  if not PlinkoUI.sprites.stupidorb then
-    PlinkoUI.sprites.stupidorb = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_stupidorb'])
+  if not PlinkoUI.sprites.stupid then
+    PlinkoUI.sprites.stupid = Sprite (0, 0, orb_size, orb_size, G.ASSET_ATLAS['hpot_stupidorb'])
   end
 
   if not PlinkoUI.sprites.morb then

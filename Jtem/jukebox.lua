@@ -171,15 +171,21 @@ SMODS.Sound.inject = function(self, i)
 			tag.discoverable = true
 		end
 		JTJukebox.Music[tag.key] = tag
-		JTJukebox.MusicTags[#JTJukebox.MusicTags + 1] = tag
-		-- process descriptions
-		G.localization.descriptions.hpot_jukebox = G.localization.descriptions.hpot_jukebox or {}
-		G.localization.descriptions.hpot_jukebox[tag.key] = G.localization.descriptions.hpot_jukebox[tag.key] or {}
-		G.localization.descriptions.hpot_jukebox[tag.key].name = G.localization.descriptions.hpot_jukebox[tag.key].name or
-			{ tag.title, "{C:edition,s:0.6}" .. tag.artist }
-		G.localization.descriptions.hpot_jukebox[tag.key].text = G.localization.descriptions.hpot_jukebox[tag.key].text or
-			self.hpot_purpose or { "???" }
+        JTJukebox.MusicTags[#JTJukebox.MusicTags + 1] = tag
+        -- process descriptions
+        G.localization.descriptions.hpot_jukebox = G.localization.descriptions.hpot_jukebox or {}
+        G.localization.descriptions.hpot_jukebox[tag.key] = G.localization.descriptions.hpot_jukebox[tag.key] or {}
+        G.localization.descriptions.hpot_jukebox[tag.key].name = G.localization.descriptions.hpot_jukebox[tag.key].name or
+            { tag.title, "{C:edition,s:0.6}" .. tag.artist }
+        G.localization.descriptions.hpot_jukebox[tag.key].text = G.localization.descriptions.hpot_jukebox[tag.key].text or
+            self.hpot_purpose or { "???" }
 	end
+end
+
+local old_pre_inject = SMODS.Sound.pre_inject_class or function() end
+SMODS.Sound.pre_inject_class = function(self, ...)
+    old_pre_inject(self, ...)
+    JTJukebox.MusicTags = {}
 end
 
 -- check if we have discovered this
@@ -190,6 +196,19 @@ function set_profile_progress()
 		{}
 	for tag, t in pairs(JTJukebox.Music) do
 		if G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][tag] and t.discoverable then
+			t.discovered = true
+		end
+	end
+end
+
+local old_unlock_all = G.FUNCS.unlock_all
+function G.FUNCS.unlock_all(...)
+    old_unlock_all(...)
+    G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] = G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] or
+		{}
+    for tag, t in pairs(JTJukebox.Music) do
+		if t.discoverable then
+            G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][tag] = true
 			t.discovered = true
 		end
 	end

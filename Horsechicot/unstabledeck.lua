@@ -61,7 +61,10 @@ function randomize_values()
     G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1)
     G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
     if G.HUD then
-        G.HUD:get_UIE_by_ID('credits_UI_text').config.object:update()
+        local uie = G.HUD:get_UIE_by_ID('credits_UI_text')
+        if uie and uie.config.object then
+            uie.config.object:update()
+        end
     end
     for i, v in pairs(G.GAME.hands) do
         for ind, value in pairs(v) do

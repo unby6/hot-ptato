@@ -118,3 +118,86 @@ payload = '''
   HPTN.Profile = _profile
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''
+function G.FUNCS.toggle_seeded_run(e)
+'''
+position = "after"
+payload = '''
+local janks = create_text_input({max_length = 8, all_caps = false, ref_table = G, ref_value = 'setup_budget', prompt_text = localize('teamname_budget'), colour = copy_table(G.C.ORANGE), hooked_colour = darken(copy_table(G.C.ORANGE), 0.3), id = "tname_budget"}) 
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''
+  elseif not e.config.object and G.run_setup_seed then
+    e.config.object = UIBox{
+      definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.C, config={align = "cm", minw = 2.5, padding = 0.05}, nodes={
+          simple_text_container('ml_disabled_seed',{colour = G.C.UI.TEXT_LIGHT, scale = 0.26, shadow = true}),
+        }},
+        {n=G.UIT.C, config={align = "cm", minw = 0.1}, nodes={
+          create_text_input({max_length = 8, all_caps = true, ref_table = G, ref_value = 'setup_seed', prompt_text = localize('k_enter_seed')}),
+          {n=G.UIT.C, config={align = "cm", minw = 0.1}, nodes={}},
+          UIBox_button({label = localize('ml_paste_seed'),minw = 1, minh = 0.6, button = 'paste_seed', colour = G.C.BLUE, scale = 0.3, col = true})
+'''
+position = "after"
+payload = '''
+          ,{n=G.UIT.C, config={align = "cm", minw = 0.1}, nodes={}},
+          janks,
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+  G.setup_seed = ''
+'''
+position = "after"
+payload = '''
+  G.setup_budget = ''
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+    if not saveTable then
+        if args.seed then self.GAME.seeded = true end
+'''
+position = "after"
+payload = '''
+        if self.GAME.seeded then self.GAME.budget = args.budget or 0 end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''
+    local _seed = G.run_setup_seed and G.setup_seed or G.forced_seed or nil
+'''
+position = "after"
+payload = '''
+    local _budget = tonumber(G.setup_budget)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''
+    G.FUNCS.start_run(e, {stake = _stake, seed = _seed, challenge = _challenge})
+'''
+position = "at"
+payload = '''
+    G.FUNCS.start_run(e, {stake = _stake, seed = _seed, challenge = _challenge, budget = _budget})
+'''
+match_indent = true

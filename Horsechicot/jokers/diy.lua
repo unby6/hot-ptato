@@ -46,7 +46,7 @@ HotPotato.trigger_options = {
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
     "hpot_diy_earn_plincoins",
-    "hpot_diy_earn_credits",
+    G.GAME.seeded and "hpot_diy_earn_budget" or "hpot_diy_earn_credits",
     "hpot_diy_earn_sparks",
     "hpot_diy_earn_crypto",
     "hpot_diy_random_consumable",

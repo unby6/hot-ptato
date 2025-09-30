@@ -55,7 +55,7 @@ SMODS.Joker {
                                 n = G.UIT.T,
                                 config = {
                                     text = " "
-                                        .. ((compatible and localize{type = "name_text", set = other_joker.config.center.set, key = other_joker.config.center_key}) or (none and localize("k_none")) or localize("k_incompatible"))
+                                        .. ((compatible and localize{type = "name_text", set = other_joker.config.center.set, key = other_joker.config.center_key}) or ((none or not other_joker) and localize("k_none")) or localize{type = "name_text", set = other_joker.config.center.set, key = other_joker.config.center_key})
                                         .. " ",
                                     colour = G.C.UI.TEXT_LIGHT,
                                     scale = 0.32 * 0.8,
@@ -90,7 +90,7 @@ SMODS.Joker {
                                 n = G.UIT.T,
                                 config = {
                                     text = " "
-                                        .. ((compatible2 and localize{type = "name_text", set = other_joker2.config.center.set, key = other_joker2.config.center_key}) or (none and localize("k_none")) or localize("k_incompatible"))
+                                        .. ((compatible2 and localize{type = "name_text", set = other_joker2.config.center.set, key = other_joker2.config.center_key}) or ((none or not other_joker2) and localize("k_none")) or localize{type = "name_text", set = other_joker2.config.center.set, key = other_joker2.config.center_key})
                                         .. " ",
                                     colour = G.C.UI.TEXT_LIGHT,
                                     scale = 0.32 * 0.8,

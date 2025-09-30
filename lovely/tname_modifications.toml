@@ -99,3 +99,26 @@ payload = '''
 for k, v in pairs(HPTN.Modifications) do
     G.BADGE_COL[k] = v.badge_colour
 end'''
+
+
+# set HPTN.during_scoring
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "SMODS.calculate_context({initial_scoring_step = true, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands})"
+position = "after"
+payload = '''
+HPTN.during_scoring = true
+'''
+match_indent = true
+
+# reset HPTN.during_scoring
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, after = true})"
+position = "after"
+payload = '''
+HPTN.during_scoring = nil
+'''
+match_indent = true

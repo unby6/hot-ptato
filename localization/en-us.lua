@@ -5,7 +5,7 @@ return {
                 name = "Aura of Justice",
                 text = {
                     "{C:red}-#1# Joker Slots{},",
-                    "{C:purple}+c#2#"
+                    "{C:purple}+c.#2#"
                 }
             },
             c_hpot_fear = {
@@ -55,7 +55,65 @@ return {
                 text = {
                     "{C:red}Remove ALL Credits{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:purple}#1# Credits{} removed.",
+                    "for every {C:purple}c.#1#{} removed.",
+                    "{C:inactive}(Currently #3##2# Copies.)"
+                }
+            }, -- budgets
+            c_hpot_justice_budget = {
+                name = "Aura of Justice",
+                text = {
+                    "{C:red}-#1# Joker Slots{},",
+                    "{C:attention}+e.#2#"
+                }
+            },
+            c_hpot_fear_budget = {
+                name = "Aura of Fear",
+                text = {
+                    "{C:attention}All current jokers{} gain",
+                    "{C:red}negative{} stickers,",
+                    "{C:attention}+e.#1#{} for each sticker added"
+                }
+            },
+            c_hpot_perception_budget = {
+                name = "Aura of Perception",
+                text = {
+                    "{C:red}Permanently remove {C:blue}all hands but #1#{},",
+                    "{C:attention}+e.#2#{} for each hand removed"
+                }
+            },
+            c_hpot_greatness_budget = {
+                name = "Aura of Greatness",
+                text = {
+                    "{C:red}Remove {}all dollars,",
+                    "{C:attention}+e.#1#{} for each dollar removed"
+                }
+            },
+            c_hpot_clairvoyance_budget = {
+                name = "Aura of Clairvoyance",
+                text = {
+                    "{C:red}Remove #1# Consumable Slots{},",
+                    "{C:attention}+e.#2#{} for each Consumable Slot removed"
+                }
+            },
+            c_hpot_tenacity_budget = {
+                name = "Aura of Tenacity",
+                text = {
+                    "{C:red}Destroy all Jokers{},",
+                    "{X:attention,C:white}Xe.#2#{C:inactive} (Max of #1#)"
+                }
+            },
+            c_hpot_lunacy_budget = {
+                name = "Aura of Lunacy",
+                text = {
+                    "{C:attention}+e.#1#{C:inactive}"
+                }
+            },
+            c_hpot_power_budget = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Budget{},",
+                    "{C:attention}Create a negative copy of leftmost Joker{}",
+                    "for every {C:attention}e.#1#{} removed.",
                     "{C:inactive}(Currently #3##2# Copies.)"
                 }
             },
@@ -589,9 +647,8 @@ return {
             c_hpot_cap_venture = {
                 ['name'] = 'Venture Capital',
                 ['text'] = {
-                    [1] = "Earn {C:hpot_plincoin,f:hpot_plincoin}$1{} of interest",
-                    [2] = "for every {C:hpot_plincoin,f:hpot_plincoin}$#3#{} you have",
-                    [3] = "{C:inactive}(Max of {C:hpot_plincoin,f:hpot_plincoin}$#1#{C:inactive})"
+                    [1] = "Doubles your Plincoins",
+                    [2] = "{C:inactive}(Max of {C:hpot_plincoin,f:hpot_plincoin}$#1#{C:inactive})"
                 }
             },
             c_hpot_cap_duplicate = {
@@ -619,6 +676,12 @@ return {
                 name = 'Credits',
                 text = {
                     "Earn {C:purple}c.#1#{}"
+                }
+            },
+            c_hpot_cap_credits_budget = {
+                name = 'Budgets',
+                text = {
+                    "Earn {C:attention}e.#1#{}"
                 }
             },
             c_hpot_cap_tname_consumables = {
@@ -1289,6 +1352,17 @@ return {
                     },
                 },
             },
+            j_hpot_tname_postcard_3_budget = {
+                name = "Postcard",
+                text = {
+                    { "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
+                    { "GoldenLeaf Ability:",
+                        "{C:attention}+e.#2#{} when hand played"
+                    },
+                },
+            },
             j_hpot_tname_postcard_4 = {
                 name = "Postcard",
                 text = {
@@ -1331,7 +1405,14 @@ return {
                 name = "Credits EX",
                 text = {
                     { "{X:mult,C:white}X#1#{} Mult" },
-                    { "{C:purple}+#2#c.{} for each hand played this round" }
+                    { "{C:purple}+c.#2#{} for each hand played this round" }
+                }
+            },
+            j_hpot_credits_ex_budget = {
+                name = "Budgets EX",
+                text = {
+                    { "{X:mult,C:white}X#1#{} Mult" },
+                    { "{C:attention}+e.#2#{} for each hand played this round" }
                 }
             },
             j_hpot_jankman = {
@@ -2119,7 +2200,15 @@ return {
             j_hpot_social_credit = {
                 name = 'Social Credit',
                 text = {
-                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    'Earn {C:purple}+c.#1#{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
+                    '{C:inactive}depending on your performance{}'
+                }
+            },
+            j_hpot_social_credit_budget = {
+                name = 'Social Budget',
+                text = {
+                    'Earn {C:attention}+e.#1#{} per {C:attention}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
@@ -2232,7 +2321,15 @@ return {
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
                     "{C:purple}credits{}, and {C:hpot_advert}cryptocurrency{}",
-                    "for {C:blue}Joker Exchange"
+                    "for {C:blue}Jicks"
+                }
+            },
+            v_hpot_exchange_rate_budget = {
+                name = "Exchange Rate",
+                text = {
+                    "Enable converting {C:hpot_plincoin}plincoins",
+                    "{C:attention}budget{}, and {C:hpot_advert}cryptocurrency{}",
+                    "for {C:blue}Jicks"
                 }
             },
             v_hpot_right_at_your_door = {
@@ -2267,11 +2364,29 @@ return {
                     "you would earn"
                 }
             },
+            v_hpot_digital_payment_budget = {
+                name = "Digital Payment",
+                text = {
+                    "Earn no interest.",
+                    "gain {C:attention}+#1#{} Budget{}",
+                    "for each interest",
+                    "you would earn"
+                }
+            },
             v_hpot_digital_promotion = {
                 name = "Digital Promotion",
                 text = {
                     "Earn no hand money.",
                     "gain {C:purple}+#1#{} Credits{}",
+                    "for each spare hand",
+                    "you would earn"
+                }
+            },
+            v_hpot_digital_promotion_budget = {
+                name = "Digital Promotion",
+                text = {
+                    "Earn no hand money.",
+                    "gain {C:attention}+#1#{} Budget{}",
                     "for each spare hand",
                     "you would earn"
                 }
@@ -2287,7 +2402,7 @@ return {
                 name = "Premium Anvil",
                 text = {
                     "{C:hpot_plincoin}Plincoins{}, {C:hpot_advert}Cryptocurrency{}",
-                    "{C:blue}Joker Exchange{} can",
+                    "and {C:blue}Jicks{} can",
                     "be used to reforge"
                 }
             },
@@ -3415,14 +3530,19 @@ return {
                 text = {
                     "{C:jtem_stats_speed}Speed{} - {V:1}#1#{}{V:6}#11#{} - {V:1}#2#",
                     "{s:0.8,C:inactive}Improves Chance of this Joker retriggering - +#16#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{}{V:6}#12#{} - {V:2}#4#",
                     "{s:0.8,C:inactive}Improves Energy restoration - +#17#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_power}Power{} - {V:3}#5#{}{V:6}#13#{} - {V:3}#6#",
                     "{s:0.8,C:inactive}Gives (X)Chips & (X)Mult - +#18#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_guts}Guts{} - {V:4}#7#{}{V:6}#14#{} - {V:4}#8#",
                     "{s:0.8,C:inactive}Improves Joker base stats - +#19#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_wits}Wits{} - {V:5}#9#{}{V:6}#15#{} - {V:5}#10#",
                     "{s:0.8,C:inactive}Improves sell cost - +#20#%",
+                    "{s:0.1} ",
                     "{C:dark_edition}Energy{} - {V:7}#21#{}/100{V:8}#22#"
                 },
             },
@@ -3664,6 +3784,13 @@ return {
                     "immediately"
                 }
             },
+            tag_hpot_credits_tag_budget = {
+                name = "Budgetable Tag",
+                text = {
+                    "Gain {C:attention}+e.#1#{}",
+                    "immediately"
+                }
+            },
             tag_hpot_mega_hanafuda = {
                 name = "Hanafuda Tag",
                 text = {
@@ -3682,7 +3809,15 @@ return {
                 name = "Economy Tag?",
                 text = {
                     "{C:attention}Doubles{} your",
-                    "{C:purle}Credits{}",
+                    "{C:purple}Credits{}",
+                    "{C:inactive}(Max of #1#)"
+                }
+            },
+            tag_hpot_credit_econ_budget = {
+                name = "Economy Tag?",
+                text = {
+                    "{C:attention}Doubles{} your",
+                    "{C:attention}Budget{}",
                     "{C:inactive}(Max of #1#)"
                 }
             },
@@ -3745,6 +3880,13 @@ return {
                 name = "The Credential",
                 text = {
                     "Lose 5 Credits when",
+                    "hand is played"
+                }
+            },
+            bl_hpot_credential_budget = {
+                name = "The Budgetal",
+                text = {
+                    "Lose 5 Budget when",
                     "hand is played"
                 }
             },
@@ -4078,6 +4220,14 @@ return {
                     "Don't you wanna {C:attention}open{} it?"
                 }
             },
+            hpot_mb_1_budget = {
+                text = {
+                    "Hello! {C:attention}Team Name{} made budgets,",
+                    "and now's your chance to {C:attention}use{} them!",
+                    "Luckily, we have a neat {C:attention}mystery box{} in front of us!",
+                    "Don't you wanna {C:attention}open{} it?"
+                }
+            },
             hpot_mb_2 = {
                 text = {
                     "Ooh, neat! A {C:dark_edition,E:1}Five Star{}!",
@@ -4094,6 +4244,16 @@ return {
                     " ",
                     " ",
                     "{C:inactive}And credits.{}"
+                }
+            },
+            hpot_mb_3_budget = {
+                text = {
+                    "{C:inactive}You have the feeling what just happened{}",
+                    "{C:inactive}was a major waste of time.{}",
+                    " ",
+                    " ",
+                    " ",
+                    "{C:inactive}And budget.{}"
                 }
             },
             hpot_mb_4 = {
@@ -4265,6 +4425,20 @@ return {
                     " ",
                     "Who do you ask for help?"
                 }
+            },
+            hpot_business_venture_1_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		}
+            },
+            hpot_postlatro_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		}
             },
         },
         EventScenarios = {
@@ -4519,13 +4693,14 @@ return {
                     text = {
                         {
                             "A mechanic inspired by {E:2,C:attention}delivery services{},",
-                            "which allows a client to receive",
-                            "{C:attention}various products{} from around the world",
+                            "which allow you to receive {C:attention}various products{}",
+                            "from around the world",
                         },
                         {
-                            "You can spend {C:attention}different currencies{} to queue",
-                            "{C:attention}Jokers{}, receiving them after a few {C:attention}rounds{}",
-                            "into your {C:dark_edition}Joker slots{}"
+                            "Order {C:attention}Jokers{} using different currencies",
+                            "Orders arrive after a few {C:attention}rounds{}",
+                            "directly into your {C:dark_edition}Joker slots{}",
+                            "{s:0.9,C:inactive}Must have room{}",
                         },
                     }
                 },
@@ -4587,8 +4762,8 @@ return {
                             "Gacha Racing game about {C:attention}Anime Horse girls{}",
                         },
                         {
-                            "You can spend {C:blue}Joker Exchange{} to start {C:attention}Training{},",
-                            "giving the Joker a {C:attention}random{} set of stats",
+                            "Select a Joker to begin {C:attention}Training{}",
+                            "You can purchase {C:blue}Jicks{} in Currency Exchange",
                         },
                         {
                             "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
@@ -4785,6 +4960,9 @@ return {
             k_imaginary = "Imaginary",
 
             k_credits = "Credits",
+            k_budget = "Budget",
+            teamname_budget = "Set Budget",
+            teamname_seeded = "Seeded!",
             teamname_off_reference = "Revived",
             teamname_replaced = "Replaced!",
             teamname_active = "active", -- im pretty sure balala already has these built in but whatever
@@ -4803,7 +4981,7 @@ return {
 
             hotpot_first_time_disable = "Do not show again",
 
-            hotpot_spark_points = "Joker Exchange",
+            hotpot_spark_points = "Jicks",
             hotpot_delivery = "Deliveries",
             hotpot_delivery_back = "Back to Shop",
             hotpot_go_reforge = "REFORGE",
@@ -4867,6 +5045,7 @@ return {
             hotpot_exchange_option_crypto_5 = "A Giant Premium Cargo Load of ͸",
 
             hotpot_reforge_credits = "c.", -- 50
+            hotpot_reforge_budget = "e.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_sparks = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
@@ -4910,6 +5089,7 @@ return {
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
             hpot_diy_earn_credits = "Earn 0.1 Credits",
+            hpot_diy_earn_budget = "Earn 0.1 Budget",
             hpot_diy_earn_sparks = "Earn 1000 Spark Points",
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
@@ -4962,7 +5142,7 @@ return {
             k_wheel = "Wheel",
             k_nursery = "Nursery",
 
-            k_spark_per_turn = "Joker Currency needed per turn",
+            k_spark_per_turn = "Upgrade cost",
 
             hotpot_current_track = "CURRENT TRACK"
         },
@@ -4999,6 +5179,8 @@ return {
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
             hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)',
+            hotpot_budget_cashout = 'Budget (#1# per interest)',
+            hotpot_budget_cashout2 = 'Budget (#1# per interest, #2# per hand)',
 
             k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
             k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
@@ -5057,7 +5239,8 @@ return {
             modif_hpot_jagged = "Jagged",
             modif_hpot_menacing = "Menacing",
             modif_hpot_flawed = "Flawed",
-            modif_hpot_rusty = "rusty",
+            modif_hpot_rusty = "Rusty",
+            modif_hpot_sharpened = "Sharpened",
 
         },
         EventChoices = {
@@ -5093,8 +5276,9 @@ return {
             hpot_food_trade_choose_ignore = "Ignore them",
 
             hpot_exchange_credits_to_dollars = "Credits to Dollars",
+            hpot_exchange_budget_to_dollars = "Budget to Dollars",
             hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
-            hpot_exchange_sparks_to_dollars = "Joker Exchange to Dollars",
+            hpot_exchange_sparks_to_dollars = "Jicks to Dollars",
             hpot_ignore_or_something = "Ignore",
 
             hpot_remove_stickers = "Remove (#1# Plincoins)",
@@ -5106,6 +5290,7 @@ return {
             hpot_trolley_cards = "Direct at Playing Cards",
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
             hpot_mystery_box = "Open (5 credits)",
+            hpot_mystery_box_budget = "Open (5 budget)",
 
             hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})",
 
@@ -5125,7 +5310,33 @@ return {
             hpot_tech_support_ask_bepis = "Ask Bepis",
             hpot_tech_support_ask_deadbeet = "Ask Deadbeet",
             hpot_tech_support_ask_fey = "Ask Fey",
-            hpot_tech_support_ask_tacashumi = "Ask Tacashumi"
+            hpot_tech_support_ask_tacashumi = "Ask Tacashumi", -- revo do your shenanigans
+            --[[hpot_business_venture_1_start_budget_invest_100 = "Invest {C:attention}e.100",
+            hpot_business_venture_1_start_budget_invest_500 = "Invest {C:attention}e.500",
+            hpot_business_venture_1_start_budget_invest_1000 = "Invest {C:attention}e.1000",
+            hpot_postlatro_start_budgetcredits = "{C:money}$10{} > {C:attention}e.100",
+            hpot_postlatro_start_budget_invest_500 = "Invest {C:attention}e.500",
+            hpot_postlatro_start_budget_invest_1000 = "Invest {C:attention}e.1000",
         }
+            hpot_postlatro_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		},
+		
+		choices = {
+			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
+			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
+			credits = "{C:money}$10{} > {C:purple}c.100",
+			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
+			from_spark = "{C:blue,f:hpot_plincoin}͸10k{} > {C:money}$1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
+			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
+			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
+			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
+			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
+		}]]
     }
+}
 }

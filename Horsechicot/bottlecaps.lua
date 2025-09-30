@@ -1,8 +1,8 @@
 SMODS.Atlas({key = "hc_capatlas", path = "Horsechicot/bottlecaps.png", px = 34, py = 34, atlas_table = "ASSET_ATLAS"}):register()
 
-SMODS.Consumable { --Plincoin
+SMODS.Consumable {
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Cryptocurrency',
     key = 'cap_crypto',
@@ -59,7 +59,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable {
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Chaos',
     key = 'cap_chaos',
@@ -114,8 +114,10 @@ in_pool = function(self, args)
 function use_random_bottlecap(self, card)
     local caps = {}
     for i, v in pairs(G.P_CENTER_POOLS.bottlecap) do
-        if not v.no_chaos then
-            caps[#caps+1] = v
+        if v.config.extra and type(v.config.extra[card.ability.extra.chosen]) ~= "nil"
+            and not v.no_chaos then
+            
+                caps[#caps+1] = v
         end
     end
     local cap = pseudorandom_element(caps, pseudoseed("hc_chaos"))
@@ -132,6 +134,7 @@ function use_random_bottlecap(self, card)
             end
         end
     end
-    dummy_cap.ability.chosen = card.ability.chosen
+    dummy_cap.ability.extra.chosen = card.ability.extra.chosen
+    dummy_cap.cap_parent = card
     cap:use(dummy_cap)
 end

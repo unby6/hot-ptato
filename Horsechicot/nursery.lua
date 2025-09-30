@@ -511,20 +511,10 @@ function Horsechicot.breed(mother_center, father_center)
 end
 
 
-local old = Card.generate_UIBox_ability_table
-function Card:generate_UIBox_ability_table()
-    if self and self.ability and self.ability.mother then
-        G.FLAG_MOTHER = true
-    end
-    local tbl = old(self)
-    return tbl
-end
-
 local old = generate_card_ui
-function generate_card_ui(_c, uit, ...)
-    if G.FLAG_MOTHER then
-        G.FLAG_MOTHER = false
-        local ret = old(_c, uit, ...)
+function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
+    if card and card.ability.mother then
+        local ret = old(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
         generate_card_ui({
             set = "Other",
             key = "hp_hc_mother"
@@ -533,7 +523,7 @@ function generate_card_ui(_c, uit, ...)
         })
         return ret
     else
-        return old(_c, uit, ...)
+        return old(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     end
 end
 

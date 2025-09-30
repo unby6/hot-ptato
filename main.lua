@@ -26,6 +26,8 @@ to_number = to_number or function(x) return x end
 --#region File Loading
 local nativefs = NFS
 
+local path_len = string.len(SMODS.current_mod.path) + 1
+
 local function load_file_native(path)
     if not path or path == "" then
         error("No path was provided to load.")
@@ -33,7 +35,8 @@ local function load_file_native(path)
     local file_path = path
     local file_content, err = NFS.read(file_path)
     if not file_content then return  nil, "Error reading file '" .. path .. "' for mod with ID '" .. SMODS.current_mod.id .. "': " .. err end
-    local chunk, err = load(file_content, "=[SMODS " .. SMODS.current_mod.id .. ' "' .. path .. '"]')
+	local short_path = string.sub(path, path_len, path:len())
+    local chunk, err = load(file_content, "=[SMODS " .. SMODS.current_mod.id .. ' "' .. short_path .. '"]')
     if not chunk then return nil, "Error processing file '" .. path .. "' for mod with ID '" .. SMODS.current_mod.id .. "': " .. err end
     return chunk
 end

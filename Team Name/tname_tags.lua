@@ -3,12 +3,16 @@ SMODS.Tag({
 	config = { add = 35 },
 	atlas = "tname_tags",
 	pos = { x = 3, y = 0 },
+	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
-		return { vars = { tag.config.add } }
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return { vars = { tag.config.add }, key = key }
 	end,
 	apply = function(self, tag, context)
 		if context.type == "immediate" then
-			tag:yep("+", G.C.PURPLE, function()
+			tag:yep("+", G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, function()
 				HPTN.ease_credits(tag.config.add)
 				return true
 			end)
@@ -66,6 +70,7 @@ SMODS.Tag({
 	key = "mega_auras",
 	atlas = "tname_tags",
 	pos = { x = 0, y = 0 },
+	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
 		info_queue[#info_queue + 1] = G.P_CENTERS.p_hpot_auras_mega_1
 	end,
@@ -106,12 +111,16 @@ SMODS.Tag({
 	atlas = "tname_tags",
 	pos = { x = 2, y = 0 },
 	config = { max = 45 },
+	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
-		return { vars = { tag.config.max } }
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return { vars = { tag.config.max }, key = key }
 	end,
 	apply = function(self, tag, context)
 		if context.type == "immediate" then
-			tag:yep("+", G.C.PURPLE, function()
+			tag:yep("+", G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, function()
 				G.E_MANAGER:add_event(Event({
 					trigger = 'immediate',
 					func = function()
