@@ -137,7 +137,7 @@ function G.UIDEF.wheel()
 
                         {
                           n = G.UIT.R,
-                          config = { id = "wheel_credits", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r = 0.15, padding = 0.07, colour = G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true, shadow = true },
+                          config = { id = "wheel_credits", align = "cm", minw = 2.8, minh = play_dollars and 1.3 or 1.6, r = 0.15, padding = 0.07, colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, button = 'wheel_spin', func = 'can_wheel_spin', hover = true, shadow = true },
                           nodes = {
                             {
                               n = G.UIT.C,
@@ -157,7 +157,7 @@ function G.UIDEF.wheel()
                                   config = { align = "cm", maxw = 1.3, minw = 1 },
                                   nodes = {
                                     -------------------
-                                    { n = G.UIT.T, config = { text = "c.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
+                                    { n = G.UIT.T, config = { text = G.GAME.seeded and "e." or "c.", scale = 0.7, colour = G.C.WHITE, shadow = true } },
                                     { n = G.UIT.T, config = { ref_table = Wheel, ref_value = 'Price', scale = 0.75, colour = G.C.WHITE, shadow = true } },
                                     -------------------
                                   }
@@ -679,7 +679,7 @@ end
 
 G.FUNCS.can_wheel_spin = function(e)
   if Wheel.STATE.IDLE and HPTN.check_if_enough_credits(Wheel.Price) then
-    e.config.colour = G.C.PURPLE
+    e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
     e.config.button = 'wheel_spin'
   else
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE

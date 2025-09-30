@@ -25,7 +25,11 @@ SMODS.Joker {
 	},
 	loc_vars = function(self, info_queue, card)
 		local key, vars, ret
-		key = (self.key .. "_" .. G.GAME.current_team_name_member)
+		local fucking = G.GAME.seeded and "_budget" or ""
+		if G.GAME.current_team_name_member ~= 3 then
+			fucking = ""
+		end
+		key = (self.key .. "_" .. G.GAME.current_team_name_member..fucking)
 		vars = {
 			getcurrentperson((G.GAME.current_team_name_member or 1)),
 			card.ability.extra.functions.GoldenLeaf[1],

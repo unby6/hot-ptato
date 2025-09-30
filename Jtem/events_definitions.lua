@@ -400,22 +400,7 @@ HotPotato.EventStep({
 	end,
 
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event {
-				func = function()
-					jimbo_card.children.card:start_dissolve()
-					return true
-				end
-			})
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 HotPotato.EventStep({
@@ -471,16 +456,7 @@ HotPotato.EventStep({
 		end
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 HotPotato.EventStep({
@@ -608,16 +584,7 @@ HotPotato.EventStep({
 		}))
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 
@@ -708,16 +675,7 @@ HotPotato.EventStep({
 		})
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end
 })
 

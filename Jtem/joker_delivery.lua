@@ -200,7 +200,7 @@ G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
-        e.config.colour = G.C.PURPLE
+        e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
         e.config.button = 'hp_jtem_exchange_c2j'
     end
 end
@@ -722,7 +722,7 @@ end
 
 function generate_currency_string_args(currency)
     currency = currency or "dollars"
-    if currency == "credits" then return { colour = G.C.PURPLE, symbol = "c.", font = G.LANG.font } end
+    if currency == "credits" then return { colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, symbol = G.GAME.seeded and "e." or "c.", font = G.LANG.font } end
     if currency == "dollars" then return { colour = G.C.MONEY, symbol = "$", font = G.LANG.font } end
     if currency == "plincoin" then
         return {

@@ -58,6 +58,64 @@ return {
                     "for every {C:purple}c.#1#{} removed.",
                     "{C:inactive}(Currently #3##2# Copies.)"
                 }
+            }, -- budgets
+            c_hpot_justice_budget = {
+                name = "Aura of Justice",
+                text = {
+                    "{C:red}-#1# Joker Slots{},",
+                    "{C:attention}+e.#2#"
+                }
+            },
+            c_hpot_fear_budget = {
+                name = "Aura of Fear",
+                text = {
+                    "{C:attention}All current jokers{} gain",
+                    "{C:red}negative{} stickers,",
+                    "{C:attention}+e.#1#{} for each sticker added"
+                }
+            },
+            c_hpot_perception_budget = {
+                name = "Aura of Perception",
+                text = {
+                    "{C:red}Permanently remove {C:blue}all hands but #1#{},",
+                    "{C:attention}+e.#2#{} for each hand removed"
+                }
+            },
+            c_hpot_greatness_budget = {
+                name = "Aura of Greatness",
+                text = {
+                    "{C:red}Remove {}all dollars,",
+                    "{C:attention}+e.#1#{} for each dollar removed"
+                }
+            },
+            c_hpot_clairvoyance_budget = {
+                name = "Aura of Clairvoyance",
+                text = {
+                    "{C:red}Remove #1# Consumable Slots{},",
+                    "{C:attention}+e.#2#{} for each Consumable Slot removed"
+                }
+            },
+            c_hpot_tenacity_budget = {
+                name = "Aura of Tenacity",
+                text = {
+                    "{C:red}Destroy all Jokers{},",
+                    "{X:attention,C:white}Xe.#2#{C:inactive} (Max of #1#)"
+                }
+            },
+            c_hpot_lunacy_budget = {
+                name = "Aura of Lunacy",
+                text = {
+                    "{C:attention}+e.#1#{C:inactive}"
+                }
+            },
+            c_hpot_power_budget = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Budgets{},",
+                    "{C:attention}Create a negative copy of leftmost Joker{}",
+                    "for every {C:attention}e.#1#{} removed.",
+                    "{C:inactive}(Currently #3##2# Copies.)"
+                }
             },
         },
         Hanafuda = {
@@ -618,6 +676,12 @@ return {
                 name = 'Credits',
                 text = {
                     "Earn {C:purple}c.#1#{}"
+                }
+            },
+            c_hpot_cap_credits_budget = {
+                name = 'Budgets',
+                text = {
+                    "Earn {C:attention}e.#1#{}"
                 }
             },
             c_hpot_cap_tname_consumables = {
@@ -1288,6 +1352,17 @@ return {
                     },
                 },
             },
+            j_hpot_tname_postcard_3_budget = {
+                name = "Postcard",
+                text = {
+                    { "This Joker changes its",
+                        "{C:attention}recipient{} every round...",
+                        "{C:inactive}(Current recipient: {C:attention}#1#{C:inactive})" },
+                    { "GoldenLeaf Ability:",
+                        "{C:attention}+e.#2#{} when hand played"
+                    },
+                },
+            },
             j_hpot_tname_postcard_4 = {
                 name = "Postcard",
                 text = {
@@ -1331,6 +1406,13 @@ return {
                 text = {
                     { "{X:mult,C:white}X#1#{} Mult" },
                     { "{C:purple}+c.#2#{} for each hand played this round" }
+                }
+            },
+            j_hpot_credits_ex_budget = {
+                name = "Budgets EX",
+                text = {
+                    { "{X:mult,C:white}X#1#{} Mult" },
+                    { "{C:attention}+e.#2#{} for each hand played this round" }
                 }
             },
             j_hpot_jankman = {
@@ -2119,6 +2201,14 @@ return {
                 name = 'Social Credit',
                 text = {
                     'Earn {C:purple}+c.#1#{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
+                    '{C:inactive}depending on your performance{}'
+                }
+            },
+            j_hpot_social_credit_budget = {
+                name = 'Social Budget',
+                text = {
+                    'Earn {C:attention}+e.#1#{} per {C:attention}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
@@ -3668,6 +3758,13 @@ return {
                     "immediately"
                 }
             },
+            tag_hpot_credits_tag_budget = {
+                name = "Budgetable Tag",
+                text = {
+                    "Gain {C:attention}+e.#1#{}",
+                    "immediately"
+                }
+            },
             tag_hpot_mega_hanafuda = {
                 name = "Hanafuda Tag",
                 text = {
@@ -4790,6 +4887,7 @@ return {
             k_imaginary = "Imaginary",
 
             k_credits = "Credits",
+            teamname_budget = "Set Budget",
             teamname_seeded = "Seeded!",
             teamname_off_reference = "Revived",
             teamname_replaced = "Replaced!",
@@ -4873,6 +4971,7 @@ return {
             hotpot_exchange_option_crypto_5 = "A Giant Premium Cargo Load of ͸",
 
             hotpot_reforge_credits = "c.", -- 50
+            hotpot_reforge_budget = "e.", -- 50
             hotpot_reforge_dollars = "$", -- 10
             hotpot_reforge_sparks = "͸", -- 10 K
             hotpot_reforge_plincoins = "$", -- 2
@@ -5063,7 +5162,8 @@ return {
             modif_hpot_jagged = "Jagged",
             modif_hpot_menacing = "Menacing",
             modif_hpot_flawed = "Flawed",
-            modif_hpot_rusty = "rusty",
+            modif_hpot_rusty = "Rusty",
+            modif_hpot_sharpened = "Sharpened",
 
         },
         EventChoices = {

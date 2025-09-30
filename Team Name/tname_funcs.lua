@@ -468,32 +468,85 @@ function HPTN.ease_credits(amount, instant)
 
     G:save_progress()
 else
-    local jank = G.HUD:get_UIE_by_ID('dollar_text_UI')
-    attention_text({
-        text = localize("teamname_seeded"),
-        scale = 0.8,
-        hold = 0.7,
-        cover = jank.parent,
-        cover_colour = G.C.RED,
-        align = 'cm',
-    })
+    amount = amount or 0
+    if ExtraCredit and (amount > 0) then
+        amount = amount * 3
+    end
+    local function _mod(mod) -- Taken from ease_plincoins()
+        local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
+        mod = mod or 0
+        local text = '+e.'
+        local col = G.C.ORANGE
+        if mod < 0 then
+            text = '-e.'
+            col = G.C.RED
+        end
+
+        G.GAME.budget = G.GAME.budget + amount
+        G.GAME.credits_text = G.GAME.budget
+
+            dollar_UI.config.object:update()
+            if amount ~= 0 then
+                G.HUD:recalculate()
+                --Popup text next to the chips in UI showing number of chips gained/lost
+                attention_text({
+                    text = text .. tostring(math.abs(mod)),
+                    scale = 0.8,
+                    hold = 0.7,
+                    cover = dollar_UI.parent,
+                    cover_colour = col,
+                    align = 'cm',
+                })
+                --Play a chip sound
+                if amount > 0 then
+                    play_sound("hpot_tname_gaincred")
+                else
+                    play_sound("hpot_tname_losecred")
+                end
+            end
+
+    end
+
+    if instant then
+        _mod(amount)
+    else
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                _mod(amount)
+                return true
+            end
+        }))
+    end
+
+    G:save_progress()
 end
 end
 
 function HPTN.set_credits(amount)
+    if not G.GAME.seeded then
     G.PROFILES[G.SETTINGS.profile].TNameCredits = amount
     G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
+    else
+    G.GAME.budget = amount
+    G.GAME.credits_text = G.GAME.budget
+    end
 end
 
 function HPTN.check_if_enough_credits(cost)
-    if G.GAME.seeded then
-        return false
-    end
+    if not G.GAME.seeded then
     local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
     if (credits - cost) >= 0 then
         return true
     end
     return false
+else
+    local credits = G.GAME.budget
+    if (credits - cost) >= 0 then
+        return true
+    end
+    return false
+end
 end
 
 G.FUNCS.credits_UI_set = function(e)
@@ -541,7 +594,7 @@ function add_round_eval_credits(config) --taken straight from plincoin.lua (yet 
             local left_text = {}
             if config.name == 'credits' then
                 table.insert(left_text,
-                    { n = G.UIT.T, config = { text = config.credits, font = config.font, scale = 0.8 * scale, colour = G.C.PURPLE, shadow = true, juice = true } })
+                    { n = G.UIT.T, config = { text = config.credits, font = config.font, scale = 0.8 * scale, colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, shadow = true, juice = true } })
                 if G.GAME.modifiers.hands_to_credits then
                     table.insert(left_text,
                         { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = 'hotpot_credits_cashout2', vars = { (G.GAME.credits_cashout or 0), (G.GAME.credits_cashout2 or 0) } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
@@ -580,7 +633,7 @@ function add_round_eval_credits(config) --taken straight from plincoin.lua (yet 
                         n = G.UIT.R,
                         config = { align = "cm", id = 'dollar_row_' .. (dollar_row + 1) .. '_' .. config.name },
                         nodes = {
-                            { n = G.UIT.O, config = { object = DynaText({ string = "c", colours = { G.C.PURPLE }, shadow = true, pop_in = 0, scale = 0.65, float = true }) } }
+                            { n = G.UIT.O, config = { object = DynaText({ string = G.GAME.seeded and "e" or "c", colours = { G.GAME.seeded and G.C.ORANGE or G.C.PURPLE }, shadow = true, pop_in = 0, scale = 0.65, float = true }) } }
                         }
                     },
                     G.round_eval:get_UIE_by_ID('dollar_' .. config.name))
@@ -603,7 +656,7 @@ function add_round_eval_credits(config) --taken straight from plincoin.lua (yet 
                         dollar_row = dollar_row + 1
                     end
 
-                    local r = { n = G.UIT.T, config = { text = "c", colour = G.C.PURPLE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true } }
+                    local r = { n = G.UIT.T, config = { text = G.GAME.seeded and "e" or "c", colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true } }
                     play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
 
                     if config.name == 'blind1' then
