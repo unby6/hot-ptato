@@ -25,12 +25,12 @@ local deck = SMODS.Back {
             ease_cryptocurrency(0.05)
         end
 		--Oops! All Programmers addition: gain 1 of each currency when boss blind defeated
-        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
-            ease_plincoins(1)
+        --[[if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
+            add_round_eval_plincoins({name='plincoins', plincoins = 1})
             ease_cryptocurrency(1)
             ease_spark_points(1)
             HPTN.ease_credits(1)
-        end
+        end]]-- Moved into a lovely patch by UnusedParadox
         --Pissdrawer addition: Chips and mult from highest poker hand held in hand is added to scoring
         if context.initial_scoring_step then
             if G.hand and G.hand.cards and #G.hand.cards > 0 then
