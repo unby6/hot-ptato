@@ -341,39 +341,45 @@ local function draw_perkeorb(self)
     sprite:draw()
 end
 
-local function s(t,a,b)t[a],t[b]=t[b],t[a]end
+local custom_sprites = {
+    [69] = "stupid",
+    [88] = "jcoin",
+    [80] = "fisch",
+    [90] = "morb",
+    [5] = "finity",
+    [20] = "caino_plinker",
+    [21] = "trib_plinker",
+    [22] = "yorick_plinker",
+    [23] = "chicot_plinker",
+    [10] = "entropy",
+    [11] = "github",
+    [12] = "bitcoin",
+}
+
+local function t_size(t_)
+    local size = 0
+    local last = next(t_)
+    while last do
+        size = size + 1
+        last = next(t_, last)
+    end
+    return size
+end
+
 
 function PlinkoGame.f.init_dummy_ball()
     PlinkoGame.f.remove_balls()
     PlinkoUI.f.init_sprites()
-    local choice = G.GAME.plinko_force_choice or math.random(100)
+
+    local choice = G.GAME.plinko_force_choice or math.random(100 + t_size(custom_sprites))
     PlinkoUI.sprites.is_stupid = nil
-    if choice  == 69 or choice == 42 then
-        PlinkoUI.sprites.changed = "stupid"
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.stupidorb
-        PlinkoUI.sprites.is_stupid = true
-        --this following code added by JTEM for other orbs
-    elseif choice == 88 then
-        PlinkoUI.sprites.changed = "jcoin"
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.jcoin
-    elseif choice == 80 then
-        PlinkoUI.sprites.changed = "fisch"
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.fisch
-    elseif  choice >= 90  then
-        PlinkoUI.sprites.changed = "morb"
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.morb
-    elseif  choice <= 5  then
-        PlinkoUI.sprites.changed = "finity"
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.finity
-    elseif choice >= 20 then
-        local plinker = {"caino_plinker", "trib_plinker", "yorick_plinker", "chicot_plinker"}
-        PlinkoUI.sprites.changed = plinker[(math.floor(choice / 20) + 1)]
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[plinker[(math.floor(choice / 20) + 1)]]
-    elseif choice >= 10 then
-        local plinker = {"entropy", "github", "bitcoin"}
-        local ind = math.floor(math.random() * 3) + 1
-        PlinkoUI.sprites.changed = plinker[ind]
-        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[plinker[ind]]
+
+    local custom = custom_sprites[choice]
+
+    if G.GAME.balls_dropped and G.GAME.balls_dropped > 0 and custom then
+        PlinkoUI.sprites.changed = custom
+        PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[custom]
+        PlinkoUI.sprites.is_stupid = custom == "stupid"
     else
          PlinkoUI.sprites.changed = nil
          PlinkoUI.sprites.perkeorb = PlinkoUI.sprites.perkeorbOG
