@@ -1,0 +1,18 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '''functions/common_events.lua'''
+pattern = '''
+scale = config.scale or 1, 
+'''
+position = "after"
+payload = '''
+font = extra and extra.font or nil,
+'''
+match_indent = true
+
+
