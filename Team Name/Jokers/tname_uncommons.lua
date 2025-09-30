@@ -91,10 +91,11 @@ SMODS.Joker({
     end,
 	calculate = function(self, card, context)
 		local fuck = pseudorandom("fuck", card.ability.extra.min, card.ability.extra.max)
+		local jank = fuck < 0 and "-" or "+"
 		if context.joker_main then
 			HPTN.ease_credits(fuck, false)
 			return {
-				message = "+c."..fuck,
+				message = jank.."c."..fuck,
 				colour = G.C.PURPLE
 			}
 		end

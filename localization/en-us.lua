@@ -2118,7 +2118,7 @@ return {
             j_hpot_social_credit = {
                 name = 'Social Credit',
                 text = {
-                    'Earn {C:purple}+#1#c.{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    'Earn {C:purple}+c.#1#{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
