@@ -325,3 +325,38 @@ function create_ads(number_of_ads)
     end
 end
 
+local function normalize(vec)
+    local len = (vec.x^2 + vec.y^2) ^0.5
+    if len < 0.00001 then
+        len = 0.00001
+    end
+    vec.x = vec.x/len
+    vec.y = vec.y/len
+    return vec
+end
+
+screen_center = {
+    10, 5
+}
+
+local game_update = Game.update
+function Game:update(...)
+    if G.real_dt and G.GAME and G.GAME.hotpot_ads then
+
+        local center_x, center_y = screen_center[1], screen_center[2]
+        local speed = G.real_dt * 0.1
+        for _, ad in pairs(G.GAME.hotpot_ads) do
+            local dir_vector = normalize {
+                x = center_x - ad.T.w/2 - ad.T.x,
+                y = center_y - ad.T.h/2 - ad.T.y,
+            }
+
+            ad.T.x = ad.T.x + dir_vector.x * speed
+            ad.T.y = ad.T.y + dir_vector.y * speed
+        end
+
+    end
+    
+    return game_update(self, ...)
+end
+
