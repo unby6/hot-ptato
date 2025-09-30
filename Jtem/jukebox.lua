@@ -171,15 +171,21 @@ SMODS.Sound.inject = function(self, i)
 			tag.discoverable = true
 		end
 		JTJukebox.Music[tag.key] = tag
-		JTJukebox.MusicTags[#JTJukebox.MusicTags + 1] = tag
-		-- process descriptions
-		G.localization.descriptions.hpot_jukebox = G.localization.descriptions.hpot_jukebox or {}
-		G.localization.descriptions.hpot_jukebox[tag.key] = G.localization.descriptions.hpot_jukebox[tag.key] or {}
-		G.localization.descriptions.hpot_jukebox[tag.key].name = G.localization.descriptions.hpot_jukebox[tag.key].name or
-			{ tag.title, "{C:edition,s:0.6}" .. tag.artist }
-		G.localization.descriptions.hpot_jukebox[tag.key].text = G.localization.descriptions.hpot_jukebox[tag.key].text or
-			self.hpot_purpose or { "???" }
+        JTJukebox.MusicTags[#JTJukebox.MusicTags + 1] = tag
+        -- process descriptions
+        G.localization.descriptions.hpot_jukebox = G.localization.descriptions.hpot_jukebox or {}
+        G.localization.descriptions.hpot_jukebox[tag.key] = G.localization.descriptions.hpot_jukebox[tag.key] or {}
+        G.localization.descriptions.hpot_jukebox[tag.key].name = G.localization.descriptions.hpot_jukebox[tag.key].name or
+            { tag.title, "{C:edition,s:0.6}" .. tag.artist }
+        G.localization.descriptions.hpot_jukebox[tag.key].text = G.localization.descriptions.hpot_jukebox[tag.key].text or
+            self.hpot_purpose or { "???" }
 	end
+end
+
+local old_pre_inject = SMODS.Sound.pre_inject_class or function() end
+SMODS.Sound.pre_inject_class = function(self, ...)
+    old_pre_inject(self, ...)
+    JTJukebox.MusicTags = {}
 end
 
 -- check if we have discovered this
