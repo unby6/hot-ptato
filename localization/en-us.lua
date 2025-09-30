@@ -2231,7 +2231,7 @@ return {
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
                     "{C:purple}credits{}, and {C:hpot_advert}cryptocurrency{}",
-                    "for {C:blue}Joker Exchange"
+                    "for {C:blue}Jicks"
                 }
             },
             v_hpot_right_at_your_door = {
