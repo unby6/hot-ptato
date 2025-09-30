@@ -4523,13 +4523,14 @@ return {
                     text = {
                         {
                             "A mechanic inspired by {E:2,C:attention}delivery services{},",
-                            "which allows a client to receive",
-                            "{C:attention}various products{} from around the world",
+                            "which allow you to receive {C:attention}various products{}",
+                            "from around the world",
                         },
                         {
-                            "You can spend {C:attention}different currencies{} to queue",
-                            "{C:attention}Jokers{}, receiving them after a few {C:attention}rounds{}",
-                            "into your {C:dark_edition}Joker slots{}"
+                            "Order {C:attention}Jokers{} using different currencies",
+                            "Orders arrive after a few {C:attention}rounds{}",
+                            "directly into your {C:dark_edition}Joker slots{}",
+                            "{s:0.9,C:inactive}Must have room{}",
                         },
                     }
                 },
