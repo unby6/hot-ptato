@@ -21,7 +21,7 @@ SMODS.Joker {
         },
         astra_effect = {},
         wix_effect = {
-            xchips = 2
+            xchips = 1.5
         },
         myst_effect = {
             x_mult = 1,

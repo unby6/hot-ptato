@@ -245,7 +245,7 @@ SMODS.Joker{ --Adspace
     key = "adspace",
     config = {
         extra = {
-            chips = 30
+            chips = 15
         }
     },
     pos = { x = 3, y = 1 },

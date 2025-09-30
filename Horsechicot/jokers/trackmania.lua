@@ -40,4 +40,5 @@ SMODS.Joker {
     set_ability = function(self, card, from_debuff)  --so you cant reload game for x30 mult, etc
         card.ability.start_time = love.timer.getTime()
     end,
+    hotpot_credits = Horsechicot.credit("cg223", "cg223", "cg223")
 }
