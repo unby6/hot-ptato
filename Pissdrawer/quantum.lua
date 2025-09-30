@@ -74,12 +74,6 @@ SMODS.Joker {
     },
     no_collection = true,
     generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-        -- `self`, `info_queue`, `card`: See loc_vars
-        -- `desc_nodes`: A table to place UIElements into to be displayed in the current description box
-        -- `specific_vars`: Variables passed from outside the current `generate_ui` call. Can be ignored for modded objects
-        -- `full_UI_table`: A table representing the main description box. 
-        -- Mainly used for checking if this is the main description or a tooltip, or manipulating the main description from tooltips.
-        -- This function need not return anything, its effects should be applied by modifying desc_nodes
         local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
         SMODS.Joker.generate_ui(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
         desc_nodes[#desc_nodes+1] = {{
