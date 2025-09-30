@@ -24,7 +24,7 @@ SMODS.Joker {
     eternal_compat = true,
     calculate = function (self, card, context)
         if context.after then
-            card.ability.current = pseudorandom_element(HPJTTT.text, "hc_yapper")
+            card.ability.current = pseudorandom_element(HPJTTT.text_only, "hc_yapper")
             return {
                 message = localize("k_hotpot_reset_ex")
             }
