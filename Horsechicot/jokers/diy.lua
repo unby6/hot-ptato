@@ -29,8 +29,6 @@ SMODS.Joker {
             }
         end
     end,
-    atlas = "hc_jokers",
-    pos = {x = 7, y = 2},
     hotpot_credits = Horsechicot.credit("lord.ruby")
 }
 
@@ -46,7 +44,7 @@ HotPotato.trigger_options = {
 HotPotato.effect_options = {
     "hpot_diy_earn_dollars",
     "hpot_diy_earn_plincoins",
-    G.GAME.seeded and "hpot_diy_earn_budget" or "hpot_diy_earn_credits",
+    "hpot_diy_earn_credits", --G.GAME.seeded and "hpot_diy_earn_budget" or (why was that there obviously that wont work)
     "hpot_diy_earn_sparks",
     "hpot_diy_earn_crypto",
     "hpot_diy_random_consumable",
