@@ -3,6 +3,7 @@ SMODS.Tag({
 	config = { add = 35 },
 	atlas = "tname_tags",
 	pos = { x = 3, y = 0 },
+	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = { tag.config.add } }
 	end,
@@ -66,6 +67,7 @@ SMODS.Tag({
 	key = "mega_auras",
 	atlas = "tname_tags",
 	pos = { x = 0, y = 0 },
+	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
 		info_queue[#info_queue + 1] = G.P_CENTERS.p_hpot_auras_mega_1
 	end,
@@ -106,6 +108,7 @@ SMODS.Tag({
 	atlas = "tname_tags",
 	pos = { x = 2, y = 0 },
 	config = { max = 45 },
+	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = { tag.config.max } }
 	end,
