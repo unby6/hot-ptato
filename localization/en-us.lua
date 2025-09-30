@@ -5,7 +5,7 @@ return {
                 name = "Aura of Justice",
                 text = {
                     "{C:red}-#1# Joker Slots{},",
-                    "{C:purple}+c#2#"
+                    "{C:purple}+c.#2#"
                 }
             },
             c_hpot_fear = {
@@ -55,7 +55,7 @@ return {
                 text = {
                     "{C:red}Remove ALL Credits{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:purple}#1# Credits{} removed.",
+                    "for every {C:purple}c.#1#{} removed.",
                     "{C:inactive}(Currently #3##2# Copies.)"
                 }
             },

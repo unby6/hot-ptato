@@ -1602,11 +1602,11 @@ in_pool = function(self, args)
     pos = { x = 1, y = 0 },
     config = {
         extra = {
-            ['Common'] = 5,
-            ['Uncommon'] = 10,
-            ['Rare'] = 15,
-            ["Legendary"] = 30,
-            ['Bad'] = -10,
+            ['Common'] = 10,
+            ['Uncommon'] = 20,
+            ['Rare'] = 50,
+            ["Legendary"] = 75,
+            ['Bad'] = -20,
             chosen = 'Common'
         }
     },
