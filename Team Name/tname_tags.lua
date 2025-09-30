@@ -5,11 +5,14 @@ SMODS.Tag({
 	pos = { x = 3, y = 0 },
 	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
-		return { vars = { tag.config.add } }
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return { vars = { tag.config.add }, key = key }
 	end,
 	apply = function(self, tag, context)
 		if context.type == "immediate" then
-			tag:yep("+", G.C.PURPLE, function()
+			tag:yep("+", G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, function()
 				HPTN.ease_credits(tag.config.add)
 				return true
 			end)
@@ -114,7 +117,7 @@ SMODS.Tag({
 	end,
 	apply = function(self, tag, context)
 		if context.type == "immediate" then
-			tag:yep("+", G.C.PURPLE, function()
+			tag:yep("+", G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, function()
 				G.E_MANAGER:add_event(Event({
 					trigger = 'immediate',
 					func = function()

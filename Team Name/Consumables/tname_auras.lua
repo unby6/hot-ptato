@@ -29,9 +29,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.slots, hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -76,9 +80,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -140,9 +148,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.leavinghands, hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -191,9 +203,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -228,9 +244,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.slots, hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -271,9 +291,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.max, hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -309,9 +333,13 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = { hpt.credits },
+			key = key
 		}
 	end,
 	can_use = function(self, card)
@@ -336,12 +364,16 @@ SMODS.Consumable({
 		},
 	},
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
 			vars = {
 				hpt.credits,
 				math.max(0, math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits)),
-				((math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits) < 0) and "") or "+" }
+				((math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits) < 0) and "") or "+" },
+				key = key
 		}
 	end,
 	hotpot_credits = {

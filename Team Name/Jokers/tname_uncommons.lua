@@ -59,15 +59,15 @@ SMODS.Joker({
 		local jank = ""
         for i = card.ability.extra.min, card.ability.extra.max do
 			if i < 0 then
-				jank = " - c."
+				jank = G.GAME.seeded and " + e." or " - c."
 			else
-				jank = " + c." 
+				jank = G.GAME.seeded and " + e." or " + c." 
 			end
             r_mults[#r_mults + 1] = jank..math.abs(i)
         end
-        local loc_mult = {string = ' ', colour = G.C.PURPLE}
+        local loc_mult = {string = ' ', colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE}
         main_start = {
-            { n = G.UIT.O, config = { object = DynaText({ string = r_mults, colours = { G.C.PURPLE }, pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0 }) } },
+            { n = G.UIT.O, config = { object = DynaText({ string = r_mults, colours = { G.GAME.seeded and G.C.ORANGE or G.C.PURPLE }, pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0 }) } },
             {
                 n = G.UIT.O,
                 config = {
@@ -95,8 +95,8 @@ SMODS.Joker({
 		if context.joker_main then
 			HPTN.ease_credits(fuck, false)
 			return {
-				message = jank.."c."..fuck,
-				colour = G.C.PURPLE
+				message = jank..(G.GAME.seeded and "e." or "c.")..fuck,
+				colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
 			}
 		end
 	end,
@@ -213,9 +213,13 @@ SMODS.Joker({
 	pos = {x=8,y=0},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 			return {
 				vars = { hpt.xmult, hpt.credits},
+				key = key
 			}
 	end,
 	calculate = function(self, card, context)
