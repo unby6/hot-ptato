@@ -199,12 +199,16 @@ SMODS.Joker {
     eternal_compat = false,
     perishable_compat = true,
     loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
         return {
             vars = {
                 card.ability.extra.credit_gain,
                 card.ability.extra.social_credit,
                 card.ability.extra.social_credit_max
-            }
+            },
+            key = key
         }
     end,
     add_to_deck = function(self, card, from_debuff)

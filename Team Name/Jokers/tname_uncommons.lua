@@ -213,9 +213,13 @@ SMODS.Joker({
 	pos = {x=8,y=0},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 			return {
 				vars = { hpt.xmult, hpt.credits},
+				key = key
 			}
 	end,
 	calculate = function(self, card, context)
