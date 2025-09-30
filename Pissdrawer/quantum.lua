@@ -45,8 +45,8 @@ local cs = Card.save
 function Card:save()
     local cardTable = cs(self)
     if self.ability and self.ability.quantum_1 and type(self.ability.quantum_1) ~= 'string' then
-        for i=1, 2 do
-            cardTable['quantum_'..i] = Quantum.save(self.ability['quantum_'..i])
+        for i = 1, 2 do
+            cardTable['quantum_' .. i] = Quantum.save(self.ability['quantum_' .. i])
         end
     end
     return cardTable
@@ -75,13 +75,51 @@ SMODS.Joker {
     no_collection = true,
     generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
         local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
-        SMODS.Joker.generate_ui(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
-        desc_nodes[#desc_nodes+1] = {{
+        local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
+        func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
+        if q1.config.center.key == "j_blueprint" or q1.config.center.key == "j_brainstorm" then
+            desc_nodes[#desc_nodes + 1] =
+            {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = q1, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat' },
+                            nodes = {
+                                { n = G.UIT.T, config = { ref_table = q1.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
+            }
+        end
+        desc_nodes[#desc_nodes + 1] = { {
             n = G.UIT.C,
             config = { minh = 0.2 },
             nodes = {}
-        }}
-        SMODS.Joker.generate_ui(q2.config.center, info_queue, q2, desc_nodes, Card.generate_UIBox_ability_table(q2, true), full_UI_table)
+        } }
+        local func = (q2.config.center.generate_ui or SMODS.Joker.generate_ui)
+        func(q2.config.center, info_queue, q2, desc_nodes, Card.generate_UIBox_ability_table(q2, true), full_UI_table)
+        if q2.config.center.key == "j_blueprint" or q2.config.center.key == "j_brainstorm" then
+            desc_nodes[#desc_nodes + 1] =
+            {
+                {
+                    n = G.UIT.C,
+                    config = { align = "bm", minh = 0.4 },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = { ref_table = q2, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat' },
+                            nodes = {
+                                { n = G.UIT.T, config = { ref_table = q2.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            }
+                        }
+                    }
+                }
+            }
+        end
     end,
     calculate = function(self, card, context)
         if card.ability.quantum_1 and card.ability.quantum_2 then
@@ -132,14 +170,15 @@ SMODS.Joker {
         return false
     end,
     load = function(self, card, table, other)
-        if table.ability and table.ability.quantum_1 then 
+        if table.ability and table.ability.quantum_1 then
             local args = table.quantum_1
             args.config.center = G.P_CENTERS[args.key]
             table.ability.quantum_1 = Quantum(args)
             args = table.quantum_2
             args.config.center = G.P_CENTERS[args.key]
             table.ability.quantum_2 = Quantum(args)
-            update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key] or 'Joker'], G.P_CENTERS[table.ability.quantum_1.key].pos)
+            update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key] or 'Joker'],
+                G.P_CENTERS[table.ability.quantum_1.key].pos)
         end
     end,
 }
