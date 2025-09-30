@@ -3415,14 +3415,19 @@ return {
                 text = {
                     "{C:jtem_stats_speed}Speed{} - {V:1}#1#{}{V:6}#11#{} - {V:1}#2#",
                     "{s:0.8,C:inactive}Improves Chance of this Joker retriggering - +#16#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_stamina}Stamina{} - {V:2}#3#{}{V:6}#12#{} - {V:2}#4#",
                     "{s:0.8,C:inactive}Improves Energy restoration - +#17#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_power}Power{} - {V:3}#5#{}{V:6}#13#{} - {V:3}#6#",
                     "{s:0.8,C:inactive}Gives (X)Chips & (X)Mult - +#18#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_guts}Guts{} - {V:4}#7#{}{V:6}#14#{} - {V:4}#8#",
                     "{s:0.8,C:inactive}Improves Joker base stats - +#19#%",
+                    "{s:0.1} ",
                     "{C:jtem_stats_wits}Wits{} - {V:5}#9#{}{V:6}#15#{} - {V:5}#10#",
                     "{s:0.8,C:inactive}Improves sell cost - +#20#%",
+                    "{s:0.1} ",
                     "{C:dark_edition}Energy{} - {V:7}#21#{}/100{V:8}#22#"
                 },
             },
@@ -4587,8 +4592,8 @@ return {
                             "Gacha Racing game about {C:attention}Anime Horse girls{}",
                         },
                         {
-                            "You can spend {C:blue}Joker Exchange{} to start {C:attention}Training{},",
-                            "giving the Joker a {C:attention}random{} set of stats",
+                            "Select a Joker to begin {C:attention}Training{}",
+                            "You can purchase {C:blue}Jicks{} in Currency Exchange",
                         },
                         {
                             "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
@@ -4962,7 +4967,7 @@ return {
             k_wheel = "Wheel",
             k_nursery = "Nursery",
 
-            k_spark_per_turn = "Joker Currency needed per turn",
+            k_spark_per_turn = "Upgrade cost",
 
             hotpot_current_track = "CURRENT TRACK"
         },

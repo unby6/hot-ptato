@@ -607,7 +607,7 @@ function G.UIDEF.hotpot_pd_training_section()
 
     local button_minsize = 1.3
     local function create_train_button(train)
-        return {n = G.UIT.C, config = {align = "cm", padding = 0.05, r = 0.2, colour = G.C.training_colors[train], minw = button_minsize, minh = button_minsize, outline_colour = G.C.WHITE, outline = 1.6, button = "hotpot_training_grounds_train", train = train, hover = true, shadow = true, id = "button_train_"..train, is_train_button = true}, nodes = {
+        return {n = G.UIT.C, config = {align = "cm", padding = 0.05, r = 0.2, colour = G.C.training_colors[train], minw = button_minsize, minh = button_minsize, outline_colour = G.C.WHITE, outline = 1, button = "hotpot_training_grounds_train", train = train, hover = true, shadow = true, id = "button_train_"..train, is_train_button = true}, nodes = {
             {n = G.UIT.R, config = {align = "cm"}, nodes = {
                 {n = G.UIT.T, config = {text = localize("hotpot_"..train), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
             }},
@@ -672,11 +672,12 @@ function G.UIDEF.hotpot_pd_training_section()
                         {n=G.UIT.R, config = {minh = 0.1}},
                         {n = G.UIT.R, config = {align = "cm"}, nodes = {
                             {n = G.UIT.C, config = {align = "cm", minh = 0.65, minw = 1.5, r = 0.2, colour = G.C.WHITE, outline_colour = G.C.BLUE, outline = 1}, nodes = {
-                                {n = G.UIT.R, config = {align = "cm", colour = G.C.BLUE, padding = 0.05}, nodes = {
+                                {n = G.UIT.R, config = {align = "cm", colour = G.C.BLUE, padding = 0.1}, nodes = {
                                     {n = G.UIT.T, config = {text = localize("k_spark_per_turn"), scale = 0.3, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
                                 }},
-                                {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                                    {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = "spark_per_turn", scale = 0.3, colour = G.C.BLUE, shadow = true}},
+                                {n = G.UIT.R, config = {align = "cm", padding = 0.05}, nodes = {
+                                    {n = G.UIT.T, config = {text = localize('hotpot_reforge_sparks'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.BLUE, scale = 0.4, shadow = true}},
+                                    {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = "spark_per_turn", scale = 0.4, colour = G.C.BLUE, shadow = true}},
                                 }},
                             }}
                         }},
@@ -705,7 +706,7 @@ function G.UIDEF.hotpot_pd_training_section()
                         {n = G.UIT.R, config = {align = "cm", minh = 0.05}},
                     }},
                 }},
-                {n = G.UIT.R, config = {align = "cm", minh = 0.5}},
+                {n = G.UIT.R, config = {align = "cm", minh = 0.35}},
                 {n = G.UIT.R, config = {align = "cm", padding = 0.2}, nodes = {
                     create_train_button("speed"),
                     create_train_button("stamina"),
