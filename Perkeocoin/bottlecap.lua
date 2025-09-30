@@ -65,6 +65,25 @@ HotPotato.bottlecap_badges = function(self, card, badges)
     badges[#badges+1] = create_badge(localize("k_"..string.lower(card.ability.extra.chosen)), color, G.C.WHITE, 1 )
 end
 
+local function nope(card)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        attention_text({
+            text = localize('k_nope_ex'),
+            scale = 1.3, 
+            hold = 1.4,
+            major = card,
+            backdrop_colour = G.C.SECONDARY_SET.Tarot,
+            align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+            offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+            silent = true
+            })
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                play_sound('tarot2', 0.76, 0.4);return true end}))
+            play_sound('tarot2', 1, 0.4)
+            card:juice_up(0.3, 0.5)
+        return true end }))
+end
+
 SMODS.Consumable { --Money
 in_pool = function(self, args)
 		return true, { allow_duplicates = true }
@@ -127,11 +146,11 @@ in_pool = function(self, args)
     pos = { x = 5, y = 1 },
     config = {
         extra = {
-            ['Common'] = 1,
-            ['Uncommon'] = 2,
-            ['Rare'] = 3,
-            ['Legendary'] = 5,
-            ['Bad'] = -1,
+            ['Common'] = 3,
+            ['Uncommon'] = 5,
+            ['Rare'] = 7,
+            ['Legendary'] = 15,
+            ['Bad'] = -2,
             chosen = 'Common'
         }
     },
@@ -232,22 +251,7 @@ in_pool = function(self, args)
             end
             pseudorandom_element(valid, pseudoseed("cap_edition")):set_edition(card.ability.extra[card.ability.extra.chosen][1])
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -307,22 +311,7 @@ in_pool = function(self, args)
                 end}))
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -375,22 +364,7 @@ in_pool = function(self, args)
         if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
             SMODS.add_card({set = 'Joker', rarity = card.ability.extra[card.ability.extra.chosen], legendary = card.ability.extra[card.ability.extra.choden] == "Legendary", key_append = 'jokercap'}):juice_up(0.5,0.5)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -447,22 +421,7 @@ in_pool = function(self, args)
         if SMODS.pseudorandom_probability(card, 'cap_wheel', 1, card.ability.extra[card.ability.extra.chosen], 'cap_wheel') then
             ease_dollars(card.ability.extra.dollars)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -648,22 +607,7 @@ in_pool = function(self, args)
             end
         end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -900,22 +844,7 @@ in_pool = function(self, args)
                 SMODS.add_booster_to_shop()
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1082,22 +1011,7 @@ in_pool = function(self, args)
                 end)}))
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1162,22 +1076,7 @@ in_pool = function(self, args)
                 end)}))
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1426,12 +1325,11 @@ in_pool = function(self, args)
     pos = { x = 0, y = 3 },
     config = {
         extra = {
-            ['Common'] = 2,
-            ['Uncommon'] = 3,
-            ['Rare'] = 5,
-            ['Legendary'] = 7,
-            chosen = 'Common',
-            every = 2
+            ['Common'] = 5,
+            ['Uncommon'] = 8,
+            ['Rare'] = 13,
+            ['Legendary'] = 25,
+            chosen = 'Common'
         }
     },
         hotpot_credits = {
@@ -1451,7 +1349,7 @@ in_pool = function(self, args)
         ['bottlecap_Rare'] = true
     },
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen, card.ability.extra.every}}
+        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
 
     set_badges = HotPotato.bottlecap_badges,
@@ -1461,25 +1359,10 @@ in_pool = function(self, args)
     end,
 
     use = function(self, card, area, copier)
-        if G.GAME.plincoins >= card.ability.extra.every then
-            ease_plincoins(math.min(card.ability.extra[card.ability.extra.chosen], math.floor(G.GAME.plincoins / card.ability.extra.every)))
+        if G.GAME.plincoins > 0 then
+            ease_plincoins(math.min(card.ability.extra[card.ability.extra.chosen], G.GAME.plincoins))
         else
-             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1531,22 +1414,7 @@ in_pool = function(self, args)
             G.jokers:emplace(_card)
             _card:juice_up(0.5,0.5)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1618,22 +1486,7 @@ in_pool = function(self, args)
             end
             
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1699,22 +1552,7 @@ in_pool = function(self, args)
             local random_joker = pseudorandom_element(G.jokers.cards)
             apply_modification(random_joker, random_modif(card.ability.extra[card.ability.extra.chosen], card).key)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1834,22 +1672,7 @@ in_pool = function(self, args)
                 end)}))
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }

@@ -589,9 +589,8 @@ return {
             c_hpot_cap_venture = {
                 ['name'] = 'Venture Capital',
                 ['text'] = {
-                    [1] = "Earn {C:hpot_plincoin,f:hpot_plincoin}$1{} of interest",
-                    [2] = "for every {C:hpot_plincoin,f:hpot_plincoin}$#3#{} you have",
-                    [3] = "{C:inactive}(Max of {C:hpot_plincoin,f:hpot_plincoin}$#1#{C:inactive})"
+                    [1] = "Doubles your Plincoins",
+                    [2] = "{C:inactive}(Max of {C:hpot_plincoin,f:hpot_plincoin}$#1#{C:inactive})"
                 }
             },
             c_hpot_cap_duplicate = {
