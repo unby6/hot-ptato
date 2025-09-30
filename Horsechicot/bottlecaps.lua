@@ -1,8 +1,8 @@
 SMODS.Atlas({key = "hc_capatlas", path = "Horsechicot/bottlecaps.png", px = 34, py = 34, atlas_table = "ASSET_ATLAS"}):register()
 
-SMODS.Consumable { --Plincoin
+SMODS.Consumable {
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Cryptocurrency',
     key = 'cap_crypto',
@@ -59,7 +59,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable {
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Chaos',
     key = 'cap_chaos',
