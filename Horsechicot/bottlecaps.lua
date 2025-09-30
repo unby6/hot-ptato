@@ -114,7 +114,7 @@ in_pool = function(self, args)
 function use_random_bottlecap(self, card)
     local caps = {}
     for i, v in pairs(G.P_CENTER_POOLS.bottlecap) do
-        if not v.no_chaos and v.config.extra and v.config.extra[card.ability.chosen] then
+        if not v.no_chaos then
             caps[#caps+1] = v
         end
     end
