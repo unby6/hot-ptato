@@ -34,14 +34,19 @@ SMODS.Joker {
     set_ability = function(self, card, initial, delay_sprites)
         local chosen_index = pseudorandom('oap', 1, 7)
         card.ability.extra.effect = choices[chosen_index]
-        card.children.center.atlas = G.ASSET_ATLAS['hpot_oap_self_insert']
         card.children.center:set_sprite_pos({ x = chosen_index - 1, y = 0 })
     end,
-    set_sprites = function(self, card)
+    set_sprites = function(self, card) -- Kept if card is added from debug
         if not card.ability then return end
         for k, v in ipairs(choices) do
-            if card.ability.extra.effect == v then
-                card.children.center.atlas = G.ASSET_ATLAS['hpot_oap_self_insert']
+            if card.ability.extra and card.ability.extra.effect == v then
+                card.children.center:set_sprite_pos({ x = k - 1, y = 0 })
+            end
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff) -- Set sprite on card copy
+        for k, v in ipairs(choices) do
+            if card.ability.extra and card.ability.extra.effect == v then
                 card.children.center:set_sprite_pos({ x = k - 1, y = 0 })
             end
         end

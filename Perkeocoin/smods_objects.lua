@@ -214,7 +214,7 @@ SMODS.Joker{ --Tribcoin
     key = "tribcoin",
     config = {
         extra = {
-            Xmult = 0.25
+            Xmult = 0.2
         }
     },
     pos = { x = 3, y = 0 },
@@ -447,7 +447,7 @@ SMODS.Joker{ --Free To Use
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'dottykitty'},
+        art = {'Omegaflowey18'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },

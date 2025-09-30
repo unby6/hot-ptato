@@ -65,9 +65,28 @@ HotPotato.bottlecap_badges = function(self, card, badges)
     badges[#badges+1] = create_badge(localize("k_"..string.lower(card.ability.extra.chosen)), color, G.C.WHITE, 1 )
 end
 
+local function nope(card)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        attention_text({
+            text = localize('k_nope_ex'),
+            scale = 1.3, 
+            hold = 1.4,
+            major = card,
+            backdrop_colour = G.C.SECONDARY_SET.Tarot,
+            align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+            offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+            silent = true
+            })
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                play_sound('tarot2', 0.76, 0.4);return true end}))
+            play_sound('tarot2', 1, 0.4)
+            card:juice_up(0.3, 0.5)
+        return true end }))
+end
+
 SMODS.Consumable { --Money
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Money',
     key = 'cap_money',
@@ -118,7 +137,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Plincoin
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Plincoin',
     key = 'cap_plincoin',
@@ -127,11 +146,11 @@ in_pool = function(self, args)
     pos = { x = 5, y = 1 },
     config = {
         extra = {
-            ['Common'] = 1,
-            ['Uncommon'] = 2,
-            ['Rare'] = 3,
-            ['Legendary'] = 5,
-            ['Bad'] = -1,
+            ['Common'] = 3,
+            ['Uncommon'] = 5,
+            ['Rare'] = 7,
+            ['Legendary'] = 15,
+            ['Bad'] = -2,
             chosen = 'Common'
         }
     },
@@ -169,7 +188,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Edition
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Edition',
     key = 'cap_edition',
@@ -232,29 +251,14 @@ in_pool = function(self, args)
             end
             pseudorandom_element(valid, pseudoseed("cap_edition")):set_edition(card.ability.extra[card.ability.extra.chosen][1])
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Perkeo
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Perkeo',
     key = 'cap_perkeo',
@@ -307,29 +311,14 @@ in_pool = function(self, args)
                 end}))
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Joker
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Joker',
     key = 'cap_joker',
@@ -375,29 +364,14 @@ in_pool = function(self, args)
         if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
             SMODS.add_card({set = 'Joker', rarity = card.ability.extra[card.ability.extra.chosen], legendary = card.ability.extra[card.ability.extra.choden] == "Legendary", key_append = 'jokercap'}):juice_up(0.5,0.5)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Wheel
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Wheel',
     key = 'cap_wheel',
@@ -447,29 +421,14 @@ in_pool = function(self, args)
         if SMODS.pseudorandom_probability(card, 'cap_wheel', 1, card.ability.extra[card.ability.extra.chosen], 'cap_wheel') then
             ease_dollars(card.ability.extra.dollars)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Sticker
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Sticker',
     key = 'cap_sticker',
@@ -586,7 +545,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Anti-Joker 
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Anti-Joker',
     key = 'cap_anti_joker',
@@ -648,29 +607,14 @@ in_pool = function(self, args)
             end
         end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Tag
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Tag',
     key = 'cap_tag',
@@ -738,7 +682,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Hands
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Hands',
     key = 'cap_hands',
@@ -791,7 +735,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Discards
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Discards',
     key = 'cap_discards',
@@ -844,7 +788,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Pack
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Pack',
     key = 'cap_pack',
@@ -900,29 +844,14 @@ in_pool = function(self, args)
                 SMODS.add_booster_to_shop()
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Capitalism
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Capitalism',
     key = 'cap_italism',
@@ -973,7 +902,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Inflation
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Inflation',
     key = 'cap_inflation',
@@ -1018,7 +947,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Emperor
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Emperor',
     key = 'cap_emperor',
@@ -1082,29 +1011,14 @@ in_pool = function(self, args)
                 end)}))
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Consumable
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Consumable',
     key = 'cap_consumable',
@@ -1162,29 +1076,14 @@ in_pool = function(self, args)
                 end)}))
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Voucher
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Voucher',
     key = 'cap_voucher',
@@ -1334,7 +1233,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE 
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Perkeo?',
     key = 'cap_perkeo_quip',
@@ -1376,7 +1275,7 @@ in_pool = function(self, args)
         card.states.visible = false
         local real_perky = SMODS.create_card{key = 'j_perkeo', area = G.play}
 	    real_perky.states.visible = false
-        local perkolator = Card_Character({x = real_perky.T.x,y = real_perky.T.y,w = real_perky.T.w,h = real_perky.T.h,center = G.P_CENTERS.j_perkeo,})
+        local perkolator = Card_Character({x = real_perky.T.x,y = real_perky.T.y,w = real_perky.T.w,h = real_perky.T.h,center = 'j_perkeo',})
 
 
 
@@ -1417,7 +1316,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Venture Capital
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Venture Capital',
     key = 'cap_venture',
@@ -1426,12 +1325,11 @@ in_pool = function(self, args)
     pos = { x = 0, y = 3 },
     config = {
         extra = {
-            ['Common'] = 2,
-            ['Uncommon'] = 3,
-            ['Rare'] = 5,
-            ['Legendary'] = 7,
-            chosen = 'Common',
-            every = 2
+            ['Common'] = 5,
+            ['Uncommon'] = 8,
+            ['Rare'] = 13,
+            ['Legendary'] = 25,
+            chosen = 'Common'
         }
     },
         hotpot_credits = {
@@ -1451,7 +1349,7 @@ in_pool = function(self, args)
         ['bottlecap_Rare'] = true
     },
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen, card.ability.extra.every}}
+        return {vars = {card.ability.extra[card.ability.extra.chosen], card.ability.extra.chosen}}
     end,
 
     set_badges = HotPotato.bottlecap_badges,
@@ -1461,32 +1359,17 @@ in_pool = function(self, args)
     end,
 
     use = function(self, card, area, copier)
-        if G.GAME.plincoins >= card.ability.extra.every then
-            ease_plincoins(math.min(card.ability.extra[card.ability.extra.chosen], math.floor(G.GAME.plincoins / card.ability.extra.every)))
+        if G.GAME.plincoins > 0 then
+            ease_plincoins(math.min(card.ability.extra[card.ability.extra.chosen], G.GAME.plincoins))
         else
-             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Duplicate
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Duplicate',
     key = 'cap_duplicate',
@@ -1531,22 +1414,7 @@ in_pool = function(self, args)
             G.jokers:emplace(_card)
             _card:juice_up(0.5,0.5)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
@@ -1554,7 +1422,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Sticker Bomb (change this to use poll_sticker() )
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Sticker Bomb',
     key = 'cap_sticker_bomb',
@@ -1618,29 +1486,14 @@ in_pool = function(self, args)
             end
             
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Modification
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Cap Modification',
     key = 'cap_modif',
@@ -1699,29 +1552,14 @@ in_pool = function(self, args)
             local random_joker = pseudorandom_element(G.jokers.cards)
             apply_modification(random_joker, random_modif(card.ability.extra[card.ability.extra.chosen], card).key)
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
 
 SMODS.Consumable { --Credit
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Credits',
     key = 'cap_credits',
@@ -1772,7 +1610,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { -- Team Name Consumable
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Team Name Consumable',
     key = 'cap_tname_consumables',
@@ -1834,22 +1672,7 @@ in_pool = function(self, args)
                 end)}))
             end
         else
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            attention_text({
-                text = localize('k_nope_ex'),
-                scale = 1.3, 
-                hold = 1.4,
-                major = card,
-                backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
-                offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
-                silent = true
-                })
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
-                    play_sound('tarot2', 0.76, 0.4);return true end}))
-                play_sound('tarot2', 1, 0.4)
-                card:juice_up(0.3, 0.5)
-            return true end }))
+            nope(card)
         end
     end
 }
