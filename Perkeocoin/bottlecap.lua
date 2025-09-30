@@ -86,7 +86,7 @@ end
 
 SMODS.Consumable { --Money
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Money',
     key = 'cap_money',
@@ -137,7 +137,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Plincoin
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Plincoin',
     key = 'cap_plincoin',
@@ -188,7 +188,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Edition
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Edition',
     key = 'cap_edition',
@@ -258,7 +258,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Perkeo
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Perkeo',
     key = 'cap_perkeo',
@@ -318,7 +318,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Joker
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Joker',
     key = 'cap_joker',
@@ -371,7 +371,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Wheel
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Wheel',
     key = 'cap_wheel',
@@ -428,7 +428,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Sticker
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Sticker',
     key = 'cap_sticker',
@@ -545,7 +545,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Anti-Joker 
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Anti-Joker',
     key = 'cap_anti_joker',
@@ -614,7 +614,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Tag
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Tag',
     key = 'cap_tag',
@@ -682,7 +682,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Hands
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Hands',
     key = 'cap_hands',
@@ -735,7 +735,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Discards
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Discards',
     key = 'cap_discards',
@@ -788,7 +788,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Pack
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Pack',
     key = 'cap_pack',
@@ -851,7 +851,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Capitalism
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Capitalism',
     key = 'cap_italism',
@@ -902,7 +902,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Inflation
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Inflation',
     key = 'cap_inflation',
@@ -947,7 +947,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Emperor
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Emperor',
     key = 'cap_emperor',
@@ -1018,7 +1018,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Consumable
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Consumable',
     key = 'cap_consumable',
@@ -1083,7 +1083,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Voucher
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Voucher',
     key = 'cap_voucher',
@@ -1233,7 +1233,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Perkeo Quip         <--- QUIPS IN HERE 
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Perkeo?',
     key = 'cap_perkeo_quip',
@@ -1316,7 +1316,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Venture Capital
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Venture Capital',
     key = 'cap_venture',
@@ -1369,7 +1369,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Duplicate
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Duplicate',
     key = 'cap_duplicate',
@@ -1422,7 +1422,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Sticker Bomb (change this to use poll_sticker() )
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Sticker Bomb',
     key = 'cap_sticker_bomb',
@@ -1493,7 +1493,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Modification
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Cap Modification',
     key = 'cap_modif',
@@ -1559,7 +1559,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { --Credit
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Credits',
     key = 'cap_credits',
@@ -1610,7 +1610,7 @@ in_pool = function(self, args)
 
 SMODS.Consumable { -- Team Name Consumable
 in_pool = function(self, args)
-		return true, { allow_duplicates = true }
+		return true, { allow_duplicates = false }
 	end,
     name = 'Team Name Consumable',
     key = 'cap_tname_consumables',
