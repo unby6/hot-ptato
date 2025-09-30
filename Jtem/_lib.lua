@@ -9,6 +9,24 @@ function init_jtem(game)
 	G.hpot_training_consumable_highlighted = nil
 end
 
+-- I needed these earlier than Perkeocoins files were loaded so theyre here now
+SMODS.Gradient {
+    key = 'plincoin',
+    colours = {G.C.MONEY, G.C.GREEN},
+    cycle = 1
+}
+SMODS.Gradient {
+    key = 'advert',
+    colours = {G.C.FILTER, G.C.RED},
+    cycle = 1
+}
+
+-- SMODS.Fonts.hpot_plincoin
+SMODS.Font {
+  key = "plincoin",
+  path = "plincoin2.ttf"
+}
+
 -- For the splash text
 function ease_splash_text(delta, reset)
 	if not G.SPLASH_TEXT or type(HPJTTT.text[HPJTTT.chosen]) ~= 'string' then

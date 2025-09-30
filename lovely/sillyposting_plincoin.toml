@@ -11,12 +11,6 @@ position = 'before'
 pattern = '''
 add_round_eval_row({name = 'bottom', dollars = dollars})'''
 payload = '''
-    if G.GAME.selected_back.name == "b_hpot_domn" and G.GAME.blind.boss then
-        i = i+1
-        add_round_eval_row({dollars = 1, bonus = true, name='deck'..i, pitch = pitch, card = G.GAME.selected_back})
-        pitch = pitch + 0.06
-        dollars = dollars + 1
-    end
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         for _, _card in ipairs(area.cards) do
             local ret = _card:calculate_plincoin_bonus()
@@ -28,11 +22,6 @@ payload = '''
                 pitch = pitch + 0.06
             end
         end
-    end
-    if G.GAME.selected_back.name == "b_hpot_domn" and G.GAME.blind.boss then
-        i = i+1
-        add_round_eval_plincoins({name='plincoins', plincoins = 1, bonus = true, name='deck'..i, pitch = pitch, card = G.GAME.selected_back})
-        pitch = pitch + 0.06
     end
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         for _, _card in ipairs(area.cards) do
@@ -48,11 +37,6 @@ payload = '''
             end
         end
     end
-    if G.GAME.selected_back.name == "b_hpot_domn" and G.GAME.blind.boss then
-        i = i+1
-        add_round_eval_crypto({cryptocurrency = 1, bonus = true, name='deck'..i, pitch = pitch, card = G.GAME.selected_back})
-        pitch = pitch + 0.06
-    end
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         for _, _card in ipairs(area.cards) do
             local ret = _card:calculate_spark_point_bonus()
@@ -64,11 +48,6 @@ payload = '''
                 pitch = pitch + 0.06
             end
         end
-    end
-    if G.GAME.selected_back.name == "b_hpot_domn" and G.GAME.blind.boss then
-        i = i+1
-        add_round_eval_spark_points({spark_points = 1, bonus = true, name='deck'..i, pitch = pitch, card = G.GAME.selected_back})
-        pitch = pitch + 0.06
     end
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         for _, _card in ipairs(area.cards) do
@@ -84,8 +63,8 @@ payload = '''
     end
     if G.GAME.selected_back.name == "b_hpot_domn" and G.GAME.blind.boss then
         i = i+1
-        add_round_eval_credits({credits = 1, bonus = true, name='deck'..i, pitch = pitch, card = G.GAME.selected_back})
-        pitch = pitch + 0.06
+        add_round_eval_all_currencies({bonus = true, name='deck'..i, pitch = pitch, card = G.GAME.selected_back})
+        dollars = dollars + 1
     end
 '''
 match_indent = true
