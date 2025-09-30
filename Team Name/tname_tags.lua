@@ -113,7 +113,10 @@ SMODS.Tag({
 	config = { max = 45 },
 	min_ante = 3, 
 	loc_vars = function(self, info_queue, tag)
-		return { vars = { tag.config.max } }
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return { vars = { tag.config.max }, key = key }
 	end,
 	apply = function(self, tag, context)
 		if context.type == "immediate" then

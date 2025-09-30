@@ -1155,7 +1155,7 @@ HotPotato.EventStep({
 	get_choices = function(self, event)
 		return {
 			{
-				key = "hpot_exchange_credits_to_dollars",
+				key = G.GAME.seeded and "hpot_exchange_budget_to_dollars" or"hpot_exchange_credits_to_dollars",
 				no_prefix = true,
 				loc_vars = { convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR") },
 				button = function()
@@ -1805,6 +1805,12 @@ HotPotato.EventScenario {
 }
 HotPotato.EventStep {
 	key = "mb_1",
+	loc_vars = function (self, event)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return {key = key}
+	end,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1815,7 +1821,7 @@ HotPotato.EventStep {
 				end,
 			},
 			{
-				key = "hpot_mystery_box",
+				key = "hpot_mystery_box"..(G.GAME.seeded and "_budget" or ""),
 				no_prefix = true,
 				button = function()
 					HPTN.ease_credits(-5)
@@ -1866,6 +1872,12 @@ HotPotato.EventStep {
 }
 HotPotato.EventStep {
 	key = "mb_3",
+	loc_vars = function (self, event)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return {key = key}
+	end,
 	get_choices = function(self, event)
 		return {
 			{

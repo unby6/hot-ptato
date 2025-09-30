@@ -111,7 +111,7 @@ return {
             c_hpot_power_budget = {
                 name = "Aura of Power",
                 text = {
-                    "{C:red}Remove ALL Budgets{},",
+                    "{C:red}Remove ALL Budget{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
                     "for every {C:attention}e.#1#{} removed.",
                     "{C:inactive}(Currently #3##2# Copies.)"
@@ -2324,6 +2324,14 @@ return {
                     "for {C:blue}Jicks"
                 }
             },
+            v_hpot_exchange_rate_budget = {
+                name = "Exchange Rate",
+                text = {
+                    "Enable converting {C:hpot_plincoin}plincoins",
+                    "{C:attention}budget{}, and {C:hpot_advert}cryptocurrency{}",
+                    "for {C:blue}Jicks"
+                }
+            },
             v_hpot_right_at_your_door = {
                 name = "Right at Your Door",
                 text = {
@@ -2356,11 +2364,29 @@ return {
                     "you would earn"
                 }
             },
+            v_hpot_digital_payment_budget = {
+                name = "Digital Payment",
+                text = {
+                    "Earn no interest.",
+                    "gain {C:attention}+#1#{} Budget{}",
+                    "for each interest",
+                    "you would earn"
+                }
+            },
             v_hpot_digital_promotion = {
                 name = "Digital Promotion",
                 text = {
                     "Earn no hand money.",
                     "gain {C:purple}+#1#{} Credits{}",
+                    "for each spare hand",
+                    "you would earn"
+                }
+            },
+            v_hpot_digital_promotion_budget = {
+                name = "Digital Promotion",
+                text = {
+                    "Earn no hand money.",
+                    "gain {C:attention}+#1#{} Budget{}",
                     "for each spare hand",
                     "you would earn"
                 }
@@ -3783,7 +3809,15 @@ return {
                 name = "Economy Tag?",
                 text = {
                     "{C:attention}Doubles{} your",
-                    "{C:purle}Credits{}",
+                    "{C:purple}Credits{}",
+                    "{C:inactive}(Max of #1#)"
+                }
+            },
+            tag_hpot_credit_econ_budget = {
+                name = "Economy Tag?",
+                text = {
+                    "{C:attention}Doubles{} your",
+                    "{C:attention}Budget{}",
                     "{C:inactive}(Max of #1#)"
                 }
             },
@@ -3846,6 +3880,13 @@ return {
                 name = "The Credential",
                 text = {
                     "Lose 5 Credits when",
+                    "hand is played"
+                }
+            },
+            bl_hpot_credential_budget = {
+                name = "The Budgetal",
+                text = {
+                    "Lose 5 Budget when",
                     "hand is played"
                 }
             },
@@ -4179,6 +4220,14 @@ return {
                     "Don't you wanna {C:attention}open{} it?"
                 }
             },
+            hpot_mb_1_budget = {
+                text = {
+                    "Hello! {C:attention}Team Name{} made budgets,",
+                    "and now's your chance to {C:attention}use{} them!",
+                    "Luckily, we have a neat {C:attention}mystery box{} in front of us!",
+                    "Don't you wanna {C:attention}open{} it?"
+                }
+            },
             hpot_mb_2 = {
                 text = {
                     "Ooh, neat! A {C:dark_edition,E:1}Five Star{}!",
@@ -4195,6 +4244,16 @@ return {
                     " ",
                     " ",
                     "{C:inactive}And credits.{}"
+                }
+            },
+            hpot_mb_3_budget = {
+                text = {
+                    "{C:inactive}You have the feeling what just happened{}",
+                    "{C:inactive}was a major waste of time.{}",
+                    " ",
+                    " ",
+                    " ",
+                    "{C:inactive}And budget.{}"
                 }
             },
             hpot_mb_4 = {
@@ -4366,6 +4425,20 @@ return {
                     " ",
                     "Who do you ask for help?"
                 }
+            },
+            hpot_business_venture_1_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		}
+            },
+            hpot_postlatro_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		}
             },
         },
         EventScenarios = {
@@ -4887,6 +4960,7 @@ return {
             k_imaginary = "Imaginary",
 
             k_credits = "Credits",
+            k_budget = "Budget",
             teamname_budget = "Set Budget",
             teamname_seeded = "Seeded!",
             teamname_off_reference = "Revived",
@@ -5015,6 +5089,7 @@ return {
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
             hpot_diy_earn_credits = "Earn 0.1 Credits",
+            hpot_diy_earn_budget = "Earn 0.1 Budget",
             hpot_diy_earn_sparks = "Earn 1000 Spark Points",
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
@@ -5104,6 +5179,8 @@ return {
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
             hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)',
+            hotpot_budget_cashout = 'Budget (#1# per interest)',
+            hotpot_budget_cashout2 = 'Budget (#1# per interest, #2# per hand)',
 
             k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
             k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
@@ -5199,6 +5276,7 @@ return {
             hpot_food_trade_choose_ignore = "Ignore them",
 
             hpot_exchange_credits_to_dollars = "Credits to Dollars",
+            hpot_exchange_budget_to_dollars = "Budget to Dollars",
             hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
             hpot_exchange_sparks_to_dollars = "Jicks to Dollars",
             hpot_ignore_or_something = "Ignore",
@@ -5212,6 +5290,7 @@ return {
             hpot_trolley_cards = "Direct at Playing Cards",
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
             hpot_mystery_box = "Open (5 credits)",
+            hpot_mystery_box_budget = "Open (5 budget)",
 
             hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})",
 
@@ -5231,7 +5310,33 @@ return {
             hpot_tech_support_ask_bepis = "Ask Bepis",
             hpot_tech_support_ask_deadbeet = "Ask Deadbeet",
             hpot_tech_support_ask_fey = "Ask Fey",
-            hpot_tech_support_ask_tacashumi = "Ask Tacashumi"
+            hpot_tech_support_ask_tacashumi = "Ask Tacashumi", -- revo do your shenanigans
+            --[[hpot_business_venture_1_start_budget_invest_100 = "Invest {C:attention}e.100",
+            hpot_business_venture_1_start_budget_invest_500 = "Invest {C:attention}e.500",
+            hpot_business_venture_1_start_budget_invest_1000 = "Invest {C:attention}e.1000",
+            hpot_postlatro_start_budgetcredits = "{C:money}$10{} > {C:attention}e.100",
+            hpot_postlatro_start_budget_invest_500 = "Invest {C:attention}e.500",
+            hpot_postlatro_start_budget_invest_1000 = "Invest {C:attention}e.1000",
         }
+            hpot_postlatro_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		},
+		
+		choices = {
+			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
+			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
+			credits = "{C:money}$10{} > {C:purple}c.100",
+			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
+			from_spark = "{C:blue,f:hpot_plincoin}͸10k{} > {C:money}$1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
+			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
+			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
+			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
+			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
+		}]]
     }
+}
 }

@@ -73,6 +73,12 @@ SMODS.Blind {
         end
     end,
     key = "credential",
+    loc_vars = function (self)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+        return {key = key}
+    end,
     atlas = "Fuck",
     pos = { x= 0, y = 0 },
     dollars = 5,
