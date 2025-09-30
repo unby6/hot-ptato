@@ -4790,6 +4790,7 @@ return {
             k_imaginary = "Imaginary",
 
             k_credits = "Credits",
+            teamname_seeded = "Seeded!",
             teamname_off_reference = "Revived",
             teamname_replaced = "Replaced!",
             teamname_active = "active", -- im pretty sure balala already has these built in but whatever

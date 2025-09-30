@@ -414,6 +414,7 @@ end
 
 -- probably shouldve made this a global function but whatever
 function HPTN.ease_credits(amount, instant)
+    if not G.GAME.seeded then
     amount = amount or 0
     if ExtraCredit and (amount > 0) then
         amount = amount * 3
@@ -466,6 +467,17 @@ function HPTN.ease_credits(amount, instant)
     end
 
     G:save_progress()
+else
+    local jank = G.HUD:get_UIE_by_ID('dollar_text_UI')
+    attention_text({
+        text = localize("teamname_seeded"),
+        scale = 0.8,
+        hold = 0.7,
+        cover = jank.parent,
+        cover_colour = G.C.RED,
+        align = 'cm',
+    })
+end
 end
 
 function HPTN.set_credits(amount)
