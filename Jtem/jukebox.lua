@@ -195,6 +195,19 @@ function set_profile_progress()
 	end
 end
 
+local old_unlock_all = G.FUNCS.unlock_all
+function G.FUNCS.unlock_all(...)
+    old_unlock_all(...)
+    G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] = G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] or
+		{}
+    for tag, t in pairs(JTJukebox.Music) do
+		if t.discoverable then
+            G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][tag] = true
+			t.discovered = true
+		end
+	end
+end
+
 -- just add my shit bruh
 JTJukebox.create_collection_ui = function(_pool, rows, args)
 	args = args or {}
