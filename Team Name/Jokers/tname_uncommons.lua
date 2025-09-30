@@ -205,8 +205,8 @@ SMODS.Joker({
 	rarity = 2,
 	config = {
 		extra = {
-			xmult = 0.5,
-			credits = 10,
+			xmult = 0.75,
+			credits = 30,
 			hands = 0
 		},
 	},

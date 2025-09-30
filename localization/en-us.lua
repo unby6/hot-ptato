@@ -1330,7 +1330,7 @@ return {
                 name = "Credits EX",
                 text = {
                     { "{X:mult,C:white}X#1#{} Mult" },
-                    { "{C:purple}+#2#c.{} for each hand played this round" }
+                    { "{C:purple}+c.#2#{} for each hand played this round" }
                 }
             },
             j_hpot_jankman = {
