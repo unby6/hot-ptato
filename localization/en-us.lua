@@ -5063,7 +5063,8 @@ return {
             modif_hpot_jagged = "Jagged",
             modif_hpot_menacing = "Menacing",
             modif_hpot_flawed = "Flawed",
-            modif_hpot_rusty = "rusty",
+            modif_hpot_rusty = "Rusty",
+            modif_hpot_sharpened = "Sharpened",
 
         },
         EventChoices = {
