@@ -400,22 +400,7 @@ HotPotato.EventStep({
 	end,
 
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event {
-				func = function()
-					jimbo_card.children.card:start_dissolve()
-					return true
-				end
-			})
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 HotPotato.EventStep({
@@ -471,16 +456,7 @@ HotPotato.EventStep({
 		end
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 HotPotato.EventStep({
@@ -608,16 +584,7 @@ HotPotato.EventStep({
 		}))
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 
@@ -708,16 +675,7 @@ HotPotato.EventStep({
 		})
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end
 })
 
@@ -5534,7 +5492,7 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-	key = "hpot_postlatro_start",
+	key = "postlatro_start",
 	loc_txt = {
 		text = {
 		},
@@ -5741,11 +5699,10 @@ HotPotato.EventStep {
 				new_shop_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
 				G.E_MANAGER:add_event(Event({
 					func = (function()
-						if not G.shop_jokers then return true end
 						if new_shop_card.children.price then
 							hpot_event_transaction_change_shop_price(new_shop_card)
-							return true
 						end
+						return true
 					end)
 				}))
 			else
@@ -5765,11 +5722,10 @@ HotPotato.EventStep {
 				voucher_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
 				G.E_MANAGER:add_event(Event({
 					func = (function()
-						if not G.shop_jokers then return true end
 						if voucher_card.children.price then
 							hpot_event_transaction_change_shop_price(voucher_card)
-							return true
 						end
+						return true
 					end)
 				}))
 			end
@@ -5820,7 +5776,7 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-	key = "hpot_black_market_alley_start",
+	key = "black_market_alley_start",
 	loc_txt = {
 		text = {
 		},
@@ -6027,11 +5983,10 @@ HotPotato.EventStep {
 				new_shop_card.hpot_transaction_price = { currency = "crypto", price = 0 }
 				G.E_MANAGER:add_event(Event({
 					func = (function()
-						if not G.shop_jokers then return true end
 						if new_shop_card.children.price then
 							hpot_event_transaction_change_shop_price(new_shop_card, true)
-							return true
 						end
+						return true
 					end)
 				}))
 			else
@@ -6050,12 +6005,13 @@ HotPotato.EventStep {
 				voucher_card:juice_up()
 				voucher_card.hpot_transaction_price = { currency = "crypto", price = 0 }
 				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.1,
 					func = (function()
-						if not G.shop_jokers then return true end
 						if voucher_card.children.price then
 							hpot_event_transaction_change_shop_price(voucher_card, true)
-							return true
 						end
+						return true
 					end)
 				}))
 			end

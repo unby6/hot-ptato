@@ -158,7 +158,7 @@ SMODS.Sticker({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.joker_main or (context.main_scroing and context.cardarea == G.play) then
+		if context.joker_main or (context.main_scoring and context.cardarea == G.play) then
 			return {
 				xmult = self.config.xmult,
 			}
