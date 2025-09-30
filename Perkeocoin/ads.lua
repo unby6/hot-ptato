@@ -337,7 +337,7 @@ end
 
 local game_update = Game.update
 function Game:update(...)
-    if G.real_dt and G.GAME and G.GAME.hotpot_ads then
+    if G.real_dt and G.GAME and G.GAME.hotpot_ads and not G.freeze_ads then
 
         local center_x, center_y = 10, 5
         local speed = G.real_dt * 0.1
