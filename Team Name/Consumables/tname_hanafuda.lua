@@ -1685,22 +1685,38 @@ SMODS.Consumable({
 		return highlight_jokers_hand(hpt.high, true)
 	end,
 	use = function(self, card, area, copier)
-		local modif, modif2
+		
+		local modif
 		local remove = {}
 		for i = 1, #G.jokers.highlighted do
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.2,
+			func = function()
+			print("initial step")
 			modif = get_modification(G.jokers.highlighted[i])
-			if modif.morality == "BAD" then
-				remove[#remove + 1] = G.jokers.highlighted[i]
+			print("attemtping to remove")
+			if modif then
+				print("passed nil check")
+				if HPTN.Modifications[modif].morality == "BAD" then
+					print("is bad")
+					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+					G.jokers.highlighted[i]:juice_up()
+				end
 			end
+			return true
+		end
+		}))
 		end
 
-		if #remove > 0 then
-			for i = 1, #remove do
-				modif2 = get_modification(remove[i]).key
-				HPTN.Modifications[modif2]:apply(remove[i], false)
-			end
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				unhighlight_hj()
+			return true
 		end
-		unhighlight_hj()
+		}))
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria with Cuckoo"}, context)
@@ -1734,23 +1750,39 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		return highlight_jokers_hand(hpt.high, true)
 	end,
-	use = function(self, card, area, copier)
-		local modif, modif2
+use = function(self, card, area, copier)
+		
+		local modif
 		local remove = {}
 		for i = 1, #G.jokers.highlighted do
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.2,
+			func = function()
+			print("initial step")
 			modif = get_modification(G.jokers.highlighted[i])
-			if modif.morality == "BAD" then
-				remove[#remove + 1] = G.jokers.highlighted[i]
+			print("attemtping to remove")
+			if modif then
+				print("passed nil check")
+				if HPTN.Modifications[modif].morality == "BAD" then
+					print("is bad")
+					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+					G.jokers.highlighted[i]:juice_up()
+				end
 			end
+			return true
+		end
+		}))
 		end
 
-		if #remove > 0 then
-			for i = 1, #remove do
-				modif2 = get_modification(remove[i]).key
-				HPTN.Modifications[modif2]:apply(remove[i], false)
-			end
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				unhighlight_hj()
+			return true
 		end
-		unhighlight_hj()
+		}))
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria with Ribbon"}, context)
@@ -1784,23 +1816,39 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		return highlight_jokers_hand(hpt.high, true)
 	end,
-	use = function(self, card, area, copier)
-		local modif, modif2
+use = function(self, card, area, copier)
+		
+		local modif
 		local remove = {}
 		for i = 1, #G.jokers.highlighted do
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.2,
+			func = function()
+			print("initial step")
 			modif = get_modification(G.jokers.highlighted[i])
-			if modif.morality == "BAD" then
-				remove[#remove + 1] = G.jokers.highlighted[i]
+			print("attemtping to remove")
+			if modif then
+				print("passed nil check")
+				if HPTN.Modifications[modif].morality == "BAD" then
+					print("is bad")
+					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+					G.jokers.highlighted[i]:juice_up()
+				end
 			end
+			return true
+		end
+		}))
 		end
 
-		if #remove > 0 then
-			for i = 1, #remove do
-				modif2 = get_modification(remove[i]).key
-				HPTN.Modifications[modif2]:apply(remove[i], false)
-			end
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				unhighlight_hj()
+			return true
 		end
-		unhighlight_hj()
+		}))
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria", "Wisteria_2"}, context)
@@ -1834,23 +1882,39 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		return highlight_jokers_hand(hpt.high, true)
 	end,
-	use = function(self, card, area, copier)
-		local modif, modif2
+use = function(self, card, area, copier)
+		
+		local modif
 		local remove = {}
 		for i = 1, #G.jokers.highlighted do
+		G.E_MANAGER:add_event(Event({
+			trigger = "before",
+			delay = 0.2,
+			func = function()
+			print("initial step")
 			modif = get_modification(G.jokers.highlighted[i])
-			if modif and modif.morality == "BAD" then
-				remove[#remove + 1] = G.jokers.highlighted[i]
+			print("attemtping to remove")
+			if modif then
+				print("passed nil check")
+				if HPTN.Modifications[modif].morality == "BAD" then
+					print("is bad")
+					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+					G.jokers.highlighted[i]:juice_up()
+				end
 			end
+			return true
+		end
+		}))
 		end
 
-		if #remove > 0 then
-			for i = 1, #remove do
-				modif2 = get_modification(remove[i]).key
-				HPTN.Modifications[modif2]:apply(remove[i], false)
-			end
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				unhighlight_hj()
+			return true
 		end
-		unhighlight_hj()
+		}))
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria", "Wisteria_2"}, context)

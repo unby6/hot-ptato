@@ -4,7 +4,8 @@ HPTN = {
     is_shitfuck = true,
     Profile = G.SETTINGS.profile,
     nxkoofactor = 15,
-    cheapkoofactor = 10
+    cheapkoofactor = 10,
+    during_scoring = false,
 }
 -- awesome lua file name
 SMODS.Sound {

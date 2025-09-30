@@ -205,22 +205,11 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				if mult > 0 then
-					SMODS.calculate_effect({ xmult = HPTN.perc(mult, 20) }, card)
-				end
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			if mult > 0 then
-				SMODS.calculate_effect({ xmult = HPTN.perc(mult, 20) }, card)
-			end
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ xmult = 1 + HPTN.perc(mult, 20) }, card)
 		end
 	end,
 	hotpot_credits = {
@@ -402,18 +391,11 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ xmult = 1 + HPTN.perc(mult, 10) }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
+		if context.final_scoring_step and card.trigger_modif then
 			SMODS.calculate_effect({ xmult = 1 + HPTN.perc(mult, 10) }, card)
-			card.modif_delay = nil
 		end
 	end,
 	hotpot_credits = {
