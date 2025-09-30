@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = '99_bottles',
-    rarity = 1,
-    cost = 5,
+    rarity = 2,
+    cost = 6,
     atlas = "oap_jokers",
     pos = { x = 9, y = 1 },
     config = {
