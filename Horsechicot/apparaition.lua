@@ -10,13 +10,29 @@ SMODS.Consumable {
         end
     end,
     use = function(self, card, area, copier)
-        local card = pseudorandom_element(G.consumeables.cards, pseudoseed("apparition"))
+        local viable_cards = {}
+        for _,_c in ipairs(G.consumeables.cards) do -- basically filterings
+            if not (_c.edition and _c.edition.key) and _c ~= card then
+                table.insert(viable_cards, _c)
+            end
+        end
+        local card = pseudorandom_element(viable_cards, pseudoseed("apparition"))
         if card then
             card:set_edition("e_hpot_phantasmic")
         end
     end,
-    can_use = function()
-        return G.consumeables and #G.consumeables.cards > 0
+    can_use = function(self, card)
+        if not (G.consumeables and #G.consumeables.cards > 0) then
+            return false
+        end
+        -- if some of cards in consumables slot don't have edition then you can use it...
+        for _,_c in ipairs(G.consumeables.cards) do
+            if not (_c.edition and _c.edition.key) and _c ~= card then -- check if it is not itself too
+                return true
+            end
+        end
+        -- ...otherwise you can't use it (duh)
+        return false
     end,
     hotpot_credits = {
         art = {'lord.ruby'},
