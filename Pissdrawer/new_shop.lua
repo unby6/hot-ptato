@@ -555,11 +555,16 @@ function PissDrawer.Shop.reforge_shop()
 end
 
 PissDrawer.Shop.reforge_button = function(args)
+    local internal = args.currency
+    if args.currency == "credits" and G.GAME.seeded then
+        args.currency = "budget"
+        args.colour = G.C.ORANGE
+    end
     return
-    {n = G.UIT.C, config = {minw = 2, align = 'cm', r=0.1, padding = 0.1, emboss = 0.1, colour = args.colour or G.C.L_BLACK, currency = args.currency, button = 'reforge_with_'..args.currency, func = 'can_reforge', hover = true, button_dist = 0.5}, nodes = {
+    {n = G.UIT.C, config = {minw = 2, align = 'cm', r=0.1, padding = 0.1, emboss = 0.1, colour = args.colour or G.C.L_BLACK, currency = internal, button = 'reforge_with_'..internal, func = 'can_reforge', hover = true, button_dist = 0.5}, nodes = {
         {n=G.UIT.C, config = {padding = 0.1}, nodes = {
             {n=G.UIT.R, nodes = {
-                {n=G.UIT.O, config={id = 'text_'..args.currency, object = DynaText({string = {{ref_table = args.ref_table or G.GAME, ref_value = 'cost_'..args.currency, prefix = localize('hotpot_reforge_'..args.currency)}},
+                {n=G.UIT.O, config={id = 'text_'..internal, object = DynaText({string = {{ref_table = args.ref_table or G.GAME, ref_value = 'cost_'..internal, prefix = localize('hotpot_reforge_'..args.currency)}},
                         maxw = 2, colours = {args.text_colour}, font = args.font, shadow = true, spacing = 1, scale = 0.5})}}
             }}
         }}
@@ -938,9 +943,14 @@ function PissDrawer.Shop.currency_exchange()
 end
 
 PissDrawer.Shop.spark_exchange_button = function(args)
+    local internal = args.currency
+    if args.currency == "credits" and G.GAME.seeded then
+        args.currency = "budget"
+        args.colour = G.C.ORANGE
+    end
     return
-    {n = G.UIT.C, config = {minw = 1.3, align = 'cm', r=0.1, padding = 0.1, emboss = 0.1, colour = args.colour or G.C.L_BLACK, currency = args.currency, button = 'switch_spark_exchange', func = 'can_switch_spark_exchange', text_colour = args.text_colour, hover = true, button_dist = 0.5}, nodes = {
-        {n=G.UIT.O, config={id = 'spark_exchange_'..args.currency, object = DynaText({string = {localize('hotpot_reforge_'..args.currency)},
+    {n = G.UIT.C, config = {minw = 1.3, align = 'cm', r=0.1, padding = 0.1, emboss = 0.1, colour = args.colour or G.C.L_BLACK, currency = internal, button = 'switch_spark_exchange', func = 'can_switch_spark_exchange', text_colour = args.text_colour, hover = true, button_dist = 0.5}, nodes = {
+        {n=G.UIT.O, config={id = 'spark_exchange_'..internal, object = DynaText({string = {localize('hotpot_reforge_'..args.currency)},
             maxw = 1, colours = {G.C.GREY}, font = args.font, shadow = true, spacing = 1, scale = 0.35})}}
     }}
 end

@@ -141,7 +141,7 @@ function G.FUNCS.can_reforge_with_credits(e)
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
         else
-            e.config.colour = G.C.PURPLE
+            e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
             e.config.button = 'reforge_with_credits'
         end
     end
