@@ -89,14 +89,9 @@ SMODS.Joker {
             local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
             --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
-            if ret and ret2 then
-                for i, v in pairs(ret) do
-                    if ret2[i] and type(v) == 'number' then ret[i] = v + ret2[i] end
-                end
-            end
             if ret and ret.card and ret.card == card.ability.quantum_1 then ret.card = card end
             if ret2 and ret2.card and ret2.card == card.ability.quantum_2 then ret2.card = card end
-            return ret or ret2, trig or trig2
+            return SMODS.merge_effects(ret, ret2), trig or trig2
         end
     end,
     calc_dollar_bonus = function(self, card)
