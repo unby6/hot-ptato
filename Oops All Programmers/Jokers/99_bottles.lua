@@ -6,7 +6,7 @@ SMODS.Joker {
     pos = { x = 9, y = 1 },
     config = {
         extra = {
-            mult = 5
+            mult = 2
         }
     },
     loc_vars = function(self, info_queue, card)
