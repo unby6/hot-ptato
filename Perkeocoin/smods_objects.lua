@@ -9,16 +9,7 @@ SMODS.Atlas({key = "PerkeocoinBoosters", path = "PerkeoCards/perkeocoin_boosters
 -- PLEASE FIX THIS
 SMODS.Atlas({key = "PerkeocoinVouchers", path = "PerkeoCards/PerkeocoinVouchers.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 
-SMODS.Gradient {
-    key = 'plincoin',
-    colours = {G.C.MONEY, G.C.GREEN},
-    cycle = 1
-}
-SMODS.Gradient {
-    key = 'advert',
-    colours = {G.C.FILTER, G.C.RED},
-    cycle = 1
-}
+-- Gradients have been moved because I needed them earlier
 
 SMODS.Sound {
   key = "music_czech",

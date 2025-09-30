@@ -605,8 +605,6 @@ function add_round_eval_credits(config) --taken straight from plincoin.lua (yet 
             elseif string.find(config.name, 'joker') then
                 table.insert(left_text,
                     { n = G.UIT.O, config = { object = DynaText({ string = localize { type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key }, colours = { G.C.FILTER }, shadow = true, pop_in = 0, scale = 0.6 * scale, silent = true }) } })
-            elseif string.find(config.name, 'deck') then
-                table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = config.card.loc_name, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
             end
             local full_row = {
                 n = G.UIT.R,

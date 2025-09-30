@@ -92,3 +92,84 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'back' },
 }
+
+HotPotato.currencies = {
+    {text = "$", color = G.C.MONEY, font = nil},
+    {text = localize('$'), color = SMODS.Gradients.hpot_plincoin, font = SMODS.Fonts.hpot_plincoin},
+    {text = "͸", color = G.C.BLUE, font = SMODS.Fonts.hpot_plincoin},
+    {text = "£", color = SMODS.Gradients.hpot_advert, font = SMODS.Fonts.hpot_plincoin},
+    {text = "c", color = G.C.PURPLE, font = SMODS.Fonts.hpot_plincoin},
+}
+
+function add_round_eval_all_currencies(config)
+    local config = config or {}
+    local width = G.round_eval.T.w - 0.51
+    local num_dollars = 1
+    local scale = 0.9
+    
+    if not G.round_eval.divider_added then
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',delay = 0.25,
+        func = function() 
+            local spacer = {n=G.UIT.R, config={align = "cm", minw = width}, nodes={
+                {n=G.UIT.O, config={object = DynaText({string = {'......................................'}, colours = {G.C.WHITE},shadow = true, float = true, y_offset = -30, scale = 0.45, spacing = 13.5, font = G.LANGUAGES['en-us'].font, pop_in = 0})}}
+            }}
+            G.round_eval:add_child(spacer,G.round_eval:get_UIE_by_ID('bonus_round_eval'))
+            return true
+        end
+    }))
+  end
+    delay(0.6)
+    G.round_eval.divider_added = true
+
+    delay(0.2)
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before',delay = 0.5,
+            func = function()
+                --Add the far left text and context first:
+                local left_text = {}
+                table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = config.card.loc_name, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
+                    local full_row = {n=G.UIT.R, config={align = "cm", minw = 5}, nodes={
+                    {n=G.UIT.C, config={padding = 0.05, minw = width*0.55, minh = 0.61, align = "cl"}, nodes=left_text},
+                    {n=G.UIT.C, config={padding = 0.05,minw = width*0.45, align = "cr"}, nodes={{n=G.UIT.C, config={align = "cm", id = 'dollar_'..config.name},nodes={}}}}
+                }}
+
+                G.round_eval:add_child(full_row,G.round_eval:get_UIE_by_ID('bonus_round_eval'))
+                play_sound('cancel', config.pitch or 1)
+                play_sound('highlight1',( 1.5*config.pitch) or 1, 0.2)
+                return true
+            end
+        }))
+        local dollar_row = 0
+            for i = 1, num_dollars or 1 do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',delay = 0.18 - ((num_dollars > 20 and 0.13) or (num_dollars > 9 and 0.1) or 0),
+                    func = function()
+                        if i%30 == 1 then 
+                            G.round_eval:add_child(
+                                {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={}},
+                                G.round_eval:get_UIE_by_ID('dollar_'..config.name))
+                                dollar_row = dollar_row+1
+                        end
+                        for _, v in ipairs(HotPotato.currencies) do
+                            local r = {n=G.UIT.T, config={text = v.text, font = v.font,
+                            colour = v.color, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58),
+                            shadow = true, hover = true, can_collide = false, juice = true}}
+                            play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
+
+                            G.round_eval:add_child(r,G.round_eval:get_UIE_by_ID('dollar_row_'..(dollar_row)..'_'..config.name))
+                            G.VIBRATION = G.VIBRATION + 0.4
+                        end
+                        return true
+                    end
+                }))
+            end
+
+      -- might cause issues. Dollars cashout adds up everything and sends "bottom" cashout. Might need similar implementation if more plincoin cashouts are added
+      G.GAME.current_round.spark_points = G.GAME.current_round.spark_points + 1
+      G.GAME.current_round.credits = G.GAME.current_round.credits + 1
+      G.GAME.current_round.cryptocurrency = G.GAME.current_round.cryptocurrency + 1
+      G.GAME.current_round.dollars = G.GAME.current_round.dollars + 1
+      G.GAME.current_round.plincoins = G.GAME.current_round.plincoins + 1
+end
