@@ -210,24 +210,25 @@ SMODS.Joker({
 	atlas = "tname_jokers2",
 	calculate = function(self, card, context)
 		local bool = false
-		if context.scoring_hand then
+		if context.joker_main then
 		    for k, v in ipairs(context.full_hand) do
 				if v:is_suit(card.ability.extra.suit) then
 					bool = true
 					break
 				end
 		    end
-	    end
-		if bool and card.ability.extra.availability and context.joker_main then
-			SMODS.add_card{set = "Hanafuda"}
+			if bool and card.ability.extra.availability then
+				SMODS.add_card{set = "Hanafuda"}
 
-			if JoyousSpring then
-				JoyousSpring.create_pseudorandom({ { monster_archetypes = { "FlowerCardian" } } },
-                        "hpot_sunset", false)
-			end
+				if JoyousSpring then
+					JoyousSpring.create_pseudorandom({ { monster_archetypes = { "FlowerCardian" } } },
+                        	"hpot_sunset", false)
+				end
 
 			card.ability.extra.availability = false
 		end
+	    end
+		
 		if context.end_of_round then
 			card.ability.extra.availability = true
 		end
