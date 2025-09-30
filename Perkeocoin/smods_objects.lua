@@ -447,7 +447,7 @@ SMODS.Joker{ --Free To Use
     atlas = 'perkeocoinjokers',
 
     hotpot_credits = {
-        art = {'dottykitty'},
+        art = {'Omegaflowey18'},
         code = {'CampfireCollective'},
         team = {'Perkeocoin'}
     },
