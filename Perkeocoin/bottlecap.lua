@@ -1275,7 +1275,7 @@ in_pool = function(self, args)
         card.states.visible = false
         local real_perky = SMODS.create_card{key = 'j_perkeo', area = G.play}
 	    real_perky.states.visible = false
-        local perkolator = Card_Character({x = real_perky.T.x,y = real_perky.T.y,w = real_perky.T.w,h = real_perky.T.h,center = G.P_CENTERS.j_perkeo,})
+        local perkolator = Card_Character({x = real_perky.T.x,y = real_perky.T.y,w = real_perky.T.w,h = real_perky.T.h,center = 'j_perkeo',})
 
 
 
