@@ -93,7 +93,7 @@ SMODS.Joker {
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
             if ret and ret.card and ret.card == card.ability.quantum_1 then ret.card = card end
             if ret2 and ret2.card and ret2.card == card.ability.quantum_2 then ret2.card = card end
-            return SMODS.merge_effects { ret or {}, ret2 or {} }
+            return SMODS.merge_effects { ret or {}, ret2 or {} }, trig or trig2
         end
     end,
     calc_dollar_bonus = function(self, card)
