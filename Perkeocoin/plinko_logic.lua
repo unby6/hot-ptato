@@ -137,7 +137,9 @@ function PlinkoLogic.f.won_reward(reward_num)
 
       PlinkoLogic.f.reset_plinko()
 
-      G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
+      if card and not card.config.center.ignore_save then
+        G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
+      end
       return true
     end
   }))

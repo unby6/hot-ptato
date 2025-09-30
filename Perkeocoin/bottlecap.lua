@@ -1107,6 +1107,7 @@ in_pool = function(self, args)
     unlocked = true,
     discovered = true,
     cost = 3,
+    ignore_save = true,
     pools = {
         ['bottlecap'] = true,
         ['bottlecap_Uncommon'] = true,
@@ -1124,6 +1125,9 @@ in_pool = function(self, args)
     end,
 
     use = function(self, card, area, copier)
+        local need_save = true
+        local save = Event { func = function() save_run(); return true end}
+
         local vouchers = get_current_pool('Voucher')
         local valid1, valid2 = {}, {}
         for k, v in pairs(vouchers) do
@@ -1138,6 +1142,8 @@ in_pool = function(self, args)
 
         if card.ability.extra.chosen == 'Uncommon' then
             if valid1[1] then
+                need_save = false
+
                 local key = pseudorandom_element(valid1, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
                 local _card = SMODS.create_card{set = 'Voucher', key = key}
@@ -1145,7 +1151,9 @@ in_pool = function(self, args)
                 _card.cost = 0
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card:start_dissolve();return true end}))
+                _card:start_dissolve()
+                G.E_MANAGER:add_event(save)
+                return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
@@ -1153,6 +1161,8 @@ in_pool = function(self, args)
 
         elseif card.ability.extra.chosen == 'Rare' then
             if valid1[1] and valid2[1] then
+                need_save = false
+
                 local key1, key2 = pseudorandom_element(valid1, pseudoseed('vouchercap')), pseudorandom_element(valid2, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
                 local _card1 = SMODS.create_card{set = 'Voucher', key = key1}
@@ -1165,12 +1175,17 @@ in_pool = function(self, args)
                 _card2:redeem()
 
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card1:start_dissolve() _card2:start_dissolve();return true end}))
+                _card1:start_dissolve()
+                _card2:start_dissolve()
+                G.E_MANAGER:add_event(save)
+                return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
             
             elseif valid1[1] and not valid2[1] then
+                need_save = false
+
                 local key = pseudorandom_element(valid1, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
                 local _card = SMODS.create_card{set = 'Voucher', key = key}
@@ -1178,12 +1193,16 @@ in_pool = function(self, args)
                 _card.cost = 0
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card:start_dissolve();return true end}))
+                _card:start_dissolve()
+                G.E_MANAGER:add_event(save)
+                return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
 
             elseif valid2[1] and not valid1[2] then
+                need_save = false
+
                 local key = pseudorandom_element(valid2, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
                 local _card = SMODS.create_card{set = 'Voucher', key = key}
@@ -1191,13 +1210,17 @@ in_pool = function(self, args)
                 _card.cost = 0
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card:start_dissolve();return true end}))
+                _card:start_dissolve()
+                G.E_MANAGER:add_event(save)
+                return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
             end
         elseif card.ability.extra.chosen == 'Legendary' then
             if valid2[1] and valid2[2] then
+                need_save = false
+
                 local key1, key2 = pseudorandom_element(valid2, pseudoseed('vouchercap')), pseudorandom_element(valid2, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
                 local _card1 = SMODS.create_card{set = 'Voucher', key = key1}
@@ -1210,11 +1233,16 @@ in_pool = function(self, args)
                 _card2:redeem()
 
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card1:start_dissolve() _card2:start_dissolve();return true end}))
+                _card1:start_dissolve()
+                _card2:start_dissolve()
+                G.E_MANAGER:add_event(save)
+                return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
             elseif valid2[1] then
+                need_save = false
+
                 local key = pseudorandom_element(valid2, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
                 local _card = SMODS.create_card{set = 'Voucher', key = key}
@@ -1222,11 +1250,17 @@ in_pool = function(self, args)
                 _card.cost = 0
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card:start_dissolve();return true end}))
+                _card:start_dissolve()
+                G.E_MANAGER:add_event(save)
+                return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
             end
+        end
+
+        if need_save then
+                G.E_MANAGER:add_event(save)
         end
     end
 }
