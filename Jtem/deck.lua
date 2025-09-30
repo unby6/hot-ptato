@@ -170,6 +170,5 @@ function add_round_eval_all_currencies(config)
       G.GAME.current_round.spark_points = G.GAME.current_round.spark_points + 1
       G.GAME.current_round.credits = G.GAME.current_round.credits + 1
       G.GAME.current_round.cryptocurrency = G.GAME.current_round.cryptocurrency + 1
-      G.GAME.current_round.dollars = G.GAME.current_round.dollars + 1
       G.GAME.current_round.plincoins = G.GAME.current_round.plincoins + 1
 end
