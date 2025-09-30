@@ -16,7 +16,7 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 - Eris
 - UnusedParadox
 - PokerThePoker
-- Superb
+- Supernova
 - Victin
 
 ### Jtem - Week 3
@@ -34,7 +34,7 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 - Jogla
 - Violet
 
-### Team :) -  - Week 5
+### Team :) - Week 5
 - notmario
 - PokeRen
 - RGBeet
@@ -59,7 +59,7 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 ### pissdrawer - Week 8
 - N'
 - Eremel
-- tomatose
+- deadbeet
 - SDM_0
 - BepisFever
 - Fey
