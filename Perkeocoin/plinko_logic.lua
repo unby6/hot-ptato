@@ -95,13 +95,19 @@ function PlinkoLogic.f.won_reward(reward_num)
   
   PlinkoGame.f.remove_balls()
 
-  draw_card(G.plinko_rewards, G.play, 1, 'up', true, G.plinko_rewards.cards[reward_num], nil, nil)
+  local reward = assert(G.plinko_rewards.cards[reward_num], "reward #"..tostring(reward_num).." does not exist! was something wrong with plinko?")
+
+  draw_card(G.plinko_rewards, G.play, 1, 'up', true, reward, nil, nil)
 
   local start = G.TIMERS.REAL
   local first_time = true
 
   G.E_MANAGER:add_event(Event{delay = 0.5, blocking = false, func = function ()
-    play_sound('hpot_tada')
+    if reward.ability.extra.chosen == 'Bad' then
+      play_sound('hpot_not_tada')
+    else
+      play_sound('hpot_tada')
+    end
     return true
   end})
 
