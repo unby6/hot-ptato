@@ -486,6 +486,9 @@ function HPTN.set_credits(amount)
 end
 
 function HPTN.check_if_enough_credits(cost)
+    if G.GAME.seeded then
+        return false
+    end
     local credits = G.PROFILES[G.SETTINGS.profile].TNameCredits
     if (credits - cost) >= 0 then
         return true
