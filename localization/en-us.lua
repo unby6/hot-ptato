@@ -2231,7 +2231,7 @@ return {
                 text = {
                     "Enable converting {C:hpot_plincoin}plincoins",
                     "{C:purple}credits{}, and {C:hpot_advert}cryptocurrency{}",
-                    "for {C:blue}Joker Exchange"
+                    "for {C:blue}Jicks"
                 }
             },
             v_hpot_right_at_your_door = {
@@ -2286,7 +2286,7 @@ return {
                 name = "Premium Anvil",
                 text = {
                     "{C:hpot_plincoin}Plincoins{}, {C:hpot_advert}Cryptocurrency{}",
-                    "{C:blue}Joker Exchange{} can",
+                    "and {C:blue}Jicks{} can",
                     "be used to reforge"
                 }
             },
@@ -4810,7 +4810,7 @@ return {
 
             hotpot_first_time_disable = "Do not show again",
 
-            hotpot_spark_points = "Joker Exchange",
+            hotpot_spark_points = "Jicks",
             hotpot_delivery = "Deliveries",
             hotpot_delivery_back = "Back to Shop",
             hotpot_go_reforge = "REFORGE",
@@ -5065,7 +5065,8 @@ return {
             modif_hpot_jagged = "Jagged",
             modif_hpot_menacing = "Menacing",
             modif_hpot_flawed = "Flawed",
-            modif_hpot_rusty = "rusty",
+            modif_hpot_rusty = "Rusty",
+            modif_hpot_sharpened = "Sharpened",
 
         },
         EventChoices = {
@@ -5102,7 +5103,7 @@ return {
 
             hpot_exchange_credits_to_dollars = "Credits to Dollars",
             hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
-            hpot_exchange_sparks_to_dollars = "Joker Exchange to Dollars",
+            hpot_exchange_sparks_to_dollars = "Jicks to Dollars",
             hpot_ignore_or_something = "Ignore",
 
             hpot_remove_stickers = "Remove (#1# Plincoins)",
