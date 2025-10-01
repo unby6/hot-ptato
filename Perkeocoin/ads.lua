@@ -386,7 +386,7 @@ local game_update = Game.update
 function Game:update(...)
     if G.real_dt and G.GAME and G.GAME.hotpot_ads and not G.freeze_ads then
 
-        local speed = G.real_dt * 0.03
+        local speed = G.real_dt * 0.04
 
         for key, ad in pairs(G.GAME.hotpot_ads) do
 
