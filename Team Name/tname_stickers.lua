@@ -92,7 +92,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -140,7 +140,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -179,7 +179,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -227,7 +227,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -306,7 +306,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -357,7 +357,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -408,7 +408,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -456,7 +456,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -500,7 +500,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -556,7 +556,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -578,7 +578,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -609,7 +609,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -636,7 +636,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -675,7 +675,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
@@ -716,6 +716,6 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and (HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop)
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })

@@ -1113,7 +1113,7 @@ HotPotato.EventStep({
 	get_choices = function(self, event)
 		return {
 			{
-				key = G.GAME.seeded and "hpot_exchange_budget_to_dollars" or"hpot_exchange_credits_to_dollars",
+				key = G.GAME.seeded and "hpot_exchange_budget_to_dollars" or "hpot_exchange_credits_to_dollars",
 				no_prefix = true,
 				loc_vars = { convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR") },
 				button = function()
@@ -1763,11 +1763,11 @@ HotPotato.EventScenario {
 }
 HotPotato.EventStep {
 	key = "mb_1",
-	loc_vars = function (self, event)
+	loc_vars = function(self, event)
 		local key
 		local fucking = G.GAME.seeded and "_budget" or ""
 		key = (self.key .. fucking)
-		return {key = key}
+		return { key = key }
 	end,
 	get_choices = function(self, event)
 		return {
@@ -1779,7 +1779,7 @@ HotPotato.EventStep {
 				end,
 			},
 			{
-				key = "hpot_mystery_box"..(G.GAME.seeded and "_budget" or ""),
+				key = "hpot_mystery_box" .. (G.GAME.seeded and "_budget" or ""),
 				no_prefix = true,
 				button = function()
 					HPTN.ease_credits(-5)
@@ -1830,11 +1830,11 @@ HotPotato.EventStep {
 }
 HotPotato.EventStep {
 	key = "mb_3",
-	loc_vars = function (self, event)
+	loc_vars = function(self, event)
 		local key
 		local fucking = G.GAME.seeded and "_budget" or ""
 		key = (self.key .. fucking)
-		return {key = key}
+		return { key = key }
 	end,
 	get_choices = function(self, event)
 		return {
@@ -2588,7 +2588,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		ease_dollars(-G.GAME.dollars)
-		HPTN.ease_credits(-G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		HPTN.ease_credits(G.GAME.seeded and G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits)
 		ease_spark_points(-G.GAME.spark_points)
 		ease_plincoins(-G.GAME.plincoins)
 		ease_cryptocurrency(-G.GAME.cryptocurrency)
@@ -4538,7 +4538,9 @@ HotPotato.CombatEvents.generic = {
 						ease_plincoins(math.min(0, -G.GAME.plincoins), true)
 					end
 					if effect.set_to_zero.credits then
-						HPTN.ease_credits(math.min(0, -G.PROFILES[G.SETTINGS.profile].TNameCredits), true)
+						HPTN.ease_credits(
+						math.min(0, G.GAME.seeded and -G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits),
+							true)
 					end
 					if effect.set_to_zero.sparkle then
 						ease_spark_points(math.min(0, -G.GAME.spark_points), true)
@@ -5304,10 +5306,12 @@ HotPotato.EventStep {
 	start = function(self, event)
 		local count = 0
 		for i, v in ipairs(G.hand.cards) do
-			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
-				count = count + 1
-			else
-				count = count + v.base.nominal
+			if not SMODS.has_no_rank(v) then
+				if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+					count = count + 1
+				else
+					count = count + v.base.nominal
+				end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count

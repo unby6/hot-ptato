@@ -23,7 +23,7 @@ SMODS.Blind {
         team = {"Team Name"}
     },
     in_pool = function(self, blind)
-        return HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop
+        return G.GAME.tnamestickers
     end
 }
 
@@ -84,7 +84,7 @@ SMODS.Blind {
     dollars = 5,
     mult = 2,
     in_pool = function (self)
-        if G.PROFILES[G.SETTINGS.profile].TNameCredits > 0 then
+        if HPTN.check_if_enough_credits(0) then
             return true
         end
         return false

@@ -46,14 +46,16 @@ SMODS.Back {
         G.E_MANAGER:add_event(Event({
             func = function()
                 for _ = 1, self.config.stones do
-                    local stone = SMODS.add_card {
-                        set = "Base",
-                        enhancement = "m_stone",
-                        rank = '2',
-                        suit = 'Clubs',
-                        area = G.deck,
-                    }
-                    stone:set_edition('e_polychrome', true, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            local c = pseudorandom_element(G.deck.cards, pseudoseed('gosh im so gassy'))
+                            if c then
+                                c:set_ability(G.P_CENTERS.m_stone, true, true)
+                                c:set_edition('e_polychrome', true, true)
+                            end
+                            return true
+                        end
+                    }))
                 end
                 return true
             end

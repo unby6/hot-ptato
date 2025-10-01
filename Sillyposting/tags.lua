@@ -54,7 +54,7 @@ SMODS.Tag {
         end
     end,
     hotpot_credits = {
-        art = {'Superb Thing'},
+        art = {'Supernova'},
         code = {'UnusedParadox'},
         team = {'Sillyposting'}
     },

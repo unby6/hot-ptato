@@ -196,7 +196,7 @@ G.FUNCS.hp_jtem_can_exchange_p2j = function(e)
     end
 end
 G.FUNCS.hp_jtem_can_exchange_c2j = function(e)
-    if (to_big(0) > to_big(G.PROFILES[G.SETTINGS.profile].TNameCredits)) or not G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
+    if (to_big(0) > to_big(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)) or not G.GAME.hp_jtem_should_allow_buying_jx_from_credits then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -355,6 +355,7 @@ function G.FUNCS.hp_jtem_search_jokers(e)
         local count = 0
         for _, joker in pairs(G.P_CENTER_POOLS.Joker) do
             local name = localize { key = joker.key, set = "Joker", vars = {}, type = 'name_text' }
+            if not name then goto continue end
             if not string.find(string.lower(name), string.lower(G.HP_REQUEST.text)) then goto continue end
             local card = SMODS.add_card { key = joker.key, area = G.your_collection[1] }
             local old_click = card.click
@@ -702,7 +703,7 @@ end
 function get_currency_amount(currency)
     currency = currency or "dollars"
     value = value or 0
-    if currency == "credits" then return G.PROFILES[G.SETTINGS.profile].TNameCredits end
+    if currency == "credits" then return G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits end
     if currency == "dollars" then return G.GAME.dollars end
     if currency == "plincoin" then return G.GAME.plincoins end
     if currency == "joker_exchange" then return G.GAME.spark_points end

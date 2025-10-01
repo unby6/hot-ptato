@@ -108,7 +108,7 @@ SMODS.Consumable({
 		local function g(joker)
 			local appliedsticker = badstickers[pseudorandom("fuck", 1, #badstickers)]
 			if joker.ability[appliedsticker] then
-				g(joker)
+				return g(joker)
 			else
 				return appliedsticker
 			end
@@ -308,7 +308,7 @@ SMODS.Consumable({
 			joker:start_dissolve(nil, true)
 		end
 		local hpt = card.ability.extra
-		local retval = math.min(hpt.max, (hpt.credits - 1) * G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		local retval = math.min(hpt.max, (hpt.credits - 1) * (G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits))
 		HPTN.ease_credits(retval, false)
 	end,
 })
@@ -371,8 +371,8 @@ SMODS.Consumable({
 		return {
 			vars = {
 				hpt.credits,
-				math.max(0, math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits)),
-				((math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits) < 0) and "") or "+" },
+				math.max(0, math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits)),
+				((math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits) < 0) and "") or "+" },
 				key = key
 		}
 	end,
@@ -383,12 +383,12 @@ SMODS.Consumable({
 		team = { "Team Name" },
 	},
 	can_use = function(self, card)
-		return ((#G.jokers.cards > 0) and (G.PROFILES[G.SETTINGS.profile].TNameCredits > 0))
+		return ((#G.jokers.cards > 0) and ((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) > 0))
 	end,
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
-		local a = math.floor(G.PROFILES[G.SETTINGS.profile].TNameCredits / hpt.credits)
-		HPTN.ease_credits(-G.PROFILES[G.SETTINGS.profile].TNameCredits, false)
+		local a = math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits)
+		HPTN.ease_credits(-(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits), false)
 		local target_card_key = G.jokers.cards[1].config.center.key
 		if target_card_key ~= nil then
 			for i = 1, a do
