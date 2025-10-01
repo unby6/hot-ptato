@@ -525,7 +525,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
             set = "Other",
             key = "hp_hc_mother"
         }, ret, {
-            (G.GAME.quick_preggo and 1 or 2) - G.GAME.breeding_rounds_passed
+            (G.GAME.quick_preggo and 2 or 3) - G.GAME.breeding_rounds_passed
         })
         return ret
     else
@@ -555,7 +555,7 @@ function end_round()
         func = function()
             if G.GAME.active_breeding then
                 G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
-                if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
+                if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
 
@@ -616,7 +616,7 @@ end
 function nursery()
     if G.GAME.active_breeding then
         G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
-        if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 1 or 2) then
+        if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
             G.GAME.active_breeding = false
             G.GAME.breeding_finished = true
 
