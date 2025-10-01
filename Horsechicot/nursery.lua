@@ -106,40 +106,6 @@ function G.FUNCS.hide_nursery(e)
 end
 
 function G.UIDEF.hotpot_horsechicot_nursery_section()
-    --init areas
-    if not G.nursery_father or not G.nursery_father.cards then
-        G.nursery_father = CardArea(
-            G.hand.T.x - 1,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
-        G.nursery_mother = CardArea(
-            G.hand.T.x + 1,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
-        G.nursery_child = CardArea(
-            G.hand.T.x + 1,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
-    end
-    --load if possible
-    if G.GAME.nursery_father_table then
-        G.nursery_father:load(G.GAME.nursery_father_table)
-        G.GAME.nursery_father_table = nil
-    end
-    if G.GAME.nursery_mother_table then
-        G.nursery_mother:load(G.GAME.nursery_mother_table)
-        G.GAME.nursery_mother_table = nil
-    end
-    if G.GAME.nursery_child_table then
-        G.nursery_child:load(G.GAME.nursery_child_table)
-        G.GAME.nursery_child_table = nil
-    end
     --ui stuff (its fucked)
     return
     {
@@ -475,6 +441,40 @@ function Game.start_run(...)
         G.nursery = nil
     end
     old(...)
+    --init areas
+    if not G.nursery_father or not G.nursery_father.cards then
+        G.nursery_father = CardArea(
+            G.hand.T.x - 1,
+            G.hand.T.y + G.ROOM.T.y + 9,
+            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+            1.05 * G.CARD_H,
+            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
+        G.nursery_mother = CardArea(
+            G.hand.T.x + 1,
+            G.hand.T.y + G.ROOM.T.y + 9,
+            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+            1.05 * G.CARD_H,
+            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
+        G.nursery_child = CardArea(
+            G.hand.T.x + 1,
+            G.hand.T.y + G.ROOM.T.y + 9,
+            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+            1.05 * G.CARD_H,
+            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
+    end
+    --load if possible
+    if G.GAME.nursery_father_table then
+        G.nursery_father:load(G.GAME.nursery_father_table)
+        G.GAME.nursery_father_table = nil
+    end
+    if G.GAME.nursery_mother_table then
+        G.nursery_mother:load(G.GAME.nursery_mother_table)
+        G.GAME.nursery_mother_table = nil
+    end
+    if G.GAME.nursery_child_table then
+        G.nursery_child:load(G.GAME.nursery_child_table)
+        G.GAME.nursery_child_table = nil
+    end
     for i, v in pairs(G.I.CARD) do
         if v.ability and v.ability.is_nursery_smalled then
             v.T.scale = v.T.scale * 0.75
@@ -539,7 +539,8 @@ function update_child_atlas(self, new_atlas, new_pos)
     self.children.center:reset()
     if self.ability.quantum_1 and self.ability.quantum_1.config.center.soul_pos and not self.children.floating_sprite then
         self.children.floating_sprite = Sprite(self.T.x, self.T.y, self.T.w * 0.75, self.T.h * 0.75,
-            G.ASSET_ATLAS[self.ability.quantum_1.config.center.atlas or "Joker"], self.ability.quantum_1.config.center.soul_pos)
+            G.ASSET_ATLAS[self.ability.quantum_1.config.center.atlas or "Joker"],
+            self.ability.quantum_1.config.center.soul_pos)
         self.children.floating_sprite.role.draw_major = self
         self.children.floating_sprite.states.hover.can = false
         self.children.floating_sprite.states.click.can = false
@@ -562,8 +563,9 @@ function end_round()
 
                     --setting child abilities
                     card.ability.name = 'Baby ' ..
-                    localize { type = 'name', set = 'Joker', key = G.GAME.child_prio.key, vars = {} }[1].nodes[1].nodes
-                    [1].config.object.config.string[1]
+                        localize { type = 'name', set = 'Joker', key = G.GAME.child_prio.key, vars = {} }[1].nodes[1]
+                        .nodes
+                        [1].config.object.config.string[1]
                     card.ability.extra_value = ((G.GAME.child_prio.cost + G.GAME.child_sec.cost) / 2) - 1
                     card:set_cost()
 
@@ -622,8 +624,9 @@ function nursery()
 
             --setting child abilities
             card.ability.name = 'Baby ' ..
-            localize { type = 'name', set = 'Joker', key = G.GAME.child_prio.config.center.key, vars = {} }[1].nodes[1]
-            .nodes[1].config.object.config.string[1]
+                localize { type = 'name', set = 'Joker', key = G.GAME.child_prio.config.center.key, vars = {} }[1].nodes
+                [1]
+                .nodes[1].config.object.config.string[1]
             card.ability.extra_value = ((G.GAME.child_prio.sell_cost + G.GAME.child_sec.sell_cost) / 2) - 1
             card:set_cost()
 
