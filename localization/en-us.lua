@@ -2751,8 +2751,8 @@ return {
                 name = "The Chariot",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_death_v2 = {
@@ -2777,7 +2777,7 @@ return {
                 name = "The Devil",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
+                    "card into a",
                     "{C:attention}#2#",
                 },
             },
@@ -2785,8 +2785,8 @@ return {
                 name = "The Devil",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_empress_v2 = {
@@ -2801,8 +2801,8 @@ return {
                 name = "The Empress",
                 text = {
                     "Enhances {C:attention}#1#",
-                    "selected card to",
-                    "{C:attention}#2#s",
+                    "selected card to a",
+                    "{C:attention}#2#",
                 },
             },
             c_hanged_man_v2 = {
@@ -2832,7 +2832,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#",
                     "selected card to",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_justice_v2 = {
@@ -2847,8 +2847,8 @@ return {
                 name = "Justice",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_lovers_v2 = {
@@ -2863,8 +2863,8 @@ return {
                 name = "The Lovers",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_magician_v2 = {
@@ -2880,7 +2880,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{}",
                     "selected card to",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_moon_v2 = {
@@ -2959,8 +2959,8 @@ return {
                 name = "The Tower",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_world_v2 = {

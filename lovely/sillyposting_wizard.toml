@@ -12,3 +12,23 @@ payload = '''
 init_sillyposting(self.GAME)
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+position = 'at'
+pattern = '''
+local cardarea = CardArea(
+  G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
+  G.CARD_W*0.7,
+  G.CARD_H*0.7, 
+  {card_limit = 2, type = 'title', highlight_limit = 0})
+'''
+payload = '''
+local cardarea = CardArea(
+  G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
+  G.CARD_W*0.7,
+  G.CARD_H*0.7, 
+  {card_limit = 2, type = 'title', highlight_limit = 0, collection = true})
+'''
+match_indent = true
