@@ -758,11 +758,6 @@ SMODS.Joker{ --Don't Touch That Dial!
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_stay_tuned"), colour = G.C.MONEY})
         end
     end,
-    calc_dollar_bonus = function(self, card)
-        if G.GAME.current_round.discards_left > 0 then
-            return G.GAME.current_round.discards_left
-        end
-    end,
     calc_plincoin_bonus = function(self, card)
         if G.GAME.current_round.discards_left > 0 then
             return G.GAME.current_round.discards_left
