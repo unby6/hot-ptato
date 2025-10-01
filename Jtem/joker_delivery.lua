@@ -355,6 +355,7 @@ function G.FUNCS.hp_jtem_search_jokers(e)
         local count = 0
         for _, joker in pairs(G.P_CENTER_POOLS.Joker) do
             local name = localize { key = joker.key, set = "Joker", vars = {}, type = 'name_text' }
+            if not name then goto continue end
             if not string.find(string.lower(name), string.lower(G.HP_REQUEST.text)) then goto continue end
             local card = SMODS.add_card { key = joker.key, area = G.your_collection[1] }
             local old_click = card.click
