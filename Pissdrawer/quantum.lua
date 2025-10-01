@@ -281,7 +281,7 @@ SMODS.DrawStep {
 --quantum can find its own position during ipairs/pairs
 local ip = ipairs
 function ipairs(t)
-    if getmetatable(t[1]) == Card then return quantumipairs(t) end
+    if G.jokers and t == G.jokers.cards then return quantumipairs(t) end
     return ip(t)
 end
 
@@ -299,7 +299,7 @@ end
 
 local p = pairs
 function pairs(t)
-    if getmetatable(t[1]) == Card then return quantumpairs(t) end
+    if G.jokers and t == G.jokers.cards then return quantumpairs(t) end
     return p(t)
 end
 
