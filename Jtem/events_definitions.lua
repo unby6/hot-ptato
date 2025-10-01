@@ -2588,7 +2588,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		ease_dollars(-G.GAME.dollars)
-		HPTN.ease_credits(-G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		HPTN.ease_credits(G.GAME.seeded and G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits)
 		ease_spark_points(-G.GAME.spark_points)
 		ease_plincoins(-G.GAME.plincoins)
 		ease_cryptocurrency(-G.GAME.cryptocurrency)
@@ -4538,7 +4538,7 @@ HotPotato.CombatEvents.generic = {
 						ease_plincoins(math.min(0, -G.GAME.plincoins), true)
 					end
 					if effect.set_to_zero.credits then
-						HPTN.ease_credits(math.min(0, -G.PROFILES[G.SETTINGS.profile].TNameCredits), true)
+						HPTN.ease_credits(math.min(0, G.GAME.seeded and -G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits), true)
 					end
 					if effect.set_to_zero.sparkle then
 						ease_spark_points(math.min(0, -G.GAME.spark_points), true)
