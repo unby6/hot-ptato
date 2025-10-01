@@ -108,7 +108,7 @@ SMODS.Consumable({
 		local function g(joker)
 			local appliedsticker = badstickers[pseudorandom("fuck", 1, #badstickers)]
 			if joker.ability[appliedsticker] then
-				g(joker)
+				return g(joker)
 			else
 				return appliedsticker
 			end
