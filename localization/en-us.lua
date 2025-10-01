@@ -4780,16 +4780,16 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "Experience all different kinds of random events where",
-                            "your choices influence the outcome! (Somewhat)",
+                            "Experience random encounters, where",
+                            "your choices influence the outcome! (somewhat)",
                         },
                         {
-                            "After a {C:attention}Boss Blind{}'s shop you get a choice",
-                            "between 2 {C:attention}Event types{} that can have different kinds of events"
+                            "Events appear after every {C:attention}Boss Blind{}'s shop",
+                            "Different {C:attention}types{} of events will have different interactions"
                         },
                         {
-                            "Some items can increase the amount of Event type choices,",
-                            "make rare Events more common or make events more frequent"
+                            "Some items can increase amount of events,",
+                            "how often you can encounter them and their rarity"
                         },
                     }
                 },
