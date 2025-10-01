@@ -272,7 +272,7 @@ SMODS.Joker {
         code = { 'fey <3' },
         team = { 'Pissdrawer' }
     },
-    config = { extra = { chips = 10 } },
+    config = { extra = { chips = 3 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -280,7 +280,7 @@ SMODS.Joker {
             }
         }
     end,
-    rarity = 1, cost = 3,
+    rarity = 3, cost = 3,
     atlas = 'pdr_joker',
     pos = { x = 5, y = 0 },
     calculate = function(self, card, context)
