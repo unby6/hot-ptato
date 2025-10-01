@@ -284,7 +284,7 @@ SMODS.Joker {
     atlas = 'pdr_joker',
     pos = { x = 5, y = 0 },
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
             context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
             return {
                 message = '+' .. card.ability.extra.chips .. ' Chips', colour = G.C.CHIPS
