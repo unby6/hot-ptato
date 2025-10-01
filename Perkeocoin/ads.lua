@@ -326,8 +326,49 @@ function create_ads(number_of_ads)
     end
 end
 
+-- This is different for different screens so uh yea 
+local screen_border = {-1.8, -0.8, 21.8, 12.2}
+
+local function is_inside(T)
+    return
+        T.x > screen_border[1] and
+        T.y > screen_border[2] and
+        T.x + T.w < screen_border[3] and
+        T.y + T.h < screen_border[4]
+end
+
+
+local function dist_squared(vec)
+    return vec.x^2 + vec.y^2
+end
+
+local function find_closest_ad(key, ad)
+    local closest = nil
+    local closest_dist = 999999
+
+    for relative_key, relative_ad in pairs(G.GAME.hotpot_ads) do
+        if relative_key == key then
+            goto continue
+        end
+
+        -- Distance between center points for each ad
+        local dist = dist_squared {
+            x = (ad.VT.x + ad.VT.w/2) - (relative_ad.VT.x + relative_ad.VT.w/2),
+            y = (ad.VT.y + ad.VT.h/2) - (relative_ad.VT.y + relative_ad.VT.h/2),
+        }
+        if closest == nil or dist < closest_dist then
+            closest = relative_ad
+            closest_dist = dist
+        end
+
+        ::continue::
+    end
+    return closest
+end
+
 local function normalize(vec)
     local len = (vec.x^2 + vec.y^2) ^0.5
+    -- No division by 0
     if len < 0.00001 then
         len = 0.00001
     end
@@ -340,18 +381,60 @@ local game_update = Game.update
 function Game:update(...)
     if G.real_dt and G.GAME and G.GAME.hotpot_ads and not G.freeze_ads then
 
+        local speed = G.real_dt * 0.03
         local center_x, center_y = 10, 5
-        local speed = G.real_dt * 0.1
-        for _, ad in pairs(G.GAME.hotpot_ads) do
-            local dir_vector = normalize {
-                x = center_x - ad.T.w/2 - ad.T.x,
-                y = center_y - ad.T.h/2 - ad.T.y,
-            }
 
-            ad.T.x = ad.T.x + dir_vector.x * speed
-            ad.T.y = ad.T.y + dir_vector.y * speed
+        for key, ad in pairs(G.GAME.hotpot_ads) do
+            local screen_clamp_iter = 0
+
+            while not is_inside(ad.T) and screen_clamp_iter < 100 do
+                screen_clamp_iter = screen_clamp_iter + 1
+                -- move towards the center to get out ouf bounds
+                -- kinda ass, might fix later
+                local dir_vector = normalize {
+                    x = center_x - ad.T.w/2 - ad.T.x,
+                    y = center_y - ad.T.h/2 - ad.T.y,
+                }
+
+                -- X is ok
+                if ad.T.x > screen_border[1] and ad.T.x + ad.T.w < screen_border[3] then
+                    dir_vector.x = dir_vector.x * 0.01
+                end
+
+                -- Y is ok
+                if ad.T.y > screen_border[2] and ad.T.y + ad.T.h < screen_border[4] then
+                    dir_vector.y = dir_vector.y * 0.01
+                end
+
+                ad.T.x = ad.T.x + dir_vector.x * speed * 3
+                ad.T.y = ad.T.y + dir_vector.y * speed * 3
+            end
+            if screen_clamp_iter > 0 then
+                goto continue
+            end
+
+            local closest = find_closest_ad(key, ad)
+            if closest then
+                local dir_vector = {
+                        x = (ad.VT.x + ad.VT.w/2) - (closest.VT.x + closest.VT.w/2),
+                        y = (ad.VT.y + ad.VT.h/2) - (closest.VT.y + closest.VT.h/2),
+                }
+                -- If hitboxes intersect
+                if
+                    math.abs(dir_vector.x) < (ad.VT.w/2 + closest.VT.w/2) and
+                    math.abs(dir_vector.y) < (ad.VT.h/2 + closest.VT.h/2)
+                then
+                    normalize(dir_vector)
+                    ad.T.x = ad.T.x + dir_vector.x * speed
+                    ad.T.y = ad.T.y + dir_vector.y * speed
+
+                    -- Push the other ad as well
+                    closest.T.x = closest.T.x - dir_vector.x * speed
+                    closest.T.y = closest.T.y - dir_vector.y * speed
+                end
+            end
+            ::continue::
         end
-
     end
     
     return game_update(self, ...)
