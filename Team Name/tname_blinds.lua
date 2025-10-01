@@ -23,7 +23,7 @@ SMODS.Blind {
         team = {"Team Name"}
     },
     in_pool = function(self, blind)
-        return HotPotatoConfig.white_stake_stickers or G.GAME.modifiers.enable_rentals_in_shop
+        return G.GAME.tnamestickers
     end
 }
 

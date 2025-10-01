@@ -204,14 +204,6 @@ local hpotConfigTab = function()
         end,
     })
 	hpot_nodes[#hpot_nodes + 1] = create_toggle({
-        label = localize("hotpot_white_stake_stickers"),
-        active_colour = HEX("40c76d"),
-        ref_table = HotPotatoConfig,
-        ref_value = "white_stake_stickers",
-        callback = function()
-        end,
-    })
-	hpot_nodes[#hpot_nodes + 1] = create_toggle({
         label = localize("hotpot_family_friendly"),
         active_colour = HEX("40c76d"),
         ref_table = HotPotatoConfig,
