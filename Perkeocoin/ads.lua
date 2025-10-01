@@ -44,6 +44,7 @@ HotPotato.Ads = {
         ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}},
         ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}},
         ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}},
+        ad_death = {atlas = "hpot_oap_death", pos = {x = 0, y = 0}},
         ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
         ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}},
         ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
