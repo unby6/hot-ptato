@@ -308,7 +308,7 @@ SMODS.Consumable({
 			joker:start_dissolve(nil, true)
 		end
 		local hpt = card.ability.extra
-		local retval = math.min(hpt.max, (hpt.credits - 1) * G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		local retval = math.min(hpt.max, (hpt.credits - 1) * (G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits))
 		HPTN.ease_credits(retval, false)
 	end,
 })
