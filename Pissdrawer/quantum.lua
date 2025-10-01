@@ -294,7 +294,7 @@ function quantumipairs(t)
             table.insert(ret, v.ability.quantum_2)
         end
     end
-    return ret
+    return ip(ret)
 end
 
 local p = pairs
@@ -312,5 +312,5 @@ function quantumpairs(t)
             table.insert(ret, v.ability.quantum_2)
         end
     end
-    return ret
+    return p(ret)
 end
