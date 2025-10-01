@@ -2443,7 +2443,7 @@ return {
                 name = "Incubator",
                 text = {
                     "{C:hpot_pink}Breeding{} now takes",
-                    "only one round"
+                    "only two rounds"
                 }
             },
             v_hpot_hc_dark_connections = {
