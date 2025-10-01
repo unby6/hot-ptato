@@ -377,41 +377,18 @@ local function normalize(vec)
     return vec
 end
 
+local function fix_T(T)
+    T.x = math.max(screen_border[1], math.min(screen_border[3] - T.w, T.x))
+    T.y = math.max(screen_border[2], math.min(screen_border[4] - T.h, T.y))
+end
+
 local game_update = Game.update
 function Game:update(...)
     if G.real_dt and G.GAME and G.GAME.hotpot_ads and not G.freeze_ads then
 
-        local speed = G.real_dt * 0.03
-        local center_x, center_y = 10, 5
+        local speed = G.real_dt * 0.04
 
         for key, ad in pairs(G.GAME.hotpot_ads) do
-            local screen_clamp_iter = 0
-
-            while not is_inside(ad.T) and screen_clamp_iter < 100 do
-                screen_clamp_iter = screen_clamp_iter + 1
-                -- move towards the center to get out ouf bounds
-                -- kinda ass, might fix later
-                local dir_vector = normalize {
-                    x = center_x - ad.T.w/2 - ad.T.x,
-                    y = center_y - ad.T.h/2 - ad.T.y,
-                }
-
-                -- X is ok
-                if ad.T.x > screen_border[1] and ad.T.x + ad.T.w < screen_border[3] then
-                    dir_vector.x = dir_vector.x * 0.01
-                end
-
-                -- Y is ok
-                if ad.T.y > screen_border[2] and ad.T.y + ad.T.h < screen_border[4] then
-                    dir_vector.y = dir_vector.y * 0.01
-                end
-
-                ad.T.x = ad.T.x + dir_vector.x * speed * 3
-                ad.T.y = ad.T.y + dir_vector.y * speed * 3
-            end
-            if screen_clamp_iter > 0 then
-                goto continue
-            end
 
             local closest = find_closest_ad(key, ad)
             if closest then
@@ -427,12 +404,17 @@ function Game:update(...)
                     normalize(dir_vector)
                     ad.T.x = ad.T.x + dir_vector.x * speed
                     ad.T.y = ad.T.y + dir_vector.y * speed
+                    fix_T(ad.T)
 
                     -- Push the other ad as well
                     closest.T.x = closest.T.x - dir_vector.x * speed
                     closest.T.y = closest.T.y - dir_vector.y * speed
+                    fix_T(closest.T)
+                    goto continue
                 end
             end
+
+            fix_T(ad.T)
             ::continue::
         end
     end

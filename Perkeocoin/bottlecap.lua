@@ -146,9 +146,9 @@ in_pool = function(self, args)
     pos = { x = 5, y = 1 },
     config = {
         extra = {
-            ['Common'] = 3,
-            ['Uncommon'] = 5,
-            ['Rare'] = 7,
+            ['Common'] = 2,
+            ['Uncommon'] = 4,
+            ['Rare'] = 6,
             ['Legendary'] = 15,
             ['Bad'] = -2,
             chosen = 'Common'
@@ -1359,10 +1359,10 @@ in_pool = function(self, args)
     pos = { x = 0, y = 3 },
     config = {
         extra = {
-            ['Common'] = 5,
-            ['Uncommon'] = 8,
-            ['Rare'] = 13,
-            ['Legendary'] = 25,
+            ['Common'] = 4,
+            ['Uncommon'] = 6,
+            ['Rare'] = 10,
+            ['Legendary'] = 20,
             chosen = 'Common'
         }
     },
