@@ -952,8 +952,8 @@ return {
             j_hpot_dont_touch_that_dial = {
                 ['name'] = 'Don\'t Touch That Dial!',
                 ['text'] = {
-                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and {C:money}$#1#{} for',
-                    [2] = 'each {C:red}discard{} remaining',
+                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and create {C:hpot_advert}#1# Ad',
+                    [2] = 'for each {C:red}discard{} remaining',
                     [3] = 'at end of round'
                 }
             },
