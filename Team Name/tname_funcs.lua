@@ -550,9 +550,9 @@ end
 end
 
 G.FUNCS.credits_UI_set = function(e)
-    local new_chips_text = number_format(G.PROFILES[G.SETTINGS.profile].TNameCredits)
+    local new_chips_text = number_format(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)
     if G.GAME.credits_text ~= new_chips_text then
-        e.config.scale = math.min(0.8, scale_number(G.PROFILES[G.SETTINGS.profile].TNameCredits, 1.1))
+        e.config.scale = math.min(0.8, scale_number(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits, 1.1))
         G.GAME.credits_text = new_chips_text
     end
 end

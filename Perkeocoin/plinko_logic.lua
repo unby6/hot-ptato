@@ -179,7 +179,9 @@ end
 local ea = ease_ante
 function ease_ante(mod)
   ea(mod)
-  PlinkoLogic.f.ante_up(mod)
+  if mod > 0 then
+    PlinkoLogic.f.ante_up(mod)
+  end
 end
 
 

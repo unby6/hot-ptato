@@ -58,8 +58,9 @@ function randomize_values()
             G.GAME.current_round[v] = G.GAME.round_resets[v]
         end
     end
-    G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1)
-    G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
+    if G.GAME.seeded then G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1) else
+        G.GAME.budget = G.GAME.budget * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1) end
+    G.GAME.credits_text = G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits
     if G.HUD then
         local uie = G.HUD:get_UIE_by_ID('credits_UI_text')
         if uie and uie.config.object then
