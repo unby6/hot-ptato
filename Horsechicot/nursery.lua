@@ -445,8 +445,7 @@ end
 local old = Card.highlight
 function Card:highlight(is)
     if (G.nursery_mother and self.area == G.nursery_mother and not G.GAME.active_breeding) or (G.nursery_father and self.area == G.nursery_father) or (G.nursery_child and self.area == G.nursery_child) then
-        if #G.jokers.cards >= G.jokers.config.card_limit then
-            G.FUNCS.check_for_buy_space(self)
+        if not G.FUNCS.check_for_buy_space(self) then
             return
         else
             local area = self.area
