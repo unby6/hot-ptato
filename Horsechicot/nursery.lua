@@ -568,6 +568,7 @@ function end_round()
                         [1].config.object.config.string[1]
                     card.ability.extra_value = ((G.GAME.child_prio.cost + G.GAME.child_sec.cost) / 2) - 1
                     card:set_cost()
+                    card.ability.holds_quantum = true
 
                     card.ability.quantum_1 = Quantum({
                         fake_card = true,
