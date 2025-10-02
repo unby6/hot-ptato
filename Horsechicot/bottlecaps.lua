@@ -19,7 +19,7 @@ in_pool = function(self, args)
             chosen = 'Common'
         }
     },
-    Horsechicot.credit(nil, "lord.ruby"),
+    hotpot_credits = Horsechicot.credit(nil, "lord.ruby"),
     display_size = { h = 34, w = 34},
     unlocked = true,
     discovered = true,
@@ -88,7 +88,7 @@ in_pool = function(self, args)
             chosen = 'Common'
         }
     },
-    Horsechicot.credit(nil, "lord.ruby"),
+    hotpot_credits = Horsechicot.credit(nil, "lord.ruby"),
     set_badges = function(self, card, badges)
         local color = G.C.BLUE
         if card.ability.extra.chosen == 'Uncommon' then
