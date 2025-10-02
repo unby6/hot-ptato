@@ -13,7 +13,7 @@ SMODS.Joker {
         return { vars = {  card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.joker_type_destroyed and context.card ~= card then
+        if context.joker_type_destroyed and context.card ~= card and context.card.config.center_key ~= 'j_hpot_wumpus' then
             return {
                 no_destroy = true,
                 dollars = card.ability.extra.money,
