@@ -411,7 +411,7 @@ function Card:highlight(is)
       G.harvest_cost = G.jokers.highlighted[1]:get_market_cost()
     end
     if G.GAME.underground_control then
-      G.harvest_cost = G.harvest_cost * 1.25
+      G.harvest_cost = (G.harvest_cost or 0) * 1.25
     end
   end
 end
