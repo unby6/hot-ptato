@@ -1471,7 +1471,7 @@ HotPotato.EventScenario {
 	hotpot_credits = {
 		idea = { "Liafeon" },
 		code = { "Liafeon" },
-		team = { "Oops! All Programmers" },
+		team = { "O!AP" },
 	},
 	in_pool = function()
 		return G.GAME.round_resets.ante >= 5

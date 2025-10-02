@@ -357,6 +357,6 @@ SMODS.Joker {
     end,
     hotpot_credits = {
         art = { 'SadCube' },
-        team = { 'Oops! All Programmers' }
+        team = { 'O!AP' }
     }
 }

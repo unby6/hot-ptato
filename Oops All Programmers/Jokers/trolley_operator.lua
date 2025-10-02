@@ -31,6 +31,6 @@ SMODS.Joker {
         art = { 'th30ne' },
         code = { 'theAstra' },
         idea = { 'th30ne', 'theAstra' },
-        team = { 'Oops! All Programmers' }
+        team = { 'O!AP' }
     }
 }

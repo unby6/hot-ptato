@@ -6,7 +6,7 @@ SMODS.Joker {
         art = { '?' },
         code = { 'factwixard' },
         idea = { 'theAstra' },
-        team = { 'Oops! All Programmers' }
+        team = { 'O!AP' }
     },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = { key = "hpot_sonloaf_comment", set = "Other" } -- remove after sprite pls - trif
