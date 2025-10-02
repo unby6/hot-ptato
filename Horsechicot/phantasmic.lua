@@ -76,5 +76,5 @@ SMODS.Edition {
             })
 		end
 	end,
-	Horsechicot.credit("lord.ruby", "lord.ruby")
+	hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby")
 }
