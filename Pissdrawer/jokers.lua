@@ -529,13 +529,10 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     calculate = function(self, card, context)
-        if context.setting_blind and card.area then
-            local pos = 1
-            for i, v in ipairs(card.area.cards) do
-                if v == card then
-                    pos = i
-                end
-            end
+        if context.setting_blind then
+            
+            local area = card.area or G.jokers
+            local pos = find_self(card, area)
             if pos ~= 1 then
                 for i = 1, pos - 1 do
                     local blard = card.area.cards[i]
