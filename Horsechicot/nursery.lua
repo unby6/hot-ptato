@@ -625,7 +625,7 @@ function nursery()
             local child_prio = G.P_CENTERS[G.GAME.child_prio]
             local child_sec = G.P_CENTERS[G.GAME.child_sec]
             local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
-            if type(localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }) ~= "table" then
+            if not localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }[1] then
                 error("Joker ".. child_prio.key .." didnt localize")
             end
             --setting child abilities
