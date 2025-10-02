@@ -38,8 +38,8 @@ SMODS.Joker {
         end
     end,
     update = function (self, card, dt)
-        if card.area == G.jokers then
-            card.ability.elapsed = card.ability.elapsed + dt
+        if (card.area or card.quantum and card.quantum.area) == G.jokers then
+            card.ability.elapsed = (card.ability.elapsed or 0) + dt
         end
     end,
     hotpot_credits = Horsechicot.credit("cg223", "cg223", "cg223")
