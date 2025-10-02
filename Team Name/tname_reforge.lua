@@ -125,6 +125,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function () -- takn from deliveries
 end
 
 
+
 -- self explanatory
 function G.FUNCS.can_reforge(e)
     local currency = e.config.currency

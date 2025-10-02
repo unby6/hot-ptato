@@ -171,6 +171,13 @@ SMODS.Atlas {
   frames = 4, atlas_table = 'ANIMATION_ATLAS'
 }
 
+SMODS.Atlas {
+  key = "hpot_tname_arrow_sign",
+  path = "Team Name/wheel_sign.png",
+  px = 113,py = 57,
+  frames = 4, atlas_table = 'ANIMATION_ATLAS'
+}
+
 SMODS.Atlas{
     key = "tname_shop_reforge",
     path = "Team Name/shop_button.png",

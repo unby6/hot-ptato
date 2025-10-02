@@ -5,6 +5,13 @@
 -- Lovely UI mess
 ---------------
 
+SMODS.Atlas {
+  key = "hpot_plinko_sign",
+  path = "plinko/plinko_sign.png",
+  px = 113,py = 57,
+  frames = 4, atlas_table = 'ANIMATION_ATLAS'
+}
+
 local reward_scale = 0.7
 
 PlinkoUI = {
@@ -500,6 +507,7 @@ function update_plinko(dt)
             end
         }))
 
+        PissDrawer.Shop.change_shop_sign("hpot_plinko_sign")
         G.STATE_COMPLETE = true
     end
 
@@ -537,6 +545,8 @@ G.FUNCS.hide_plinko = function(e)
   G.E_MANAGER:add_event(Event({func = function()
       if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end
   return true end }))
+
+  PissDrawer.Shop.change_shop_sign("shop_sign")
 
 end
 
