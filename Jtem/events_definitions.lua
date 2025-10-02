@@ -2617,7 +2617,7 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-		pool = {}
+		local pool = {}
 		for i, v in pairs(G.P_CENTERS) do
 			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
 				table.insert(pool, v)
