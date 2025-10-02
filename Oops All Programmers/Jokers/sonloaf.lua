@@ -1,16 +1,13 @@
 SMODS.Joker {
     key = "sonloaf",
     atlas = "oap_jokers",
-    pos = { x = 0, y = 0 }, -- If you see this comment it means Son Loaf never got a chance to be sprited
+    pos = { x = 3, y = 2 },
     hotpot_credits = {
-        art = { '?' },
+        art = { 'Omegaflowey18' },
         code = { 'factwixard' },
         idea = { 'theAstra' },
-        team = { 'Oops! All Programmers' }
+        team = { 'O!AP' }
     },
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = { key = "hpot_sonloaf_comment", set = "Other" } -- remove after sprite pls - trif
-    end,
     calculate = function(self, card, context)
         if context.joker_type_destroyed and context.card.config.center.pools and context.card.config.center.pools.Food and G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer) then
             G.GAME.joker_buffer = G.GAME.joker_buffer + 1

@@ -474,8 +474,7 @@ return {
             b_hpot_domn = {
                 name = "The Deck of Many Names",
                 text = {
-                    "Starting cards have",
-                    "a random {C:attention}sticker{},",
+                    "Starting cards have a random {C:attention}sticker{},",
                     "Trigger effects gives {C:hpot_advert,f:hpot_plincoin}£0.05{},",
                     "Gain {C:attention}1{} of each currency",
                     "when {C:attention}Boss Blind{} is defeated,",
@@ -1151,17 +1150,22 @@ return {
                 name = "{f:hpot_jtem_roboto_bold}Welcome back, to Slop Live",
                 text = {
                     {
+                        "{f:hpot_jtem_roboto_bold}Today's sloppic, the forbidden {C:attention,f:hpot_jtem_roboto_bold}Joker{f:hpot_jtem_roboto_bold} gives",
                         "{C:white,X:mult,f:hpot_jtem_roboto_bold} X#1# {f:hpot_jtem_roboto_bold} Mult",
                     },
                     {
-                        "{C:attention,f:hpot_jtem_roboto_bold}Creates a copy{f:hpot_jtem_roboto_bold} of self",
+                        "{C:attention,f:hpot_jtem_roboto_bold}The {C:attention,f:hpot_jtem_roboto_bold}Joker{f:hpot_jtem_roboto_bold} also aims to create{f:hpot_jtem_roboto_bold} a copy of self",
                         "{f:hpot_jtem_roboto_bold}When blind is {C:attention,f:hpot_jtem_roboto_bold}skipped{}",
-                        "{C:inactive,f:hpot_jtem_roboto_bold}(Must have room)"
+                        "{C:inactive,f:hpot_jtem_roboto_bold}(Must have room, of course)",
                     },
                     {
-                        "{f:hpot_jtem_roboto_bold}If blind is won {C:attention,f:hpot_jtem_roboto_bold}with exactly 1 hand left{}",
-                        "{f:hpot_jtem_roboto_bold}destroy a random copy of self",
+                        "{f:hpot_jtem_roboto_bold}But the {C:attention,f:hpot_jtem_roboto_bold}Joker{f:hpot_jtem_roboto_bold} said that",
+                        "{f:hpot_jtem_roboto_bold}if blind is won {C:attention,f:hpot_jtem_roboto_bold}with exactly 1 hand left{}",
+                        "{f:hpot_jtem_roboto_bold}then it will {C:red,f:hpot_jtem_roboto_bold}destroy a random copy of self",
                         "{f:hpot_jtem_roboto_bold}and create a {C:attention,f:hpot_jtem_roboto_bold}Buffoon Tag{}",
+                    },
+                    {
+                        "{f:hpot_jtem_roboto_bold}Thanks... for slopping by.",
                     }
                 }
             },
@@ -1196,7 +1200,7 @@ return {
                     "When a {C:attention}face{} card is scored",
                     "gives one of the following {C:attention}randomly{}:",
                     "MissingNumber : {C:mult}+#1#{} Mult",
-                    "{E:hpot_glitching}Lexi{} : {X:mult,C:white} X#2# {} Mult",
+                    "{E:hpot_glitching}ixeL{} : {X:mult,C:white} X#2# {} Mult",
                     "Haya : {X:chips,C:white} X#3# {} Chips",
                     "Aikoyori : {C:chips}+#4#{} Chips",
                     "Squidguset : {C:money}+$#5#{}",
@@ -3699,13 +3703,6 @@ return {
                     "card {C:attention}#1#{} times"
                 }
             },
-            hpot_sonloaf_comment = {
-                name = "trif comment",
-                text = {
-                    "please give this guy a sprite :pensive:",
-                    "its a dan hentschel thing look it up"
-                }
-            },
             hpot_smods_quip_1 = {
                 name = "What's changed?",
                 text = {
@@ -5191,7 +5188,10 @@ return {
 
             k_spark_per_turn = "Upgrade cost",
 
-            hotpot_current_track = "CURRENT TRACK"
+            hotpot_current_track = "CURRENT TRACK",
+            
+            hotpot_exposure = "Exposure"
+
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",

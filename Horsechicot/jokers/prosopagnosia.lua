@@ -7,7 +7,6 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    Horsechicot.credit("cg223", "pangaea47", "lord.ruby"),
     loc_vars = function(self, info_queue, card)
 
         --info_queue for every sold joker
@@ -28,7 +27,7 @@ SMODS.Joker {
             }
         end
     end,
-    hotpot_credits = Horsechicot.credit("cg223", "pangaea47")
+    hotpot_credits = Horsechicot.credit("cg223", "pangaea47", "lord.ruby")
 }
 
 --hook to insert things into prosopagnosias pool

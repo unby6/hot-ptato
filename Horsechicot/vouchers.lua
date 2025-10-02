@@ -17,7 +17,7 @@ SMODS.Voucher {
             return card.ability.bitcoins
         end
     end,
-    Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
 }
 
 SMODS.Voucher {
@@ -40,7 +40,7 @@ SMODS.Voucher {
         end
     end,
     requires = {'v_hpot_bitcoin_miner'},
-    Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby", "lord.ruby")
 }
 
 function Horsechicot.spawning_blocked(center)
@@ -56,7 +56,7 @@ SMODS.Voucher {
        G.GAME.spawning_blocked = G.GAME.spawning_blocked or {}
        G.GAME.spawning_reset = "round"
     end,
-    Horsechicot.credit("lord.ruby", "lord.ruby", "cg223")
+    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby", "cg223")
 }
 
 SMODS.Voucher {
@@ -68,7 +68,7 @@ SMODS.Voucher {
        G.GAME.spawning_reset = "ante"
     end,
     requires = {'v_hpot_antibodies'},
-    Horsechicot.credit("lord.ruby", nil, "cg223")
+    hotpot_credits = Horsechicot.credit("lord.ruby", nil, "cg223")
 }
 
 local create_cardref = create_card

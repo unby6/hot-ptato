@@ -34,7 +34,25 @@ table.insert(left_text, {
         })
     }
 })
-"""
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+position = 'at'
+pattern = '''
+elseif self.ability.name == 'Blueprint' then
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i] == self then other_joker = G.jokers.cards[i+1] end
+                end
+            end'''
+payload = '''
+elseif self.ability.name == 'Blueprint' then
+    local pos, area = find_self(self)
+    if pos and area then other_joker = area.cards[pos + 1] end
+end
+'''
 match_indent = true
 overwrite = false
 
@@ -60,4 +78,4 @@ pattern = "if G.jokers.cards[i] == self then other_joker = G.jokers.cards[i+1] e
 payload = "if G.jokers.cards[i] == (self.quantum or self) then other_joker = G.jokers.cards[i+1] end"
 match_indent = true
 times = 2
-overwrite = false
+

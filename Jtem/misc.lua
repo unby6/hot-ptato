@@ -66,6 +66,23 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
+  key = "music_training",
+  path = "music_training.ogg",
+    select_music_track = function(self)
+    if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_pissdrawer_toggle_training" then
+      return 1350
+    end
+  end,
+  hpot_purpose = {
+    "Music that plays in",
+    "the Training Tab"
+  },
+  hotpot_credits = {
+    team = { "Jtem" }
+  }
+}
+
+SMODS.Sound {
   key = "sfx_whistleup",
   path = "sfx_whistleup.ogg",
 }

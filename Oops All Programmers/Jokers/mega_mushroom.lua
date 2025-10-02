@@ -10,14 +10,16 @@ SMODS.Joker {
     atlas = "oap_jokers",
     pos = { x = 5, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { 
-            card.ability.extra.hands_left,
-         } }
+        return {
+            vars = {
+                card.ability.extra.hands_left,
+            }
+        }
     end,
     pools = { Food = true },
     calculate = function(self, card, context)
         if context.before
-        and G.GAME.current_round.hands_left == 0
+            and G.GAME.current_round.hands_left == 0
         then
             card.ability.extra.hands_left = card.ability.extra.hands_left - 1
             return {
@@ -25,7 +27,7 @@ SMODS.Joker {
             }
         end
         if context.after
-        and card.ability.extra.hands_left == 0 then
+            and card.ability.extra.hands_left == 0 then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound('tarot1')
@@ -49,13 +51,12 @@ SMODS.Joker {
                 message = localize('k_eaten_ex'),
                 colour = G.C.FILTER
             }
-        end 
+        end
     end,
     hotpot_credits = {
-        art = {'th30ne'},
-        code = {'th30ne'},
-        idea = {'th30ne'},
-        team = {'Oops! All Programmers'}
+        art = { 'th30ne' },
+        code = { 'th30ne' },
+        idea = { 'th30ne' },
+        team = { 'O!AP' }
     }
 }
-                

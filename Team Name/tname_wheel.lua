@@ -571,36 +571,60 @@ end
 
 -- transformed the plinko one
 function generate_wheel_rewards(_area)
-  -- Logic for extra reward with that rarity is kinda ass
-  -- didn't have time to think of something better
-  if next(find_joker("Tipping Point")) then
-    G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
-    G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
-  else
-    G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
-    G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon
-    G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
-    G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
-  end
+    -- Logic for extra reward with that rarity is kinda ass
+    -- didn't have time to think of something better
+    local reward = pseudorandom_element({"Joker", "Consumable", "Bottlecap"})
+    if reward == "Bottlecap" then
+        if next(find_joker("Tipping Point")) then
+            G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
+            G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
+        else
+            G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
+            G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon
+            G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+            G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
+        end
 
-  local rarities = {}
-  for rarity, amount in pairs(G.GAME.plinko_rewards) do
-    rarities[#rarities + 1] = rarity
-  end
-  local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
-  local card = SMODS.create_card({
-    set = "bottlecap_" .. rarity,
-    rarity = rarity,
-  })
-  if rarity == "Bad" then
-    card:set_edition("e_negative")
-  else
-    card:set_edition()
-  end
-  card.states.click.can = false
-  card.ability.extra.chosen = rarity
-  _area:emplace(card)
+        local rarities = {}
+        for rarity, amount in pairs(G.GAME.plinko_rewards) do
+            rarities[#rarities + 1] = rarity
+        end
+        local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
+        local card = SMODS.create_card({
+            set = "bottlecap_" .. rarity,
+            rarity = rarity
+        })
+        if rarity == "Bad" then
+            card:set_edition("e_negative")
+        else
+            card:set_edition()
+        end
+        card.states.click.can = false
+        card.ability.extra.chosen = rarity
+        _area:emplace(card)
+    elseif reward == "Joker" then
+        local acard = SMODS.create_card({
+            set = "Joker"
+        })
+        acard.states.click.can = false
+        _area:emplace(acard)
+    else
+        if reward == "Consumable" then
+            local allcons = {}
+            for k, _ in pairs(SMODS.ConsumableTypes) do
+                table.insert(allcons, k)
+            end
+            local sett = pseudorandom_element(allcons)
+            local acard = SMODS.create_card({
+                set = sett
+            })
+
+            acard.states.click.can = false
+            _area:emplace(acard)
+        end
+    end
 end
+
 
 -- granting the wheel (from plinko as well)
 function grant_wheel_reward(_area, reward_num)
@@ -632,11 +656,93 @@ function grant_wheel_reward(_area, reward_num)
       end
 
       local card = G.play.cards[1]
-      if card then
-        card:use_consumeable()
-        SMODS.calculate_context({ using_consumeable = true, consumeable = card, area = _area })
-        card:start_dissolve({ G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY }, true, 4)
-        play_sound('hpot_bottlecap')
+      if card.ability.set == "bottlecap" then
+        if card then
+          card:use_consumeable()
+          SMODS.calculate_context({ using_consumeable = true, consumeable = card, area = _area })
+          card:start_dissolve({ G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY }, true, 4)
+          play_sound('hpot_bottlecap')
+        end
+      else -- fuck elseif
+        if card.ability.set == "Joker" then
+          if (#G.jokers.cards < G.jokers.config.card_limit) or (card.edition and card.edition == "e_negative") then
+            HPTN.move_card(card, G.jokers)
+            card.states.click.can = true
+          else
+            G.E_MANAGER:add_event(Event({
+				trigger = "before",
+				delay = 0.4,
+				func = function()
+					attention_text({
+						text = localize("k_no_room_ex"),
+						scale = 1.3,
+						hold = 1.4,
+						major = card,
+						backdrop_colour = G.C.SECONDARY_SET.Tarot,
+						align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and "tm" or "cm",
+						offset = {
+							x = 0,
+							y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0,
+						},
+						silent = true,
+					})
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 0.06 * G.SETTINGS.GAMESPEED,
+						blockable = false,
+						blocking = false,
+						func = function()
+							play_sound("tarot2", 0.76, 0.4)
+							return true
+						end,
+					}))
+					play_sound("tarot2", 1, 0.4)
+					card:juice_up(0.3, 0.5)
+					return true
+				end,
+			}))
+            card:start_dissolve()
+          end
+        else
+          if (#G.consumeables.cards < G.consumeables.config.card_limit) or (card.edition and card.edition == "e_negative") then
+            HPTN.move_card(card, G.consumeables)
+            card.states.click.can = true
+          else
+            G.E_MANAGER:add_event(Event({
+				trigger = "before",
+				delay = 0.4,
+				func = function()
+					attention_text({
+						text = localize("k_no_room_ex"),
+						scale = 1.3,
+						hold = 1.4,
+						major = card,
+						backdrop_colour = G.C.SECONDARY_SET.Tarot,
+						align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and "tm" or "cm",
+						offset = {
+							x = 0,
+							y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0,
+						},
+						silent = true,
+					})
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 0.06 * G.SETTINGS.GAMESPEED,
+						blockable = false,
+						blocking = false,
+						func = function()
+							play_sound("tarot2", 0.76, 0.4)
+							return true
+						end,
+					}))
+					play_sound("tarot2", 1, 0.4)
+					card:juice_up(0.3, 0.5)
+					return true
+				end,
+			}))
+            card:start_dissolve()
+          end
+        end
       end
 
       set_wheel(true)

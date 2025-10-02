@@ -16,8 +16,9 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_type_destroyed and context.card == card then
             local new_card = SMODS.add_card {
-                key = 'j_hpot_undying'
+                key = 'j_hpot_undying',
             }
+            copy_card(card, new_card)
             SMODS.scale_card (new_card, {
                 ref_table = new_card.ability.extra,
                 ref_value = 'Xmult',
@@ -38,6 +39,6 @@ SMODS.Joker {
         art = { 'th30ne' },
         code = { 'theAstra' },
         idea = { 'th30ne' },
-        team = { 'Oops! All Programmers' }
+        team = { 'O!AP' }
     }
 }

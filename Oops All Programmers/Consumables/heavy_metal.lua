@@ -12,6 +12,6 @@ SMODS.Consumable {
         art = { 'SadCube' },
         code = { 'theAstra' },
         idea = { 'wix', 'SadCube' },
-        team = { 'Oops! All Programmers' }
+        team = { 'O!AP' }
     }
 }

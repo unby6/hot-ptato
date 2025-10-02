@@ -46,6 +46,7 @@ function Game:update(dt)
 end
 function init_sillyposting(game)
   game.max_highlighted_mod = game.max_highlighted_mod or 0
+  game.current_round.cryptocurrency = game.current_round.cryptocurrency or 0 -- this is horsechicots but fuck it
 end
 -- Below this line is a series of take_ownerships made to ensure every consumable works properly with Wizard Tower
 --#region Take ownership maxhighlight stuff
