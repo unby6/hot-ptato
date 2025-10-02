@@ -491,8 +491,8 @@ function Horsechicot.breed(mother_center, father_center)
         local loss_card = mother_center.key == 'j_hpot_loss' and G.nursery_mother.cards[1] or G.nursery_father.cards[1]
         local sec_card = mother_center.key == 'j_hpot_loss' and G.nursery_father.cards[1] or G.nursery_mother.cards[1]
 
-        G.GAME.child_prio = loss_card.config.center
-        G.GAME.child_sec = sec_card.config.center
+        G.GAME.child_prio = loss_card.config.center.key
+        G.GAME.child_sec = sec_card.config.center.key
         G.GAME.child_prio_ability = copy_table(loss_card.ability)
         G.GAME.child_sec_ability = copy_table(sec_card.ability)
         G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
@@ -501,14 +501,14 @@ function Horsechicot.breed(mother_center, father_center)
         --we choose which parent to make a new joker of || not anymore, quantum time
         if poll > 0.5 then
             G.GAME.child_colour = G.C.HPOT_PINK
-            G.GAME.child_prio = G.nursery_mother.cards[1].config.center
-            G.GAME.child_sec = G.nursery_father.cards[1].config.center
+            G.GAME.child_prio = G.nursery_mother.cards[1].config.center.key
+            G.GAME.child_sec = G.nursery_father.cards[1].config.center.key
             G.GAME.child_prio_ability = copy_table(G.nursery_mother.cards[1].ability)
             G.GAME.child_sec_ability = copy_table(G.nursery_father.cards[1].ability)
         else
             G.GAME.child_colour = G.C.BLUE
-            G.GAME.child_prio = G.nursery_father.cards[1].config.center
-            G.GAME.child_sec = G.nursery_mother.cards[1].config.center
+            G.GAME.child_prio = G.nursery_father.cards[1].config.center.key
+            G.GAME.child_sec = G.nursery_mother.cards[1].config.center.key
             G.GAME.child_prio_ability = copy_table(G.nursery_father.cards[1].ability)
             G.GAME.child_sec_ability = copy_table(G.nursery_mother.cards[1].ability)
         end
@@ -558,9 +558,9 @@ function end_round()
                 if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
-
+                    G.GAME.child_prio = G.P_CENTERS[G.GAME.child_prio]
+                    G.GAME.child_sec = G.P_CENTERS[G.GAME.child_sec]
                     local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
-
                     --setting child abilities
                     card.ability.name = 'Baby ' ..
                         localize { type = 'name', set = 'Joker', key = G.GAME.child_prio.key, vars = {} }[1].nodes[1]
