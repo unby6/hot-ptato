@@ -141,7 +141,7 @@ function create_UIBox_ad(args)
         ad_image = Sprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
         if ad.video then
             ad_atlas.image = nil
-            ad_image.video = love.graphics.newVideo(ad_atlas.video_stream)
+            ad_image.video = love.graphics.newVideo(ad_atlas.video_stream, {dpiscale = 1})
             ad_image.video:play()
             -- tweak the video audio source to use the current volume
             local source = ad_image.video:getSource()
