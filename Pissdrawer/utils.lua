@@ -148,7 +148,7 @@ function find_self(card, area)
                 if v == card then
                     return i, a
                 end
-                if v.ability.holds_quantum then
+                if v.ability.quantum_1 and v.ability.quantum_2 then
                     for p = 1,2 do local str = 'quantum_'..p
                         if v.ability[str] == card then return i, a end
                     end
