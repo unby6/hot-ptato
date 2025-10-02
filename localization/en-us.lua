@@ -474,8 +474,7 @@ return {
             b_hpot_domn = {
                 name = "The Deck of Many Names",
                 text = {
-                    "Starting cards have",
-                    "a random {C:attention}sticker{},",
+                    "Starting cards have a random {C:attention}sticker{},",
                     "Trigger effects gives {C:hpot_advert,f:hpot_plincoin}£0.05{},",
                     "Gain {C:attention}1{} of each currency",
                     "when {C:attention}Boss Blind{} is defeated,",
