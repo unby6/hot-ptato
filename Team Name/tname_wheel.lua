@@ -670,7 +670,7 @@ function grant_wheel_reward(_area, reward_num)
             card.states.click.can = true
           else
             G.E_MANAGER:add_event(Event({
-				trigger = "after",
+				trigger = "before",
 				delay = 0.4,
 				func = function()
 					attention_text({
@@ -709,7 +709,7 @@ function grant_wheel_reward(_area, reward_num)
             card.states.click.can = true
           else
             G.E_MANAGER:add_event(Event({
-				trigger = "after",
+				trigger = "before",
 				delay = 0.4,
 				func = function()
 					attention_text({

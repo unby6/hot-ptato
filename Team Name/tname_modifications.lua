@@ -334,7 +334,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -408,7 +408,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -446,7 +446,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -509,7 +509,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -541,7 +541,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -678,7 +678,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -709,7 +709,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -740,7 +740,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
