@@ -109,24 +109,6 @@ SMODS.Joker {
         local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
         local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
         func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
-        if q1.config.center.key == "j_blueprint" or q1.config.center.key == "j_brainstorm" then
-            desc_nodes[#desc_nodes + 1] =
-            {
-                {
-                    n = G.UIT.C,
-                    config = { align = "bm", minh = 0.4 },
-                    nodes = {
-                        {
-                            n = G.UIT.C,
-                            config = { ref_table = q1, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat' },
-                            nodes = {
-                                { n = G.UIT.T, config = { ref_table = q1.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
-                            }
-                        }
-                    }
-                }
-            }
-        end
     end,
     calculate = function(self, card, context)
         if card.ability.quantum_1 and card.ability.quantum_2 then
@@ -134,6 +116,31 @@ SMODS.Joker {
             local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
             --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
+            local function bp(quantum)
+                local to_copy
+                for i, v in pairs(G.jokers.cards) do
+                    if v.ability.quantum_1 == quantum or v.ability.quantum_2 == quantum then
+                        to_copy = G.jokers.cards[i+1]
+                    end
+                end
+                return SMODS.blueprint_effect(card, to_copy, context)
+            end
+            if card.ability.quantum_1.config.center.key == "j_blueprint" then
+                ret, trig = bp(card.ability.quantum_1)
+            end
+
+            if card.ability.quantum_2.config.center.key == "j_blueprint" then
+                ret2, trig2 = bp(card.ability.quantum_2)
+            end
+            
+            if card.ability.quantum_1.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
+                ret, trig = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
+            end
+
+            if card.ability.quantum_2.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
+                ret2, trig2 = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
+            end
+
             if ret and ret.card and ret.card == card.ability.quantum_1 then ret.card = card end
             if ret2 and ret2.card and ret2.card == card.ability.quantum_2 then ret2.card = card end
             return SMODS.merge_effects { ret or {}, ret2 or {} }, trig or trig2
@@ -276,4 +283,3 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
-
