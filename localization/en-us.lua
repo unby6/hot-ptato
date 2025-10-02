@@ -1991,6 +1991,10 @@ return {
                     '{s:0.8,C:inactive}(Rank and Suit change every trigger)'
                 }
             },
+            j_hpot_OAP = {
+                name = "",
+                text = {""}
+            },
             j_hpot_OAP_trif = {
                 name = "Oops! A Programmer",
                 text = { {
