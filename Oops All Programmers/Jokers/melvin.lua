@@ -20,9 +20,8 @@ SMODS.Joker {
             card.ability.extra.active = false
         end
         if card.ability.extra.active and context.post_trigger and context.other_card and context.other_card.config.center.key ~= "j_hpot_charlie" and not context.blueprint_card then
-            if context.other_ret and context.other_ret.jokers and
-                (context.other_ret.jokers.mult and context.other_ret.jokers.mult ~= 0)
-                or (context.other_ret.jokers.mult_mod and context.other_ret.jokers.mult_mod ~= 0) then
+            if context.other_ret and context.other_ret.jokers and (type(context.other_ret.jokers) == "table" and context.other_ret.jokers.mult and context.other_ret.jokers.mult ~= 0)
+                or (type(context.other_ret.jokers) == "table" and context.other_ret.jokers.mult_mod and context.other_ret.jokers.mult_mod ~= 0) then
                 return {
                     func = function()
                         SMODS.calculate_effect {

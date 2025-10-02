@@ -622,7 +622,7 @@ function nursery()
             G.GAME.breeding_finished = true
             local child_prio = G.P_CENTERS[G.GAME.child_prio]
             local child_sec = G.P_CENTERS[G.GAME.child_sec]
-            local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true}
+            local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
 
             --setting child abilities
             card.ability.name = 'Baby ' ..
@@ -669,7 +669,39 @@ function nursery()
     end
 end
 
+function random_nursery()
+    local c1 = pseudorandom_element(G.P_CENTER_POOLS.Joker, tostring(os.time()))
+    local c2 = pseudorandom_element(G.P_CENTER_POOLS.Joker, tostring(os.time()))
+    test_nursery(c1.key, c2.key)
+end
+
+function test_nursery(key1, key2)
+    G.nursery_father:emplace(SMODS.create_card { key = key1, skip_materialize = true })
+    G.nursery_mother:emplace(SMODS.create_card { key = key2, skip_materialize = true })
+    G.E_MANAGER:add_event(Event { func = function()
+        G.FUNCS.nursery_breed()
+        return true
+    end })
+    G.E_MANAGER:add_event(Event {
+        func = function()
+            nursery()
+            nursery()
+            nursery()
+            return true
+        end
+    })
+    G.E_MANAGER:add_event(Event {
+        func = function()
+            local card = G.nursery_child.cards[1]
+            G.nursery_child:remove_card(card)
+            G.nursery_mother.cards[1]:remove()
+            G.nursery_father.cards[1]:remove()
+            G.jokers:emplace(card)
+            return true
+        end
+    })
+end
 
 G.FUNCS.hpot_nursery_tutorial = function(e)
-	G.FUNCS.hotpot_info { menu_type = "hotpot_nursery" }
+    G.FUNCS.hotpot_info { menu_type = "hotpot_nursery" }
 end
