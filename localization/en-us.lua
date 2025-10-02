@@ -509,7 +509,7 @@ return {
             b_hpot_poopdeck = {
                 name = 'Poop Deck',
                 text = {
-                    'Start with a 22 card deck...',
+                    '{C:attention}Start{} with a 22 card deck...',
                     'and 30 {C:dark_edition}Polychrome{} Stone cards',
                     '{C:attention,T:v_hpot_poop1}Land Ahoy!{}',
                 }
