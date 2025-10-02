@@ -555,59 +555,7 @@ function end_round()
     old()
     G.E_MANAGER:add_event(Event {
         func = function()
-            if G.GAME.active_breeding then
-                G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
-                if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
-                    G.GAME.active_breeding = false
-                    G.GAME.breeding_finished = true
-                    local child_prio = G.P_CENTERS[G.GAME.child_prio]
-                    local child_sec = G.P_CENTERS[G.GAME.child_sec]
-                    local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
-                    --setting child abilities
-                    card.ability.name = 'Baby ' ..
-                        localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }[1].nodes[1]
-                        .nodes
-                        [1].config.object.config.string[1]
-                    card.ability.extra_value = ((child_prio.cost + child_sec.cost) / 2) - 1
-                    card:set_cost()
-                    card.ability.holds_quantum = true
-
-                    card.ability.quantum_1 = Quantum({
-                        fake_card = true,
-                        key = child_prio.key,
-                        ability = G.GAME.child_prio_ability,
-                        config = {
-                            center = child_prio
-                        },
-                    }, card)
-                    card.ability.quantum_2 = Quantum({
-                        fake_card = true,
-                        key = child_sec.key,
-                        ability = G.GAME.child_sec_ability,
-                        config = {
-                            center = child_sec
-                        },
-                    }, card)
-                    --make children smaller
-                    card.T.h = card.T.h * 0.75
-                    card.T.w = card.T.w * 0.75
-
-                    card.loaded = true
-
-                    card.ability.is_nursery_smalled = true
-
-                    G.E_MANAGER:add_event(Event {
-                        func = function()
-                            if G.nursery_mother and G.nursery_mother.cards[1] then
-                                G.nursery_mother.cards[1].ability.mother = nil
-                                G.GAME.child_prio, G.GAME.child_sec = nil, nil
-                                return true
-                            end
-                        end,
-                        blocking = false
-                    })
-                end
-            end
+            nursery()
             return true
         end
     })
@@ -635,6 +583,9 @@ function nursery()
                 loc[1].nodes
                 [1]
                 .nodes[1].config.object.config.string[1]
+            loc[1].nodes
+                [1]
+                .nodes[1].config.object:remove()
             card.ability.extra_value = ((child_prio.cost + child_sec.cost) / 2) - 1
             card:set_cost()
 
