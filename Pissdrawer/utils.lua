@@ -136,3 +136,25 @@ function rotate_image(self)
         0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
     --self:draw_shader('dissolve', nil, nil, nil, self, scale_mod, rotate_mod)
 end
+
+--- @param area table only use if you want to search a specific area, e.g. G.jokers.cards
+--- @return index number position in table of card
+--- @return area table the area of the card, returns `area` if passed in
+function find_self(card, area)
+    if not area then
+        local areas = SMODS.get_card_areas('jokers')
+        for _,a in pairs(areas) do
+            for i,v in pairs(a.cards) do
+                if v == card then
+                    return i, a
+                end
+            end
+        end
+    else
+        for i,v in pairs(area) do
+            if v == card then
+                return i, area
+            end
+        end
+    end
+end
