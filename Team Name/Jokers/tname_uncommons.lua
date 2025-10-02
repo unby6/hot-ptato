@@ -173,12 +173,8 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
 		if context.setting_blind then
-			local rr = nil
-			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i] == card then
-					rr = i
-				end
-			end 
+			local rr = find_self(card, G.jokers)
+			if not rr then return end
 
 			local _card =  pseudorandom_element({1,-1},pseudoseed("sticker_dealer"))
 			local k = pseudorandom_element(SMODS.Stickers,pseudoseed("sticker_dealer"))
