@@ -165,13 +165,14 @@ function create_UIBox_ad(args)
                     
     end
 
-    local t = {n = G.UIT.ROOT, config = {colour = G.C.GREY, minh = 2, instance_type = 'CARD', r = 0.3, outline = 2, outline_colour = G.C.GREY, shadow = true}, nodes = {
-        {n=G.UIT.R, config = {colour = G.C.GREY, minh = 0.5, align = 'cr', r = 0.3, padding = 0.1}, nodes = {
+    local t = {n = G.UIT.ROOT, config = {colour = G.C.GREY, minh = 1, instance_type = 'CARD', padding = 0.05,  outline = 0.5, outline_colour = G.C.GREY, shadow = true}, nodes = {
+        {n=G.UIT.R, config = {colour = G.C.GREY, minh = 0.33, align = 'cr', r = 0.05, padding = 0.01}, nodes = {
             {n=G.UIT.C, config = {colour = G.C.CLEAR, align = 'cl'}, nodes = {
-                {n=G.UIT.T, config = {text = 'ad_'..adNum, colour = G.C.UI.TEXT_LIGHT, scale = 0.4, align = 'cl'}}
+                {n=G.UIT.T, config = {text = 'ad_'..adNum.." ", colour = G.C.UI.TEXT_LIGHT, scale = 0.3, align = 'cl'}}
             }},
-            {n=G.UIT.C, config = {align = 'cm', colour = G.C.RED, minw = 0.3, minh = 0.3, r = 0.3, button = 'remove_ad', adnum = adNum}, nodes = {
-                {n=G.UIT.T, config = {text = 'x', colour = G.C.UI.TEXT_LIGHT, scale = 0.4}}
+            {n=G.UIT.C, config = {align = 'cm', colour = G.C.RED, minw = 0.3, minh = 0.3,r = 0.3, button = 'remove_ad', adnum = adNum}, nodes = {
+                -- use vanilla font: resources/fonts/GoNotoCJKCore.ttf
+                {n=G.UIT.T, config = {text = '×', font = G.FONTS[9], colour = G.C.UI.TEXT_LIGHT, shadow = false, padding = 0.045, scale = 0.3}}
             }}
         }},
         tutorial_content,
@@ -326,16 +327,13 @@ function create_ads(number_of_ads)
     end
 end
 
--- This is different for different screens so uh yea 
+
+--- Change ads to push each other + ads cannot be stuffed off screen
+--#region Ads restrictions
+
+-- Feel free to make this border dynamic (don't have time to figure this out)
 local screen_border = {-1.8, -0.8, 21.8, 12.2}
 
-local function is_inside(T)
-    return
-        T.x > screen_border[1] and
-        T.y > screen_border[2] and
-        T.x + T.w < screen_border[3] and
-        T.y + T.h < screen_border[4]
-end
 
 
 local function dist_squared(vec)
@@ -421,4 +419,4 @@ function Game:update(...)
     
     return game_update(self, ...)
 end
-
+--#endregion
