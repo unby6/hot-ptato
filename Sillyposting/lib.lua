@@ -392,7 +392,7 @@ SMODS.Consumable:take_ownership('death',
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted == math.max(card.ability.max_highlighted + (G.GAME.max_highlighted_mod or 0), 1)
+        return G.hand and #G.hand.highlighted == card.ability.max_highlighted
     end
     }
 , true)
