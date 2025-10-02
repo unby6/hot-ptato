@@ -1150,17 +1150,22 @@ return {
                 name = "{f:hpot_jtem_roboto_bold}Welcome back, to Slop Live",
                 text = {
                     {
+                        "{f:hpot_jtem_roboto_bold}Today's sloppic, the forbidden {C:attention,f:hpot_jtem_roboto_bold}Joker{f:hpot_jtem_roboto_bold} gives",
                         "{C:white,X:mult,f:hpot_jtem_roboto_bold} X#1# {f:hpot_jtem_roboto_bold} Mult",
                     },
                     {
-                        "{C:attention,f:hpot_jtem_roboto_bold}Creates a copy{f:hpot_jtem_roboto_bold} of self",
+                        "{C:attention,f:hpot_jtem_roboto_bold}The {C:attention,f:hpot_jtem_roboto_bold}Joker{f:hpot_jtem_roboto_bold} also aims to create{f:hpot_jtem_roboto_bold} a copy of self",
                         "{f:hpot_jtem_roboto_bold}When blind is {C:attention,f:hpot_jtem_roboto_bold}skipped{}",
-                        "{C:inactive,f:hpot_jtem_roboto_bold}(Must have room)"
+                        "{C:inactive,f:hpot_jtem_roboto_bold}(Must have room, of course)",
                     },
                     {
-                        "{f:hpot_jtem_roboto_bold}If blind is won {C:attention,f:hpot_jtem_roboto_bold}with exactly 1 hand left{}",
-                        "{f:hpot_jtem_roboto_bold}destroy a random copy of self",
+                        "{f:hpot_jtem_roboto_bold}But the {C:attention,f:hpot_jtem_roboto_bold}Joker{f:hpot_jtem_roboto_bold} said that",
+                        "{f:hpot_jtem_roboto_bold}if blind is won {C:attention,f:hpot_jtem_roboto_bold}with exactly 1 hand left{}",
+                        "{f:hpot_jtem_roboto_bold}then it will {C:red,f:hpot_jtem_roboto_bold}destroy a random copy of self",
                         "{f:hpot_jtem_roboto_bold}and create a {C:attention,f:hpot_jtem_roboto_bold}Buffoon Tag{}",
+                    },
+                    {
+                        "{f:hpot_jtem_roboto_bold}Thanks... for slopping by.",
                     }
                 }
             },
