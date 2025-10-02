@@ -21,8 +21,8 @@ SMODS.Joker {
         end
         if card.ability.extra.active and context.post_trigger and context.other_card and context.other_card.config.center.key ~= "j_hpot_melvin" and not context.blueprint_card then
             if context.other_ret and context.other_ret.jokers and
-                (context.other_ret.jokers.chips and context.other_ret.jokers.chips ~= 0)
-                or (context.other_ret.jokers.chip_mod and context.other_ret.jokers.chip_mod ~= 0) then
+                (type(context.other_ret.jokers) == "table" and context.other_ret.jokers.chips and context.other_ret.jokers.chips ~= 0)
+                or (type(context.other_ret.jokers) == "table" and context.other_ret.jokers.chip_mod and context.other_ret.jokers.chip_mod ~= 0) then
                 return {
                     func = function()
                         SMODS.calculate_effect {
