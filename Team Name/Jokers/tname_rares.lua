@@ -47,6 +47,9 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		local fuck = card.ability.extra.functions
 		if context.starting_shop then
+			if card.quantum then
+				card = card.quantum
+			end
 			card.children.center:set_sprite_pos { x = G.GAME.current_team_name_member - 1, y = 0 }
 			return {
 				message = localize("k_changedperson"),
