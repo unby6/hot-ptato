@@ -111,7 +111,7 @@ return {
             c_hpot_power_budget = {
                 name = "Aura of Power",
                 text = {
-                    "{C:red}Remove ALL Budgets{},",
+                    "{C:red}Remove ALL Budget{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
                     "for every {C:attention}e.#1#{} removed.",
                     "{C:inactive}(Currently #3##2# Copies.)"
@@ -509,9 +509,9 @@ return {
             b_hpot_poopdeck = {
                 name = 'Poop Deck',
                 text = {
-                    'Start with a standard 52 card deck and',
-                    '30 {C:dark_edition}Polychrome{} Stone cards',
-                    '{C:inactive}Land Ahoy!'
+                    '{C:attention}Start{} with a 22 card deck...',
+                    'and 30 {C:dark_edition}Polychrome{} Stone cards',
+                    '{C:attention,T:v_hpot_poop1}Land Ahoy!{}',
                 }
             },
         },
@@ -952,8 +952,9 @@ return {
             j_hpot_dont_touch_that_dial = {
                 ['name'] = 'Don\'t Touch That Dial!',
                 ['text'] = {
-                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and {C:money}$#1#{} for',
-                    [2] = 'each {C:red}discard{} remaining',
+                    [1] =
+                    'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and create {C:hpot_advert}#1# Ad',
+                    [2] = 'for each {C:red}discard{} remaining',
                     [3] = 'at end of round'
                 }
             },
@@ -1069,10 +1070,11 @@ return {
             j_hpot_magic_factory = {
                 name = "Magic Factory",
                 text = {
-                    "Creates a {C:dark_edition}Negative {C:tarot}Tarot{}",
-                    "card when blind is selected",
-                    "All {C:attention}consumables{} can affect",
-                    "{C:red}#1#{} less card",
+                    "Creates a {C:dark_edition}Negative{} copy of a random",
+                    "non-{C:dark_edition}Negative{} consumable if you",
+                    "have at least {C:attention}#1#{} non-{C:dark_edition}Negative{}",
+                    "consumables when Blind is selected",
+                    "All {C:attention}consumables{} can affect {C:red}#2#{} less card",
                     "{C:inactive}(Minimum of 1)",
                     "{C:inactive,s:0.8}mass-produced tarotslop"
                 }
@@ -2324,6 +2326,14 @@ return {
                     "for {C:blue}Jicks"
                 }
             },
+            v_hpot_exchange_rate_budget = {
+                name = "Exchange Rate",
+                text = {
+                    "Enable converting {C:hpot_plincoin}plincoins",
+                    "{C:attention}budget{}, and {C:hpot_advert}cryptocurrency{}",
+                    "for {C:blue}Jicks"
+                }
+            },
             v_hpot_right_at_your_door = {
                 name = "Right at Your Door",
                 text = {
@@ -2356,11 +2366,29 @@ return {
                     "you would earn"
                 }
             },
+            v_hpot_digital_payment_budget = {
+                name = "Digital Payment",
+                text = {
+                    "Earn no interest.",
+                    "gain {C:attention}+#1#{} Budget{}",
+                    "for each interest",
+                    "you would earn"
+                }
+            },
             v_hpot_digital_promotion = {
                 name = "Digital Promotion",
                 text = {
                     "Earn no hand money.",
                     "gain {C:purple}+#1#{} Credits{}",
+                    "for each spare hand",
+                    "you would earn"
+                }
+            },
+            v_hpot_digital_promotion_budget = {
+                name = "Digital Promotion",
+                text = {
+                    "Earn no hand money.",
+                    "gain {C:attention}+#1#{} Budget{}",
                     "for each spare hand",
                     "you would earn"
                 }
@@ -2416,7 +2444,7 @@ return {
                 name = "Incubator",
                 text = {
                     "{C:hpot_pink}Breeding{} now takes",
-                    "only one round"
+                    "only two rounds"
                 }
             },
             v_hpot_hc_dark_connections = {
@@ -2451,7 +2479,25 @@ return {
                 text = {
                     "{C:attention}Events{} appear after all {C:attention}Blinds{}"
                 }
-            }
+            },
+            --not actual vouchers
+            v_hpot_poop1 = {
+                name = "Poop Deck",
+                text = {
+                    [1] = {
+                        "Exiting {C:attention}boosters{} or {C:attention}changing{} rounds will {C:green}either{}",
+                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one"
+                    },
+                    [2] = {
+                        "{C:inactive,s:0.3} "
+                    },
+                    [3] = {
+                        "Stone cards held in hand gain {X:mult,C:white}XMult{} or {X:chips,C:white}XChips{}",
+                        "depending on the {C:attention}total{} number of Stone cards",
+                        "{u:default}and{} the {C:purple}enhancements{} applied to them"
+                    }
+                }
+            },
         },
         Spectral = {
             c_hpot_arcade_machine = {
@@ -2724,8 +2770,8 @@ return {
                 name = "The Chariot",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_death_v2 = {
@@ -2750,7 +2796,7 @@ return {
                 name = "The Devil",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
+                    "card into a",
                     "{C:attention}#2#",
                 },
             },
@@ -2758,8 +2804,8 @@ return {
                 name = "The Devil",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_empress_v2 = {
@@ -2774,8 +2820,8 @@ return {
                 name = "The Empress",
                 text = {
                     "Enhances {C:attention}#1#",
-                    "selected card to",
-                    "{C:attention}#2#s",
+                    "selected card to a",
+                    "{C:attention}#2#",
                 },
             },
             c_hanged_man_v2 = {
@@ -2805,7 +2851,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#",
                     "selected card to",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_justice_v2 = {
@@ -2820,8 +2866,8 @@ return {
                 name = "Justice",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_lovers_v2 = {
@@ -2836,8 +2882,8 @@ return {
                 name = "The Lovers",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_magician_v2 = {
@@ -2853,7 +2899,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{}",
                     "selected card to",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_moon_v2 = {
@@ -2932,8 +2978,8 @@ return {
                 name = "The Tower",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_world_v2 = {
@@ -3721,7 +3767,7 @@ return {
                     "No track is playing!",
                     "Are ya gonna listen or what?"
                 }
-            }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -3783,7 +3829,15 @@ return {
                 name = "Economy Tag?",
                 text = {
                     "{C:attention}Doubles{} your",
-                    "{C:purle}Credits{}",
+                    "{C:purple}Credits{}",
+                    "{C:inactive}(Max of #1#)"
+                }
+            },
+            tag_hpot_credit_econ_budget = {
+                name = "Economy Tag?",
+                text = {
+                    "{C:attention}Doubles{} your",
+                    "{C:attention}Budget{}",
                     "{C:inactive}(Max of #1#)"
                 }
             },
@@ -3846,6 +3900,13 @@ return {
                 name = "The Credential",
                 text = {
                     "Lose 5 Credits when",
+                    "hand is played"
+                }
+            },
+            bl_hpot_credential_budget = {
+                name = "The Budgetal",
+                text = {
+                    "Lose 5 Budget when",
                     "hand is played"
                 }
             },
@@ -4179,6 +4240,14 @@ return {
                     "Don't you wanna {C:attention}open{} it?"
                 }
             },
+            hpot_mb_1_budget = {
+                text = {
+                    "Hello! {C:attention}Team Name{} made budgets,",
+                    "and now's your chance to {C:attention}use{} them!",
+                    "Luckily, we have a neat {C:attention}mystery box{} in front of us!",
+                    "Don't you wanna {C:attention}open{} it?"
+                }
+            },
             hpot_mb_2 = {
                 text = {
                     "Ooh, neat! A {C:dark_edition,E:1}Five Star{}!",
@@ -4197,6 +4266,16 @@ return {
                     "{C:inactive}And credits.{}"
                 }
             },
+            hpot_mb_3_budget = {
+                text = {
+                    "{C:inactive}You have the feeling what just happened{}",
+                    "{C:inactive}was a major waste of time.{}",
+                    " ",
+                    " ",
+                    " ",
+                    "{C:inactive}And budget.{}"
+                }
+            },
             hpot_mb_4 = {
                 text = {
                     "{C:inactive}You decide to cut the bullshit and leave.{}",
@@ -4211,7 +4290,8 @@ return {
                     "During your run, you come across a {C:attention}Vending Machine.",
                     "You investigate and notice bottles of Cola are {C:money}$5{}.",
                     " ",
-                    "Would you like one?"
+                    "Would you like one?",
+                    "{C:inactive,s:0.8}(Requires an empty consumable slot)"
                 }
             },
             hpot_refreshing_purchase = {
@@ -4365,6 +4445,20 @@ return {
                     "but you're having trouble coding a specific Joker.",
                     " ",
                     "Who do you ask for help?"
+                }
+            },
+            hpot_business_venture_1_start_budget = {
+                text = {
+                    "A stange guy approaches you on the street.",
+                    " ",
+                    "\"Hey, would you like to invest in my business idea?\"",
+                }
+            },
+            hpot_postlatro_start_budget = {
+                text = {
+                    "A stange guy approaches you on the street.",
+                    " ",
+                    "\"Hey, would you like to invest in my business idea?\"",
                 }
             },
         },
@@ -4707,16 +4801,16 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "Experience all different kinds of random events where",
-                            "your choices influence the outcome! (Somewhat)",
+                            "Experience random encounters, where",
+                            "your choices influence the outcome! (somewhat)",
                         },
                         {
-                            "After a {C:attention}Boss Blind{}'s shop you get a choice",
-                            "between 2 {C:attention}Event types{} that can have different kinds of events"
+                            "Events appear after every {C:attention}Boss Blind{}'s shop",
+                            "Different {C:attention}types{} of events will have different interactions"
                         },
                         {
-                            "Some items can increase the amount of Event type choices,",
-                            "make rare Events more common or make events more frequent"
+                            "Some items can increase amount of events,",
+                            "how often you can encounter them and their rarity"
                         },
                     }
                 },
@@ -4887,6 +4981,7 @@ return {
             k_imaginary = "Imaginary",
 
             k_credits = "Credits",
+            k_budget = "Budget",
             teamname_budget = "Set Budget",
             teamname_seeded = "Seeded!",
             teamname_off_reference = "Revived",
@@ -4983,7 +5078,6 @@ return {
             hpot_credit_text = "Credits:",
 
             hotpot_disable_animations = "Disable Animations",
-            hotpot_white_stake_stickers = "Custom stickers apply on White Stake",
             hotpot_family_friendly = "Family Friendly",
 
             k_place_card_text = "PLACE JOKER TO REFORGE",
@@ -5015,6 +5109,7 @@ return {
             hpot_diy_earn_dollars = "Earn $2",
             hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
             hpot_diy_earn_credits = "Earn 0.1 Credits",
+            hpot_diy_earn_budget = "Earn 0.1 Budget",
             hpot_diy_earn_sparks = "Earn 1000 Spark Points",
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
@@ -5069,7 +5164,10 @@ return {
 
             k_spark_per_turn = "Upgrade cost",
 
-            hotpot_current_track = "CURRENT TRACK"
+            hotpot_current_track = "CURRENT TRACK",
+            
+            hotpot_exposure = "Exposure"
+
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -5104,6 +5202,8 @@ return {
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
             hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)',
+            hotpot_budget_cashout = 'Budget (#1# per interest)',
+            hotpot_budget_cashout2 = 'Budget (#1# per interest, #2# per hand)',
 
             k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
             k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
@@ -5168,6 +5268,8 @@ return {
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
+            hpot_general_no_thanks = "No thanks",
+
             hpot_test_1_lose = "Destroy {C:attention}ALL{} cards in hand",
             hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
             hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(only if you have at least #1#$)",
@@ -5199,6 +5301,7 @@ return {
             hpot_food_trade_choose_ignore = "Ignore them",
 
             hpot_exchange_credits_to_dollars = "Credits to Dollars",
+            hpot_exchange_budget_to_dollars = "Budget to Dollars",
             hpot_exchange_plincoins_to_dollars = "Plincoins to Dollars",
             hpot_exchange_sparks_to_dollars = "Jicks to Dollars",
             hpot_ignore_or_something = "Ignore",
@@ -5212,6 +5315,7 @@ return {
             hpot_trolley_cards = "Direct at Playing Cards",
             hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
             hpot_mystery_box = "Open (5 credits)",
+            hpot_mystery_box_budget = "Open (5 budget)",
 
             hpot_refreshing_purchase_btn = "Buy a drink ({C:money}$5{})",
 
@@ -5231,7 +5335,33 @@ return {
             hpot_tech_support_ask_bepis = "Ask Bepis",
             hpot_tech_support_ask_deadbeet = "Ask Deadbeet",
             hpot_tech_support_ask_fey = "Ask Fey",
-            hpot_tech_support_ask_tacashumi = "Ask Tacashumi"
+            hpot_tech_support_ask_tacashumi = "Ask Tacashumi", -- revo do your shenanigans
+            --[[hpot_business_venture_1_start_budget_invest_100 = "Invest {C:attention}e.100",
+            hpot_business_venture_1_start_budget_invest_500 = "Invest {C:attention}e.500",
+            hpot_business_venture_1_start_budget_invest_1000 = "Invest {C:attention}e.1000",
+            hpot_postlatro_start_budgetcredits = "{C:money}$10{} > {C:attention}e.100",
+            hpot_postlatro_start_budget_invest_500 = "Invest {C:attention}e.500",
+            hpot_postlatro_start_budget_invest_1000 = "Invest {C:attention}e.1000",
+        }
+            hpot_postlatro_start_budget = {
+		text = {
+			"A stange guy approaches you on the street.",
+			" ",
+			"\"Hey, would you like to invest in my business idea?\"",
+		},
+		
+		choices = {
+			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
+			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
+			credits = "{C:money}$10{} > {C:purple}c.100",
+			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
+			from_spark = "{C:blue,f:hpot_plincoin}͸10k{} > {C:money}$1{}",
+			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
+			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
+			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
+			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
+			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
+		}]]
         }
     }
 }

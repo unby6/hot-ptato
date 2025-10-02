@@ -14,11 +14,11 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.before then
-			card.ability.extra.active = true
-		end
-		if context.after then
-			card.ability.extra.active = false
-		end
+            card.ability.extra.active = true
+        end
+        if context.after then
+            card.ability.extra.active = false
+        end
         if card.ability.extra.active and context.post_trigger and context.other_card and context.other_card.config.center.key ~= "j_hpot_charlie" and not context.blueprint_card then
             if context.other_ret and context.other_ret.jokers and
                 (context.other_ret.jokers.mult and context.other_ret.jokers.mult ~= 0)
@@ -36,9 +36,9 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'th30ne'},
-        code = {'trif'},
-        idea = {'th30ne'},
-        team = {'Oops! All Programmers'}
+        art = { 'th30ne' },
+        code = { 'trif' },
+        idea = { 'th30ne' },
+        team = { 'O!AP' }
     }
 }

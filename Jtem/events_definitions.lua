@@ -400,22 +400,7 @@ HotPotato.EventStep({
 	end,
 
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event {
-				func = function()
-					jimbo_card.children.card:start_dissolve()
-					return true
-				end
-			})
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 HotPotato.EventStep({
@@ -471,16 +456,7 @@ HotPotato.EventStep({
 		end
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 HotPotato.EventStep({
@@ -608,16 +584,7 @@ HotPotato.EventStep({
 		}))
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end,
 })
 
@@ -708,16 +675,7 @@ HotPotato.EventStep({
 		})
 	end,
 	finish = function(self, event)
-		local jimbo_card = event.image_area.children.jimbo_card
-		if jimbo_card then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					jimbo_card:remove()
-					event.image_area.children.jimbo_card = nil
-					return true
-				end,
-			}))
-		end
+		Remove()
 	end
 })
 
@@ -1155,7 +1113,7 @@ HotPotato.EventStep({
 	get_choices = function(self, event)
 		return {
 			{
-				key = "hpot_exchange_credits_to_dollars",
+				key = G.GAME.seeded and "hpot_exchange_budget_to_dollars" or "hpot_exchange_credits_to_dollars",
 				no_prefix = true,
 				loc_vars = { convert_currency(G.GAME.credits_text, "CREDIT", "DOLLAR") },
 				button = function()
@@ -1513,7 +1471,7 @@ HotPotato.EventScenario {
 	hotpot_credits = {
 		idea = { "Liafeon" },
 		code = { "Liafeon" },
-		team = { "Oops! All Programmers" },
+		team = { "O!AP" },
 	},
 	in_pool = function()
 		return G.GAME.round_resets.ante >= 5
@@ -1545,6 +1503,11 @@ HotPotato.EventStep {
 					event.start_step('hpot_vsf_2')
 				end,
 			},
+			{
+				key = "hpot_general_no_thanks",
+				no_prefix = true,
+				button = event.finish_scenario,
+			}
 		}
 	end,
 	start = function(self, event)
@@ -1582,7 +1545,7 @@ HotPotato.EventStep {
 		for _, joker in pairs(G.jokers.cards) do
 			joker:juice_up(0.8, 0.8)
 			for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
-				if joker.ability[sticker] then
+				if joker.ability[sticker] and sticker ~= 'hpot_jtem_mood' then
 					joker.ability[sticker] = nil
 				end
 			end
@@ -1805,6 +1768,12 @@ HotPotato.EventScenario {
 }
 HotPotato.EventStep {
 	key = "mb_1",
+	loc_vars = function(self, event)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return { key = key }
+	end,
 	get_choices = function(self, event)
 		return {
 			{
@@ -1815,7 +1784,7 @@ HotPotato.EventStep {
 				end,
 			},
 			{
-				key = "hpot_mystery_box",
+				key = "hpot_mystery_box" .. (G.GAME.seeded and "_budget" or ""),
 				no_prefix = true,
 				button = function()
 					HPTN.ease_credits(-5)
@@ -1866,6 +1835,12 @@ HotPotato.EventStep {
 }
 HotPotato.EventStep {
 	key = "mb_3",
+	loc_vars = function(self, event)
+		local key
+		local fucking = G.GAME.seeded and "_budget" or ""
+		key = (self.key .. fucking)
+		return { key = key }
+	end,
 	get_choices = function(self, event)
 		return {
 			{
@@ -2618,7 +2593,7 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		ease_dollars(-G.GAME.dollars)
-		HPTN.ease_credits(-G.PROFILES[G.SETTINGS.profile].TNameCredits)
+		HPTN.ease_credits(G.GAME.seeded and G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits)
 		ease_spark_points(-G.GAME.spark_points)
 		ease_plincoins(-G.GAME.plincoins)
 		ease_cryptocurrency(-G.GAME.cryptocurrency)
@@ -2642,7 +2617,7 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-		pool = {}
+		local pool = {}
 		for i, v in pairs(G.P_CENTERS) do
 			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
 				table.insert(pool, v)
@@ -4568,7 +4543,9 @@ HotPotato.CombatEvents.generic = {
 						ease_plincoins(math.min(0, -G.GAME.plincoins), true)
 					end
 					if effect.set_to_zero.credits then
-						HPTN.ease_credits(math.min(0, -G.PROFILES[G.SETTINGS.profile].TNameCredits), true)
+						HPTN.ease_credits(
+						math.min(0, G.GAME.seeded and -G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits),
+							true)
 					end
 					if effect.set_to_zero.sparkle then
 						ease_spark_points(math.min(0, -G.GAME.spark_points), true)
@@ -5334,10 +5311,12 @@ HotPotato.EventStep {
 	start = function(self, event)
 		local count = 0
 		for i, v in ipairs(G.hand.cards) do
-			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
-				count = count + 1
-			else
-				count = count + v.base.nominal
+			if not SMODS.has_no_rank(v) then
+				if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+					count = count + 1
+				else
+					count = count + v.base.nominal
+				end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
@@ -5522,7 +5501,7 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-	key = "hpot_postlatro_start",
+	key = "postlatro_start",
 	loc_txt = {
 		text = {
 		},
@@ -5729,11 +5708,10 @@ HotPotato.EventStep {
 				new_shop_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
 				G.E_MANAGER:add_event(Event({
 					func = (function()
-						if not G.shop_jokers then return true end
 						if new_shop_card.children.price then
 							hpot_event_transaction_change_shop_price(new_shop_card)
-							return true
 						end
+						return true
 					end)
 				}))
 			else
@@ -5753,11 +5731,10 @@ HotPotato.EventStep {
 				voucher_card.hpot_transaction_price = { currency = currencies[i], price = 0 }
 				G.E_MANAGER:add_event(Event({
 					func = (function()
-						if not G.shop_jokers then return true end
 						if voucher_card.children.price then
 							hpot_event_transaction_change_shop_price(voucher_card)
-							return true
 						end
+						return true
 					end)
 				}))
 			end
@@ -5808,7 +5785,7 @@ HotPotato.EventScenario {
 }
 
 HotPotato.EventStep {
-	key = "hpot_black_market_alley_start",
+	key = "black_market_alley_start",
 	loc_txt = {
 		text = {
 		},
@@ -6015,11 +5992,10 @@ HotPotato.EventStep {
 				new_shop_card.hpot_transaction_price = { currency = "crypto", price = 0 }
 				G.E_MANAGER:add_event(Event({
 					func = (function()
-						if not G.shop_jokers then return true end
 						if new_shop_card.children.price then
 							hpot_event_transaction_change_shop_price(new_shop_card, true)
-							return true
 						end
+						return true
 					end)
 				}))
 			else
@@ -6038,12 +6014,13 @@ HotPotato.EventStep {
 				voucher_card:juice_up()
 				voucher_card.hpot_transaction_price = { currency = "crypto", price = 0 }
 				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 0.1,
 					func = (function()
-						if not G.shop_jokers then return true end
 						if voucher_card.children.price then
 							hpot_event_transaction_change_shop_price(voucher_card, true)
-							return true
 						end
+						return true
 					end)
 				}))
 			end

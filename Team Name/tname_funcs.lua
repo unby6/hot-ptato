@@ -550,9 +550,9 @@ end
 end
 
 G.FUNCS.credits_UI_set = function(e)
-    local new_chips_text = number_format(G.PROFILES[G.SETTINGS.profile].TNameCredits)
+    local new_chips_text = number_format(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)
     if G.GAME.credits_text ~= new_chips_text then
-        e.config.scale = math.min(0.8, scale_number(G.PROFILES[G.SETTINGS.profile].TNameCredits, 1.1))
+        e.config.scale = math.min(0.8, scale_number(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits, 1.1))
         G.GAME.credits_text = new_chips_text
     end
 end
@@ -597,10 +597,10 @@ function add_round_eval_credits(config) --taken straight from plincoin.lua (yet 
                     { n = G.UIT.T, config = { text = config.credits, font = config.font, scale = 0.8 * scale, colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE, shadow = true, juice = true } })
                 if G.GAME.modifiers.hands_to_credits then
                     table.insert(left_text,
-                        { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = 'hotpot_credits_cashout2', vars = { (G.GAME.credits_cashout or 0), (G.GAME.credits_cashout2 or 0) } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
+                        { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = G.GAME.seeded and 'hotpot_budget_cashout2' or 'hotpot_credits_cashout2', vars = { (G.GAME.credits_cashout or 0), (G.GAME.credits_cashout2 or 0) } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
                 else
                     table.insert(left_text,
-                        { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = 'hotpot_credits_cashout', vars = { G.GAME.credits_cashout or 0 } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
+                        { n = G.UIT.O, config = { object = DynaText({ string = { " " .. localize { type = 'variable', key = G.GAME.seeded and 'hotpot_budget_cashout' or 'hotpot_credits_cashout', vars = { G.GAME.credits_cashout or 0 } } }, colours = { G.C.UI.TEXT_LIGHT }, shadow = true, pop_in = 0, scale = 0.4 * scale, silent = true }) } })
                 end
             elseif string.find(config.name, 'joker') then
                 table.insert(left_text,
@@ -618,7 +618,7 @@ function add_round_eval_credits(config) --taken straight from plincoin.lua (yet 
             G.round_eval:add_child(full_row, G.round_eval:get_UIE_by_ID('bonus_round_eval'))
             play_sound('cancel', config.pitch or 1)
             play_sound('highlight1', (1.5 * config.pitch) or 1, 0.2)
-            if config.card then config.card:juice_up(0.7, 0.46) end
+            if config.card and config.card.juice_up then config.card:juice_up(0.7, 0.46) end
             return true
         end
     }))

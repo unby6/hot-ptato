@@ -201,3 +201,17 @@ payload = '''
     G.FUNCS.start_run(e, {stake = _stake, seed = _seed, challenge = _challenge, budget = _budget})
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+function Game:update(dt)
+'''
+position = "after"
+payload = '''
+    if G and G.GAME and G.GAME.seeded then
+        HotPotato.effect_options[3] =G.GAME.seeded and "hpot_diy_earn_budget" or "hpot_diy_earn_credits"
+    end
+'''
+match_indent = true

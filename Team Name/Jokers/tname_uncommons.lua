@@ -191,6 +191,11 @@ SMODS.Joker({
 				}
 			end
 		end
+		if context.joker_main then
+			return {
+				xmult = hpt.xmult
+			}
+		end
 	end,
     hotpot_credits = {
         art = {"GoldenLeaf"},

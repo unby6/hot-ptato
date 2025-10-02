@@ -44,6 +44,7 @@ HotPotato.Ads = {
         ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}},
         ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}},
         ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}},
+        ad_death = {atlas = "hpot_oap_death", pos = {x = 0, y = 0}},
         ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
         ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}},
         ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
@@ -323,5 +324,101 @@ function create_ads(number_of_ads)
             end
         end
     end
+end
+
+-- This is different for different screens so uh yea 
+local screen_border = {-1.8, -0.8, 21.8, 12.2}
+
+local function is_inside(T)
+    return
+        T.x > screen_border[1] and
+        T.y > screen_border[2] and
+        T.x + T.w < screen_border[3] and
+        T.y + T.h < screen_border[4]
+end
+
+
+local function dist_squared(vec)
+    return vec.x^2 + vec.y^2
+end
+
+local function find_closest_ad(key, ad)
+    local closest = nil
+    local closest_dist = 999999
+
+    for relative_key, relative_ad in pairs(G.GAME.hotpot_ads) do
+        if relative_key == key then
+            goto continue
+        end
+
+        -- Distance between center points for each ad
+        local dist = dist_squared {
+            x = (ad.VT.x + ad.VT.w/2) - (relative_ad.VT.x + relative_ad.VT.w/2),
+            y = (ad.VT.y + ad.VT.h/2) - (relative_ad.VT.y + relative_ad.VT.h/2),
+        }
+        if closest == nil or dist < closest_dist then
+            closest = relative_ad
+            closest_dist = dist
+        end
+
+        ::continue::
+    end
+    return closest
+end
+
+local function normalize(vec)
+    local len = (vec.x^2 + vec.y^2) ^0.5
+    -- No division by 0
+    if len < 0.00001 then
+        len = 0.00001
+    end
+    vec.x = vec.x/len
+    vec.y = vec.y/len
+    return vec
+end
+
+local function fix_T(T)
+    T.x = math.max(screen_border[1], math.min(screen_border[3] - T.w, T.x))
+    T.y = math.max(screen_border[2], math.min(screen_border[4] - T.h, T.y))
+end
+
+local game_update = Game.update
+function Game:update(...)
+    if G.real_dt and G.GAME and G.GAME.hotpot_ads and not G.freeze_ads then
+
+        local speed = G.real_dt * 0.04
+
+        for key, ad in pairs(G.GAME.hotpot_ads) do
+
+            local closest = find_closest_ad(key, ad)
+            if closest then
+                local dir_vector = {
+                        x = (ad.VT.x + ad.VT.w/2) - (closest.VT.x + closest.VT.w/2),
+                        y = (ad.VT.y + ad.VT.h/2) - (closest.VT.y + closest.VT.h/2),
+                }
+                -- If hitboxes intersect
+                if
+                    math.abs(dir_vector.x) < (ad.VT.w/2 + closest.VT.w/2) and
+                    math.abs(dir_vector.y) < (ad.VT.h/2 + closest.VT.h/2)
+                then
+                    normalize(dir_vector)
+                    ad.T.x = ad.T.x + dir_vector.x * speed
+                    ad.T.y = ad.T.y + dir_vector.y * speed
+                    fix_T(ad.T)
+
+                    -- Push the other ad as well
+                    closest.T.x = closest.T.x - dir_vector.x * speed
+                    closest.T.y = closest.T.y - dir_vector.y * speed
+                    fix_T(closest.T)
+                    goto continue
+                end
+            end
+
+            fix_T(ad.T)
+            ::continue::
+        end
+    end
+    
+    return game_update(self, ...)
 end
 

@@ -488,7 +488,7 @@ function add_round_eval_crypto(config)
       G.round_eval:add_child(full_row, G.round_eval:get_UIE_by_ID('bonus_round_eval'))
       play_sound('cancel', config.pitch or 1)
       play_sound('highlight1', (1.5 * config.pitch) or 1, 0.2)
-      if config.card then config.card:juice_up(0.7, 0.46) end
+      if config.card and config.card.juice_up then config.card:juice_up(0.7, 0.46) end
       return true
     end
   }))

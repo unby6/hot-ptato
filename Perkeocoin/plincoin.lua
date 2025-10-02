@@ -1,9 +1,5 @@
 
--- SMODS.Fonts.hpot_plincoin
-SMODS.Font {
-  key = "plincoin",
-  path = "plincoin2.ttf"
-}
+-- SMODS.Fonts.hpot_plincoin has been moved to Jtem because I needed it earlier
 
 -- Properly init perkeocoin stuff to be compatible with existing save files
 function init_perkeocoin(game)
@@ -73,7 +69,7 @@ function add_round_eval_plincoins(config)
                 G.round_eval:add_child(full_row,G.round_eval:get_UIE_by_ID('bonus_round_eval'))
                 play_sound('cancel', config.pitch or 1)
                 play_sound('highlight1',( 1.5*config.pitch) or 1, 0.2)
-                if config.card then config.card:juice_up(0.7, 0.46) end
+                if config.card and config.card.juice_up then config.card:juice_up(0.7, 0.46) end
                 return true
             end
         }))
@@ -84,7 +80,7 @@ function add_round_eval_plincoins(config)
                 func = function()
                     G.round_eval:add_child(
                             {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={
-                                {n=G.UIT.O, config={object = DynaText({string = {localize('$')..num_dollars}, font = SMODS.Fonts.hpot_plincoin,colours = {G.C.MONEY}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
+                                {n=G.UIT.O, config={object = DynaText({string = {localize('$')..num_dollars}, font = SMODS.Fonts.hpot_plincoin,colours = {SMODS.Gradients.hpot_plincoin}, shadow = true, pop_in = 0, scale = 0.65, float = true})}}
                             }},
                             G.round_eval:get_UIE_by_ID('dollar_'..config.name))
 
@@ -105,7 +101,7 @@ function add_round_eval_plincoins(config)
                                 dollar_row = dollar_row+1
                         end
 
-                        local r = {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.MONEY, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
+                        local r = {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients.hpot_plincoin, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
                         play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
                         
                         if config.name == 'blind1' then 

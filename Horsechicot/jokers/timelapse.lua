@@ -32,8 +32,12 @@ SMODS.Joker {
         end
         local other_joker = G.jokers and jokers[1] ~= jokers[#jokers] and jokers[#jokers]
         local other_joker2 = G.jokers and jokers[1]
-        local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-        local compatible2 = other_joker2 and other_joker2 ~= card and other_joker2.config.center.blueprint_compat
+        local compatible = other_joker and other_joker ~= card and (other_joker.config.center.blueprint_compat or 
+                        (other_joker.ability.quantum_1 and other_joker.ability.quantum_1.config.center.blueprint_compat) or 
+                        (other_joker.ability.quantum_2 and other_joker.ability.quantum_2.config.center.blueprint_compat))
+        local compatible2 = other_joker2 and other_joker2 ~= card and (other_joker2.config.center.blueprint_compat or 
+                        (other_joker2.ability.quantum_1 and other_joker2.ability.quantum_1.config.center.blueprint_compat) or 
+                        (other_joker2.ability.quantum_2 and other_joker2.ability.quantum_2.config.center.blueprint_compat))
         local none = not jokers[1]
         local main_end = {
             {

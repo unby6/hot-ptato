@@ -2,11 +2,30 @@
 function init_jtem(game)
 	game.spark_points = game.spark_points or 0
 	game.spark_points_display = game.spark_points_display or "0"
+	game.current_round.spark_points = game.current_round.spark_points or 0
 	game.hpot_events_encountered = game.hpot_events_encountered or {}
 	game.hpot_jtem_base_values = game.hpot_jtem_base_values or {}
     game.hpot_training_cost_mult = game.hpot_training_cost_mult or 1
 	G.hpot_training_consumable_highlighted = nil
 end
+
+-- I needed these earlier than Perkeocoins files were loaded so theyre here now
+SMODS.Gradient {
+    key = 'plincoin',
+    colours = {G.C.MONEY, G.C.GREEN},
+    cycle = 1
+}
+SMODS.Gradient {
+    key = 'advert',
+    colours = {G.C.FILTER, G.C.RED},
+    cycle = 1
+}
+
+-- SMODS.Fonts.hpot_plincoin
+SMODS.Font {
+  key = "plincoin",
+  path = "plincoin2.ttf"
+}
 
 -- For the splash text
 function ease_splash_text(delta, reset)
