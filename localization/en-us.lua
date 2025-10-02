@@ -1993,7 +1993,7 @@ return {
             },
             j_hpot_OAP = {
                 name = "",
-                text = {""}
+                text = {{""}}
             },
             j_hpot_OAP_trif = {
                 name = "Oops! A Programmer",

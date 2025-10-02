@@ -109,7 +109,9 @@ SMODS.Joker {
         if card then
             local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
             local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
-            func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
+            if type(func) == "function" then
+                func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
+            end
         end
     end,
     calculate = function(self, card, context)
