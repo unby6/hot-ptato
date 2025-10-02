@@ -33,6 +33,7 @@ SMODS.Joker {
                         copied_card:set_edition("e_negative", true)
                         copied_card:add_to_deck()
                         G.consumeables:emplace(copied_card)
+                        G.GAME.consumeable_buffer = 0
                         return true
                     end)
                 }))
