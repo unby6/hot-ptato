@@ -46,12 +46,14 @@ SMODS.Sound {
         end
     end,
     hpot_title = "Black Market Theme",
-    hpot_artist = "???", -- Someone fill this up
+    hpot_artist = "GoldenLeaf",
     hpot_purpose = {
         "Music that plays in",
         "the Black Market"
     },
-    hotpot_credits = Horsechicot.credit()
+    hotpot_credits = {
+        team = 'Team Name'
+    }
 }
 
 
