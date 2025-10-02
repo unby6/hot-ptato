@@ -1,4 +1,3 @@
-
 SMODS.Seal {
     key = 'hanafuda',
     atlas = 'tname_seals',
@@ -8,12 +7,19 @@ SMODS.Seal {
 
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
-            if G.consumeables.config.card_limit > #G.consumeables.cards then
-                SMODS.add_card{
-                    set = "Hanafuda"
-                }
+            if G.consumeables.config.card_limit > #G.consumeables.cards + G.GAME.consumeable_buffer then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.add_card {
+                            set = "Hanafuda"
+                        }
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end
+                }))
             else
-                return{
+                return {
                     message = localize("k_no_room_ex")
                 }
             end
@@ -21,9 +27,9 @@ SMODS.Seal {
     end,
 
     hotpot_credits = {
-        art = {'Revo'},
-        code = {'Revo'},
-        idea = {'Revo'},
-        team = {'Team Name'}
+        art = { 'Revo' },
+        code = { 'Revo' },
+        idea = { 'Revo' },
+        team = { 'Team Name' }
     },
 }

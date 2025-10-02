@@ -19,12 +19,12 @@ SMODS.Consumable {
             if JoyousSpring then
                 info_queue[#info_queue + 1] = G.P_CENTERS.m_joy_hanafuda
             end
-            key = key .. (JoyousSpring and "_joy" or "").. (PTASaka and "_pta" or "")
+            key = key .. (JoyousSpring and "_joy" or "") .. (PTASaka and "_pta" or "")
         end
         if (G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
-        return { key = key, vars = { card.ability.max_highlighted, numerator, denominator, colours = {HEX('800058')}} }
+        return { key = key, vars = { card.ability.max_highlighted, numerator, denominator, colours = { HEX('800058') } } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -58,23 +58,30 @@ SMODS.Consumable {
         }))
 
         if (JoyousSpring or PTASaka) and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-        and SMODS.pseudorandom_probability(card, "hpot_blossom", 100, 100) then
+            and SMODS.pseudorandom_probability(card, "hpot_blossom", 100, 100) then
             local choices = {}
-            if JoyousSpring then choices[#choices+1] = "j_joy_yokai_ash" end
-            if PTASaka then choices[#choices+1] = "j_payasaka_joyousspring" end
+            if JoyousSpring then choices[#choices + 1] = "j_joy_yokai_ash" end
+            if PTASaka then choices[#choices + 1] = "j_payasaka_joyousspring" end
             local choice = pseudorandom_element(choices, "hpot_blossom_create")
 
             if choice then
-                SMODS.add_card({key = choice})
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.add_card({ key = choice })
+                        G.GAME.joker_buffer = 0
+                        return true;
+                    end
+                }))
             end
         end
     end,
 
-     hotpot_credits = {
-		idea = {"GoldenLeaf"},
-        art = {'GoldenLeaf'},
-        code = {'Goldenleaf'},
-        team = {'Team Name'}
+    hotpot_credits = {
+        idea = { "GoldenLeaf" },
+        art = { 'GoldenLeaf' },
+        code = { 'Goldenleaf' },
+        team = { 'Team Name' }
     },
-    
+
 }
