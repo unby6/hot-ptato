@@ -193,6 +193,8 @@ SMODS.Joker {
             args = table.quantum_2
             args.config.center = G.P_CENTERS[args.key]
             table.ability.quantum_2 = Quantum(args)
+            table.ability.quantum_1.quantum = card
+            table.ability.quantum_2.quantum = card
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key].atlas or 'Joker'],
                 G.P_CENTERS[table.ability.quantum_1.key].pos)
             card.loaded = true
