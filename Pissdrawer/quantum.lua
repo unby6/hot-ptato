@@ -219,7 +219,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         local vars = card.ability.quantum_2.config.center.loc_vars and
             card.ability.quantum_2.config.center.loc_vars(card.ability.quantum_2.config.center, info_queue,
                 card.ability.quantum_2)
-            .vars -- custom loc_vars functions
+        vars = vars and vars.vars -- custom loc_vars functions
             or
             Card.generate_UIBox_ability_table(
                 { ability = card.ability.quantum_2.ability, config = card.ability.quantum_2.config, bypass_lock = true },
