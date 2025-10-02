@@ -186,7 +186,7 @@ SMODS.Joker {
                     if _card == context.other_card or SMODS.always_scores(context.other_card) or next(find_joker('Splash')) then 
                         if not _card.ability.oap_myst_activated or not _card.ability.oap_myst_activated[card.sort_id] then
                             _card.ability.oap_myst_activated = _card.ability.oap_myst_activated or {}
-                            _card.ability.oap_myst_activated[card.sort_id] = true
+                            _card.ability.oap_myst_activated[card.sort_id or card.quantum and card.quantum.sort_id] = true
                             
                             if not _card:is_face() then
                                 card.ability.myst_effect.count = card.ability.myst_effect.count + 1
