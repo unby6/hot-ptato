@@ -837,7 +837,7 @@ SMODS.Consumable { --Cash Exchange
     end,
 
     can_use = function(self, card)
-        return true
+        return G.GAME.dollars >= card.ability.extra.dollars
     end,
 
     use = function(self, card, area, copier)
