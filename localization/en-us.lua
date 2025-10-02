@@ -4836,6 +4836,33 @@ return {
                 },
             },
         },
+        hotpot_nursery = {
+            name = "Nursery",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "{C:hpot_pink}Breed{} your {C:attention}Jokers{} to make powerful children!",
+                            "Combine two {C:attention}Jokers to make a child with both abilities.",
+                        },
+                        {
+                            "{C:hpot_pink}Breed{} two {C:attention}Jokers{} by putting them in the {C:blue}father{} and {C:hpot_pink}mother{} slots.",
+                            "When you hit the {C:hpot_pink}Breed{} button, the {C:hpot_pink}mother{} will be impregnated."
+                        },
+                        {
+                            "After {C:attention}3{} rounds, return to the {C:attention}Nursery{} to find your",
+                            "newly birthed {C:attention}Joker{}! At this point you can take back the {C:hpot_pink}mother"
+                        },
+                        {
+                            "You can remove the {C:blue}father{} during the pregnancy process.",
+                            "If you need the {C:hpot_pink}mother{}, hit {C:red}abort{} to stop the pregnancy.",
+                            "{C:red}Aborting{} allows you to put the {C:hpot_pink}mother{} back in your slots."
+                        }
+                    }
+                },
+            },
+        },
     },
     misc = {
         challenge_names = {

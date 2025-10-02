@@ -7,12 +7,12 @@ priority = 0
 #payout screen name
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
-position = 'at'
-pattern = '''
+target = "functions/common_events.lua"
+position = "at"
+pattern = """
 table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
-'''
-payload = '''
+"""
+payload = """
 table.insert(left_text, {
     n = G.UIT.O,
     config = {
@@ -34,26 +34,30 @@ table.insert(left_text, {
         })
     }
 })
-'''
+"""
 match_indent = true
+overwrite = false
 
 # blueprint compat for children
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-position = 'at'
-pattern = '''            if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then'''
-payload = '''            if other_joker and other_joker ~= self and (other_joker.config.center.blueprint_compat or other_joker.ability.quantum_1 and other_joker.ability.quantum_2
+target = "card.lua"
+position = "at"
+pattern = "            if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then"
+payload = """
+            if other_joker and other_joker ~= self and (other_joker.config.center.blueprint_compat or other_joker.ability.quantum_1 and other_joker.ability.quantum_2
                                                                                                                 and (other_joker.ability.quantum_1.config.center.blueprint_compat
-                                                                                                                    or other_joker.ability.quantum_2.config.center.blueprint_compat)) then'''
+                                                                                                                    or other_joker.ability.quantum_2.config.center.blueprint_compat)) then"""
 match_indent = true
+overwrite = false
 
 # blueprint compat for children ()
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-position = 'at'
-pattern = '''if G.jokers.cards[i] == self then other_joker = G.jokers.cards[i+1] end'''
-payload = '''if G.jokers.cards[i] == (self.quantum or self) then other_joker = G.jokers.cards[i+1] end'''
+target = "card.lua"
+position = "at"
+pattern = "if G.jokers.cards[i] == self then other_joker = G.jokers.cards[i+1] end"
+payload = "if G.jokers.cards[i] == (self.quantum or self) then other_joker = G.jokers.cards[i+1] end"
 match_indent = true
 times = 2
+overwrite = false

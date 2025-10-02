@@ -659,3 +659,8 @@ function nursery()
         end
     end
 end
+
+
+G.FUNCS.hpot_nursery_tutorial = function(e)
+	G.FUNCS.hotpot_info { menu_type = "hotpot_nursery" }
+end
