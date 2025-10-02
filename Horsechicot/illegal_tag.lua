@@ -15,5 +15,5 @@ SMODS.Tag {
             tag.triggered = true
         end
     end,
-    Horsechicot.credit("lord.ruby", nil, "nxkoo")
+    hotpot_credits = Horsechicot.credit("lord.ruby", nil, "nxkoo")
 }

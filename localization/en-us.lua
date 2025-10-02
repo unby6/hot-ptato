@@ -3703,13 +3703,6 @@ return {
                     "card {C:attention}#1#{} times"
                 }
             },
-            hpot_sonloaf_comment = {
-                name = "trif comment",
-                text = {
-                    "please give this guy a sprite :pensive:",
-                    "its a dan hentschel thing look it up"
-                }
-            },
             hpot_smods_quip_1 = {
                 name = "What's changed?",
                 text = {

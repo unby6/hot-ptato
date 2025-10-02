@@ -334,7 +334,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -408,7 +408,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -446,7 +446,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -509,7 +509,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -517,18 +517,11 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card and #G.play.cards > 0 then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ x_mult = 0.9 }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ x_mult = 0.9 }, card)
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ xmult = 0.9}, card)
 		end
 	end,
 	hotpot_credits = {
@@ -541,7 +534,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -576,14 +569,11 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				return { mult = 10 }
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
+		end
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ mult = 10}, card)
 		end
 		if context.main_scoring and card.modif_delay then
 			card.modif_delay = nil
@@ -607,18 +597,11 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				return { chips = 50 }
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			card.modif_delay = nil
-			return { chips = 50 }
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ chips = 50}, card)
 		end
 	end,
 	hotpot_credits = {
@@ -638,18 +621,11 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ xchips = 1.2 }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ xchips = 1.2 }, card)
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ xchips = 1.2}, card)
 		end
 	end,
 	hotpot_credits = {
@@ -669,18 +645,11 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ chips = HPTN.perc(hand_chips, 5) }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ chips = HPTN.perc(hand_chips, 5) }, card)
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ xchips = 1 + HPTN.perc(hand_chips, 5) }, card)
 		end
 	end,
 	hotpot_credits = {
@@ -692,7 +661,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -700,18 +669,11 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ mult = -5 }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ mult = -5 }, card)
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ mult = -5}, card)
 		end
 	end,
 	hotpot_credits = {
@@ -723,7 +685,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -731,18 +693,11 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ chips = -25 }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ chips = -25 }, card)
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ xchips = 0.8}, card)
 		end
 	end,
 	hotpot_credits = {
@@ -754,7 +709,7 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 0 },
+	pos = { x = 1, y = 1 },
 	hpot_anim = {
 		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
 	},
@@ -762,18 +717,11 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
-			if context.pseudorandom_result then
-				if context.result then
-					card.modif_delay = true
-				end
-			elseif not context.mod_probability and not context.fix_probability and hand_chips then
-				SMODS.calculate_effect({ xchips = 0.8 }, card)
-			end
+		if context.post_trigger and context.other_card == card and HPTN.during_scoring then
+			card.trigger_modif = true
 		end
-		if context.main_scoring and card.modif_delay then
-			SMODS.calculate_effect({ xchips = 0.8 }, card)
-			card.modif_delay = nil
+		if context.final_scoring_step and card.trigger_modif then
+			SMODS.calculate_effect({ chips = -25}, card)
 		end
 	end,
 	hotpot_credits = {
