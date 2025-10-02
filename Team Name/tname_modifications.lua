@@ -294,7 +294,7 @@ HPTN.Modification({
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
 	calculate = function(self, card, context)
-		if context.end_of_round then
+		if context.end_of_round and not context.individual and not context.repetition then
 			if card.set_cost then
 				card.ability.extra_value = (card.ability.extra_value or 0) + 1
 				card:set_cost()
@@ -542,7 +542,7 @@ HPTN.Modification({
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
 	calculate = function(self, card, context)
-		if context.end_of_round then
+		if context.end_of_round and not context.individual and not context.repetition then
 			if card.set_cost then
 				card.ability.extra_value = (card.ability.extra_value or 0) - 1
 				card:set_cost()
