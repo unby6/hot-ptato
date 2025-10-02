@@ -509,9 +509,9 @@ return {
             b_hpot_poopdeck = {
                 name = 'Poop Deck',
                 text = {
-                    'Start with a standard 52 card deck and',
-                    '30 {C:dark_edition}Polychrome{} Stone cards',
-                    '{C:inactive}Land Ahoy!'
+                    '{C:attention}Start{} with a 22 card deck...',
+                    'and 30 {C:dark_edition}Polychrome{} Stone cards',
+                    '{C:attention,T:v_hpot_poop1}Land Ahoy!{}',
                 }
             },
         },
@@ -952,7 +952,8 @@ return {
             j_hpot_dont_touch_that_dial = {
                 ['name'] = 'Don\'t Touch That Dial!',
                 ['text'] = {
-                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and create {C:hpot_advert}#1# Ad',
+                    [1] =
+                    'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and create {C:hpot_advert}#1# Ad',
                     [2] = 'for each {C:red}discard{} remaining',
                     [3] = 'at end of round'
                 }
@@ -2478,7 +2479,25 @@ return {
                 text = {
                     "{C:attention}Events{} appear after all {C:attention}Blinds{}"
                 }
-            }
+            },
+            --not actual vouchers
+            v_hpot_poop1 = {
+                name = "Poop Deck",
+                text = {
+                    [1] = {
+                        "Exiting {C:attention}boosters{} or {C:attention}changing{} rounds will {C:green}either{}",
+                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one"
+                    },
+                    [2] = {
+                        "{C:inactive,s:0.3} "
+                    },
+                    [3] = {
+                        "Stone cards held in hand gain {X:mult,C:white}XMult{} or {X:chips,C:white}XChips{}",
+                        "depending on the {C:attention}total{} number of Stone cards",
+                        "{u:default}and{} the {C:purple}enhancements{} applied to them"
+                    }
+                }
+            },
         },
         Spectral = {
             c_hpot_arcade_machine = {
@@ -3748,7 +3767,7 @@ return {
                     "No track is playing!",
                     "Are ya gonna listen or what?"
                 }
-            }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -4429,18 +4448,18 @@ return {
                 }
             },
             hpot_business_venture_1_start_budget = {
-		text = {
-			"A stange guy approaches you on the street.",
-			" ",
-			"\"Hey, would you like to invest in my business idea?\"",
-		}
+                text = {
+                    "A stange guy approaches you on the street.",
+                    " ",
+                    "\"Hey, would you like to invest in my business idea?\"",
+                }
             },
             hpot_postlatro_start_budget = {
-		text = {
-			"A stange guy approaches you on the street.",
-			" ",
-			"\"Hey, would you like to invest in my business idea?\"",
-		}
+                text = {
+                    "A stange guy approaches you on the street.",
+                    " ",
+                    "\"Hey, would you like to invest in my business idea?\"",
+                }
             },
         },
         EventScenarios = {
@@ -5340,6 +5359,6 @@ return {
 			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
+        }
     }
-}
 }
