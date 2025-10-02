@@ -56,6 +56,7 @@ SMODS.Booster {
     set_ability = function(self, card)
         card.ability.team = pseudorandom_element(get_teams(), pseudoseed("team_pack"))
     end,
+    draw_hand = true,
 }
 
 SMODS.Booster {
@@ -93,6 +94,7 @@ SMODS.Booster {
     set_ability = function(self, card)
         card.ability.team = pseudorandom_element(get_teams(), pseudoseed("team_pack"))
     end,
+    draw_hand = true,
 }
 
 SMODS.Booster {
@@ -130,6 +132,7 @@ SMODS.Booster {
     set_ability = function(self, card)
         card.ability.team = pseudorandom_element(get_teams(), pseudoseed("team_pack"))
     end,
+    draw_hand = true,
 }
 
 SMODS.Booster {
@@ -167,6 +170,7 @@ SMODS.Booster {
     set_ability = function(self, card)
         card.ability.team = pseudorandom_element(get_teams(), pseudoseed("team_pack"))
     end,
+    draw_hand = true,
 }
 
 --TODO add more team pack variations/sprites
