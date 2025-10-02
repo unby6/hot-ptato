@@ -1503,6 +1503,11 @@ HotPotato.EventStep {
 					event.start_step('hpot_vsf_2')
 				end,
 			},
+			{
+				key = "hpot_general_no_thanks",
+				no_prefix = true,
+				button = event.finish_scenario,
+			}
 		}
 	end,
 	start = function(self, event)

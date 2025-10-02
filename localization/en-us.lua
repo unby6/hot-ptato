@@ -5245,6 +5245,8 @@ return {
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
+            hpot_general_no_thanks = "No thanks",
+
             hpot_test_1_lose = "Destroy {C:attention}ALL{} cards in hand",
             hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
             hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(only if you have at least #1#$)",
