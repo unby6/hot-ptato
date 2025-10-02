@@ -4271,7 +4271,8 @@ return {
                     "During your run, you come across a {C:attention}Vending Machine.",
                     "You investigate and notice bottles of Cola are {C:money}$5{}.",
                     " ",
-                    "Would you like one?"
+                    "Would you like one?",
+                    "{C:inactive,s:0.8}(Requires an empty consumable slot)"
                 }
             },
             hpot_refreshing_purchase = {
