@@ -10,8 +10,8 @@ SMODS.Joker {
         local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.numerator, card.ability.extra.denominator, 'faceblindness')
         return { vars = { numerator, denominator } }
     end,
-    rarity = 3,
-    cost = 8,
+    rarity = 1,
+    cost = 3,
     atlas = "smiley_jokers",
     pos = {x=1,y=1},
     hotpot_credits = {
