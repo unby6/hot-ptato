@@ -529,7 +529,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.setting_blind and card.area then
             local pos = 1
             for i, v in ipairs(card.area.cards) do
                 if v == card then
