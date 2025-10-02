@@ -345,6 +345,8 @@ function update_wheel(dt) -- talen from plinko so idk
       end
     }))
 
+    PissDrawer.Shop.change_shop_sign("hpot_tname_arrow_sign")
+
     G.STATE_COMPLETE = true
   end
 end
@@ -883,6 +885,9 @@ G.FUNCS.hide_wheel = function(e)
       return true
     end
   }))
+
+  PissDrawer.Shop.change_shop_sign("shop_sign")
+
 end
 
 --idk
