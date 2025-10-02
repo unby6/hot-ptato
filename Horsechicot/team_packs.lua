@@ -15,7 +15,7 @@ function get_teams()
         "Perkeocoin",
         "Pissdrawer",
         "Team Name",
-        "Oops! All Programmers",
+        "O!AP",
         "Jtem",
         "Horsechicot"
     }
