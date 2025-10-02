@@ -68,9 +68,11 @@ def clear_directory(directory):
         for name in dirs:
             os.rmdir(os.path.join(root, name))
 
-def process_and_upscale(input_path, input_directory, upscale_directory):
+def process_and_upscale(input_path: str, input_directory, upscale_directory):
     relative_path = os.path.relpath(input_path, input_directory)
     output_path = os.path.join(upscale_directory, relative_path)
+    if not input_path.lower().endswith(".png"):
+        return
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 

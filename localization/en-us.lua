@@ -1196,7 +1196,7 @@ return {
                     "When a {C:attention}face{} card is scored",
                     "gives one of the following {C:attention}randomly{}:",
                     "MissingNumber : {C:mult}+#1#{} Mult",
-                    "{E:hpot_glitching}Lexi{} : {X:mult,C:white} X#2# {} Mult",
+                    "{E:hpot_glitching}ixeL{} : {X:mult,C:white} X#2# {} Mult",
                     "Haya : {X:chips,C:white} X#3# {} Chips",
                     "Aikoyori : {C:chips}+#4#{} Chips",
                     "Squidguset : {C:money}+$#5#{}",
