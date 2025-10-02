@@ -4848,14 +4848,14 @@ return {
                             "When you hit the {C:hpot_pink}Breed{} button, the {C:hpot_pink}mother{} will be impregnated."
                         },
                         {
-                            "After {C:attention}3{} rounds, return to the {C:attention}Nursery{} to find your",
-                            "newly birthed {C:attention}Joker{}! At this point you can take back the {C:hpot_pink}mother"
-                        },
-                        {
                             "You can remove the {C:blue}father{} during the pregnancy process.",
                             "If you need the {C:hpot_pink}mother{}, hit {C:red}abort{} to stop the pregnancy.",
                             "{C:red}Aborting{} allows you to put the {C:hpot_pink}mother{} back in your slots."
-                        }
+                        },
+                        {
+                            "After {C:attention}3{} rounds, return to the {C:attention}Nursery{} to find your",
+                            "newly birthed {C:attention}Joker{}! At this point you can take back the {C:hpot_pink}mother"
+                        },
                     }
                 },
             },
