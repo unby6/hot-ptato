@@ -255,6 +255,7 @@ SMODS.Joker({
 		extra = {
 			xmult = 2,
 			xmultm = 0.2,
+			destroyed = 0,
 			xmultg = 0.3,
 			min = 1
 		},
