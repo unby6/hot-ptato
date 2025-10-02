@@ -558,32 +558,32 @@ function end_round()
                 if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
                     G.GAME.active_breeding = false
                     G.GAME.breeding_finished = true
-                    G.GAME.child_prio = G.P_CENTERS[G.GAME.child_prio]
-                    G.GAME.child_sec = G.P_CENTERS[G.GAME.child_sec]
+                    local child_prio = G.P_CENTERS[G.GAME.child_prio]
+                    local child_sec = G.P_CENTERS[G.GAME.child_sec]
                     local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
                     --setting child abilities
                     card.ability.name = 'Baby ' ..
-                        localize { type = 'name', set = 'Joker', key = G.GAME.child_prio.key, vars = {} }[1].nodes[1]
+                        localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }[1].nodes[1]
                         .nodes
                         [1].config.object.config.string[1]
-                    card.ability.extra_value = ((G.GAME.child_prio.cost + G.GAME.child_sec.cost) / 2) - 1
+                    card.ability.extra_value = ((child_prio.cost + child_sec.cost) / 2) - 1
                     card:set_cost()
                     card.ability.holds_quantum = true
 
                     card.ability.quantum_1 = Quantum({
                         fake_card = true,
-                        key = G.GAME.child_prio.key,
+                        key = child_prio.key,
                         ability = G.GAME.child_prio_ability,
                         config = {
-                            center = G.GAME.child_prio
+                            center = child_prio
                         },
                     }, card)
                     card.ability.quantum_2 = Quantum({
                         fake_card = true,
-                        key = G.GAME.child_sec.key,
+                        key = child_sec.key,
                         ability = G.GAME.child_sec_ability,
                         config = {
-                            center = G.GAME.child_sec
+                            center = child_sec
                         },
                     }, card)
                     --make children smaller
@@ -598,6 +598,7 @@ function end_round()
                         func = function()
                             if G.nursery_mother and G.nursery_mother.cards[1] then
                                 G.nursery_mother.cards[1].ability.mother = nil
+                                G.GAME.child_prio, G.GAME.child_sec = nil, nil
                                 return true
                             end
                         end,
