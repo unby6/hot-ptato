@@ -13,20 +13,22 @@ SMODS.Joker {
     pos = { x = 6, y = 0 },
     pixel_size = { h = 77 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { 
-            card.ability.extra.retriggers,
-            card.ability.extra.card_threshold
-         } }
+        return {
+            vars = {
+                card.ability.extra.retriggers,
+                card.ability.extra.card_threshold
+            }
+        }
     end,
     calculate = function(self, card, context)
         if context.before
-        and context.main_eval
-        and #context.scoring_hand >= card.ability.extra.card_threshold then
+            and context.main_eval
+            and #context.scoring_hand >= card.ability.extra.card_threshold then
             card.ability.extra.chosen_card = pseudorandom_element(context.scoring_hand)
         end
         if context.repetition
-        and card.ability.extra.chosen_card
-        and context.other_card == card.ability.extra.chosen_card then
+            and card.ability.extra.chosen_card
+            and context.other_card == card.ability.extra.chosen_card then
             return {
                 repetitions = card.ability.extra.retriggers
             }
@@ -36,9 +38,9 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'th30ne'},
-        code = {'th30ne'},
-        idea = {'th30ne'},
-        team = {'Oops! All Programmers'}
+        art = { 'th30ne' },
+        code = { 'th30ne' },
+        idea = { 'th30ne' },
+        team = { 'O!AP' }
     }
 }

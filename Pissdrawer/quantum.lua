@@ -106,9 +106,11 @@ SMODS.Joker {
     },
     no_collection = true,
     generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-        local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
-        local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
-        func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
+        if card then
+            local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
+            local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
+            func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
+        end
     end,
     calculate = function(self, card, context)
         if card.ability.quantum_1 and card.ability.quantum_2 then
@@ -147,7 +149,7 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        if card.ability.quantum_1 or card.ability.quantum_2 then
+        if card.ability.quantum_1 and card.ability.quantum_2 then
             local ret1 = Card.calculate_dollar_bonus(card.ability.quantum_1)
             local ret2 = Card.calculate_dollar_bonus(card.ability.quantum_2)
             if ret1 and ret2 and type(ret1) == 'number' and type(ret2) == 'number' then
@@ -191,6 +193,8 @@ SMODS.Joker {
             args = table.quantum_2
             args.config.center = G.P_CENTERS[args.key]
             table.ability.quantum_2 = Quantum(args)
+            table.ability.quantum_1.quantum = card
+            table.ability.quantum_2.quantum = card
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key].atlas or 'Joker'],
                 G.P_CENTERS[table.ability.quantum_1.key].pos)
             card.loaded = true

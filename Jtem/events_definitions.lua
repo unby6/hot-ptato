@@ -1471,7 +1471,7 @@ HotPotato.EventScenario {
 	hotpot_credits = {
 		idea = { "Liafeon" },
 		code = { "Liafeon" },
-		team = { "Oops! All Programmers" },
+		team = { "O!AP" },
 	},
 	in_pool = function()
 		return G.GAME.round_resets.ante >= 5
@@ -2617,7 +2617,7 @@ HotPotato.EventStep {
 		}
 	end,
 	start = function(self, event)
-		pool = {}
+		local pool = {}
 		for i, v in pairs(G.P_CENTERS) do
 			if v.hotpot_credits and v.hotpot_credits.code == 'fey <3' then
 				table.insert(pool, v)

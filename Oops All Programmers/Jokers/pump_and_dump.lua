@@ -13,16 +13,18 @@ SMODS.Joker {
     blueprint_compat = false,
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        return { vars = { 
-            card.ability.extra.crypto,
-            new_numerator, 
-            new_denominator
-         } }
+        return {
+            vars = {
+                card.ability.extra.crypto,
+                new_numerator,
+                new_denominator
+            }
+        }
     end,
     calculate = function(self, card, context)
         if context.end_of_round
-        and context.game_over == false
-        and not context.blueprint then
+            and context.game_over == false
+            and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'hpot_pump_and_dump', 1, card.ability.extra.odds) then
                 ease_cryptocurrency(-G.GAME.cryptocurrency)
             else
@@ -31,9 +33,9 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = {'th30ne'},
-        code = {'th30ne'},
-        idea = {'th30ne'},
-        team = {'Oops! All Programmers'}
+        art = { 'th30ne' },
+        code = { 'th30ne' },
+        idea = { 'th30ne' },
+        team = { 'O!AP' }
     }
 }
