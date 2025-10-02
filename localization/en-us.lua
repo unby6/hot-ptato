@@ -1318,6 +1318,10 @@ return {
                     ""
                 }
             },
+            j_hpot_tname_postcard = {
+                name = "",
+                text = {{""}}
+            },
             j_hpot_tname_postcard_1 = {
                 name = "Postcard",
                 text = { {

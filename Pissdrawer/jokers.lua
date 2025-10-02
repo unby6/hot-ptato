@@ -533,6 +533,7 @@ SMODS.Joker {
             
             local area = card.area or G.jokers
             local pos = find_self(card, area)
+            if not pos then return end
             if pos ~= 1 then
                 for i = 1, pos - 1 do
                     local blard = card.area.cards[i]
