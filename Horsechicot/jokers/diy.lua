@@ -53,7 +53,7 @@ HotPotato.effect_options = {
 --as in the order they are above. if HotPotato.diy_trigger(blah) then
 function HotPotato.diy_trigger(self, card, context)
     if not G.GAME.hotpot_diy then return end
-    if G.GAME.hotpot_diy.trigger == 1 then 
+    if G.GAME.hotpot_diy.trigger == 1 then
         return context.joker_main
     elseif G.GAME.hotpot_diy.trigger == 2 then
         return context.selling_card and context.card.config.center.set == "Tarot"
@@ -82,15 +82,15 @@ function HotPotato.diy_effect(self, card, context)
     elseif G.GAME.hotpot_diy.effect == 5 then
         ease_cryptocurrency(0.25)
     elseif G.GAME.hotpot_diy.effect == 6 then
-        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         return {
             message = localize { type = 'variable', key = 'a_cards', vars = { 1 } },
             func = function()
                 if G.GAME.consumeable_buffer + #G.consumeables.cards < G.consumeables.config.card_limit then
-                    G.E_MANAGER:add_event(Event{
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event {
                         trigger = "after",
                         func = function()
-                            SMODS.add_card{area=G.consumeables, set="Consumeables"}
+                            SMODS.add_card { area = G.consumeables, set = "Consumeables" }
                             G.GAME.consumeable_buffer = 0
                             return true
                         end
@@ -105,7 +105,7 @@ function HotPotato.diy_effect(self, card, context)
             enhancement = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed("hpot_diy")).key
         end
         local seal = pseudorandom_element(G.P_CENTER_POOLS.Seal, pseudoseed("hpot_diy")).key
-        local card = SMODS.create_card{
+        local card = SMODS.create_card {
             seal = seal,
             edition = edition,
             key = enhancement.key
@@ -130,20 +130,20 @@ Gain 0.1 Credits         DONE
 Gain 1000 Joker Exchange         DONE
 Gain B.0.25         DONE
 Create a random consumable (Must have room)         DONE
-]]--
+]] --
 
 function create_UIBox_diy()
     local trigger_options = {}
     for i, v in pairs(HotPotato.trigger_options) do
-        trigger_options[#trigger_options+1] = localize(v)
+        trigger_options[#trigger_options + 1] = localize(v)
     end
     local effect_options = {}
     for i, v in pairs(HotPotato.effect_options) do
-        effect_options[#effect_options+1] = localize(v)
+        effect_options[#effect_options + 1] = localize(v)
     end
     local t = create_UIBox_generic_options({
         no_back = true,
-        contents = {	
+        contents = {
             create_option_cycle({
                 options = trigger_options,
                 w = 7.5,
@@ -189,7 +189,7 @@ function G.FUNCS.diy_apply()
     G.GAME.hotpot_diy.trigger = G.GAME.hotpot_diy.trigger or 1
 end
 
-G.FUNCS.diy_option_effect = function(args)	
+G.FUNCS.diy_option_effect = function(args)
     G.GAME.hotpot_diy = G.GAME.hotpot_diy or {}
     G.GAME.hotpot_diy.effect = args.cycle_config.current_option
 end
