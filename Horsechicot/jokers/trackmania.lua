@@ -29,7 +29,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             local t_since_ante = card.ability.elapsed
-            local xmult = card.ability.xmult - (t_since_ante * card.ability.dec_per_sec)
+            local xmult = card.ability.def_xmult - (t_since_ante * card.ability.dec_per_sec)
             xmult = math.max(xmult, 1)
             xmult = math.floor(xmult * 10) / 10
             return { xmult = xmult }
@@ -38,7 +38,7 @@ SMODS.Joker {
         end
     end,
     update = function (self, card, dt)
-        if (card.area or card.quantum and card.quantum.area) == G.jokers then
+        if (card.area or (card.quantum and card.quantum.area)) == G.jokers then
             card.ability.elapsed = (card.ability.elapsed or 0) + dt
         end
     end,
