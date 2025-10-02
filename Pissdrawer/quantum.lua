@@ -106,26 +106,10 @@ SMODS.Joker {
     },
     no_collection = true,
     generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-        local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
-        local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
-        func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
-        if q1.config.center.key == "j_blueprint" or q1.config.center.key == "j_brainstorm" then
-            desc_nodes[#desc_nodes + 1] =
-            {
-                {
-                    n = G.UIT.C,
-                    config = { align = "bm", minh = 0.4 },
-                    nodes = {
-                        {
-                            n = G.UIT.C,
-                            config = { ref_table = q1, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat' },
-                            nodes = {
-                                { n = G.UIT.T, config = { ref_table = q1.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
-                            }
-                        }
-                    }
-                }
-            }
+        if card then
+            local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
+            local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
+            func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
         end
     end,
     calculate = function(self, card, context)
@@ -134,13 +118,38 @@ SMODS.Joker {
             local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
             --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
+            local function bp(quantum)
+                local to_copy
+                for i, v in pairs(G.jokers.cards) do
+                    if v.ability.quantum_1 == quantum or v.ability.quantum_2 == quantum then
+                        to_copy = G.jokers.cards[i+1]
+                    end
+                end
+                return SMODS.blueprint_effect(card, to_copy, context)
+            end
+            if card.ability.quantum_1.config.center.key == "j_blueprint" then
+                ret, trig = bp(card.ability.quantum_1)
+            end
+
+            if card.ability.quantum_2.config.center.key == "j_blueprint" then
+                ret2, trig2 = bp(card.ability.quantum_2)
+            end
+            
+            if card.ability.quantum_1.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
+                ret, trig = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
+            end
+
+            if card.ability.quantum_2.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
+                ret2, trig2 = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
+            end
+
             if ret and ret.card and ret.card == card.ability.quantum_1 then ret.card = card end
             if ret2 and ret2.card and ret2.card == card.ability.quantum_2 then ret2.card = card end
             return SMODS.merge_effects { ret or {}, ret2 or {} }, trig or trig2
         end
     end,
     calc_dollar_bonus = function(self, card)
-        if card.ability.quantum_1 or card.ability.quantum_2 then
+        if card.ability.quantum_1 and card.ability.quantum_2 then
             local ret1 = Card.calculate_dollar_bonus(card.ability.quantum_1)
             local ret2 = Card.calculate_dollar_bonus(card.ability.quantum_2)
             if ret1 and ret2 and type(ret1) == 'number' and type(ret2) == 'number' then
@@ -184,6 +193,8 @@ SMODS.Joker {
             args = table.quantum_2
             args.config.center = G.P_CENTERS[args.key]
             table.ability.quantum_2 = Quantum(args)
+            table.ability.quantum_1.quantum = card
+            table.ability.quantum_2.quantum = card
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key].atlas or 'Joker'],
                 G.P_CENTERS[table.ability.quantum_1.key].pos)
             card.loaded = true
@@ -276,41 +287,3 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
-
-
---quantum can find its own position during ipairs/pairs
-local ip = ipairs
-function ipairs(t)
-    if G.jokers and t == G.jokers.cards then return quantumipairs(t) end
-    return ip(t)
-end
-
-function quantumipairs(t)
-    local ret = {}
-    for i,v in ip(t) do
-        table.insert(ret, v)
-        if v.ability and v.ability.holds_quantum then 
-            table.insert(ret, v.ability.quantum_1)
-            table.insert(ret, v.ability.quantum_2)
-        end
-    end
-    return ip(ret)
-end
-
-local p = pairs
-function pairs(t)
-    if G.jokers and t == G.jokers.cards then return quantumpairs(t) end
-    return p(t)
-end
-
-function quantumpairs(t)
-    local ret = {}
-    for i,v in p(t) do
-        table.insert(ret, v)
-        if v.ability and v.ability.holds_quantum then 
-            table.insert(ret, v.ability.quantum_1)
-            table.insert(ret, v.ability.quantum_2)
-        end
-    end
-    return p(ret)
-end

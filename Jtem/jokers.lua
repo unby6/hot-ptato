@@ -4,89 +4,6 @@ SMODS.Atlas {
     px = 71, py = 95
 }
 
--- if future teams dont like the long joker feel free to remove
-
-SMODS.Joker {
-    key = "jtemj",
-    atlas = "jtem_jokers",
-    config = { x_mult = 1.1 },
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_mult } }
-    end,
-    hotpot_credits = {
-        art = { 'LocalThunk' },
-        code = { 'Squidguset' },
-        team = { 'Jtem' }
-    },
-}
-
-SMODS.Joker {
-    key = "jtemo",
-    atlas = "jtem_jokers",
-    pos = { x = 1, y = 0 },
-    config = { x_mult = 1.1 },
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_mult } }
-    end,
-    hotpot_credits = {
-        art = { 'LocalThunk' },
-        code = { 'Squidguset' },
-        team = { 'Jtem' }
-    },
-}
-
-SMODS.Joker {
-    key = "jtemk",
-    atlas = "jtem_jokers",
-    pos = { x = 2, y = 0 },
-    config = { x_mult = 1.1 },
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_mult } }
-    end,
-    hotpot_credits = {
-        art = { 'LocalThunk' },
-        code = { 'Squidguset' },
-        team = { 'Jtem' }
-    },
-}
-
-
-SMODS.Joker {
-    key = "jteme",
-    atlas = "jtem_jokers",
-    pos = { x = 3, y = 0 },
-    config = { x_mult = 1.1 },
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_mult } }
-    end,
-    hotpot_credits = {
-        art = { 'LocalThunk' },
-        code = { 'Squidguset' },
-        team = { 'Jtem' }
-    },
-}
-
-
-SMODS.Joker {
-    key = "jtemr",
-    atlas = "jtem_jokers",
-    pos = { x = 4, y = 0 },
-    config = { x_mult = 1.1 },
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_mult } }
-    end,
-    hotpot_credits = {
-        art = { 'LocalThunk' },
-        code = { 'Squidguset' },
-        team = { 'Jtem' }
-    },
-}
-
 SMODS.Joker {
     key = "nxkoodead",
     atlas = "jtem_jokers",
@@ -190,6 +107,90 @@ SMODS.Joker {
         idea = { 'MissingNumber' }, -- No one adds this for some reason. For future mods please do :pray:
         team = { 'Jtem' }
     }
+}
+
+-- if future teams dont like the long joker feel free to remove
+-- long joker is peak though
+
+SMODS.Joker {
+    key = "jtemj",
+    atlas = "jtem_jokers",
+    config = { x_mult = 1.1 },
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
+    end,
+    hotpot_credits = {
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
+    },
+}
+
+SMODS.Joker {
+    key = "jtemo",
+    atlas = "jtem_jokers",
+    pos = { x = 1, y = 0 },
+    config = { x_mult = 1.1 },
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
+    end,
+    hotpot_credits = {
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
+    },
+}
+
+SMODS.Joker {
+    key = "jtemk",
+    atlas = "jtem_jokers",
+    pos = { x = 2, y = 0 },
+    config = { x_mult = 1.1 },
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
+    end,
+    hotpot_credits = {
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
+    },
+}
+
+
+SMODS.Joker {
+    key = "jteme",
+    atlas = "jtem_jokers",
+    pos = { x = 3, y = 0 },
+    config = { x_mult = 1.1 },
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
+    end,
+    hotpot_credits = {
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
+    },
+}
+
+
+SMODS.Joker {
+    key = "jtemr",
+    atlas = "jtem_jokers",
+    pos = { x = 4, y = 0 },
+    config = { x_mult = 1.1 },
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_mult } }
+    end,
+    hotpot_credits = {
+        art = { 'LocalThunk' },
+        code = { 'Squidguset' },
+        team = { 'Jtem' }
+    },
 }
 
 function hpot_jtem_scale_card(card, key)

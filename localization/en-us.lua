@@ -509,9 +509,9 @@ return {
             b_hpot_poopdeck = {
                 name = 'Poop Deck',
                 text = {
-                    'Start with a standard 52 card deck and',
-                    '30 {C:dark_edition}Polychrome{} Stone cards',
-                    '{C:inactive}Land Ahoy!'
+                    '{C:attention}Start{} with a 22 card deck...',
+                    'and 30 {C:dark_edition}Polychrome{} Stone cards',
+                    '{C:attention,T:v_hpot_poop1}Land Ahoy!{}',
                 }
             },
         },
@@ -952,8 +952,9 @@ return {
             j_hpot_dont_touch_that_dial = {
                 ['name'] = 'Don\'t Touch That Dial!',
                 ['text'] = {
-                    [1] = 'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and {C:money}$#1#{} for',
-                    [2] = 'each {C:red}discard{} remaining',
+                    [1] =
+                    'Earn {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} and create {C:hpot_advert}#1# Ad',
+                    [2] = 'for each {C:red}discard{} remaining',
                     [3] = 'at end of round'
                 }
             },
@@ -1069,10 +1070,11 @@ return {
             j_hpot_magic_factory = {
                 name = "Magic Factory",
                 text = {
-                    "Creates a {C:dark_edition}Negative {C:tarot}Tarot{}",
-                    "card when blind is selected",
-                    "All {C:attention}consumables{} can affect",
-                    "{C:red}#1#{} less card",
+                    "Creates a {C:dark_edition}Negative{} copy of a random",
+                    "non-{C:dark_edition}Negative{} consumable if you",
+                    "have at least {C:attention}#1#{} non-{C:dark_edition}Negative{}",
+                    "consumables when Blind is selected",
+                    "All {C:attention}consumables{} can affect {C:red}#2#{} less card",
                     "{C:inactive}(Minimum of 1)",
                     "{C:inactive,s:0.8}mass-produced tarotslop"
                 }
@@ -2442,7 +2444,7 @@ return {
                 name = "Incubator",
                 text = {
                     "{C:hpot_pink}Breeding{} now takes",
-                    "only one round"
+                    "only two rounds"
                 }
             },
             v_hpot_hc_dark_connections = {
@@ -2477,7 +2479,25 @@ return {
                 text = {
                     "{C:attention}Events{} appear after all {C:attention}Blinds{}"
                 }
-            }
+            },
+            --not actual vouchers
+            v_hpot_poop1 = {
+                name = "Poop Deck",
+                text = {
+                    [1] = {
+                        "Exiting {C:attention}boosters{} or {C:attention}changing{} rounds will {C:green}either{}",
+                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one"
+                    },
+                    [2] = {
+                        "{C:inactive,s:0.3} "
+                    },
+                    [3] = {
+                        "Stone cards held in hand gain {X:mult,C:white}XMult{} or {X:chips,C:white}XChips{}",
+                        "depending on the {C:attention}total{} number of Stone cards",
+                        "{u:default}and{} the {C:purple}enhancements{} applied to them"
+                    }
+                }
+            },
         },
         Spectral = {
             c_hpot_arcade_machine = {
@@ -2750,8 +2770,8 @@ return {
                 name = "The Chariot",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_death_v2 = {
@@ -2776,7 +2796,7 @@ return {
                 name = "The Devil",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
+                    "card into a",
                     "{C:attention}#2#",
                 },
             },
@@ -2784,8 +2804,8 @@ return {
                 name = "The Devil",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_empress_v2 = {
@@ -2800,8 +2820,8 @@ return {
                 name = "The Empress",
                 text = {
                     "Enhances {C:attention}#1#",
-                    "selected card to",
-                    "{C:attention}#2#s",
+                    "selected card to a",
+                    "{C:attention}#2#",
                 },
             },
             c_hanged_man_v2 = {
@@ -2831,7 +2851,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#",
                     "selected card to",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_justice_v2 = {
@@ -2846,8 +2866,8 @@ return {
                 name = "Justice",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_lovers_v2 = {
@@ -2862,8 +2882,8 @@ return {
                 name = "The Lovers",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_magician_v2 = {
@@ -2879,7 +2899,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{}",
                     "selected card to",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_moon_v2 = {
@@ -2958,8 +2978,8 @@ return {
                 name = "The Tower",
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "cards into a",
-                    "{C:attention}#2#",
+                    "cards into",
+                    "{C:attention}#2#s",
                 },
             },
             c_world_v2 = {
@@ -3747,7 +3767,7 @@ return {
                     "No track is playing!",
                     "Are ya gonna listen or what?"
                 }
-            }
+            },
         },
         Tag = {
             tag_hpot_job = {
@@ -4270,7 +4290,8 @@ return {
                     "During your run, you come across a {C:attention}Vending Machine.",
                     "You investigate and notice bottles of Cola are {C:money}$5{}.",
                     " ",
-                    "Would you like one?"
+                    "Would you like one?",
+                    "{C:inactive,s:0.8}(Requires an empty consumable slot)"
                 }
             },
             hpot_refreshing_purchase = {
@@ -4427,18 +4448,18 @@ return {
                 }
             },
             hpot_business_venture_1_start_budget = {
-		text = {
-			"A stange guy approaches you on the street.",
-			" ",
-			"\"Hey, would you like to invest in my business idea?\"",
-		}
+                text = {
+                    "A stange guy approaches you on the street.",
+                    " ",
+                    "\"Hey, would you like to invest in my business idea?\"",
+                }
             },
             hpot_postlatro_start_budget = {
-		text = {
-			"A stange guy approaches you on the street.",
-			" ",
-			"\"Hey, would you like to invest in my business idea?\"",
-		}
+                text = {
+                    "A stange guy approaches you on the street.",
+                    " ",
+                    "\"Hey, would you like to invest in my business idea?\"",
+                }
             },
         },
         EventScenarios = {
@@ -5143,7 +5164,10 @@ return {
 
             k_spark_per_turn = "Upgrade cost",
 
-            hotpot_current_track = "CURRENT TRACK"
+            hotpot_current_track = "CURRENT TRACK",
+            
+            hotpot_exposure = "Exposure"
+
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
@@ -5244,6 +5268,8 @@ return {
         },
         EventChoices = {
             hpot_general_move_on = "Move on",
+            hpot_general_no_thanks = "No thanks",
+
             hpot_test_1_lose = "Destroy {C:attention}ALL{} cards in hand",
             hpot_test_1_gain = "Gain {E:1,C:money}money{} for no reason",
             hpot_test_1_gain_rich = "Gain {E:1,C:money}MORE MONEY{} {s:0.75}(only if you have at least #1#$)",
@@ -5336,6 +5362,6 @@ return {
 			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
+        }
     }
-}
 }

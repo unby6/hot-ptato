@@ -272,7 +272,7 @@ SMODS.Joker {
         code = { 'fey <3' },
         team = { 'Pissdrawer' }
     },
-    config = { extra = { chips = 10 } },
+    config = { extra = { chips = 3 } },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -280,11 +280,11 @@ SMODS.Joker {
             }
         }
     end,
-    rarity = 1, cost = 3,
+    rarity = 3, cost = 3,
     atlas = 'pdr_joker',
     pos = { x = 5, y = 0 },
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
             context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chips
             return {
                 message = '+' .. card.ability.extra.chips .. ' Chips', colour = G.C.CHIPS

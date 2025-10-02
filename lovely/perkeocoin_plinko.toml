@@ -132,6 +132,7 @@ payload = '''
 if G.GAME.plincoins_per_round and G.GAME.plincoins_per_round > 0 then
   -- Add Plincoins
   add_round_eval_plincoins({name='plincoins', pitch = pitch, plincoins = G.GAME.plincoins_per_round})
+  plincoins = plincoins + 1
 end
 
 '''

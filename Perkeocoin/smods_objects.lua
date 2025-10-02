@@ -469,8 +469,7 @@ SMODS.Joker{ --Direct Deposit
         extra = {
             dollars = 5,
             plincoins = 1,
-            so_far = 0,
-            earnings = 0
+            so_far = 0
         }
     },
     pos = { x = 3, y = 2 },
@@ -497,25 +496,25 @@ SMODS.Joker{ --Direct Deposit
         if context.pk_cashout_row and not context.blueprint then
             local new_config = context.pk_cashout_row
             if new_config.name == 'bottom' and new_config.dollars > 0 then
-                card.ability.extra.so_far = card.ability.extra.so_far + new_config.dollars
                 new_config.dollars = 0
-                if card.ability.extra.so_far >= card.ability.extra.dollars then
-                    card.ability.extra.earnings = card.ability.extra.earnings + math.floor(card.ability.extra.so_far / card.ability.extra.dollars)
-                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_direct_deposit")..tostring(math.floor(card.ability.extra.so_far / card.ability.extra.dollars)).."!", colour = G.C.MONEY})
-                    card.ability.extra.so_far = card.ability.extra.so_far % card.ability.extra.dollars
-                else
-                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = tostring(card.ability.extra.so_far).."/"..tostring(card.ability.extra.dollars), colour = G.C.FILTER})
-                end
             end
-            return{
+            return {
                 new_config = new_config
             }
         elseif context.ending_shop and not context.blueprint then
             card.ability.extra.earnings = 0
         end
     end,
-    calc_plincoin_bonus_delayed = function(self, card)
-        if card.ability.extra.earnings > 0 then return card.ability.extra.earnings end
+    calc_plincoin_bonus_delayed = function(self, card, dollars)
+        local earnings = nil
+        card.ability.extra.so_far = card.ability.extra.so_far + dollars
+        if card.ability.extra.so_far >= card.ability.extra.dollars then
+            earnings = math.floor(card.ability.extra.so_far / card.ability.extra.dollars)
+            card.ability.extra.so_far = card.ability.extra.so_far % card.ability.extra.dollars
+        else
+            card_eval_status_text(card, 'jokers', nil, nil, nil, {message = tostring(card.ability.extra.so_far).."/"..tostring(card.ability.extra.dollars), colour = G.C.FILTER})
+        end
+        if earnings then return earnings end
     end
 
 }
@@ -758,11 +757,6 @@ SMODS.Joker{ --Don't Touch That Dial!
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_stay_tuned"), colour = G.C.MONEY})
         end
     end,
-    calc_dollar_bonus = function(self, card)
-        if G.GAME.current_round.discards_left > 0 then
-            return G.GAME.current_round.discards_left
-        end
-    end,
     calc_plincoin_bonus = function(self, card)
         if G.GAME.current_round.discards_left > 0 then
             return G.GAME.current_round.discards_left
@@ -842,7 +836,7 @@ SMODS.Consumable { --Cash Exchange
     end,
 
     can_use = function(self, card)
-        return true
+        return G.GAME.dollars >= card.ability.extra.dollars
     end,
 
     use = function(self, card, area, copier)
