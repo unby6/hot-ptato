@@ -16,6 +16,9 @@ local pos_map = {
     baccon = {x = 2, y = 1}
 }
 local function randomize_horseman(card)
+    if card.quantum then
+        card = card.quantum
+    end
     card:flip()
     card.ability.horseman = pseudorandom_element(horsemen, pseudoseed("hpot_apocalypse"))
     card.children.center:set_sprite_pos(pos_map[card.ability.horseman])

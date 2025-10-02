@@ -18,7 +18,7 @@ SMODS.Joker {
         reset_death_note(card)
     end,
     calculate = function(self, card, context)
-        if context.post_draw_individual and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) then
+        if context.post_draw_individual and context.card and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 1,

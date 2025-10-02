@@ -344,11 +344,13 @@ function G.FUNCS.nursery_breed(e)
     mom.ability.mother = true
     dad.ability.father = true
     Horsechicot.breed(mom.config.center, dad.config.center)
-    mom:juice_up()
-    SMODS.calculate_effect {
-        card = mom,
-        message = localize("k_hotpot_impregnated"),
-    }
+    if not G.SILENT_NURSERY then
+        mom:juice_up()
+        SMODS.calculate_effect {
+            card = mom,
+            message = localize("k_hotpot_impregnated"),
+        }
+    end
 end
 
 --dont draw G.hand during nursery
@@ -623,7 +625,9 @@ function nursery()
             local child_prio = G.P_CENTERS[G.GAME.child_prio]
             local child_sec = G.P_CENTERS[G.GAME.child_sec]
             local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
-
+            if type(localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }) ~= "table" then
+                error("Joker ".. child_prio.key .." didnt localize")
+            end
             --setting child abilities
             card.ability.name = 'Baby ' ..
                 localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }[1].nodes
@@ -676,30 +680,19 @@ function random_nursery()
 end
 
 function test_nursery(key1, key2)
+    G.SILENT_NURSERY = true
     G.nursery_father:emplace(SMODS.create_card { key = key1, skip_materialize = true })
     G.nursery_mother:emplace(SMODS.create_card { key = key2, skip_materialize = true })
-    G.E_MANAGER:add_event(Event { func = function()
-        G.FUNCS.nursery_breed()
-        return true
-    end })
-    G.E_MANAGER:add_event(Event {
-        func = function()
-            nursery()
-            nursery()
-            nursery()
-            return true
-        end
-    })
-    G.E_MANAGER:add_event(Event {
-        func = function()
-            local card = G.nursery_child.cards[1]
-            G.nursery_child:remove_card(card)
-            G.nursery_mother.cards[1]:remove()
-            G.nursery_father.cards[1]:remove()
-            G.jokers:emplace(card)
-            return true
-        end
-    })
+    G.FUNCS.nursery_breed()
+    nursery()
+    nursery()
+    nursery()
+    local card = G.nursery_child.cards[1]
+    G.nursery_child:remove_card(card)
+    G.nursery_mother.cards[1]:remove()
+    G.nursery_father.cards[1]:remove()
+    G.jokers:emplace(card)
+    G.SILENT_NURSERY = false
 end
 
 G.FUNCS.hpot_nursery_tutorial = function(e)
