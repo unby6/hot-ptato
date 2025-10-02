@@ -667,6 +667,7 @@ function grant_wheel_reward(_area, reward_num)
         if card.ability.set == "Joker" then
           if (#G.jokers.cards < G.jokers.config.card_limit) or (card.edition and card.edition == "e_negative") then
             HPTN.move_card(card, G.jokers)
+            card.states.click.can = true
           else
             G.E_MANAGER:add_event(Event({
 				trigger = "after",
@@ -705,6 +706,7 @@ function grant_wheel_reward(_area, reward_num)
         else
           if (#G.consumeables.cards < G.consumeables.config.card_limit) or (card.edition and card.edition == "e_negative") then
             HPTN.move_card(card, G.consumeables)
+            card.states.click.can = true
           else
             G.E_MANAGER:add_event(Event({
 				trigger = "after",
