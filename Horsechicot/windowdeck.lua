@@ -172,5 +172,6 @@ SMODS.Back {
                 return true
             end
         })
-    end
+    end,
+    hotpot_credits = Horsechicot.credit("lord.ruby", "lord.ruby")
 }
