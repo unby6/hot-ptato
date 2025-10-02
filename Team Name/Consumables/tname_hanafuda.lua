@@ -1539,6 +1539,7 @@ SMODS.Consumable({
         if context.end_of_round and context.main_eval then
             card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
             card:set_cost()
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_val_up") })
         end
 		return joy_hanafuda_score({"Water Iris with Bridge"}, context)
 	end,
@@ -1576,6 +1577,7 @@ SMODS.Consumable({
         if context.end_of_round and context.main_eval then
             card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
             card:set_cost()
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_val_up") })
         end
 		return joy_hanafuda_score({"Water Iris with Ribbon"}, context)
 	end,
@@ -1613,6 +1615,7 @@ SMODS.Consumable({
         if context.end_of_round and context.main_eval then
             card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
             card:set_cost()
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_val_up") })
         end
 		return joy_hanafuda_score({"Water Iris", "Water Iris_2"}, context)
 	end,
@@ -1650,6 +1653,7 @@ SMODS.Consumable({
 		if context.end_of_round and context.main_eval then
 			card.ability.extra_value = (card.ability.extra_value or 0) + hpt.high 
 			card:set_cost()
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_val_up") })
 		end
 		return joy_hanafuda_score({"Water Iris", "Water Iris_2"}, context)
 	end,
