@@ -12,7 +12,7 @@ position = "at"
 pattern = """
 table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = localize{type = 'name_text', set = config.card.config.center.set, key = config.card.config.center.key}, colours = {G.C.FILTER}, shadow = true, pop_in = 0, scale = 0.6*scale, silent = true})}})
 """
-payload = """
+payload = '''
 table.insert(left_text, {
     n = G.UIT.O,
     config = {
