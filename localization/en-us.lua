@@ -5164,7 +5164,10 @@ return {
 
             k_spark_per_turn = "Upgrade cost",
 
-            hotpot_current_track = "CURRENT TRACK"
+            hotpot_current_track = "CURRENT TRACK",
+            
+            hotpot_exposure = "Exposure"
+
         },
         v_dictionary = {
             k_hpot_creditable = "Creditable",
