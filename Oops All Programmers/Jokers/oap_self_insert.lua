@@ -47,6 +47,9 @@ SMODS.Joker {
     add_to_deck = function(self, card, from_debuff) -- Set sprite on card copy
         for k, v in ipairs(choices) do
             if card.ability.extra and card.ability.extra.effect == v then
+                if card.quantum then
+                    card = card.quantum
+                end
                 card.children.center:set_sprite_pos({ x = k - 1, y = 0 })
             end
         end
