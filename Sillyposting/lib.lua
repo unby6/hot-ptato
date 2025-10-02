@@ -41,7 +41,7 @@ local update_ref = Game.update
 function Game:update(dt)
     update_ref(self, dt)
     for _, card in pairs(G.I.CARD) do
-        if type(card) == "table" and type(card.area) == "table" and type(card.area.config) == "table" and card.area.config.collection then update_consumable(card) end
+        if G.GAME and G.GAME.max_highlighted_mod and type(card) == "table" and type(card.area) == "table" and type(card.area.config) == "table" and card.area.config.collection then update_consumable(card) end
     end
 end
 function init_sillyposting(game)
