@@ -32,6 +32,7 @@ SMODS.Booster {
     kind = 'hpot_team',
     group_key = 'k_hpot_team_pack',
     hotpot_credits = {
+        art = {'lord.ruby'},
         code = {'lord.ruby'},
         team = {'Horsechicot'}
     },
@@ -70,6 +71,7 @@ SMODS.Booster {
     kind = 'hpot_team',
     group_key = 'k_hpot_team_pack',
     hotpot_credits = {
+        art = {'lord.ruby'},
         code = {'lord.ruby'},
         team = {'Horsechicot'}
     },
@@ -108,6 +110,7 @@ SMODS.Booster {
     kind = 'hpot_team',
     group_key = 'k_hpot_team_pack',
     hotpot_credits = {
+        art = {'lord.ruby'},
         code = {'lord.ruby'},
         team = {'Horsechicot'}
     },
@@ -146,6 +149,7 @@ SMODS.Booster {
     kind = 'hpot_team',
     group_key = 'k_hpot_team_pack',
     hotpot_credits = {
+        art = {'lord.ruby'},
         code = {'lord.ruby'},
         team = {'Horsechicot'}
     },
