@@ -136,5 +136,8 @@ SMODS.Back {
 SMODS.Voucher {
     key = 'poop1',
     no_collection = true,
+    in_pool = function(self, args)
+        return false
+    end
 }
 --#endregion
