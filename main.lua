@@ -66,6 +66,9 @@ local function load_files(path, dirs_only)
 end
 local path = SMODS.current_mod.path
 
+-- Annoyingly load title text lua
+local f, err = load_file_native(path.."/Jtem/titletext.lua")
+if f then f() end
 load_files(path, true)
 --#endregion
 
@@ -212,6 +215,19 @@ local hpotConfigTab = function()
 			HotPotato.reload_localization()
 		end
     })
+	hpot_nodes[#hpot_nodes + 1] = create_toggle({
+        label = localize("hotpot_window_title"),
+        active_colour = HEX("40c76d"),
+        ref_table = HotPotatoConfig,
+        ref_value = "window_title",
+        callback = function()
+			if HotPotatoConfig.window_title then
+				HotPotato.set_window_title()
+			else
+				love.window.setTitle("Balatro")
+			end
+        end,
+    })
     return {
         n = G.UIT.ROOT,
         config = {
@@ -236,3 +252,14 @@ SMODS.current_mod.calculate = function(self, context)
 		Horsechicot:calculate(context) or {}
 	)
 end
+
+HotPotato.set_window_title = function()
+	if HotPotatoConfig.window_title then
+		local title = "Balatro: ".. ((type(HPJTTT.text[HPJTTT.chosen]) == 'string' and HPJTTT.text[HPJTTT.chosen]) or 'Now with images!')
+		if HPJTTT.balala then
+			title = "Balala"
+		end
+		love.window.setTitle(title)
+	end
+end
+HotPotato.set_window_title()

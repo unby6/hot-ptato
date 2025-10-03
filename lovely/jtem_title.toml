@@ -3,25 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-[[patches]]
-[patches.copy]
-sources = ["Jtem/titletext.lua"]
-target = "conf.lua"
-position = "prepend"
-
-[[patches]]
-[patches.pattern]
-target = 'conf.lua'
-position = 'at'
-pattern = "t.title = 'Balatro'"
-payload = '''
-if HPJTTT.balala then
-    t.title = "Balala"
-else
-t.title = "Balatro: ".. ((type(HPJTTT.text[HPJTTT.chosen]) == 'string' and HPJTTT.text[HPJTTT.chosen]) or 'Now with images!')
-end'''
-match_indent = true
-
 # Add title text as a splash graphic || hi im fey from the hit game balatro i want images :3
 [[patches]]
 [patches.pattern]

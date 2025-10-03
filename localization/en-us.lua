@@ -5115,6 +5115,7 @@ return {
 
             hotpot_disable_animations = "Disable Animations",
             hotpot_family_friendly = "Family Friendly",
+            hotpot_window_title = "Random Window Titles",
 
             k_place_card_text = "PLACE JOKER TO REFORGE",
             k_place_button = "Place",
