@@ -6,6 +6,7 @@ SMODS.Joker({
 			mult = 5,
 		},
 	},
+    cost = 6,
 	atlas = "tname_jokers",
 	pos = {
 		x = 0,
@@ -53,6 +54,7 @@ SMODS.Joker({
 		x = 2,
 		y = 2
 	},
+    cost = 7,
     config = { extra = { max = 45, min = -20 } },
     loc_vars = function(self, info_queue, card)
         local r_mults = {}
@@ -162,6 +164,7 @@ SMODS.Joker({
 			xmultg = 0.1
 		},
 	},
+    cost = 5,
 	pos = {x=7,y=0},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
@@ -211,6 +214,7 @@ SMODS.Joker({
 			hands = 0
 		},
 	},
+    cost = 6,
 	pos = {x=8,y=0},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
@@ -260,6 +264,7 @@ SMODS.Joker({
 			min = 1
 		},
 	},
+    cost = 7,
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 			return {
@@ -303,6 +308,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "aurae_joker",
 	rarity = 2,
+    cost = 8,
 	loc_vars = function(self, info_queue, card)
 			return {
 				vars = { colours = {G.C.GREY}},
