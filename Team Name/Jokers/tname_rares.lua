@@ -156,6 +156,7 @@ SMODS.Joker({
 			stickers = 0
 		},
 	},
+    cost = 6,
 	pos = {x=9,y=0},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
@@ -202,6 +203,7 @@ SMODS.Joker({
 			availability = true
 		},
 	},
+    cost = 6,
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
 		return {
@@ -254,6 +256,7 @@ SMODS.Joker({
 			destroyed = 0
 		},
 	},
+    cost = 6,
 	pos = {x=1,y=1},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
