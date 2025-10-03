@@ -4656,7 +4656,7 @@ return {
             modif_hpot_ruthless = {
                 name = "Ruthless",
                 text = {
-                    "{X:mult,C:white}X%20{C:green} Mult when triggered", "{C:green}during scoring"
+                    "{X:mult,C:white}X1.5{C:green} Mult if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_greedy = {
@@ -4668,7 +4668,7 @@ return {
             modif_hpot_jumpy = {
                 name = "Jumpy",
                 text = {
-                    "{X:mult,C:white}X1.1{C:green} Mult when triggered", "{C:green}during scoring"
+                    "{X:mult,C:white}X1.3{C:green} Mult if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_invested = {
@@ -4686,7 +4686,7 @@ return {
             modif_hpot_supported = {
                 name = "Supported",
                 text = {
-                    "{X:mult,C:white}X%10{C:green} Mult when triggered", "{C:green}during scoring"
+                    "{X:mult,C:white}X1.1{C:green} Mult if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_dozing = {
@@ -4706,7 +4706,7 @@ return {
             modif_hpot_smudged = {
                 name = "Smudged",
                 text = {
-                    "{X:mult,C:white}X0.9{C:dark_edition} Mult when triggered", "{C:dark_edition}during scoring"
+                    "{X:mult,C:white}X0.9{C:dark_edition} Mult if triggered", "{C:dark_edition}during scoring"
                 }
             },
             modif_hpot_depreciating = {
@@ -4719,43 +4719,43 @@ return {
             modif_hpot_sharpened = {
                 name = "Sharpened",
                 text = {
-                    "{C:mult}+10{C:green} Mult when triggered", "{C:green}during scoring"
+                    "{C:mult}+10{C:green} Mult if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_dull = {
                 name = "Dull",
                 text = {
-                    "{C:mult}-5{C:green} Mult when triggered", "{C:green}during scoring"
+                    "{C:mult}-5{C:green} Mult if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_jagged = {
                 name = "Jagged",
                 text = {
-                    "{C:blue}+50{C:green} Chips when triggered", "{C:green}during scoring"
+                    "{C:blue}+50{C:green} Chips if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_spiked = {
                 name = "Spiked",
                 text = {
-                    "{X:blue,C:white}X1.2{C:green} Chips when triggered", "{C:green}during scoring"
+                    "{X:blue,C:white}X1.2{C:green} Chips if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_menacing = {
                 name = "Menacing",
                 text = {
-                    "{X:blue,C:white}X%5{C:green} Chips when triggered", "{C:green}during scoring"
+                    "{X:blue,C:white}X1.3{C:green} Chips if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_rusty = {
                 name = "Rusty",
                 text = {
-                    "{C:blue}-25{C:green} Chips when triggered", "{C:green}during scoring"
+                    "{C:blue}-25{C:green} Chips if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_flawed = {
                 name = "Flawed",
                 text = {
-                    "{X:blue,C:white}X0.8{C:green} Chips when triggered", "{C:green}during scoring"
+                    "{X:blue,C:white}X0.8{C:green} Chips if triggered", "{C:green}during scoring"
                 }
             },
         },
