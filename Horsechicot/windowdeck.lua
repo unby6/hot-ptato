@@ -32,8 +32,7 @@ SMODS.Scoring_Calculation {
     end,
     text = 'X',
     replace_ui = function(self)
-        local scale = 0.4
-        local w = math.max(2 - 0.4 * (G.GAME.windows_unlocked or 0), 0.25)
+        local w = 4 / (2 + (G.GAME.windows_unlocked or 0) * 1.2 )
         local nodes = {
             {
                 n = G.UIT.C,
@@ -44,11 +43,12 @@ SMODS.Scoring_Calculation {
                         text = 'chip_text',
                         align = 'cr',
                         w = w,
+                        h = w/2,
                         scale = math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)
                     })
                 }
             },
-            SMODS.GUI.operator(math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)),
+            SMODS.GUI.operator(0.4 / (1 + (G.GAME.windows_unlocked or 0))),
             {
                 n = G.UIT.C,
                 config = { align = 'cm', id = 'hand_mult_container' },
@@ -56,6 +56,7 @@ SMODS.Scoring_Calculation {
                     SMODS.GUI.score_container({
                         type = 'mult',
                         w = w,
+                        h = w/2,
                         scale = math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1)
                     })
                 }
@@ -63,21 +64,21 @@ SMODS.Scoring_Calculation {
         }
         if G.GAME.windows_unlocked and G.GAME.windows_unlocked > 0 then
             for i = 1, G.GAME.windows_unlocked do
-                nodes[#nodes + 1] = SMODS.GUI.operator(math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w)
-                nodes[#nodes + 1] = window_container(i, math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w)
+                nodes[#nodes + 1] = SMODS.GUI.operator(0.4 / (1 + (G.GAME.windows_unlocked or 0)))
+                nodes[#nodes + 1] = window_container(i, math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w, w/2)
             end
         end
-        return { n = G.UIT.R, config = { align = "cm", minh = 1, padding = 0.1 }, nodes = nodes }
+        return { n = G.UIT.R, config = { align = "cm", minh = w/2, padding = 0.1 / (1 + (G.GAME.windows_unlocked or 0)) }, nodes = nodes }
     end
 }
 
-function window_container(i, scale, w)
+function window_container(i, scale, w, h)
     return
     {
         n = G.UIT.C,
         config = { align = 'cm', id = 'hand_' .. i .. '_container' },
         nodes = {
-            score_container(i, { w = w, scale = scale })
+            score_container(i, { w = w, h = h, scale = scale })
         }
     }
 end
