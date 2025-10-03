@@ -3777,6 +3777,42 @@ return {
                     "Are ya gonna listen or what?"
                 }
             },
+            undiscovered_aura = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use this",
+                    "card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+            undiscovered_imaginary = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase this",
+                    "card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+            undiscovered_hanafuda = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use this",
+                    "card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+            undiscovered_cheque = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use this",
+                    "card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
         },
         Tag = {
             tag_hpot_job = {
