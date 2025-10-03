@@ -326,7 +326,7 @@ JTJukebox.create_collection_ui = function(_pool, rows, args)
 end
 
 local function jukebox_collection_ui(e)
-	return JTJukebox.create_collection_ui(JTJukebox.MusicTags, { 5, 5, 5 }, {
+	return JTJukebox.create_collection_ui(JTJukebox.MusicTags, { 6, 5, 5 }, {
 		snap_back = true,
 		hide_single_page = true,
 		collapse_single_page = true,
@@ -361,7 +361,7 @@ local function jukebox_collection_ui(e)
 			end
 			card.set_sprites = function(...)
 				local args = { ... }
-				if not args[1].animation then return end -- fix for debug unlock
+				--if not args[1].animation then return end -- fix for debug unlock
 				local c = card.children.center
 				Card.set_sprites(...)
 				card.children.center = c
