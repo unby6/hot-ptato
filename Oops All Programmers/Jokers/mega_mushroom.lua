@@ -16,18 +16,22 @@ SMODS.Joker {
             }
         }
     end,
+    blueprint_compat = true,
     pools = { Food = true },
     calculate = function(self, card, context)
         if context.before
             and G.GAME.current_round.hands_left == 0
+            and card.ability.extra.hands_left > 0 
         then
-            card.ability.extra.hands_left = card.ability.extra.hands_left - 1
+            if not context.blueprint then
+                card.ability.extra.hands_left = card.ability.extra.hands_left - 1
+            end
             return {
                 level_up = 2
             }
         end
         if context.after
-            and card.ability.extra.hands_left == 0 then
+            and card.ability.extra.hands_left <= 0 then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound('tarot1')
