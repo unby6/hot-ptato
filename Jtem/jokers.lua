@@ -11,6 +11,7 @@ SMODS.Joker {
     config = { extra = { gain = 0.1, per = 100, } },
     soul_pos = { x = 1, y = 1 },
     rarity = 4,
+    cost = 20,
     blueprint_compat = true,
     loc_vars = function(self, info_queue, card)
         local save = G.PROFILES[G.SETTINGS.profile]
@@ -43,6 +44,7 @@ SMODS.Joker {
     pos = { x = 3, y = 1 },
     config = { extra = { retriggers = 1 } },
     rarity = 3,
+    cost = 10,
     blueprint_compat = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.retriggers } }
@@ -84,6 +86,7 @@ SMODS.Joker {
             }
         }
     end,
+    cost = 5,
     calculate = function(self, card, context)
         if context.hp_card_destroyed and not context.blueprint and not context.is_being_sold then
             local key = context.card_being_destroyed.config.center.key
@@ -209,6 +212,7 @@ SMODS.Joker {
     pos = { x = 0, y = 2 },
     rarity = 2,
     config = { extra = { xmult = 1, xmult_mod = 0.1, cion = 1 } },
+    cost = 6,
     blueprint_compat = true,
     calculate = function(self, card, context)
         if context.after and mult and hand_chips then
@@ -274,6 +278,7 @@ SMODS.Joker {
             xmult = 1.25,
         }
     },
+    cost = 6,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -355,6 +360,7 @@ SMODS.Joker {
     config = { extra = { plincoin = 1, consumeables = 2 } },
     pools = { Food = true },
     rarity = 2,
+    cost = 4,
     blueprint_compat = true,
     calculate = function(self, card, context)
         if context.using_consumeable and (not G.plinko_rewards or context.area ~= G.plinko_rewards) then
@@ -382,7 +388,8 @@ SMODS.Joker {
     key = 'spam',
     atlas = "jtem_jokers",
     pos = { x = 2, y = 2 },
-    config = { extra = { eggs = 5 } },
+    config = { extra = { eggs = 2 } },
+    cost = 3,
     rarity = 1,
     pixel_size = { w = 71, h = 62 },
     pools = { Food = true },
@@ -411,6 +418,7 @@ SMODS.Joker {
     pos = { x = 3, y = 2 },
     rarity = 3,
     blueprint_compat = true,
+    cost = 5,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval then
             local cards = {}
@@ -452,6 +460,7 @@ SMODS.Joker {
     key = 'silly',
     atlas = "jtem_jokers",
     pos = { x = 4, y = 2 },
+    cost = 6,
     rarity = 2,
     blueprint_compat = true,
     calc_training_mul = function(self, card, joker, mult, stat)
@@ -577,6 +586,7 @@ SMODS.Joker {
     pos = { x = 0, y = 0 },
     soul_pos = { x = 1, y = 0 },
     rarity = 4,
+    cost = 20,
     blueprint_compat = true,
     calc_training_mul = function(self, card, joker, mult, stat)
         return mult * 4
