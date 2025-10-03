@@ -96,6 +96,7 @@ function SMODS.calculate_context(context, ...)
             if G.lock_in_card.ability.was_clicked then
                 SMODS.calculate_effect({message = localize("k_saved_ex")}, G.lock_in_card)
                 SMODS.destroy_cards(G.lock_in_card)
+                G.lock_in_card = nil
                 SMODS.saved = true
                 G.saved_by_lock_in = true
             else
