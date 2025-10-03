@@ -3564,6 +3564,9 @@ return {
             hpot_jtem_training_status = {
                 name = "Training",
                 text = {
+                    "Applies {C:attention}Training effects",
+                    "{C:dark_edition}Energy{} - {V:7}#21#{}/100{V:8}#22#"
+                    --[[
                     "{C:jtem_stats_speed}Speed{} - {V:1}#1#{}{V:6}#11#{} - {V:1}#2#",
                     "{s:0.8,C:inactive}Improves Chance of this Joker retriggering - +#16#%",
                     "{s:0.1} ",
@@ -3580,7 +3583,14 @@ return {
                     "{s:0.8,C:inactive}Improves sell cost - +#20#%",
                     "{s:0.1} ",
                     "{C:dark_edition}Energy{} - {V:7}#21#{}/100{V:8}#22#"
+                    ]]
                 },
+            },
+            hpot_jtem_training_status_iq = {
+                name = "Energy",
+                text = {
+                    "{V:7}#21#{}/100{V:8}",
+                }
             },
             p_hpot_training_pack = {
                 name = "Training Pack",
@@ -4835,6 +4845,25 @@ return {
                             "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
                             "the respective stats of the Joker if {C:green}Successful{}",
                         },
+                    }
+                },
+                {
+                    name = "Stats and their Effects",
+                    text = {
+                        {
+                            "{E:2,C:dark_edition}Speed{} increases the chance for the Joker to {C:attention}retrigger",
+                            "{E:2,C:dark_edition}Stamina{} decreases {C:attention}energy consumption{} during training",
+                        },
+                        {
+                            "{E:2,C:dark_edition}Power{} increases the Joker's internal {X:red,C:white}XMult{} and {X:blue,C:white}XChips",
+                            "{E:2,C:dark_edition}Guts{} increases individual Joker {C:attention}values",
+                        },
+                        {
+                            "{E:2,C:dark_edition}Energy{} is important! Make sure your Joker has adequate rest",
+                            "{E:2,C:dark_edition}Mood{} boosts stat increases",
+                            "Jokers also have a set {E:1,C:attention}Stat multiplier{} that boosts individual",
+                            "stats by a specific amount during Training"
+                        }
                     }
                 },
             },

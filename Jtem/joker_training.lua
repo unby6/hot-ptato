@@ -56,9 +56,10 @@ local mood_to_multiply = {
 ---@param card Card|table
 ---@param mood_mod number
 function hot_mod_mood(card, mood_mod)
-	G.E_MANAGER:add_event(Event{
+	G.E_MANAGER:add_event(Event {
 		func = function()
-			card.ability["hp_jtem_mood"] = index_to_mood[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]]+mood_mod, #index_to_mood))]
+			card.ability["hp_jtem_mood"] = index_to_mood
+				[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]] + mood_mod, #index_to_mood))]
 			card:juice_up(0.5, 0.3)
 			-- TODO: sound
 			return true
@@ -78,7 +79,7 @@ function hpot_calc_failure_rate(energy)
 	if energy <= 0 then return 1 end
 	if energy < 10 then return 0.99 end
 	local en = energy
-	return math.floor((1 - (en / 70))*100)/100
+	return math.floor((1 - (en / 70)) * 100) / 100
 end
 
 --- Returns the rank name and the color given the score.
@@ -139,6 +140,7 @@ function hpot_get_rank_and_colour(score)
 	end
 	return "G", G.C.HP_JTEM.RANKS.G
 end
+
 HP_JTEM_STATS = { "speed", "stamina", "power", "guts", "wits" }
 
 HP_MOOD_STICKERS = {}
@@ -146,23 +148,23 @@ HP_MOOD_STICKERS = {}
 -- this part is for saving misc values for this stuff
 local card_init_val = Card.init
 function Card:init(x, y, w, h, _card, _center, _params)
-    local _c = card_init_val(self, x, y, w, h, _card, _center, _params)
-    self.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
-    return _c
+	local _c = card_init_val(self, x, y, w, h, _card, _center, _params)
+	self.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
+	return _c
 end
 
 local card_save_additional_props = Card.save
 function Card:save()
-    local st = card_save_additional_props(self)
-    st.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
-    return st
+	local st = card_save_additional_props(self)
+	st.jp_jtem_orig_sell_cost = self.jp_jtem_orig_sell_cost or 0
+	return st
 end
 
 local card_load_additional_props = Card.load
 function Card:load(ct, oc)
-    local st = card_load_additional_props(self, ct, oc)
-    self.jp_jtem_orig_sell_cost = ct.jp_jtem_orig_sell_cost or 0
-    return st
+	local st = card_load_additional_props(self, ct, oc)
+	self.jp_jtem_orig_sell_cost = ct.jp_jtem_orig_sell_cost or 0
+	return st
 end
 
 ---@alias TrainingStat
@@ -185,6 +187,83 @@ function hpot_calc_stat_multiplier(card, stat)
 		end
 	end
 	return multiplier
+end
+
+-- Taken from training grounds
+local function create_stat_display(stat, values, multipliers)
+	local rank, col = hpot_get_rank_and_colour(values[stat])
+	col = col or G.C.UI.TEXT_DARK
+	local subrank, subcol = nil, nil
+	-- U rank, get second subrank
+	if rank:sub(1,1) == "U" then
+		subrank = rank:sub(2,2)
+		rank = rank:sub(1,1)
+		subcol = G.C.HP_JTEM.RANKS[subrank == "S" and "SS" or subrank] or G.C.UI.TEXT_DARK
+	end
+	return {
+
+		n = G.UIT.R,
+		config = { align = "cm", padding = 0.1 },
+		nodes = {
+			{
+				n = G.UIT.C,
+				config = { align = "cm", padding = 0.02 },
+				nodes = {
+					{
+						n = G.UIT.R,
+						nodes = {
+							{
+								n = G.UIT.C,
+								config = { align = "bm" },
+								nodes = {
+									{ n = G.UIT.T, config = { text = rank, scale = 0.6, colour = col, shadow = true } },
+								}
+							},
+							subrank and {
+								n = G.UIT.C,
+								config = { align = "bm" },
+								nodes = {
+									{ n = G.UIT.T, config = { text = subrank, scale = 0.4, colour = subcol, shadow = true } },
+								}
+							} or nil
+						}
+					}
+				}
+			},
+			{
+				n = G.UIT.C,
+				config = { align = "cm", padding = 0.02 },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "cm" },
+						nodes = {
+							{ n = G.UIT.T, config = { ref_table = values, ref_value = stat, scale = 0.425, colour = G.C.UI.TEXT_DARK, shadow = true } },
+						}
+					},
+					{
+						n = G.UIT.R,
+						config = { align = "cm" },
+						nodes = {
+							{ n = G.UIT.T, config = { text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK, shadow = true } },
+						}
+					},
+					-- stat multiplier
+					{
+						n = G.UIT.R,
+						config = { align = "cm" },
+						nodes = {
+							{ n = G.UIT.T, config = { text = "+", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+							{ n = G.UIT.T, config = { text = (multipliers[stat] - 1) * 100, scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+							{ n = G.UIT.T, config = { text = "%", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+						}
+					},
+				}
+			},
+		}
+
+
+	}
 end
 
 -- Mood stickers
@@ -227,11 +306,11 @@ SMODS.Sticker {
 		table.insert(st, card.ability.hp_jtem_energy)
 		-- energy color
 		clr[#clr + 1] = card.ability.hp_jtem_energy <= 25 and G.C.RED or card.ability.hp_jtem_energy <= 50 and G.C.BLUE or
-		G.C.UI.TEXT_DARK
+			G.C.UI.TEXT_DARK
 		-- failure rate
 		if G.hpot_training_consumable_highlighted and G.hpot_training_consumable_highlighted.ability and not G.hpot_training_consumable_highlighted.ability.hpot_skip_fail_check then
 			local fail_rate = hpot_calc_failure_rate(card.ability.hp_jtem_energy)
-			table.insert(st, " - " .. fail_rate*100 .. "% Failure")
+			table.insert(st, " - " .. fail_rate * 100 .. "% Failure")
 			-- failure rate color
 			clr[#clr + 1] = fail_rate >= 0.7 and G.C.RED or fail_rate >= 0.4 and G.C.ORANGE or G.C.UI.TEXT_DARK
 		else
@@ -240,7 +319,7 @@ SMODS.Sticker {
 		end
 		st.colours = clr
 		info_queue[#info_queue + 1] = {
-			key = "hpot_jtem_training_status",
+			key = card.config.center_key == "c_base" and "hpot_jtem_training_status" or "hpot_jtem_training_status_iq",
 			set = "Other",
 			vars = st
 		}
@@ -282,13 +361,12 @@ SMODS.Sticker {
 		local stats = card.ability["hp_jtem_stats"]
 		hpot_jtem_with_deck_effects(card, function(c)
 			if stats.guts > 150 then
-				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
+				hpot_jtem_misprintize({ val = c.ability, amt = 1 + ((((stats.guts - 150) / 200) * 100) / 100) })
 			end
 		end)
 		if stats.wits and stats.wits > 150 then
-			card.sell_cost = card.jp_jtem_orig_sell_cost + (stats.guts-150) / 200
+			card.sell_cost = card.jp_jtem_orig_sell_cost + (stats.guts - 150) / 200
 		end
-		
 	end,
 	draw = function(self, card, layer)
 		local val = card.ability["hp_jtem_mood"] or "normal"
@@ -307,11 +385,12 @@ SMODS.Sticker {
 		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card == card then
 			-- Speed checks
 			if stats.speed > 200 then
-				local speed = (stats.speed-200)
+				local speed = (stats.speed - 200)
 				-- if stat is at least 1200 guarantee a retrig
 				local retriggers = math.floor(speed / 1000)
 				-- and the remainder gets calculated as chance
-				retriggers = retriggers + (pseudorandom('speed_repetition_check_'..G.GAME.round_resets.ante) < math.fmod(speed, 1000) and 1 or 0)
+				retriggers = retriggers +
+					(pseudorandom('speed_repetition_check_' .. G.GAME.round_resets.ante) < math.fmod(speed, 1000) and 1 or 0)
 				return {
 					repetitions = retriggers
 				}
@@ -320,10 +399,33 @@ SMODS.Sticker {
 		if context.joker_main then
 			-- TODO: Probably nerf this????
 			return {
-				xmult = 1 + ((stats.power/800)*100)/100,
-				xchips = 1 + ((stats.power/800)*100)/100
+				xmult = 1 + ((stats.power / 800) * 100) / 100,
+				xchips = 1 + ((stats.power / 800) * 100) / 100
 			}
 		end
+	end,
+	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+		--SMODS.Sticker.super.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+		local values = card and card.ability and card.ability["hp_jtem_stats"] or {}
+		if full_UI_table.sticker_pass or (card and card.area == G.train_jokers) then return end
+		local function create_stat(stat)
+			full_UI_table.info[#full_UI_table.info + 1] = {
+				name = localize("hotpot_" .. stat),
+				{
+					{
+						n = G.UIT.C,
+						config = { align = "cm", colour = G.C.CLEAR },
+						nodes = {
+							create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
+						}
+					}
+				}
+			}
+		end
+		for _, stat in ipairs(HP_JTEM_STATS) do
+			create_stat(stat)
+		end
+		full_UI_table.sticker_pass = true
 	end,
 	badge_colour = HEX('ffcc11'),
 	hotpot_credits = {
@@ -338,7 +440,7 @@ SMODS.Sticker {
 ---@param card Card|table
 ---@return number
 function hpot_get_training_cost(card)
-    return 20000 * (G.GAME.hpot_training_cost_mult or 1)
+	return 20000 * (G.GAME.hpot_training_cost_mult or 1)
 end
 
 G.FUNCS.hpot_can_train_joker = function(e)
@@ -347,7 +449,7 @@ G.FUNCS.hpot_can_train_joker = function(e)
 	if not ((G.play and #G.play.cards > 0) or
 			(G.CONTROLLER.locked) or
 			(G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
-            (G.GAME.spark_points < hpot_get_training_cost(card)))  then
+			(G.GAME.spark_points < hpot_get_training_cost(card))) then
 		e.config.colour = G.C.CHIPS
 		e.config.button = 'hpot_start_training_joker'
 	else
@@ -361,7 +463,7 @@ function G.FUNCS.hpot_start_training_joker(e)
 	---@type Card
 	local card = e.config.ref_table
 	G.CONTROLLER.locks.use = true
-    ease_spark_points(-1 * hpot_get_training_cost(card))
+	ease_spark_points(-1 * hpot_get_training_cost(card))
 	card.area:remove_from_highlighted(card) -- Youre welcome Jtem - ruby
 	card:highlight(false)
 	G.E_MANAGER:add_event(Event {
@@ -392,32 +494,32 @@ end
 
 -- Jokers can have a 'TRAIN' button at the bottom when highlighted
 function hpot_joker_train_button_definition(card)
-    local args = generate_currency_string_args("joker_exchange")
+	local args = generate_currency_string_args("joker_exchange")
 	return {
 		n = G.UIT.R,
 		config = { ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5 * card.T.w - 0.15, maxw = 0.9 * card.T.w - 0.15, minh = 0.4 * card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'hpot_start_training_joker', func = 'hpot_can_train_joker' },
 		nodes = {
-            {
-                n = G.UIT.C,
-                config = { align = "cm" },
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {
-                            { n = G.UIT.T, config = { text = localize('b_hpot_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true } },
-                        }
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {
-                            { n = G.UIT.T, config = { text = args.symbol, font = args.font, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
-                            { n = G.UIT.T, config = { text = number_format(hpot_get_training_cost(card)), colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
-                        }
-                    },
-                }
-            }
+			{
+				n = G.UIT.C,
+				config = { align = "cm" },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "cm" },
+						nodes = {
+							{ n = G.UIT.T, config = { text = localize('b_hpot_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true } },
+						}
+					},
+					{
+						n = G.UIT.R,
+						config = { align = "cm" },
+						nodes = {
+							{ n = G.UIT.T, config = { text = args.symbol, font = args.font, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
+							{ n = G.UIT.T, config = { text = number_format(hpot_get_training_cost(card)), colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
+						}
+					},
+				}
+			}
 		}
 	}
 end
@@ -509,7 +611,12 @@ function hpot_training_tarot_use(self, card, area, copier)
 			-- Success! or Failure...
 			if not card.ability.hpot_skip_fail_check then
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize('hotpot_train_'..(success and 'success' or 'failure')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_"..(success and 'success' or 'failure') })
+					{
+						message = localize('hotpot_train_' .. (success and 'success' or 'failure')),
+						colour = (success and G.C.FILTER or G.C.BLUE),
+						sound =
+							"hpot_sfx_" .. (success and 'success' or 'failure')
+					})
 			end
 			--[[
 			-- reduce energy if possible
@@ -541,13 +648,18 @@ function hpot_training_tarot_use(self, card, area, copier)
 			if card.ability.hpot_mood_change then
 				hot_mod_mood(joker, card.ability.hpot_mood_change * (success and 1 or -1))
 				card_eval_status_text(joker, 'extra', nil, nil, nil,
-					{ message = localize('hotpot_train_mood_'..(success and 'up' or 'down')), colour = (success and G.C.FILTER or G.C.BLUE), sound = "hpot_sfx_stat_up" })
+					{
+						message = localize('hotpot_train_mood_' .. (success and 'up' or 'down')),
+						colour = (success and G.C.FILTER or G.C.BLUE),
+						sound =
+						"hpot_sfx_stat_up"
+					})
 			end
 		end
 	end
 	G.hpot_training_consumable_highlighted = nil
 	delay(0.6)
-	G.E_MANAGER:add_event(Event{
+	G.E_MANAGER:add_event(Event {
 		func = function()
 			G.jokers:unhighlight_all()
 			return true
@@ -575,15 +687,15 @@ function hpot_training_tarot_loc_vars(self, info_queue, card)
 	return { vars = vars }
 end
 
-local hpot_training_pool_check = function (self, args)
+local hpot_training_pool_check = function(self, args)
 	return G.GAME.hpot_training_has_ever_been_done
 end
 
 local training_tarot_credits = {
-	art = {'Aikoyori'},
-	code = {'Haya'},
-	idea = {'Aikoyori', 'Haya'},
-	team = {'Jtem'}
+	art = { 'Aikoyori' },
+	code = { 'Haya' },
+	idea = { 'Aikoyori', 'Haya' },
+	team = { 'Jtem' }
 }
 
 -- All of these consumables below are for training specific stats.
@@ -694,58 +806,64 @@ SMODS.Consumable {
 	set = 'Spectral',
 	atlas = 'jtem_training_spectrals',
 	pos = { x = 0, y = 0 },
-	config = { max_highlighted = 1, hpot_train_increase = {speed = 12, stamina = 12, power = 12, guts = 12, wits = 12}, hpot_energy_change = -40 },
+	config = { max_highlighted = 1, hpot_train_increase = { speed = 12, stamina = 12, power = 12, guts = 12, wits = 12 }, hpot_energy_change = -40 },
 	can_use = hpot_training_tarot_can_use,
 	use = hpot_training_tarot_use,
 	loc_vars = hpot_training_tarot_loc_vars,
 	hotpot_credits = {
-		art = {'Aikoyori'},
-		code = {'Aikoyori'},
-		idea = {'Haya'},
-		team = {'Jtem'}
+		art = { 'Aikoyori' },
+		code = { 'Aikoyori' },
+		idea = { 'Haya' },
+		team = { 'Jtem' }
 	},
 	in_pool = hpot_training_pool_check,
 }
 
 local list_of_training_cards = {
-    "c_hpot_training_speed",
-    "c_hpot_training_stamina",
-    "c_hpot_training_power",
-    "c_hpot_training_guts",
-    "c_hpot_training_wit",
-    "c_hpot_training_rest",
-    "c_hpot_training_recreation",
+	"c_hpot_training_speed",
+	"c_hpot_training_stamina",
+	"c_hpot_training_power",
+	"c_hpot_training_guts",
+	"c_hpot_training_wit",
+	"c_hpot_training_rest",
+	"c_hpot_training_recreation",
 }
-SMODS.Booster{
-    key = "training_pack",
-    set = "Booster",
-    config = { extra = 7, choose = 2 },
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.choose,
-                card.ability.extra,
-            },
-        }
-    end,
-    atlas = 'jtem_trainingpack', pos = { x = 0, y = 0 },
-    group_key = "hotpot_training_pack",
-    cost = 8,
-    weight = 0.4,
-    draw_hand = true,
-    kind = "hotpot_training_pack",
-    create_card = function (self, card, i) 
-        return SMODS.create_card{ key = list_of_training_cards[i], area = G.pack_cards, skip_materialize = true, allow_duplicates = true }
-    end,
-    ease_background_colour = function(self)
-        ease_background_colour({ new_colour = G.C.HP_JTEM.MISC.TRAIN_Y, special_colour = G.C.HP_JTEM.MISC.TRAIN_O, tertiary_colour = G.C.HP_JTEM.MISC.TRAIN_P, contrast = 4})
-    end,
+SMODS.Booster {
+	key = "training_pack",
+	set = "Booster",
+	config = { extra = 7, choose = 2 },
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.choose,
+				card.ability.extra,
+			},
+		}
+	end,
+	atlas = 'jtem_trainingpack', pos = { x = 0, y = 0 },
+	group_key = "hotpot_training_pack",
+	cost = 8,
+	weight = 0.4,
+	draw_hand = true,
+	kind = "hotpot_training_pack",
+	create_card = function(self, card, i)
+		return SMODS.create_card { key = list_of_training_cards[i], area = G.pack_cards, skip_materialize = true, allow_duplicates = true }
+	end,
+	ease_background_colour = function(self)
+		ease_background_colour({
+			new_colour = G.C.HP_JTEM.MISC.TRAIN_Y,
+			special_colour = G.C.HP_JTEM.MISC.TRAIN_O,
+			tertiary_colour =
+				G.C.HP_JTEM.MISC.TRAIN_P,
+			contrast = 4
+		})
+	end,
 	in_pool = hpot_training_pool_check,
 	hotpot_credits = {
-		art = {'Aikoyori'},
-		code = {'Aikoyori'},
-		idea = {'Aikoyori', 'Haya'},
-		team = {'Jtem'}
+		art = { 'Aikoyori' },
+		code = { 'Aikoyori' },
+		idea = { 'Aikoyori', 'Haya' },
+		team = { 'Jtem' }
 	}
 }
 

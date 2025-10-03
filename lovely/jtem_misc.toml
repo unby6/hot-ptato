@@ -279,3 +279,27 @@ payload = '''
 for _, tab in pairs(object_tabs) do
 '''
 match_indent = true
+
+# generate_ui for stickers :)))
+[[patches]]
+[patches.pattern]
+target = '''functions/common_events.lua'''
+pattern = '''if first_pass and not (_c.set == 'Edition') and badges then'''
+position = 'before'
+payload = '''
+if not full_UI_table.backup_card then
+  full_UI_table.backup_card = card
+end
+if not first_pass and not (_c.set == 'Edition') and full_UI_table.badges then
+  for k, v in ipairs(full_UI_table.badges) do
+    local sticker = SMODS.Stickers[v]
+    if sticker then
+      if sticker.generate_ui then
+        local specific_vars = specific_vars or {}
+        sticker:generate_ui(info_queue, card or full_UI_table.backup_card, desc_nodes, specific_vars, full_UI_table)
+      end
+    end
+  end
+end
+'''
+match_indent = true

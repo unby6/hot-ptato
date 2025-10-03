@@ -5,6 +5,12 @@ G.dynamic_train_messages = {
     guts = "",
     wits = "",
 
+    speed_subrank = "",
+    stamina_subrank = "",
+    power_subrank = "",
+    guts_subrank = "",
+    wits_subrank = "",
+
     stats_speed = "",
     stats_stamina = "",
     stats_power = "",
@@ -238,6 +244,10 @@ function Game:update(...)
                 local specific_stat = stats[v]
 
                 G.dynamic_train_messages[v] = hpot_get_rank_and_colour(specific_stat)
+                if G.dynamic_train_messages[v]:sub(1,1) == "U" then
+                    G.dynamic_train_messages[v.."_subrank"] = G.dynamic_train_messages[v]:sub(2,2)
+                    G.dynamic_train_messages[v] = G.dynamic_train_messages[v]:sub(1,1)
+                end
                 G.dynamic_train_messages["stats_"..v] = specific_stat
 
                 local energy = G.train_jokers.cards[1].ability.hp_jtem_energy
@@ -246,6 +256,7 @@ function Game:update(...)
                 end
             else
                 G.dynamic_train_messages[v] = "?"
+                G.dynamic_train_messages[v.."_subrank"] = ""
                 G.dynamic_train_messages["stats_"..v] = "?"
                 G.dynamic_train_messages["failure_rate_"..v] = "??%"
             end
@@ -361,6 +372,25 @@ function G.FUNCS.hotpot_training_grounds_stats_func(e)
 
     if joker_stats and train then
         local _,colour = hpot_get_rank_and_colour(joker_stats[train])
+        config.colour = colour or G.C.UI.TEXT_DARK
+    else
+        config.colour = G.C.UI.TEXT_DARK
+    end
+end
+
+function G.FUNCS.hotpot_training_grounds_sub_stats_func(e)
+    local config = e.config
+    local train = config.stat
+    local joker_stats = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1].ability.hp_jtem_stats
+
+    if joker_stats and train then
+        local rank, colour = hpot_get_rank_and_colour(joker_stats[train])
+        if rank:sub(1,1) == "U" then
+            local subrank = rank:sub(2,2)
+            colour = G.C.HP_JTEM.RANKS[subrank == "S" and "SS" or subrank] or G.C.UI.TEXT_DARK
+        else
+            colour = G.C.UI.TEXT_DARK
+        end
         config.colour = colour or G.C.UI.TEXT_DARK
     else
         config.colour = G.C.UI.TEXT_DARK
@@ -628,7 +658,12 @@ function G.UIDEF.hotpot_pd_training_section()
             {n = G.UIT.R, config = {align = "cm", padding = 0.1}, nodes = {
                 {n = G.UIT.C, config = {align = "cm", padding = 0.02}, nodes = {
                     {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                        {n = G.UIT.T, config = {ref_table = G.dynamic_train_messages, ref_value = stat, scale = 0.6, colour = G.C.UI.TEXT_DARK, func = "hotpot_training_grounds_stats_func", stat = stat, shadow = true}},
+                        {n = G.UIT.C, config = { align = "bm" }, nodes = {
+                            { n = G.UIT.T, config = { ref_table = G.dynamic_train_messages, ref_value = stat, scale = 0.6, colour = G.C.UI.TEXT_DARK, func = "hotpot_training_grounds_stats_func", stat = stat, shadow = true } },
+                        }},
+                        {n = G.UIT.C, config = { align = "bm" }, nodes = {
+                            { n = G.UIT.T, config = { ref_table = G.dynamic_train_messages, ref_value = stat.."_subrank", scale = 0.4, colour = G.C.UI.TEXT_DARK, func = "hotpot_training_grounds_sub_stats_func", stat = stat, shadow = true } },
+                        }},
                     }},
                 }},
                 {n = G.UIT.C, config = {align = "cm", padding = 0.02}, nodes = {
