@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = 1
 
 
 [[patches]]
@@ -120,5 +120,16 @@ pattern = "SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = sco
 position = "after"
 payload = '''
 HPTN.during_scoring = nil
+'''
+match_indent = true
+
+# enable triggering
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = 'before'
+pattern = '''if G.GAME.hpot_combat_event then'''
+payload = '''
+  reset_hyper()
 '''
 match_indent = true

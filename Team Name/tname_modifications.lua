@@ -414,6 +414,25 @@ HPTN.Modification({
 	},
 })
 
+reset_hyper = function()
+    for k, v in pairs(G.jokers.cards) do
+        if v.ability["modif_hpot_hyper"] then
+            if v.prevent_trigger then
+                v.prevent_trigger = nil
+				card_eval_status_text(v, "extra", nil, nil, nil, { message = localize("k_hotpot_trigger_enabled") })
+            else
+                v.prevent_trigger = true
+				card_eval_status_text(v, "extra", nil, nil, nil, { message = localize("k_hotpot_trigger_disabled") })
+            end
+		else
+			if v.prevent_trigger then
+				v.prevent_trigger = nil
+				card_eval_status_text(v, "extra", nil, nil, nil, { message = localize("k_hotpot_trigger_enabled") })
+			end
+        end
+    end
+end
+
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 1, y = 1 },
@@ -442,26 +461,14 @@ HPTN.Modification({
 		})
 
 		card.ability.hpot_trig = true
+
+
 	end,
 	calculate = function(self, card, context)
 		local fucking_kys
 
 		fucking_kys = fucking_kys
 
-		if context.starting_shop and not (G.STATE == G.STATES.WHEEL or G.STATES.PLINKO) then
-			if card.ability.hpot_trig then
-				card.prevent_trigger = true
-				SMODS.calculate_effect({ message = localize("k_hotpot_trigger_disabled") }, card)
-				card.ability.hpot_trig = nil
-			else
-				card.ability.hpot_trig = true
-			end
-		end
-
-		if context.end_of_round and card.prevent_trigger then
-			card.prevent_trigger = nil
-			SMODS.calculate_effect({ message = localize("k_hotpot_trigger_enabled") }, card)
-		end
 
 		if context.retrigger_joker_check and not context.retrigger_joker and not card.prevent_trigger and context.other_card == card then
 			return {
