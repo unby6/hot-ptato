@@ -38,20 +38,6 @@ HPTN.Modification = SMODS.GameObject:extend({
 	class_prefix = "modif",
 	hide_badge = false,
 	needs_enable_flag = true,
-	draw = function(self, card)
-		--[[local timer = (G.TIMERS.REAL * 8)
-		local frames = 8
-		local real_timer = (math.floor(timer) - 1) % frames + 1]]
-
-		local x_offset = (card.T.w / 71) * card.T.scale
-
-		G.shared_stickers[self.key].role.draw_major = card
-		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, nil, card.children.center, nil, nil, x_offset)
-
-		--[[self.sticker_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas], self.pos)
-		self.sticker_sprite.sprite_pos.x = real_timer
-		G.shared_stickers[self.key] = self.sticker_sprite]]
-	end,
 	register = function(self)
 		if self.registered then
 			sendWarnMessage(("Detected duplicate register call on object %s"):format(self.key), self.set)
