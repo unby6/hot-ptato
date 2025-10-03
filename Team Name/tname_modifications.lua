@@ -51,6 +51,7 @@ HPTN.Modification = SMODS.GameObject:extend({
 		G.shared_stickers[self.key] = self.sticker_sprite
 	end,
 	apply = function(self, card, val)
+		card.modif = self.key
 		card.ability[self.key] = val
 		if val and self.config and next(self.config) then
 			card.ability[self.key] = {}
@@ -81,22 +82,12 @@ HPTN.Modification = SMODS.GameObject:extend({
 -- so if someone else wants to try to fix it feel free - ruby
 SMODS.DrawStep({ -- drawstep like stickers
 	key = "modifications",
-	order = 40,
+	order = 39,
 	func = function(self, layer)
-		if self.sticker and G.shared_stickers[self.sticker] then
-			G.shared_stickers[self.sticker].role.draw_major = self
-			G.shared_stickers[self.sticker]:draw_shader("dissolve", nil, nil, nil, self.children.center)
-			G.shared_stickers[self.sticker]:draw_shader(
-				"voucher",
-				nil,
-				self.ARGS.send_to_shader,
-				nil,
-				self.children.center
-			)
-		elseif (self.sticker_run and G.shared_stickers[self.sticker_run]) and G.SETTINGS.run_stake_stickers then
-			G.shared_stickers[self.sticker_run].role.draw_major = self
-			G.shared_stickers[self.sticker_run]:draw_shader("dissolve", nil, nil, nil, self.children.center)
-			G.shared_stickers[self.sticker_run]:draw_shader(
+		if self.modif and G.shared_stickers[self.modif] then
+			G.shared_stickers[self.modif].role.draw_major = self
+			G.shared_stickers[self.modif]:draw_shader("dissolve", nil, nil, nil, self.children.center)
+			G.shared_stickers[self.modif]:draw_shader(
 				"voucher",
 				nil,
 				self.ARGS.send_to_shader,
