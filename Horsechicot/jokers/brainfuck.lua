@@ -7,6 +7,7 @@ SMODS.Joker {
     },
     key = "brainfuck",
     rarity = 3,
+    cost = 7,
     atlas = "hc_jokers",
     pos = { x = 4, y = 1 },
     blueprint_compat = false,

@@ -9,6 +9,7 @@ SMODS.Joker {
     },
     key = "lotus",
     rarity = 3,
+    cost = 5,
     atlas = "hc_jokers",
     pos = { x = 2, y = 3 },
     blueprint_compat = false,

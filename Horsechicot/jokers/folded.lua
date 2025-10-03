@@ -3,6 +3,7 @@ SMODS.Joker {
     atlas = "hc_jokers",
     pos = {x=4,y=0},
     rarity = 1,
+    cost = 5,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,

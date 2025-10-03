@@ -7,7 +7,7 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    cost = 10,
+    cost = 20,
     config = {
         extra = { base_mult = 5 },
         hotpot_credits = {}

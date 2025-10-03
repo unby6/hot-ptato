@@ -1,7 +1,7 @@
 SMODS.Joker {
     hotpot_credits = Horsechicot.credit('lord.ruby', 'pangaea47', 'pangaea47'),
     key = "panic_attack",
-    cost = 4,
+    cost = 5,
     rarity = 2,
     atlas = "hc_jokers",
     pos = { x = 0, y = 3 },

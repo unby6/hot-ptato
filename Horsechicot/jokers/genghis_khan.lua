@@ -4,6 +4,7 @@ SMODS.Joker {
         current = 1,
         increment = 0.5
     },
+    cost = 8,
     rarity = 3,
     atlas = "hc_jokers",
     pos = {x = 3, y = 4},

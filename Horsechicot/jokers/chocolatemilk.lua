@@ -4,7 +4,7 @@ SMODS.Joker {
     eternal_compat = false,
     perishable_compat = true,
     rarity = 1,
-    cost = 4,
+    cost = 6,
     atlas = "hc_jokers",
     pos = { x = 1, y = 2 },
     config = { extra = { odds = 1000, xchips = 5 } },

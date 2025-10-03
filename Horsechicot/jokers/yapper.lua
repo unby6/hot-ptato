@@ -5,7 +5,7 @@ SMODS.Joker {
     cost = 4,
     config = {
         current = HPJTTT.text[1],
-        amt = 2
+        amt = 0.5
     },
     atlas = "hc_jokers",
     pos = { x = 0, y = 4 },

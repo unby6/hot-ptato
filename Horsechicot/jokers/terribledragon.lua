@@ -11,8 +11,8 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    cost = 3,
-    config = { extra = { mult_per_joker = 3, chips_per_joker = 20 } },
+    cost = 4,
+    config = { extra = { mult_per_joker = 2, chips_per_joker = 15 } },
     loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = { key = 'hc_nxko_comment2', set = 'Other' }
         local valid_jokers = 0

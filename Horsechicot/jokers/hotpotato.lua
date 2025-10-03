@@ -2,7 +2,7 @@ SMODS.Joker {
     key = "thetruehotpotato",
     config = {
         extra = {
-            mult_gain = 3,
+            mult_gain = 8,
             total_mult = 0,
             used_positions = {}
         }
@@ -91,7 +91,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     rarity = 2,
-    cost = 4,
+    cost = 6,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and not context.blueprint then
             local current_position = nil
