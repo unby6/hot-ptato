@@ -135,5 +135,6 @@ SMODS.Back {
 --i dont wanna talk about it
 SMODS.Voucher {
     key = 'poop1',
+    no_collection = true,
 }
 --#endregion
