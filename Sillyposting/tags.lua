@@ -43,13 +43,18 @@ SMODS.Tag {
         return { vars = { tag.config.plincoins } }
     end,
     apply = function(self, tag, context)
-        if context.type == 'eval' then
+        if context.type == 'eval_plincoin' then
             if G.GAME.last_blind and G.GAME.last_blind.boss then
                 tag:yep('+', SMODS.Gradients.hpot_plincoin, function()
-                    ease_plincoins(tag.config.plincoins)
                     return true
                 end)
                 tag.triggered = true
+                return {
+                    plincoins = tag.config.plincoins,
+                    condition = localize('ph_defeat_the_boss'),
+                    pos = tag.pos,
+                    tag = tag
+                }
             end
         end
     end,
