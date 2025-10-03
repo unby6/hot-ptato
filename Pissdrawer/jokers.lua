@@ -261,11 +261,6 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = 'togore',
-    loc_txt = { name = 'Togore', text = {
-        'When hand is {C:attention}played{},',
-        '{C:attention}non-played{} cards held in',
-        'hand gain {C:attention}+#1#{} permanent {C:chips}Chips'
-    } },
     hotpot_credits = {
         idea = { 'Tacashumi' },
         art = { 'Tacashumi' },

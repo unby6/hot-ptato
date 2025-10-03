@@ -975,7 +975,7 @@ return {
             j_hpot_hangman = {
                 name = 'Hangman',
                 text = {
-                    "{C:attention}Each round{}, this Joker",
+                    "Each round, this Joker",
                     "{C:dark_edition,E:1}secretly{} chooses {C:attention}5 ranks",
                     "{s:0.33} ",
                     "{C:attention}The first time{}",
@@ -1007,6 +1007,7 @@ return {
             j_hpot_hc_genghis_khan = {
                 name = "Genghis Khan",
                 text = {
+                    "This Joker gains",
                     "{C:white,X:red}X#1#{} Mult for every",
                     "{C:attention}Child{} fathered",
                     "{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)"
@@ -1045,10 +1046,10 @@ return {
             j_hpot_yapper = {
                 name = "The Yapper",
                 text = {
-                    "Gives {C:mult}+#1#{} Mult per character",
+                    "{C:mult}+#1#{} Mult per character",
                     "in a random {C:attention}Menu Quip{}",
                     '{C:inactive, s:0.7}Current quip: "#2#"',
-                    "Will give {C:mult}+#3#{} Mult"
+                    "{C:inactive, s:0.7}(Currently {C:mult}+#3#{} {C:inactive, s:0.7}Mult)",
                 }
             },
             j_hpot_roi = {
@@ -1112,7 +1113,7 @@ return {
                 name = "Nxkoo found dead",
                 text = {
                     "For every {C:attention}#1#{} Nxkoo's killed",
-                    "this card gains {X:mult,C:white}X#2#{}",
+                    "this Joker gains {X:mult,C:white}X#2#{}",
                     "{C:inactive}(Max of {X:mult,C:white}X15{C:inactive} Mult)",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
                 }
@@ -1130,8 +1131,8 @@ return {
                 name = "Greedy Bastard",
                 text = {
                     "All {C:attention}Food Jokers{} may appear multiple times",
-                    "When a {C:attention}Food Joker{} is destroyed, this card",
-                    "gains {C:mult}+#1#{} Mult",
+                    "When a {C:attention}Food Joker{} is destroyed,",
+                    "this Joker gains {C:mult}+#1#{} Mult",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mults)"
                 }
             },
@@ -1247,7 +1248,7 @@ return {
                         "or on the left.",
                     },
                     {
-                        "Gains {X:mult,C:white}X#2#{} Mult",
+                        "This Joker gains {X:mult,C:white}X#2#{} Mult",
                         "per sticker applied.",
                         "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
                     },
@@ -1433,8 +1434,8 @@ return {
                 name = "JankMan",
                 text = {
                     "{C:inactive}hahahahaha, im jankman!",
-                    "{X:mult,C:white}+#1#X{} Mult per sticker on this joker.",
-                    "{C:inactive}(Currently{X:mult,C:white}X#2#{C:inactive} Mult)"
+                    "{X:mult,C:white}#1#X{} Mult per sticker on this Joker",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
             j_hpot_aurae_joker = {
@@ -1473,7 +1474,8 @@ return {
             j_hpot_graveyard = {
                 name = "Graveyard",
                 text = {
-                    "{X:mult,C:white}+X#1#{} Mult per joker destroyed",
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult",
+                    "when other Joker is destroyed",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -1482,8 +1484,8 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Mult",
                     "{X:mult,C:white}-X#2#{} after each played hand",
-                    "{X:mult,C:white}+X#3#{} after each joker destroyed",
-                    "{C:inactive}(Minimum of X#4#)"
+                    "{X:mult,C:white}+X#3#{} after each Joker destroyed",
+                    -- "{C:inactive}(Minimum of X#4#)" -- Green Joker does not mentioning min limit, so I guess makes sense to skip it here aswell
                 }
             },
             j_hpot_upsidedownsmiley = {
@@ -1498,7 +1500,7 @@ return {
                 name = "Emoticon",
                 text = {
                     "{C:attention}Face{} cards give",
-                    "{X:mult,C:white}X#1#{} Mult when {C:attention}scored{},",
+                    "{X:mult,C:white}X#1#{} Mult when scored,",
                     "but are not considered",
                     "{C:attention}face{} cards otherwise"
                 }
@@ -1649,8 +1651,8 @@ return {
                 text = {
                     "This Joker gains {C:mult}+#1#{} Mult",
                     "everytime it is in a {C:attention}unique{} Joker",
-                    "position when the round ends,",
-                    "{C:red}resets{} when all positions used",
+                    "position when the round ends",
+                    "{C:red}Resets{} when all positions used",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
                     "{C:inactive}(Slots left: {C:attention}#4#{}{C:inactive})"
                 }
@@ -1772,9 +1774,9 @@ return {
             j_hpot_goldenchicot = {
                 name = "Golden Chicot",
                 text = {
-                    "Earn {C:money}$#1#{} for each time",
-                    "a {C:attention}Boss Blind{} is disabled",
-                    "{C:inactive}(Currently {C:money}$#3#{}{C:inactive})"
+                    "Earn {C:money}$#3#{} at end of round",
+                    "Increase payout by {C:money}$#1#{} for",
+                    "each time a {C:attention}Boss Blind{} is disabled",
                 }
             },
             j_hpot_cardstack = {
@@ -1906,10 +1908,9 @@ return {
             j_hpot_commit_farmer = {
                 name = "Commit Farmer",
                 text = {
-                    "Gives {X:mult,C:white}X#1#{} Mult for every",
-                    "{C:attention}GitHub Commit{} made by",
-                    "a random {C:attention}Team {C:inactive}(Currently",
-                    "{C:hpot_advert}#2#{C:inactive} at {X:mult,C:white}X#3#{C:inactive} Mult)",
+                    "{X:mult,C:white}X#1#{} Mult for every",
+                    "{C:attention}GitHub Commit{} made by a random {C:attention}Team",
+                    "{C:inactive}(Currently {C:hpot_advert}#2#{C:inactive} at {X:mult,C:white}X#3#{C:inactive} Mult)",
                     "{C:inactive}(Resets at end of round)"
                 }
             },
@@ -1974,7 +1975,7 @@ return {
                     {
                         'When {C:attention}Blind{} is selected,',
                         'consumes all {C:hpot_plincoin}Plincoins{}, {C:hpot_advert,f:hpot_plincoin}Cryptocurrency',
-                        'and {f:hpot_plincoin,C:blue}Spark Points{} to gain {C:mult}XMult{}',
+                        'and {f:hpot_plincoin,C:blue}Spark Points{} to gain {X:mult,C:white}XMult{}',
                         'proportional to amount consumed',
                         '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
                     },
@@ -2115,9 +2116,8 @@ return {
                 name = 'Wumpus',
                 text = {
                     'If any other {C:attention}Joker{} is about',
-                    'to be {C:red}destroyed{}, earn',
-                    '{C:money}$#1#{} and {C:red}destroy this',
-                    'card instead'
+                    'to be {C:red}destroyed{}, earn {C:money}$#1#{}',
+                    'and {C:red}destroy this Joker{} instead',
                 }
             },
             j_hpot_99_bottles = {
@@ -2147,7 +2147,7 @@ return {
             j_hpot_fun_is_infinite = {
                 name = "Fun is Infinite",
                 text = {
-                    "{C:attention}Eternal{} Jokers give {X:mult,C:white}X#1#{} Mult",
+                    "{C:attention}Eternal{} Jokers each give {X:mult,C:white}X#1#{} Mult",
                 }
             },
             j_hpot_american_healthcare = {
@@ -2176,7 +2176,7 @@ return {
             j_hpot_undying = {
                 name = 'Jimbo The Undying',
                 text = {
-                    'When this card is {C:red}destroyed{},',
+                    'When this Joker is {C:red}destroyed{},',
                     'create a copy with an extra {X:mult,C:white}X#2#{} Mult',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
@@ -2184,9 +2184,9 @@ return {
             j_hpot_numberslop = {
                 name = 'Numberslop',
                 text = {
-                    '{C:attention}Numbered{} cards give',
+                    '{C:attention}Numbered{} cards each give',
                     '{X:mult,C:white}X#1#{} Mult when scored.',
-                    'This card is {C:red}destroyed{}',
+                    'This Joker is {C:red}destroyed{}',
                     'if hand ever scores over',
                     '{C:attention}twice the blind requirement'
                 }
@@ -2228,6 +2228,14 @@ return {
                     'Earn {C:attention}+e.#1#{} per {C:attention}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
+                }
+            },
+            j_hpot_togore = {
+                name = 'Togore',
+                text = {
+                    'When hand is {C:attention}played{},',
+                    '{C:attention}non-played{} cards held in',
+                    'hand permanently gains {C:chips}+#1#{} Chips'
                 }
             },
             j_hpot_local_newspaper = {

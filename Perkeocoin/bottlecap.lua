@@ -1163,8 +1163,36 @@ in_pool = function(self, args)
             if valid1[1] and valid2[1] then
                 need_save = false
 
-                local key1, key2 = pseudorandom_element(valid1, pseudoseed('vouchercap')), pseudorandom_element(valid2, pseudoseed('vouchercap'))
+                local key1 = pseudorandom_element(valid1, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
+                for k, v in pairs(G.P_CENTERS) do
+                    if string.sub(k, 1, 2) == "v_"  and v.requires then
+                        local is_voucher_obtainable = true
+                        for _, vv in ipairs(v.requires) do
+                            if vv ~= key1 then
+                                local is_voucher_matching = false
+                                for kk, _ in pairs(G.GAME.used_vouchers) do
+                                    if kk == vv then
+                                        is_voucher_matching = true
+                                        break
+                                    end
+                                end
+                                if not is_voucher_matching then is_voucher_obtainable = false end
+                            end
+                        end
+                        local is_voucher_duplicate = false
+                        for kk, _ in pairs(G.GAME.used_vouchers) do
+                            if kk == k then
+                                is_voucher_duplicate = true
+                                break
+                            end
+                        end
+                        if is_voucher_obtainable and not is_voucher_duplicate then
+                            valid2[#valid2 + 1] = k
+                        end
+                    end
+                end
+                local key2 = pseudorandom_element(valid2, pseudoseed('vouchercap'))
                 local _card1 = SMODS.create_card{set = 'Voucher', key = key1}
                 local _card2 = SMODS.create_card{set = 'Voucher', key = key2}
                 G.play:emplace(_card1)
@@ -1185,15 +1213,49 @@ in_pool = function(self, args)
             
             elseif valid1[1] and not valid2[1] then
                 need_save = false
-
+                local _card2 = nil
                 local key = pseudorandom_element(valid1, pseudoseed('vouchercap'))
                 local saveshopv = G.GAME.current_round.voucher
-                local _card = SMODS.create_card{set = 'Voucher', key = key}
-                G.play:emplace(_card)
-                _card.cost = 0
-                _card:redeem()
+                local _card1 = SMODS.create_card{set = 'Voucher', key = key}
+                for k, v in pairs(G.P_CENTERS) do
+                    if string.sub(k, 1, 2) == "v_"  and v.requires then
+                        local is_voucher_obtainable = true
+                        for _, vv in ipairs(v.requires) do
+                            if vv ~= key then
+                                local is_voucher_matching = false
+                                for kk, _ in pairs(G.GAME.used_vouchers) do
+                                    if kk == vv then
+                                        is_voucher_matching = true
+                                        break
+                                    end
+                                end
+                                if not is_voucher_matching then is_voucher_obtainable = false end
+                            end
+                        end
+                        local is_voucher_duplicate = false
+                        for kk, _ in pairs(G.GAME.used_vouchers) do
+                            if kk == k then
+                                is_voucher_duplicate = true
+                                break
+                            end
+                        end
+                        if is_voucher_obtainable and not is_voucher_duplicate then
+                            valid2[#valid2 + 1] = k
+                        end
+                    end
+                end
+                if next(valid2) then
+                    _card2 = SMODS.create_card{set = 'Voucher', key = pseudorandom_element(valid2, pseudoseed('vouchercap'))}
+                end
+                G.play:emplace(_card1)
+                if _card2 then G.play:emplace(_card2) end
+                _card1.cost = 0
+                if _card2 then _card2.cost = 0 end
+                _card1:redeem()
+                if _card2 then _card2:redeem() end
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
-                _card:start_dissolve()
+                _card1:start_dissolve()
+                if _card2 then _card2:start_dissolve() end
                 G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
