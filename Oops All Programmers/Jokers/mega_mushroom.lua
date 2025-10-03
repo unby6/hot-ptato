@@ -30,7 +30,7 @@ SMODS.Joker {
                 level_up = 2
             }
         end
-        if context.after
+        if context.after and not context.blueprint
             and card.ability.extra.hands_left <= 0 then
             G.E_MANAGER:add_event(Event({
                 func = function()
