@@ -56,7 +56,8 @@ SMODS.Joker {
     config = {
         extra = {
             disabled_bosses = 0,
-            dollars_per_boss = 4
+            dollars_per_boss = 4,
+            cunt = 1
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -70,15 +71,15 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.type == "boss_blind_disabled" then
-            card.ability.extra.disabled_bosses = (card.ability.extra.disabled_bosses or 0) + 1
-            return {
-                dollars = card.ability.extra.dollars_per_boss,
-                message = localize { type = 'variable', key = 'a_dollars', vars = { card.ability.extra.dollars_per_boss } },
-                colour = G.C.MONEY
-            }
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "disabled_bosses",
+	            scalar_value = "cunt",
+    })
         end
-        if context.joker_main then
-        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.disabled_bosses * card.ability.extra.dollars_per_boss
     end,
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.disabled_bosses = card.ability.extra.disabled_bosses or 0
