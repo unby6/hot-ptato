@@ -1,6 +1,14 @@
 --feel free to rewrite anything in this file causing issues (like UI stuff)
 --i (cg) hacked it together from the wheel and plinko stuff
 
+
+SMODS.Atlas {
+  key = "hpot_nursery_sign",
+  path = "Horsechicot/nursery_sign.png",
+  px = 113,py = 57,
+  frames = 4, atlas_table = 'ANIMATION_ATLAS'
+}
+
 G.STATES.NURSERY = 6942022367
 function G.FUNCS.show_nursery(e)
     stop_use()
@@ -35,6 +43,9 @@ end
 
 function update_nursery(dt) -- talen from plinko so idk
     if not G.STATE_COMPLETE then
+        
+        PissDrawer.Shop.change_shop_sign("hpot_nursery_sign")
+
         stop_use()
         ease_background_colour_blind(G.STATES.NURSERY)
         G.nursery = G.nursery or UIBox {
@@ -103,6 +114,9 @@ function G.FUNCS.hide_nursery(e)
             return true
         end
     }))
+
+    PissDrawer.Shop.change_shop_sign("shop_sign")
+
 end
 
 function G.UIDEF.hotpot_horsechicot_nursery_section()

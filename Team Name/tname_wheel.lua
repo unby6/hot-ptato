@@ -312,6 +312,10 @@ end
 
 function update_wheel(dt) -- talen from plinko so idk
   if not G.STATE_COMPLETE then
+
+    PissDrawer.Shop.change_shop_sign("hpot_tname_arrow_sign")
+
+    
     stop_use()
     ease_background_colour_blind(G.STATES.WHEEL)
     local plinko_exists = not not G.wheel
@@ -344,8 +348,6 @@ function update_wheel(dt) -- talen from plinko so idk
         return true
       end
     }))
-
-    PissDrawer.Shop.change_shop_sign("hpot_tname_arrow_sign")
 
     G.STATE_COMPLETE = true
   end

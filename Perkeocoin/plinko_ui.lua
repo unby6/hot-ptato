@@ -461,6 +461,10 @@ function update_plinko(dt)
     if G.STAGE ~= G.STAGES.RUN then return end
     PlinkoGame.f.update_plinko_world(dt)
     if not G.STATE_COMPLETE then
+
+      PissDrawer.Shop.change_shop_sign("hpot_plinko_sign")
+
+      
         stop_use()
         ease_background_colour_blind(G.STATES.PLINKO)
         local plinko_exists = not not G.plinko
@@ -507,7 +511,6 @@ function update_plinko(dt)
             end
         }))
 
-        PissDrawer.Shop.change_shop_sign("hpot_plinko_sign")
         G.STATE_COMPLETE = true
     end
 
