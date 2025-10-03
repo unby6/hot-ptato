@@ -25,7 +25,6 @@ local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
 '''
 position = "at"
 payload = '''
-math.randomseed(os.time())
 local centers = {}
 for _, v in pairs(G.P_CENTERS) do
     centers[#centers+1] = v
