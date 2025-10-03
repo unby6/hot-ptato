@@ -3897,7 +3897,7 @@ return {
             tag_hpot_illegal = {
                 name = "Illegal Tag",
                 text = {
-                    "Gain {C:hpot_advert}+#1#{} Cryptocurrency",
+                    "Gain {C:hpot_advert,f:hpot_plincoin}£#1#{}",
                     "immediately"
                 }
             },
