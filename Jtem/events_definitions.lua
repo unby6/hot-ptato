@@ -5310,13 +5310,20 @@ HotPotato.EventStep {
 	end,
 	start = function(self, event)
 		local count = 0
+		local aces = 0
 		for i, v in ipairs(G.hand.cards) do
 			if not SMODS.has_no_rank(v) then
-				if count + v.base.nominal > 21 and v.base.name == 'Ace' then
+				if v:get_id() == 14 then
+					aces = aces + 1
 					count = count + 1
 				else
 					count = count + v.base.nominal
 				end
+			end
+		end
+		if aces > 0 then
+			for i=1, aces do
+				if count <= 11 then print('High ace') count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
@@ -5331,11 +5338,20 @@ HotPotato.EventStep {
 		event.ability.final_money = 0
 		G.GAME.BJ_CARDS.DEALER_CARDS[2]:flip()
 		local count = 0
+		local aces = 0
 		for i, v in ipairs(G.hand.cards) do
-			if count + v.base.nominal > 21 and v.base.name == 'Ace' then
-				count = count + 1
-			else
-				count = count + v.base.nominal
+			if not SMODS.has_no_rank(v) then
+				if v:get_id() == 14 then
+					aces = aces + 1
+					count = count + 1
+				else
+					count = count + v.base.nominal
+				end
+			end
+		end
+		if aces > 0 then
+			for i=1, aces do
+				if count <= 11 then print('High ace') count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
