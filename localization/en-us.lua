@@ -3780,7 +3780,7 @@ return {
             undiscovered_aura = {
                 name = "Not Discovered",
                 text = {
-                    "Purchase this",
+                    "Purchase or use this",
                     "card in an",
                     "unseeded run to",
                     "learn what it does",
@@ -3798,7 +3798,16 @@ return {
             undiscovered_hanafuda = {
                 name = "Not Discovered",
                 text = {
-                    "Purchase this",
+                    "Purchase or use this",
+                    "card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+            undiscovered_cheque = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use this",
                     "card in an",
                     "unseeded run to",
                     "learn what it does",
