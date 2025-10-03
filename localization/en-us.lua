@@ -1677,9 +1677,8 @@ return {
                     "of the {C:attention}Hot Potato{} Mod"
                 },
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult for each",
-                    "{C:hpot_advert}self-insert{} in this {C:attention}Mod{}",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
+                    "{C:attention}Self Insert{} Jokers",
+                    "each give {X:mult,C:white}X#1#{} Mult"
                 }
             },
             j_hpot_electrical_discharge = {

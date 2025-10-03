@@ -15,17 +15,16 @@ SMODS.Joker {
     atlas = "selfinserts",
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.xmult_per_self_insert, card.ability.extra.selfinserts * card.ability.extra.xmult_per_self_insert } }
+        return { vars = { card.ability.extra.xmult_per_self_insert } }
     end,
     config = {
         extra = {
-            xmult_per_self_insert = 0.1,
-            selfinserts = 22
+            xmult_per_self_insert = 1.5,
         }
     },
     calculate = function(self, card, context)
-        if context.joker_main then
-            return { xmult = card.ability.extra.selfinserts * card.ability.extra.xmult_per_self_insert }
+        if context.other_joker and context.other_joker.config.center.pools.self_inserts then
+            return { xmult = card.ability.extra.xmult_per_self_insert }
         end
     end,
         hotpot_credits = {
@@ -34,3 +33,14 @@ SMODS.Joker {
         team = {"Horsechicot"}
     },
 }
+
+SMODS.ObjectType {
+    key = 'self_inserts',
+    default = 'j_hpot_apocalypse',
+    cards = {
+      j_hpot_apocalypse = true,
+      j_hpot_jtem_flash = true,
+      j_hpot_OAP = true,
+      j_hpot_tname_postcard = true,
+    },
+  }
