@@ -365,7 +365,7 @@ G.FUNCS.can_redeem_from_market = function(e)
 end
 
 G.FUNCS.can_open_from_market = function(e)
-  if (e..config.ref_table.market_cost - G.GAME.cryptocurrency > 0.0001) and (e.config.ref_table.market_cost > 0) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
+  if (e.config.ref_table.market_cost - G.GAME.cryptocurrency > 0.0001) and (e.config.ref_table.market_cost > 0) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else
