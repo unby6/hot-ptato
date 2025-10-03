@@ -5091,7 +5091,7 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 			enhance_deck = {
 				{ seal = add_seal }
 			},
-			text = "Add " .. add_seal_text .. "to a random card in the deck"
+			text = "Add " .. add_seal_text .. " to a random card in the deck"
 		}
 	end
 
