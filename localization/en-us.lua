@@ -1975,7 +1975,7 @@ return {
                     {
                         'When {C:attention}Blind{} is selected,',
                         'consumes all {C:hpot_plincoin}Plincoins{}, {C:hpot_advert,f:hpot_plincoin}Cryptocurrency',
-                        'and {f:hpot_plincoin,C:blue}Spark Points{} to gain {X:mult,C:white}XMult{}',
+                        'and {f:hpot_plincoin,C:blue}Jicks{} to gain {X:mult,C:white}XMult{}',
                         'proportional to amount consumed',
                         '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)',
                     },
@@ -5219,7 +5219,7 @@ return {
             hpot_diy_earn_plincoins = "Earn 0.5 Plincoins",
             hpot_diy_earn_credits = "Earn 0.1 Credits",
             hpot_diy_earn_budget = "Earn 0.1 Budget",
-            hpot_diy_earn_sparks = "Earn 1000 Spark Points",
+            hpot_diy_earn_sparks = "Earn 1000 Jicks",
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
             hpot_diy_random_card = "Create a Random Playing Card",

@@ -4865,7 +4865,7 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 		{ tags = { keys = { "tag_double" } },                                           text = "A Double Tag" },
 		{ dollars = 4,                                                                  text = "$4" },
 		{ credits = 30,                                                                 text = "30 credits" },
-		{ sparkle = 100,                                                                text = "100 Joker Exchange" },
+		{ sparkle = 100,                                                                text = "100 Jicks" },
 		{ crypto = 0.5,                                                                 text = "0.5 Cryptocurrency" },
 	}
 
@@ -4880,7 +4880,7 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 		{ tags = { keys = { "tag_double", "tag_double" } },                               text = "2 Double Tags" },
 		{ dollars = 8,                                                                    text = "$8" },
 		{ credits = 85,                                                                   text = "85 credits" },
-		{ sparkle = 300,                                                                  text = "300 Joker Exchange" },
+		{ sparkle = 300,                                                                  text = "300 Jicks" },
 		{ crypto = 2,                                                                     text = "2 Cryptocurrency" },
 	}
 
