@@ -642,7 +642,7 @@ HPTN.Modification({
 			card.trigger_modif = true
 		end
 		if context.final_scoring_step and card.trigger_modif then
-			SMODS.calculate_effect({ xchips = 1.3 }, card)
+			SMODS.calculate_effect({ xchips = 1.5 }, card)
 		end
 	end,
 	hotpot_credits = {

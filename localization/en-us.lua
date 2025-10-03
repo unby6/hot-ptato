@@ -4743,7 +4743,7 @@ return {
             modif_hpot_menacing = {
                 name = "Menacing",
                 text = {
-                    "{X:blue,C:white}X1.3{C:green} Chips if triggered", "{C:green}during scoring"
+                    "{X:blue,C:white}X1.5{C:green} Chips if triggered", "{C:green}during scoring"
                 }
             },
             modif_hpot_rusty = {
