@@ -70,8 +70,8 @@ function Horsechicot:calculate(context)
 end
 
 local oldfunc = Game.main_menu
-Game.main_menu = function(change_context)
-    local ret = oldfunc(change_context)
+Game.main_menu = function(self, change_context)
+    local ret = oldfunc(self, change_context)
     G.E_MANAGER:add_event(Event({
         trigger = "after",
         delay = 0,
