@@ -1152,7 +1152,6 @@ in_pool = function(self, args)
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
                 _card:start_dissolve()
-                G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
@@ -1205,7 +1204,6 @@ in_pool = function(self, args)
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
                 _card1:start_dissolve()
                 _card2:start_dissolve()
-                G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
@@ -1256,7 +1254,6 @@ in_pool = function(self, args)
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
                 _card1:start_dissolve()
                 if _card2 then _card2:start_dissolve() end
-                G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
@@ -1273,7 +1270,6 @@ in_pool = function(self, args)
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
                 _card:start_dissolve()
-                G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
@@ -1297,7 +1293,6 @@ in_pool = function(self, args)
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
                 _card1:start_dissolve()
                 _card2:start_dissolve()
-                G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
@@ -1313,16 +1308,11 @@ in_pool = function(self, args)
                 _card:redeem()
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 5, blockable = false, blocking = false, func = function()
                 _card:start_dissolve()
-                G.E_MANAGER:add_event(save)
                 return true end}))
                 if saveshopv ~= nil then
                     G.GAME.current_round.voucher = saveshopv
                 end
             end
-        end
-
-        if need_save then
-                G.E_MANAGER:add_event(save)
         end
     end
 }
