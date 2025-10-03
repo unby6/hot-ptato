@@ -25,9 +25,13 @@ local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
 '''
 position = "at"
 payload = '''
+local centers = {}
+for _, v in pairs(G.P_CENTERS) do
+    centers[#centers+1] = v
+end
 local card_proto
 while not (card_proto and card_proto.original_mod and card_proto.original_mod.id == 'HotPotato') do
-    card_proto = pseudorandom_element(G.P_CENTERS)
+    card_proto = centers[math.random(1, #centers)]
 end
 local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
                     card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
