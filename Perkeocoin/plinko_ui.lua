@@ -501,6 +501,12 @@ function update_plinko(dt)
                                 end
 
                             end
+
+                            if G.load_plinko_rewards then
+                              G.plinko_rewards:load(G.load_plinko_rewards)
+                              G.load_plinko_rewards = nil
+                            end
+
                             -- Back to shop button
                             G.CONTROLLER:snap_to({node = G.plinko:get_UIE_by_ID('shop_button')})
 
@@ -521,12 +527,10 @@ G.FUNCS.show_plinko = function(e)
   stop_use()
 
   hide_shop()
- 
+
   G.STATE = G.STATES.PLINKO
   G.STATE_COMPLETE = false
   PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
-
-  
 end
 
 -- Clicked back to shop
@@ -536,6 +540,15 @@ G.FUNCS.hide_plinko = function(e)
     return G.FUNCS.toggle_shop(e)
   end
   stop_use()
+
+  local plinko_rewards = G.plinko_rewards:save()
+  if plinko_rewards then
+    G.load_plinko_rewards = plinko_rewards
+    for i = #G.plinko_rewards.cards,1, -1 do
+      local c = G.plinko_rewards:remove_card(G.plinko_rewards.cards[i])
+      c:remove()
+    end
+  end
 
   G.STATE = G.STATES.SHOP
   G.STATE_COMPLETE = false

@@ -88,6 +88,7 @@ if G.plinko_rewards then
   G.plinko_rewards = nil
 end
 if G.plinko then
+  G.load_plinko_rewards = nil
   G.plinko:remove()
   G.plinko = nil
 end
