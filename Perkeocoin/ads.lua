@@ -18,8 +18,6 @@ HotPotato.Ads = {
         ad_aikoshen1 = {atlas = 'hpot_jtem_aikoshen1',pos = {x=0,y=0}},
         ad_error1 = {atlas = 'hpot_jtem_ad_error1',pos = {x=0,y=0}},
         ad_broken_page = {atlas = 'hpot_jtemads',pos = {x=3,y=0}},
-        ad_404 = {atlas = 'hpot_jtemads',pos = {x=4,y=0}},
-        ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
 
         ad_indiepaketphoenix = love.system.getOS() == "Windows" and {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true} or nil,
         -- Horsechicot
@@ -45,6 +43,8 @@ HotPotato.Ads = {
         ad_beachday = {atlas = 'hpot_jtemads',pos = {x=3,y=2}},
         ad_astolfo = {atlas = 'hpot_jtemads',pos = {x=4,y=2}},
         ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
+        ad_404 = {atlas = 'hpot_jtemads',pos = {x=4,y=0}},
+        ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
         -- Team Name
         ad_tname = {atlas = "hpot_tname_ads",pos = {x=0,y=0}},
         ad_twinx = {atlas = "hpot_tname_ads",pos = {x=1,y=0}},
