@@ -2154,8 +2154,8 @@ return {
             j_hpot_american_healthcare = {
                 name = "American Healthcare",
                 text = {
-                    "This Joker gains {X:mult,C:white}X#1#{} Mult, but loses {C:money}$#3#",
-                    "for each round a Joker is {C:attention}Impregnated{}",
+                    "This {C:attentionJoker{} gains {X:mult,C:white}X#1#{} Mult, but loses {C:money}$#3#",
+                    "for each round a {C:attentionJoker{} is {C:attention}Impregnated{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -2169,7 +2169,7 @@ return {
                 name = 'Loss',
                 text = {
                     'Breeding with this card will {C:attention}always',
-                    'result in a copy of {C:attention}this{} Joker with',
+                    'result in a copy of this {C:attentionJoker{} with',
                     'an extra {X:mult,C:white}X#2#{} Mult',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
