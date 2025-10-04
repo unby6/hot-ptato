@@ -58,13 +58,17 @@ end
 function PlinkoLogic.f.generate_rewards()
   -- Logic for extra reward with that rarity is kinda ass
   -- didn't have time to think of something better
-  if next(find_joker('Tipping Point')) then
-      G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
-      G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
+  if next(SMODS.find_card("j_hpot_tipping_point", false)) then
+      G.GAME.plinko_rewards.Rare = math.min(PlinkoLogic.rewards.per_rarity.Rare + #SMODS.find_card("j_hpot_tipping_point", false), 7)
+      G.GAME.plinko_rewards.Common = math.max(PlinkoLogic.rewards.per_rarity.Common - #SMODS.find_card("j_hpot_tipping_point", false), 0)
+      G.GAME.plinko_rewards.Uncommon = math.max(PlinkoLogic.rewards.per_rarity.Uncommon - math.max(0, #SMODS.find_card("j_hpot_tipping_point", false) - 3), 0)
+      G.GAME.plinko_rewards.Bad = math.max(PlinkoLogic.rewards.per_rarity.Bad - math.max(0, #SMODS.find_card("j_hpot_tipping_point", false) - 5), 0)
       G.GAME.plinko_rewards.moving_pegs = true
   else
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
       G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+      G.GAME.plinko_rewards.Uncommon = PlinkoLogic.rewards.per_rarity.Uncommon
+      G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
       G.GAME.plinko_rewards.moving_pegs = false
   end
 
