@@ -589,15 +589,10 @@ function generate_wheel_rewards(_area)
     -- didn't have time to think of something better
     local reward = pseudorandom_element({"Joker", "Consumable", "Bottlecap"}, "hpot_arrows_rewards_type")
     if reward == "Bottlecap" then
-        if next(find_joker("Tipping Point")) then
-            G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
-            G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
-        else
-            G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
-            G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon
-            G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
-            G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
-        end
+        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
+        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon
+        G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
+        G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
 
         local rarities = {}
         for rarity, amount in pairs(G.GAME.plinko_rewards) do
