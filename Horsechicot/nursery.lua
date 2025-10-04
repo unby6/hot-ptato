@@ -560,6 +560,7 @@ function update_child_atlas(self, new_atlas, new_pos)
         self.children.floating_sprite.role.draw_major = self
         self.children.floating_sprite.states.hover.can = false
         self.children.floating_sprite.states.click.can = false
+        
     end
 end
 
@@ -624,7 +625,14 @@ function nursery()
             --make children smaller
             card.T.h = card.T.h * 0.75
             card.T.w = card.T.w * 0.75
+
+            card.children.center.scale_mag = math.min(
+			    card.children.center.atlas.px/card.T.w,
+				card.children.center.atlas.py/card.T.h
+			)
+
             card.ability.is_nursery_smalled = true
+
 
             G.E_MANAGER:add_event(Event {
                 func = function()
