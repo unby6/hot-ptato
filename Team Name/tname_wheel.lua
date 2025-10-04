@@ -496,6 +496,10 @@ function set_wheel(no_arrow, vval_only)
         end
       end
     end
+
+    for _, key in pairs(wheel_areas_colon_three) do
+      G[key].wheel_rewards_area = true
+    end
     --#endregion
 
     if not G.GAME.wheel_reset then
@@ -933,20 +937,10 @@ function CardArea:draw(...)
   return ca_dref(self, ...)
 end
 
---[[
-local ca_rfh = CardArea.remove_from_highlighted
-function CardArea:remove_from_highlighted(card, ...)
-  if not card then
-    return
+local ca_can_highlight = CardArea.can_highlight
+function CardArea:can_highlight(...)
+  if self.wheel_rewards_area then
+    return false
   end
-  return ca_rfh(self, card, ...)
+  return ca_can_highlight(self, ...)
 end
-
-local card_highlight = Card.highlight
-function Card:highlight(...)
-  if self.area and #self.area.highlighted >= self.area.config.highlighted_limit then
-    return
-  end
-  return card_highlight(self, ...)
-end
---[[]]

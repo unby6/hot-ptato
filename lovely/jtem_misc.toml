@@ -19,7 +19,6 @@ target = '''game.lua'''
 position = 'at'
 pattern = '''text = G\.VERSION'''
 payload = '''text = G.VERSION:gsub('FULL', 'H0TP0T')'''
-match_indent = true
 
 [[patches]]
 [patches.pattern]
