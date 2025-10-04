@@ -668,6 +668,7 @@ end
 local pissdrawer_start_run = Game.start_run
 function Game:start_run(args)
     local save = args.savetext
+    PissDrawer.Shop.market_spawn = false
     for _, tab in pairs(PissDrawer.Shop.area_keys) do
         for _, key in ipairs(tab) do
             PissDrawer.Shop['load_'..key] = nil
@@ -675,6 +676,7 @@ function Game:start_run(args)
     end
     if save and save.pissdrawer_shop then
         for key, v in pairs(save.pissdrawer_shop) do
+            if key == 'market_jokers' then PissDrawer.Shop.market_spawn = true end
             PissDrawer.Shop['load_'..key] = v
         end
     end
