@@ -5,7 +5,7 @@ HotPotato.Ads = {
         ad_triboulet = {atlas = 'hpot_TribouletAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
         ad_attack = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0, y=0}, base_size = 0.75, max_scale = 0.5},
         ad_dotty = {atlas = 'hpot_DottyAd', pos = {x=0, y=0}, base_size = 0.6, max_scale = 0.6},
-        ad_perkeoboss = {atlas = 'hpot_PerkeoBoss', pos = {x=0, y=0}, base_size = 0.5, max_scale = 0.10},
+        ad_perkeoboss = {atlas = 'hpot_PerkeoBoss', pos = {x=0, y=0}, base_size = 0.35, max_scale = 0.10},
         -- Jtem :))))
         ad_obsidian = {atlas = "hpot_jtemads",pos = {x=0,y=1}},
         ad_what = {atlas = "hpot_jtemads",pos = {x=2,y=0}},
