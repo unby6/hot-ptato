@@ -63,10 +63,10 @@ function PlinkoLogic.f.generate_rewards()
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + math.min(tipping_points, 6)
       G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - math.min(tipping_points, 3)
       if tipping_points > 3 then
-        G.GAME.plinko_reward.Uncommon = PlinkoLogic.rewards.per_rarity.Uncommon - math.min(tipping_points - 3, 2)
+        G.GAME.plinko_rewards.Uncommon = PlinkoLogic.rewards.per_rarity.Uncommon - math.min(tipping_points - 3, 2)
       end
       if tipping_points > 6 then
-        G.GAME.plinko_reward.Bad = PlinkoLogic.rewards.per_rarity.Bad - math.min(tipping_points - 5, 1)
+        G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad - math.min(tipping_points - 5, 1)
       end
       G.plinko_rewards.moving_pegs = true
   else
