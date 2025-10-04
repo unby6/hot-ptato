@@ -214,4 +214,11 @@ payload = '''
         HotPotato.effect_options[3] =G.GAME.seeded and "hpot_diy_earn_budget" or "hpot_diy_earn_credits"
     end
 '''
+match_indent = true[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '''if args.key == '0' then args.key = 'o' end'''
+position = "at"
+payload = '''if args.key == '0' and G.CONTROLLER.text_input_hook.config.ref_table and G.CONTROLLER.text_input_hook.config.ref_table.ref_value == "setup_seed" then args.key = 'o' end'''
 match_indent = true
+overwrite = false
