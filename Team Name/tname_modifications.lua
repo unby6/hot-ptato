@@ -27,6 +27,7 @@ HPTN.Modification = SMODS.GameObject:extend({
 	set = "Modification",
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
+	pos2 = { x = 0, y = 1 },
 	obj_table = HPTN.Modifications,
 	obj_buffer = {},
 	sets = { Joker = true },
@@ -49,6 +50,14 @@ HPTN.Modification = SMODS.GameObject:extend({
 	inject = function(self)
 		self.sticker_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas], self.pos)
 		G.shared_stickers[self.key] = self.sticker_sprite
+
+		if not G.modif_corner then
+			G.modif_corner = {}
+		end
+
+		self.sticker_sprite2 = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas], self.pos2)
+		G.modif_corner[self.key] = self.sticker_sprite2
+		
 	end,
 	apply = function(self, card, val)
 		card.modif = self.key
@@ -80,6 +89,8 @@ HPTN.Modification = SMODS.GameObject:extend({
 
 -- i tried to get this to work with photograph and couldnt figure it out
 -- so if someone else wants to try to fix it feel free - ruby
+
+-- this could've been inside of 1 drawstep but i got lazy - revo
 SMODS.DrawStep({ -- drawstep like stickers
 	key = "modifications",
 	order = 39,
@@ -114,6 +125,45 @@ SMODS.DrawStep({ -- drawstep like stickers
 			end
 		end
 	end,
+	conditions = { vortex = false, facing = "front" },
+})
+
+SMODS.DrawStep({ -- drawstep like stickers
+	key = "modifications2",
+	order = 39,
+	func = function(self, layer)
+	if self.children.center.scale.y >= 95 and self.children.center.scale.x >= 71 then
+		if self.modif and G.modif_corner[self.modif] then
+			G.modif_corner[self.modif].role.draw_major = self
+			G.modif_corner[self.modif]:draw_shader("dissolve", nil, nil, nil, self.children.center)
+			G.modif_corner[self.modif]:draw_shader(
+				"voucher",
+				nil,
+				self.ARGS.send_to_shader,
+				nil,
+				self.children.center
+			)
+		end
+
+		for k, v in pairs(HPTN.Modifications) do
+			if self.ability[v.key] then
+				if v and v.draw and type(v.draw) == "function" then
+					v:draw(self, layer)
+				else
+					G.modif_corner[v.key].role.draw_major = self
+					G.modif_corner[v.key]:draw_shader("dissolve", nil, nil, nil, self.children.center)
+					G.modif_corner[v.key]:draw_shader(
+						"voucher",
+						nil,
+						self.ARGS.send_to_shader,
+						nil,
+						self.children.center
+					)
+				end
+			end
+		end
+	end
+end,
 	conditions = { vortex = false, facing = "front" },
 })
 
@@ -200,9 +250,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "greedy",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -232,9 +279,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "jumpy",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -257,9 +301,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "invested",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -304,10 +345,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "damaged",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -354,9 +393,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "supported",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -378,10 +414,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "dozing",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -435,10 +469,8 @@ end
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "hyper",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -486,10 +518,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "smudged",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -511,10 +541,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "depreciating",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -539,9 +567,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "sharpened",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -567,9 +592,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "jagged",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -591,9 +613,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "spiked",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -615,9 +634,6 @@ HPTN.Modification({
 HPTN.Modification({
 	atlas = "tname_modifs",
 	pos = { x = 0, y = 0 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
 	key = "menacing",
 	morality = "GOOD",
 	badge_colour = HEX("4bc292"),
@@ -638,10 +654,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "dull",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -662,10 +676,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "flawed",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
@@ -686,10 +698,8 @@ HPTN.Modification({
 
 HPTN.Modification({
 	atlas = "tname_modifs",
-	pos = { x = 1, y = 1 },
-	hpot_anim = {
-		{ xrange = { first = 0, last = 8 }, y = 0, t = 0.1 },
-	},
+	pos = { x = 2, y = 0 },
+	pos2 = { x = 2, y = 1 },
 	key = "rusty",
 	morality = "BAD",
 	badge_colour = G.C.DARK_EDITION,
