@@ -485,15 +485,10 @@ function update_plinko(dt)
                         if math.abs(G.plinko.T.y - G.plinko.VT.y) < 3 then
                             G.ROOM.jiggle = G.ROOM.jiggle + 3
                             play_sound('cardFan2')
-                            local nosave_plinko = nil
-                            if not plinko_exists then
-                            
-                                if G.load_plinko_rewards then 
-                                    nosave_plinko = true
+
+                            if not plinko_exists then                            
+                                if G.load_plinko_rewards then
                                     G.plinko_rewards:load(G.load_plinko_rewards)
-                                    --for k, v in ipairs(G.plinko_rewards.cards) do
-                                    --    if v.ability.consumeable then v:start_materialize() end
-                                    --end
                                     G.load_plinko_rewards = nil
                                     PlinkoUI.f.adjust_rewards()
                                 else
@@ -502,9 +497,11 @@ function update_plinko(dt)
 
                             end
 
-                            if G.load_plinko_rewards then
-                              G.plinko_rewards:load(G.load_plinko_rewards)
-                              G.load_plinko_rewards = nil
+                            -- When plinko is closed, rewards are cached to allow dupes in other instances
+                            -- reload rewards when opening plinko
+                            if G.GAME.load_plinko_rewards then
+                              G.plinko_rewards:load(G.GAME.load_plinko_rewards)
+                              G.GAME.load_plinko_rewards = nil
                             end
 
                             -- Back to shop button
@@ -541,14 +538,16 @@ G.FUNCS.hide_plinko = function(e)
   end
   stop_use()
 
+  --#region Save plinko rewards to allow dupes in other instances
   local plinko_rewards = G.plinko_rewards:save()
   if plinko_rewards then
-    G.load_plinko_rewards = plinko_rewards
+    G.GAME.load_plinko_rewards = plinko_rewards
     for i = #G.plinko_rewards.cards,1, -1 do
       local c = G.plinko_rewards:remove_card(G.plinko_rewards.cards[i])
       c:remove()
     end
   end
+  --#endregion
 
   G.STATE = G.STATES.SHOP
   G.STATE_COMPLETE = false
