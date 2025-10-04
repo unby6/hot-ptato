@@ -172,7 +172,7 @@ pattern = '''
                 card:calculate_perishable()
             end
 '''
-position = 'before'
+position = 'at'
 payload = '''
         if card.ability.set == "Default" or card.ability.set == "Enhanced" then
             if context.end_of_round and not card.hpot_temp_check then
@@ -186,6 +186,7 @@ payload = '''
 '''
 match_indent = false
 
+# Rental trigger twice fix
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -194,7 +195,7 @@ pattern = '''
                 card:calculate_rental()
             end
 '''
-position = 'before'
+position = 'at'
 payload = '''
         if card.ability.set == "Default" or card.ability.set == "Enhanced" then
             if context.end_of_round and not card.hpot_temp_check then
