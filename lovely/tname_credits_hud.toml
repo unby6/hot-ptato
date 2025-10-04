@@ -186,7 +186,7 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-    local _budget = tonumber(G.setup_budget)
+    local _budget = tonumber(G.setup_budget) or 0
 '''
 match_indent = true
 
@@ -215,3 +215,13 @@ payload = '''
     end
 '''
 match_indent = true
+
+# i love copying code :smile:
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '''if args.key == '0' then args.key = 'o' end'''
+position = "at"
+payload = '''if args.key == '0' and G.CONTROLLER.text_input_hook.config.ref_table and G.CONTROLLER.text_input_hook.config.ref_table.ref_value == "setup_seed" then args.key = 'o' end'''
+match_indent = true
+overwrite = false
