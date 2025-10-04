@@ -238,6 +238,7 @@ end
 
 local shop = G.UIDEF.shop
 function G.UIDEF.shop()
+    local ret = shop()
     PissDrawer.Shop.create_shop_areas()
     PissDrawer.Shop.active_tab = 'hotpot_shop_tab_return_to_shop'
     return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
