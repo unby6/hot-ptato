@@ -31,8 +31,8 @@ SMODS.Sticker({
 		end
 
 	if card.ability.set == "Default" or card.ability.set == "Enhanced" then
-		if context.end_of_round and not card.temp_check then
-			card.temp_check = true
+		if context.end_of_round and not card.hpot_temp_check then
+			card.hpot_temp_check = true
 			if card.ability.over_tally == nil then
 				card.ability.over_tally = G.GAME.overclock_timer - 1
 			end

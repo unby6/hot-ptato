@@ -13,7 +13,7 @@ payload = '''
  if G.GAME.modifiers.hpot_all_sticker then
      local tab = {}
      for k, v in pairs(SMODS.Stickers) do
-        if k ~= "pinned" and k ~= "hpot_nuke" and k~= "hpot_jtem_mood" then
+        if k ~= "pinned" and k ~= "hpot_nuke" and k~= "hpot_jtem_mood" and k ~= "hpot_mail" and k ~= "hpot_cannibal" and k ~= "hpot_binary" and k ~= "hpot_book" and k ~= "eternal" then
             tab[#tab+1] = k
         end
       end
@@ -79,3 +79,132 @@ for k, v in pairs(SMODS.Stickers) do
 end
 '''
 match_indent = true
+
+# Cannot discard eternals
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "table.insert(cards, G.hand.highlighted[i])"
+position = "at"
+payload = '''
+if not G.hand.highlighted[i].ability.eternal then
+    table.insert(cards, G.hand.highlighted[i])
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+for i=1, highlighted_count do
+            G.hand.highlighted[i]:calculate_seal({discard = true})
+            local removed = false
+            local effects = {}
+            SMODS.calculate_context({discard = true, other_card =  G.hand.highlighted[i], full_hand = G.hand.highlighted, ignore_other_debuff = true}, effects)
+            SMODS.trigger_effects(effects)
+            for _, eval in pairs(effects) do
+                if type(eval) == 'table' then
+                    for key, eval2 in pairs(eval) do
+                        if key == 'remove' or (type(eval2) == 'table' and eval2.remove) then removed = true end
+                    end
+                end
+            end
+            if not G.hand.highlighted[i].ability.eternal then
+                table.insert(cards, G.hand.highlighted[i])
+            end
+            if removed then
+                destroyed_cards[#destroyed_cards + 1] = G.hand.highlighted[i]
+                if SMODS.shatters(G.hand.highlighted[i]) then
+                    G.hand.highlighted[i]:shatter()
+                else
+                    G.hand.highlighted[i]:start_dissolve()
+                end
+            else 
+                G.hand.highlighted[i].ability.discarded = true
+                draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
+            end
+        end
+'''
+position = "at"
+payload = '''
+for i=1, highlighted_count do
+if not G.hand.highlighted[i].ability.eternal then
+            G.hand.highlighted[i]:calculate_seal({discard = true})
+            local removed = false
+            local effects = {}
+            SMODS.calculate_context({discard = true, other_card =  G.hand.highlighted[i], full_hand = G.hand.highlighted, ignore_other_debuff = true}, effects)
+            SMODS.trigger_effects(effects)
+            for _, eval in pairs(effects) do
+                if type(eval) == 'table' then
+                    for key, eval2 in pairs(eval) do
+                        if key == 'remove' or (type(eval2) == 'table' and eval2.remove) then removed = true end
+                    end
+                end
+            end
+            if not G.hand.highlighted[i].ability.eternal then
+                table.insert(cards, G.hand.highlighted[i])
+            end
+            if removed then
+                destroyed_cards[#destroyed_cards + 1] = G.hand.highlighted[i]
+                if SMODS.shatters(G.hand.highlighted[i]) then
+                    G.hand.highlighted[i]:shatter()
+                else
+                    G.hand.highlighted[i]:start_dissolve()
+                end
+            else 
+                G.hand.highlighted[i].ability.discarded = true
+                draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
+            end
+        end
+    end
+'''
+match_indent = true
+
+# Perishable trigger twice fix
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+            if context.end_of_round and not context.repetition and not context.individual then
+                card:calculate_perishable()
+            end
+'''
+position = 'before'
+payload = '''
+        if card.ability.set == "Default" or card.ability.set == "Enhanced" then
+            if context.end_of_round and not card.hpot_temp_check then
+                card.hpot_temp_check = true
+                card:calculate_perishable()
+            end
+        elseif context.end_of_round and not context.repetition and not context.individual then
+            card:calculate_perishable()
+        end
+
+'''
+match_indent = false
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+            if context.end_of_round and not context.repetition and not context.individual then
+                card:calculate_rental()
+            end
+'''
+position = 'before'
+payload = '''
+        if card.ability.set == "Default" or card.ability.set == "Enhanced" then
+            if context.end_of_round and not card.hpot_temp_check then
+                card.hpot_temp_check = true
+                card:calculate_rental()
+            end
+        elseif context.end_of_round and not context.repetition and not context.individual then
+            card:calculate_rental()
+        end
+
+'''
+match_indent = false
+
