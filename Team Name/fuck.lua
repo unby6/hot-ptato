@@ -52,6 +52,23 @@ SMODS.Sound {
   }
 }
 SMODS.Sound {
+  key = "music_exchange",
+  path = "music_exchange.ogg",
+  pitch = 1,
+  select_music_track = function (self)
+    if PissDrawer.Shop.active_tab and PissDrawer.Shop.active_tab.exchange then
+      return 1349
+    end
+  end,
+  hpot_purpose = {
+    "Music that plays while inside",
+    "currency exchange screen"
+  },
+  hotpot_credits = {
+    team = { "Team Name" }
+  }
+}
+SMODS.Sound {
   key = "music_aura",
   pitch = 1,
   path = "music_aura.ogg",

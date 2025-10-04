@@ -496,6 +496,10 @@ function set_wheel(no_arrow, vval_only)
         end
       end
     end
+
+    for _, key in pairs(wheel_areas_colon_three) do
+      G[key].wheel_rewards_area = true
+    end
     --#endregion
 
     if not G.GAME.wheel_reset then
@@ -585,53 +589,60 @@ end
 
 -- transformed the plinko one
 function generate_wheel_rewards(_area)
-    -- Logic for extra reward with that rarity is kinda ass
-    -- didn't have time to think of something better
-    local reward = pseudorandom_element({"Joker", "Consumable", "Bottlecap"}, "hpot_arrows_rewards_type")
-    if reward == "Bottlecap" then
-        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
-        G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Uncommon
-        G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
-        G.GAME.plinko_rewards.Bad = PlinkoLogic.rewards.per_rarity.Bad
+	-- Logic for extra reward with that rarity is kinda ass
+	-- didn't have time to think of something better
+	local reward = pseudorandom_element({ "Joker", "Consumable" }, "hpot_arrows_rewards_type")
+	if reward == "Joker" then
+		local acard = SMODS.create_card({
+			set = "Joker",
+		})
+		acard.states.click.can = false
+		_area:emplace(acard)
+	else
+		if reward == "Consumable" then
+			local allcons = {}
+			for k, _ in pairs(SMODS.ConsumableTypes) do
+				table.insert(allcons, k)
+			end
+			local sett = pseudorandom_element(allcons)
+			if sett == "bottlecap" then
+				local raritiy_table = {
+					["Bad"] = 1,
+					["Uncommon"] = 2,
+					["Common"] = 3,
+					["Rare"] = 1,
+				}
 
-        local rarities = {}
-        for rarity, amount in pairs(G.GAME.plinko_rewards) do
-            rarities[#rarities + 1] = rarity
-        end
-        local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
-        local card = SMODS.create_card({
-            set = "bottlecap_" .. rarity,
-            rarity = rarity
-        })
-        if rarity == "Bad" then
-            card:set_edition("e_negative")
-        else
-            card:set_edition()
-        end
-        card.states.click.can = false
-        card.ability.extra.chosen = rarity
-        _area:emplace(card)
-    elseif reward == "Joker" then
-        local acard = SMODS.create_card({
-            set = "Joker"
-        })
+				local rarities = {}
+				for rarity, amount in pairs(raritiy_table) do
+					if type(amount) == "number" then
+						rarities[#rarities + 1] = rarity
+					end
+				end
+
+				local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
+				local card = SMODS.create_card({
+					set = "bottlecap_" .. rarity,
+					rarity = rarity,
+				})
+				if rarity == "Bad" then
+					card:set_edition("e_negative")
+				else
+					card:set_edition()
+				end
+				card.states.click.can = false
+				card.ability.extra.chosen = rarity
+				_area:emplace(card)
+			else
+				local acard = SMODS.create_card({
+					set = sett,
+				})
         acard.states.click.can = false
-        _area:emplace(acard)
-    else
-        if reward == "Consumable" then
-            local allcons = {}
-            for k, _ in pairs(SMODS.ConsumableTypes) do
-                table.insert(allcons, k)
-            end
-            local sett = pseudorandom_element(allcons)
-            local acard = SMODS.create_card({
-                set = sett
-            })
+			  _area:emplace(acard)
+			end
 
-            acard.states.click.can = false
-            _area:emplace(acard)
-        end
-    end
+		end
+	end
 end
 
 
@@ -933,20 +944,10 @@ function CardArea:draw(...)
   return ca_dref(self, ...)
 end
 
---[[
-local ca_rfh = CardArea.remove_from_highlighted
-function CardArea:remove_from_highlighted(card, ...)
-  if not card then
-    return
+local ca_can_highlight = CardArea.can_highlight
+function CardArea:can_highlight(...)
+  if self.wheel_rewards_area then
+    return false
   end
-  return ca_rfh(self, card, ...)
+  return ca_can_highlight(self, ...)
 end
-
-local card_highlight = Card.highlight
-function Card:highlight(...)
-  if self.area and #self.area.highlighted >= self.area.config.highlighted_limit then
-    return
-  end
-  return card_highlight(self, ...)
-end
---[[]]

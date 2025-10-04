@@ -30,6 +30,7 @@ Horsechicot.unstable = {
         "dollars",
         "plincoins",
         "spark_points",
+        "cryptocurrency",
         "cost_dollar_default",
         "cost_plincoins_default",
         "cost_spark_default",
@@ -58,7 +59,7 @@ function randomize_values()
             G.GAME.current_round[v] = G.GAME.round_resets[v]
         end
     end
-    if G.GAME.seeded then G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1) else
+    if not G.GAME.seeded then G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1) else
         G.GAME.budget = G.GAME.budget * (pseudorandom("unstable_deck_credits") * 0.1 - 0.05 + 1) end
     G.GAME.credits_text = G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits
     if G.HUD then
@@ -70,7 +71,7 @@ function randomize_values()
     for i, v in pairs(G.GAME.hands) do
         for ind, value in pairs(v) do
             if type(value) == "number" and ind ~= "level" then
-                G.GAME.hands[i][ind] = value * (pseudorandom("unstable_deck_"..ind..i) * 0.4 - 0.1675 + 1)
+                G.GAME.hands[i][ind] = value * (pseudorandom("unstable_deck_"..ind..i..G.GAME.pseudorandom.seed) * 0.4 - 0.1675 + 1)
             end
         end
     end

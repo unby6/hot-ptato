@@ -13,8 +13,8 @@ pattern = '''if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('n
 payload = '''
 if G and G.deck and G.deck.cards then
     for k, v in pairs(G.deck.cards) do
-        if v.temp_check then
-            v.temp_check = nil
+        if v.hpot_temp_check then
+            v.hpot_temp_check = nil
         end
     end
 end

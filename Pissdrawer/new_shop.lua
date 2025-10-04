@@ -233,6 +233,7 @@ end
 G.FUNCS.hotpot_pissdrawer_toggle_training = function()
     PissDrawer.Shop.change_shop_sign("hpot_pissdrawer_shop_sign_training")
     PissDrawer.Shop.change_shop_panel(G.UIDEF.hotpot_pd_training_section, PissDrawer.Shop.create_training_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.training)
+    ease_background_colour({new_colour = HEX("FF850BA4"), special_colour = HEX("FF8C6927"), tertiary_colour = HEX("FFDD7EFF"), contrast = 8})
 end
 
 local shop = G.UIDEF.shop
