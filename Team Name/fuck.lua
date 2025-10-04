@@ -90,6 +90,27 @@ SMODS.Sound {
     team = { "Team Name" }
   }
 }
+
+SMODS.Sound {
+    key = "music_nursery",
+    path = "music_nursery.ogg",
+    pitch = 1,
+    select_music_track = function(self)
+    if G.STATE == G.STATES.NURSERY then
+      return 114514
+    end
+    end,
+    hpot_title = "Nursery Theme",
+    hpot_artist = "GoldenLeaf",
+    hpot_purpose = {
+        "Music that plays in",
+        "the Nursery"
+    },
+    hotpot_credits = {
+        team = 'Team Name'
+    }
+}
+
 SMODS.Sound {
   key = "music_casino",
   path = "music_casino.ogg",
