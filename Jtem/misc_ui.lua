@@ -88,11 +88,11 @@ G.FUNCS.hpot_buy_jx_screen = function (e)
     ease_currency(buy_table.currency,-buy_table.take)
     ease_spark_points(buy_table.gives)
     -- Wtf is this?
-    local disp = e.parent.UIBox:get_UIE_by_ID('exchange_UI')
+    --[[local disp = e.parent.UIBox:get_UIE_by_ID('exchange_UI')
     if disp then
         disp:remove()
         disp.UIBox:add_child(hp_jtem_buy_jx_row(e.config.currency), disp)
-    end
+    end]]--
 end
 
 function hp_jtem_buy_jx_row( type )
