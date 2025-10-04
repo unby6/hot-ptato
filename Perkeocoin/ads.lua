@@ -1,18 +1,18 @@
 HotPotato.Ads = {
     Adverts = { -- Adverts are pulled from this pool most of the time.
-        ad_lusty = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=1,y=0}, animated = false, base_size = 0.75},
-        ad_hawaii = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=2, y=0}, animated = false, base_size = 0.75},
+        ad_lusty = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=1,y=0}, base_size = 0.75},
+        ad_hawaii = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=2, y=0}, base_size = 0.75},
         ad_triboulet = {atlas = 'hpot_TribouletAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
-        ad_attack = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0, y=0}, animated = false, base_size = 0.75, max_scale = 0.5},
-        ad_dotty = {atlas = 'hpot_DottyAd', pos = {x=0, y=0}, animated = false, base_size = 0.6, max_scale = 0.6},
-        ad_perkeoboss = {atlas = 'hpot_PerkeoBoss', pos = {x=0, y=0}, animated = false, base_size = 0.3, max_scale = 0.2},
+        ad_attack = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0, y=0}, base_size = 0.75, max_scale = 0.5},
+        ad_dotty = {atlas = 'hpot_DottyAd', pos = {x=0, y=0}, base_size = 0.6, max_scale = 0.6},
+        ad_perkeoboss = {atlas = 'hpot_PerkeoBoss', pos = {x=0, y=0}, base_size = 0.5, max_scale = 0.10},
         -- Jtem :))))
         ad_obsidian = {atlas = "hpot_jtemads",pos = {x=0,y=1}},
         ad_what = {atlas = "hpot_jtemads",pos = {x=2,y=0}},
         ad_blank = {atlas = "hpot_jtemads",pos = {x=0,y=0}},
         ad_naner = {atlas = "hpot_jtemads",pos = {x=1,y=1}},
-        ad_rally = {atlas = "hpot_jtemrally",pos = {x=0,y=0},animated = true},
-        ad_fuck = {atlas = "hpot_jtemfuck",pos = {x=0,y=0},animated = true},
+        ad_rally = {atlas = "hpot_jtemrally",pos = {x=0,y=0},animated = true, base_size = 0.6, max_scale = 0.15},
+        ad_fuck = {atlas = "hpot_jtemfuck",pos = {x=0,y=0},animated = true, base_size = 0.7, max_scale = 0.25},
         ad_sauce = {atlas = 'hpot_jtemads',pos = {x=1,y=2}},
         ad_singles = {atlas = 'hpot_jtemads',pos = {x=2,y=2}},
         ad_aikoshen1 = {atlas = 'hpot_jtem_aikoshen1',pos = {x=0,y=0}},
@@ -20,41 +20,23 @@ HotPotato.Ads = {
         ad_broken_page = {atlas = 'hpot_jtemads',pos = {x=3,y=0}},
         ad_404 = {atlas = 'hpot_jtemads',pos = {x=4,y=0}},
         ad_403 = {atlas = 'hpot_jtemads',pos = {x=4,y=1}},
-        ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
 
         ad_indiepaketphoenix = love.system.getOS() == "Windows" and {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true} or nil,
-        -- Team Name
-        ad_tname = {atlas = "hpot_tname_ads",pos = {x=0,y=0}},
         -- Horsechicot
         ad_banana = {atlas = "hpot_hcbananaad", pos = {x = 0, y = 0}},
         ad_numberslop = {atlas = "hpot_hcnumberslop", pos = {x = 0, y = 0}},
-        ad_red = {atlas = "hpot_hcred", pos = {x = 0, y = 0}},
-        ad_mustard = {atlas = "hpot_hcmustard", pos = {x = 0, y = 0}},
-        ad_windows = {atlas = "hpot_hcwindows", pos = {x = 0, y = 0}},
-        ad_horseyworseys = {atlas = "hpot_hchorseyworseys", pos = {x = 0, y = 0}},
         -- Oops! All Programmers
         ad_roffle = {atlas = "hpot_oap_roffle", pos = {x = 0, y = 0}},
         ad_daniel = {atlas = "hpot_oap_danielad", pos = {x = 0, y = 0}},
-        ad_barga = {atlas = "hpot_oap_barga", pos = {x = 0, y = 0}},
-        ad_sex = {atlas = "hpot_oap_sex", pos = {x = 0, y = 0}},
-        ad_trolley = {atlas = "hpot_oap_superepicramp", pos = {x = 0, y = 0}},
-        ad_thanos = {atlas = "hpot_oap_thanosyikes", pos = {x = 0, y = 0}},
-        ad_palombi = {atlas = "hpot_oap_palombi", pos = {x = 0, y = 0}},
-        ad_lebron = {atlas = "hpot_oap_lebron", pos = {x = 0, y = 0}},
-        ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}},
-        ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}},
-        ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}},
-        ad_death = {atlas = "hpot_oap_death", pos = {x = 0, y = 0}},
-        ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
-        ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}},
-        ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
+        ad_palombi = {atlas = "hpot_oap_palombi", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.1},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
-        ad_smoothie = {atlas = 'hpot_ProtoShitposts', pos = {x=0,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
+        ad_smoothie = {atlas = 'hpot_ProtoShitposts', pos = {x=0,y=0}, animated = false, base_size = 0.55, max_scale = 0.2},
         ad_peeling = {atlas = 'hpot_ProtoShitposts', pos = {x=1,y=0}, animated = false, base_size = 0.25, max_scale = 0.3},
         ad_spectred = {atlas = 'hpot_SpectredAd', pos = {x=0,y=0}, animated = true, base_size = 0.75},
         ad_sweebro = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=0,y=1}, animated = false, base_size = 0.75},
+        -- Jtem
         ad_moonpiss = {atlas = "hpot_jtemads",pos = {x=1,y=0}},
         ad_labubu = {atlas = 'hpot_jtemads',pos = {x=2,y=1}},
         ad_4f6368 = {atlas = 'hpot_jtemads',pos = {x=0,y=2}},
@@ -62,8 +44,28 @@ HotPotato.Ads = {
         ad_again = {atlas = 'hpot_jtem_again',pos = {x=0,y=0}, animated = true},
         ad_beachday = {atlas = 'hpot_jtemads',pos = {x=3,y=2}},
         ad_astolfo = {atlas = 'hpot_jtemads',pos = {x=4,y=2}},
+        ad_jtem = {atlas = 'hpot_jtemads',pos = {x=3,y=1}},
         -- Team Name
+        ad_tname = {atlas = "hpot_tname_ads",pos = {x=0,y=0}},
         ad_twinx = {atlas = "hpot_tname_ads",pos = {x=1,y=0}},
+        -- Horsechicot
+        ad_mustard = {atlas = "hpot_hcmustard", pos = {x = 0, y = 0}},
+        ad_windows = {atlas = "hpot_hcwindows", pos = {x = 0, y = 0}},
+        ad_red = {atlas = "hpot_hcred", pos = {x = 0, y = 0}},
+        ad_horseyworseys = {atlas = "hpot_hchorseyworseys", pos = {x = 0, y = 0}},
+        -- Oops! All Programmers
+        ad_sex = {atlas = "hpot_oap_sex", pos = {x = 0, y = 0}},
+        ad_trolley = {atlas = "hpot_oap_superepicramp", pos = {x = 0, y = 0}},
+        ad_thanos = {atlas = "hpot_oap_thanosyikes", pos = {x = 0, y = 0}},
+        ad_lebron = {atlas = "hpot_oap_lebron", pos = {x = 0, y = 0}},
+        ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.1},
+        ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}, base_size = 0.5, max_scale = 0.25},
+        ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.1},
+        ad_death = {atlas = "hpot_oap_death", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.15},
+        ad_barga = {atlas = "hpot_oap_barga", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.15},
+        ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
+        ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},
+        ad_newartcomingsoon = {atlas = "hpot_newartcomingsoon",pos = {x=0,y=0}},
     },
     Special = { -- Adverts in this pool can never naturally spawn.
         ad_animated = {atlas = 'hpot_AbbieMindwave', pos = {x=0,y=0}, animated = true, base_size = 0.25, max_scale = 0.25},
@@ -296,7 +298,7 @@ function create_ads(number_of_ads)
                     ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
                 end
 
-                local ad_scale = (ad_to_use.base_size or 0.75) + ((ad_to_use.max_scale or 0.5)*pseudorandom('ad_scale'))
+                local ad_scale = (ad_to_use.base_size or 0.60) + ((ad_to_use.max_scale or 0.25)*pseudorandom('ad_scale'))
                 G.GAME.hotpot_total_ads = G.GAME.hotpot_total_ads + 1
                 G.GAME.hotpot_ads = G.GAME.hotpot_ads or {}
                 local new_ad = UIBox{
@@ -384,7 +386,7 @@ local game_update = Game.update
 function Game:update(...)
     if G.real_dt and G.GAME and G.GAME.hotpot_ads and not G.freeze_ads then
 
-        local speed = G.real_dt * 0.04
+        local speed = G.real_dt * 0.033
 
         for key, ad in pairs(G.GAME.hotpot_ads) do
 
