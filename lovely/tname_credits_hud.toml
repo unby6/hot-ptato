@@ -167,19 +167,6 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = 'game.lua'
-pattern = '''
-    if not saveTable then
-        if args.seed then self.GAME.seeded = true end
-'''
-position = "after"
-payload = '''
-        if self.GAME.seeded then self.GAME.budget = args.budget or 25 end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
 target = 'functions/button_callbacks.lua'
 pattern = '''
     local _seed = G.run_setup_seed and G.setup_seed or G.forced_seed or nil
