@@ -227,6 +227,7 @@ end
 G.FUNCS.return_to_shop = function()
     PissDrawer.Shop.change_shop_sign("shop_sign")
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.main_shop, PissDrawer.Shop.create_shop_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.shop)
+    ease_background_colour_blind(G.STATES.SHOP)
 end
 
 G.FUNCS.hotpot_pissdrawer_toggle_training = function()

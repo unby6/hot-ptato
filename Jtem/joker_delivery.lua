@@ -1090,4 +1090,5 @@ function G.FUNCS.hotpot_jtem_toggle_delivery()
     stop_use()
     PissDrawer.Shop.change_shop_sign("hpot_jtem_postlatro")
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.delivery_shop, hotpot_jtem_init_extra_shops_area, PissDrawer.Shop.delivery_post, PissDrawer.Shop.area_keys.delivery)
+    ease_background_colour({new_colour = G.C.BLUE, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
 end

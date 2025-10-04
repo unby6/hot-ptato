@@ -48,6 +48,7 @@ G.FUNCS.hotpot_horsechicot_toggle_market = function() -- takn from deliveries
   stop_use()
   PissDrawer.Shop.change_shop_sign("hpot_hc_shop_sign", {percent = 1.3})
   PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.black_market, PissDrawer.Shop.create_black_market_areas, PissDrawer.Shop.black_market_post, PissDrawer.Shop.area_keys.black_market)
+  ease_background_colour({new_colour = G.C.BLACK, special_colour = darken(G.C.BLACK,0.6), tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
 end
 
 G.FUNCS.market_return = function()

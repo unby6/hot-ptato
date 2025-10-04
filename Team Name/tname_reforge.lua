@@ -121,6 +121,7 @@ G.FUNCS.hotpot_tname_toggle_reforge = function () -- takn from deliveries
     stop_use()
     PissDrawer.Shop.change_shop_sign("hpot_tname_shop_sign", {percent = 1.3})
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.reforge_shop, PissDrawer.Shop.create_reforge_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.reforge)
+    ease_background_colour({new_colour = G.C.BLACK, special_colour = G.C.RED, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
 
 end
 
