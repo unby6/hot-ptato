@@ -174,7 +174,7 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-        if self.GAME.seeded then self.GAME.budget = args.budget or 0 end
+        if self.GAME.seeded then self.GAME.budget = args.budget or 25 end
 '''
 match_indent = true
 
@@ -186,7 +186,7 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-    local _budget = tonumber(G.setup_budget) or 0
+    local _budget = tonumber(G.setup_budget) or 25
 '''
 match_indent = true
 
