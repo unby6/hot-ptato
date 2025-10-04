@@ -332,6 +332,11 @@ local function hpot_create_joker_from_amazon(card, center)
     local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.52 + 0.84
     price_factor = price_factor * (should_spawn_with_eternal and 0.9 or 1) * (should_spawn_with_rental and 0.6 or 1) *
         (should_spawn_with_perishable and 0.6 or 1) * 1.5
+    for _, v in ipairs(stickers) do
+        if v ~= "eternal" and v ~= "rental" and v ~= "perishable" then
+            price_factor = price_factor * (SMODS.Sticker.obj_table[v].hpot_amazon_price or SMODS.Sticker.obj_table[v].hpot_delivery_price or 0.95)
+        end
+    end
     if center.credits then
         hotpot_jtem_add_to_offers(center.key, {
             price = { currency = currency, value = math.ceil(center.credits / 7 * price_factor * random_price_factor) },
@@ -869,6 +874,11 @@ function hotpot_jtem_generate_special_deals(deals)
         local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) *
             (should_spawn_with_perishable and 0.3 or 1)
+        for _, v in ipairs(stickers) do
+            if v ~= "eternal" and v ~= "rental" and v ~= "perishable" then
+                price_factor = price_factor * (SMODS.Sticker.obj_table[v].hpot_delivery_price or SMODS.Sticker.obj_table[v].hpot_amazon_price or 0.85)
+            end
+        end
         local create_card_args = {
             hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
                 (not jx and poll_edition("hpjtem_delivery_edition")),
