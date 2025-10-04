@@ -596,9 +596,14 @@ function generate_wheel_rewards(_area)
 
         local rarities = {}
         for rarity, amount in pairs(G.GAME.plinko_rewards) do
-            rarities[#rarities + 1] = rarity
+            if type(amount) == "number" then 
+              rarities[#rarities + 1] = rarity
+            end
         end
         local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
+        if not rarity then
+            rarity = "Common"
+        end
         local card = SMODS.create_card({
             set = "bottlecap_" .. rarity,
             rarity = rarity
