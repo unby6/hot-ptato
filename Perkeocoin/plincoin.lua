@@ -17,6 +17,7 @@ function init_perkeocoin(game)
 
   if not game.plinko_rewards then
     game.plinko_rewards = {}
+    game.plinko_rewards.moving_pegs = false
     for k, v in pairs(PlinkoLogic.rewards.per_rarity) do
       game.plinko_rewards[k] = v
     end

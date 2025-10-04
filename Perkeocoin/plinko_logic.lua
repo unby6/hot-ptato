@@ -61,29 +61,31 @@ function PlinkoLogic.f.generate_rewards()
   if next(find_joker('Tipping Point')) then
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
       G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
-      G.plinko_rewards.moving_pegs = true
+      G.GAME.plinko_rewards.moving_pegs = true
   else
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
       G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common
-      G.plinko_rewards.moving_pegs = false
+      G.GAME.plinko_rewards.moving_pegs = false
   end
 
   for rarity, amount in pairs(G.GAME.plinko_rewards) do
-    for i = 1, amount do
-      local card = SMODS.create_card {
-        set = "bottlecap_"..rarity,
-        rarity = rarity
-      }
-      if rarity == 'Bad' then
-        card:set_edition("e_negative")
-      else
-        card:set_edition()
+    if type(amount) == "number" then
+      for i = 1, amount do
+        local card = SMODS.create_card {
+          set = "bottlecap_"..rarity,
+          rarity = rarity
+        }
+        if rarity == 'Bad' then
+          card:set_edition("e_negative")
+        else
+          card:set_edition()
+        end
+        card.ability.extra.chosen = rarity
+        if pseudorandom("legendary_cap") < 0.003 and card.config.center.pools.bottlecap_Legendary then
+          card.ability.extra.chosen = "Legendary"
+        end
+        G.plinko_rewards:emplace(card)
       end
-      card.ability.extra.chosen = rarity
-      if pseudorandom("legendary_cap") < 0.003 and card.config.center.pools.bottlecap_Legendary then
-        card.ability.extra.chosen = "Legendary"
-      end
-      G.plinko_rewards:emplace(card)
     end
   end
 end
