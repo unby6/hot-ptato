@@ -2155,7 +2155,7 @@ return {
                 name = "American Healthcare",
                 text = {
                     "This {C:attentionJoker{} gains {X:mult,C:white}X#1#{} Mult, but loses {C:money}$#3#",
-                    "for each round a {C:attentionJoker{} is {C:attention}Impregnated{}",
+                    "for each round a {C:attention}Joker{} is {C:attention}Impregnated{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
