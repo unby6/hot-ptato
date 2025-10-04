@@ -161,18 +161,20 @@ local d_m = 1
 local p_m = 1
 local c_m = 1
 local s_m = 1
+local credits_m = 1
 if G.GAME.modifiers.unstable then
   d_m = pseudorandom(\"unstable_deck_dollars\") * 0.4 - 0.1675 + 1
   p_m = pseudorandom(\"unstable_deck_plincoins\") * 0.4 - 0.1675 + 1
   c_m = pseudorandom(\"unstable_deck_cryptocurrency\") * 0.4 - 0.1675 + 1
   s_m = pseudorandom(\"unstable_deck_spark_points\") * 0.4 - 0.1675 + 1
+  credits_m = pseudorandom(\"unstable_deck_credits\") * 0.4 - 0.1675 + 1
 end
 ease_dollars(G.GAME.current_round.dollars * d_m)
 ease_plincoins(G.GAME.current_round.plincoins * p_m)
 if G.GAME.current_round.spark_points ~= 0 then ease_spark_points(G.GAME.current_round.spark_points * s_m) end
 if G.GAME.current_round.cryptocurrency and G.GAME.current_round.cryptocurrency > 0 then ease_cryptocurrency(G.GAME.current_round.cryptocurrency * c_m) end
 if G.GAME.current_round.credits and G.GAME.current_round.credits > 0 then
-  HPTN.ease_credits(G.GAME.current_round.credits) 
+  HPTN.ease_credits(G.GAME.current_round.credits * credits_m) 
   G.GAME.current_round.credits = 0
 end
 G.GAME.current_round.plincoins = 0
@@ -274,6 +276,17 @@ pattern = "self.GAME.selected_back:apply_to_run()"
 position = "before"
 payload = """
 if args.seed then self.GAME.seeded = true end
-if self.GAME.seeded then self.GAME.budget = args.budget or 25 end"""
+if self.GAME.seeded then self.GAME.budget = args.budget or 25 end
+self.GAME.cryptocurrency = self.GAME.cryptocurrency or 0.5
+self.GAME.pseudorandom[\"seed\"] = args[\"seed\"] or (not (G.SETTINGS.tutorial_complete or G.SETTINGS.tutorial_progress.completed_parts['big_blind']) and \"TUTORIAL\") or generate_starting_seed()"""
+match_indent = true
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.GAME.pseudorandom.seed = args.seed or (not (G.SETTINGS.tutorial_complete or G.SETTINGS.tutorial_progress.completed_parts['big_blind']) and \"TUTORIAL\") or generate_starting_seed()"
+position = "at"
+payload = ""
 match_indent = false
 overwrite = false

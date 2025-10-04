@@ -30,6 +30,7 @@ Horsechicot.unstable = {
         "dollars",
         "plincoins",
         "spark_points",
+        "cryptocurrency",
         "cost_dollar_default",
         "cost_plincoins_default",
         "cost_spark_default",
@@ -70,7 +71,7 @@ function randomize_values()
     for i, v in pairs(G.GAME.hands) do
         for ind, value in pairs(v) do
             if type(value) == "number" and ind ~= "level" then
-                G.GAME.hands[i][ind] = value * (pseudorandom("unstable_deck_"..ind..i) * 0.4 - 0.1675 + 1)
+                G.GAME.hands[i][ind] = value * (pseudorandom("unstable_deck_"..ind..i..G.GAME.pseudorandom.seed) * 0.4 - 0.1675 + 1)
             end
         end
     end
