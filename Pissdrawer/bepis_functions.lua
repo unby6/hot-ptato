@@ -6,43 +6,102 @@ function HotPotato.round(number, digit_position)
     return math.floor(number / precision) * precision
 end
 
-function UIElement:ease_move(T, speed, queue, blocking, blockable, save_pos, toggle, funcs)
-    self.T_destination = {x = T.x or 0, y = T.y or 0}
-    self.T_ease = {x = 0, y = 0}
+HotPotato.ease = {
+    linear = function (x)
+        return x
+    end,
+    quad = function (x)
+        return x < 0.5 and 2 * x * x or 1 - math.pow(-2 * x + 2, 2) / 2
+    end,
+    inquad = function (x)
+        return x * x
+    end,
+    outquad = function (x)
+        return 1 - (1 - x) * (1 - x)
+    end,
+    expo = function (x)
+        return x == 0
+                and 0
+                or x == 1
+                and 1
+                or x < 0.5 and math.pow(2, 20 * x - 10) / 2
+                or (2 - math.pow(2, -20 * x + 10)) / 2
+    end,
+    inexpo = function (x)
+        return x == 0 and 0 or math.pow(2, 10 * x - 10)
+    end,
+    outexpo = function (x)
+        return x == 1 and 1 or 1 - math.pow(2, -10 * x)
+    end
+}
 
-    G.E_MANAGER.queues[queue or "ease_move"] = G.E_MANAGER.queues[queue or "ease_move"] or {}
+function HotPotato.lerp(b, a, t)
+    return a * (1-t) + b * t
+end
+
+function UIElement:ease_move(T, speed, queue, blocking, blockable, save_pos, toggle, funcs, ease_type)
+    -- Might as well put defaults here to reduce a lot of 'or's
+    speed = speed or 10
+    queue = queue or "ease_move"
+    T = T or {}
+    T.x = T.x or 0
+    T.y = T.y or 0
+    -- New: ease type
+    ease_type = ease_type or "inquad"
+    if not HotPotato.ease[ease_type] then ease_type = "inquad" end
+
+    self.T_destination = {x = self.role.offset.x + T.x, y = self.role.offset.y + T.y}
+    local T_starttime = {x = G.TIMERS.REAL, y = G.TIMERS.REAL} -- time in seconds
+    local T_endtime = {x = G.TIMERS.REAL + ((math.abs(T.x)*speed) / math.abs(speed)), y = G.TIMERS.REAL + ((math.abs(T.y)*speed) / math.abs(speed))}
+    self.T_ease = {x = self.role.offset.x, y = self.role.offset.y}
+    self.T_origin = copy_table(self.T_ease)
+    self.T_percent = {x = 0, y = 0}
+
+    G.E_MANAGER.queues[queue] = G.E_MANAGER.queues[queue] or {}
     if save_pos then
         save_pos.ref_table[save_pos.ref_value] = {x = 0, y = 0}
     end
     if toggle then
         toggle.ref_table[toggle.ref_value] = true
     end
+
     G.E_MANAGER:add_event(Event({
         blocking = blocking or false,
         blockable = blockable or false,
         func = function() 
             if not self or not self.T_destination then return true end
             for i,v in pairs(self.T_destination) do
-                self.T_ease[i] = v/(speed or 10)
-                if save_pos then
-                    local target = save_pos.ref_table[save_pos.ref_value]
-                    target = target or {x = 0, y = 0}
-                    target[i] = (target[i] or 0) + v/(speed or 10)
+                if T_endtime[i] >= G.TIMERS.REAL then
+                    -- lerp ease position to new time
+                    local percent = math.abs((T_endtime[i] - G.TIMERS.REAL) / (T_endtime[i] - T_starttime[i]))
+                    -- prevent nan values
+                    -- there is no reason for this to be nan
+                    if percent ~= percent then percent = 0 end
+                    -- ease types
+                    percent = HotPotato.ease[ease_type](percent)
+                    --print("percent "..i..": "..percent)
+                    self.T_ease[i] = HotPotato.lerp(self.T_origin[i], self.T_destination[i], percent)
+                    self.T_percent[i] = percent
+                    --self.T_ease[i] = v/(speed or 10)
+                    if save_pos then
+                        local target = save_pos.ref_table[save_pos.ref_value]
+                        target = target or {x = 0, y = 0}
+                        target[i] = HotPotato.lerp(0, self.T_destination[i] - self.T_origin[i], percent)
+                    end
                 end
-                self.T_destination[i] = self.T_destination[i] - v/(speed or 10)
             end
             if funcs and type(funcs) == "table" then
                 if funcs.ease_func and type(funcs.ease_func) == "function" then
                     funcs.ease_func(self)
                 end
             end
-            self:align(self.T_ease.x, self.T_ease.y)
+            self:align(self.T_ease.x - self.role.offset.x, self.T_ease.y - self.role.offset.y)
             local all_low = true
-            for _,v in pairs(self.T_destination) do
-                if math.abs(v) >= 0.01 then all_low = false; break end
+            for _,v in pairs(self.T_percent) do
+                if math.abs(v) < 0.99 then all_low = false; break end
             end
             if all_low then
-                self:align(self.T_destination.x, self.T_destination.y)
+                self:align(self.T_destination.x - self.role.offset.x, self.T_destination.y - self.role.offset.y)
                 if save_pos then
                     local target = save_pos.ref_table[save_pos.ref_value]
                     target = target or {x = 0, y = 0}
@@ -59,6 +118,8 @@ function UIElement:ease_move(T, speed, queue, blocking, blockable, save_pos, tog
                 end
                 self.T_destination = nil
                 self.T_ease = nil
+                self.T_percent = nil
+                self.T_origin = nil
                 return true
             end
         end
