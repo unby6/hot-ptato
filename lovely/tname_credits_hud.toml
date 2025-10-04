@@ -186,7 +186,7 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-    local _budget = tonumber(G.setup_budget)
+    local _budget = tonumber(G.setup_budget) or 0
 '''
 match_indent = true
 
@@ -214,7 +214,10 @@ payload = '''
         HotPotato.effect_options[3] =G.GAME.seeded and "hpot_diy_earn_budget" or "hpot_diy_earn_credits"
     end
 '''
-match_indent = true[[patches]]
+match_indent = true
+
+# i love copying code :smile:
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = '''if args.key == '0' then args.key = 'o' end'''
