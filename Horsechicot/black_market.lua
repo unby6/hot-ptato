@@ -13,7 +13,7 @@ function hotpot_horsechicot_market_section_init_cards()
         new_shop_card:juice_up()
         G.GAME.market_filled[#G.GAME.market_filled + 1] = new_shop_card.config.center.key
       end
-      save_run()
+      -- save_run()
     else
       for i, v in pairs(G.GAME.market_filled) do
         local c = SMODS.create_card {
@@ -58,7 +58,8 @@ end
 local start_run_ref = Game.start_run
 function Game:start_run(args)
   G.HP_HC_MARKET_VISIBLE = nil
-  PissDrawer.Shop.market_spawn = false
+  
+  local ret = start_run_ref(self, args)
   local saveTable = args.savetext or nil
   if not saveTable then
     G.GAME.cryptocurrency = 0.5
