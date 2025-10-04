@@ -15,6 +15,35 @@ SMODS.Back {
     end
 }
 
+SMODS.ObjectType {
+    key = 'ad_cards',
+    cards = {
+        j_hpot_adspace = true,
+        j_hpot_kitchen_gun = true,
+        j_hpot_tv_dinner = true,
+        j_hpot_free_to_use = true,
+        j_hpot_skimming = true,
+        j_hpot_dont_touch_that_dial = true,
+        j_hpot_slop = true,
+    },
+}
+
+local gcp = get_current_pool
+function get_current_pool(_type, _rarity, _legendary, _append)
+    local _pool, _pool_key = gcp(_type, _rarity, _legendary, _append)
+
+    if _type == 'Joker' then
+        for i = 1, #_pool do
+            local key = _pool[i]
+            if G.P_CENTERS[key] and (G.P_CENTERS[key].pools and G.P_CENTERS[key].pools.ad_cards) and (G.GAME.ad_blocker and G.GAME.ad_blocker >= 1) then
+                _pool[i] = "UNAVAILABLE"
+            end
+        end
+    end
+
+    return _pool, _pool_key
+end
+
 local ref = create_ads
 function create_ads(e)
     if (not G.GAME.ad_blocker) or G.GAME.ad_blocker <= 0 then

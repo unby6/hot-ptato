@@ -27,11 +27,11 @@ SMODS.Joker {
             return { xmult = card.ability.extra.xmult_per_self_insert }
         end
     end,
-        hotpot_credits = {
-        art = {"???"},
-        code = {"theAstra"},
-        idea = {"Nxkoo"},
-        team = {"Horsechicot"}
+    hotpot_credits = {
+        art = { "???" },
+        code = { "theAstra" },
+        idea = { "Nxkoo" },
+        team = { "Horsechicot" }
     },
 }
 
@@ -39,9 +39,9 @@ SMODS.ObjectType {
     key = 'self_inserts',
     default = 'j_hpot_apocalypse',
     cards = {
-      j_hpot_apocalypse = true,
-      j_hpot_jtem_flash = true,
-      j_hpot_OAP = true,
-      j_hpot_tname_postcard = true,
+        j_hpot_apocalypse = true,
+        j_hpot_jtem_flash = true,
+        j_hpot_OAP = true,
+        j_hpot_tname_postcard = true,
     },
-  }
+}
