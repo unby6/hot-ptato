@@ -4863,13 +4863,14 @@ return {
                         },
                         {
                             "{E:2,C:dark_edition}Power{} increases the Joker's internal {X:red,C:white}XMult{} and {X:blue,C:white}XChips",
-                            "{E:2,C:dark_edition}Guts{} increases individual Joker {C:attention}values",
+                            "{E:2,C:dark_edition}Guts{} increases individual Joker {C:attention}values{}",
+                            "{E:2,C:dark_edition}Wit{} increases the {C:attention}sell cost{} of a Joker",
                         },
                         {
                             "{E:2,C:dark_edition}Energy{} is important! Make sure your Joker has adequate rest",
                             "{E:2,C:dark_edition}Mood{} boosts stat increases",
-                            "Jokers also have a set {E:1,C:attention}Stat multiplier{} that boosts individual",
-                            "stats by a specific amount during Training"
+                            "Jokers also have a set {E:1,C:attention}Stat multiplier{} that boosts individual stats by a",
+                            "specific amount during Training, displayed at the bottom of each stat"
                         }
                     }
                 },
