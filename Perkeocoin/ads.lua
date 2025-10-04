@@ -1,3 +1,5 @@
+local ad_corners_radius = 0.1
+
 HotPotato.Ads = {
     Adverts = { -- Adverts are pulled from this pool most of the time.
         ad_lusty = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=1,y=0}, base_size = 0.75},
@@ -112,6 +114,7 @@ SMODS.Atlas({ key = 'AbbieMindwave', px = 300, py = 300, path = 'Ads/AbbieMindwa
 SMODS.Atlas({ key = 'DottyAd', px = 170, py = 150, path = 'Ads/DottyAd.png', atlas_table = 'ASSET_ATLAS'}):register()
 SMODS.Atlas({ key = 'PerkeoBoss', px = 470, py = 326, path = 'Ads/PerkeoBoss.png', atlas_table = 'ASSET_ATLAS'}):register()
 
+SMODS.Shader { key = "ad", path = "ad.fs" }
 
 local apply_to_run_ref = Back.apply_to_run
 function Back:apply_to_run()
@@ -151,6 +154,16 @@ function create_UIBox_ad(args)
         end
     end
 
+    if ad_corners_radius and ad_corners_radius > 0 then
+        ad_image:get_pos_pixel() -- Fix shader crash
+        ad_image:define_draw_steps {
+            { shader = 'hpot_ad', send = {
+                {name = 'image_details', ref_table = ad_image, ref_value = 'image_dims'},
+                {name = 'texture_details', ref_table = ad_image.RETS, ref_value = 'get_pos_pixel'}
+            }},
+        }
+    end
+
     local ad_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
                         {n = G.UIT.O, config = {object = ad_image, r = 0.3}}
                     }}
@@ -167,7 +180,7 @@ function create_UIBox_ad(args)
                     
     end
 
-    local t = {n = G.UIT.ROOT, config = {colour = G.C.GREY, minh = 1, instance_type = 'CARD', padding = 0.05,  outline = 0.5, outline_colour = G.C.GREY, shadow = true}, nodes = {
+    local t = {n = G.UIT.ROOT, config = {colour = G.C.GREY, minh = 1, r = ad_corners_radius, instance_type = 'CARD', padding = 0.05,  outline = 0.5, outline_colour = G.C.GREY, shadow = true}, nodes = {
         {n=G.UIT.R, config = {colour = G.C.GREY, minh = 0.33, align = 'cr', r = 0.05, padding = 0.01}, nodes = {
             {n=G.UIT.C, config = {colour = G.C.CLEAR, align = 'cl'}, nodes = {
                 {n=G.UIT.T, config = {text = 'ad_'..adNum.." ", colour = G.C.UI.TEXT_LIGHT, scale = 0.3, align = 'cl'}}
