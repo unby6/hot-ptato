@@ -45,19 +45,19 @@ function G.UIDEF.wheel()
   -- pain
   G.wheel_area = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area2 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area3 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area4 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area5 = CardArea(
     0, 0, 1, 1,
@@ -65,19 +65,19 @@ function G.UIDEF.wheel()
   )
   G.wheel_area6 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area7 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area8 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area9 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
 
   local use_ante = Wheel.ante_left > 0
@@ -937,3 +937,21 @@ function CardArea:draw(...)
   end
   return ca_dref(self, ...)
 end
+
+--[[
+local ca_rfh = CardArea.remove_from_highlighted
+function CardArea:remove_from_highlighted(card, ...)
+  if not card then
+    return
+  end
+  return ca_rfh(self, card, ...)
+end
+
+local card_highlight = Card.highlight
+function Card:highlight(...)
+  if self.area and #self.area.highlighted >= self.area.config.highlighted_limit then
+    return
+  end
+  return card_highlight(self, ...)
+end
+--[[]]
