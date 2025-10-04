@@ -178,7 +178,8 @@ if config.crypto ~= 0 then
 end
 if config.credits ~= 0 then
 \tif next(payouts) then separator = \", \" end
-\tpayouts[#payouts + 1] = {n=G.UIT.T, config={text = separator .. \"c\"..format_ui_value(config.credits), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true, font = SMODS.Fonts.hpot_plincoin}}
+local symbol = G.GAME.seeded and "e" or "c"
+\tpayouts[#payouts + 1] = {n=G.UIT.T, config={text = separator .. symbol..format_ui_value(config.credits), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true, font = SMODS.Fonts.hpot_plincoin}}
 end
 if not next(payouts) then
 \tpayouts[#payouts + 1] = {n=G.UIT.T, config={text = localize(\"hotpot_exposure\"), scale = 1.2*scale, colour = G.C.WHITE, shadow = true, juice = true}}
