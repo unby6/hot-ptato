@@ -83,6 +83,10 @@ target = 'functions/button_callbacks.lua'
 position = 'after'
 pattern = '''G.shop = nil'''
 payload = '''
+-- Reset wheel rewards from old shop
+if G.GAME.load_wheel_rewards then
+  G.GAME.load_wheel_rewards = nil
+end
 if G.plinko_rewards then
   G.plinko_rewards:remove()
   G.plinko_rewards = nil
