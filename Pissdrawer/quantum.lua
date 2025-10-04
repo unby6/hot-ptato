@@ -74,6 +74,24 @@ function SMODS.find_card(key, count_debuffed)
     return results
 end
 
+local smods_destroy_cards = SMODS.destroy_cards
+function SMODS.destroy_cards(cards, ...)
+    if not cards[1] then
+        if Object.is(cards, Card) then
+            cards = {cards}
+        else
+            return
+        end
+    end
+    local new_cards = {}
+    for _, card in pairs(cards) do
+        if card.quantum then new_cards[#new_cards + 1] = card.quantum
+        else new_cards[#new_cards + 1] = card end
+    end
+
+    return smods_destroy_cards(new_cards, ...)
+end
+
 -- is rarity
 local is_rarity = Card.is_rarity
 function Card:is_rarity(rarity)
@@ -145,8 +163,8 @@ SMODS.Joker {
                 ret2, trig2 = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
             end
 
-            if ret and ret.card and ret.card == card.ability.quantum_1 then ret.card = card end
-            if ret2 and ret2.card and ret2.card == card.ability.quantum_2 then ret2.card = card end
+            if ret then PissDrawer.replace_quantum(ret, card.ability.quantum_1, card) end
+            if ret2 then PissDrawer.replace_quantum(ret2, card.ability.quantum_2, card) end
             return SMODS.merge_effects { ret or {}, ret2 or {} }, trig or trig2
         end
     end,
@@ -212,6 +230,34 @@ SMODS.Joker {
         end
     end
 }
+
+function PissDrawer.replace_quantum(effects, quantum, host)
+    if type(effects) == 'table' then
+        local new_eff = {}
+        for k, v in pairs(effects) do
+            if type(v) == 'table' then
+                if v.quantum then 
+                    new_eff[k] = v.quantum
+                elseif k == 'extra' then 
+                    new_eff[k] = PissDrawer.replace_quantum(v)
+                else
+                    new_eff[k] = v
+                end
+            else
+                new_eff[k] = v
+            end
+        end
+        return new_eff
+    end
+    return effects
+end
+
+local calc_effect = SMODS.calculate_effect
+function SMODS.calculate_effect(effect, card, ...)
+    effect = PissDrawer.replace_quantum(effect)
+    if card.quantum then card = card.quantum end
+    return calc_effect(effect, card, ...)
+end
 
 -- Tooltips use multibox
 local gen_card_ui = generate_card_ui
