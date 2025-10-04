@@ -2007,7 +2007,7 @@ return {
             j_hpot_OAP_trif = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2021,7 +2021,7 @@ return {
             j_hpot_OAP_sadcube = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2036,7 +2036,7 @@ return {
             j_hpot_OAP_astra = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2050,7 +2050,7 @@ return {
             j_hpot_OAP_wix = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2064,7 +2064,7 @@ return {
             j_hpot_OAP_myst = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2079,7 +2079,7 @@ return {
             j_hpot_OAP_lia = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2093,7 +2093,7 @@ return {
             j_hpot_OAP_th30ne = {
                 name = "Oops! A Programmer",
                 text = { {
-                    "This Joker changes its",
+                    "This {C:attentionJoker{} changes its",
                     "{C:attention}effect{} based on who",
                     "it currently represents"
                 },
@@ -2148,14 +2148,14 @@ return {
             j_hpot_fun_is_infinite = {
                 name = "Fun is Infinite",
                 text = {
-                    "{C:attention}Eternal{} Jokers each give {X:mult,C:white}X#1#{} Mult",
+                    "{C:attention}Eternal Jokers{} each give {X:mult,C:white}X#1#{} Mult",
                 }
             },
             j_hpot_american_healthcare = {
                 name = "American Healthcare",
                 text = {
-                    "This Joker gains {X:mult,C:white}X#1#{} Mult, but loses {C:money}$#3#",
-                    "for each round a Joker is {C:attention}Impregnated{}",
+                    "This {C:attentionJoker{} gains {X:mult,C:white}X#1#{} Mult, but loses {C:money}$#3#",
+                    "for each round a {C:attentionJoker{} is {C:attention}Impregnated{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -2169,7 +2169,7 @@ return {
                 name = 'Loss',
                 text = {
                     'Breeding with this card will {C:attention}always',
-                    'result in a copy of {C:attention}this{} Joker with',
+                    'result in a copy of this {C:attentionJoker{} with',
                     'an extra {X:mult,C:white}X#2#{} Mult',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
