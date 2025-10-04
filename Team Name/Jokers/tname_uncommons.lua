@@ -176,13 +176,21 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
 		if context.setting_blind then
-			local rr = find_self(card, G.jokers)
+			local rr = find_self(card, G.jokers.cards)
 			if not rr then return end
 
+			local sticks = {}
+			for k, v in pairs(SMODS.Stickers) do
+				if v.key ~= "hpot_jtem_mood" then
+					sticks[#sticks+1] = v.key
+				end
+			end
+
 			local _card =  pseudorandom_element({1,-1},pseudoseed("sticker_dealer"))
-			local k = pseudorandom_element(SMODS.Stickers,pseudoseed("sticker_dealer"))
+			local k = pseudorandom_element(sticks,pseudoseed("sticker_dealer"))
+
 			if G.jokers.cards[rr + (_card)] then
-				SMODS.Stickers[k.key]:apply(G.jokers.cards[rr + (_card)], true)
+				SMODS.Stickers[k]:apply(G.jokers.cards[rr + (_card)], true)
 
 				hpt.xmult = hpt.xmult + hpt.xmultg
 				return{
