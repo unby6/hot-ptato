@@ -238,7 +238,6 @@ end
 
 local shop = G.UIDEF.shop
 function G.UIDEF.shop()
-    local ret = shop()
     PissDrawer.Shop.create_shop_areas()
     PissDrawer.Shop.active_tab = 'hotpot_shop_tab_return_to_shop'
     return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
@@ -299,7 +298,7 @@ function PissDrawer.Shop.main_shop()
                     }}
                 }},
                 }},
-                {n=G.UIT.R, config={align = "cm", minw = 1.8, minh = 1.3, r=0.15,colour = G.C.GREEN, button = 'reroll_shop', func = 'can_reroll', hover = true,shadow = true}, nodes = {
+                {n=G.UIT.R, config={id = "shop_reroll", align = "cm", minw = 1.8, minh = 1.3, r=0.15, colour = G.C.GREEN, button = 'reroll_shop', func = 'can_reroll', hover = true,shadow = true}, nodes = {
                 {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
                     {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
                     {n=G.UIT.T, config={text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE, shadow = true}},
@@ -894,7 +893,7 @@ function PissDrawer.Shop.black_market()
         {n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = {
             {n = G.UIT.C, config = { align = "cm", padding = 0.1 }, nodes = {
                 {n = G.UIT.R, config = { align = "cm", minw = 2.5, minh = 1.4, r = 0.15, colour = SMODS.Gradients.hpot_advert, button = 'reroll_market', func = 'can_reroll_market', hover = true, shadow = true }, nodes = {
-                    {n = G.UIT.R, config = { align = "cm", padding = 0.07, focus_args = { button = 'x', orientation = 'cr' }, func = 'set_button_pip' }, nodes = {
+                    {n = G.UIT.R, config = { align = "cm", padding = 0.07, focus_args = { button = 'y', orientation = 'cr' }, func = 'set_button_pip' }, nodes = {
                         {n = G.UIT.R, config = { align = "cm", maxw = 1.3 }, nodes = {
                             {n = G.UIT.T, config = { text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE, shadow = true }},
                         }},
