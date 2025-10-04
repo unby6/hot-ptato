@@ -1,7 +1,7 @@
 -- Might as well lmao
 function init_jtem(game)
-	game.spark_points = game.spark_points or 0
-	game.spark_points_display = game.spark_points_display or "0"
+	game.spark_points = game.spark_points or 20000
+	game.spark_points_display = game.spark_points_display or "20,000"
 	game.current_round.spark_points = game.current_round.spark_points or 0
 	game.hpot_events_encountered = game.hpot_events_encountered or {}
 	game.hpot_jtem_base_values = game.hpot_jtem_base_values or {}

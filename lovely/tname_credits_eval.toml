@@ -200,7 +200,7 @@ target = 'game.lua'
 pattern = "local temp_profile = {"
 position = 'after'
 payload = '''
-        TNameCredits = 0,
+        TNameCredits = 25,
 '''
 match_indent = true
 times = 1
