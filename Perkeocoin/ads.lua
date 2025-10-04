@@ -144,6 +144,15 @@ function create_UIBox_ad(args)
             }
         end
         ad_image = Sprite(0,0,(ad_atlas.px/49)*scale,(ad_atlas.py/49)*scale,ad_atlas,(ad.pos or {x=0,y=0}))
+        if not ad.video and ad_corners_radius and ad_corners_radius > 0 then
+            ad_image:get_pos_pixel() -- Fix shader crash
+            ad_image:define_draw_steps {
+                { shader = 'hpot_ad', send = {
+                    {name = 'image_details', ref_table = ad_image, ref_value = 'image_dims'},
+                    {name = 'texture_details', ref_table = ad_image.RETS, ref_value = 'get_pos_pixel'}
+                }},
+            }
+        end
         if ad.video then
             ad_atlas.image = nil
             ad_image.video = love.graphics.newVideo(ad_atlas.video_stream, {dpiscale = 1})
@@ -154,15 +163,6 @@ function create_UIBox_ad(args)
         end
     end
 
-    if ad_corners_radius and ad_corners_radius > 0 then
-        ad_image:get_pos_pixel() -- Fix shader crash
-        ad_image:define_draw_steps {
-            { shader = 'hpot_ad', send = {
-                {name = 'image_details', ref_table = ad_image, ref_value = 'image_dims'},
-                {name = 'texture_details', ref_table = ad_image.RETS, ref_value = 'get_pos_pixel'}
-            }},
-        }
-    end
 
     local ad_content = {n=G.UIT.R, config = {colour = G.C.GREY, r = 0.3, align = 'cm'}, nodes = {
                         {n = G.UIT.O, config = {object = ad_image, r = 0.3}}
