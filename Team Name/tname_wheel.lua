@@ -45,19 +45,19 @@ function G.UIDEF.wheel()
   -- pain
   G.wheel_area = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area2 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area3 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area4 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area5 = CardArea(
     0, 0, 1, 1,
@@ -65,19 +65,19 @@ function G.UIDEF.wheel()
   )
   G.wheel_area6 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area7 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area8 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
   G.wheel_area9 = CardArea(
     0, 0, 1, 1,
-    { card_limit = 1, type = "consumeable", highlight_limit = 0 }
+    { card_limit = 1, type = "shop", highlight_limit = 0 }
   )
 
   local use_ante = Wheel.ante_left > 0
@@ -336,7 +336,6 @@ function update_wheel(dt) -- talen from plinko so idk
             if math.abs(G.wheel.T.y - G.wheel.VT.y) < 3 then
               G.ROOM.jiggle = G.ROOM.jiggle + 3
               play_sound('cardFan2')
-              local nosave_plinko = nil
               -- Back to shop button
               G.CONTROLLER:snap_to({ node = G.wheel:get_UIE_by_ID('shop_button') })
               set_wheel()
@@ -471,22 +470,33 @@ function set_wheel(no_arrow, vval_only)
       card.no_ui = true
     end
 
-    local wheel_areas2 = {
-      G.wheel_area,
-      G.wheel_area2,
-      G.wheel_area3,
-      G.wheel_area4,
-      G.wheel_area6,
-      G.wheel_area7,
-      G.wheel_area8,
-      G.wheel_area9,
+    --#region Load wheel rewards
+    local wheel_areas_colon_three = {
+      'wheel_area',
+      'wheel_area2',
+      'wheel_area3',
+      'wheel_area4',
+      'wheel_area6',
+      'wheel_area7',
+      'wheel_area8',
+      'wheel_area9',
     }
 
-    for k, v in pairs(wheel_areas2) do
-      if #v.cards == 0 then
-        generate_wheel_rewards(v)
+    if G.GAME.load_wheel_rewards then
+      -- Load cached rewards (they were removed to allow dupes in other instances)
+      for _, key in pairs(wheel_areas_colon_three) do
+        G[key]:load(G.GAME.load_wheel_rewards[key])
+      end
+
+    else
+      for _, v in pairs(wheel_areas_colon_three) do
+        local area = G[v]
+        if #area.cards == 0 then
+          generate_wheel_rewards(area)
+        end
       end
     end
+    --#endregion
 
     if not G.GAME.wheel_reset then
       G.GAME.wheel_reset = true
@@ -577,7 +587,7 @@ end
 function generate_wheel_rewards(_area)
     -- Logic for extra reward with that rarity is kinda ass
     -- didn't have time to think of something better
-    local reward = pseudorandom_element({"Joker", "Consumable", "Bottlecap"})
+    local reward = pseudorandom_element({"Joker", "Consumable", "Bottlecap"}, "hpot_arrows_rewards_type")
     if reward == "Bottlecap" then
         if next(find_joker("Tipping Point")) then
             G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
@@ -874,6 +884,33 @@ G.FUNCS.hide_wheel = function(e)
 
   stop_use()
 
+  --#region Destroy reward objects to allow copies in plinko / packs / etc.
+  local wheel_areas_colon_three = {
+    'wheel_area',
+    'wheel_area2',
+    'wheel_area3',
+    'wheel_area4',
+    'wheel_area6',
+    'wheel_area7',
+    'wheel_area8',
+    'wheel_area9',
+  }
+
+  G.GAME.load_wheel_rewards = {}
+  for _, key in pairs(wheel_areas_colon_three) do
+    local area = G[key]
+    local area_table = area:save()
+    if area_table then
+      G.GAME.load_wheel_rewards[key] = area_table
+      for i = #area.cards,1, -1 do
+        local c = area:remove_card(area.cards[i])
+        c:remove()
+      end
+    end
+
+  end
+  --#endregion
+
   G.STATE = G.STATES.SHOP
   G.STATE_COMPLETE = false
   ease_background_colour_blind(G.STATE)
@@ -900,3 +937,21 @@ function CardArea:draw(...)
   end
   return ca_dref(self, ...)
 end
+
+--[[
+local ca_rfh = CardArea.remove_from_highlighted
+function CardArea:remove_from_highlighted(card, ...)
+  if not card then
+    return
+  end
+  return ca_rfh(self, card, ...)
+end
+
+local card_highlight = Card.highlight
+function Card:highlight(...)
+  if self.area and #self.area.highlighted >= self.area.config.highlighted_limit then
+    return
+  end
+  return card_highlight(self, ...)
+end
+--[[]]
