@@ -86,6 +86,21 @@ function G.UIDEF.hotpot_jtem_shop_delivery_btn_component(btntype)
     }
 end
 
+function get_stickers(center)
+    local stickers = {}
+    for k, v in pairs(SMODS.Sticker.obj_table) do
+        if k ~= "eternal" and k ~= "rental" and k ~= "perishable" then
+            if pseudorandom("hpjtem_delivery_" .. k) < v.rate then
+                local sticker_compatible = v.default_compat
+                if sticker_compatible == nil then sticker_compatible = true end
+                if center[k.."_compat"] ~= nil then sticker_compatible = center[k.."_compat"] end
+                if sticker_compatible then stickers[#stickers + 1] = k end
+            end
+        end
+    end
+    return stickers
+end
+
 function G.UIDEF.hotpot_jtem_shop_delivery_btn()
     return {
         n = G.UIT.C,
@@ -299,6 +314,20 @@ local function hpot_create_joker_from_amazon(card, center)
     local credits = currency == "credits"
     local plincoin = currency == "plincoin"
     local jx = currency == "joker_exchange"
+    local stickers = get_stickers(center)
+    stickers[#stickers + 1] = should_spawn_with_rental and "rental" or nil
+    stickers[#stickers + 1] = should_spawn_with_eternal and "eternal" or nil
+    stickers[#stickers + 1] = should_spawn_with_perishable and "perishable" or nil
+    local create_card_args = {
+        hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
+            (not jx and poll_edition("hpjtem_delivery_edition")),
+        no_edition = jx or credits,
+        bypass_discovery_ui = true,
+        bypass_discovery_center = true,
+        stickers = stickers,
+        force_stickers = true
+    }
+    if create_card_args.hp_jtem_silent_edition == nil then create_card_args.hp_jtem_silent_edition = "e_base" end
     -- TODO: Needs tweaking. This isn't free joker simulator :V
     local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.52 + 0.84
     price_factor = price_factor * (should_spawn_with_eternal and 0.9 or 1) * (should_spawn_with_rental and 0.6 or 1) *
@@ -315,13 +344,7 @@ local function hpot_create_joker_from_amazon(card, center)
                 perishable = should_spawn_with_perishable,
                 perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
             },
-            create_card_args = {
-                hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
-                    (not jx and poll_edition("hpjtem_delivery_edition")),
-                no_edition = jx or credits,
-                bypass_discovery_ui = true,
-                bypass_discovery_center = true
-            }
+            create_card_args = create_card_args
         })
     else
         hotpot_jtem_add_to_offers(center.key, {
@@ -340,7 +363,13 @@ local function hpot_create_joker_from_amazon(card, center)
                     (not jx and poll_edition("hpjtem_delivery_edition")),
                 no_edition = jx or credits,
                 bypass_discovery_ui = true,
-                bypass_discovery_center = true
+                bypass_discovery_center = true,
+                stickers = {
+                    rental = should_spawn_with_rental,
+                    eternal = should_spawn_with_eternal,
+                    perishable = should_spawn_with_perishable,
+                    unpack(stickers)
+                }
             }
         })
     end
@@ -789,7 +818,7 @@ function hotpot_jtem_add_to_offers(key, args)
         price = value,
         currency = currency,
         extras = args.extras or {},
-        create_card_args = args.create_card_args or {},
+        create_card_args = args.create_card_args or {}
     }
     -- target patch for custom special deals
     G.GAME.round_resets.hp_jtem_special_offer = G.GAME.round_resets.hp_jtem_special_offer or {}
@@ -817,6 +846,10 @@ function hotpot_jtem_generate_special_deals(deals)
             true
         local should_spawn_with_perishable = center.perishable_compat and
             pseudorandom("hpjtem_delivery_perishable") < 0.1 and not should_spawn_with_eternal
+        local stickers = get_stickers(center)
+        stickers[#stickers + 1] = should_spawn_with_rental and "rental" or nil
+        stickers[#stickers + 1] = should_spawn_with_eternal and "eternal" or nil
+        stickers[#stickers + 1] = should_spawn_with_perishable and "perishable" or nil
         local currency = pseudorandom_element(currencies, pseudoseed("hpjtem_delivery_currency"))
         local price_factor = 0.8
         if currency == "joker_exchange" then
@@ -836,6 +869,16 @@ function hotpot_jtem_generate_special_deals(deals)
         local random_price_factor = pseudorandom("hpjtem_delivery_price_factor") * 0.28 + 0.87
         price_factor = price_factor * (should_spawn_with_eternal and 0.8 or 1) * (should_spawn_with_rental and 0.5 or 1) *
             (should_spawn_with_perishable and 0.3 or 1)
+        local create_card_args = {
+            hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
+                (not jx and poll_edition("hpjtem_delivery_edition")),
+            no_edition = jx or credits,
+            bypass_discovery_ui = true,
+            bypass_discovery_center = true,
+            stickers = stickers,
+            force_stickers = true
+        }
+    if create_card_args.hp_jtem_silent_edition == nil then create_card_args.hp_jtem_silent_edition = "e_base" end
         if center and center.credits then
             hotpot_jtem_add_to_offers(center.key, {
                 price = { currency = currency, value = math.ceil(center.credits / 7 * price_factor * random_price_factor) },
@@ -848,13 +891,7 @@ function hotpot_jtem_generate_special_deals(deals)
                     perishable = should_spawn_with_perishable,
                     perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
                 },
-                create_card_args = {
-                    hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
-                        (not jx and poll_edition("hpjtem_delivery_edition")),
-                    no_edition = jx or credits,
-                    bypass_discovery_ui = true,
-                    bypass_discovery_center = true
-                }
+                create_card_args = create_card_args
             })
         else
             hotpot_jtem_add_to_offers(center.key, {
@@ -868,13 +905,7 @@ function hotpot_jtem_generate_special_deals(deals)
                     perishable = should_spawn_with_perishable,
                     perish_tally = should_spawn_with_perishable and G.GAME.perishable_rounds,
                 },
-                create_card_args = {
-                    hp_jtem_silent_edition = plincoin and poll_edition("hpjtem_delivery_edition", nil, nil, true) or
-                        (not jx and poll_edition("hpjtem_delivery_edition")),
-                    no_edition = jx or credits,
-                    bypass_discovery_ui = true,
-                    bypass_discovery_center = true
-                }
+                create_card_args = create_card_args
             })
         end
     end
@@ -895,11 +926,11 @@ function hotpot_delivery_refresh_card()
         _c.ability.hp_delivery_obj = _obj
         local args = generate_currency_string_args(_c.ability.hp_jtem_currency_bought)
         hpot_jtem_create_delivery_boxes(_c, { { ref_table = temp_str, ref_value = 'str' } }, args)
-        if _obj.extras then
+        --[[if _obj.extras then
             for k, v in pairs(_obj.extras) do
                 _c.ability[k] = v
             end
-        end
+        end]]--
         G.hp_jtem_delivery_queue:emplace(_c)
     end
     for _, _obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
@@ -914,11 +945,11 @@ function hotpot_delivery_refresh_card()
         local args = generate_currency_string_args(_c.ability.hp_jtem_currency_bought)
         hpot_jtem_create_special_deal_boxes(_c,
             { { prefix = args.symbol, ref_table = _c.ability, ref_value = "hp_jtem_currency_bought_value" } }, args)
-        if _obj.extras then
+        --[[if _obj.extras then
             for k, v in pairs(_obj.extras) do
                 _c.ability[k] = v
             end
-        end
+        end]]--
         G.hp_jtem_delivery_special_deals:emplace(_c)
     end
 end
@@ -1002,11 +1033,11 @@ function hotpot_jtem_calculate_deliveries()
                     cct[k] = v
                 end
                 local c = SMODS.add_card(cct)
-                if delivery.extras then
+                --[[if delivery.extras then
                     for k, v in pairs(delivery.extras) do
                         c.ability[k] = v
                     end
-                end
+                end]]--
             else
                 ease_currency(delivery.currency, delivery.price)
                 --ease_dollars(delivery.price)
