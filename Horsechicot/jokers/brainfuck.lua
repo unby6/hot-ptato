@@ -34,6 +34,7 @@ SMODS.Joker {
                 return {
                     message = localize("k_hotpot_added"),
                     func = function()
+                        G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                         G.E_MANAGER:add_event(Event {
                             func = function()
                                 SMODS.add_card { key = "j_luchador" }
