@@ -42,6 +42,12 @@ SMODS.Back {
     discovered = true,
     skip_materialize = true,
     config = { stones = 30 },
+    hotpot_credits = {
+        art = { "LocalThunk", "John Rackham" },
+        code = { "deadbeet" },
+        team = { "Pissdrawer" },
+        idea = { "deadbeet" }
+    },
     apply = function(self, back)
         G.E_MANAGER:add_event(Event({
             func = function()

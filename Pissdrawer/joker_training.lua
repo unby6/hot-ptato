@@ -15,16 +15,17 @@ function hpot_joker_train_indicator_definition(stat, num, colours)
 end
 
 function move_train_text(node, positive)
+    ---@type UIElement
     local arrow = node.children[1]
     local number = node.children[2]
     local stat = node.children[3]
 
     if positive then
-        arrow:ease_move({x = 0, y = -0.75})
+        arrow:ease_move({x = 0, y = -0.75}, nil, nil, nil, nil, nil, nil, nil, "inexpo")
         number:ease_move({y = -0.5}, 25)
         stat:ease_move({y = -0.5}, 25)
     else
-        arrow:ease_move({x = 0, y = 0.75})
+        arrow:ease_move({x = 0, y = 0.75}, nil, nil, nil, nil, nil, nil, nil, "inexpo")
         number:ease_move({y = 0.5}, 25)
         stat:ease_move({y = 0.5}, 25)
     end

@@ -199,9 +199,9 @@ SMODS.Joker {
     eternal_compat = false,
     perishable_compat = true,
     loc_vars = function(self, info_queue, card)
-		local key
-		local fucking = G.GAME.seeded and "_budget" or ""
-		key = (self.key .. fucking)
+        local key
+        local fucking = G.GAME.seeded and "_budget" or ""
+        key = (self.key .. fucking)
         return {
             vars = {
                 card.ability.extra.credit_gain,
@@ -340,7 +340,7 @@ SMODS.Joker {
         text = { { "Happy Birthday, N'!" }, { 'Where would Jujutsu', 'Jokers be without you...' } }
     },
     hotpot_credits = {
-        idea = { "deadbeet" },
+        idea = { "deadbeet, BepisFever" },
         art = { "deadbeet" },
         code = { "deadbeet" },
         team = { "Pissdrawer" }
@@ -525,7 +525,6 @@ SMODS.Joker {
     cost = 8,
     calculate = function(self, card, context)
         if context.setting_blind then
-            
             local area = card.area or G.jokers
             local pos = find_self(card, area)
             if not pos then return end
