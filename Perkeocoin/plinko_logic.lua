@@ -58,9 +58,10 @@ end
 function PlinkoLogic.f.generate_rewards()
   -- Logic for extra reward with that rarity is kinda ass
   -- didn't have time to think of something better
-  if next(find_joker('Tipping Point')) then
-      G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + 1
-      G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - 1
+  local tipping_points = #find_joker('Tipping Point')
+  if tipping_points > 0 then
+      G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare + tipping_points
+      G.GAME.plinko_rewards.Common = PlinkoLogic.rewards.per_rarity.Common - tipping_points
       G.plinko_rewards.moving_pegs = true
   else
       G.GAME.plinko_rewards.Rare = PlinkoLogic.rewards.per_rarity.Rare
