@@ -589,54 +589,60 @@ end
 
 -- transformed the plinko one
 function generate_wheel_rewards(_area)
-    -- Logic for extra reward with that rarity is kinda ass
-    -- didn't have time to think of something better
-    local reward = pseudorandom_element({"Joker", "Consumable", "Bottlecap"}, "hpot_arrows_rewards_type")
-    if reward == "Bottlecap" then
+	-- Logic for extra reward with that rarity is kinda ass
+	-- didn't have time to think of something better
+	local reward = pseudorandom_element({ "Joker", "Consumable" }, "hpot_arrows_rewards_type")
+	if reward == "Joker" then
+		local acard = SMODS.create_card({
+			set = "Joker",
+		})
+		acard.states.click.can = false
+		_area:emplace(acard)
+	else
+		if reward == "Consumable" then
+			local allcons = {}
+			for k, _ in pairs(SMODS.ConsumableTypes) do
+				table.insert(allcons, k)
+			end
+			local sett = pseudorandom_element(allcons)
+			if sett == "bottlecap" then
+				local raritiy_table = {
+					["Bad"] = 1,
+					["Uncommon"] = 2,
+					["Common"] = 3,
+					["Rare"] = 1,
+				}
 
-        local rarities = {}
-        for rarity, amount in pairs(G.GAME.plinko_rewards) do
-            if type(amount) == "number" then 
-              rarities[#rarities + 1] = rarity
-            end
-        end
-        local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
-        if not rarity then
-            rarity = "Common"
-        end
-        local card = SMODS.create_card({
-            set = "bottlecap_" .. rarity,
-            rarity = rarity
-        })
-        if rarity == "Bad" then
-            card:set_edition("e_negative")
-        else
-            card:set_edition()
-        end
-        card.states.click.can = false
-        card.ability.extra.chosen = rarity
-        _area:emplace(card)
-    elseif reward == "Joker" then
-        local acard = SMODS.create_card({
-            set = "Joker"
-        })
+				local rarities = {}
+				for rarity, amount in pairs(raritiy_table) do
+					if type(amount) == "number" then
+						rarities[#rarities + 1] = rarity
+					end
+				end
+
+				local rarity = pseudorandom_element(rarities, "hpot_arrows_rewards")
+				local card = SMODS.create_card({
+					set = "bottlecap_" .. rarity,
+					rarity = rarity,
+				})
+				if rarity == "Bad" then
+					card:set_edition("e_negative")
+				else
+					card:set_edition()
+				end
+				card.states.click.can = false
+				card.ability.extra.chosen = rarity
+				_area:emplace(card)
+			else
+				local acard = SMODS.create_card({
+					set = sett,
+				})
         acard.states.click.can = false
-        _area:emplace(acard)
-    else
-        if reward == "Consumable" then
-            local allcons = {}
-            for k, _ in pairs(SMODS.ConsumableTypes) do
-                table.insert(allcons, k)
-            end
-            local sett = pseudorandom_element(allcons)
-            local acard = SMODS.create_card({
-                set = sett
-            })
+			  _area:emplace(acard)
+			end
 
-            acard.states.click.can = false
-            _area:emplace(acard)
-        end
-    end
+		end
+	end
 end
 
 
