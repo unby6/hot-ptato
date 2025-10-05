@@ -4,6 +4,20 @@ PissDrawer = {
 }
 PissDrawer.Shop = {}
 
+local menu = G.FUNCS.go_to_menu
+G.FUNCS.go_to_menu = function(e)
+    local ret = menu(e)
+    PissDrawer.Shop.active_tab = nil
+    return ret
+end
+
+local runstart = Game.start_run
+Game.start_run = function(self, args)
+    local ret = runstart(self, args)
+    PissDrawer.Shop.active_tab = nil
+    return ret
+end
+
 SMODS.Atlas({
     key = 'pissdrawer_shop',
     path = 'Pissdrawer/shop_buttons.png',

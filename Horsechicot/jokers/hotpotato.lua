@@ -51,7 +51,7 @@ SMODS.Joker {
                                 {
                                     n = G.UIT.T,
                                     config = {
-                                        text = ' ' .. localize(is_active and 'k_active' or 'Inactive') .. ' ',
+                                        text = ' ' .. localize(is_active and 'k_active' or 'k_inactive') .. ' ',
                                         colour = G.C.UI.TEXT_LIGHT,
                                         scale = 0.32 * 0.8
                                     }

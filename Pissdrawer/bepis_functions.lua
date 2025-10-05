@@ -71,23 +71,21 @@ function UIElement:ease_move(T, speed, queue, blocking, blockable, save_pos, tog
         func = function() 
             if not self or not self.T_destination then return true end
             for i,v in pairs(self.T_destination) do
-                if T_endtime[i] >= G.TIMERS.REAL then
-                    -- lerp ease position to new time
-                    local percent = math.abs((T_endtime[i] - G.TIMERS.REAL) / (T_endtime[i] - T_starttime[i]))
-                    -- prevent nan values
-                    -- there is no reason for this to be nan
-                    if percent ~= percent then percent = 0 end
-                    -- ease types
-                    percent = HotPotato.ease[ease_type](percent)
-                    --print("percent "..i..": "..percent)
-                    self.T_ease[i] = HotPotato.lerp(self.T_origin[i], self.T_destination[i], percent)
-                    self.T_percent[i] = percent
-                    --self.T_ease[i] = v/(speed or 10)
-                    if save_pos then
-                        local target = save_pos.ref_table[save_pos.ref_value]
-                        target = target or {x = 0, y = 0}
-                        target[i] = HotPotato.lerp(0, self.T_destination[i] - self.T_origin[i], percent)
-                    end
+                -- lerp ease position to new time
+                local percent =  T_endtime[i] >= G.TIMERS.REAL and (math.abs((T_endtime[i] - G.TIMERS.REAL) / (T_endtime[i] - T_starttime[i]))) or 0
+                -- prevent nan values
+                -- there is no reason for this to be nan
+                if percent ~= percent then percent = 0 end
+                -- ease types
+                percent = HotPotato.ease[ease_type](percent)
+                --print("percent "..i..": "..percent)
+                self.T_ease[i] = HotPotato.lerp(self.T_origin[i], self.T_destination[i], percent)
+                self.T_percent[i] = percent
+                --self.T_ease[i] = v/(speed or 10)
+                if save_pos then
+                    local target = save_pos.ref_table[save_pos.ref_value]
+                    target = target or {x = 0, y = 0}
+                    target[i] = HotPotato.lerp(0, self.T_destination[i] - self.T_origin[i], percent)
                 end
             end
             if funcs and type(funcs) == "table" then
@@ -98,7 +96,7 @@ function UIElement:ease_move(T, speed, queue, blocking, blockable, save_pos, tog
             self:align(self.T_ease.x - self.role.offset.x, self.T_ease.y - self.role.offset.y)
             local all_low = true
             for _,v in pairs(self.T_percent) do
-                if math.abs(v) < 0.99 then all_low = false; break end
+                if math.abs(v) > 0.01 then all_low = false; break end
             end
             if all_low then
                 self:align(self.T_destination.x - self.role.offset.x, self.T_destination.y - self.role.offset.y)
