@@ -55,8 +55,11 @@ return {
                 text = {
                     "{C:red}Remove ALL Credits{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:purple}c.#1#{} removed.",
-                    "{C:inactive}(Currently #3##2# Copies.)"
+                    "for every {C:purple}c.#1#{} removed,",
+                    "requirement increases by {C:purple}c.#4#{} per copy,",
+                    "max of #5# copies.",
+                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Copies do not have the same modifications as the copied joker.)"
                 }
             }, -- budgets
             c_hpot_justice_budget = {
@@ -114,7 +117,10 @@ return {
                     "{C:red}Remove ALL Budget{},",
                     "{C:attention}Create a negative copy of leftmost Joker{}",
                     "for every {C:attention}e.#1#{} removed.",
-                    "{C:inactive}(Currently #3##2# Copies.)"
+                    "requirement increases by {C:attention}e.#4#{} per copy,",
+                    "max of #5# copies.",
+                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Copies do not have the same modifications as the copied joker.)"
                 }
             },
         },

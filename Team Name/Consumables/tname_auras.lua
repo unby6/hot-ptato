@@ -350,6 +350,19 @@ SMODS.Consumable({
 		HPTN.ease_credits(hpt.credits, false)
 	end,
 })
+		local calc_amount_increased = function(amount, initial, scaling)
+			if amount < initial then
+				return 0
+			end
+			local alpha = initial
+			for i = 1, math.ceil(amount/initial) do
+				alpha = alpha + initial + scaling * i
+				if alpha > amount then
+					return i
+				end
+			end
+			return 1
+		end
 SMODS.Consumable({
 	key = "power",
 	set = "Aura",
@@ -360,7 +373,9 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			credits = 150
+			credits = 150,
+			increment = 30,
+			maximum = 15
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -371,8 +386,11 @@ SMODS.Consumable({
 		return {
 			vars = {
 				hpt.credits,
-				math.max(0, math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits)),
-				((math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits) < 0) and "") or "+" },
+				math.min(math.max(0, calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment)), hpt.maximum),
+				((math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits) < 0) and "") or "+",
+				hpt.increment,
+				hpt.maximum,
+			},
 				key = key
 		}
 	end,
@@ -383,11 +401,12 @@ SMODS.Consumable({
 		team = { "Team Name" },
 	},
 	can_use = function(self, card)
-		return ((#G.jokers.cards > 0) and ((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) > 0))
+		local hpt = card.ability.extra
+		return ((#G.jokers.cards > 0) and (calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment) > 0))
 	end,
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
-		local a = math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits)
+		local a = math.min(calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment))
 		HPTN.ease_credits(-(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits), false)
 		local target_card_key = G.jokers.cards[1].config.center.key
 		if target_card_key ~= nil then

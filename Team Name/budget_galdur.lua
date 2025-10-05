@@ -7,7 +7,7 @@ function Galdur.start_run(_quick_start)
     if not Galdur.run_setup.choices.seed_select or Galdur.run_setup.choices.seed == '' then
         Galdur.run_setup.choices.seed = nil 
     else
-        Galdur.run_setup.choices.budget = Galdur.run_setup.choices.budget_temp
+        Galdur.run_setup.choices.budget = tonumber(Galdur.run_setup.choices.budget_temp)
         Galdur.run_setup.choices.seed = Galdur.run_setup.choices.seed_temp
     end
     if _quick_start then
