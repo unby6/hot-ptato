@@ -333,6 +333,7 @@ function G.FUNCS.hotpot_training_grounds_train(e)
     local card = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1]
     if G.CONTROLLER.locks.hpot_training_grounds then return end
     if card and G.GAME and G.GAME.spark_points and G.GAME.spark_points >= G.GAME.spark_per_turn then
+        G.CONTROLLER.locks.hpot_training_grounds = true
         ease_currency("joker_exchange", -G.GAME.spark_per_turn)
         local joker_stats = card.ability.hp_jtem_stats
         local energy = card.ability.hp_jtem_energy
@@ -344,7 +345,6 @@ function G.FUNCS.hotpot_training_grounds_train(e)
             G.GAME.training_boost[train] = copy_table(G.training_boost["level_"..G.GAME.training_level[train]][train])
             ease_colour(G.C.training_colors[train], G.C.level_colors["level_"..G.GAME.training_level[train]])
         end
-        G.CONTROLLER.locks.hpot_training_grounds = true
         if failure_rate then
             if pseudorandom("hpot_fail_train") >= failure_rate and not card.ability.hpot_skip_fail_check then
                 local cost = calc_energy_cost(joker_stats,G.GAME.training_cost[train])
@@ -366,7 +366,12 @@ function G.FUNCS.hotpot_training_grounds_train(e)
         end
         G.E_MANAGER:add_event(Event{
             func = function()
-                G.CONTROLLER.locks.hpot_training_grounds = nil
+                G.E_MANAGER:add_event(Event{
+                    func = function()
+                        G.CONTROLLER.locks.hpot_training_grounds = nil
+                        return true
+                    end
+                })
                 return true
             end
         })
