@@ -294,7 +294,6 @@ function G.UIDEF.shop()
                     {n=G.UIT.R, config = {align = 'cm', colour = G.C.DYN_UI.MAIN, padding = 0.08, r = 0.1}, nodes = {
                         {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, r = 0.1, colour = G.C.DYN_UI.BOSS_MAIN}, nodes={
                             -- Currency container
-                            PissDrawer.Shop.help_button("wallet_explain"),
                             PissDrawer.Shop.currency_display(),
                             -- spacer
                             {n=G.UIT.R, config={minh = 0.2}},

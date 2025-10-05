@@ -991,6 +991,10 @@ end
 
 local update_shop_hook_to_create_cards = Game.update_shop
 function Game:update_shop()
+			if not G.GAME.hpot_currencies_have_been_shown then
+				open_hotpot_info("hotpot_wallet_explain")
+			end
+			G.GAME.hpot_currencies_have_been_shown = true
     if not self.HP_SHOP_CREATED_CARDS then
         self.HP_SHOP_CREATED_CARDS = true
         hotpot_jtem_init_extra_shops_area()
