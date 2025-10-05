@@ -4837,7 +4837,7 @@ return {
                         },
                         {
                             "You can spend {C:purple}Credits{} to add",
-                            "a {C:attention}modification{} to a Joker initially,",
+                            "a {C:attention}modification{} to a Joker,",
                             "though reforging with {C:attention}other currencies{}",
                             "can be unlocked with specific {C:attention}items{},",
                             "such as {C:attention}vouchers{}."
