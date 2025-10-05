@@ -60,6 +60,11 @@ end
 
 function HPTN.move_card(card, _area) -- Moving cards from one area to another easily
     local area = card.area
+    if area == G.jokers and _area ~= G.jokers then
+        card:remove_from_deck()
+    elseif _area == G.jokers and area ~= G.jokers then
+        card:add_to_deck()
+    end
 	if not card.getting_sliced then	
 		area:remove_card(card)
 		_area:emplace(card)
