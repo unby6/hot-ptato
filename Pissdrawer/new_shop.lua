@@ -813,7 +813,7 @@ function PissDrawer.Shop.create_nursery_buttons(card)
                     }}
                 }}
             }}
-        else
+        elseif not (card.area == G.nursery_mother and G.GAME.active_breeding) then
             buttons = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
                 {n=G.UIT.R, config = {align = 'cm', padding = 0.2}, nodes ={
                     {n=G.UIT.C, config = { ref_table = card, minw = 1.2, maxw = 1.2, padding = 0.1, align = 'bm', colour = G.C.RED,
@@ -824,6 +824,7 @@ function PissDrawer.Shop.create_nursery_buttons(card)
             }}
             y = 0.54 + (card.ability.is_nursery_smalled and 0.2 or 0)
         end
+        if not buttons then return end
 
         card.children.hp_nursery_buttons = UIBox {
             definition = buttons,
