@@ -223,11 +223,29 @@ end
 
 PissDrawer.Shop.change_shop_panel = function(shop_ui, pre, post, areas)
     local main_shop_body = G.shop:get_UIE_by_ID('main_shop_body')
+    -- stupid hack !! fix later properly
+    -- we were just at the nursery
+    -- save nursery cards, add them later again
+    local father, mother, child = nil, nil, nil
+    if main_shop_body.UIBox:get_UIE_by_ID("shop_nursery_father") then
+        -- better safe than sorry...
+        father = G.nursery_father.cards and G.nursery_father.cards[1]
+        mother = G.nursery_mother.cards and G.nursery_mother.cards[1]
+        child = G.nursery_child.cards and G.nursery_child.cards[1]
+        if father then father:remove_from_area() end
+        if mother then mother:remove_from_area() end
+        if child then child:remove_from_area() end
+    end
     main_shop_body:remove()
     if pre then pre() end
         main_shop_body.UIBox:add_child(shop_ui(), main_shop_body)
     if post then post(areas) end
     main_shop_body.UIBox:recalculate()
+    -- we have it back, put it back
+    if G.nursery_father and father then G.nursery_father:emplace(father) end
+    if G.nursery_mother and mother then G.nursery_mother:emplace(mother) end
+    -- fixme: the size of the child resets
+    if G.nursery_child and child then G.nursery_child:emplace(child) end
 end
 
 G.FUNCS.return_to_shop = function()
@@ -673,6 +691,12 @@ function PissDrawer.Shop.reload_shop_areas(keys)
             PissDrawer.Shop['load_'..key] = nil
         end
     end
+    -- annoyingly, sometimes the nursery child will not spawn even after the hacky fix at line 229
+    -- eremel pls fix this proper
+    if G.nursery_child and G.nursery_child.cards and #G.nursery_child.cards == 0 and G.stupidchild then
+        G.nursery_child:emplace(G.stupidchild)
+        G.stupidchild = nil
+    end
 end
 
 local pissdrawer_save_run = save_run
@@ -768,6 +792,12 @@ function PissDrawer.Shop.create_nursery_areas()
         math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
         1.05 * G.CARD_H,
         { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
+    -- Please come back...
+    G.stupidchild = nil
+    if G.nursery_child and G.nursery_child.cards and G.nursery_child.cards[1] then
+        G.stupidchild = G.nursery_child.cards[1]
+        G.stupidchild:remove_from_area()
+    end
     G.nursery_child = CardArea(
         G.hand.T.x + 1,
         G.hand.T.y + G.ROOM.T.y + 9,
@@ -1125,7 +1155,7 @@ function PissDrawer.Shop.nursery()
                             {n=G.UIT.C, config = {minw = 0.1}},
                             {n=G.UIT.C, config = {align='cm', padding = -1 * G.CARD_W}, nodes = {
                                 {n=G.UIT.O, config = {padding = -1, object = Sprite(0, 0, G.CARD_W, G.CARD_W, G.ASSET_ATLAS['hpot_nursery_icons_lblack'], { x = 1, y = 0 })}},
-                                {n=G.UIT.O, config = {padding = -1, object = G.nursery_father, align = "cm" }},
+                                {n=G.UIT.O, config = {padding = -1, object = G.nursery_father, align = "cm", id = "shop_nursery_father" }},
                             }}
                         }}
                     }},
@@ -1151,7 +1181,7 @@ function PissDrawer.Shop.nursery()
                             }},
                             {n=G.UIT.R, config = { align = "cm", colour = G.C.BLACK, r = 0.2, minw = G.CARD_W * 0.85, minh = G.CARD_H * 0.85 }, nodes = {
                                 {n=G.UIT.C, config = {align='cm', padding = -0.4}, nodes = {
-                                    {n=G.UIT.O, config = {object = G.nursery_child, align = "cm" }},
+                                    {n=G.UIT.O, config = {object = G.nursery_child, align = "cm", id = "shop_nursery_child" }},
                                 }},
                                 {n=G.UIT.C, config = {minw = 0.5}},
                             }}
@@ -1168,7 +1198,7 @@ function PissDrawer.Shop.nursery()
                                 {n=G.UIT.C, config = {minw = 0.1}},
                                 {n=G.UIT.C, config = {align='cm', padding = -1 * G.CARD_W}, nodes = {
                                     {n=G.UIT.O, config = {padding = -1, object = Sprite(0, 0, G.CARD_W, G.CARD_W, G.ASSET_ATLAS['hpot_nursery_icons_lblack'], { x = 0, y = 0 })}},
-                                    {n=G.UIT.O, config = {padding = -1, object = G.nursery_mother, align = "cm" }},
+                                    {n=G.UIT.O, config = {padding = -1, object = G.nursery_mother, align = "cm", id = "shop_nursery_mother" }},
                                 }},
                                 {n=G.UIT.C, config = {minw = 0.15}},
                             }},
