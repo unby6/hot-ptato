@@ -18,22 +18,25 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context) -- Everyone say thank you N for vanillaremade perkeo
         if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then
-            local eligible_cards = {}
+            local can_create = true
             for _, v in ipairs(G.consumeables.cards) do
-                if not v.edition or v.edition.key ~= "e_negative" then
-                    eligible_cards[#eligible_cards+1] = v
+                if v.edition and v.edition.key == "e_negative" then
+                    can_create = false
                 end
             end
-            if #eligible_cards >= card.ability.extra.consumable_req then
+            if can_create then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     func = (function()
-                        local card_to_copy, _ = pseudorandom_element(eligible_cards, 'hpot_magic_factory')
-                        local copied_card = copy_card(card_to_copy)
-                        copied_card:set_edition("e_negative", true)
-                        copied_card:add_to_deck()
-                        G.consumeables:emplace(copied_card)
-                        G.GAME.consumeable_buffer = 0
+			            local allcons = {}
+			            for k, _ in pairs(SMODS.ConsumableTypes) do
+		            		table.insert(allcons, k)
+			            end
+			            local sett = pseudorandom_element(allcons)
+		            	SMODS.add_card({
+		            		set = sett,
+                            edition = "e_negative"
+		            	})
                         return true
                     end)
                 }))
