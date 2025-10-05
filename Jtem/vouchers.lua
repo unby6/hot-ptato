@@ -47,6 +47,7 @@ SMODS.Voucher {
 	},
 	redeem = function(self, voucher)
 		G.GAME.hp_jtem_special_offer_count = (G.GAME.hp_jtem_special_offer_count or 3) + voucher.ability.extras.add
+        hotpot_jtem_init_extra_shops_area()
 		simple_add_event(
 			function ()
 				hotpot_jtem_generate_special_deals()
