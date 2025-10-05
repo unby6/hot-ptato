@@ -83,7 +83,7 @@ function PissDrawer.Shop.currency_display()
     })
     end
     return {
-        n = G.UIT.R,
+       n=G.UIT.R,
         config = { align = 'cm', colour = G.C.L_BLACK, r = 0.1, padding = 0.1 },
         nodes = {
             PissDrawer.Shop.currency_node({
@@ -103,10 +103,10 @@ function PissDrawer.Shop.currency_display()
             }),
             jank,
             {
-                n = G.UIT.C,
+               n=G.UIT.C,
                 config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1 },
                 nodes = {
-                    { n = G.UIT.O, config = { object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 }) } },
+                    {n=G.UIT.O, config = { object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 }) } },
                 }
             }
         }
@@ -193,6 +193,12 @@ G.FUNCS.open_exchange = function(e)
     e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2)
     PissDrawer.Shop.change_shop_sign("hpot_pissdrawer_shop_sign_currency")
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.currency_exchange)
+end
+
+G.FUNCS.open_nursery = function(e)
+    PissDrawer.Shop.active_tab = "hotpot_nursery"
+    PissDrawer.Shop.change_shop_sign('hpot_nursery_sign')
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.nursery, PissDrawer.Shop.create_nursery_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.nursery)
 end
 
 PissDrawer.Shop.change_shop_sign = function(atlas, sound)
@@ -302,25 +308,25 @@ function PissDrawer.Shop.main_shop()
         {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
             {n=G.UIT.C, config={align = "cm", padding = 0.1}, nodes={
                 {n=G.UIT.R,config={id = 'next_round_button', align = "cm", minw = 1.8, minh = 1.3, r=0.15,colour = G.C.RED, one_press = true, button = 'toggle_shop', hover = true,shadow = true}, nodes = {
-                {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
-                    {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
-                    {n=G.UIT.T, config={text = localize('b_next_round_1'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                    {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
+                            {n=G.UIT.T, config={text = localize('b_next_round_1'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                        }},
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
+                            {n=G.UIT.T, config={text = localize('b_next_round_2'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                        }}
                     }},
-                    {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
-                    {n=G.UIT.T, config={text = localize('b_next_round_2'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
-                    }}
                 }},
-                }},
-                {n=G.UIT.R, config={id = "shop_reroll", align = "cm", minw = 1.8, minh = 1.3, r=0.15, colour = G.C.GREEN, button = 'reroll_shop', func = 'can_reroll', hover = true,shadow = true}, nodes = {
-                {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
-                    {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
-                    {n=G.UIT.T, config={text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE, shadow = true}},
-                    }},
-                    {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
-                    {n=G.UIT.T, config={text = localize('$'), scale = 0.7, colour = G.C.WHITE, shadow = true}},
-                    {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
+                {n=G.UIT.R, config={id = 'shop_reroll', align = "cm", minw = 1.8, minh = 1.3, r=0.15,colour = G.C.GREEN, button = 'reroll_shop', func = 'can_reroll', hover = true,shadow = true}, nodes = {
+                    {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'x', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
+                            {n=G.UIT.T, config={text = localize('k_reroll'), scale = 0.4, colour = G.C.WHITE, shadow = true}},
+                        }},
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.3, minw = 1}, nodes={
+                            {n=G.UIT.T, config={text = localize('$'), scale = 0.7, colour = G.C.WHITE, shadow = true}},
+                            {n=G.UIT.T, config={ref_table = G.GAME.current_round, ref_value = 'reroll_cost', scale = 0.75, colour = G.C.WHITE, shadow = true}},
+                        }}
                     }}
-                }}
                 }},
             }},
             {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 8.0}, nodes={
@@ -335,7 +341,7 @@ function PissDrawer.Shop.main_shop()
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 1, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_nursery_button", button = 'show_nursery', shadow = true}, nodes = {
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_nursery_button", button = 'open_nursery', shadow = true}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 2, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
             }}
@@ -629,6 +635,9 @@ PissDrawer.Shop.area_keys.black_market = {
 PissDrawer.Shop.area_keys.training = {
     'train_jokers'
 }
+PissDrawer.Shop.area_keys.nursery = {
+    'nursery_father', 'nursery_mother', 'nursery_child'
+}
 
 local car = CardArea.remove
 function CardArea:remove()
@@ -653,7 +662,7 @@ function PissDrawer.Shop.reload_shop_areas(keys)
                 elseif key == 'hp_jtem_delivery_special_deals' then
                     local args = generate_currency_string_args(v.ability.hp_jtem_currency_bought)
                     hpot_jtem_create_special_deal_boxes(v, {{prefix = args.symbol, ref_table = v.ability, ref_value = "hp_jtem_currency_bought_value"}}, args)
-                elseif key == 'reforge_area' or key == 'train_jokers' then
+                elseif key == 'reforge_area' or key == 'train_jokers' or key == 'nursery_father' or key == 'nursery_mother' or key == 'nursery_child' then
                 elseif key == 'market_jokers' then
                     create_market_card_ui(v)
                 else
@@ -746,8 +755,88 @@ function PissDrawer.Shop.create_black_market_areas()
       { card_limit = G.GAME.shop.market_joker_max, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
 end
 
+function PissDrawer.Shop.create_nursery_areas()
+    G.nursery_father = CardArea(
+            G.hand.T.x - 1,
+            G.hand.T.y + G.ROOM.T.y + 9,
+            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+            1.05 * G.CARD_H,
+            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
+    G.nursery_mother = CardArea(
+        G.hand.T.x + 1,
+        G.hand.T.y + G.ROOM.T.y + 9,
+        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+        1.05 * G.CARD_H,
+        { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
+    G.nursery_child = CardArea(
+        G.hand.T.x + 1,
+        G.hand.T.y + G.ROOM.T.y + 9,
+        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W) * 0.75,
+        1.05 * G.CARD_H * 0.75,
+        { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true,})
+end
+
 SMODS.draw_ignore_keys.hpot_reforge_button = true
 SMODS.draw_ignore_keys.hpot_move_to_train = true
+SMODS.draw_ignore_keys.hp_nursery_buttons = true
+
+
+SMODS.Atlas({
+    key = 'nursery_icons',
+    path = 'PissDrawer/nursery_icons.png',
+    px = 49,
+    py = 49
+})
+
+SMODS.Atlas({
+    key = 'nursery_icons_lblack',
+    path = 'PissDrawer/nursery_icons_lblack.png',
+    px = 49,
+    py = 49
+})
+
+function PissDrawer.Shop.create_nursery_buttons(card)
+    if card.highlighted then
+        if card.children.hp_nursery_buttons then card.children.hp_nursery_buttons:remove() end
+        local buttons
+        local y = 0.84
+        if card.area ~= G.nursery_father and card.area ~= G.nursery_mother and card.area ~= G.nursery_child then
+            buttons = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
+                {n=G.UIT.R, config = {align = 'cm', padding = 0.2}, nodes ={
+                    {n=G.UIT.C, config = { ref_table = card, minw = 0.6, maxw = 0.6, padding = 0.1, align = 'bm', colour = lighten(G.C.BLUE, 0.2),
+                    shadow = true, r = 0.08, minh = 1.2, func = 'nursery_father', button = 'nursery_father_button', hover = true }, nodes = {
+                        {n=G.UIT.O, config = {object = Sprite(0, 0, 0.5, 0.5, G.ASSET_ATLAS['hpot_nursery_icons'], { x = 1, y = 0 })}},
+                    }},
+                    {n=G.UIT.C, config = { ref_table = card, minw = 0.6, maxw = 0.6, padding = 0.1, align = 'bm', colour = lighten(G.C.RED, 0.2),
+                    shadow = true, r = 0.08, minh = 1.2, func = 'nursery_mother', button = 'nursery_mother_button', hover = true }, nodes = {
+                        {n=G.UIT.O, config = {object = Sprite(0, 0, 0.5, 0.5, G.ASSET_ATLAS['hpot_nursery_icons'], { x = 0, y = 0 })}},
+                    }}
+                }}
+            }}
+        else
+            buttons = {n=G.UIT.ROOT, config = {colour = G.C.CLEAR}, nodes ={
+                {n=G.UIT.R, config = {align = 'cm', padding = 0.2}, nodes ={
+                    {n=G.UIT.C, config = { ref_table = card, minw = 1.2, maxw = 1.2, padding = 0.1, align = 'bm', colour = G.C.RED,
+                    shadow = true, r = 0.08, minh = 0.94, button = 'nursery_remove', hover = true }, nodes = {
+                        {n=G.UIT.T, config = { text = 'REMOVE', colour = G.C.WHITE, scale = 0.3 } }
+                    }}
+                }}
+            }}
+            y = 0.54 + (card.ability.is_nursery_smalled and 0.2 or 0)
+        end
+
+        card.children.hp_nursery_buttons = UIBox {
+            definition = buttons,
+            config = {
+                align = "bmi",
+                offset = { x = 0, y = y },
+                parent = card
+            }
+        }
+    elseif card.children.hp_nursery_buttons then
+        card.children.hp_nursery_buttons:remove()
+    end
+end
 
 function PissDrawer.Shop.create_delivery_order_button(card)
     if card.highlighted then
@@ -815,9 +904,22 @@ function Card:highlight(highlighted)
     elseif self.area == G.hp_jtem_delivery_queue then
         PissDrawer.Shop.create_delivery_refund_button(self)
     end
-    if not self.highlighted and self.children.hpot_reforge_button then
-        self.children.hpot_reforge_button:remove()
-        self.children.hpot_reforge_button = nil
+    if not self.highlighted then
+        if self.children.hpot_reforge_button then
+            self.children.hpot_reforge_button:remove()
+            self.children.hpot_reforge_button = nil
+        end
+        if self.children.hp_nursery_buttons then
+            self.children.hp_nursery_buttons:remove()
+            self.children.hp_nursery_buttons = nil
+        end
+        if self.children.hpot_move_to_train then
+            self.children.hpot_move_to_train:remove()
+            self.children.hpot_move_to_train = nil
+        end
+    end
+    if self.highlighted and PissDrawer.Shop.active_tab == 'hotpot_nursery' and self.ability.set == 'Joker' then
+        PissDrawer.Shop.create_nursery_buttons(self)
     end
     if self.highlighted and PissDrawer.Shop.active_tab == 'hotpot_shop_tab_hotpot_tname_toggle_reforge' and self.ability.set == 'Joker' then
         self.children.hpot_reforge_button = UIBox{
@@ -828,10 +930,6 @@ function Card:highlight(highlighted)
             parent = self
             }
         }
-    end
-    if not self.highlighted and self.children.hpot_move_to_train then
-        self.children.hpot_move_to_train:remove()
-        self.children.hpot_move_to_train = nil
     end
     if self.highlighted and PissDrawer.Shop.active_tab == 'hotpot_shop_tab_hotpot_pissdrawer_toggle_training' and self.ability.hp_jtem_mood and self.ability.set == 'Joker' then
         self.children.hpot_move_to_train = UIBox{
@@ -1008,4 +1106,194 @@ function format_ui_value(value)
         end
     end
     return ret
+end
+
+function PissDrawer.Shop.nursery()
+    return 
+    {n=G.UIT.C, config = { align = 'tm', minh = 8, colour = G.C.CLEAR }, nodes = {
+        PissDrawer.Shop.help_button('hpot_nursery_tutorial'),
+        {n=G.UIT.R, config={align='cm', colour = G.C.L_BLACK, padding = 0.1, r=0.1}, nodes = {
+
+            {n=G.UIT.R, config={align = 'cm', colour = G.C.BLACK, r=0.1, padding = 0.2}, nodes = {
+                {n=G.UIT.C, config = {align = 'tm', minh = 5, colour = G.C.BLACK, r=0.1}, nodes = {
+                    {n=G.UIT.C, config = { align = "tm", colour = G.C.L_BLACK, padding = 0.2, maxh = 3, minw = 2.3, minh = 1.9, r = 0.2 }, nodes = {
+                        {n=G.UIT.R, config = { align = "cm", minw = G.CARD_W }, nodes = {
+                            {n=G.UIT.T, config = { text = localize('nursery_father'), scale = 1.3, colour = G.C.BLACK } },
+                        }},
+                        {n=G.UIT.R, config = { align = "cm", colour = G.C.BLACK, minh = G.CARD_H, r = 0.2}, nodes = {
+                            {n=G.UIT.C, config = {minw = 0.1}},
+                            {n=G.UIT.C, config = {align='cm', padding = -1 * G.CARD_W}, nodes = {
+                                {n=G.UIT.O, config = {padding = -1, object = Sprite(0, 0, G.CARD_W, G.CARD_W, G.ASSET_ATLAS['hpot_nursery_icons_lblack'], { x = 1, y = 0 })}},
+                                {n=G.UIT.O, config = {padding = -1, object = G.nursery_father, align = "cm" }},
+                            }}
+                        }}
+                    }},
+                }},
+                {n=G.UIT.C, config = {align = 'bm', minh = 5, colour = G.C.BLACK, r=0.1}, nodes = {
+                    {n=G.UIT.R, config = {align = 'cm', padding = -0.2}, nodes = {
+                        {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                            {n=G.UIT.R, config = {minh = 1.2, minw = 1, align = 'cm', padding = 0.1}, nodes = {
+                                {n=G.UIT.R, config = {maxw = 2, minw = 2, minh = 0.8, maxh = 0.8, padding = 0.1, r = 0.1, emboss = 0.1, align = 'cm', button = 'nursery_breed', func = 'nursery_ready', colour = G.C.GREEN}, nodes = {
+                                    {n=G.UIT.T, config = {ref_table = PissDrawer.Shop, ref_value = 'nursery_text', scale = 0.5, colour = G.C.WHITE}}
+                                }}
+                            }},
+                            {n=G.UIT.R, config = {maxh = 0.05, minh = 0.05, minw = 2.9, colour = G.C.L_BLACK}},
+                            {n=G.UIT.R, config = {minh = 1.2, maxh = 1.2, maxw = 0.05, minw = 0.05, align = 'cm'}, nodes = {
+                                {n=G.UIT.C, config = {maxw = 0.05, minw = 0.05, minh = 1.4, colour = G.C.L_BLACK}}
+                            }},
+                        }},
+                    }},
+                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {                        
+                        {n=G.UIT.C, config = { align = "bm", colour = G.C.L_BLACK, padding = 0.2, maxh = 3 * 0.85, minw = 2.3 * 0.85, maxw = 2.3 * 0.85, minh = 1.9 * 0.85, r = 0.2 }, nodes = {
+                            {n=G.UIT.R, config = { align = "cm", }, nodes = {
+                                {n=G.UIT.T, config = { text = localize('nursery_child'), scale = 0.4, colour = G.C.BLACK } },
+                            }},
+                            {n=G.UIT.R, config = { align = "cm", colour = G.C.BLACK, r = 0.2, minw = G.CARD_W * 0.85, minh = G.CARD_H * 0.85 }, nodes = {
+                                {n=G.UIT.C, config = {align='cm', padding = -0.4}, nodes = {
+                                    {n=G.UIT.O, config = {object = G.nursery_child, align = "cm" }},
+                                }},
+                                {n=G.UIT.C, config = {minw = 0.5}},
+                            }}
+                        }},
+                    }}
+                }},
+                {n=G.UIT.C, config = {align = 'tm', minh = 5, colour = G.C.BLACK, r=0.1}, nodes = {
+                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                        {n=G.UIT.C, config = { align = "tm", colour = G.C.L_BLACK, padding = 0.2, maxh = 3, minw = 2.3, minh = 1.9, r = 0.2 }, nodes = {
+                            {n=G.UIT.R, config = { align = "cm", minw = G.CARD_W }, nodes = {
+                                {n=G.UIT.T, config = { text = localize('nursery_mother'), scale = 1.3, colour = G.C.BLACK } },
+                            }},
+                            {n=G.UIT.R, config = { align = "cm", colour = G.C.BLACK, minh = G.CARD_H, r = 0.2}, nodes = {
+                                {n=G.UIT.C, config = {minw = 0.1}},
+                                {n=G.UIT.C, config = {align='cm', padding = -1 * G.CARD_W}, nodes = {
+                                    {n=G.UIT.O, config = {padding = -1, object = Sprite(0, 0, G.CARD_W, G.CARD_W, G.ASSET_ATLAS['hpot_nursery_icons_lblack'], { x = 0, y = 0 })}},
+                                    {n=G.UIT.O, config = {padding = -1, object = G.nursery_mother, align = "cm" }},
+                                }},
+                                {n=G.UIT.C, config = {minw = 0.15}},
+                            }},
+                        }},
+                    }},
+                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                        {n=G.UIT.C, config = {align = 'cm', padding = -0.15, func = 'nursery_progress'}, nodes = {
+                            {n=G.UIT.R, config = {padding = 0.1, colour = G.C.L_BLACK, r = 0.1, align = 'cm'}, nodes = {
+                                {n=G.UIT.R, config = {minw = G.CARD_W * 0.85, maxw = G.CARD_W * 0.85, minh = 0.15, r = 0.025, colour = G.C.BLACK,
+                                progress_bar = {
+                                    max = G.GAME.quick_preggo and 2 or 3, ref_table = G.GAME, ref_value = 'breeding_rounds_passed', empty_col = G.C.BLACK, filled_col = adjust_alpha(G.C.HPOT_PINK, 0.5)
+                                }}}
+                            }}
+                        }}
+                    }}
+                }}
+            }}
+        }}
+    }}
+end
+
+G.FUNCS.nursery_progress = function(e)
+    if G.GAME.active_breeding then
+        e.children[1].children[1].config.progress_bar.empty_col = G.C.BLACK
+        e.children[1].config.colour = G.C.L_BLACK
+    else
+        e.children[1].children[1].config.progress_bar.empty_col = G.C.CLEAR
+        e.children[1].config.colour = G.C.CLEAR
+    end
+end
+
+G.FUNCS.nursery_father = function(e)
+    if #G.nursery_father.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then 
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = lighten(G.C.BLUE, 0.2)
+        e.config.button = 'nursery_father_button'
+    end
+end
+
+G.FUNCS.nursery_mother = function(e)
+    if #G.nursery_mother.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then 
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = lighten(G.C.RED, 0.2)
+        e.config.button = 'nursery_mother_button'
+    end
+end
+
+G.FUNCS.nursery_father_button = function(e)
+    if #G.nursery_father.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
+    HPTN.move_card(e.config.ref_table, G.nursery_father)
+end
+
+G.FUNCS.nursery_mother_button = function(e)
+    if #G.nursery_mother.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
+    HPTN.move_card(e.config.ref_table, G.nursery_mother)
+end
+
+G.FUNCS.nursery_ready = function(e)
+    if #G.nursery_father.cards == 1 and #G.nursery_mother.cards == 1 and #G.nursery_child.cards == 0 and not G.GAME.active_breeding then
+        e.config.colour = G.C.HPOT_PINK
+        e.children[1].config.colour = G.C.WHITE
+        PissDrawer.Shop.nursery_text = localize('nursery_breed')
+        e.config.button = 'nursery_breed'
+        e.config.hover = true
+    else
+        if G.GAME.active_breeding then
+            e.config.colour = G.C.ETERNAL
+            e.children[1].config.colour = G.C.WHITE
+            PissDrawer.Shop.nursery_text = localize('nursery_abort')
+            e.config.button = 'nursery_abort'          
+            e.config.hover = false
+        else
+            e.config.colour = G.C.BLACK
+            e.children[1].config.colour = G.C.L_BLACK
+            PissDrawer.Shop.nursery_text = localize('nursery_breed')
+            e.config.button = nil
+            e.config.hover = false
+        end
+    end
+end
+
+G.FUNCS.nursery_remove = function(e)
+    if G.FUNCS.check_for_buy_space(e.config.ref_table) then
+        HPTN.move_card(e.config.ref_table, G.jokers)
+    end
+end
+
+
+G.FUNCS.training_emplace = function ()
+    if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
+        local c = G.jokers.highlighted[1]
+        c.children.hpot_move_to_train:remove()
+        c.children.hpot_move_to_train = nil
+        HPTN.move_card(c, G.train_jokers)
+    end
+end
+
+G.FUNCS.training_return = function ()
+    if G.train_jokers and G.train_jokers.cards then
+        if #G.train_jokers.cards > 0 and G.FUNCS.check_for_buy_space(G.train_jokers.cards[1]) then
+            G.train_jokers.cards[1].children.hpot_move_to_train:remove()
+            G.train_jokers.cards[1].children.hpot_move_to_train = nil
+            HPTN.move_card(G.train_jokers.cards[1], G.jokers)
+        end
+    end
+end
+
+function G.FUNCS.can_emplace_training(e)
+    if e.config.ref_table.area == G.jokers then
+        e.children[1].config.text = localize('hotpot_go_train')
+        e.children[1].config.scale = 0.4
+        if G.train_jokers and G.train_jokers.cards and #G.train_jokers.cards > 0 then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.BLUE
+            e.config.button = 'training_emplace'
+        end
+    else
+        e.children[1].config.text = localize('hotpot_leave_train')
+        e.children[1].config.scale = 0.3
+        e.config.colour = G.C.BLUE
+        e.config.button = 'training_return'
+    end
 end

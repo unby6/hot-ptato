@@ -255,7 +255,7 @@ end
 local calc_effect = SMODS.calculate_effect
 function SMODS.calculate_effect(effect, card, ...)
     effect = PissDrawer.replace_quantum(effect)
-    if card.quantum then card = card.quantum end
+    if card and card.quantum then card = card.quantum end
     return calc_effect(effect, card, ...)
 end
 

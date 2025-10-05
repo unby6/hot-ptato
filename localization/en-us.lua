@@ -5268,6 +5268,11 @@ return {
             hpot_training_failure = ' Failure',
             hotpot_go_train = 'TRAIN',
             hotpot_leave_train = 'RETURN',
+            nursery_breed = 'Breed',
+            nursery_abort = 'Abort',
+            nursery_father = 'FATHER',
+            nursery_mother = 'MOTHER',
+            nursery_child = 'CHILD',
 
             k_plinko = "Plinko",
             k_wheel = "Wheel",

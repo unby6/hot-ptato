@@ -18,20 +18,6 @@ end
 match_indent = true
 
 
-# Game:update
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-position = 'before'
-pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
-payload = '''
-if self.STATE == self.STATES.NURSERY then
-  update_nursery(dt)
-end
-
-'''
-match_indent = true
-
 # Stop shop from re-appearing after consumable was used
 [[patches]]
 [patches.pattern]

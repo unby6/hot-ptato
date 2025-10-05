@@ -17,5 +17,6 @@ SMODS.DrawStep {
 		if self.children.hpot_train_button and self.highlighted then self.children.hpot_train_button:draw() end
         if self.children.hpot_reforge_button and self.highlighted then self.children.hpot_reforge_button:draw() end
         if self.children.hpot_move_to_train and self.highlighted then self.children.hpot_move_to_train:draw() end
+        if self.children.hp_nursery_buttons and self.highlighted then self.children.hp_nursery_buttons:draw() end
 	end,
 }

@@ -132,7 +132,7 @@ SMODS.DrawStep({ -- drawstep like stickers
 	key = "modifications2",
 	order = 39,
 	func = function(self, layer)
-	if self.children.center.scale.y >= 95 and self.children.center.scale.x >= 71 then
+	if (self.children.center.scale.y + 0) >= 95 and (self.children.center.scale.x + 0) >= 71 then
 		if self.modif and G.modif_corner[self.modif] then
 			G.modif_corner[self.modif].role.draw_major = self
 			G.modif_corner[self.modif]:draw_shader("dissolve", nil, nil, nil, self.children.center)
