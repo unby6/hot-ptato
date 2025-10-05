@@ -4806,11 +4806,11 @@ return {
                         },
                         {
                             "{C:hpot_plincoin}Plincoins{} are gained {C:attention}once a round at the cashout{},",
-                            "they can be used for {C:attention}plinko{}."
+                            "they can be used for {C:attention}plinko{} and {C:attention}delivery{}."
                         },
                         {
                             "{C:hpot_advert}Cryptocurrency{} are gained through {C:attention}harvesting organs{},",
-                            "they can be used in the {C:attention}black market{}."
+                            "they can be used in the {C:attention}black market{} and {C:attention}delivery{}."
                         },
                         {
                             "{C:blue}Jicks{} are gained through {C:attention}exchanging currency{},",
@@ -4819,7 +4819,7 @@ return {
                         {
                             "{C:purple}Credits{} are gained through {C:attention}Auras{},",
                             "they are {C:attention}kept between runs{} and",
-                            "can be used for {C:attention}wheel{} and {C:attention}reforging{}."
+                            "can be used for {C:attention}wheel{}, {C:attention}reforging{} and {C:attention}delivery{}."
                         },
                     }
                 },
