@@ -1656,7 +1656,7 @@ return {
                 text = {
                     "This Joker gains {C:mult}+#1#{} Mult",
                     "everytime it is in a {C:attention}unique{} Joker",
-                    "position when the round ends",
+                    "position at end of round",
                     "{C:red}Resets{} when all positions used",
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)",
                     "{C:inactive}(Slots left: {C:attention}#4#{}{C:inactive})"
@@ -5219,6 +5219,7 @@ return {
             k_changedperson = "Changed!",
             hpot_infected_ex = "Infected!",
             hpot_redirect_ex = "Redirect!",
+            k_inactive = "Inactive",
 
             hpot_credit_text = "Credits:",
 
