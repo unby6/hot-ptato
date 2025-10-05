@@ -492,7 +492,7 @@ function update_plinko(dt)
                                     G.load_plinko_rewards = nil
                                     PlinkoUI.f.adjust_rewards()
                                 else
-                                  PlinkoUI.f.update_plinko_rewards()
+                                  PlinkoUI.f.update_plinko_rewards(true)
                                 end
 
                             end
