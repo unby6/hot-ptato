@@ -4926,10 +4926,11 @@ return {
                     text = {
                         {
                             "{C:hpot_pink}Breed{} your {C:attention}Jokers{} to make powerful children!",
-                            "Combine two {C:attention}Jokers to make a child with both abilities.",
+                            "Combine two {C:attention}Jokers{} to make a child with both abilities.",
                         },
                         {
                             "{C:hpot_pink}Breed{} two {C:attention}Jokers{} by putting them in the {C:blue}father{} and {C:hpot_pink}mother{} slots.",
+                            "{C:inactive,s:0.7}This is done by clicking your Joker and pressing the male or female icon.",
                             "When you hit the {C:hpot_pink}Breed{} button, the {C:hpot_pink}mother{} will be impregnated."
                         },
                         {
