@@ -1113,7 +1113,7 @@ return {
                 name = "Nxkoo found dead",
                 text = {
                     "For every {C:attention}#1#{} Nxkoo's killed",
-                    "this Joker gains {X:mult,C:white}X#2#{}",
+                    "this Joker gains {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Max of {X:mult,C:white}X15{C:inactive} Mult)",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
                 }

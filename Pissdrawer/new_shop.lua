@@ -1221,12 +1221,12 @@ G.FUNCS.nursery_mother = function(e)
 end
 
 G.FUNCS.nursery_father_button = function(e)
-    if #G.nursery_father.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
+    if (not G.nursery_father.cards) or #G.nursery_father.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
     HPTN.move_card(e.config.ref_table, G.nursery_father)
 end
 
 G.FUNCS.nursery_mother_button = function(e)
-    if #G.nursery_mother.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
+    if (not G.nursery_father.cards) or #G.nursery_mother.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
     HPTN.move_card(e.config.ref_table, G.nursery_mother)
 end
 
