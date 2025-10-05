@@ -60,7 +60,7 @@ local function hp_jtem_buy_jx_individual( b_type, index )
                     maxw = 1.8, colours = {G.C.WHITE}, font = SMODS.Fonts.hpot_plincoin, shadow = true, scale = 0.3})}}
             }},
             {n=G.UIT.R, config = { align = "cm", maxw = 1.8 }, nodes = numbertext},
-            {n=G.UIT.R, config = {maxh = 0.75, minh = 0.55, maxw = 1.8, align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_button', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out[1] + first_time_bonus, args = args}, hover = true, colour = args.colour, font = args.font, padding = 0.05, r = 0.05,minw = 1.8}, nodes = {
+            {n=G.UIT.R, config = {maxh = 0.75, minh = 0.55, maxw = 1.8, align = "cm", func = "hpot_can_buy_jx_screen", button = 'hpot_buy_jx_screen', shadow = true, ref_table = {currency = b_type, take = price, gives = gives_out[1] + first_time_bonus, args = args, first_time_bonus = first_time_bonus > 0}, hover = true, colour = args.colour, font = args.font, padding = 0.05, r = 0.05,minw = 1.8}, nodes = {
                 -- {n=G.UIT.T, config = { text = args.symbol..price_display, colour = G.C.WHITE, scale = 0.3, font = args.font }}
                 {n=G.UIT.O, config={object = DynaText({string = {args.symbol..price_display},
                         maxw = 1.8, colours = {G.C.WHITE}, font = args.font, shadow = true, scale = 0.35})}}
@@ -87,6 +87,9 @@ G.FUNCS.hpot_buy_jx_screen = function (e)
     G.GAME.jp_jtem_has_ever_bought_jx = true
     ease_currency(buy_table.currency,-buy_table.take)
     ease_spark_points(buy_table.gives)
+    if buy_table.first_time_bonus and G.shop then
+        PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.currency_exchange)
+    end
     -- Wtf is this?
     --[[local disp = e.parent.UIBox:get_UIE_by_ID('exchange_UI')
     if disp then

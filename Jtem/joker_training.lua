@@ -201,13 +201,12 @@ local function create_stat_display(stat, values, multipliers)
 		subcol = G.C.HP_JTEM.RANKS[subrank == "S" and "SS" or subrank] or G.C.UI.TEXT_DARK
 	end
 	return {
-
 		n = G.UIT.R,
-		config = { align = "cm", padding = 0.1 },
+		config = { align = "cm" },
 		nodes = {
 			{
 				n = G.UIT.C,
-				config = { align = "cm", padding = 0.02 },
+				config = { align = "cm" },
 				nodes = {
 					{
 						n = G.UIT.R,
@@ -230,24 +229,27 @@ local function create_stat_display(stat, values, multipliers)
 					}
 				}
 			},
+            { n = G.UIT.C, config = { minw = 0.05 }},
 			{
 				n = G.UIT.C,
-				config = { align = "cm", padding = 0.02 },
+				config = { align = "cm" },
 				nodes = {
 					{
 						n = G.UIT.R,
 						config = { align = "cm" },
 						nodes = {
-							{ n = G.UIT.T, config = { ref_table = values, ref_value = stat, scale = 0.425, colour = G.C.UI.TEXT_DARK, shadow = true } },
+							{ n = G.UIT.T, config = { ref_table = values, ref_value = stat, scale = 0.425, colour = G.C.UI.TEXT_DARK } },
 						}
 					},
+                    { n = G.UIT.R, config = { minh = 0.02 } },
 					{
 						n = G.UIT.R,
 						config = { align = "cm" },
 						nodes = {
-							{ n = G.UIT.T, config = { text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK, shadow = true } },
+							{ n = G.UIT.T, config = { text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK } },
 						}
 					},
+                    { n = G.UIT.R, config = { minh = 0.02 } },
 					-- stat multiplier
 					{
 						n = G.UIT.R,

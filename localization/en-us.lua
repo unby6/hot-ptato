@@ -1433,9 +1433,9 @@ return {
             j_hpot_jankman = {
                 name = "JankMan",
                 text = {
-                    "{C:inactive}hahahahaha, im jankman!",
-                    "{X:mult,C:white}#1#X{} Mult per sticker on this Joker",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+                    "{C:inactive}hahahahaha, im jankMan!",
+                    "{X:mult,C:white}#1#X{} {C:green}mult{} per {C:purple}sticker{} {C:attention}on{} {C:edition}this Joker{}",
+                    "{C:inactive}(Currently{X:mult,C:white}X#2#{C:inactive} mjult)"
                 }
             },
             j_hpot_aurae_joker = {

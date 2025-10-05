@@ -487,6 +487,7 @@ function set_wheel(no_arrow, vval_only)
       for _, key in pairs(wheel_areas_colon_three) do
         G[key]:load(G.GAME.load_wheel_rewards[key])
       end
+      G.GAME.load_wheel_rewards = nil
 
     else
       for _, v in pairs(wheel_areas_colon_three) do
