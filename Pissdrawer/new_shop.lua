@@ -198,7 +198,7 @@ end
 G.FUNCS.open_nursery = function(e)
     PissDrawer.Shop.active_tab = "hotpot_nursery"
     PissDrawer.Shop.change_shop_sign('hpot_nursery_sign')
-    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.nursery, function() end, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.nursery)
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.nursery, PissDrawer.Shop.create_nursery_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.nursery)
 end
 
 PissDrawer.Shop.change_shop_sign = function(atlas, sound)
@@ -753,6 +753,27 @@ function PissDrawer.Shop.create_black_market_areas()
       math.min(G.GAME.shop.market_joker_max * 1.02 * G.CARD_W, 4.08 * G.CARD_W),
       1.05 * G.CARD_H,
       { card_limit = G.GAME.shop.market_joker_max, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
+end
+
+function PissDrawer.Shop.create_nursery_areas()
+    G.nursery_father = CardArea(
+            G.hand.T.x - 1,
+            G.hand.T.y + G.ROOM.T.y + 9,
+            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+            1.05 * G.CARD_H,
+            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
+    G.nursery_mother = CardArea(
+        G.hand.T.x + 1,
+        G.hand.T.y + G.ROOM.T.y + 9,
+        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+        1.05 * G.CARD_H,
+        { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
+    G.nursery_child = CardArea(
+        G.hand.T.x + 1,
+        G.hand.T.y + G.ROOM.T.y + 9,
+        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W) * 0.75,
+        1.05 * G.CARD_H * 0.75,
+        { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true,})
 end
 
 SMODS.draw_ignore_keys.hpot_reforge_button = true
