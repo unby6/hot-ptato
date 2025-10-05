@@ -285,6 +285,18 @@ function G.UIDEF.shop()
     end
 
 function PissDrawer.Shop.main_shop()
+    -- Reroll button for unknown goddamn reason just stuck, so I'll unstuck it
+    G.E_MANAGER:add_event(Event({
+        blocking = false,
+        no_delete = true,
+        func = function()
+            local reroll = G.shop and G.shop:get_UIE_by_ID('shop_reroll')
+                if reroll and reroll.UIBox then
+                reroll.UIBox:recalculate()
+            end
+            return true
+        end,
+    }))
     return
     {n=G.UIT.C, nodes = {
         {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
