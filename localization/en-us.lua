@@ -122,29 +122,29 @@ return {
             c_hpot_pine_1 = {
                 name = "Crane (Pine)",
                 text = {
-                    "Apply {C:attention}Fragile{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Fragile{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_pine_2 = {
                 name = "Poetry Ribbon (Pine)",
                 text = {
-                    "Apply {C:attention}Fragile{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Fragile{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_pine_3 = {
                 name = "Pine Plain",
                 text = {
-                    "Apply a {C:attention}Uranium{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}Uranium{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_pine_4 = {
                 name = "Pine Plain",
                 text = {
-                    "Apply a {C:attention}Uranium{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}Uranium{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
 
@@ -157,29 +157,29 @@ return {
             c_hpot_sakura_1 = {
                 name = "Curtain (Cherry Blossom)",
                 text = {
-                    "Apply {C:attention}Spore{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Spore{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_sakura_2 = {
                 name = "Poetry Ribbon (Cherry Blossom)",
                 text = {
-                    "Apply {C:attention}Spore{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Spore{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_sakura_3 = {
                 name = "Cherry Blossom Plain",
                 text = {
-                    "Apply a {C:attention}C4{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}C4{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_sakura_4 = {
                 name = "Cherry Blossom Plain",
                 text = {
-                    "Apply a {C:attention}C4{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}C4{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
 
@@ -248,29 +248,29 @@ return {
             c_hpot_peony_1 = {
                 name = "Butterflies (Peony)",
                 text = {
-                    "Apply {C:attention}Spinning{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Spinning{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_peony_2 = {
                 name = "Blue Ribbon (Peony)",
                 text = {
-                    "Apply {C:attention}Spinning{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Spinning{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_peony_3 = {
                 name = "Peony Plain",
                 text = {
-                    "Apply a {C:attention}Binary{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}Binary{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_peony_4 = {
                 name = "Peony Plain",
                 text = {
-                    "Apply a {C:attention}Binary{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}Binary{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
 
@@ -397,58 +397,58 @@ return {
             c_hpot_willow_1 = {
                 name = "Rain Man (Willow)",
                 text = {
-                    "Apply {C:attention}Redirect{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Redirect{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_willow_2 = {
                 name = "Swallow (Willow)",
                 text = {
-                    "Apply {C:attention}Redirect{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Redirect{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_willow_3 = {
                 name = "Plain Ribbon (Willow)",
                 text = {
-                    "Apply {C:attention}Cannibal{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Cannibal{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_willow_4 = {
                 name = "Willow Plain",
                 text = {
-                    "Apply {C:attention}Cannibal{} sticker",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Cannibal{} sticker",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
 
             c_hpot_paulownia_1 = {
                 name = "Phoenix (Paulownia)",
                 text = {
-                    "Apply {C:attention}Overclock{} stickers",
-                    "to {C:attention}#1#{} selected cards"
+                    "Apply or Remove {C:attention}Overclock{} stickers",
+                    "from {C:attention}#1#{} selected cards"
                 }
             },
             c_hpot_paulownia_2 = {
                 name = "Paulownia Plain",
                 text = {
-                    "Apply an {C:attention}Overclock{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove an {C:attention}Overclock{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_paulownia_3 = {
                 name = "Paulownia Plain",
                 text = {
-                    "Apply a {C:attention}Rage{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}Rage{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
             c_hpot_paulownia_4 = {
                 name = "Paulownia Plain",
                 text = {
-                    "Apply a {C:attention}Rage{} sticker",
-                    "to {C:attention}#1#{} selected card"
+                    "Apply or Remove a {C:attention}Rage{} sticker",
+                    "from {C:attention}#1#{} selected card"
                 }
             },
         },

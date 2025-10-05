@@ -43,6 +43,14 @@ function unhighlight_hj()
 	G.hand:unhighlight_all()
 end
 
+function apply_remove_sticker(card, sticker)
+	if card[sticker] or card.ability[sticker] then
+		SMODS.Stickers[sticker]:apply(card, false)
+	else
+		SMODS.Stickers[sticker]:apply(card, true)
+	end
+end
+
 -- joyous :3
 function joy_hanafuda_score(types, context)
     if JoyousSpring then
@@ -93,11 +101,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_fragile"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_fragile")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_fragile"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_fragile")
 			end
 		end
 		unhighlight_hj()
@@ -140,11 +148,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_fragile"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_fragile")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_fragile"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_fragile")
 			end
 		end
 		unhighlight_hj()
@@ -188,11 +196,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_uranium"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_uranium")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_uranium"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_uranium")
 			end
 		end
 		unhighlight_hj()
@@ -236,11 +244,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_uranium"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_uranium")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_uranium"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_uranium")
 			end
 		end
 		unhighlight_hj()
@@ -284,11 +292,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_redirect"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_redirect")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_redirect"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_redirect")
 			end
 		end
 		unhighlight_hj()
@@ -330,11 +338,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_redirect"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_redirect")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_redirect"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_redirect")
 			end
 		end
 		unhighlight_hj()
@@ -376,11 +384,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_cannibal"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cannibal")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_cannibal"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cannibal")
 			end
 		end
 		unhighlight_hj()
@@ -422,11 +430,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_cannibal"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cannibal")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_cannibal"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cannibal")
 			end
 		end
 		unhighlight_hj()
@@ -472,11 +480,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_spores"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spores")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_spores"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spores")
 			end
 		end
 		unhighlight_hj()
@@ -520,11 +528,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_spores"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spores")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_spores"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spores")
 			end
 		end
 		unhighlight_hj()
@@ -566,11 +574,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_cfour"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cfour")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_cfour"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cfour")
 			end
 		end
 		unhighlight_hj()
@@ -612,11 +620,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_cfour"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cfour")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_cfour"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cfour")
 			end
 		end
 		unhighlight_hj()
@@ -665,11 +673,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_overclock"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_overclock")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_overclock"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_overclock")
 			end
 		end
 		unhighlight_hj()
@@ -715,11 +723,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_overclock"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_overclock")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_overclock"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_overclock")
 			end
 		end
 		unhighlight_hj()
@@ -761,11 +769,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_rage"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_rage")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_rage"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_rage")
 			end
 		end
 		unhighlight_hj()
@@ -807,11 +815,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_rage"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_rage")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_rage"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_rage")
 			end
 		end
 		unhighlight_hj()
@@ -855,11 +863,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_spinning"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spinning")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_spinning"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spinning")
 			end
 		end
 		unhighlight_hj()
@@ -901,11 +909,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_spinning"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spinning")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_spinning"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spinning")
 			end
 		end
 		unhighlight_hj()
@@ -947,11 +955,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_binary"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_binary")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_binary"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_binary")
 			end
 		end
 		unhighlight_hj()
@@ -993,11 +1001,11 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		if #G.jokers.highlighted > 0 then
 			for i = 1, #G.jokers.highlighted do
-				SMODS.Stickers["hpot_binary"]:apply(G.jokers.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_binary")
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				SMODS.Stickers["hpot_binary"]:apply(G.hand.highlighted[i], true)
+				apply_remove_sticker(G.jokers.highlighted[i], "hpot_binary")
 			end
 		end
 		unhighlight_hj()
