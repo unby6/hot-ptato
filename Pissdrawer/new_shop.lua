@@ -1010,21 +1010,26 @@ G.FUNCS.training_return = function ()
 end
 
 function G.FUNCS.can_emplace_training(e)
-    if e.config.ref_table.area == G.jokers then
-        e.children[1].config.text = localize('hotpot_go_train')
-        e.children[1].config.scale = 0.4
-        if G.train_jokers and G.train_jokers.cards and #G.train_jokers.cards > 0 then
-            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-            e.config.button = nil
-        else
-            e.config.colour = G.C.BLUE
-            e.config.button = 'training_emplace'
-        end
+    if G.CONTROLLER.locks.hpot_training_grounds then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
     else
-        e.children[1].config.text = localize('hotpot_leave_train')
-        e.children[1].config.scale = 0.3
-        e.config.colour = G.C.BLUE
-        e.config.button = 'training_return'
+        if e.config.ref_table.area == G.jokers then
+            e.children[1].config.text = localize('hotpot_go_train')
+            e.children[1].config.scale = 0.4
+            if G.train_jokers and G.train_jokers.cards and #G.train_jokers.cards > 0 then
+                e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+                e.config.button = nil
+            else
+                e.config.colour = G.C.BLUE
+                e.config.button = 'training_emplace'
+            end
+        else
+            e.children[1].config.text = localize('hotpot_leave_train')
+            e.children[1].config.scale = 0.3
+            e.config.colour = G.C.BLUE
+            e.config.button = 'training_return'
+        end
     end
 end
 
