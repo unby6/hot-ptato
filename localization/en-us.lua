@@ -1038,9 +1038,8 @@ return {
                     "Tulpamancers Prosopagnosia"
                 },
                 text = {
-                    "When a {C:attention}Face{} card is scored,",
-                    "scores a previously {C:money}sold {C:attention}Joker",
-                    "as if in the main {C:attention}Joker{} context"
+                    "When a {C:attention}Face{} card is scored, scores",
+                    "a random previously {C:money}sold {C:attention}Joker",
                 }
             },
             j_hpot_yapper = {
