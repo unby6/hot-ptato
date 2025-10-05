@@ -4939,7 +4939,7 @@ return {
                         },
                         {
                             "After {C:attention}3{} rounds, return to the {C:attention}Nursery{} to find your",
-                            "newly birthed {C:attention}Joker{}! At this point you can take back the {C:hpot_pink}mother"
+                            "newly birthed {C:attention}Joker{}! At this point you can take back the {C:hpot_pink}mother."
                         },
                     }
                 },
