@@ -4836,12 +4836,11 @@ return {
                             "which grants different {C:attention}traits{} to an item",
                         },
                         {
-                            "{C:red}Warning!{} Reforging requires specific {C:attention}items{}",
-                            "such as {C:attention}vouchers{} to be used"
-                        },
-                        {
-                            "You can spend {C:attention}any currency{} to add",
-                            "a {C:attention}modification{} to a Joker",
+                            "You can spend {C:purple}Credits{} to add",
+                            "a {C:attention}modification{} to a Joker initially,",
+                            "though reforging with {C:attention}other currencies{}",
+                            "can be unlocked with specific {C:attention}items{},",
+                            "such as {C:attention}vouchers{}."
                         },
                     }
                 },
