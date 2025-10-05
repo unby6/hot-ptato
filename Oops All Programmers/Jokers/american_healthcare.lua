@@ -8,7 +8,7 @@ SMODS.Joker {
     config = {
         extra = {
             xmult = 1,
-            inc = 0.5,
+            inc = 0.25,
             dollar_loss = 3,
             this_round = false
         }
@@ -29,8 +29,9 @@ SMODS.Joker {
                 dollars = -card.ability.extra.dollar_loss
             }
         end
-        if context.ending_shop then
+        if context.starting_shop then
             card.ability.extra.this_round = false
+            juice_card_until(card, function() return not (card.ability.extra.this_round or G.STATE == G.STATES.BLIND_SELECT) end, true)
         end
     end,
     hotpot_credits = {

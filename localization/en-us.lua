@@ -2152,8 +2152,8 @@ return {
             j_hpot_american_healthcare = {
                 name = "American Healthcare",
                 text = {
-                    "This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult, but takes {C:money}$#3#",
-                    "once per round when a {C:attention}Joker{} is {C:attention}Impregnated{}",
+                    "Once per round, this {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult,",
+                    "but takes {C:money}$#3#{} when a {C:attention}Joker{} is {C:attention}Impregnated{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
