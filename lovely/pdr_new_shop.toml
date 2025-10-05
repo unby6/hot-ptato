@@ -1,0 +1,42 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Prevent creating vanilla shop areas, since we are doing it manually
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+position = 'before'
+pattern = '''
+G.shop_jokers = CardArea(
+'''
+payload = '''
+if false then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+position = 'after'
+pattern = '''
+{card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
+'''
+payload = '''
+end
+'''
+match_indent = true
+
+# We don't need vanilla shop UI at all
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+position = 'at'
+pattern = '''
+local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
+'''
+payload = '''
+local t = {} or {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
+'''
+match_indent = true
