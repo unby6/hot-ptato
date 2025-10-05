@@ -3,7 +3,7 @@ SMODS.Tag {
     key = "jokerexchange",
     atlas = "jtem_jxtag",
     pos = { x = 0, y = 0 },
-    config = { jx = 25000 },
+    config = { jx = 125000 },
     loc_vars = function(self, info_queue, tag)
         return { vars = { tag.config.jx } }
     end,
