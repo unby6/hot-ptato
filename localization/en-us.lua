@@ -1826,7 +1826,7 @@ return {
                     },
                     {
                         "Scored cards have a",
-                        "{C:green}#1# in #2# chance to",
+                        "{C:green}#1# in #2#{} chance to",
                         "become a {C:spades}Spade{} or a {C:attention}9{}"
                     }
                 }
