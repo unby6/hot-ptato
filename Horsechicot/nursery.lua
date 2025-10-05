@@ -329,9 +329,6 @@ function end_round()
     })
 end
 
--- TEST Function
--- used to spawn children without having to play :)
--- todo:/fixme:/broken: i havent updated this to properly handle things yet
 function nursery()
     if G.GAME.active_breeding then
         G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
