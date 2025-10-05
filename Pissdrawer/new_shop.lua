@@ -112,7 +112,7 @@ function PissDrawer.Shop.currency_display()
         }
     }
 end
-
+-- PIN
 function PissDrawer.Shop.currency_display_small(args)
     local args = args or {}
     local minh, minw, maxw, scale = 0.5, 1.4, 1.4, 0.4
@@ -294,6 +294,7 @@ function G.UIDEF.shop()
                     {n=G.UIT.R, config = {align = 'cm', colour = G.C.DYN_UI.MAIN, padding = 0.08, r = 0.1}, nodes = {
                         {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, r = 0.1, colour = G.C.DYN_UI.BOSS_MAIN}, nodes={
                             -- Currency container
+                            PissDrawer.Shop.help_button("wallet_explain"),
                             PissDrawer.Shop.currency_display(),
                             -- spacer
                             {n=G.UIT.R, config={minh = 0.2}},
@@ -634,6 +635,10 @@ end
 
 G.FUNCS.training_help = function()
     G.FUNCS.hotpot_info{menu_type = "hotpot_training"}
+end
+
+G.FUNCS.wallet_explain = function()
+    G.FUNCS.hotpot_info{menu_type = "hotpot_wallet_explain"}
 end
 
 PissDrawer.Shop.area_keys = {}

@@ -4794,6 +4794,37 @@ return {
                 },
             },
         },
+        hotpot_wallet_explain = {
+            name = "Currencies",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "{C:attention}Hot Potato{} adds various different {C:attention}currencies{},",
+                            "which all do different things."
+                        },
+                        {
+                            "{C:hpot_plincoin}Plincoins{} are gained {C:attention}once a round at the cashout{},",
+                            "they can be used for {C:attention}plinko{}."
+                        },
+                        {
+                            "{C:hpot_advert}Cryptocurrency{} are gained through {C:attention}harvesting organs{},",
+                            "they can be used in the {C:attention}black market{}."
+                        },
+                        {
+                            "{C:blue}Jicks{} are gained through {C:attention}exchanging currency{},",
+                            "they can be used for {C:attention}training{} and {C:attention}delivery{}."
+                        },
+                        {
+                            "{C:purple}Credits{} are gained through {C:attention}Auras{},",
+                            "they are {C:attention}kept between runs{} and",
+                            "can be used for {C:attention}wheel{} and {C:attention}reforging{}."
+                        },
+                    }
+                },
+            },
+        },
         hotpot_reforge = {
             name = "Reforge",
             text = {
