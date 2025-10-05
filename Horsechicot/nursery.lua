@@ -33,12 +33,7 @@ local start_run_ref = Game.start_run
 function Game:start_run(args)
     local ret = start_run_ref(self, args)
     local saveTable = args.savetext or nil
-    if saveTable and saveTable.cardAreas then
-        G.GAME.nursery_father_table = saveTable.cardAreas.nursery_father
-        G.GAME.nursery_mother_table = saveTable.cardAreas.nursery_mother
-        G.GAME.nursery_child_table = saveTable.cardAreas.nursery_child
-    end
-    G.GAME.breeding_rounds_passed = 0
+    G.GAME.breeding_rounds_passed = saveTable.GAME.breeding_rounds_passed or 0
     return ret
 end
 
@@ -210,40 +205,6 @@ function Game.start_run(...)
         G.nursery = nil
     end
     old(...)
-    --init areas
-    if not G.nursery_father or not G.nursery_father.cards then
-        G.nursery_father = CardArea(
-            G.hand.T.x - 1,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
-        G.nursery_mother = CardArea(
-            G.hand.T.x + 1,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
-        G.nursery_child = CardArea(
-            G.hand.T.x + 1,
-            G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
-            1.05 * G.CARD_H,
-            { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true })
-    end
-    --load if possible
-    if G.GAME.nursery_father_table then
-        G.nursery_father:load(G.GAME.nursery_father_table)
-        G.GAME.nursery_father_table = nil
-    end
-    if G.GAME.nursery_mother_table then
-        G.nursery_mother:load(G.GAME.nursery_mother_table)
-        G.GAME.nursery_mother_table = nil
-    end
-    if G.GAME.nursery_child_table then
-        G.nursery_child:load(G.GAME.nursery_child_table)
-        G.GAME.nursery_child_table = nil
-    end
     for i, v in pairs(G.I.CARD) do
         if v.ability and v.ability.is_nursery_smalled then
             v.T.scale = v.T.scale * 0.75
@@ -333,71 +294,80 @@ function nursery()
     if G.GAME.active_breeding then
         G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
         if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
-            G.GAME.active_breeding = false
-            G.GAME.breeding_finished = true
-            G.GAME.breeding_rounds_passed = 0
-            local child_prio = G.P_CENTERS[G.GAME.child_prio]
-            local child_sec = G.P_CENTERS[G.GAME.child_sec]
-            if G.nursery_child then
-                G.nursery_child.cards = G.nursery_child.cards or {}
-            end
-            local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
-            local loc = localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }
-            if not loc[1] then
-                loc = localize { type = 'name', set = 'Joker', key = "j_hpot_fallback", vars = {} }
-                --error("Joker ".. child_prio.key .." didnt localize")
-            end
-            --setting child abilities
-            card.ability.name = 'Baby ' ..
-                loc[1].nodes
-                [1]
-                .nodes[1].config.object.config.string[1]
-            loc[1].nodes
-                [1]
-                .nodes[1].config.object:remove()
-            card.ability.extra_value = ((child_prio.cost + child_sec.cost) / 2) - 1
-            card:set_cost()
-
-            card.ability.quantum_1 = Quantum({
-                fake_card = true,
-                key = child_prio.key,
-                ability = copy_table(G.GAME.child_prio_ability),
-                config = {
-                    center = child_prio
-                },
-            }, card)
-            card.ability.quantum_2 = Quantum({
-                fake_card = true,
-                key = child_sec.key,
-                ability = copy_table(G.GAME.child_sec_ability),
-                config = {
-                    center = child_sec
-                },
-            }, card)
-            update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
-                child_prio.pos)
-            --make children smaller
-            card.T.h = card.T.h * 0.75
-            card.T.w = card.T.w * 0.75
-
-            card.children.center.scale_mag = math.min(
-			    card.children.center.atlas.px/card.T.w,
-				card.children.center.atlas.py/card.T.h
-			)
-
-            card.ability.is_nursery_smalled = true
-
-
-            G.E_MANAGER:add_event(Event {
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate', blocking = false,
                 func = function()
-                    if G.nursery_mother and G.nursery_mother.cards[1] then
-                        G.nursery_mother.cards[1].ability.mother = nil
-                        G.GAME.child_prio, G.GAME.child_sec = nil, nil
+                    if G.nursery_child and G.nursery_child.cards then
+                        G.GAME.active_breeding = false
+                        G.GAME.breeding_finished = true
+                        G.GAME.breeding_rounds_passed = 0
+                        local child_prio = G.P_CENTERS[G.GAME.child_prio]
+                        local child_sec = G.P_CENTERS[G.GAME.child_sec]
+                        local card = SMODS.add_card { key = G.P_CENTERS.j_hpot_child.key, area = G.nursery_child, skip_materialize = true }
+                        local loc = localize { type = 'name', set = 'Joker', key = child_prio.key, vars = {} }
+                        if not loc[1] then
+                            loc = localize { type = 'name', set = 'Joker', key = "j_hpot_fallback", vars = {} }
+                            --error("Joker ".. child_prio.key .." didnt localize")
+                        end
+                        --setting child abilities
+                        card.ability.name = 'Baby ' ..
+                            loc[1].nodes
+                            [1]
+                            .nodes[1].config.object.config.string[1]
+                        loc[1].nodes
+                            [1]
+                            .nodes[1].config.object:remove()
+                        card.ability.extra_value = ((child_prio.cost + child_sec.cost) / 2) - 1
+                        card:set_cost()
+
+                        card.ability.quantum_1 = Quantum({
+                            fake_card = true,
+                            key = child_prio.key,
+                            ability = copy_table(G.GAME.child_prio_ability),
+                            config = {
+                                center = child_prio
+                            },
+                        }, card)
+                        card.ability.quantum_2 = Quantum({
+                            fake_card = true,
+                            key = child_sec.key,
+                            ability = copy_table(G.GAME.child_sec_ability),
+                            config = {
+                                center = child_sec
+                            },
+                        }, card)
+                        update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
+                            child_prio.pos)
+                        --make children smaller
+                        card.T.h = card.T.h * 0.75
+                        card.T.w = card.T.w * 0.75
+
+                        card.children.center.scale_mag = math.min(
+                            card.children.center.atlas.px/card.T.w,
+                            card.children.center.atlas.py/card.T.h
+                        )
+
+                        card.ability.is_nursery_smalled = true
+
+                         G.E_MANAGER:add_event(Event {
+                            func = function()
+                                if G.nursery_mother and G.nursery_mother.cards[1] then
+                                    G.nursery_mother.cards[1].ability.mother = nil
+                                    G.GAME.child_prio, G.GAME.child_sec = nil, nil
+                                    return true
+                                end
+                            end,
+                            blocking = false
+                        })
                         return true
-                    end
-                end,
-                blocking = false
-            })
+                    end                
+                    return false
+                end
+            }))
+            
+
+
+           
         end
     end
 end
