@@ -63,7 +63,7 @@ HotPotato.Ads = {
         ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.1},
         ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}, base_size = 0.5, max_scale = 0.25},
         ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.1},
-        ad_death = {atlas = "hpot_oap_death", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.15},
+        ad_death = {atlas = "hpot_oap_Death", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.15},
         ad_barga = {atlas = "hpot_oap_barga", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.15},
         ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
         ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},

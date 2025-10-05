@@ -783,14 +783,14 @@ SMODS.draw_ignore_keys.hp_nursery_buttons = true
 
 SMODS.Atlas({
     key = 'nursery_icons',
-    path = 'PissDrawer/nursery_icons.png',
+    path = 'Pissdrawer/nursery_icons.png',
     px = 49,
     py = 49
 })
 
 SMODS.Atlas({
     key = 'nursery_icons_lblack',
-    path = 'PissDrawer/nursery_icons_lblack.png',
+    path = 'Pissdrawer/nursery_icons_lblack.png',
     px = 49,
     py = 49
 })
