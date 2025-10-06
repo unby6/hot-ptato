@@ -351,7 +351,7 @@ function nursery()
 
                          G.E_MANAGER:add_event(Event {
                             func = function()
-                                if G.nursery_mother and G.nursery_mother.cards[1] then
+                                if G.nursery_mother and G.nursery_mother.cards and G.nursery_mother.cards[1] then
                                     G.nursery_mother.cards[1].ability.mother = nil
                                     G.GAME.child_prio, G.GAME.child_sec = nil, nil
                                     return true
