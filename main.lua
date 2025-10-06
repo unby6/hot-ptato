@@ -313,6 +313,9 @@ HotPotato.generate_credit_UIBox = function(team)
 		card.config.center = copy_table(card.config.center)
 		card.config.center.atlas = atlas
 		card.config.center.pos = pos
+		if member.soul_pos then
+			card.config.center.soul_pos = member.soul_pos
+		end
 		card:set_sprites(card.config.center)
 		G.HOT_POTATO_CREDIT_AREAS[i]:emplace(card)
 
@@ -339,21 +342,20 @@ HotPotato.generate_credit_UIBox = function(team)
 		end
 
 		-- description
-		local info_nodes = {
-			n = G.UIT.R,
-			config = { align = "cm", padding = 0, colour = G.C.CLEAR },
-			nodes = {
-				{ n = G.UIT.C, config = { align = "cm", padding = 0.2 }, nodes = {} },
-			}
-		}
-		local target = member.text
-		if target then
-			for _, v in ipairs(target) do
-				info_nodes.nodes[1].nodes[#info_nodes.nodes[1].nodes + 1] = create_text_box({ loc_target = v })
-			end
-		end
-
 		card.hover = function(self)
+			local info_nodes = {
+				n = G.UIT.R,
+				config = { align = "cm", padding = 0, colour = G.C.CLEAR },
+				nodes = {
+					{ n = G.UIT.C, config = { align = "cm", padding = 0.2 }, nodes = {} },
+				}
+			}
+			local target = member.text
+			if target then
+				for _, v in ipairs(target) do
+					info_nodes.nodes[1].nodes[#info_nodes.nodes[1].nodes + 1] = create_text_box({ loc_target = v })
+				end
+			end
 			self:juice_up(0.05, 0.03)
 			play_sound('paper1', math.random() * 0.2 + 0.9, 0.35)
 			card.config.h_popup = info_nodes

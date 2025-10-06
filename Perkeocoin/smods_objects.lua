@@ -8,6 +8,7 @@ SMODS.Atlas({key = "perkeocoinjokers", path = "PerkeoCards/PerkeocoinJokers.png"
 SMODS.Atlas({key = "PerkeocoinBoosters", path = "PerkeoCards/perkeocoin_boosters.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 -- PLEASE FIX THIS
 SMODS.Atlas({key = "PerkeocoinVouchers", path = "PerkeoCards/PerkeocoinVouchers.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
+SMODS.Atlas({key = "PerkeocoinCredits", path = "PerkeoCards/PerkeocoinCreditsCards.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS"}):register()
 
 -- Gradients have been moved because I needed them earlier
 

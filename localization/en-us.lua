@@ -5001,15 +5001,28 @@ return {
                     },
                     {
                         name = "Omegaflowey18",
-                        text = {
+                       text = {
                             {
-                                "morestupid text"
+                                '{C:attention}Artist{} and',
+                                '{C:attention}Resident Bug Catcher'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
+								"{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
+								"{C:inactive}\"You're telling me there's men in your gitis,\"",
+								"{C:inactive}\"But I just like to play and draw.\"",
                             }
                         },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 0, y = 0 }
                     },
                     {
                         name = "CampfireCollective",
                         text = {},
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 1, y = 0 },
+                        soul_pos = { x = 2, y = 0 }
                     },
                     {
                         name = "dottykitty",
@@ -5047,7 +5060,23 @@ return {
                     },
                     {
                         name = "UnusedParadox",
-                        text = {},
+                        text = {
+                            {
+                                "I did various minor {E:1,C:enhanced}improvements",
+                                "to everyone else's {C:hpot_plincoin}stuff {C:inactive}(QOL moment){}",
+                                "I also did half the {C:green}code{} for",
+                                "{C:attention}consumable selection limit{} stuff"
+                            },
+                            {
+                                "Also worked on: {E:1,C:blue}Paradox's Stupid Ideas"
+                            },
+                            {
+                                "My message:",
+                                "There's not enough {E:1,C:hpot_advert}selfcest{} in this mod. SMH"
+                            },
+                        },
+                        atlas = "hpot_perkeocoinjokers",
+                        pos = { x = 0, y = 2 },
                     },
                     {
                         name = "Supernova",
@@ -5202,8 +5231,14 @@ return {
                                 "and others.",
                             },
                             {
+                                'Also worked on:',
+                                'Medium',
+                                'Tonsmith',
+                                'Fool\'s Gambit',
+                            },
+                            {
                                 "My Message:",
-                                "{C:inactive}\"Play Medium\"",
+                                "{C:inactive}\"communism\"",
                             }
                         },
                         atlas = "hpot_tname_jokers2",
@@ -5288,7 +5323,10 @@ return {
                 members = {
                     {
                         name = "lord.ruby",
-                        text = {},
+                        text = {
+                            {"{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}",},
+                            {"im ruby."}
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 1, y = 0 }
                     },
@@ -5300,7 +5338,23 @@ return {
                     },
                     {
                         name = "Nxkoo",
-                        text = {},
+                        text = {
+                            {
+                                "{C:green}Coder{} and {C:red}Ideas{}"
+                            },
+                            {
+                                "Responsible for {s:1.5,C:attention}67%{} of Horsechicot's {C:attention}Joker",
+                                "while also maintaining to be",
+                                "one of the most {s:1.5,C:red}ABYSMAL{} and {s:1.5,C:red}ATROCIOUS",
+                                "{C:attention}Developer{} ever participated. :3"
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}I'm sorry, but as an AI language model,",
+                                "{C:inactive}I don't have consciousness or self-awareness.",
+                                "{C:inactive}I'm simply a program designed to process and generate human-like text."
+                            }
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 3, y = 0 },
                     },
@@ -5335,8 +5389,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Lucky Rabbit\"",
+                                'Also worked on:',
+                                'Lucky Rabbit'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5349,8 +5403,8 @@ return {
                                 '{C:attention}Artist'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play ArtBox\"",
+                                'Also worked on:',
+                                'ArtBox'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5368,8 +5422,9 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Maximus\"",
+                                'Also worked on:',
+                                'Maximus',
+                                'SuperRogue'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5383,8 +5438,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Homelatro\"",
+                                'Also worked on:',
+                                'Homelatro'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5398,8 +5453,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play LobotomyCorp\"",
+                                'Also worked on:',
+                                'LobotomyCorp'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5413,8 +5468,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Neato Jokers\"",
+                                'Also worked on:',
+                                'Neato Jokers'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5431,8 +5486,8 @@ return {
                                 '{C:attention}Artist'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Grab Bag\"",
+                                'Also worked on:',
+                                'Grab Bag'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5475,18 +5530,56 @@ return {
                                 "{C:blue}\"Care to elaborate as to why that is?\"{}",
                                 " ",
                                 "{C:attention}\"No.\"{}"
+                            },
+                            {
+                                "Also worked on:",
+                                "JokerDisplay, JoyousSpring",
+                                "N's Repertorium, VanillaRemade"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 1, y = 0 }
+                    },
+                    {
+                        name = "SDM_0",
+                        text = {
+                            {
+                                "{C:attention}Bug fixes{}, {C:attention}Joker{} additions",
+                                "and {C:attention}art{}"
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Siralim Ultimate\"{}"
+                            },
+                            {
+                                "Also worked on:",
+                                "SDM_0's Stuff, Joker Evolution",
+                                "Aure as Aura, No Stake Tooltip,",
+                                "Siralim Balatro"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 2, y = 0 }
+                    },
+                    {
+                        name = "BepisFever",
+                        text = {
+                            {
+                                "Made UI for {C:attention}help menu{} and {C:attention}training grounds"
+
+                            },
+                            {
+                                "{C:attention}\"i hate ui\"{} <- guy who made ui"
+                            },
+                            {
+                                "Also worked on:",
+                                "Yggdrasil",
+                                "Stacked",
+                                "Balatro: Star Rail"
                             }
                         },
                         atlas = "hpot_pdr_credits",
                         pos = { x = 0, y = 0 }
-                    },
-                    {
-                        name = "SDM_0",
-                        text = {},
-                    },
-                    {
-                        name = "BepisFever",
-                        text = {},
                     },
                 }
             }
