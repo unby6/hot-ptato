@@ -5035,12 +5035,14 @@ return {
                     {
                         name = "Eris",
                         text = {
-                            "hi i invented the concept of the",
-                            "consumable highlight shenanigans",
-                            "also play {C:dark_edition}Hypernova{}",
-                            "{C:inactive}please my mod has like no players{}"
+                            {
+                                "hi i invented the concept of the",
+                                "consumable highlight shenanigans",
+                                "also play {C:dark_edition}Hypernova{}",
+                                "{C:inactive}please my mod has like no players{}"
+                            }
                         },
-                        atlas = "SillypostingJokers",
+                        atlas = "hpot_SillypostingJokers",
                         pos = { x = 0, y = 0 }
                     },
                     {
