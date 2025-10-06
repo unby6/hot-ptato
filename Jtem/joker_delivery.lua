@@ -279,6 +279,9 @@ function hpot_jtem_create_request_menu()
                         ref_value = "text",
                         w = 8,
                         max_length = 32,
+                        callback = function()
+                            G.FUNCS.hp_jtem_search_jokers()
+                        end
                     }),
                     butan
                 }
