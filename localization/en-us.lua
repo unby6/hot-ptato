@@ -2495,7 +2495,8 @@ return {
                 name = "Parthenogenesis",
                 text = {
                     "You can now {C:hpot_pink}breed{} with",
-                    "only the {C:attention}Mother{},",
+                    "only the {C:attention}Mother{}.",
+                    "When {C:hpot_pink}breeding{} like this,",
                     "the {C:attention}Child{} will have",
                     "its mother's ability {C:attention}twice"
                 }
