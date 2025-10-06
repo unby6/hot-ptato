@@ -4292,7 +4292,7 @@ return {
             hpot_trolley_bribe = {
                 text = {
                     "You hastily hand the trolley operator",
-                    "{C:dollars}$20{} in hopes they will brake in time.",
+                    "{C:money}$20{} in hopes they will brake in time.",
                     " ", "...", " ",
                     "Luckily, it stops just in time.",
                     "All of your cards remain in tact.",
@@ -5106,6 +5106,9 @@ return {
                                 "The original {C:attention}event",
                                 "{C:attention}system{} and mechanics"
                             },
+                            {
+                                "{C:inactive}Haya my goat <3"
+                            }
                         },
                         atlas = "hpot_jtem_jokers",
                         pos = { x = 5, y = 3 },
@@ -5228,8 +5231,14 @@ return {
                                 "and others.",
                             },
                             {
+                                'Also worked on:',
+                                'Medium',
+                                'Tonsmith',
+                                'Fool\'s Gambit',
+                            },
+                            {
                                 "My Message:",
-                                "{C:inactive}\"Play Medium\"",
+                                "{C:inactive}\"communism\"",
                             }
                         },
                         atlas = "hpot_tname_jokers2",
@@ -5310,7 +5319,7 @@ return {
             },
             [6] = {
                 -- It's funnier if I put in the longer name
-                name = "The four horsechicots of the potatolypse",
+                name = "The Four Horsechicots of the Potatolypse",
                 members = {
                     {
                         name = "lord.ruby",
@@ -5351,7 +5360,39 @@ return {
                     },
                     {
                         name = "cg",
-                        text = {},
+                        text = {
+                            {
+                                "{C:green}Code{}, {C:red}Ideas{} and some {C:attention}Art"
+                            },
+                            {
+                                "{C:green}Additions: TMJ compat, Brainfuck, Lock In, ROI, Dark Connections, my self insert,",
+                                "{C:green}Prosopagnosia, Yapper, Genghis Khan, Nursery, Breeding, Underground Control,",
+                                "{C:green}Abortion, Parthenogenesis, Incubator, Terrible Dragon, Trackmania, Nursery tutorial",
+                                "{C:green}Card Stack (rework), American Healthcare (rework), What if there was a Joker (rework)"
+                            },
+                            {
+                                "Additionally, I provided bug fixes for the following:",
+                                "{s:0.7,C:money}Shaders, Black Market, many missing credits issues, Hanafudas, incorrect atlas paths, ads on mobile, many improperly formatted descriptions,",
+                                "{s:0.7,C:money}Quantum Jokers, many comments on complex code, Adblock, Reinstating Roe v Wade, Cryptocurrency, dead code removal,",
+                                "{s:0.7,C:money}Chipper Charlie, Molten Melvin, Window Deck, Title Text, Unstable Deck, Quantum Descriptions, Jtem ads, Death Note, OAP self inserts,",
+                                "{s:0.7,C:money}Polymorphine, Team Name self inserts, Sticker Dealer, Video ad upscaling, Leek, startup vortex, Team Packs.",
+                            },
+                            {
+                                "My {C:attention}contributions{} totaled to over {C:attention}300{} commits,",
+                                "and I had an {C:green}amazing{} time participating.",
+                                "Thanks to {C:blue}Astra{} for hosting!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Too Many Jokers",
+                                "{C:attention}Joker Loadouts",
+                                "{C:attention}Talisman"
+                            },
+                            {
+                                "My message:",
+                                "{C:attention,s:1.3}Play Celeste!"
+                            }
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 0, y = 1 },
                     },
@@ -5848,7 +5889,7 @@ return {
 
             hpot_credit_text = "Credits:",
 
-            hotpot_disable_animations = "Disable Animations",
+            hotpot_disable_animations = "Disable Jokers Animations",
             hotpot_family_friendly = "Family Friendly",
             hotpot_window_title = "Random Window Titles",
 
@@ -6096,7 +6137,7 @@ return {
 
             hpot_trolley_joker = "Direct at Joker",
             hpot_trolley_cards = "Direct at Playing Cards",
-            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
+            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:money}$20{})",
             hpot_mystery_box = "Open (5 credits)",
             hpot_mystery_box_budget = "Open (5 budget)",
 
