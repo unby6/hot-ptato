@@ -113,7 +113,7 @@ SMODS.Sound {
     path = "music_nursery.ogg",
     pitch = 1,
     select_music_track = function(self)
-    if G.STATE == G.STATES.NURSERY then
+    if PissDrawer.Shop.active_tab == "hotpot_nursery" then
       return 114514
     end
     end,
