@@ -5014,6 +5014,8 @@ return {
 								"{C:inactive}\"But I just like to play and draw.\"",
                             }
                         },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 0, y = 0 }
                     },
                     {
                         name = "CampfireCollective",
