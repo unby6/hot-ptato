@@ -416,6 +416,23 @@ function G.FUNCS.hpot_jukebox_play(e)
 	G.FUNCS.your_collection_hpot_jukebox(e)
 end
 
+function G.FUNCS.hpot_jukebox_shuffle(e)
+	local pool = {}
+	for k, v in pairs(JTJukebox.MusicTags) do
+		if not (v.discoverable and not v.discovered) then
+			pool[#pool+1] = v
+		end
+	end
+	local random = pseudorandom_element(pool, "hpot_jukebox_shuffle")
+	if random then
+		JTJukebox.CurrentlyPlaying = (random.title and (random.title .. " - " .. random.artist) or random.key) ..
+			" - "
+		JTJukebox.ActuallyPlaying = random.key
+		JTJukebox.Current = JTJukebox.Music[random.key].order
+		G.FUNCS[G.ACTIVE_MOD_UI and "openModUI_" .. G.ACTIVE_MOD_UI.id or 'your_collection'](e)
+	end
+end
+
 function G.FUNCS.hpot_jukebox_stop(e)
 	JTJukebox.CurrentlyPlaying = localize('hotpot_jukebox_default_music_title')
 	JTJukebox.ActuallyPlaying = nil
@@ -632,7 +649,7 @@ function JTJukebox.MusicTab()
 								config = {
 									r = 0.1,
 									align = "cm",
-									padding = 0.2,
+									padding = 0.1,
 									colour = G.C.CLEAR
 								},
 								nodes = {
@@ -641,7 +658,7 @@ function JTJukebox.MusicTab()
 										n = G.UIT.R,
 										config = {
 											align = "cm",
-											padding = -0.2, -- Negative padding strikes again
+											--padding = -0.2, -- Negative padding strikes again
 										},
 										nodes = {
 											{
@@ -659,7 +676,6 @@ function JTJukebox.MusicTab()
 										n = G.UIT.R,
 										config = {
 											align = "cm",
-											padding = 0.2,
 										},
 										nodes = {
 											-- play butan
@@ -669,7 +685,7 @@ function JTJukebox.MusicTab()
 											-- 09/28 haya: I'm back.
 											{
 												n = G.UIT.C,
-												config = { align = "cm", minh = 1, minw = 4, colour = G.C.GREEN, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_play' },
+												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.GREEN, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_play', button_dist = 0 },
 												nodes = {
 													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_request'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true }
 												},
@@ -680,15 +696,30 @@ function JTJukebox.MusicTab()
 										n = G.UIT.R,
 										config = {
 											align = "cm",
-											padding = -0.2
 										},
 										nodes = {
 											-- unplay butan
 											{
 												n = G.UIT.C,
-												config = { align = "cm", minh = 1, minw = 4, colour = G.C.RED, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_stop', func = "hpot_jukebox_can_stop_playback" },
+												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.RED, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_stop', func = "hpot_jukebox_can_stop_playback", button_dist = 0 },
 												nodes = {
-													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_unrequest'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true }
+													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_unrequest'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true, button_dist = 0 }
+												},
+											},
+										}
+									},
+									{
+										n = G.UIT.R,
+										config = {
+											align = "cm",
+										},
+										nodes = {
+											-- shuffle
+											{
+												n = G.UIT.C,
+												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.FILTER, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_shuffle', button_dist = 0 },
+												nodes = {
+													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_shuffle'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true, button_dist = 0 }
 												},
 											},
 										}

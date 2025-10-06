@@ -5523,6 +5523,7 @@ return {
 
             hotpot_jukebox_request = "Request Song",
             hotpot_jukebox_unrequest = "Stop Playback",
+            hotpot_jukebox_shuffle = "Random Song",
             hotpot_jukebox_default_music_title = "*",
 
             b_hpot_train = "TRAIN",
