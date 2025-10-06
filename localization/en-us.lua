@@ -2519,7 +2519,7 @@ return {
                     },
                     " ",
                     [2] = {
-                        "Stone cards held in hand gain {X:mult,C:white}XMult{} or {X:chips,C:white}XChips{}",
+                        "Stone cards gain {X:mult,C:white}Mult{} or {X:chips,C:white}Chips{}",
                         "depending on the {C:attention}total{} number of Stone cards",
                         "{u:default}and{} the {C:purple}enhancements{} applied to them"
                     }
