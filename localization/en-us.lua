@@ -5020,6 +5020,9 @@ return {
                     {
                         name = "CampfireCollective",
                         text = {},
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 1, y = 0 },
+                        soul_pos = { x = 2, y = 0 }
                     },
                     {
                         name = "dottykitty",
