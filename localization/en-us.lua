@@ -5009,7 +5009,7 @@ return {
                             {
                                 "My Message:",
                                 "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
-								"{C:inactive}\"She lusty on my joker 'till i +3 mult on played hearts all.\"",
+								"{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
 								"{C:inactive}\"You're telling me there's men in your gitis,\"",
 								"{C:inactive}\"But I just like to play and draw.\"",
                             }
@@ -5455,7 +5455,7 @@ return {
                             }
                         },
                         atlas = "hpot_pdr_credits",
-                        pos = { x = 0, y = 0 }
+                        pos = { x = 1, y = 0 }
                     },
                     {
                         name = "SDM_0",
@@ -5463,7 +5463,17 @@ return {
                     },
                     {
                         name = "BepisFever",
-                        text = {},
+                        text = {
+                            {
+                                "Made UI for {C:attention}help menu{} and {C:attention}training grounds"
+
+                            },
+                            {
+                                "{C:attention}\"i hate ui\"{} <- guy who made ui"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 0, y = 0 }
                     },
                 }
             }
