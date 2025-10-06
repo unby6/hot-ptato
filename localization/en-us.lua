@@ -5070,9 +5070,13 @@ return {
                         name = "SleepyG11",
                         text = {
                             {
+                                "Balancing and bug fixing",
+                                "other team's additions"
+                            },
+                            {
                                 "The original {C:attention}event",
                                 "{C:attention}system{} and mechanics"
-                            }
+                            },
                         },
                         atlas = "hpot_jtem_jokers",
                         pos = { x = 5, y = 3 },
@@ -5085,9 +5089,8 @@ return {
                                 "and some music tracks"
                             },
                             {
-                                "Creator of the Nxkoo",
-                                "dies tab in mod info and",
-                                "{C:attention}title text"
+                                "Creator of the {C:attention}Nxkoo dies",
+                                "tab in mod info and {C:attention}title text",
                             }
                         },
                         atlas = "hpot_jtem_jokers",
