@@ -5319,7 +5319,7 @@ return {
             },
             [6] = {
                 -- It's funnier if I put in the longer name
-                name = "The four horsechicots of the potatolypse",
+                name = "The Four Horsechicots of the Potatolypse",
                 members = {
                     {
                         name = "lord.ruby",
@@ -5360,7 +5360,39 @@ return {
                     },
                     {
                         name = "cg",
-                        text = {},
+                        text = {
+                            {
+                                "{C:green}Code{}, {C:red}Ideas{} and some {C:attention}Art"
+                            },
+                            {
+                                "{C:green}Additions: TMJ compat, Brainfuck, Lock In, ROI, Dark Connections, my self insert,",
+                                "{C:green}Prosopagnosia, Yapper, Genghis Khan, Nursery, Breeding, Underground Control,",
+                                "{C:green}Abortion, Parthenogenesis, Incubator, Terrible Dragon, Trackmania, Nursery tutorial",
+                                "{C:green}Card Stack (rework), American Healthcare (rework), What if there was a Joker (rework)"
+                            },
+                            {
+                                "Additionally, I provided bug fixes for the following:",
+                                "{s:0.7,C:money}Shaders, Black Market, many missing credits issues, Hanafudas, incorrect atlas paths, ads on mobile, many improperly formatted descriptions,",
+                                "{s:0.7,C:money}Quantum Jokers, many comments on complex code, Adblock, Reinstating Roe v Wade, Cryptocurrency, dead code removal,",
+                                "{s:0.7,C:money}Chipper Charlie, Molten Melvin, Window Deck, Title Text, Unstable Deck, Quantum Descriptions, Jtem ads, Death Note, OAP self inserts,",
+                                "{s:0.7,C:money}Polymorphine, Team Name self inserts, Sticker Dealer, Video ad upscaling, Leek, startup vortex, Team Packs.",
+                            },
+                            {
+                                "My {C:attention}contributions{} totaled to over {C:attention}300{} commits,",
+                                "and I had an {C:green}amazing{} time participating.",
+                                "Thanks to {C:blue}Astra{} for hosting!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Too Many Jokers",
+                                "{C:attention}Joker Loadouts",
+                                "{C:attention}Talisman"
+                            },
+                            {
+                                "My message:",
+                                "{C:attention,s:1.3}Play Celeste!"
+                            }
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 0, y = 1 },
                     },
