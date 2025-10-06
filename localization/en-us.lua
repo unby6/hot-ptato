@@ -5134,13 +5134,42 @@ return {
                 members = {
                     {
                         name = "Corobo",
-                        text = {},
+                        text = {
+                            {
+                                "Majority of the {C:attention}conceptualization{},",
+                                "provided {C:attention}technical help{}.",
+                            },
+                            {
+                                "{C:attention}Conceptualization{}",
+                                "of {C:red}Hanafuda Cards{}, {C:attention}some stickers,",
+                                "{C:attention}Reforging{} & {C:green}Modific{C:red}ations and others,",
+                                "Composer of the {C:attention}Reforge {}theme"
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"idk actually\"",
+                            }
+                        },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 0, y = 0 },
                     },
                     {
                         name = "GhostSalt",
-                        text = {},
+                        text = {
+                            {
+                                "A decent amount of the {C:attention}art",
+                                "and {C:attention}code{}",
+                            },
+                            {
+                                "{C:attention}Implementation & Conceptualization{}",
+                                "of {C:green}Lime Deck{}, {C:attention}Postcard",
+                                "and others.",
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Phanta\"",
+                            }
+                        },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 1, y = 0 },
                     },
@@ -5148,25 +5177,19 @@ return {
                         name = "GoldenLeaf",
                         text = {
                             {
-                                "{} {}",
-                                "- {s:1.2}Contributions{} -",
-                                "{} {}",
-                                "- Music for {C:attention}Wheel, Nusery",
-                                "{C:attention}Currency Exchange, Aura Packs",
-                                "and {C:attention}Hanafuda Packs{}.",
-                                "- Sprites for {C:attention}Auras, Booster Packs",
-                                "{C:attention}Blinds, Tags, Stakes, Stickers(partially),",
-                                "{C:attention}The majority of the Jokers{} and",
-                                "{C:attention}The wheel sign{} for TNAME.",
-                                "- Code for {C:attention}Auras,",
-                                "{C:attention}Blinds, TNAME Stake, Credits(partially),",
-                                "{C:attention}A decent amount of Jokers{} and",
-                                "{C:attention}Misc things{}.",
-                                "{} {}",
-                                "- {s:1.2}My Message{} -",
-                                "{} {}",
-                                "\"Play Medium\"",
-                                "{} {}",
+                                "Majority of the {C:attention}art",
+                                "and {C:attention}music tracks{},",
+                                "coded a decent amount of",
+                                "{C:attention}Jokers{} and {C:attention}Blinds{}."
+                            },
+                            {
+                                "{C:attention}Implementation & Conceptualization{}",
+                                "of {C:purple}Credits{}, {C:dark_edition}Auras",
+                                "and others.",
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Medium\"",
                             }
                         },
                         atlas = "hpot_tname_jokers2",
@@ -5174,19 +5197,51 @@ return {
                     },
                     {
                         name = "Jogla",
-                        text = {},
+                        text = {
+                            {
+                                "Assisted in creating",
+                                "{C:attention}UI{}",
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Fool's Gambit\"",
+                            }
+                        },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 3, y = 0 },
                     },
                     {
                         name = "Revo",
-                        text = {},
+                        text = {
+                            {
+                                "Majority of the {C:attention}Code",
+                                "and {C:attention}content implementation{},",
+                            },
+                            {
+                                "{C:attention}Implementation{}",
+                                "of {C:attention}Reforge{}, {C:attention}Stickers{}, {C:green}Modific{C:red}ations,",
+                                "the {C:attention}Wheel{}, {C:red}Hanafuda cards{} and others.",
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Revo's Vault\"",
+                            }
+                        },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 4, y = 0 },
                     },
                     {
                         name = "Violet",
-                        text = {},
+                        text = {
+                            {
+                                "Conceptualized & Implemented",
+                                "{C:attention}Ultra Packs{}",
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"i also dont know\"",
+                            }
+                        },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 5, y = 0 },
                     },
