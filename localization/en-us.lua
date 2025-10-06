@@ -5185,6 +5185,7 @@ return {
             hotpot_power = "Power",
             hotpot_guts = "Guts",
             hotpot_wits = "Wit",
+            hotpot_energy = "Energy",
 
             hotpot_exchange_title = "Top Up Your ͸s!",
             hotpot_exchange_note = "*Prices are rounded to the nearest integer when charging for simplicity",

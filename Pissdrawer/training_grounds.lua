@@ -189,21 +189,26 @@ end
 
 function Card:mod_training_stat(stat, num)
     if self.ability.hp_jtem_stats then
-        local old_stats = copy_table(self.ability.hp_jtem_stats)
-        self.ability.hp_jtem_stats[stat] = (self.ability.hp_jtem_stats[stat] or 0) + num
-        -- Change value modification related stats
-        local stats = self.ability.hp_jtem_stats
-        -- Guts
-        hpot_jtem_with_deck_effects(self, function(c)
-			if stats.guts > 150 then
-				hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(150,old_stats.guts)-150)/200)*100)/100)) })
-				hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
-			end
-		end)
-        -- Wit
-        if stats.wits and stats.wits > 150 then
-			self.sell_cost = self.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50)
-		end
+        if stat ~= "energy" then
+            local old_stats = copy_table(self.ability.hp_jtem_stats)
+            self.ability.hp_jtem_stats[stat] = (self.ability.hp_jtem_stats[stat] or 0) + num
+            -- Change value modification related stats
+            local stats = self.ability.hp_jtem_stats
+            -- Guts
+            hpot_jtem_with_deck_effects(self, function(c)
+                if stats.guts > 150 then
+                    hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(150,old_stats.guts)-150)/200)*100)/100)) })
+                    hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
+                end
+            end)
+            -- Wit
+            if stats.wits and stats.wits > 150 then
+                self.sell_cost = self.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50)
+            end
+        else
+            -- energy isnt a traditional stat like everything else
+            self.ability.hp_jtem_energy = math.min(math.max(0, (self.ability.hp_jtem_energy or 0) + num), 100)
+        end
         self:create_train_popup(stat, num)
     end
 end

@@ -52,6 +52,18 @@ local mood_to_multiply = {
 	-- lmaooo
 }
 
+local mood_to_passive_energy = {
+	["depressed"] = 1,
+	["horrible"] = 1,
+	["awful"] = 1,
+	["bad"] = 2,
+	["normal"] = 2,
+	["good"] = 2,
+	["great"] = 3,
+	["hyper"] = 3,
+	["trance"] = 3,
+}
+
 -- Changes the current mood of a Joker.
 ---@param card Card|table
 ---@param mood_mod number
@@ -406,6 +418,9 @@ SMODS.Sticker {
 				xchips = 1 + ((stats.power / 800) * 100) / 100
 			}
 		end
+		if context.end_of_round and context.main_eval then
+			card:mod_training_stat("energy", mood_to_passive_energy[card.ability["hp_jtem_mood"] or "normal"])
+		end
 	end,
 	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 		--SMODS.Sticker.super.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
@@ -625,7 +640,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 				else
 					energy_changed = math.ceil(energy_changed * (1 + (stats.stamina / 1200)))
 				end
-				joker.ability.hp_jtem_energy = math.min(100, math.max(0, joker.ability.hp_jtem_energy + energy_changed))
+				joker:mod_training_stat("energy", energy_changed)
 			end
 		end
 	end
