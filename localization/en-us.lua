@@ -5487,7 +5487,18 @@ return {
                     },
                     {
                         name = "SDM_0",
-                        text = {},
+                        text = {
+                            {
+                                "{C:attention}Bug fixes{}, {C:attention}Joker{} additions",
+                                "and {C:attention}art{}"
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Siralim Ultimate\"{}"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 2, y = 0 }
                     },
                     {
                         name = "BepisFever",
