@@ -5009,7 +5009,7 @@ return {
                             {
                                 "My Message:",
                                 "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
-								"{C:inactive}\"She lusty on my joker 'till i +3 mult on played hearts all.\"",
+								"{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
 								"{C:inactive}\"You're telling me there's men in your gitis,\"",
 								"{C:inactive}\"But I just like to play and draw.\"",
                             }
@@ -5293,7 +5293,10 @@ return {
                 members = {
                     {
                         name = "lord.ruby",
-                        text = {},
+                        text = {
+                            {"{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}",},
+                            {"im ruby."}
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 1, y = 0 }
                     },
@@ -5340,8 +5343,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Lucky Rabbit\"",
+                                'Also worked on:',
+                                'Lucky Rabbit'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5354,8 +5357,8 @@ return {
                                 '{C:attention}Artist'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play ArtBox\"",
+                                'Also worked on:',
+                                'ArtBox'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5373,8 +5376,9 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Maximus\"",
+                                'Also worked on:',
+                                'Maximus',
+                                'SuperRogue'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5388,8 +5392,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Homelatro\"",
+                                'Also worked on:',
+                                'Homelatro'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5403,8 +5407,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play LobotomyCorp\"",
+                                'Also worked on:',
+                                'LobotomyCorp'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5418,8 +5422,8 @@ return {
                                 '{C:attention}Implementation'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Neato Jokers\"",
+                                'Also worked on:',
+                                'Neato Jokers'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5436,8 +5440,8 @@ return {
                                 '{C:attention}Artist'
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Grab Bag\"",
+                                'Also worked on:',
+                                'Grab Bag'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
