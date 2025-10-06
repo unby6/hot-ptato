@@ -7,30 +7,25 @@ local function currencies_dictionary()
 		},
 		plincoins = {
 			symbol = "$",
-			font = SMODS.Fonts.hpot_plincoin,
 			colour = SMODS.Gradients["hpot_plincoin"],
 			ref_value = "plincoins",
 		},
 		cryptocurrency = {
 			symbol = "£",
-			font = SMODS.Fonts.hpot_plincoin,
 			colour = SMODS.Gradients["hpot_advert"],
 			ref_value = "cryptocurrency",
 		},
 		spark_points = {
 			symbol = localize("hotpot_reforge_sparks"),
-			font = SMODS.Fonts.hpot_plincoin,
 			colour = G.C.BLUE,
 			ref_value = "spark_points",
 		},
 		credits = G.GAME.seeded and {
 			symbol = localize("hotpot_reforge_budget"),
-			font = SMODS.Fonts.hpot_plincoin,
 			colour = G.C.ORANGE,
 			ref_value = "budget",
 		} or {
 			symbol = localize("hotpot_reforge_credits"),
-			font = SMODS.Fonts.hpot_plincoin,
 			colour = G.C.PURPLE,
 			ref_value = "TNameCredits",
 			ref_table = G.PROFILES[G.SETTINGS.profile],
