@@ -517,6 +517,7 @@ return {
                     '{C:attention}Start{} with a 22 card deck...',
                     'and 30 {C:dark_edition}Polychrome{} Stone cards',
                     '{C:attention,T:v_hpot_poop1}Land Ahoy!{}',
+                    '{s:0.4,C:inactive}"Check yer vouchers, landlubber."{}',
                 }
             },
         },
