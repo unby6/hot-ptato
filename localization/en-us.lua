@@ -2515,12 +2515,12 @@ return {
                 text = {
                     [1] = {
                         "Exiting {C:attention}boosters{} or {C:attention}changing{} rounds will {C:green}either{}",
-                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one"
+                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one",
+                        "{s:0.3} "
                     },
-                    " ",
                     [2] = {
-                        "Stone cards gain {X:mult,C:white}Mult{} or {X:chips,C:white}Chips{}",
-                        "depending on the {C:attention}total{} number of Stone cards",
+                        "Stone cards gain {X:mult,C:white}Mult{} or {X:chips,C:white}Chips{} depending",
+                        "on the {C:attention}total{} number of {C:dark_edition}Stone{} cards",
                         "{u:default}and{} the {C:purple}enhancements{} applied to them"
                     }
                 }
