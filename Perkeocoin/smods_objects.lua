@@ -22,7 +22,7 @@ SMODS.Sound {
   hpot_title = "Cheque Booster Theme (OST Mix)",
   hpot_purpose = {
     "Music that plays while selecting",
-    "a cheque in a Czech Pack"
+    "a cheque in a Cheque Pack"
   },
   hotpot_credits = {
     team = { "Perkeocoin" }
