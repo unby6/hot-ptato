@@ -5338,6 +5338,10 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
+                            },
+                            {
+                                'Also worked on:',
+                                'Lucky Rabbit'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5348,6 +5352,10 @@ return {
                         text = {
                             {
                                 '{C:attention}Artist'
+                            },
+                            {
+                                'Also worked on:',
+                                'ArtBox'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5363,6 +5371,11 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
+                            },
+                            {
+                                'Also worked on:',
+                                'Maximus',
+                                'SuperRogue'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5374,6 +5387,10 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
+                            },
+                            {
+                                'Also worked on:',
+                                'Homelatro'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5385,6 +5402,10 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
+                            },
+                            {
+                                'Also worked on:',
+                                'LobotomyCorp'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5396,6 +5417,10 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
+                            },
+                            {
+                                'Also worked on:',
+                                'Neato Jokers'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5410,6 +5435,10 @@ return {
                             },
                             {
                                 '{C:attention}Artist'
+                            },
+                            {
+                                'Also worked on:',
+                                'Grab Bag'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
