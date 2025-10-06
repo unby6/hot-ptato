@@ -186,6 +186,7 @@ local MisprintizeForbidden = {
 	['guts'] = true,
 	['wits'] = true,
 	["quantum"] = true,
+	["config"] = true, -- Here for quantum jokers.... You shouldn't modify this!
 	--["x_mult"] = true,
 }
 
