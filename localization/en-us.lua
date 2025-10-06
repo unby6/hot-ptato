@@ -5422,7 +5422,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Lucky Rabbit'
+                                '{C:attention}Lucky Rabbit'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5436,7 +5436,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'ArtBox'
+                                '{C:attention}ArtBox'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5446,7 +5446,7 @@ return {
                         name = "theAstra",
                         text = {
                             {
-                                '{C:attention}Organizer{} of',
+                                '{C:dark_edition,E:1}Organizer{} of',
                                 'Hot Potato'
                             },
                             {
@@ -5455,9 +5455,17 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Maximus',
-                                'SuperRogue'
-                            }
+                                '{C:attention}Maximus',
+                                '{C:attention}SuperRogue'
+                            },
+                            {
+                                "My message:",
+                                "{C:attention}It has been an absolute joy hosting this event!",
+                                "{C:attention}It would not have been possible without all",
+                                "{C:attention}of the incredibly smart and talented",
+                                "{C:attention}people who chose to participate.",
+                                "{C:attention}I truly hope you enjoy your time with our work!!"
+                            },
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 2, y = 0 }
@@ -5471,7 +5479,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Homelatro'
+                                '{C:attention}Homelatro'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5486,7 +5494,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'LobotomyCorp'
+                                '{C:attention}LobotomyCorp'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5501,7 +5509,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Neato Jokers'
+                                '{C:attention}Neato Jokers'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5519,7 +5527,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Grab Bag'
+                                '{C:attention}Grab Bag'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
