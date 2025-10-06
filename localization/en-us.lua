@@ -5228,8 +5228,14 @@ return {
                                 "and others.",
                             },
                             {
+                                'Also worked on:',
+                                'Medium',
+                                'Tonsmith',
+                                'Fool\'s Gambit',
+                            },
+                            {
                                 "My Message:",
-                                "{C:inactive}\"Play Medium\"",
+                                "{C:inactive}\"communism\"",
                             }
                         },
                         atlas = "hpot_tname_jokers2",
