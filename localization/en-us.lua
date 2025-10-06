@@ -2494,8 +2494,10 @@ return {
             v_hpot_hc_parthenogenesis = {
                 name = "Parthenogenesis",
                 text = {
-                    "When {C:hpot_pink}breeding{}, the child will",
-                    "always be a child of the {C:attention}Mother"
+                    "You can now {C:hpot_pink}breed{} with",
+                    "only the {C:attention}Mother{},",
+                    "the {C:attention}Child{} will have",
+                    "its mother's ability {C:attention}twice"
                 }
             },
             v_hpot_domain_extrapolation = {

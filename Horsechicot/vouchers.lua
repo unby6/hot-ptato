@@ -118,16 +118,6 @@ SMODS.Voucher {
     requires = {'v_hpot_hc_dark_connections'}
 }
 
---main functionality for these is located in the nursery files
-SMODS.Voucher {
-    key = "hc_parthenogenesis", 
-    hotpot_credits = Horsechicot.credit("cg223", "lord.ruby"),
-    redeem = function (self, voucher)
-        G.GAME.guaranteed_breed_center = "mother"
-    end,
-    atlas = "hc_vouchers",
-    pos = {x = 0, y = 3},
-}
 
 SMODS.Voucher {
     key = "hc_incubator",
@@ -135,7 +125,18 @@ SMODS.Voucher {
     redeem = function (self, voucher)
         G.GAME.quick_preggo = true
     end,
-    requires = {"v_hpot_hc_parthenogenesis"},
     atlas = "hc_vouchers",
     pos = {x = 1, y = 3},
+}
+
+--main functionality for these is located in the nursery files
+SMODS.Voucher {
+    key = "hc_parthenogenesis", 
+    hotpot_credits = Horsechicot.credit("cg223", "lord.ruby"),
+    redeem = function (self, voucher)
+        G.GAME.parthenogenesis = true
+    end,
+    requires = {"v_hpot_hc_incubator"},
+    atlas = "hc_vouchers",
+    pos = {x = 0, y = 3},
 }
