@@ -1326,11 +1326,11 @@ return {
             },
             j_hpot_fallback = {
                 name = " ",
-                text = {{" "}}
+                text = { { " " } }
             },
             j_hpot_tname_postcard = {
                 name = " ",
-                text = {{" "}}
+                text = { { " " } }
             },
             j_hpot_tname_postcard_1 = {
                 name = "Postcard",
@@ -2007,7 +2007,7 @@ return {
             },
             j_hpot_OAP = {
                 name = "",
-                text = {{""}}
+                text = { { "" } }
             },
             j_hpot_OAP_trif = {
                 name = "Oops! A Programmer",
@@ -2517,10 +2517,8 @@ return {
                         "Exiting {C:attention}boosters{} or {C:attention}changing{} rounds will {C:green}either{}",
                         "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one"
                     },
+                    " ",
                     [2] = {
-                        "{C:inactive,s:0.3} "
-                    },
-                    [3] = {
                         "Stone cards held in hand gain {X:mult,C:white}XMult{} or {X:chips,C:white}XChips{}",
                         "depending on the {C:attention}total{} number of Stone cards",
                         "{u:default}and{} the {C:purple}enhancements{} applied to them"
@@ -5729,7 +5727,7 @@ return {
             k_spark_per_turn = "Upgrade cost",
 
             hotpot_current_track = "CURRENT TRACK",
-            
+
             hotpot_exposure = "Exposure",
 
             hotpot_credits_button = "Credits",
