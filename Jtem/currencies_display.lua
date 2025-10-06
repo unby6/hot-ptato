@@ -126,7 +126,7 @@ end
 
 local old_displayed = { "dollars" }
 local function update_displayed_currencies()
-	if not G.HUD then
+	if not G.HUD or not G.GAME then
 		return
 	end
 	local new_displayed = currencies_to_display() or { "dollars" }
