@@ -445,7 +445,7 @@ HotPotato.generate_credit_UIBox = function(team)
 	-- create a card for this member
 	return {
 		n = G.UIT.C,
-		config = { minw = 10, colour = G.C.CLEAR, align = "cm", id = "hotpot_credits_page" },
+		config = { minw = 11, colour = G.C.CLEAR, align = "cm", id = "hotpot_credits_page" },
 		nodes = table_nodes
 	}
 end
@@ -518,7 +518,7 @@ function G.FUNCS.create_UIBox_credits(e)
 							align = "cm"
 						},
 						nodes = {
-							create_option_cycle({options = options, w = 14, cycle_shoulders = true, opt_callback = 'regenerate_hotpot_credits_page', current_option = 1, colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
+							create_option_cycle({options = options, w = 11, cycle_shoulders = true, opt_callback = 'regenerate_hotpot_credits_page', current_option = 1, colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
 						}
 					}
 				}
