@@ -517,6 +517,7 @@ return {
                     '{C:attention}Start{} with a 22 card deck...',
                     'and 30 {C:dark_edition}Polychrome{} Stone cards',
                     '{C:attention,T:v_hpot_poop1}Land Ahoy!{}',
+                    '{s:0.4,C:inactive}"Check yer vouchers, landlubber."{}',
                 }
             },
         },
@@ -1326,11 +1327,11 @@ return {
             },
             j_hpot_fallback = {
                 name = " ",
-                text = {{" "}}
+                text = { { " " } }
             },
             j_hpot_tname_postcard = {
                 name = " ",
-                text = {{" "}}
+                text = { { " " } }
             },
             j_hpot_tname_postcard_1 = {
                 name = "Postcard",
@@ -2007,7 +2008,7 @@ return {
             },
             j_hpot_OAP = {
                 name = "",
-                text = {{""}}
+                text = { { "" } }
             },
             j_hpot_OAP_trif = {
                 name = "Oops! A Programmer",
@@ -2515,14 +2516,12 @@ return {
                 text = {
                     [1] = {
                         "Exiting {C:attention}boosters{} or {C:attention}changing{} rounds will {C:green}either{}",
-                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one"
+                        "{C:red,E:2}destroy{} a non-Stone card or create a {C:dark_edition}new{} one",
+                        "{s:0.3} "
                     },
                     [2] = {
-                        "{C:inactive,s:0.3} "
-                    },
-                    [3] = {
-                        "Stone cards held in hand gain {X:mult,C:white}XMult{} or {X:chips,C:white}XChips{}",
-                        "depending on the {C:attention}total{} number of Stone cards",
+                        "Stone cards gain {X:mult,C:white}Mult{} or {X:chips,C:white}Chips{} depending",
+                        "on the {C:attention}total{} number of {C:dark_edition}Stone{} cards",
                         "{u:default}and{} the {C:purple}enhancements{} applied to them"
                     }
                 }
@@ -5035,7 +5034,14 @@ return {
                     },
                     {
                         name = "Eris",
-                        text = {},
+                        text = {
+                            "hi i invented the concept of the",
+                            "consumable highlight shenanigans",
+                            "also play {C:dark_edition}Hypernova{}",
+                            "{C:inactive}please my mod has like no players{}"
+                        },
+                        atlas = "SillypostingJokers",
+                        pos = { x = 0, y = 0 }
                     },
                     {
                         name = "UnusedParadox",
@@ -5315,43 +5321,112 @@ return {
                 members = {
                     {
                         name = "trif",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Lucky Rabbit\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 0, y = 0 }
                     },
                     {
                         name = "SadCube",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play ArtBox\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 1, y = 0 }
                     },
                     {
                         name = "theAstra",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Organizer{} of',
+                                'Hot Potato'
+                            },
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Maximus\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 2, y = 0 }
                     },
                     {
                         name = "Wix",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Homelatro\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 3, y = 0 }
                     },
                     {
                         name = "Mysthaps",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play LobotomyCorp\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 4, y = 0 }
                     },
                     {
                         name = "Liafeon",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Neato Jokers\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 5, y = 0 }
                     },
                     {
                         name = "th30ne",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Grab Bag\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 6, y = 0 }
                     },
@@ -5729,7 +5804,7 @@ return {
             k_spark_per_turn = "Upgrade cost",
 
             hotpot_current_track = "CURRENT TRACK",
-            
+
             hotpot_exposure = "Exposure",
 
             hotpot_credits_button = "Credits",
