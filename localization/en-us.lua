@@ -5060,7 +5060,23 @@ return {
                     },
                     {
                         name = "UnusedParadox",
-                        text = {},
+                        text = {
+                            {
+                                "I did various minor {E:1,C:enhanced}improvements",
+                                "to everyone else's {C:hpot_plincoin}stuff {C:inactive}(QOL moment){}",
+                                "I also did half the {C:green}code{} for",
+                                "{C:attention}consumable selection limit{} stuff"
+                            },
+                            {
+                                "Also worked on: {E:1,C:blue}Paradox's Stupid Ideas"
+                            },
+                            {
+                                "My message:",
+                                "There's not enough {E:1,C:hpot_advert}selfcest{} in this mod. SMH"
+                            },
+                        },
+                        atlas = "hpot_perkeocoinjokers",
+                        pos = { x = 0, y = 2 },
                     },
                     {
                         name = "Supernova",
