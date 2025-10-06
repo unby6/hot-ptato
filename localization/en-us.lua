@@ -5077,6 +5077,9 @@ return {
                                 "The original {C:attention}event",
                                 "{C:attention}system{} and mechanics"
                             },
+                            {
+                                "{C:inactive}Haya my goat <3"
+                            }
                         },
                         atlas = "hpot_jtem_jokers",
                         pos = { x = 5, y = 3 },
