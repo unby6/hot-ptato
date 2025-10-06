@@ -4982,6 +4982,338 @@ return {
                 },
             },
         },
+        -- This is sorted by week!
+        hotpot_credits = {
+            -- Members format goes like this
+            -- name - name of member
+            -- text - member description, put contributions and what not here
+            -- atlas - atlas to use for the joker graphic (optional)
+            -- pos - position to use for the joker graphic (optional)
+            [1] = {
+                name = "PerkeoCoin",
+                members = {
+                    {
+                        name = "stupxd",
+                        text = {
+                            {
+                                "stupid text"
+                            }
+                        },
+                    },
+                    {
+                        name = "Omegaflowey18",
+                        text = {
+                            {
+                                "morestupid text"
+                            }
+                        },
+                    },
+                    {
+                        name = "CampfireCollective",
+                        text = {},
+                    },
+                    {
+                        name = "dottykitty",
+                        text = {},
+                    },
+                    {
+                        name = "Opal",
+                        text = {},
+                    },
+                    {
+                        name = "P r o t o",
+                        text = {},
+                    },
+                }
+            },
+            [2] = {
+                name = "Sillyposting",
+                members = {
+                    {
+                        name = "Poker The Poker",
+                        text = {},
+                    },
+                    {
+                        name = "Eris",
+                        text = {},
+                    },
+                    {
+                        name = "UnusedParadox",
+                        text = {},
+                    },
+                    {
+                        name = "Supernova",
+                        text = {},
+                    },
+                    {
+                        name = "Jaydchw",
+                        text = {},
+                    },
+                    {
+                        name = "Victin",
+                        text = {},
+                    },
+                }
+            },
+            [3] = {
+                name = "Jtem",
+                members = {
+                    {
+                        name = "SleepyG11",
+                        text = {
+                            {
+                                "The original {C:attention}event",
+                                "{C:attention}system{} and mechanics"
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 5, y = 3 },
+                    },
+                    {
+                        name = "Squidguset",
+                        text = {
+                            {
+                                "Various jokers, art",
+                                "and some music tracks"
+                            },
+                            {
+                                "Creator of the Nxkoo",
+                                "dies tab in mod info and",
+                                "{C:attention}title text"
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 4, y = 3 },
+                    },
+                    {
+                        name = "Aikoyori",
+                        text = {
+                            {
+                                "Various jokers, art",
+                                "and a music track"
+                            },
+                            {
+                                "Mastermind behind",
+                                "{C:attention}Joker delivery{} and",
+                                "{C:attention}Joker training{}"
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 3, y = 3 },
+                    },
+                    {
+                        name = "Haya",
+                        text = {
+                            {
+                                "Some jokers and art",
+                            },
+                            {
+                                "The {C:attention}Jukebox{}, as well as",
+                                "{C:blue}Jicks{} implementation and",
+                                "{C:attention}Joker training{}"
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 2, y = 3 },
+                    },
+                    {
+                        name = "MissingNumber",
+                        text = {
+                            {
+                                "Most art for most jokers",
+                                "{C:inactive}AGAIN!"
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 0, y = 3 },
+                    },
+                }
+            },
+            [4] = {
+                name = "Team Name",
+                members = {
+                    {
+                        name = "Corobo",
+                        text = {},
+                        atlas = "hpot_tname_jokers2",
+                        pos = { x = 0, y = 0 },
+                    },
+                    {
+                        name = "GhostSalt",
+                        text = {},
+                        atlas = "hpot_tname_jokers2",
+                        pos = { x = 1, y = 0 },
+                    },
+                    {
+                        name = "GoldenLeaf",
+                        text = {},
+                        atlas = "hpot_tname_jokers2",
+                        pos = { x = 2, y = 0 },
+                    },
+                    {
+                        name = "Jogla",
+                        text = {},
+                        atlas = "hpot_tname_jokers2",
+                        pos = { x = 3, y = 0 },
+                    },
+                    {
+                        name = "Revo",
+                        text = {},
+                        atlas = "hpot_tname_jokers2",
+                        pos = { x = 4, y = 0 },
+                    },
+                    {
+                        name = "Violet",
+                        text = {},
+                        atlas = "hpot_tname_jokers2",
+                        pos = { x = 5, y = 0 },
+                    },
+                }
+            },
+            [5] = {
+                name = ":)",
+                members = {
+                    {
+                        name = "PokéRen",
+                        text = {},
+                    },
+                    {
+                        name = "notmario",
+                        text = {},
+                    },
+                    {
+                        name = "RGBeet",
+                        text = {},
+                    },
+                    {
+                        name = "basil_squared",
+                        text = {},
+                    },
+                }
+            },
+            [6] = {
+                -- It's funnier if I put in the longer name
+                name = "The four horsechicots of the potatolypse",
+                members = {
+                    {
+                        name = "lord.ruby",
+                        text = {},
+                        atlas = "hpot_hc_apocalypse",
+                        pos = { x = 1, y = 0 }
+                    },
+                    {
+                        name = "Lily Felli",
+                        text = {},
+                        atlas = "hpot_hc_apocalypse",
+                        pos = { x = 2, y = 0 }
+                    },
+                    {
+                        name = "Nxkoo",
+                        text = {},
+                        atlas = "hpot_hc_apocalypse",
+                        pos = { x = 3, y = 0 },
+                    },
+                    {
+                        name = "cg",
+                        text = {},
+                        atlas = "hpot_hc_apocalypse",
+                        pos = { x = 0, y = 1 },
+                    },
+                    {
+                        name = "pangaea47",
+                        text = {},
+                        atlas = "hpot_hc_apocalypse",
+                        pos = { x = 1, y = 1 },
+                    },
+                    {
+                        name = "baccon",
+                        text = {},
+                        atlas = "hpot_hc_apocalypse",
+                        pos = { x = 2, y = 1 },
+                    },
+                }
+            },
+            [7] = {
+                name = "Oops! All Programmers",
+                members = {
+                    {
+                        name = "trif",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 0, y = 0 }
+                    },
+                    {
+                        name = "SadCube",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 1, y = 0 }
+                    },
+                    {
+                        name = "theAstra",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 2, y = 0 }
+                    },
+                    {
+                        name = "Wix",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 3, y = 0 }
+                    },
+                    {
+                        name = "Mysthaps",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 4, y = 0 }
+                    },
+                    {
+                        name = "Liafeon",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 5, y = 0 }
+                    },
+                    {
+                        name = "th30ne",
+                        text = {},
+                        atlas = "hpot_oap_self_insert",
+                        pos = { x = 6, y = 0 }
+                    },
+                }
+            },
+            [8] = {
+                name = "Pissdrawer",
+                members = {
+                    {
+                        name = "Fey",
+                        text = {},
+                    },
+                    {
+                        name = "Eremel",
+                        text = {},
+                    },
+                    {
+                        name = "deadbeet",
+                        text = {},
+                    },
+                    {
+                        name = "Tacashumi",
+                        text = {},
+                    },
+                    {
+                        name = "N'",
+                        text = {},
+                    },
+                    {
+                        name = "SDM_0",
+                        text = {},
+                    },
+                    {
+                        name = "BepisFever",
+                        text = {},
+                    },
+                }
+            }
+        }
     },
     misc = {
         challenge_names = {
@@ -5320,7 +5652,11 @@ return {
 
             hotpot_current_track = "CURRENT TRACK",
             
-            hotpot_exposure = "Exposure"
+            hotpot_exposure = "Exposure",
+
+            hotpot_credits_button = "Credits",
+            hotpot_credits_title = "Meet the Team",
+            hotpot_credits_week = "Week"
 
         },
         v_dictionary = {
