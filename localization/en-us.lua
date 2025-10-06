@@ -5453,7 +5453,24 @@ return {
                     },
                     {
                         name = "N'",
-                        text = {},
+                        text = {
+                            {
+                                "Redesign of the {C:attention}event{} system",
+                                "and other miscellaneous {C:attention}code{}"
+                            },
+                            {
+                                "{C:inactive}[Excerpt from Famimaga Issue 9 interview (1986)]{}",
+                                "{C:attention}\"I would even dare to say that",
+                                "{C:attention}[the development of Hot Potato] was a life-changing",
+                                "{C:attention}experience for me and many other people. (laughs)\"{}",
+                                " ",
+                                "{C:blue}\"Care to elaborate as to why that is?\"{}",
+                                " ",
+                                "{C:attention}\"No.\"{}"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 0, y = 0 }
                     },
                     {
                         name = "SDM_0",
