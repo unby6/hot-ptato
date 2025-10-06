@@ -5001,9 +5001,17 @@ return {
                     },
                     {
                         name = "Omegaflowey18",
-                        text = {
+                       text = {
                             {
-                                "morestupid text"
+                                '{C:attention}Artist{} and',
+                                '{C:attention}Resident Bug Catcher'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
+								"{C:inactive}\"She lusty on my joker 'till i +3 mult on played hearts all.\"",
+								"{C:inactive}\"You're telling me there's men in your gitis,\"",
+								"{C:inactive}\"But I just like to play and draw.\"",
                             }
                         },
                     },
