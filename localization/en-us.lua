@@ -5828,7 +5828,7 @@ return {
 
             hpot_credit_text = "Credits:",
 
-            hotpot_disable_animations = "Disable Animations",
+            hotpot_disable_animations = "Disable Jokers Animations",
             hotpot_family_friendly = "Family Friendly",
             hotpot_window_title = "Random Window Titles",
 
