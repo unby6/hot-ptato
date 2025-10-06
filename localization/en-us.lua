@@ -5293,7 +5293,10 @@ return {
                 members = {
                     {
                         name = "lord.ruby",
-                        text = {},
+                        text = {
+                            {"{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}",},
+                            {"im ruby."}
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 1, y = 0 }
                     },
