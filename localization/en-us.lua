@@ -1933,14 +1933,16 @@ return {
                 name = 'Chipper Charlie',
                 text = {
                     'Gives {C:mult}+#1#{} Mult when',
-                    'a {C:chips}+Chips{} effect scores'
+                    'a {C:chips}+Chips{} effect from',
+                    'another {C:attention}Joker{} scores'
                 }
             },
             j_hpot_melvin = {
                 name = 'Molten Melvin',
                 text = {
                     'Gives {C:chips}+#1#{} Chips when',
-                    'a {C:mult}+Mult{} effect scores'
+                    'a {C:mult}+Mult{} effect from',
+                    'another {C:attention}Joker{} scores'
                 }
             },
             j_hpot_art_of_the_deal = {

@@ -33,7 +33,7 @@ local start_run_ref = Game.start_run
 function Game:start_run(args)
     local ret = start_run_ref(self, args)
     local saveTable = args.savetext or nil
-    G.GAME.breeding_rounds_passed = saveTable.GAME.breeding_rounds_passed or 0
+    G.GAME.breeding_rounds_passed = saveTable and saveTable.GAME.breeding_rounds_passed or 0
     return ret
 end
 
