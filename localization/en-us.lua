@@ -4292,7 +4292,7 @@ return {
             hpot_trolley_bribe = {
                 text = {
                     "You hastily hand the trolley operator",
-                    "{C:dollars}$20{} in hopes they will brake in time.",
+                    "{C:money}$20{} in hopes they will brake in time.",
                     " ", "...", " ",
                     "Luckily, it stops just in time.",
                     "All of your cards remain in tact.",
@@ -6108,7 +6108,7 @@ return {
 
             hpot_trolley_joker = "Direct at Joker",
             hpot_trolley_cards = "Direct at Playing Cards",
-            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
+            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:money}$20{})",
             hpot_mystery_box = "Open (5 credits)",
             hpot_mystery_box_budget = "Open (5 budget)",
 
