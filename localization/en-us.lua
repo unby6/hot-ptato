@@ -5475,7 +5475,7 @@ return {
                             }
                         },
                         atlas = "hpot_pdr_credits",
-                        pos = { x = 0, y = 0 }
+                        pos = { x = 1, y = 0 }
                     },
                     {
                         name = "SDM_0",
@@ -5483,7 +5483,17 @@ return {
                     },
                     {
                         name = "BepisFever",
-                        text = {},
+                        text = {
+                            {
+                                "Made UI for {C:attention}help menu{} and {C:attention}training grounds"
+
+                            },
+                            {
+                                "{C:attention}\"i hate ui\"{} <- guy who made ui"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 0, y = 0 }
                     },
                 }
             }
