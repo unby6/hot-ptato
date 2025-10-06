@@ -22,7 +22,7 @@ function G.FUNCS.hotpot_previous_info_page(e)
         page = math.max(page - 1, 1)
     end
 
-    G.FUNCS.hotpot_info{menu_type = menu_type, page = page, back_func = back_func, no_first_time = no_first_time}
+    G.FUNCS.hotpot_info{menu_type = menu_type, page = page, back_func = back_func, no_first_time = no_first_time, is_page_switch = true}
 end
 
 function G.FUNCS.hotpot_next_info_page(e)
@@ -39,7 +39,7 @@ function G.FUNCS.hotpot_next_info_page(e)
         page = math.min(page + 1, max_page)
     end
 
-    G.FUNCS.hotpot_info{menu_type = menu_type, page = page, back_func = back_func, no_first_time = no_first_time}
+    G.FUNCS.hotpot_info{menu_type = menu_type, page = page, back_func = back_func, no_first_time = no_first_time, is_page_switch = true}
 
 end
 
@@ -175,8 +175,13 @@ end
 
 G.FUNCS.hotpot_info = function(args)   
     if not args or not args.menu_type or not G.localization.InfoMenu[args.menu_type] then return end
+    local config = {}
+    if args.is_page_switch then
+        config.offset = { x = 0, y = 0 }
+    end
     G.FUNCS.overlay_menu{
         definition = hotpot_create_info(args),
+        config = config
     }
 end
 
