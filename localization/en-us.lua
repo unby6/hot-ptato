@@ -5424,7 +5424,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Lucky Rabbit'
+                                '{C:attention}Lucky Rabbit'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5438,7 +5438,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'ArtBox'
+                                '{C:attention}ArtBox'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5448,7 +5448,7 @@ return {
                         name = "theAstra",
                         text = {
                             {
-                                '{C:attention}Organizer{} of',
+                                '{C:dark_edition,E:1}Organizer{} of',
                                 'Hot Potato'
                             },
                             {
@@ -5457,9 +5457,17 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Maximus',
-                                'SuperRogue'
-                            }
+                                '{C:attention}Maximus',
+                                '{C:attention}SuperRogue'
+                            },
+                            {
+                                "My message:",
+                                "{C:attention}It has been an absolute joy hosting this event!",
+                                "{C:attention}It would not have been possible without all",
+                                "{C:attention}of the incredibly smart and talented",
+                                "{C:attention}people who chose to participate.",
+                                "{C:attention}I truly hope you enjoy your time with our work!!"
+                            },
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 2, y = 0 }
@@ -5473,7 +5481,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Homelatro'
+                                '{C:attention}Homelatro'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5488,7 +5496,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'LobotomyCorp'
+                                '{C:attention}LobotomyCorp'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5503,7 +5511,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Neato Jokers'
+                                '{C:attention}Neato Jokers'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5521,7 +5529,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Grab Bag'
+                                '{C:attention}Grab Bag'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5538,7 +5546,21 @@ return {
                     },
                     {
                         name = "Eremel",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Shop UI{} and {C:hpot_pink}Quantum Jokers'
+                            },
+                            {
+                                'Stuck in UI prison'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:blue}Galdur{}, {C:red}Malverk{}, {C:attention}Ortalab',
+                                '{C:green}SMODS'
+                            },
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 3, y = 0 }
                     },
                     {
                         name = "deadbeet",
@@ -5546,7 +5568,22 @@ return {
                     },
                     {
                         name = "Tacashumi",
-                        text = {},
+                        text = {
+                            {
+                                "{C:attention}Art{}, and {C:attention}Joker{}",
+                                "conceptualization",
+                            },
+                            {
+                                "Does not approve",
+                                "of the team name"
+                            },
+                            {
+                                "Also worked on:",
+                                "JJOK, Tacky Jokers"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 4, y = 0 }
                     },
                     {
                         name = "N'",
@@ -5582,8 +5619,8 @@ return {
                                 "and {C:attention}art{}"
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Siralim Ultimate\"{}"
+                                "Play Siralim Ultimate and",
+                                "avoid generate_card_ui"
                             },
                             {
                                 "Also worked on:",
