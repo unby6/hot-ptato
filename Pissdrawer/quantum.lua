@@ -65,8 +65,13 @@ function SMODS.find_card(key, count_debuffed)
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         if area.cards then
             for _, v in pairs(area.cards) do
-                if v and type(v) == 'table' and v.ability and v.ability.quantum_1 and (v.ability.quantum_1.key == key or v.ability.quantum_2.key == key) and (count_debuffed or not v.debuff) then
-                    table.insert(results, v)
+                if v and type(v) == 'table' and v.ability and v.ability.quantum_1 then
+                    if (v.ability.quantum_1.key == key) and (count_debuffed or not v.debuff) then
+                        table.insert(results, v)
+                    end
+                    if (v.ability.quantum_2.key == key) and (count_debuffed or not v.debuff) then
+                        table.insert(results, v)
+                    end
                 end
             end
         end
