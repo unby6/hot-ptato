@@ -5525,6 +5525,12 @@ return {
                             {
                                 "My Message:",
                                 "{C:inactive}\"Play Siralim Ultimate\"{}"
+                            },
+                            {
+                                "Also worked on:",
+                                "SDM_0's Stuff, Joker Evolution",
+                                "Aure as Aura, No Stake Tooltip,",
+                                "Siralim Balatro"
                             }
                         },
                         atlas = "hpot_pdr_credits",
