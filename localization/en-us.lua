@@ -5495,7 +5495,21 @@ return {
                     },
                     {
                         name = "Eremel",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Shop UI{} and {C:hpot_pink}Quantum Jokers'
+                            },
+                            {
+                                'Stuck in UI prison'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:blue}Galdur{}, {C:red}Malverk{}, {C:attention}Ortalab',
+                                '{C:green}SMODS'
+                            },
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 3, y = 0 }
                     },
                     {
                         name = "deadbeet",
@@ -5503,7 +5517,22 @@ return {
                     },
                     {
                         name = "Tacashumi",
-                        text = {},
+                        text = {
+                            {
+                                "{C:attention}Art{}, and {C:attention}Joker{}",
+                                "conceptualization",
+                            },
+                            {
+                                "Does not approve",
+                                "of the team name"
+                            },
+                            {
+                                "Also worked on:",
+                                "JJOK, Tacky Jokers"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 4, y = 0 }
                     },
                     {
                         name = "N'",
@@ -5539,8 +5568,8 @@ return {
                                 "and {C:attention}art{}"
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Siralim Ultimate\"{}"
+                                "Play Siralim Ultimate and",
+                                "avoid generate_card_ui"
                             },
                             {
                                 "Also worked on:",
