@@ -20,6 +20,7 @@ SMODS.Joker {
     end,
     use = function(self, card)
         if G.PROFILES[G.SETTINGS.profile].hpot_lotus_joker then
+            G.GAME.banned_keys[G.PROFILES[G.SETTINGS.profile].hpot_lotus_joker] = false
             SMODS.add_card{
                 area = G.jokers,
                 key = G.PROFILES[G.SETTINGS.profile].hpot_lotus_joker
