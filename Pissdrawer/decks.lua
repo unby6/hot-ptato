@@ -70,7 +70,7 @@ SMODS.Back {
     pos = { x = 0, y = 0 },
     discovered = true,
     skip_materialize = true,
-    config = { stones = 30 },
+    config = { stones = 30, voucher = 'v_hpot_poop1' },
     hotpot_credits = {
         art = { "LocalThunk", "John Rackham" },
         code = { "deadbeet" },
@@ -147,21 +147,25 @@ SMODS.Back {
                 }
             end
         end
-        if context.individual and not context.end_of_round and context.cardarea == G.hand then
+        if context.individual and not context.end_of_round then
             local stones = 0
-            context.other_card.ability.perma_h_x_mult = context.other_card.ability.perma_h_x_mult or 0
-            context.other_card.ability.perma_h_x_chips = context.other_card.ability.perma_h_x_chips or 0
+            context.other_card.ability.perma_h_mult = context.other_card.ability.perma_h_mult or 0
+            context.other_card.ability.perma_h_chips = context.other_card.ability.perma_h_chips or 0
             for _, _2 in pairs(G.playing_cards) do
                 if SMODS.has_enhancement(_2, 'm_stone') then stones = stones + 1 end
             end
             local xmystery = pseudorandom('xmystery', 1, stones)
             if SMODS.has_enhancement(context.other_card, 'm_stone') then
                 if context.other_card.edition and context.other_card.edition.key == 'e_polychrome' then
-                    context.other_card.ability.perma_h_x_mult = context.other_card.ability.perma_h_x_mult +
-                        (xmystery / 25)
+                    if context.cardarea == G.play then
+                        context.other_card.ability.perma_h_mult = context.other_card.ability.perma_h_mult +
+                            (xmystery / 10)
+                    end
                 else
-                    context.other_card.ability.perma_h_x_chips = context.other_card.ability.perma_h_x_chips +
-                        (xmystery / 10)
+                    if context.cardarea == G.hand then
+                        context.other_card.ability.perma_h_chips = context.other_card.ability.perma_h_chips +
+                            (xmystery / 10)
+                    end
                 end
             end
         end
@@ -170,6 +174,8 @@ SMODS.Back {
 --i dont wanna talk about it
 SMODS.Voucher {
     key = 'poop1',
+    pos = { x = 0, y = 2 },
+    atlas = 'pdr_vouchers',
     no_collection = true,
     in_pool = function(self, args)
         return false
