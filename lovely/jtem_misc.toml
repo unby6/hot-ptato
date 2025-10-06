@@ -298,3 +298,28 @@ if not first_pass and not (_c.set == 'Edition') and full_UI_table.badges then
 end
 '''
 match_indent = true
+
+# Custom info_queue ui
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''info_boxes[#info_boxes+1] =
+          {n=G.UIT.R, config={align = "cm"}, nodes={
+          {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.JOKER_GREY, 0.5), r = 0.1, padding = 0.05, emboss = 0.05}, nodes={
+            info_tip_from_rows(v, v.name),
+          }}
+        }}'''
+position = 'at'
+payload = '''
+if v.custom_ui then
+  info_boxes[#info_boxes+1] = v:custom_ui()
+else
+  info_boxes[#info_boxes+1] =
+  {n=G.UIT.R, config={align = "cm"}, nodes={
+  {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.JOKER_GREY, 0.5), r = 0.1, padding = 0.05, emboss = 0.05}, nodes={
+    info_tip_from_rows(v, v.name),
+  }}
+}}
+end
+'''
+match_indent = true

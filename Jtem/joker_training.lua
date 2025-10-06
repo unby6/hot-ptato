@@ -202,7 +202,7 @@ local function create_stat_display(stat, values, multipliers)
 	end
 	return {
 		n = G.UIT.R,
-		config = { align = "cm" },
+		config = { align = "cm", padding = 0.05 },
 		nodes = {
 			{
 				n = G.UIT.C,
@@ -279,6 +279,7 @@ SMODS.Sticker {
 	-- For people peeping in here, especially people who know UI code
 	-- I wanna see this separate as little ui block elements someday
 	-- Instead of one big description
+	-- HAYA: its kinda funny no one really did this
 	loc_vars = function(self, info_queue, card)
 		local st = {}
 		local clr = {}
@@ -410,23 +411,54 @@ SMODS.Sticker {
 		--SMODS.Sticker.super.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 		local values = card and card.ability and card.ability["hp_jtem_stats"] or {}
 		if full_UI_table.sticker_pass or (card and card.area == G.train_jokers) then return end
-		local function create_stat(stat)
-			full_UI_table.info[#full_UI_table.info + 1] = {
-				name = localize("hotpot_" .. stat),
-				{
-					{
-						n = G.UIT.C,
-						config = { align = "cm", colour = G.C.CLEAR },
-						nodes = {
-							create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
-						}
-					}
+		local function create_stat(stat, w)
+			w = w or 2
+			return {
+				n = G.UIT.C,
+				config = { align = "cm", minw = w, maxw = w },
+				nodes = {
+					{n = G.UIT.R, config = {align = "cm", colour = lighten(G.C.GREY, 0.15), minh = 0.4, minw = w, padding = 0.05}, nodes = {
+						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+					}},
+					create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
 				}
 			}
 		end
-		for _, stat in ipairs(HP_JTEM_STATS) do
-			create_stat(stat)
-		end
+		-- Main stats
+		full_UI_table.info[#full_UI_table.info + 1] = {
+			custom_ui = function(info)
+				return {
+					n = G.UIT.R,
+					config = { align = "cm", colour = G.C.CLEAR },
+					nodes = {
+						{
+							n = G.UIT.C,
+							config = { align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075 },
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = { align = "cm" },
+									nodes = {
+										create_stat("speed"),
+										create_stat("stamina"),
+										create_stat("power"),
+									}
+								},
+								{
+									n = G.UIT.R,
+									config = { align = "cm" },
+									nodes = {
+										create_stat("guts", 3),
+										create_stat("wits", 3)
+									}
+								}
+							}
+						}
+					}
+				}
+			end,
+			{ }
+		}
 		full_UI_table.sticker_pass = true
 	end,
 	badge_colour = HEX('ffcc11'),
