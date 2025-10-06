@@ -5656,7 +5656,9 @@ return {
 
             hotpot_credits_button = "Credits",
             hotpot_credits_title = "Meet the Team",
-            hotpot_credits_week = "Week"
+            hotpot_credits_week = "Week",
+
+            hotpot_feature_info_button = "Feature Info",
 
         },
         v_dictionary = {

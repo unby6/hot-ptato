@@ -278,10 +278,12 @@ HotPotato.set_window_title()
 HotPotato.custom_ui = function(mod_nodes)
 	mod_nodes[#mod_nodes + 1] = {
 		n = G.UIT.R,
-		config = { minw = 4, minh = 4, align = "cm" },
+		config = { minw = 4, minh = 4, align = "cm", padding = 0.2 },
 		nodes = {
-			UIBox_button({ label = { localize('hotpot_credits_button') }, colour = HotPotato.badge_colour, button =
-			"create_UIBox_credits" })
+			UIBox_button({ label = { localize('hotpot_credits_button') }, minw = 5, colour = HotPotato.badge_colour, button =
+			"create_UIBox_credits" }),
+			UIBox_button({ label = { localize('hotpot_feature_info_button') }, minw = 5, colour = HotPotato.badge_colour, button =
+			"feature_info_menu" })
 		}
 	}
 end
@@ -468,6 +470,7 @@ function G.FUNCS.create_UIBox_credits(e)
 	for week, team in ipairs(G.localization.InfoMenu.hotpot_credits) do
 		options[#options+1] = localize('hotpot_credits_week').." "..week.." - "..team.name
 	end
+	SMODS.LAST_SELECTED_MOD_TAB = nil
 	local t = create_UIBox_generic_options({
 		colour = G.ACTIVE_MOD_UI and
 			((G.ACTIVE_MOD_UI.ui_config or {}).collection_colour or (G.ACTIVE_MOD_UI.ui_config or {}).colour),
@@ -491,7 +494,7 @@ function G.FUNCS.create_UIBox_credits(e)
 								n = G.UIT.O,
 								config = {
 									object = DynaText {
-										string = "Meet the Team",
+										string = localize('hotpot_credits_title'),
 										float = true,
 										pop_in = 0,
 										pop_in_rate = 4,
@@ -530,4 +533,47 @@ function G.FUNCS.create_UIBox_credits(e)
 	}
 end
 
+--#endregion
+
+--#region Feature Info
+
+function G.FUNCS.feature_info_menu(e)
+	local contents = {}
+	for info, menu in pairs(G.localization.InfoMenu) do
+		if info ~= "hotpot_credits" then
+			local fname = "hotpot_info_menu_"..info
+			G.FUNCS[fname] = function(e)
+				G.FUNCS.hotpot_info { menu_type = info, back_func = "feature_info_menu", no_first_time = true }
+			end
+			contents[#contents+1] = UIBox_button({ label = { HotPotato.localize { type = 'name_text', loc_target = { name = menu.name } } }, minw = 5, button = fname })
+		end
+	end
+	SMODS.LAST_SELECTED_MOD_TAB = nil
+	G.FUNCS.overlay_menu {
+		definition = create_UIBox_generic_options({
+			colour = G.ACTIVE_MOD_UI and
+				((G.ACTIVE_MOD_UI.ui_config or {}).collection_colour or (G.ACTIVE_MOD_UI.ui_config or {}).colour),
+			bg_colour = G.ACTIVE_MOD_UI and
+				((G.ACTIVE_MOD_UI.ui_config or {}).collection_bg_colour or (G.ACTIVE_MOD_UI.ui_config or {}).bg_colour),
+			back_colour = G.ACTIVE_MOD_UI and
+				((G.ACTIVE_MOD_UI.ui_config or {}).collection_back_colour or (G.ACTIVE_MOD_UI.ui_config or {}).back_colour),
+			outline_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_outline_colour or
+				(G.ACTIVE_MOD_UI.ui_config or {}).outline_colour),
+			back_func = G.ACTIVE_MOD_UI and "openModUI_" .. G.ACTIVE_MOD_UI.id or 'your_collection',
+			contents = {
+				{
+					n = G.UIT.C,
+					config = { align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05, padding = 0.1, minw = 7 },
+					nodes = {
+						{
+							n = G.UIT.R,
+							config = { minw = 4, minh = 4, align = "cm", padding = 0.15 },
+							nodes = contents
+						}
+					}
+				}
+			}
+		})
+	}
+end
 --#endregion
