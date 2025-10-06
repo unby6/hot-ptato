@@ -5313,43 +5313,112 @@ return {
                 members = {
                     {
                         name = "trif",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Lucky Rabbit\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 0, y = 0 }
                     },
                     {
                         name = "SadCube",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play ArtBox\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 1, y = 0 }
                     },
                     {
                         name = "theAstra",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Organizer{} of',
+                                'Hot Potato'
+                            },
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Maximus\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 2, y = 0 }
                     },
                     {
                         name = "Wix",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Homelatro\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 3, y = 0 }
                     },
                     {
                         name = "Mysthaps",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play LobotomyCorp\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 4, y = 0 }
                     },
                     {
                         name = "Liafeon",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Neato Jokers\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 5, y = 0 }
                     },
                     {
                         name = "th30ne",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}\"Play Grab Bag\"",
+                            }
+                        },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 6, y = 0 }
                     },
