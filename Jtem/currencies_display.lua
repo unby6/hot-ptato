@@ -124,11 +124,11 @@ local function update_displayed_currencies()
 	if not G.HUD or not G.GAME then
 		return
 	end
-	local new_displayed = currencies_to_display() or { "dollars" }
+	local new_displayed = hpot_currencies_to_display() or { "dollars" }
 	table.sort(new_displayed)
 	if not arrays_equal(old_displayed, new_displayed) then
 		old_displayed = new_displayed
-		hotpot_display_hud_currencies(new_displayed)
+		hpot_display_currencies(new_displayed)
 	end
 end
 
