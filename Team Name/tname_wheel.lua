@@ -317,7 +317,7 @@ function update_wheel(dt) -- talen from plinko so idk
 
     
     stop_use()
-    ease_background_colour_blind(G.STATES.WHEEL)
+    ease_background_colour({new_colour = G.C.GOLD, special_colour = G.C.BLACK, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
     local plinko_exists = not not G.wheel
     G.wheel = G.wheel or UIBox {
       definition = G.UIDEF.wheel(),

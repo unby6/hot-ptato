@@ -466,7 +466,7 @@ function update_plinko(dt)
 
       
         stop_use()
-        ease_background_colour_blind(G.STATES.PLINKO)
+        ease_background_colour({new_colour = HEX('ffe96e'), special_colour = G.C.GREEN, tertiary_colour = darken( G.C.BLACK,0.1), contrast = 5})
         local plinko_exists = not not G.plinko
         G.plinko = G.plinko or UIBox{
             definition = G.UIDEF.plinko(),

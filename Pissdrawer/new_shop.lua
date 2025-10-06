@@ -213,6 +213,7 @@ G.FUNCS.open_nursery = function(e)
     PissDrawer.Shop.active_tab = "hotpot_nursery"
     PissDrawer.Shop.change_shop_sign('hpot_nursery_sign')
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.nursery, PissDrawer.Shop.create_nursery_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.nursery)
+    ease_background_colour({new_colour = HEX("75cdff"), special_colour = HEX("ff8ff4"), tertiary_colour = darken(G.C.BLACK,0.1), contrast = 3})
 end
 
 PissDrawer.Shop.change_shop_sign = function(atlas, sound)
