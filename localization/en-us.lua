@@ -5338,10 +5338,6 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play Lucky Rabbit\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5352,10 +5348,6 @@ return {
                         text = {
                             {
                                 '{C:attention}Artist'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play ArtBox\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5371,10 +5363,6 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play Maximus\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5386,10 +5374,6 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play Homelatro\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5401,10 +5385,6 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play LobotomyCorp\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5416,10 +5396,6 @@ return {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play Neato Jokers\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5434,10 +5410,6 @@ return {
                             },
                             {
                                 '{C:attention}Artist'
-                            },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"Play Grab Bag\"",
                             }
                         },
                         atlas = "hpot_oap_self_insert",
