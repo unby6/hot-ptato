@@ -384,6 +384,8 @@ local function hpot_create_joker_from_amazon(card, center)
 end
 
 function G.FUNCS.hp_jtem_search_jokers(e)
+    -- you FUCKING idiot
+    if G.HP_REQUEST and G.HP_REQUEST.text == "" then return end
     if G.your_collection and G.your_collection[1] then
         hotpot_jtem_destroy_all_card_in_an_area(G.your_collection[1])
         local count = 0
