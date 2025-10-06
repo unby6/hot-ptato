@@ -185,6 +185,7 @@ local MisprintizeForbidden = {
 	['stamina'] = true,
 	['guts'] = true,
 	['wits'] = true,
+	["quantum"] = true,
 	--["x_mult"] = true,
 }
 
