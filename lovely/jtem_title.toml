@@ -30,8 +30,8 @@ elseif type(HPJTTT.text[HPJTTT.chosen]) == 'table' then
 Splash_text_type = 'img'
 local img = G.ASSET_ATLAS[HPJTTT.text[HPJTTT.chosen][1]]
 G.SPLASH_TEXT = Sprite(0, 0, 
-        4*SC_scale, 
-        4*SC_scale*(img.py/img.px),
+        3*SC_scale, 
+        3*SC_scale*(img.py/img.px),
         img, {x=0,y=0})
 end
 G.SPLASH_TEXT:set_alignment({

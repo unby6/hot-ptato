@@ -685,7 +685,7 @@ function JTJukebox.MusicTab()
 											-- 09/28 haya: I'm back.
 											{
 												n = G.UIT.C,
-												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.GREEN, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_play', button_dist = 0 },
+												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.GREEN, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_play', button_dist = 0.1, hover = true },
 												nodes = {
 													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_request'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true }
 												},
@@ -701,9 +701,9 @@ function JTJukebox.MusicTab()
 											-- unplay butan
 											{
 												n = G.UIT.C,
-												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.RED, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_stop', func = "hpot_jukebox_can_stop_playback", button_dist = 0 },
+												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.RED, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_stop', func = "hpot_jukebox_can_stop_playback", button_dist = 0.1, hover = true },
 												nodes = {
-													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_unrequest'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true, button_dist = 0 }
+													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_unrequest'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true }
 												},
 											},
 										}
@@ -717,9 +717,9 @@ function JTJukebox.MusicTab()
 											-- shuffle
 											{
 												n = G.UIT.C,
-												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.FILTER, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_shuffle', button_dist = 0 },
+												config = { align = "cm", minh = 0.75, minw = 4, colour = G.C.FILTER, r = 0.2, emboss = 0.05, button = 'hpot_jukebox_shuffle', button_dist = 0.1, hover = true },
 												nodes = {
-													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_shuffle'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true, button_dist = 0 }
+													create_center_aligned_text { align = "cm", text = localize('hotpot_jukebox_shuffle'), colour = G.C.UI.TEXT_LIGHT, maxw = 3.5, scale = 0.5, shadow = true }
 												},
 											},
 										}

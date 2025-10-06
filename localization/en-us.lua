@@ -5106,6 +5106,9 @@ return {
                                 "The original {C:attention}event",
                                 "{C:attention}system{} and mechanics"
                             },
+                            {
+                                "{C:inactive}Haya my goat <3"
+                            }
                         },
                         atlas = "hpot_jtem_jokers",
                         pos = { x = 5, y = 3 },
@@ -5857,7 +5860,7 @@ return {
 
             hpot_credit_text = "Credits:",
 
-            hotpot_disable_animations = "Disable Animations",
+            hotpot_disable_animations = "Disable Jokers Animations",
             hotpot_family_friendly = "Family Friendly",
             hotpot_window_title = "Random Window Titles",
 
