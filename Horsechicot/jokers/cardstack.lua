@@ -16,9 +16,9 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
-            if not next(SMODS.get_enhancements(context.other_card)) and SMODS.pseudorandom_probability(card, 'hc_cardstack', card.ability.extra.numerator, card.ability.extra.denominator + (context.other_card.ability.perma_repetitions or 0) * card.ability.extra.denom_inc) then
-                context.other_card.ability.perma_repetitions = (context.other_card.ability.perma_repetitions or 0) +
-                card.ability.extra.retriggers
+            if not next(SMODS.get_enhancements(context.other_card)) and SMODS.pseudorandom_probability(card, 'hc_cardstack', card.ability.extra.numerator, card.ability.extra.denominator) then
+                context.other_card.ability.perma_repetitions = (context.other_card.ability.perma_repetitions or 0) + card.ability.extra.retriggers
+                card.ability.extra.denominator = card.ability.extra.denominator + card.ability.extra.denom_inc
                 return {
                     message = localize('k_upgrade_ex'),
                     card = card
