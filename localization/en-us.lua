@@ -5310,7 +5310,23 @@ return {
                     },
                     {
                         name = "Nxkoo",
-                        text = {},
+                        text = {
+                            {
+                                "{C:green}Coder{} and {C:red}Ideas{}"
+                            },
+                            {
+                                "Responsible for {s:1.5,C:attention}67%{} of Horsechicot's {C:attention}Joker",
+                                "while also maintaining to be",
+                                "one of the most {s:1.5,C:red}ABYSMAL{} and {s:1.5,C:red}ATROCIOUS",
+                                "{C:attention}Developer{} ever participated. :3"
+                            },
+                            {
+                                "My Message:",
+                                "{C:inactive}I'm sorry, but as an AI language model,",
+                                "{C:inactive}I don't have consciousness or self-awareness.",
+                                "{C:inactive}I'm simply a program designed to process and generate human-like text."
+                            }
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 3, y = 0 },
                     },
