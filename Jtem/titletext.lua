@@ -481,6 +481,15 @@ HPJTTT = {
         HPR and "hi im eris. thanks for playing my mod" or "you should consider playing the \"Hypernova\" mod for the hit videogame \"Balatro\". It is quite enjoyable.",
         "There is a comment near this message that said \"67\" at some point. This is so comedic",
         "It seems as if there is a risk of rain...",
+        "this cat just j",
+        "buy our *exclusive* premium subscription to unlock even more benefits! only $29.99/month",
+        "did you know?",
+        "Bilewater",
+        "DISTRACTION!",
+        ":3c",
+        "1.2.0b-FULL",
+        "null",
+        "so called \"free thinkers\" when I turn thinking into a subscription service",
         --imgs (follow example below, must be the name of an atlas)
         -- currently theres around a 1/67 (deadass) chance for splash text to be an image
         {'hpot_pdr_to'..'do'},
