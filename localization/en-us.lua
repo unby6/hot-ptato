@@ -5031,7 +5031,10 @@ return {
                                 "She {E:1,C:hpot_advert}lusty{} on my joker 'till I +3 mult on played hearts all.",
                                 "You're telling me there's men in your {C:dark_edition}gitis{},",
                                 "But I just like to {X:chips,C:white}play{} and {X:dark_edition,C:white}draw.",
-                            }
+                            },
+							{
+								"Also a guest artist on {C:attention}Garbshit"
+							}
                         },
                         atlas = "hpot_PerkeocoinCredits",
                         pos = { x = 0, y = 0 }
