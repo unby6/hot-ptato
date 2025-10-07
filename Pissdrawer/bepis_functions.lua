@@ -403,6 +403,20 @@ function HotPotato.localize(args, misc_cat)
                             scale = (0.55 - 0.004*#(final_name_assembled_string or assembled_string))*(part.control.s and tonumber(part.control.s) or args.scale or 1)*(args.fixed_scale or 1)
                         })
                     }}
+                -- image code here
+                -- pls dont abuse this kthxbai
+                elseif part.control.A then
+                    -- {A:atlas_name,P:x|y,S:scale}
+                    local scale = tonumber(part.control.S or 1)
+                    local pos = {}
+                    for p in string.gmatch(part.control.P or "0|0", '([^|]+)') do
+                        pos[#pos+1] = tonumber(p)
+                    end
+                    local atlas = G.ASSET_ATLAS[part.control.A]
+                    final_line[#final_line+1] = {n=G.UIT.C, config={align = "m", colour = part.control.B and args.vars.colours[tonumber(part.control.B)] or part.control.X and loc_colour(part.control.X) or nil, r = 0.05, padding = 0.03, res = 0.15}, nodes={}}
+                    final_line[#final_line].nodes[1] = {n=G.UIT.O, config={
+                        object = Sprite(0, 0, (atlas.px / G.TILESIZE) * scale, (atlas.py / G.TILESIZE) * scale, atlas, { x = pos[1] or 0, y = pos[2] or 0 })
+                    }}
                 elseif part.control.E then
                     local _float, _silent, _pop_in, _bump, _spacing = nil, true, nil, nil, 1
                     local text_effects
