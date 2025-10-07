@@ -452,6 +452,18 @@ function HPTN.ease_credits(amount, instant)
                     cover_colour = col,
                     align = 'cm',
                 })
+                local hpot_dollar_ui = G.shop:get_UIE_by_ID('hotpot_currency_TNameCredits')
+                if hpot_dollar_ui then
+                    attention_text({
+                        text = text .. tostring(math.abs(mod)),
+                        scale = hpot_dollar_ui.children[1].children[1].config.object.scale,
+                        hold = 0.7,
+                        cover = hpot_dollar_ui,
+                        cover_colour = col,
+                        align = 'cm',
+                        font = SMODS.Fonts.hpot_plincoin
+                    })
+                end
                 --Play a chip sound
                 if amount > 0 then
                     play_sound("hpot_tname_gaincred")

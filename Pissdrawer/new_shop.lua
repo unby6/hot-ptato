@@ -75,7 +75,7 @@ end
 function PissDrawer.Shop.currency_node(args)
     assert(type(args) == 'table', 'No table provided to shop_currency_node')
 
-    return {n=G.UIT.C, config = {align = 'cm', minh = args.minh or 0.6, minw = args.minw or 2, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1}, nodes = {
+    return {n=G.UIT.C, config = {align = 'cm', id = 'hotpot_currency_'..(args.id or args.ref_value), minh = args.minh or 0.6, minw = args.minw or 2, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1}, nodes = {
                 {n=G.UIT.R, config = {align='cm'}, nodes = {
                     {n=G.UIT.O, config={object = DynaText({string = {{ref_table = args.ref_table or G.GAME, ref_value = args.ref_value, prefix = args.symbol}},
                         maxw = args.maxw or 2, colours = {args.colour}, font = args.font, shadow = true, spacing = 2, bump = not args.no_bump, scale = args.scale or 0.5})}}
@@ -93,7 +93,7 @@ function PissDrawer.Shop.currency_display()
         jank = 
     PissDrawer.Shop.currency_node({
         symbol = localize('hotpot_reforge_budget'), font = SMODS.Fonts.hpot_plincoin, colour = G.C.ORANGE, ref_value =
-    'budget', ref_table = G.GAME, no_bump = true
+    'budget', ref_table = G.GAME, no_bump = true, id = 'TNameCredits'
     })
     end
     return {
