@@ -11,7 +11,7 @@ pattern = '''
 {n=G.UIT.C, config={align = "cm", r = 0.1, minw = 1.28*2+spacing, minh = 1, colour = temp_col2}, nodes={
 '''
 payload = '''
-{n=G.UIT.C, config={align = "cm", r = 0.1, minw = 1.28*2+spacing, minh = 1, colour = temp_col2, hover = true, on_demand_tooltip = {filler = {func = PissDrawer.Shop.currency_display_small, args = {remove_dollars = true}}}}, nodes={
+{n=G.UIT.C, config={align = "cm", r = 0.1, minw = 1.28*2+spacing, minh = 1, colour = temp_col2, hover = true, on_demand_tooltip = {filler = {func = PissDrawer.Shop.currency_display_small}}}, nodes={
 '''
 match_indent = true
 

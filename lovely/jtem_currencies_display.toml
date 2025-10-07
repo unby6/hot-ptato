@@ -69,3 +69,14 @@ if self.font_buffer then
 end
 '''
 match_indent = true
+
+# keep text colour when string changes, idk whi it's resets tbf
+[[patches]]
+[patches.pattern]
+target = '''engine/text.lua'''
+pattern = '''if first_pass then'''
+position = "before"
+payload = '''
+if v.colour then inner_colour = v.colour or nil end
+'''
+match_indent = true
