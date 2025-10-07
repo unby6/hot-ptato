@@ -1580,7 +1580,7 @@ SMODS.Booster {
 
 SMODS.Voucher {
     key = "currency_exchange",
-    config = { dollar_cost = 10, },
+    config = { dollar_cost = 5, },
     unlocked = true,
     atlas = "PerkeocoinVouchers",
     pos = { x = 0, y = 0 },
@@ -1608,9 +1608,9 @@ SMODS.Voucher {
     key = "currency_exchange2",
     atlas = "PerkeocoinVouchers",
     pos = { x = 1, y = 0 },
-    config = { dollar_cost = 5, },
+    config = {  },
     loc_vars = function(self, info_queue, card)
-        return{vars={card.ability.dollar_cost}}
+        return{vars={}}
     end,
     unlocked = true,
     hotpot_credits = {
@@ -1620,11 +1620,6 @@ SMODS.Voucher {
     },
     requires = {'v_hpot_currency_exchange'},
     redeem = function (self, card)
-        G.GAME.plinko_dollars_cost = card.ability.dollar_cost
-
-        -- Update dollar cost
-        PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost)
-
         if G.plinko then
             G.plinko:recalculate()
         end

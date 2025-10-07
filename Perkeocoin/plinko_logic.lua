@@ -166,9 +166,9 @@ end
 
 function PlinkoLogic.f.reset_cost(keep_roll_cost)
   local current_level = 1
-  if G.GAME.used_vouchers['hpot_plincoin2'] then
+  if false and G.GAME.used_vouchers['hpot_plincoin2'] then
     current_level = 3
-  elseif G.GAME.used_vouchers['hpot_plincoin1'] then
+  elseif G.GAME.used_vouchers['hpot_currency_exchange2'] then
     current_level = 2
   end
 

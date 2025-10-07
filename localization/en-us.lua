@@ -2342,10 +2342,10 @@ return {
                 }
             },
             v_hpot_currency_exchange2 = {
-                ['name'] = 'Currency Exchange',
+                ['name'] = 'Plinko 4ever',
                 ['text'] = {
-                    [1] = 'Play {C:hpot_plincoin}Plinko{} for {C:money}$#1#{} per',
-                    [2] = 'plincoin',
+                    [1] = '{C:hpot_plincoin}Plinko{} cost resets',
+                    [2] = 'every ante',
                 }
             },
             v_hpot_exchange_rate = {
