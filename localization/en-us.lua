@@ -5177,7 +5177,7 @@ return {
                         name = "{E:hpot_glitching}????",
                         text = {
                             {
-                                "{E:hpot_glitching}?????????",
+                                "{E:hpot_glitching,C:white}?????????",
                             }
                         },
                         atlas = "hpot_jtem_jokers",
