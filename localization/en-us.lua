@@ -5002,15 +5002,16 @@ return {
                                 '{C:inactive}tbcwdus'
                             },
                             {
-                                "i mainly coded {C:green,s:1.15}Plinko{} and {C:attention}Plinko-adjacent{} things",
+                                "i mainly coded {C:green,s:1.15}Plinko{} and {C:attention}Plinko-related{} stuff",
                                 "{s:0.3} ",
-                                "{s:0.9}i also helped with ",
-                                "{s:0.9,C:attention}testing{}{s:0.9} and {s:0.9,C:attention}bugfixes{}",
-                                "{s:0.9}during the final \"\"\"week\"\"\"",
+                                "{s:0.8}i also helped with ",
+                                "{s:0.8,C:attention}testing{}{s:0.8} and {s:0.8,C:attention}bugfixes{}",
+                                "{s:0.3} ",
+                                "{s:0.7,C:inactive}did you know? now you do",
                             },
                             {
                                 "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}  {s:1.2,X:hpot_stupid,C:hpot_smart}meow{}  {s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",
-                            }
+                            },
                         },
                         atlas = "hpot_PerkeocoinCredits",
                         extra = {spin = true},
