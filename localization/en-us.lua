@@ -5049,7 +5049,21 @@ return {
                     },
                     {
                         name = "Opal",
-                        text = {},
+                        text = {
+                            {
+                                'Original {C:hpot_advert}Advert',
+                                'programmer! Also did',
+                                'a couple other things.'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:attention}Challenger Deep',
+                                '{C:inactive,s:0.8}and Opalstuff'
+                            }
+                        },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 7, y = 0 },
+                        soul_pos = { x = 8, y = 0 }
                     },
                     {
                         name = "ProdByProto",
