@@ -53,15 +53,15 @@ local mood_to_multiply = {
 }
 
 local mood_to_passive_energy = {
-	["depressed"] = 1,
-	["horrible"] = 1,
-	["awful"] = 1,
-	["bad"] = 2,
-	["normal"] = 2,
-	["good"] = 2,
-	["great"] = 3,
-	["hyper"] = 3,
-	["trance"] = 3,
+	["depressed"] = 2,
+	["horrible"] = 2,
+	["awful"] = 3,
+	["bad"] = 3,
+	["normal"] = 4,
+	["good"] = 5,
+	["great"] = 5,
+	["hyper"] = 6,
+	["trance"] = 6,
 }
 
 -- Changes the current mood of a Joker.
