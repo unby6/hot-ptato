@@ -37,7 +37,7 @@ SMODS.DrawStep {
     func = function(self)
         if self.hpot_extra and self.hpot_extra.spin then
             local scale_mod = 0.33
-            local rotate_mod = (G.TIMERS.REAL * 1.2) % (2 * math.pi)
+            local rotate_mod = (G.TIMERS.REAL * 1.5) % (2 * math.pi)
 
             self.children.floating_sprite:draw_shader('dissolve', 0, nil, nil, self.children.center, scale_mod,
                 rotate_mod, nil, 0.05 + 0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
