@@ -5004,7 +5004,7 @@ return {
                     },
                     {
                         name = "Omegaflowey18",
-                       text = {
+                        text = {
                             {
                                 '{C:attention}Artist{} and',
                                 '{C:attention}Resident Bug Catcher'
@@ -5012,9 +5012,9 @@ return {
                             {
                                 "My Message:",
                                 "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
-								"{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
-								"{C:inactive}\"You're telling me there's men in your gitis,\"",
-								"{C:inactive}\"But I just like to play and draw.\"",
+                                "{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
+                                "{C:inactive}\"You're telling me there's men in your gitis,\"",
+                                "{C:inactive}\"But I just like to play and draw.\"",
                             }
                         },
                         atlas = "hpot_PerkeocoinCredits",
@@ -5359,8 +5359,8 @@ return {
                     {
                         name = "lord.ruby",
                         text = {
-                            {"{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}",},
-                            {"im ruby."}
+                            { "{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}", },
+                            { "im ruby." }
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 1, y = 0 }
@@ -5368,9 +5368,9 @@ return {
                     {
                         name = "Lily Felli",
                         text = {
-                            {"{C:green}Code{}",},
-                            {"Emotional support + 3 {C:attention}Jokers"},
-                            {"My Message: ", "{C:inactive}Don't get OverWhelmed"}
+                            { "{C:green}Code{}", },
+                            { "Emotional support + 3 {C:attention}Jokers" },
+                            { "My Message: ",                             "{C:inactive}Don't get OverWhelmed" }
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 0 }
@@ -5444,7 +5444,7 @@ return {
                     {
                         name = "baccon",
                         text = {
-                            {"Emotional Support"}
+                            { "Emotional Support" }
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 1 },
@@ -5603,7 +5603,25 @@ return {
                     },
                     {
                         name = "deadbeet",
-                        text = {},
+                        text = {
+                            {
+                                '{X:red,C:white}Social {}{X:attention,C:white}Credit{}, {C:dark_edition}Poop Deck{},',
+                                '{E:2,C:inactive}The Room Between{} and the {E:1,C:attention}SUPER Bonus!{}'
+                            },
+                            {
+                                'shameless {C:hpot_pink}Hyperfixation{} plu-',
+                                '{s:0.7}what the?!',
+                                '{s:0.5}who left a {C:green,s:0.5}pear{C:attention,s:0.5}tato {C:white,s:0.5}in the {C:attention,s:0.5}microwave {C:white,s:0.5}this long??'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:hpot_pink}Hyperfixation',
+                                '--{C:green}ur mom wait crap',
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 5, y = 0 },
+                        soul_pos = { x = 6, y = 0 }
                     },
                     {
                         name = "Tacashumi",
