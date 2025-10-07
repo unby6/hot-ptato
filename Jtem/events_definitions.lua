@@ -1057,10 +1057,11 @@ HotPotato.EventStep({
 				vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
 				button = function()
 					SMODS.destroy_cards(get_food_joker())
-					SMODS.add_card({
+					local cap = SMODS.add_card({
 						set = "bottlecap_Rare",
 						area = G.consumeables,
 					})
+					cap.ability.extra.chosen = 'Rare'
 					event.finish_scenario()
 				end,
 				func = function()
@@ -1456,6 +1457,7 @@ HotPotato.EventStep({
 				no_prefix = true,
 				button = function()
 					ease_plincoins(10)
+					ease_hands_played(-1)
 					G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
 					event.finish_scenario()
 				end,
@@ -4865,7 +4867,7 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 		{ tags = { keys = { "tag_double" } },                                           text = "A Double Tag" },
 		{ dollars = 4,                                                                  text = "$4" },
 		{ credits = 30,                                                                 text = "30 credits" },
-		{ sparkle = 100,                                                                text = "100 Jicks" },
+		{ sparkle = 35000,                                                              text = "35000 Jicks" },
 		{ crypto = 0.5,                                                                 text = "0.5 Cryptocurrency" },
 	}
 
@@ -4880,7 +4882,7 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 		{ tags = { keys = { "tag_double", "tag_double" } },                               text = "2 Double Tags" },
 		{ dollars = 8,                                                                    text = "$8" },
 		{ credits = 85,                                                                   text = "85 credits" },
-		{ sparkle = 300,                                                                  text = "300 Jicks" },
+		{ sparkle = 75000,                                                                text = "75000 Jicks" },
 		{ crypto = 2,                                                                     text = "2 Cryptocurrency" },
 	}
 

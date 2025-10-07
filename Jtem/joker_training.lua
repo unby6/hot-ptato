@@ -53,15 +53,15 @@ local mood_to_multiply = {
 }
 
 local mood_to_passive_energy = {
-	["depressed"] = 1,
-	["horrible"] = 1,
-	["awful"] = 1,
-	["bad"] = 2,
-	["normal"] = 2,
-	["good"] = 2,
-	["great"] = 3,
-	["hyper"] = 3,
-	["trance"] = 3,
+	["depressed"] = 2,
+	["horrible"] = 2,
+	["awful"] = 3,
+	["bad"] = 3,
+	["normal"] = 4,
+	["good"] = 5,
+	["great"] = 5,
+	["hyper"] = 6,
+	["trance"] = 6,
 }
 
 -- Changes the current mood of a Joker.
@@ -363,10 +363,28 @@ SMODS.Sticker {
 			speed = 1, stamina = 1, power = 1, guts = 1, wits = 1
 		}
 		local rnd = copy_table(card.ability["hp_jtem_train_mult"])
-		for i = 1, 2 do -- 10% and 20% multiplier
+		local override_stat_key = nil
+		local chance = 0.5
+		for i = 1, 3 do -- multipliers
+			-- originally this was just or 10% and 20%, but it aint accurate
+			-- its either 10-10-10, 10-20, or 30
+			-- 30% is less common though
 			local _, stat_key = pseudorandom_element(rnd, 'hp_jtem_train_stat')
-			rnd[stat_key] = nil
-			card.ability["hp_jtem_train_mult"][stat_key] = card.ability["hp_jtem_train_mult"][stat_key] + (i / 10)
+			local seed = 'kill_off_this_mf_stat_'..(G.GAME.round_resets.ante or 1)
+			if G.OVERLAY_MENU or G.STAGE ~= G.STAGES.RUN then seed = 'collection_stat_kill' end
+			if override_stat_key then
+				stat_key = override_stat_key
+				override_stat_key = nil
+			end
+			if not override_stat_key then
+				if pseudorandom(seed) > chance and stat_key then
+					rnd[stat_key] = nil
+				else
+					override_stat_key = stat_key
+					chance = chance / 2
+				end
+			end
+			card.ability["hp_jtem_train_mult"][stat_key] = card.ability["hp_jtem_train_mult"][stat_key] + 0.1
 		end
 		-- energy
 		card.ability.hp_jtem_energy = 100
@@ -380,7 +398,7 @@ SMODS.Sticker {
 			end
 		end)
 		if stats.wits and stats.wits > 150 then
-			card.sell_cost = card.jp_jtem_orig_sell_cost + (stats.guts - 150) / 200
+            card.sell_cost = math.ceil(card.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50))
 		end
 	end,
 	draw = function(self, card, layer)
@@ -433,7 +451,7 @@ SMODS.Sticker {
 				config = { align = "cm", minw = w, maxw = w },
 				nodes = {
 					{n = G.UIT.R, config = {align = "cm", colour = lighten(G.C.GREY, 0.15), minh = 0.4, minw = w, padding = 0.05}, nodes = {
-						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
 					}},
 					create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
 				}
@@ -448,23 +466,23 @@ SMODS.Sticker {
 					nodes = {
 						{
 							n = G.UIT.C,
-							config = { align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075 },
+							config = { align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075, padding = 0.1 },
 							nodes = {
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat("speed"),
-										create_stat("stamina"),
-										create_stat("power"),
+										create_stat("speed", 1.6),
+										create_stat("stamina", 1.6),
+										create_stat("power", 1.6),
 									}
 								},
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat("guts", 3),
-										create_stat("wits", 3)
+										create_stat("guts", 2.4),
+										create_stat("wits", 2.4)
 									}
 								}
 							}

@@ -161,7 +161,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			xmult = 1,
-			xmultg = 0.1
+			xmultg = 0.3
 		},
 	},
     cost = 5,
@@ -179,23 +179,20 @@ SMODS.Joker({
 			local rr = find_self(card, G.jokers.cards)
 			if not rr then return end
 
-			local sticks = {}
-			for k, v in pairs(SMODS.Stickers) do
-				if v.key ~= "hpot_jtem_mood" then
-					sticks[#sticks+1] = v.key
+			local _card =  pseudorandom_element({1,-1},pseudoseed("sticker_dealer_target"))
+			local target = G.jokers.cards[rr + (_card)]
+
+			if target then
+				local sticker = poll_sticker(true, target, "sticker_dealer", {"hpot_jtem_mood"})
+				if sticker then
+					SMODS.Stickers[sticker]:apply(target, true)
+	
+					hpt.xmult = hpt.xmult + hpt.xmultg
+					return{
+						message = localize("k_upgrade_ex")
+					}
 				end
-			end
-
-			local _card =  pseudorandom_element({1,-1},pseudoseed("sticker_dealer"))
-			local k = pseudorandom_element(sticks,pseudoseed("sticker_dealer"))
-
-			if G.jokers.cards[rr + (_card)] then
-				SMODS.Stickers[k]:apply(G.jokers.cards[rr + (_card)], true)
-
-				hpt.xmult = hpt.xmult + hpt.xmultg
-				return{
-					message = localize("k_upgrade_ex")
-				}
+		
 			end
 		end
 		if context.joker_main then

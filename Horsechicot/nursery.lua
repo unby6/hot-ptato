@@ -118,9 +118,12 @@ end
 function G.FUNCS.nursery_breed(e)
     local mom = G.nursery_mother.cards[1]
     local dad = G.nursery_father.cards[1]
+    if not dad and G.GAME.parthenogenesis then
+        dad = mom
+    end
     mom.ability.mother = true
     dad.ability.father = true
-    Horsechicot.breed(mom.config.center, dad.config.center)
+    Horsechicot.breed(mom, dad)
     if not G.SILENT_NURSERY then
         mom:juice_up()
         SMODS.calculate_effect {
@@ -138,54 +141,6 @@ function CardArea:draw(...)
     end
     return ca_dref(self, ...)
 end
-
---buncha button stuff down here
-function G.FUNCS.emplace_mother(e)
-    local jkr = G.jokers.highlighted[1]
-    G.jokers:remove_from_highlighted(jkr, true)
-    G.jokers:remove_card(jkr)
-    G.nursery_mother:emplace(jkr)
-end
-
-function G.FUNCS.can_emplace_mother(e)
-    local jkr = G.jokers.highlighted and G.jokers.highlighted[1]
-    if #G.jokers.highlighted ~= 1 or #G.nursery_mother.cards ~= 0 or (jkr and jkr.ability.is_nursery_smalled) then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    else
-        e.config.colour = G.C.RED
-        e.config.button = "emplace_mother"
-    end
-end
-
-function G.FUNCS.emplace_father(e)
-    local jkr = G.jokers.highlighted[1]
-    G.jokers:remove_from_highlighted(jkr, true)
-    G.jokers:remove_card(jkr)
-    G.nursery_father:emplace(jkr)
-end
-
-function G.FUNCS.can_emplace_father(e)
-    local jkr = G.jokers.highlighted and G.jokers.highlighted[1]
-    if #G.jokers.highlighted ~= 1 or #G.nursery_father.cards ~= 0 or (jkr and jkr.ability.is_nursery_smalled) then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    else
-        e.config.colour = G.C.RED
-        e.config.button = "emplace_father"
-    end
-end
-
-function G.FUNCS.can_nursery_breed(e)
-    if #G.nursery_mother.cards == 1 and #G.nursery_father.cards == 1 and not G.GAME.active_breeding and not (#G.nursery_child.cards == 1) then
-        e.config.colour = G.C.HPOT_PINK
-        e.config.button = "nursery_breed"
-    else
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    end
-end
-
 
 --properly cleanup when menuing
 local old = G.FUNCS.go_to_menu
@@ -216,10 +171,11 @@ end
 --this is used for "Nursery" and female nursery icon
 G.C.HPOT_PINK = HEX("fe89d0")
 G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
-function Horsechicot.breed(mother_center, father_center)
+function Horsechicot.breed(mother, father)
+    local mother_center, father_center = mother.config.center, father.config.center
     if mother_center.key == 'j_hpot_loss' or father_center.key == 'j_hpot_loss' then
-        local loss_card = mother_center.key == 'j_hpot_loss' and G.nursery_mother.cards[1] or G.nursery_father.cards[1]
-        local sec_card = mother_center.key == 'j_hpot_loss' and G.nursery_father.cards[1] or G.nursery_mother.cards[1]
+        local loss_card = mother_center.key == 'j_hpot_loss' and mother or father
+        local sec_card = mother_center.key == 'j_hpot_loss' and father or mother
 
         G.GAME.child_prio = loss_card.config.center.key
         G.GAME.child_sec = sec_card.config.center.key
@@ -231,16 +187,16 @@ function Horsechicot.breed(mother_center, father_center)
         --we choose which parent to make a new joker of || not anymore, quantum time
         if poll > 0.5 then
             G.GAME.child_colour = G.C.HPOT_PINK
-            G.GAME.child_prio = G.nursery_mother.cards[1].config.center.key
-            G.GAME.child_sec = G.nursery_father.cards[1].config.center.key
-            G.GAME.child_prio_ability = copy_table(G.nursery_mother.cards[1].ability)
-            G.GAME.child_sec_ability = copy_table(G.nursery_father.cards[1].ability)
+            G.GAME.child_prio = mother.config.center.key
+            G.GAME.child_sec = father.config.center.key
+            G.GAME.child_prio_ability = copy_table(mother.ability)
+            G.GAME.child_sec_ability = copy_table(father.ability)
         else
             G.GAME.child_colour = G.C.BLUE
-            G.GAME.child_prio = G.nursery_father.cards[1].config.center.key
-            G.GAME.child_sec = G.nursery_mother.cards[1].config.center.key
-            G.GAME.child_prio_ability = copy_table(G.nursery_father.cards[1].ability)
-            G.GAME.child_sec_ability = copy_table(G.nursery_mother.cards[1].ability)
+            G.GAME.child_prio = father.config.center.key
+            G.GAME.child_sec = mother.config.center.key
+            G.GAME.child_prio_ability = copy_table(father.ability)
+            G.GAME.child_sec_ability = copy_table(mother.ability)
         end
     end
     G.GAME.active_breeding = true

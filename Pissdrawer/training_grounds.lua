@@ -203,7 +203,7 @@ function Card:mod_training_stat(stat, num)
             end)
             -- Wit
             if stats.wits and stats.wits > 150 then
-                self.sell_cost = self.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50)
+                self.sell_cost = math.ceil(self.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50))
             end
         else
             -- energy isnt a traditional stat like everything else

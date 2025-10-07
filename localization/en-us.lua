@@ -11,7 +11,7 @@ return {
             c_hpot_fear = {
                 name = "Aura of Fear",
                 text = {
-                    "{C:attention}All current jokers{} gain",
+                    "{C:attention}All current Jokers{} gain",
                     "{C:red}negative{} stickers,",
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
@@ -72,7 +72,7 @@ return {
             c_hpot_fear_budget = {
                 name = "Aura of Fear",
                 text = {
-                    "{C:attention}All current jokers{} gain",
+                    "{C:attention}All current Jokers{} gain",
                     "{C:red}negative{} stickers,",
                     "{C:attention}+e.#1#{} for each sticker added"
                 }
@@ -675,7 +675,7 @@ return {
                 name = 'Sticker Overload',
                 text = {
                     "Apply a {C:dark_edition}Random Sticker",
-                    "to all jokers"
+                    "to all Jokers"
                 }
             },
             c_hpot_cap_credits = {
@@ -1145,11 +1145,11 @@ return {
             j_hpot_labubu = {
                 name = "Joker Glass Bridge",
                 text = {
+                    "Every scoring {C:attention}Glass Card{} gives",
+                    "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#3#{} when shattered",
                     "This Joker gains {X:mult,C:white}X#1#{} Mult",
-                    "for every glass card {C:attention}remaining",
-                    "and gives {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#3#{} for each",
-                    "glass card {C:attention}destroyed",
-                    "after a hand is played",
+                    "for every scoring {C:attention}Glass Card",
+                    "that survived",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
@@ -1207,7 +1207,7 @@ return {
                     "When a {C:attention}face{} card is scored",
                     "gives one of the following {C:attention}randomly{}:",
                     "MissingNumber : {C:mult}+#1#{} Mult",
-                    "{E:hpot_glitching}ixeL{} : {X:mult,C:white} X#2# {} Mult",
+                    "{E:hpot_glitching}????{} : {X:mult,C:white} X#2# {} Mult",
                     "Haya : {X:chips,C:white} X#3# {} Chips",
                     "Aikoyori : {C:chips}+#4#{} Chips",
                     "Squidguset : {C:money}+$#5#{}",
@@ -1239,7 +1239,7 @@ return {
                 name = "Sticker Master",
                 text = {
                     "{C:mult}+#1#{} Mult for",
-                    "each sticker on", "your jokers",
+                    "each sticker on", "your Jokers",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
@@ -1266,8 +1266,8 @@ return {
                     "Gain {C:money}+$#1#{}",
                     "at the end of a round",
                     "for each {C:attention}Uranium{}",
-                    "sticker on your jokers",
-                    "and playing cards.",
+                    "sticker on your Jokers",
+                    "and playing cards",
                     "{C:inactive}(Currently {C:money}+$#2#{C:inactive})"
                 }
             },
@@ -1529,7 +1529,7 @@ return {
             j_hpot_plinkodemayo = {
                 name = "Plinko de Mayo",
                 text = {
-                    "Played {C:attention}5{} cards give",
+                    "Played {C:attention}5s{} give",
                     "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} when scored"
                 }
             },
@@ -2240,9 +2240,9 @@ return {
             j_hpot_togore = {
                 name = 'Togore',
                 text = {
-                    'When hand is {C:attention}played{},',
-                    '{C:attention}non-played{} cards held in',
-                    'hand permanently gains {C:chips}+#1#{} Chips'
+                    'Cards held in hand',
+                    'permanently gain {C:chips}+#1#{} Chips',
+                    'every hand {C:attention}played{},',
                 }
             },
             j_hpot_local_newspaper = {
@@ -2494,8 +2494,11 @@ return {
             v_hpot_hc_parthenogenesis = {
                 name = "Parthenogenesis",
                 text = {
-                    "When {C:hpot_pink}breeding{}, the child will",
-                    "always be a child of the {C:attention}Mother"
+                    "You can now {C:hpot_pink}breed{} with",
+                    "only the {C:attention}Mother{}.",
+                    "When {C:hpot_pink}breeding{} like this,",
+                    "the {C:attention}Child{} will have",
+                    "its mother's ability {C:attention}twice"
                 }
             },
             v_hpot_domain_extrapolation = {
@@ -4292,7 +4295,7 @@ return {
             hpot_trolley_bribe = {
                 text = {
                     "You hastily hand the trolley operator",
-                    "{C:dollars}$20{} in hopes they will brake in time.",
+                    "{C:money}$20{} in hopes they will brake in time.",
                     " ", "...", " ",
                     "Luckily, it stops just in time.",
                     "All of your cards remain in tact.",
@@ -4801,25 +4804,25 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "{C:attention}Hot Potato{} adds various different {C:attention}currencies{},",
-                            "which all do different things."
+                            "{C:attention}Hot Potato{} adds various {C:attention}currencies{},",
+                            "which all do different things"
                         },
                         {
-                            "{C:hpot_plincoin}Plincoins{} are gained {C:attention}once a round at the cashout{},",
-                            "they can be used for {C:attention}plinko{} and {C:attention}delivery{}."
+                            "{C:hpot_plincoin}Plincoins{} are gained {C:attention}at end of round{},",
+                            "and are used to play {C:attention}plinko{}"
                         },
                         {
-                            "{C:hpot_advert}Cryptocurrency{} are gained through {C:attention}harvesting organs{},",
-                            "they can be used in the {C:attention}black market{} and {C:attention}delivery{}."
+                            "{C:hpot_advert}Cryptocurrency{} is earned by {C:attention}harvesting organs{},",
+                            "and can be used in {C:attention}black market{}"
                         },
                         {
-                            "{C:blue}Jicks{} are gained through {C:attention}exchanging currency{},",
-                            "they can be used for {C:attention}training{} and {C:attention}delivery{}."
+                            "{C:blue}Jicks{} can be bought in {C:attention}currency exchange{},",
+                            "and are intended for {C:attention}training{}"
                         },
                         {
                             "{C:purple}Credits{} are gained through {C:attention}Auras{},",
                             "they are {C:attention}kept between runs{} and",
-                            "can be used for {C:attention}wheel{}, {C:attention}reforging{} and {C:attention}delivery{}."
+                            "can be used for {C:attention}wheel{} and {C:attention}reforging{}"
                         },
                     }
                 },
@@ -4992,49 +4995,138 @@ return {
                 name = "PerkeoCoin",
                 members = {
                     {
-                        name = "stupxd",
+                        name = "stupid",
                         text = {
                             {
-                                "stupid text"
-                            }
+                                '{s:1.5}hi hello! im stupid',
+                                '{C:inactive}tbcwdus'
+                            },
+                            {
+                                "i coded {C:green,s:1.15}Plinko{}",
+                                "{s:0.3} ",
+                                "{s:0.8}i also helped with ",
+                                "{s:0.8,C:attention}testing{}{s:0.8} and {s:0.8,C:attention}bugfixes{}",
+                                "{s:0.3} ",
+                                "{s:0.7,C:inactive}did you know? now you do",
+                            },
+                            {
+                                "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",
+                            },
                         },
+                        atlas = "hpot_PerkeocoinCredits",
+                        extra = {spin = true},
+                        pos = { x = 3, y = 0 },
+                        soul_pos = { x = 4, y = 0, draw = function () end }
                     },
                     {
                         name = "Omegaflowey18",
-                       text = {
+                        text = {
                             {
                                 '{C:attention}Artist{} and',
                                 '{C:attention}Resident Bug Catcher'
                             },
                             {
                                 "My Message:",
-                                "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
-								"{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
-								"{C:inactive}\"You're telling me there's men in your gitis,\"",
-								"{C:inactive}\"But I just like to play and draw.\"",
-                            }
+                                "Winning is temporary, {C:green,E:2}TribKeo is forever",
+                                "She {E:1,C:hpot_advert}lusty{} on my joker 'till I +3 mult on played hearts all.",
+                                "You're telling me there's men in your {C:dark_edition}gitis{},",
+                                "But I just like to {X:chips,C:white}play{} and {X:dark_edition,C:white}draw.",
+                            },
+							{
+								"Also a guest artist on {C:attention}Garbshit"
+							}
                         },
                         atlas = "hpot_PerkeocoinCredits",
                         pos = { x = 0, y = 0 }
                     },
                     {
                         name = "CampfireCollective",
-                        text = {},
+                        text = {
+                            {
+                                '{C:money,E:2}Programmer{} and also just general game design'
+                            },
+                            {
+                                "Contributions:",
+                                "{C:attention}14{}/15 PerkeoCoin Jokers",
+                                "{C:attention}11{}/12 Cheques {S:0.8,C:inactive}Czechs?",
+                                "{C:attention}20{}/26 Bottlecaps",
+								"Thanks for playing! Invest in PerkeoCoin for quick gains!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:blue}Balatro",
+                                "{C:money}Extra {C:green}Credit",
+                                "{C:hpot_pink}Uma Musumod"
+                            }
+                        },
                         atlas = "hpot_PerkeocoinCredits",
                         pos = { x = 1, y = 0 },
                         soul_pos = { x = 2, y = 0 }
                     },
                     {
                         name = "dottykitty",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist{} behind,',
+                                'the {C:attention}Bottlecaps{}, {C:attention}Checks{} {s:0.8}Czechs?{}',
+                                'and some {C:attention}Jokers{} and {C:attention}Vouchers{}!',
+                            },
+                            {
+                               'Do you think God {C:inactive,s:0.8}(me){}',
+                               'stays in Heaven out of fear',
+                               'of what they created? {C:inactive,s:0.8}(Balatro University Mpreg){}',
+                                'I mean um-',
+                                '{C:green,E:2}Plinko :D{}',
+                                '{C:inactive,s:0.7}Perkeo please I just want my wheel of fortune back.....{}',
+                           }
+                        },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 9, y = 0 },
                     },
                     {
                         name = "Opal",
-                        text = {},
+                        text = {
+                            {
+                                'Original {C:hpot_advert}Advert',
+                                'programmer! Also did',
+                                'a couple other things.'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:attention}Challenger Deep',
+                                '{C:inactive,s:0.8}and Opalstuff'
+                            }
+                        },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 7, y = 0 },
+                        soul_pos = { x = 8, y = 0 }
                     },
                     {
-                        name = "P r o t o",
-                        text = {},
+                        name = "ProdByProto",
+                        text = {
+                            {
+                                '{C:attention}Musician{},',
+                                '{C:attention}Ideas person{} and',
+                                '{C:attention}A little bit of code{}',
+                                '{C:inactive}also i added a couple small easter eggs and drew this clippy!Ralsei'
+                            },
+                            {
+                                'I did a small amount compared to everyone else,',
+                                'but at least I\'m proud of the things I did do.',
+                                '30+ commits is nothing to scoff at :3 ,',
+                                'if anyone wants me involved in their modding project lmk.',
+                                '',
+                                'Shoutouts to {C:edition,E:1}Gay Foxgirls :3c{}'
+                            },
+                            {
+                                'Imagine... a {C:red}stop {}{X:dark_edition,C:white}sign{}. When you see a {C:red}stop {}{X:dark_edition,C:white}sign{}, you {C:red}stop{}, right?',
+                                '{C:red}stop {}{X:dark_edition,C:white}signs{} are {C:green}red{}. So imagine a {C:spectral}blue {}{C:red}stop { }{X:dark_edition,C:white}sign{} {C:gold}instead{}.',
+                                '{C:edition,E:1}Simple, {}{C:legendary}right?{}'
+                            }
+                        },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x= 5, y = 0},
+                        soul_pos = { x = 6, y = 0 }
                     },
                 }
             },
@@ -5051,6 +5143,9 @@ return {
                             {
                                 "hi i invented the concept of the",
                                 "consumable highlight shenanigans",
+                                "(and also like half of the code for it)",
+                            },
+                            {
                                 "also play {C:dark_edition}Hypernova{}",
                                 "{C:inactive}please my mod has like no players{}"
                             }
@@ -5084,7 +5179,19 @@ return {
                     },
                     {
                         name = "Jaydchw",
-                        text = {},
+                        text = {
+							{
+								"I did some of the art",
+								"and some of the coding"
+							},
+						    {
+								"My message:",
+								"GO USE JOKER FORGE",
+								"{C:blue}jokerforge.jaydchw.com"
+							}
+						},
+					    atlas = "hpot_SillypostingJokers",
+                        pos = { x = 1, y = 0 },
                     },
                     {
                         name = "Victin",
@@ -5107,7 +5214,8 @@ return {
                                 "{C:attention}system{} and mechanics"
                             },
                             {
-                                "{C:inactive}Haya my goat <3"
+                                "{C:inactive}Haya my goat <3",
+                                "Also worked on: {C:dark_edition,E:1}Handy"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5123,6 +5231,10 @@ return {
                             {
                                 "Creator of the {C:attention}Nxkoo dies",
                                 "tab in mod info and {C:attention}title text",
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention,E:2}Too Many Decks"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5132,13 +5244,23 @@ return {
                         name = "Aikoyori",
                         text = {
                             {
-                                "Various jokers, art",
-                                "and a music track"
+                                "Slop Live, a few Art contribution",
+                                "2 music tracks, some UIs",
+                                "and 1 currency glyph..."
                             },
                             {
-                                "Mastermind behind",
-                                "{C:attention}Joker delivery{} and",
-                                "{C:attention}Joker training{}"
+                                "Hi! I coded {C:red}Joker Delivery{},",
+                                "{C:inactive,s:0.8}(Most unstable piece of {E:hpot_glitching,C:inactive,s:0.8}shit{C:inactive,s:0.8})",
+                                "came up with the ideas for {C:blue}Joker Training{},",
+                                "(the rest was mostly haya's backend)",
+                                "and pushed for {C:blue,f:hpot_plincoin}͸icks{} to be {C:green,E:1}F2P{} currency",
+                                "{C:inactive}(I even made a UI and symbol for it!)"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:red,E:1}Aikoyori's {C:green,E:2}Shenanigans{},",
+                                "{C:blue,E:2}Vocalatro{}, {C:purple,E:1}Playbook",
+                                "{C:attention,E:1}Mamoof{} and more to come!",
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5153,7 +5275,12 @@ return {
                             {
                                 "The {C:attention}Jukebox{}, as well as",
                                 "{C:blue}Jicks{} implementation and",
-                                "{C:attention}Joker training{}"
+                                "{C:attention}Joker training{} and this",
+                                "goddamn credits page !!!!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:edition,E:2}Paya's Terrible Additions"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5165,10 +5292,28 @@ return {
                             {
                                 "Most art for most jokers",
                                 "{C:inactive}AGAIN!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:edition,E:2}Finity{}, {C:red,E:1}0 ERROR{}"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
                         pos = { x = 0, y = 3 },
+                    },
+                    {
+                        name = "{E:hpot_glitching}????",
+                        text = {
+                            {
+                                "{E:hpot_glitching,C:dark_edition}?????????",
+                            },
+                            {
+                                "Also worked on:",
+                                "{A:hpot_jtemads,P:2|1,S:0.25}?{}"
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 1, y = 3 },
                     },
                 }
             },
@@ -5319,20 +5464,24 @@ return {
             },
             [6] = {
                 -- It's funnier if I put in the longer name
-                name = "The four horsechicots of the potatolypse",
+                name = "The Four Horsechicots of the Potatolypse",
                 members = {
                     {
                         name = "lord.ruby",
                         text = {
-                            {"{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}",},
-                            {"im ruby."}
+                            { "{C:green}Code{}, {C:attention}Art{} and {C:red}Ideas{}", },
+                            { "im ruby." }
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 1, y = 0 }
                     },
                     {
                         name = "Lily Felli",
-                        text = {},
+                        text = {
+                            { "{C:green}Code{}", },
+                            { "Emotional support + 3 {C:attention}Jokers" },
+                            { "My Message: ",                             "{C:inactive}Don't get OverWhelmed" }
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 0 }
                     },
@@ -5360,7 +5509,39 @@ return {
                     },
                     {
                         name = "cg",
-                        text = {},
+                        text = {
+                            {
+                                "{C:green}Code{}, {C:red}Ideas{} and some {C:attention}Art"
+                            },
+                            {
+                                "{C:green}Additions: TMJ compat, Brainfuck, Lock In, ROI, Dark Connections, my self insert,",
+                                "{C:green}Prosopagnosia, Yapper, Genghis Khan, Nursery, Breeding, Underground Control,",
+                                "{C:green}Abortion, Parthenogenesis, Incubator, Terrible Dragon, Trackmania, Nursery tutorial",
+                                "{C:green}Card Stack (rework), American Healthcare (rework), What if there was a Joker (rework)"
+                            },
+                            {
+                                "Additionally, I provided bug fixes for the following:",
+                                "{s:0.7,C:money}Shaders, Black Market, many missing credits issues, Hanafudas, incorrect atlas paths, ads on mobile, many improperly formatted descriptions,",
+                                "{s:0.7,C:money}Quantum Jokers, many comments on complex code, Adblock, Reinstating Roe v Wade, Cryptocurrency, dead code removal,",
+                                "{s:0.7,C:money}Chipper Charlie, Molten Melvin, Window Deck, Title Text, Unstable Deck, Quantum Descriptions, Jtem ads, Death Note, OAP self inserts,",
+                                "{s:0.7,C:money}Polymorphine, Team Name self inserts, Sticker Dealer, Video ad upscaling, Leek, startup vortex, Team Packs.",
+                            },
+                            {
+                                "My {C:attention}contributions{} totaled to over {C:attention}300{} commits,",
+                                "and I had an {C:green}amazing{} time participating.",
+                                "Thanks to {C:blue}Astra{} for hosting!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Too Many Jokers",
+                                "{C:attention}Joker Loadouts",
+                                "{C:attention}Talisman"
+                            },
+                            {
+                                "My message:",
+                                "{C:attention,s:1.3}Play Celeste!"
+                            }
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 0, y = 1 },
                     },
@@ -5372,7 +5553,10 @@ return {
                     },
                     {
                         name = "baccon",
-                        text = {},
+                        text = {
+                            { "Emotional Support" },
+							{ "My Message:", "{C:inactive}lily nepo baby"}
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 1 },
                     },
@@ -5386,11 +5570,19 @@ return {
                         text = {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
-                                '{C:attention}Implementation'
+                                '{C:attention}Implementation',
+                                '{s:0.7}unintentional bug additions, half-assed bug fixes'
                             },
                             {
                                 'Also worked on:',
-                                'Lucky Rabbit'
+                                '{C:attention}Lucky Rabbit'
+                            },
+                            {
+                                'My message:',
+                                'Forgive me for the harm I have caused this world. None may atone',
+                                'for my actions but me, and only in me shall their stain live on. I',
+                                'am thankful to have been caught, my fall cut short by those with',
+                                'wizened hands. All I can be is sorry, and that is all I am.'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5404,7 +5596,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'ArtBox'
+                                '{C:attention}ArtBox'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5414,24 +5606,32 @@ return {
                         name = "theAstra",
                         text = {
                             {
-                                '{C:attention}Organizer{} of',
+                                '{C:dark_edition,E:1}Organizer{} of',
                                 'Hot Potato'
                             },
                             {
-                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:green}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
                             },
                             {
                                 'Also worked on:',
-                                'Maximus',
-                                'SuperRogue'
-                            }
+                                '{C:purple}Maximus{}, {C:green}ArtBox{},',
+                                'and {C:red}SuperRogue'
+                            },
+                            {
+                                "My message:",
+                                "{C:attention}It has been an absolute joy hosting this event!",
+                                "{C:attention}It would not have been possible without all",
+                                "{C:attention}of the incredibly smart and talented",
+                                "{C:attention}people who chose to participate.",
+                                "{C:attention}I truly hope you enjoy your time with our work!!"
+                            },
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 2, y = 0 }
                     },
                     {
-                        name = "Wix",
+                        name = "factwixard",
                         text = {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
@@ -5439,8 +5639,14 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Homelatro'
-                            }
+                                '{C:green}Homelatro',
+								'{C:mult}Upgrade Cards'
+                            },
+							{
+								'My message:',
+								'good luck, have fun.',
+								'also, {X:chips,C:white}XChips{} is {X:dark_edition,C:white}peak.'
+							}
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 3, y = 0 }
@@ -5454,8 +5660,13 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'LobotomyCorp'
-                            }
+                                '{C:red}LobotomyCorp',
+                                '{C:purple}blindexpander{}, {C:blue}uwuifier'
+                            },
+                            {
+								'My message:',
+								'{C:green}Oops! All{} content taken from other media',
+							}
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 4, y = 0 }
@@ -5469,7 +5680,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Neato Jokers'
+                                '{C:attention}Neato Jokers'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5487,7 +5698,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                'Grab Bag'
+                                '{C:attention}Grab Bag'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5504,15 +5715,62 @@ return {
                     },
                     {
                         name = "Eremel",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Shop UI{} and {C:hpot_pink}Quantum Jokers'
+                            },
+                            {
+                                'Stuck in UI prison'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:blue}Galdur{}, {C:red}Malverk{}, {C:attention}Ortalab',
+                                '{C:green}SMODS'
+                            },
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 3, y = 0 }
                     },
                     {
                         name = "deadbeet",
-                        text = {},
+                        text = {
+                            {
+                                '{X:red,C:white}Social {}{X:attention,C:white}Credit{}, {C:dark_edition}Poop Deck{},',
+                                '{E:2,C:inactive}The Room Between{} and the {E:1,C:attention}SUPER Bonus!{}'
+                            },
+                            {
+                                'shameless {C:hpot_pink}Hyperfixation{} plu-',
+                                '{s:0.7}what the?!',
+                                '{s:0.5}who left a {C:green,s:0.5}pear{C:attention,s:0.5}tato {C:white,s:0.5}in the {C:attention,s:0.5}microwave {C:white,s:0.5}this long??'
+                            },
+                            {
+                                'Also worked on:',
+                                '{C:hpot_pink}Hyperfixation',
+                                '--{C:green}ur mom wait crap',
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 5, y = 0 },
+                        soul_pos = { x = 6, y = 0 }
                     },
                     {
                         name = "Tacashumi",
-                        text = {},
+                        text = {
+                            {
+                                "{C:attention}Art{}, and {C:attention}Joker{}",
+                                "conceptualization",
+                            },
+                            {
+                                "Does not approve",
+                                "of the team name"
+                            },
+                            {
+                                "Also worked on:",
+                                "JJOK, Tacky Jokers"
+                            }
+                        },
+                        atlas = "hpot_pdr_credits",
+                        pos = { x = 4, y = 0 }
                     },
                     {
                         name = "N'",
@@ -5548,8 +5806,8 @@ return {
                                 "and {C:attention}art{}"
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}\"Play Siralim Ultimate\"{}"
+                                "Play Siralim Ultimate and",
+                                "avoid generate_card_ui"
                             },
                             {
                                 "Also worked on:",
@@ -5565,8 +5823,8 @@ return {
                         name = "BepisFever",
                         text = {
                             {
-                                "Made UI for {C:attention}help menu{} and {C:attention}training grounds"
-
+                                "Made UI for {C:attention}help menu{}",
+                                "and {C:attention}training grounds"
                             },
                             {
                                 "{C:attention}\"i hate ui\"{} <- guy who made ui"
@@ -6076,7 +6334,7 @@ return {
 
             hpot_trolley_joker = "Direct at Joker",
             hpot_trolley_cards = "Direct at Playing Cards",
-            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:dollars}$20{})",
+            hpot_trolley_bribe_attempt = "Attempt to Bribe the Operator ({C:money}$20{})",
             hpot_mystery_box = "Open (5 credits)",
             hpot_mystery_box_budget = "Open (5 budget)",
 

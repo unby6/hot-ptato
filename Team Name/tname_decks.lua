@@ -12,18 +12,11 @@ SMODS.Back {
     config = { plincoins = 5 },
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.plincoins } }
-    end
+    end,
+    apply = function(self, back)
+        G.GAME.plincoins = (G.GAME.plincoins or 0) + self.config.plincoins
+    end,
 }
-
-local init_perkeocoin_ref = init_perkeocoin
-function init_perkeocoin(game)
-    local starting_plincoins = game.selected_back and game.selected_back.effect and
-    G.GAME.selected_back.effect.config and game.selected_back.effect.config.plincoins or 0
-    game.plincoins = game.plincoins or 0
-    game.plincoins = game.plincoins + starting_plincoins
-    init_perkeocoin_ref(game)
-end
-
 
 SMODS.Back {
     key = 'minimal',

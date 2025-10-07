@@ -9,26 +9,31 @@ local function currencies_dictionary()
 			symbol = "$",
 			colour = SMODS.Gradients["hpot_plincoin"],
 			ref_value = "plincoins",
+			font = SMODS.Fonts.hpot_plincoin,
 		},
 		cryptocurrency = {
 			symbol = "£",
 			colour = SMODS.Gradients["hpot_advert"],
 			ref_value = "cryptocurrency",
+			font = SMODS.Fonts.hpot_plincoin,
 		},
 		spark_points = {
 			symbol = localize("hotpot_reforge_sparks"),
 			colour = G.C.BLUE,
 			ref_value = "spark_points",
+			font = SMODS.Fonts.hpot_plincoin,
 		},
 		credits = G.GAME.seeded and {
 			symbol = localize("hotpot_reforge_budget"),
 			colour = G.C.ORANGE,
 			ref_value = "budget",
+			font = SMODS.Fonts.hpot_plincoin,
 		} or {
 			symbol = localize("hotpot_reforge_credits"),
 			colour = G.C.PURPLE,
 			ref_value = "TNameCredits",
 			ref_table = G.PROFILES[G.SETTINGS.profile],
+			font = SMODS.Fonts.hpot_plincoin,
 		},
 	}
 	result.budget = result.credits
@@ -99,6 +104,7 @@ function hpot_display_currencies(list)
 			ref_value = currency.ref_value,
 			prefix = currency.symbol,
 			colour = currency.colour,
+			font = currency.font,
 		})
 	end
 
@@ -106,7 +112,6 @@ function hpot_display_currencies(list)
 		string = result_string,
 		maxw = 1.35,
 		colours = { G.C.MONEY },
-		font = SMODS.Fonts.hpot_plincoin,
 		shadow = true,
 		spacing = 2,
 		bump = true,
