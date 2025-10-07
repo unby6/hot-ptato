@@ -363,10 +363,28 @@ SMODS.Sticker {
 			speed = 1, stamina = 1, power = 1, guts = 1, wits = 1
 		}
 		local rnd = copy_table(card.ability["hp_jtem_train_mult"])
-		for i = 1, 2 do -- 10% and 20% multiplier
+		local override_stat_key = nil
+		local chance = 0.5
+		for i = 1, 3 do -- multipliers
+			-- originally this was just or 10% and 20%, but it aint accurate
+			-- its either 10-10-10, 10-20, or 30
+			-- 30% is less common though
 			local _, stat_key = pseudorandom_element(rnd, 'hp_jtem_train_stat')
-			rnd[stat_key] = nil
-			card.ability["hp_jtem_train_mult"][stat_key] = card.ability["hp_jtem_train_mult"][stat_key] + (i / 10)
+			local seed = 'kill_off_this_mf_stat_'..(G.GAME.round_resets.ante or 1)
+			if G.OVERLAY_MENU or G.STAGE ~= G.STAGES.RUN then seed = 'collection_stat_kill' end
+			if override_stat_key then
+				stat_key = override_stat_key
+				override_stat_key = nil
+			end
+			if not override_stat_key then
+				if pseudorandom(seed) > chance and stat_key then
+					rnd[stat_key] = nil
+				else
+					override_stat_key = stat_key
+					chance = chance / 2
+				end
+			end
+			card.ability["hp_jtem_train_mult"][stat_key] = card.ability["hp_jtem_train_mult"][stat_key] + 0.1
 		end
 		-- energy
 		card.ability.hp_jtem_energy = 100
