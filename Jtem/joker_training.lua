@@ -451,7 +451,7 @@ SMODS.Sticker {
 				config = { align = "cm", minw = w, maxw = w },
 				nodes = {
 					{n = G.UIT.R, config = {align = "cm", colour = lighten(G.C.GREY, 0.15), minh = 0.4, minw = w, padding = 0.05}, nodes = {
-						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
 					}},
 					create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
 				}
@@ -466,23 +466,23 @@ SMODS.Sticker {
 					nodes = {
 						{
 							n = G.UIT.C,
-							config = { align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075 },
+							config = { align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075, padding = 0.1 },
 							nodes = {
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat("speed"),
-										create_stat("stamina"),
-										create_stat("power"),
+										create_stat("speed", 1.6),
+										create_stat("stamina", 1.6),
+										create_stat("power", 1.6),
 									}
 								},
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat("guts", 3),
-										create_stat("wits", 3)
+										create_stat("guts", 2.4),
+										create_stat("wits", 2.4)
 									}
 								}
 							}
