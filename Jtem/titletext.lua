@@ -490,6 +490,12 @@ HPJTTT = {
         "1.2.0b-FULL",
         "null",
         "so called \"free thinkers\" when I turn thinking into a subscription service",
+        "Officially Endorsed by Nintenbo of America",
+        "Now with 80% more Perkeo!",
+        "Now with 90% more Perkeo!",
+        "Now with 70% more Perkeo!",
+        "Help, I'm trapped in a splash text factory!",
+        "You're trapped in a time loop, but this is day one and it turns out that playing HotPot was what you needed to do to escape",
         --imgs (follow example below, must be the name of an atlas)
         -- currently theres around a 1/67 (deadass) chance for splash text to be an image
         {'hpot_pdr_to'..'do'},
