@@ -5444,7 +5444,8 @@ return {
                     {
                         name = "baccon",
                         text = {
-                            { "Emotional Support" }
+                            { "Emotional Support" },
+							{ "My Message:", "{C:inactive}lily nepo baby"}
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 1 },
