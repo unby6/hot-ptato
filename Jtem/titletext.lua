@@ -473,6 +473,7 @@ HPJTTT = {
         "Why must we do?",
         "oww owch owie 3:",
         "ts pmo sybau",
+        HPR and "hi im eris. thanks for playing my mod" or "you should consider playing the \"Hypernova\" mod for the hit videogame \"Balatro\". It is quite enjoyable.",
         --imgs (follow example below, must be the name of an atlas)
         -- currently theres around a 1/67 (deadass) chance for splash text to be an image
         {'hpot_pdr_to'..'do'},
