@@ -2240,9 +2240,9 @@ return {
             j_hpot_togore = {
                 name = 'Togore',
                 text = {
-                    'When hand is {C:attention}played{},',
-                    '{C:attention}non-played{} cards held in',
-                    'hand permanently gains {C:chips}+#1#{} Chips'
+                    'Cards held in hand',
+                    'permanently gain {C:chips}+#1#{} Chips',
+                    'every hand {C:attention}played{},',
                 }
             },
             j_hpot_local_newspaper = {
@@ -5002,7 +5002,7 @@ return {
                                 '{C:inactive}tbcwdus'
                             },
                             {
-                                "i mainly coded {C:green,s:1.15}Plinko{} and {C:attention}Plinko-related{} stuff",
+                                "i coded {C:green,s:1.15}Plinko{}",
                                 "{s:0.3} ",
                                 "{s:0.8}i also helped with ",
                                 "{s:0.8,C:attention}testing{}{s:0.8} and {s:0.8,C:attention}bugfixes{}",

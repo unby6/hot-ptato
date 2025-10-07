@@ -41,11 +41,11 @@ end
 --- @param guaranteed boolean Controls whether or not you are guaranteed to get a sticker.
 ---
 --- @param card table|nil The card to consider. If it's provided, the stickers that the card has (if it has any) are excluded from the sticker pool.
-function poll_sticker(guaranteed, card)
+function poll_sticker(guaranteed, card, seed)
     guaranteed = guaranteed or false
 
     local stickers = {}
-    local ability = card and card.ability or nil
+    local ability = card and card.ability or {}
 
     for k, v in pairs(SMODS.Stickers) do
         -- Check if the current sticker is on the current card (if the current card exists)
@@ -62,7 +62,7 @@ function poll_sticker(guaranteed, card)
     if #stickers == 0 then return nil end
 
     -- Check if chance to get sticker is met
-    local candidate = pseudorandom_element(stickers)
+    local candidate = pseudorandom_element(stickers, seed and pseudoseed(seed) or nil)
     if guaranteed or pseudorandom("poll_sticker_rate") < tonumber(candidate.rate) then
         return candidate.key
     end
