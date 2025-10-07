@@ -11,7 +11,7 @@ return {
             c_hpot_fear = {
                 name = "Aura of Fear",
                 text = {
-                    "{C:attention}All current jokers{} gain",
+                    "{C:attention}All current Jokers{} gain",
                     "{C:red}negative{} stickers,",
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
@@ -72,7 +72,7 @@ return {
             c_hpot_fear_budget = {
                 name = "Aura of Fear",
                 text = {
-                    "{C:attention}All current jokers{} gain",
+                    "{C:attention}All current Jokers{} gain",
                     "{C:red}negative{} stickers,",
                     "{C:attention}+e.#1#{} for each sticker added"
                 }
@@ -675,7 +675,7 @@ return {
                 name = 'Sticker Overload',
                 text = {
                     "Apply a {C:dark_edition}Random Sticker",
-                    "to all jokers"
+                    "to all Jokers"
                 }
             },
             c_hpot_cap_credits = {
@@ -1239,7 +1239,7 @@ return {
                 name = "Sticker Master",
                 text = {
                     "{C:mult}+#1#{} Mult for",
-                    "each sticker on", "your jokers",
+                    "each sticker on", "your Jokers",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
@@ -1266,8 +1266,8 @@ return {
                     "Gain {C:money}+$#1#{}",
                     "at the end of a round",
                     "for each {C:attention}Uranium{}",
-                    "sticker on your jokers",
-                    "and playing cards.",
+                    "sticker on your Jokers",
+                    "and playing cards",
                     "{C:inactive}(Currently {C:money}+$#2#{C:inactive})"
                 }
             },
