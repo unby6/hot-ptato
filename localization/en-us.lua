@@ -5505,7 +5505,7 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                '{C:purple}Maximus{}, {C:green}ArtBox,',
+                                '{C:purple}Maximus{}, {C:green}ArtBox{},',
                                 'and {C:red}SuperRogue'
                             },
                             {
