@@ -2242,7 +2242,7 @@ return {
                 text = {
                     'Cards held in hand',
                     'permanently gain {C:chips}+#1#{} Chips',
-                    'every hand {C:attention}played{},',
+                    'every hand {C:attention}played{}',
                 }
             },
             j_hpot_local_newspaper = {
