@@ -28,7 +28,7 @@ SMODS.Joker {
         end
     end,
     hotpot_credits = {
-        art = { "???" },
+        art = { "Haya" },
         code = { "theAstra" },
         idea = { "Nxkoo" },
         team = { "Horsechicot" }
