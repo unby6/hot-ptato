@@ -74,8 +74,6 @@ function hpot_currencies_to_display()
 	if G.STATE == G.STATES.SHOP then
 		local current_tab = PissDrawer.Shop.active_tab
 		if type(current_tab) == "table" then
-		elseif current_tab == "hotpot_shop_tab_hotpot_jtem_toggle_delivery" then
-			return { "spark_points" }
 		elseif current_tab == "hotpot_shop_tab_hotpot_tname_toggle_reforge" then
 			return { "credits" }
 		elseif current_tab == "hotpot_shop_tab_hotpot_pissdrawer_toggle_training" then
