@@ -2,9 +2,6 @@
 --Stolen from Cryptlib because i wrote it all - ruby
 
 if Cryptid then
-    HotPotato.manipulate = Cryptid.manipulate
-    HotPotato.manipulate_table = Cryptid.manipulate_table
-    HotPotato.manipulate_value = Cryptid.manipulate_value
     return
 end
 
