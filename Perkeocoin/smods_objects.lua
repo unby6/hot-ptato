@@ -801,7 +801,7 @@ SMODS.Joker{ --Tipping Point
 
     hotpot_credits = {
         art = {'Omegaflowey18'},
-        code = {'stupidx'},
+        code = {'stupid'},
         team = {'Perkeocoin'}
     },
 
