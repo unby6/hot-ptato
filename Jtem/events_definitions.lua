@@ -1458,6 +1458,7 @@ HotPotato.EventStep({
 				button = function()
 					ease_plincoins(10)
 					ease_hands_played(-1)
+					G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
 					event.finish_scenario()
 				end,
 			}
