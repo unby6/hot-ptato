@@ -363,6 +363,12 @@ HotPotato.generate_credit_UIBox = function(team)
 			Moveable.hover(self)
 		end
 
+		-- name node for the fancy people
+		local temp_subname_node = {}
+		HotPotato.localize{type = 'name', loc_target = {name = member.name}, nodes = temp_subname_node, scale = 0.8, text_colour = G.C.L_BLACK, stylize = true, no_shadow = true, no_pop_in = true, no_bump = true, no_silent = true, no_spacing = true} 
+		temp_subname_node = hp_desc_from_rows(temp_subname_node,true,"cm",nil,0)
+		temp_subname_node.config.align = "cm"
+
 		-- create node for this mf
 		G.HOT_POTATO_CREDIT_NODES[i] = {
 			n = G.UIT.C,
@@ -375,8 +381,8 @@ HotPotato.generate_credit_UIBox = function(team)
 						align = "cm",
 						padding = 0.125,
 						colour = G.C.L_BLACK,
-						emboss = 0.05,
-						minw = G.CARD_W / 1.2 + 0.2
+						minw = G.CARD_W / 1.2 + 0.2,
+						minh = G.CARD_H * 1.2
 					},
 					nodes = {
 						{
@@ -384,24 +390,23 @@ HotPotato.generate_credit_UIBox = function(team)
 							config = {
 								r = 0.2,
 								align = "tm",
-								padding = 0.125,
+								padding = 0.1,
 								colour = G.C.BLACK,
-								emboss = 0.05,
-								minw = G.CARD_W / 1.2
+								minw = G.CARD_W / 1.2,
+								minh = G.CARD_H * 1.2
 							},
 							nodes = {
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										{ n = G.UIT.T, config = { text = member.name, scale = 0.4, colour = G.C.L_BLACK } },
+										temp_subname_node
 									}
 								},
 								{
 									n = G.UIT.R,
 									config = {
 										align = "cm",
-										padding = 0.2,
 									},
 									nodes = {
 										{
@@ -523,7 +528,7 @@ function G.FUNCS.create_UIBox_credits(e)
 							align = "cm"
 						},
 						nodes = {
-							create_option_cycle({options = options, w = 11, cycle_shoulders = true, opt_callback = 'regenerate_hotpot_credits_page', current_option = 1, colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
+							create_option_cycle({options = options, w = 11, scale = 0.8, cycle_shoulders = true, opt_callback = 'regenerate_hotpot_credits_page', current_option = 1, colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
 						}
 					}
 				}
