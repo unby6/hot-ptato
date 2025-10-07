@@ -38,7 +38,7 @@ SMODS.Tag {
     key = "plincoin",
     atlas = "SillypostingTags",
     pos = { x = 1, y = 0 },
-    config = { plincoins = 3 },
+    config = { plincoins = 5 },
     loc_vars = function(self, info_queue, tag)
         return { vars = { tag.config.plincoins } }
     end,
