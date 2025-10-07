@@ -5534,7 +5534,7 @@ return {
 							{
 								'My message:',
 								'good luck, have fun.',
-								'also, {X:chips,C:white}XChips{} is {X:dark_edition}peak.'
+								'also, {X:chips,C:white}XChips{} is {X:dark_edition,C:white}peak.'
 							}
                         },
                         atlas = "hpot_oap_self_insert",
