@@ -5049,8 +5049,31 @@ return {
                         text = {},
                     },
                     {
-                        name = "P r o t o",
-                        text = {},
+                        name = "ProdByProto",
+                        text = {
+                            {
+                                '{C:attention}Musician{},',
+                                '{C:attention}Ideas person{} and',
+                                '{C:attention}A little bit of code{}',
+                                '{C:inactive}also i added a couple small easter eggs and drew this clippy!Ralsei'
+                            },
+                            {
+                                'I did a small amount compared to everyone else,',
+                                'but at least I\'m proud of the things I did do.',
+                                '30+ commits is nothing to scoff at :3 ,',
+                                'if anyone wants me involved in their modding project lmk.',
+                                '',
+                                'Shoutouts to {C:edition,E:1}Gay Foxgirls :3c{}'
+                            },
+                            {
+                                'Imagine... a {C:red}stop {}{X:dark_edition,C:white}sign{}. When you see a {C:red}stop {}{X:dark_edition,C:white}sign{}, you {C:red}stop{}, right?',
+                                '{C:red}stop {}{X:dark_edition,C:white}signs{} are {C:green}red{}. So imagine a {C:spectral}blue {}{C:red}stop { }{X:dark_edition,C:white}sign{} {C:gold}instead{}.',
+                                '{C:edition,E:1}Simple, {}{C:legendary}right?{}'
+                            }
+                        },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x= 5, y = 0},
+                        soul_pos = { x = 6, y = 0 }
                     },
                 }
             },
