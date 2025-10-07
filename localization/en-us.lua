@@ -1145,11 +1145,11 @@ return {
             j_hpot_labubu = {
                 name = "Joker Glass Bridge",
                 text = {
+                    "Every scoring {C:attention}Glass Card{} gives",
+                    "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#3#{} when shattered",
                     "This Joker gains {X:mult,C:white}X#1#{} Mult",
-                    "for every glass card {C:attention}remaining",
-                    "and gives {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#3#{} for each",
-                    "glass card {C:attention}destroyed",
-                    "after a hand is played",
+                    "for every scoring {C:attention}Glass Card",
+                    "that survived",
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
                 }
             },
