@@ -5135,7 +5135,7 @@ return {
 								"and some of the coding"
 							},
 						    {
-								"My message:"
+								"My message:",
 								"GO USE JOKER FORGE",
 								"{C:blue}jokerforge.jaydchw.com"
 							}
