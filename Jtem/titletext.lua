@@ -497,6 +497,12 @@ HPJTTT = {
         "Now with 70% more Perkeo!",
         "Help, I'm trapped in a splash text factory!",
         "You're trapped in a time loop, but this is day one and it turns out that playing HotPot was what you needed to do to escape",
+        "Plinko :)",
+        "Did you know they used to call RTGame the Drift King back in college?",
+        "Support Major League Balatro!!",
+        "/watch?v=dQw4w9WgXcQ",
+        "We take payment in Perkeo Coin and Trib Coin.",
+        "Now with laser night vision for after dark cleaning!",
         --imgs (follow example below, must be the name of an atlas)
         -- currently theres around a 1/67 (deadass) chance for splash text to be an image
         {'hpot_pdr_to'..'do'},
