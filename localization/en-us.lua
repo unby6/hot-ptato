@@ -5598,8 +5598,13 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                '{C:attention}LobotomyCorp'
-                            }
+                                '{C:red}LobotomyCorp',
+                                '{C:purple}blindexpander{}, {C:blue}uwuifier'
+                            },
+                            {
+								'My message:',
+								'{C:green}Oops! All{} content taken from other media',
+							}
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 4, y = 0 }
