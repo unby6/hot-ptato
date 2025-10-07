@@ -40,3 +40,27 @@ payload = '''
 local t = {} or {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
 '''
 match_indent = true
+
+# Ease Dollars UI display
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+play_sound('coin1')
+'''
+payload = '''
+local hpot_dollar_ui = G.shop:get_UIE_by_ID('hotpot_currency_dollars')
+if hpot_dollar_ui then
+    attention_text({
+        text = text .. tostring(math.abs(mod)),
+        scale = hpot_dollar_ui.children[1].children[1].config.object.scale,
+        hold = 0.7,
+        cover = hpot_dollar_ui,
+        cover_colour = col,
+        align = 'cm',
+        font = SMODS.Fonts.hpot_plincoin
+    })
+end
+'''
