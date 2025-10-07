@@ -147,6 +147,11 @@ function Horsechicot.post_load()
         cards = cards
     }
     SMODS.ObjectTypes.BlackMarket:inject()
+    if Cryptid then
+        HotPotato.manipulate = Cryptid.manipulate
+        HotPotato.manipulate_table = Cryptid.manipulate_table
+        HotPotato.manipulate_value = Cryptid.manipulate_value
+    end
 end
 
 -- I have no idea why this lock is needed in a first place
