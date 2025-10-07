@@ -5140,7 +5140,7 @@ return {
 								"{C:blue}jokerforge.jaydchw.com"
 							}
 						},
-					    atlas = "SillypostingJokers",
+					    atlas = "hpot_SillypostingJokers",
                         pos = { x = 1, y = 0 },
                     },
                     {
