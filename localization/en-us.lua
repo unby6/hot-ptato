@@ -2769,7 +2769,8 @@ return {
                     "{C:attention}+#5#{} Wits",
                     "{C:red}-#6#{} Energy",
                     "to a selected",
-                    "{C:attention}Training{} Joker"
+                    "{C:attention}Training{} Joker",
+                    "{C:attention}Always{} succeeds"
                 }
             },
             c_hpot_apparition = {

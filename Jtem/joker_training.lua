@@ -682,7 +682,8 @@ function hpot_training_tarot_use(self, card, area, copier)
 						message = localize('hotpot_train_' .. (success and 'success' or 'failure')),
 						colour = (success and G.C.FILTER or G.C.BLUE),
 						sound =
-							"hpot_sfx_" .. (success and 'success' or 'failure')
+							"hpot_sfx_" .. (success and 'success' or 'failure'),
+                        volume = 0.7
 					})
 			end
 			--[[
@@ -719,7 +720,8 @@ function hpot_training_tarot_use(self, card, area, copier)
 						message = localize('hotpot_train_mood_' .. (success and 'up' or 'down')),
 						colour = (success and G.C.FILTER or G.C.BLUE),
 						sound =
-						"hpot_sfx_stat_up"
+						"hpot_sfx_stat_up",
+                        volume = 0.7
 					})
 			end
 		end

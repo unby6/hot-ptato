@@ -358,14 +358,21 @@ function G.FUNCS.hotpot_training_grounds_train(e)
                     local multiplier = hpot_calc_stat_multiplier(card, i)
                     card:mod_training_stat(i,math.ceil(v*multiplier))
                 end
+                if pseudorandom('hpot_success_train_mood', 1, 10) == 10 then
+                    hot_mod_mood(card, 1)
+                end
             else
                 if train == "wits" then
                     card.ability.hp_jtem_energy = math.min(card.ability.hp_jtem_energy - calc_energy_cost(joker_stats,-5),100)
+                    play_sound("hpot_sfx_stat_down", nil, 0.7)
                 else
                     local reduc = buff[train]
                     if reduc then
                         card:mod_training_stat(train,-reduc)
                     end
+                end
+                if pseudorandom('hpot_fail_train_mood', 1, 2) == 2 then
+                    hot_mod_mood(card, -1)
                 end
             end
         end

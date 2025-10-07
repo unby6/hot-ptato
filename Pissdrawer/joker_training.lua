@@ -48,10 +48,10 @@ function Card:create_train_popup(stat, num)
             
             if (num or 0) >= 0 then
                 G.C["hpot_train"..train_popup] = copy_table(G.C.FILTER)
-                play_sound("hpot_sfx_stat_up")
+                play_sound("hpot_sfx_stat_up", nil, 0.7)
             else
                 G.C["hpot_train"..train_popup] = copy_table(G.C.BLUE)
-                play_sound("hpot_sfx_stat_down")
+                play_sound("hpot_sfx_stat_down", nil, 0.7)
             end
             G.C["hpot_train_stat"..train_popup] = copy_table(G.C.UI.TEXT_LIGHT)
             self:juice_up(0.1,0.1)
