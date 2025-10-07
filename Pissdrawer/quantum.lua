@@ -83,15 +83,18 @@ local smods_destroy_cards = SMODS.destroy_cards
 function SMODS.destroy_cards(cards, ...)
     if not cards[1] then
         if Object.is(cards, Card) then
-            cards = {cards}
+            cards = { cards }
         else
             return
         end
     end
     local new_cards = {}
     for _, card in pairs(cards) do
-        if card.quantum then new_cards[#new_cards + 1] = card.quantum
-        else new_cards[#new_cards + 1] = card end
+        if card.quantum then
+            new_cards[#new_cards + 1] = card.quantum
+        else
+            new_cards[#new_cards + 1] = card
+        end
     end
 
     return smods_destroy_cards(new_cards, ...)
@@ -133,7 +136,8 @@ SMODS.Joker {
             local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
             local func = (q1.config.center.generate_ui or SMODS.Joker.generate_ui)
             if type(func) == "function" then
-                func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true), full_UI_table)
+                func(q1.config.center, info_queue, q1, desc_nodes, Card.generate_UIBox_ability_table(q1, true),
+                    full_UI_table)
             end
         end
     end,
@@ -147,7 +151,7 @@ SMODS.Joker {
                 local to_copy
                 for i, v in pairs(G.jokers.cards) do
                     if v.ability.quantum_1 == quantum or v.ability.quantum_2 == quantum then
-                        to_copy = G.jokers.cards[i+1]
+                        to_copy = G.jokers.cards[i + 1]
                     end
                 end
                 return SMODS.blueprint_effect(card, to_copy, context)
@@ -159,7 +163,7 @@ SMODS.Joker {
             if card.ability.quantum_2.config.center.key == "j_blueprint" then
                 ret2, trig2 = bp(card.ability.quantum_2)
             end
-            
+
             if card.ability.quantum_1.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
                 ret, trig = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
             end
@@ -241,9 +245,9 @@ function PissDrawer.replace_quantum(effects, quantum, host)
         local new_eff = {}
         for k, v in pairs(effects) do
             if type(v) == 'table' then
-                if v.quantum then 
+                if v.quantum then
                     new_eff[k] = v.quantum
-                elseif k == 'extra' then 
+                elseif k == 'extra' then
                     new_eff[k] = PissDrawer.replace_quantum(v)
                 else
                     new_eff[k] = v
@@ -342,3 +346,47 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
+
+local old = copy_card
+function copy_card(card, new_card, card_scale, playing_card, strip_edition)
+    if card.ability.quantum_1 then
+        local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
+        card.ability.quantum_1, card.ability.quantum_2 = nil, nil
+        local ret = old(card, new_card, card_scale, playing_card, strip_edition)
+        card.ability.quantum_1, card.ability.quantum_2 = q1, q2
+        ret.ability.quantum_1 =
+            Quantum({
+                fake_card = true,
+                key = q1.config.center.key,
+                ability = copy_table(q1.ability),
+                config = {
+                    center = q1.config.center
+                },
+            }, ret)
+        ret.ability.quantum_2 =
+            Quantum({
+                fake_card = true,
+                key = q2.config.center.key,
+                ability = copy_table(q2.ability),
+                config = {
+                    center = q2.config.center
+                },
+            }, ret)
+
+        update_child_atlas(ret, G.ASSET_ATLAS[ret.ability.quantum_1.config.center.atlas or 'Joker'],
+            ret.ability.quantum_1.config.center.pos)
+        --make children smaller
+        ret.T.h = ret.T.h * 0.75
+        ret.T.w = ret.T.w * 0.75
+
+        ret.children.center.scale_mag = math.min(
+            ret.children.center.atlas.px / ret.T.w,
+            ret.children.center.atlas.py / ret.T.h
+        )
+
+        ret.ability.is_nursery_smalled = true
+        return ret
+    else
+        return old(card, new_card, card_scale, playing_card, strip_edition)
+    end
+end
