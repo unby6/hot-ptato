@@ -5512,7 +5512,7 @@ return {
                         pos = { x = 2, y = 0 }
                     },
                     {
-                        name = "Wix",
+                        name = "factwixard",
                         text = {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
@@ -5520,8 +5520,14 @@ return {
                             },
                             {
                                 'Also worked on:',
-                                '{C:attention}Homelatro'
-                            }
+                                '{C:green}Homelatro',
+								'{C:mult}Upgrade Cards'
+                            },
+							{
+								'My message:',
+								'good luck, have fun.',
+								'also, {X:chips,C:white}XChips{} is {X:dark_edition}peak.'
+							}
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 3, y = 0 }
