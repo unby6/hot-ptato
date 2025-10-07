@@ -5010,7 +5010,7 @@ return {
                                 "{s:0.7,C:inactive}did you know? now you do",
                             },
                             {
-                                "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}  {s:1.2,X:hpot_stupid,C:hpot_smart}meow{}  {s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",
+                                "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",
                             },
                         },
                         atlas = "hpot_PerkeocoinCredits",
@@ -5045,7 +5045,23 @@ return {
                     },
                     {
                         name = "dottykitty",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist{} behind,',
+                                'the {C:attention}Bottlecaps{}, {C:attention}Checks{} {s:0.8}Czechs?{}',
+                                'and some {C:attention}Jokers{} and {C:attention}Vouchers{}!',
+                            },
+                            {
+                               'Do you think God {C:inactive,s:0.8}(me){}',
+                               'stays in Heaven out of fear',
+                               'of what they created? {C:inactive,s:0.8}(Balatro University Mpreg){}',
+                                'I mean um-',
+                                '{C:green,E:2}Plinko :D{}',
+                                '{C:inactive,s:0.7}Perkeo please I just want my wheel of fortune back.....{}',
+                           }
+                        },
+                        atlas = "hpot_PerkeocoinCredits",
+                        pos = { x = 9, y = 0 },
                     },
                     {
                         name = "Opal",
