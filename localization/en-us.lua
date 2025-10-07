@@ -5093,6 +5093,9 @@ return {
                             {
                                 "hi i invented the concept of the",
                                 "consumable highlight shenanigans",
+                                "(and also like half of the code for it)",
+                            },
+                            {
                                 "also play {C:dark_edition}Hypernova{}",
                                 "{C:inactive}please my mod has like no players{}"
                             }
