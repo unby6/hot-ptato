@@ -4804,25 +4804,25 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "{C:attention}Hot Potato{} adds various different {C:attention}currencies{},",
-                            "which all do different things."
+                            "{C:attention}Hot Potato{} adds various {C:attention}currencies{},",
+                            "which all do different things"
                         },
                         {
-                            "{C:hpot_plincoin}Plincoins{} are gained {C:attention}once a round at the cashout{},",
-                            "they can be used for {C:attention}plinko{} and {C:attention}delivery{}."
+                            "{C:hpot_plincoin}Plincoins{} are gained {C:attention}at end of round{},",
+                            "and are used to play {C:attention}plinko{}"
                         },
                         {
-                            "{C:hpot_advert}Cryptocurrency{} are gained through {C:attention}harvesting organs{},",
-                            "they can be used in the {C:attention}black market{} and {C:attention}delivery{}."
+                            "{C:hpot_advert}Cryptocurrency{} is earned by {C:attention}harvesting organs{},",
+                            "and can be used in {C:attention}black market{}"
                         },
                         {
-                            "{C:blue}Jicks{} are gained through {C:attention}exchanging currency{},",
-                            "they can be used for {C:attention}training{} and {C:attention}delivery{}."
+                            "{C:blue}Jicks{} can be bought in {C:attention}currency exchange{},",
+                            "and are intended for {C:attention}training{}"
                         },
                         {
                             "{C:purple}Credits{} are gained through {C:attention}Auras{},",
                             "they are {C:attention}kept between runs{} and",
-                            "can be used for {C:attention}wheel{}, {C:attention}reforging{} and {C:attention}delivery{}."
+                            "can be used for {C:attention}wheel{} and {C:attention}reforging{}"
                         },
                     }
                 },
