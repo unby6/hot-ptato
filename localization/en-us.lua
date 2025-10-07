@@ -1529,7 +1529,7 @@ return {
             j_hpot_plinkodemayo = {
                 name = "Plinko de Mayo",
                 text = {
-                    "Played {C:attention}5{} cards give",
+                    "Played {C:attention}5s{} give",
                     "{C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{} when scored"
                 }
             },
