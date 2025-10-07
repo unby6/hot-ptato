@@ -5459,11 +5459,19 @@ return {
                         text = {
                             {
                                 '{C:attention}Code{} and {C:attention}Content',
-                                '{C:attention}Implementation'
+                                '{C:attention}Implementation',
+                                '{s:0.7}unintentional bug additions, half-assed bug fixes'
                             },
                             {
                                 'Also worked on:',
                                 '{C:attention}Lucky Rabbit'
+                            },
+                            {
+                                'My message:',
+                                'Forgive me for the harm I have caused this world. None may atone',
+                                'for my actions but me, and only in me shall their stain live on. I',
+                                'am thankful to have been caught, my fall cut short by those with',
+                                'wizened hands. All I can be is sorry, and that is all I am.'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5526,7 +5534,7 @@ return {
 							{
 								'My message:',
 								'good luck, have fun.',
-								'also, {X:chips,C:white}XChips{} is {X:dark_edition}peak.'
+								'also, {X:chips,C:white}XChips{} is {X:dark_edition,C:white}peak.'
 							}
                         },
                         atlas = "hpot_oap_self_insert",
