@@ -404,7 +404,7 @@ function HotPotato.localize(args, misc_cat)
                         })
                     }}
                 elseif part.control.E then
-                    local _float, _silent, _pop_in, _bump, _spacing = nil, true, nil, nil, nil
+                    local _float, _silent, _pop_in, _bump, _spacing = nil, true, nil, nil, 1
                     local text_effects
                     if part.control.E == '1' then
                         _float = true; _silent = true; _pop_in = 0; _spacing = 1
