@@ -5129,7 +5129,19 @@ return {
                     },
                     {
                         name = "Jaydchw",
-                        text = {},
+                        text = {
+							{
+								"I did some of the art",
+								"and some of the coding"
+							},
+						    {
+								"My message:"
+								"GO USE JOKER FORGE",
+								"{C:blue}jokerforge.jaydchw.com"
+							}
+						},
+					    atlas = "SillypostingJokers",
+                        pos = { x = 1, y = 0 },
                     },
                     {
                         name = "Victin",
