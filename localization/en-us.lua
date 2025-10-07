@@ -2342,7 +2342,7 @@ return {
                 }
             },
             v_hpot_currency_exchange2 = {
-                ['name'] = 'Plinko 4ever',
+                ['name'] = 'Stock Market',
                 ['text'] = {
                     [1] = '{C:hpot_plincoin}Plinko{} cost resets',
                     [2] = 'every ante',
