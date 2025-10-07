@@ -5011,10 +5011,10 @@ return {
                             },
                             {
                                 "My Message:",
-                                "{C:inactive}\"Winning is temporary, TribKeo is forever\"",
-                                "{C:inactive}\"She lusty on my joker 'till I +3 mult on played hearts all.\"",
-                                "{C:inactive}\"You're telling me there's men in your gitis,\"",
-                                "{C:inactive}\"But I just like to play and draw.\"",
+                                "Winning is temporary, {C:green,E:2}TribKeo is forever",
+                                "She {E:1,C:hpot_advert}lusty{} on my joker 'till I +3 mult on played hearts all.",
+                                "You're telling me there's men in your {C:dark_edition}gitis{},",
+                                "But I just like to {X:chips,C:white}play{} and {X:dark_edition,C:white}draw.",
                             }
                         },
                         atlas = "hpot_PerkeocoinCredits",
