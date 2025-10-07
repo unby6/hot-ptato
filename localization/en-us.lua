@@ -5140,17 +5140,23 @@ return {
                         name = "Aikoyori",
                         text = {
                             {
-                                "Various jokers, art",
-                                "and a music track"
+                                "Slop Live, a few Art contribution",
+                                "2 music tracks, some UIs",
+                                "and 1 currency glyph..."
                             },
                             {
-                                "Mastermind behind",
-                                "{C:attention}Joker delivery{} and",
-                                "{C:attention}Joker training{}"
+                                "Hi! I coded {C:red}Joker Delivery{},",
+                                "{C:inactive,s:0.8}(Most unstable piece of {E:hpot_glitching,C:inactive,s:0.8}shit{C:inactive,s:0.8})",
+                                "came up with the ideas for {C:blue}Joker Training{},",
+                                "(the rest was mostly haya's backend)",
+                                "and pushed for {C:blue,f:hpot_plincoin}͸icks{} to be {C:green,E:1}F2P{} currency",
+                                "{C:inactive}(I even made a UI and symbol for it!)"
                             },
                             {
                                 "Also worked on:",
-                                "{C:red,E:2}Aikoyori's {C:green,E:2}Shenanigans"
+                                "{C:red,E:1}Aikoyori's {C:green,E:2}Shenanigans{},",
+                                "{C:blue,E:2}Vocalatro{}, {C:purple}Playbook",
+                                "{C:attention,E:1}Mamoof{} and more to come!",
                             }
                         },
                         atlas = "hpot_jtem_jokers",
