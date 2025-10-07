@@ -5110,7 +5110,8 @@ return {
                                 "{C:attention}system{} and mechanics"
                             },
                             {
-                                "{C:inactive}Haya my goat <3"
+                                "{C:inactive}Haya my goat <3",
+                                "Also worked on: {C:dark_edition,E:1}Handy"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5126,6 +5127,10 @@ return {
                             {
                                 "Creator of the {C:attention}Nxkoo dies",
                                 "tab in mod info and {C:attention}title text",
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention,E:2}Too Many Decks"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5142,6 +5147,10 @@ return {
                                 "Mastermind behind",
                                 "{C:attention}Joker delivery{} and",
                                 "{C:attention}Joker training{}"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:red,E:2}Aikoyori's {C:green,E:2}Shenanigans"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5156,7 +5165,12 @@ return {
                             {
                                 "The {C:attention}Jukebox{}, as well as",
                                 "{C:blue}Jicks{} implementation and",
-                                "{C:attention}Joker training{}"
+                                "{C:attention}Joker training{} and this",
+                                "goddamn credits page !!!!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:edition,E:2}Paya's Terrible Additions"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5168,6 +5182,9 @@ return {
                             {
                                 "Most art for most jokers",
                                 "{C:inactive}AGAIN!"
+                            },
+                            {
+                                "Also worked on: {C:edition,E:2}Finity{}, {C:red,E:1}0 ERROR{}"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5177,7 +5194,7 @@ return {
                         name = "{E:hpot_glitching}????",
                         text = {
                             {
-                                "{E:hpot_glitching}?????????",
+                                "{E:hpot_glitching,C:dark_edition}?????????",
                             }
                         },
                         atlas = "hpot_jtem_jokers",
