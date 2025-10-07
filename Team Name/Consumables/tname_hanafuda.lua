@@ -342,7 +342,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_redirect")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_redirect")
 			end
 		end
 		unhighlight_hj()
@@ -388,7 +388,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cannibal")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_cannibal")
 			end
 		end
 		unhighlight_hj()
@@ -434,7 +434,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cannibal")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_cannibal")
 			end
 		end
 		unhighlight_hj()
@@ -484,7 +484,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spores")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_spores")
 			end
 		end
 		unhighlight_hj()
@@ -532,7 +532,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spores")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_spores")
 			end
 		end
 		unhighlight_hj()
@@ -578,7 +578,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cfour")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_cfour")
 			end
 		end
 		unhighlight_hj()
@@ -624,7 +624,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_cfour")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_cfour")
 			end
 		end
 		unhighlight_hj()
@@ -677,7 +677,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_overclock")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_overclock")
 			end
 		end
 		unhighlight_hj()
@@ -727,7 +727,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_overclock")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_overclock")
 			end
 		end
 		unhighlight_hj()
@@ -773,7 +773,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_rage")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_rage")
 			end
 		end
 		unhighlight_hj()
@@ -819,7 +819,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_rage")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_rage")
 			end
 		end
 		unhighlight_hj()
@@ -867,7 +867,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spinning")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_spinning")
 			end
 		end
 		unhighlight_hj()
@@ -913,7 +913,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_spinning")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_spinning")
 			end
 		end
 		unhighlight_hj()
@@ -959,7 +959,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_binary")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_binary")
 			end
 		end
 		unhighlight_hj()
@@ -1005,7 +1005,7 @@ SMODS.Consumable({
 			end
 		else
 			for i = 1, #G.hand.highlighted do
-				apply_remove_sticker(G.jokers.highlighted[i], "hpot_binary")
+				apply_remove_sticker(G.hand.highlighted[i], "hpot_binary")
 			end
 		end
 		unhighlight_hj()

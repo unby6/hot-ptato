@@ -183,7 +183,7 @@ SMODS.Joker({
 			local target = G.jokers.cards[rr + (_card)]
 
 			if target then
-				local sticker = poll_sticker(true, target, "sticker_dealer")
+				local sticker = poll_sticker(true, target, "sticker_dealer", {"hpot_jtem_mood"})
 				if sticker then
 					SMODS.Stickers[sticker]:apply(target, true)
 	
