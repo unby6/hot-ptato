@@ -5345,7 +5345,11 @@ return {
                     },
                     {
                         name = "Lily Felli",
-                        text = {},
+                        text = {
+                            {"{C:green}Code{}",},
+                            {"Emotional support + 3 {C:attention}Jokers"},
+                            {"My Message: ", "{C:inactive}Don't get OverWhelmed"}
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 0 }
                     },
@@ -5417,7 +5421,9 @@ return {
                     },
                     {
                         name = "baccon",
-                        text = {},
+                        text = {
+                            "Emotional Support"
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 1 },
                     },
