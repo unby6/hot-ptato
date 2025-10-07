@@ -5184,7 +5184,8 @@ return {
                                 "{C:inactive}AGAIN!"
                             },
                             {
-                                "Also worked on: {C:edition,E:2}Finity{}, {C:red,E:1}0 ERROR{}"
+                                "Also worked on:",
+                                "{C:edition,E:2}Finity{}, {C:red,E:1}0 ERROR{}"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
@@ -5195,6 +5196,10 @@ return {
                         text = {
                             {
                                 "{E:hpot_glitching,C:dark_edition}?????????",
+                            },
+                            {
+                                "Also worked on:",
+                                "{A:hpot_jtemads,P:2|1,S:0.25}?{}"
                             }
                         },
                         atlas = "hpot_jtem_jokers",
