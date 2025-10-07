@@ -41,7 +41,7 @@ end
 --- @param guaranteed boolean Controls whether or not you are guaranteed to get a sticker.
 ---
 --- @param card table|nil The card to consider. If it's provided, the stickers that the card has (if it has any) are excluded from the sticker pool.
-function poll_sticker(guaranteed, card, seed)
+function poll_sticker(guaranteed, card, seed, blacklist)
     guaranteed = guaranteed or false
 
     local stickers = {}
@@ -54,7 +54,15 @@ function poll_sticker(guaranteed, card, seed)
         end
 
         -- Append the sticker to the array
+    if blacklist then
+        for kk, vv in pairs(blacklist) do
+            if v.key ~= vv then
+                stickers[#stickers + 1] = v
+            end
+        end
+    else
         stickers[#stickers + 1] = v
+    end
 
         ::poll_sticker_skip::
     end
