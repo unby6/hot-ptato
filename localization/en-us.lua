@@ -5041,7 +5041,24 @@ return {
                     },
                     {
                         name = "CampfireCollective",
-                        text = {},
+                        text = {
+                            {
+                                '{C:money,E:2}Programmer{} and also just general game design'
+                            },
+                            {
+                                "Contributions:",
+                                "{C:attention}14{}/15 PerkeoCoin Jokers",
+                                "{C:attention}11{}/12 Cheques {S:0.8,C:inactive}Czechs?",
+                                "{C:attention}20{}/26 Bottlecaps",
+								"Thanks for playing! Invest in PerkeoCoin for quick gains!"
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:blue}Balatro",
+                                "{C:money}Extra {C:green}Credit",
+                                "{C:hpot_pink}Uma Musumod"
+                            }
+                        },
                         atlas = "hpot_PerkeocoinCredits",
                         pos = { x = 1, y = 0 },
                         soul_pos = { x = 2, y = 0 }
