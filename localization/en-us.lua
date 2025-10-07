@@ -1207,7 +1207,7 @@ return {
                     "When a {C:attention}face{} card is scored",
                     "gives one of the following {C:attention}randomly{}:",
                     "MissingNumber : {C:mult}+#1#{} Mult",
-                    "{E:hpot_glitching}ixeL{} : {X:mult,C:white} X#2# {} Mult",
+                    "{E:hpot_glitching}????{} : {X:mult,C:white} X#2# {} Mult",
                     "Haya : {X:chips,C:white} X#3# {} Chips",
                     "Aikoyori : {C:chips}+#4#{} Chips",
                     "Squidguset : {C:money}+$#5#{}",
@@ -5172,6 +5172,16 @@ return {
                         },
                         atlas = "hpot_jtem_jokers",
                         pos = { x = 0, y = 3 },
+                    },
+                    {
+                        name = "{E:hpot_glitching}????",
+                        text = {
+                            {
+                                "{E:hpot_glitching}?????????",
+                            }
+                        },
+                        atlas = "hpot_jtem_jokers",
+                        pos = { x = 1, y = 3 },
                     },
                 }
             },
