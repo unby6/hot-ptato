@@ -5155,7 +5155,7 @@ return {
                             {
                                 "Also worked on:",
                                 "{C:red,E:1}Aikoyori's {C:green,E:2}Shenanigans{},",
-                                "{C:blue,E:2}Vocalatro{}, {C:purple}Playbook",
+                                "{C:blue,E:2}Vocalatro{}, {C:purple,E:1}Playbook",
                                 "{C:attention,E:1}Mamoof{} and more to come!",
                             }
                         },
