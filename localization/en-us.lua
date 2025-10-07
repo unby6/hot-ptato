@@ -5714,8 +5714,8 @@ return {
                         name = "BepisFever",
                         text = {
                             {
-                                "Made UI for {C:attention}help menu{} and {C:attention}training grounds"
-
+                                "Made UI for {C:attention}help menu{}",
+                                "and {C:attention}training grounds"
                             },
                             {
                                 "{C:attention}\"i hate ui\"{} <- guy who made ui"
