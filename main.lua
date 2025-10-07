@@ -363,6 +363,28 @@ HotPotato.generate_credit_UIBox = function(team)
 			Moveable.hover(self)
 		end
 
+		-- for nxkoo specifically
+		if member.name == "Nxkoo" then
+			card.click = function(self)
+				if not card.cantclicklmao then
+					G.E_MANAGER:add_event(Event{
+						trigger = 'ease',
+						delay = 0.4,
+						ease = 'elastic',
+						ref_table = card.T,
+						ref_value = "h",
+						ease_to = 0,
+						func = function(n)
+							return n
+						end
+					})
+					card.cantclicklmao = true
+					G.FUNCS.nxkclick()
+				end
+				Moveable.click(self)
+			end
+		end
+
 		-- name node for the fancy people
 		local temp_subname_node = {}
 		HotPotato.localize{type = 'name', loc_target = {name = member.name}, nodes = temp_subname_node, scale = 0.8, text_colour = G.C.L_BLACK, stylize = true, no_shadow = true, no_pop_in = true, no_bump = true, no_silent = true, no_spacing = true} 

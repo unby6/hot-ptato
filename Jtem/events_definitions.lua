@@ -1057,10 +1057,11 @@ HotPotato.EventStep({
 				vars = { localize { type = 'name_text', key = "j_vagabond", set = "Joker", vars = {} } },
 				button = function()
 					SMODS.destroy_cards(get_food_joker())
-					SMODS.add_card({
+					local cap = SMODS.add_card({
 						set = "bottlecap_Rare",
 						area = G.consumeables,
 					})
+					cap.ability.extra.chosen = 'Rare'
 					event.finish_scenario()
 				end,
 				func = function()

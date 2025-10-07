@@ -5450,7 +5450,8 @@ return {
                     {
                         name = "baccon",
                         text = {
-                            { "Emotional Support" }
+                            { "Emotional Support" },
+							{ "My Message:", "{C:inactive}lily nepo baby"}
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 1 },
@@ -5505,13 +5506,13 @@ return {
                                 'Hot Potato'
                             },
                             {
-                                '{C:attention}Code{} and {C:attention}Content',
+                                '{C:green}Code{} and {C:attention}Content',
                                 '{C:attention}Implementation'
                             },
                             {
                                 'Also worked on:',
-                                '{C:attention}Maximus',
-                                '{C:attention}SuperRogue'
+                                '{C:purple}Maximus{}, {C:green}ArtBox{},',
+                                'and {C:red}SuperRogue'
                             },
                             {
                                 "My message:",
