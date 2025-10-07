@@ -4995,12 +4995,25 @@ return {
                 name = "PerkeoCoin",
                 members = {
                     {
-                        name = "stupxd",
+                        name = "stupid",
                         text = {
                             {
-                                "stupid text"
+                                'hi hello, im stupid',
+                                '{C:inactive}tbcwdus'
+                            },
+                            {
+                                "i did some coding for this mod,",
+                                "mainly {C:green}plinko{} and {C:money}plincoins",
+                                "{s:0.15} ",
+                                "also helped with testing,",
+                                "bugfixes and balancing",
+                            },
+                            {
+                                "{X:hpot_stupid,C:hpot_smart}meow",
                             }
                         },
+                        atlas = "hpot_stupidorb",
+                        pos = { x = 0, y = 0 }
                     },
                     {
                         name = "Omegaflowey18",

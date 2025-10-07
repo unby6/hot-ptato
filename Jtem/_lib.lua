@@ -13,12 +13,24 @@ end
 SMODS.Gradient {
     key = 'plincoin',
     colours = {G.C.MONEY, G.C.GREEN},
-    cycle = 1
+    cycle = 1.5
 }
 SMODS.Gradient {
     key = 'advert',
     colours = {G.C.FILTER, G.C.RED},
     cycle = 1
+}
+
+SMODS.Gradient {
+    key = 'stupid',
+    colours = {G.C.WHITE, G.C.BLUE},
+    cycle = 2
+}
+
+SMODS.Gradient {
+    key = 'smart',
+    colours = {G.C.BLUE, G.C.WHITE},
+    cycle = 2
 }
 
 -- SMODS.Fonts.hpot_plincoin

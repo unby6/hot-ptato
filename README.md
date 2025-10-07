@@ -7,7 +7,7 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 - Opal
 - dottykitty
 - CampfireCollective
-- stupxd
+- stupid
 - Omegaflowey18
 - Prod.By.Proto
 
