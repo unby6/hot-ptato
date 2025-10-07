@@ -478,6 +478,7 @@ HPJTTT = {
         "Such impossible bliss",
         "Would you rather have unlimited xChips but no more xMult or mult, unlimited mult, but no more mult?",
         "If Hawaii was so good, then why didn't they make a Hawaii part II?",
+        "Jevil is NOT a Balatro OC, don't listen to what anyone else tells you.",
         HPR and "hi im eris. thanks for playing my mod" or "you should consider playing the \"Hypernova\" mod for the hit videogame \"Balatro\". It is quite enjoyable.",
         "There is a comment near this message that said \"67\" at some point. This is so comedic",
         "It seems as if there is a risk of rain...",
