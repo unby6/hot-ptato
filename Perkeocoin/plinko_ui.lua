@@ -119,7 +119,7 @@ SMODS.Sound {
   hpot_title = "Meowsynthwave (OST Mix)",
   hpot_discoverable = true,
 	hpot_purpose = {
-		"Music that plays when a plasmid",
+		"Music that plays when a stupid",
     "orb is selected in Plinko"
 	},
   hotpot_credits = {

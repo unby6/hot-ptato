@@ -316,6 +316,9 @@ HotPotato.generate_credit_UIBox = function(team)
 		if member.soul_pos then
 			card.config.center.soul_pos = member.soul_pos
 		end
+		if member.extra then
+			card.hpot_extra = member.extra
+		end
 		card:set_sprites(card.config.center)
 		G.HOT_POTATO_CREDIT_AREAS[i]:emplace(card)
 

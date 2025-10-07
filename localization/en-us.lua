@@ -4998,22 +4998,24 @@ return {
                         name = "stupid",
                         text = {
                             {
-                                'hi hello, im stupid',
+                                '{s:1.5}hi hello! im stupid',
                                 '{C:inactive}tbcwdus'
                             },
                             {
-                                "i did some coding for this mod,",
-                                "mainly {C:green}plinko{} and {C:money}plincoins",
-                                "{s:0.15} ",
-                                "also helped with testing,",
-                                "bugfixes and balancing",
+                                "i mainly coded {C:green,s:1.15}Plinko{} and {C:attention}Plinko-adjacent{} things",
+                                "{s:0.3} ",
+                                "{s:0.9}i also helped with ",
+                                "{s:0.9,C:attention}testing{}{s:0.9} and {s:0.9,C:attention}bugfixes{}",
+                                "{s:0.9}during the final \"\"\"week\"\"\"",
                             },
                             {
-                                "{X:hpot_stupid,C:hpot_smart}meow",
+                                "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}  {s:1.2,X:hpot_stupid,C:hpot_smart}meow{}  {s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",
                             }
                         },
-                        atlas = "hpot_stupidorb",
-                        pos = { x = 0, y = 0 }
+                        atlas = "hpot_PerkeocoinCredits",
+                        extra = {spin = true},
+                        pos = { x = 3, y = 0 },
+                        soul_pos = { x = 4, y = 0, draw = function () end }
                     },
                     {
                         name = "Omegaflowey18",
