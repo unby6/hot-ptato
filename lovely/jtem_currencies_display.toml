@@ -3,27 +3,69 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
+# update_text: buffer
+[[patches]]
+[patches.pattern]
+target = '''engine/text.lua'''
+pattern = '''for k, v in ipairs(self.config.string) do'''
+position = "before"
+payload = '''
+self.font_buffer = self.font
+'''
+match_indent = true
+
+# update_text: set
 [[patches]]
 [patches.pattern]
 target = '''engine/text.lua'''
 pattern = '''if old_string ~= new_string or first_pass then'''
 position = "before"
 payload = '''
-self.strings[k].font = self.config.string[k].font or self.config.font or G.LANG.font
-self.font = self.config.string[k].font or self.config.font or G.LANG.font
+self.font = self.config.string[k].font or self.font_buffer
+self.strings[k].font = self.config.string[k].font or self.font_buffer
 '''
 match_indent = true
 
+# update_text: revert
+[[patches]]
+[patches.pattern]
+target = '''engine/text.lua'''
+pattern = '''for k, v in ipairs(self.strings) do'''
+position = "before"
+payload = '''
+if self.font_buffer then
+    self.font = self.font_buffer
+    self.font_buffer = nil
+end
+'''
+match_indent = true
+
+# draw: buffer + set
 [[patches]]
 [patches.pattern]
 target = '''engine/text.lua'''
 pattern = '''if self.children.particle_effect then self.children.particle_effect:draw() end'''
 position = "after"
 payload = '''
-self.font = self.strings[self.focused_string].font or self.config.font or G.LANG.font
+self.font_buffer = self.font
+self.font = self.strings[self.focused_string].font or self.font_buffer or G.LANG.font
 self.text_offset = {
     x = self.font.TEXT_OFFSET.x*self.scale + (self.config.x_offset or 0),
     y = self.font.TEXT_OFFSET.y*self.scale + (self.config.y_offset or 0),
 }
+'''
+match_indent = true
+
+# draw: revert
+[[patches]]
+[patches.pattern]
+target = '''engine/text.lua'''
+pattern = '''self:draw_boundingrect()'''
+position = "after"
+payload = '''
+if self.font_buffer then
+    self.font = self.font_buffer
+    self.font_buffer = nil
+end
 '''
 match_indent = true
