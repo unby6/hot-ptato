@@ -5451,7 +5451,15 @@ return {
                     },
                     {
                         name = "notmario",
-                        text = {},
+                        text = {
+                            { 
+                                "Contributions:",
+                                "{C:green}Code{}", 
+                            },
+                            { "{C:red,f:hpot_emoji}🔺{C:red}I{} {C:green,s:1.5}2{C:green}too{} {C:money,f:hpot_emoji}📻{C:money}am{} {f:hpot_emoji}📩{}in{} {C:dark_edition,f:hpot_emoji}⬇️{C:dark_edition}this{} {C:hpot_advert,f:hpot_emoji}🥔{C:hpot_advert}modification" }
+                        },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 2, y = 0 },
                     },
                     {
                         name = "RGBeet",
