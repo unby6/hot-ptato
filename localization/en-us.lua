@@ -5192,7 +5192,7 @@ return {
 							{
 								"My message:",
 								"I have {C:money}20 million{}",
-								"score in {C:hpot_plincoins}subway surfers{}!",
+								"score in {C:hpot_plincoin}subway surfers{}!",
 							},
 						},
 						atlas = "hpot_SillypostingCredits",
