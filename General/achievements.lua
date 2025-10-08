@@ -19,3 +19,13 @@ SMODS.Achievement{
         return args.type == 'selfcest'
     end
 }
+
+SMODS.Achievement {
+    key = 'rigged',
+    bypass_all_unlocked = true,
+    hidden_name = false,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'max_rare_caps' and args.conditions == 7)
+    end
+}
