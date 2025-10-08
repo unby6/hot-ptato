@@ -5880,6 +5880,12 @@ return {
             c_hpot_isolated_wizard = "Isolated Wizard",
             c_hpot_plinko4ever = "Plinko 4ever",
         },
+        achievement_descriptions = {
+            ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself"
+        },
+        achievement_names = {
+            ach_hpot_selfcest = "Self-Love is Important"
+        },
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
                 [1] = 'It\'s really easy to',
