@@ -21,7 +21,7 @@ local deck = SMODS.Back {
     end,
     calculate = function (self, back, context)
         --Horsechicot Addition  Cards give 0.05 bitcoins when triggered
-        if context.post_trigger and not (context.other_context.mod_probability or context.other_context.fix_probability or context.other_context.check_eternal) then
+        if context.post_trigger and (context.other_card.ability and context.other_card.ability.set == 'Joker') and not (context.other_context.mod_probability or context.other_context.fix_probability or context.other_context.check_eternal) then
             ease_cryptocurrency(0.05)
         end
 		--Oops! All Programmers addition: gain 1 of each currency when boss blind defeated
