@@ -5177,7 +5177,26 @@ return {
                     },
                     {
                         name = "Supernova",
-                        text = {},
+                        text = {
+							{
+								"I exist.",
+								"I did art."
+							},
+							{
+								"Also worked on:",
+								"{C:mult}Mayhem{}. yes",
+								"{C:edition}Cryptec{}",
+								"{C:attention}Ortalab{}",
+								"And Revo's Vault.",
+							},
+							{
+								"My message:",
+								"I have {C:money}20 million{}",
+								"score in {C:hpot_plincoins}subway surfers{}!",
+							},
+						},
+						atlas = "hpot_SillypostingCredits",
+                        pos = { x = 1, y = 0 }
                     },
                     {
                         name = "Jaydchw",
