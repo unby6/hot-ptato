@@ -5448,6 +5448,9 @@ return {
                     {
                         name = "PokéRen",
                         text = {},
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 0, y = 0 },
+                        soul_pos = { x = 1, y = 0 },
                     },
                     {
                         name = "notmario",
