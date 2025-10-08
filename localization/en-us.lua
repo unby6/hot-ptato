@@ -3513,62 +3513,62 @@ return {
                 }
             },
             hpot_jtem_mood_depressed = {
-                name = "Depressed",
+                name = "Mood: Depressed",
                 text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_horrible = {
-                name = "Horrible",
+                name = "Mood: Horrible",
                 text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_awful = {
-                name = "Awful",
+                name = "Mood: Awful",
                 text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_bad = {
-                name = "Bad",
+                name = "Mood: Bad",
                 text = {
                     "Lowers training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_normal = {
-                name = "Normal",
+                name = "Mood: Normal",
                 text = {
                     "No effects",
                 },
             },
             hpot_jtem_mood_good = {
-                name = "Good",
+                name = "Mood: Good",
                 text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_great = {
-                name = "Great",
+                name = "Mood: Great",
                 text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_hyper = {
-                name = "Hyper",
+                name = "Mood: Hyper",
                 text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
                 },
             },
             hpot_jtem_mood_trance = {
-                name = "Trance",
+                name = "Mood: Trance",
                 text = {
                     "Increases training",
                     "results by {C:red}#1#%{}"
@@ -3599,12 +3599,12 @@ return {
                     ]]
                 },
             },
-            hpot_jtem_training_status_iq = {
-                name = "Energy",
-                text = {
-                    "{V:7}#21#{}/100{V:8}",
-                }
-            },
+            -- hpot_jtem_training_status_iq = {
+            --     name = "Energy",
+            --     text = {
+            --         "{V:7}#21#{}/100{V:8}",
+            --     }
+            -- },
             p_hpot_training_pack = {
                 name = "Training Pack",
                 text = {

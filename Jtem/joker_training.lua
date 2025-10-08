@@ -333,14 +333,14 @@ SMODS.Sticker {
 			clr[#clr + 1] = G.C.UI.TEXT_DARK
 		end
 		st.colours = clr
-		info_queue[#info_queue + 1] = {
-			key = card.config.center_key == "c_base" and "hpot_jtem_training_status" or "hpot_jtem_training_status_iq",
-			set = "Other",
-			vars = st
-		}
+		-- info_queue[#info_queue + 1] = {
+		-- 	key = card.config.center_key == "c_base" and "hpot_jtem_training_status" or "hpot_jtem_training_status_iq",
+		-- 	set = "Other",
+		-- 	vars = st
+		-- }
 		return {
-			vars = { math.abs(1 - mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"]) * 100 },
-			key = self.key .. "_" .. (card.ability.hp_jtem_mood or "normal")
+            vars = { math.abs(1 - mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"]) * 100 },
+			key = self.key .. "_" .. (card.ability.hp_jtem_mood or "normal"),
 		}
 	end,
 	apply = function(self, card, val)
@@ -446,24 +446,79 @@ SMODS.Sticker {
 		if full_UI_table.sticker_pass or (card and card.area == G.train_jokers) then return end
 		local function create_stat(stat, w, h)
 			w = w or 2
-			h = h or 1.5
+			h = h or 1
 			return {
+				n = G.UIT.C,
+				config = { align = "cm", minw = w, maxw = w, minh = h, maxh = h },
+				nodes = {
+					create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
+				}
+			}
+		end
+        local function create_stat_header(stat, w, h)
+            return {
 				n = G.UIT.C,
 				config = { align = "cm", minw = w, maxw = w, minh = h, maxh = h },
 				nodes = {
 					{n = G.UIT.R, config = {align = "cm", minh = 0.4, minw = w, padding = 0.05}, nodes = {
 						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
 					}},
-					{
-						n = G.UIT.R,
-						config = { align = "cm", colour = G.C.WHITE, padding = 0.05 },
-						nodes = {
-							create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
-						}
-					},
 				}
 			}
-		end
+        end
+        local function create_energy_stat(w, h)
+            w = w or 2
+			h = h or 1
+            local energy_colour = card.ability.hp_jtem_energy <= 25 and G.C.RED or card.ability.hp_jtem_energy <= 50 and G.C.BLUE or
+                G.C.UI.TEXT_DARK
+            return {
+                n = G.UIT.C,
+				config = { align = "cm", minw = w, maxw = w, minh = h, maxh = h },
+				nodes = {
+					{
+                        n = G.UIT.R,
+                        config = { align = "cm" },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    ref_table = card.ability,
+                                    ref_value = 'hp_jtem_energy',
+                                    colour = energy_colour,
+                                    scale = 0.425
+                                }
+                            },
+                        },
+                    },
+                    { n = G.UIT.R, config = { minh = 0.02 } },
+                    {
+                        n = G.UIT.R,
+                        config = { align ="cm" },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    text = '/100', -- no support for dynamic max energy cap? What a lame Aiko
+                                    colour = G.C.UI.TEXT_DARK,
+                                    scale = 0.3
+                                }
+                            },
+                        }
+                    },
+                    { n = G.UIT.R, config = { minh = 0.02 } },
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm" },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = "+", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+                            { n = G.UIT.T, config = { text = mood_to_passive_energy[card.ability["hp_jtem_mood"] or "normal"], scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+                            { n = G.UIT.T, config = { text = "/round", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } }, -- localize? Who is this guy?
+                        }
+                    },
+				}
+            }
+        end
+        
 		-- Main stats
 		full_UI_table.info[#full_UI_table.info + 1] = {
 			custom_ui = function(info)
@@ -479,19 +534,38 @@ SMODS.Sticker {
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat("speed", 1.6),
-										create_stat("stamina", 1.6),
-										create_stat("power", 1.6),
+								        create_stat_header("speed", 1.6),
+										create_stat_header("stamina", 1.6),
+										create_stat_header("power", 1.6),
 									}
 								},
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm", colour = G.C.WHITE, r = 0.15 },
+                                    nodes = {
+									    create_stat("speed", 1.6),
+										create_stat("stamina", 1.6),
+										create_stat("power", 1.6),
+                                    }
+                                },
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat("guts", 2.4),
-										create_stat("wits", 2.4)
+										create_stat_header("guts", 1.6),
+										create_stat_header("wits", 1.6),
+										create_stat_header("energy", 1.6)
 									}
-								}
+								},
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm", colour = G.C.WHITE, r = 0.15 },
+                                    nodes = {
+										create_stat("guts", 1.6),
+										create_stat("wits", 1.6),
+                                        create_energy_stat(1.6)
+                                    }
+                                },
 							}
 						}
 					}
