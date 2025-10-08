@@ -72,6 +72,7 @@ SMODS.Joker {
             card.ability.extra.effects[chosen] = true
             card.ability.extra.list[chosen] = nil
             card.ability.extra.cond_count = card.ability.extra.cond_count + 1
+            check_for_unlock({ type = "fine_print", conditions = card.ability.extra.cond_count })
             if chosen == "no_rank" then
                 card.ability.extra.effects.no_rank = { r = pseudorandom_element(SMODS.Ranks, "fine_print_rank") }
             end

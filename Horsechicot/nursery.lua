@@ -28,16 +28,6 @@ if Nursery then
     end
 end
 
-SMODS.Achievement{
-    key = 'selfcest',
-    bypass_all_unlocked = true,
-    hidden_name = true,
-    hidden_text = false,
-    unlock_condition = function(self, args)
-        return args.type == 'selfcest'
-    end
-}
-
 local start_run_ref = Game.start_run
 function Game:start_run(args)
     local ret = start_run_ref(self, args)

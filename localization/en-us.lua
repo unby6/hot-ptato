@@ -5899,12 +5899,6 @@ return {
             c_hpot_isolated_wizard = "Isolated Wizard",
             c_hpot_plinko4ever = "Plinko 4ever",
         },
-        achievement_descriptions = {
-            ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself"
-        },
-        achievement_names = {
-            ach_hpot_selfcest = "Self-Love is Important"
-        },
         quips = {
             bc_1 = { --These bc_ quips are for the perkeo_quip Bottlecap. Feel free to add more! Please update the perkeo_quip card in bottlecap.lua to include it :)
                 [1] = 'It\'s really easy to',
@@ -6439,6 +6433,14 @@ return {
 			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
+        },
+        achievement_names = {
+            ach_hpot_sign_here = 'Sign Here, Please!',
+            ach_hpot_selfcest = "Self-Love is Important",
+        },
+        achievement_descriptions = {
+            ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
+            ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
         }
     }
 }
