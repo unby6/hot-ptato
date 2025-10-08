@@ -374,7 +374,11 @@ HotPotato.generate_credit_UIBox = function(team)
 				end
 			end
 			if member.name == 'Fey' then
-				info_nodes = {}
+				local atlas = G.ASSET_ATLAS['hpot_pdr_meguna']
+				info_nodes.nodes[1].nodes[1] = {
+					n = G.UIT.O, config = {object = Sprite(0, 0, 5, 5, atlas, {x = 0, y = 0})
+					}
+				}
 			end
 			self:juice_up(0.05, 0.03)
 			play_sound('paper1', math.random() * 0.2 + 0.9, 0.35)
