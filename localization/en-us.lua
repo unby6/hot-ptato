@@ -5415,13 +5415,19 @@ return {
                             },
                             {
                                 "{C:attention}Implementation{}",
-                                "of {C:attention}Reforge{}, {C:attention}Stickers{}, {C:green}Modific{C:red}ations,",
+                                "of {C:attention}Reforge{}, {C:attention}Stickers{}, {C:hpot_gtr}Modific{C:hpot_rtg}ations,",
                                 "the {C:attention}Wheel{}, {C:red}Hanafuda cards{} and others.",
                             },
                             {
+                                "Also worked on:",
+                                "Revo's Vault",
+                                "Judgement",
+                            },
+                            {
                                 "My Message:",
-                                "{C:inactive}\"Play Revo's Vault\"",
-                            }
+                                "",
+                                '{C:attention,f:hpot_emoji}🖨️ 🖨️ 🖨️ 🖨️',
+                            },
                         },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 4, y = 0 },
