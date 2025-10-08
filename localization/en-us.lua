@@ -4967,7 +4967,7 @@ return {
                         {
                             "{C:hpot_pink}Breed{} two {C:attention}Jokers{} by putting them in the {C:blue}father{} and {C:hpot_pink}mother{} slots.",
                             "{C:inactive,s:0.7}This is done by clicking your Joker and pressing the male or female icon.",
-                            "When you hit the {C:hpot_pink}Breed{} button, the {C:hpot_pink}mother{} will be impregnated."
+                            "{C:hpot_pink}Breeding{} costs {C:money}$5{}. There is a {C:green}2 in 3{} chance of success.",
                         },
                         {
                             "You can remove the {C:blue}father{} during the pregnancy process.",
@@ -5177,7 +5177,26 @@ return {
                     },
                     {
                         name = "Supernova",
-                        text = {},
+                        text = {
+							{
+								"I exist.",
+								"I did art."
+							},
+							{
+								"Also worked on:",
+								"{C:mult}Mayhem{}. yes",
+								"{C:edition}Cryptec{}",
+								"{C:attention}Ortalab{}",
+								"And Revo's Vault.",
+							},
+							{
+								"My message:",
+								"I have {C:money}20 million{}",
+								"score in {C:hpot_plincoin}subway surfers{}!",
+							},
+						},
+						atlas = "hpot_SillypostingCredits",
+                        pos = { x = 1, y = 0 }
                     },
                     {
                         name = "Jaydchw",
@@ -6204,7 +6223,7 @@ return {
             hpot_training_failure = ' Failure',
             hotpot_go_train = 'TRAIN',
             hotpot_leave_train = 'RETURN',
-            nursery_breed = 'Breed',
+            nursery_breed = 'Breed ($5)',
             nursery_abort = 'Abort',
             nursery_father = 'FATHER',
             nursery_mother = 'MOTHER',

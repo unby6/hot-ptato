@@ -130,6 +130,14 @@ function G.FUNCS.nursery_breed(e)
     if not dad and G.GAME.parthenogenesis then
         dad = mom
     end
+    ease_dollars(-5)
+    if not SMODS.pseudorandom_probability(mom, "nursery_breeding", 2, 3) then
+        SMODS.calculate_effect({
+            message = localize("k_nope_ex"),
+            colour = G.C.RARITY[4],
+        }, mom)
+        return
+    end
     mom.ability.mother = true
     dad.ability.father = true
     Horsechicot.breed(mom, dad)
@@ -141,7 +149,6 @@ function G.FUNCS.nursery_breed(e)
         }
     end
 end
-
 --dont draw G.hand during nursery
 local ca_dref = CardArea.draw
 function CardArea:draw(...)
