@@ -52,7 +52,7 @@ SMODS.Joker { --Recycling
             },
             seen = {},
             n_seen = 0,
-            dollars = 1,
+            dollars = 2,
             dollars_extra = 4,
         }
     },
