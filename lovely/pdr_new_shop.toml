@@ -51,7 +51,7 @@ pattern = '''
 play_sound('coin1')
 '''
 payload = '''
-local hpot_dollar_ui = G.shop:get_UIE_by_ID('hotpot_currency_dollars')
+local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_dollars')
 if hpot_dollar_ui then
     attention_text({
         text = text .. tostring(math.abs(mod)),
