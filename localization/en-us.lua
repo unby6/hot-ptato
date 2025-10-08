@@ -5444,7 +5444,16 @@ return {
                 members = {
                     {
                         name = "PokéRen",
-                        text = {},
+                        text = {
+							{
+								"Contributions:",
+								"{C:green}Code{}"
+							},
+							{
+								"Also the best and",
+								"only dev of", "{C:attention}Hodgepodge{}"
+							}
+						},
                         atlas = "hpot_smiley_credits",
                         pos = { x = 0, y = 0 },
                         soul_pos = { x = 1, y = 0 },
