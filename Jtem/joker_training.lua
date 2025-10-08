@@ -444,16 +444,23 @@ SMODS.Sticker {
 		--SMODS.Sticker.super.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 		local values = card and card.ability and card.ability["hp_jtem_stats"] or {}
 		if full_UI_table.sticker_pass or (card and card.area == G.train_jokers) then return end
-		local function create_stat(stat, w)
+		local function create_stat(stat, w, h)
 			w = w or 2
+			h = h or 1.5
 			return {
 				n = G.UIT.C,
-				config = { align = "cm", minw = w, maxw = w },
+				config = { align = "cm", minw = w, maxw = w, minh = h, maxh = h },
 				nodes = {
-					{n = G.UIT.R, config = {align = "cm", colour = lighten(G.C.GREY, 0.15), minh = 0.4, minw = w, padding = 0.05}, nodes = {
+					{n = G.UIT.R, config = {align = "cm", minh = 0.4, minw = w, padding = 0.05}, nodes = {
 						{n = G.UIT.T, config = {text = localize("hotpot_"..stat), scale = 0.35, colour = G.C.UI.TEXT_LIGHT}},
 					}},
-					create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
+					{
+						n = G.UIT.R,
+						config = { align = "cm", colour = G.C.WHITE, padding = 0.05 },
+						nodes = {
+							create_stat_display(stat, values, (card and card.ability and card.ability.hp_jtem_train_mult) or {}),
+						}
+					},
 				}
 			}
 		end
@@ -466,7 +473,7 @@ SMODS.Sticker {
 					nodes = {
 						{
 							n = G.UIT.C,
-							config = { align = "cm", colour = G.C.WHITE, r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075, padding = 0.1 },
+							config = { align = "cm", colour = lighten(G.C.GREY, 0.15), r = 0.15, outline_colour = lighten(G.C.JOKER_GREY, 0.5), outline = 1.2, emboss = 0.075 },
 							nodes = {
 								{
 									n = G.UIT.R,
