@@ -1,3 +1,6 @@
+-- There wasn't a better spot for me to put this - Astra
+SMODS.Atlas({ key = "SillypostingCredits", path = "Sillyposting/SillypostingCreditsCards.png", px = 71, py = 95, atlas_table = "ASSET_ATLAS" }):register()
+
 local update_consumable = function(card)
     if card.ability and type(card.ability) == "table" then
         if card.ability.consumeable and card.ability.consumeable.max_highlighted then

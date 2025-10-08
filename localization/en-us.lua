@@ -5133,7 +5133,11 @@ return {
                 members = {
                     {
                         name = "Poker The Poker",
-                        text = {},
+                        text = {
+                            { "Emotional Support" },
+                        },
+                        atlas = "hpot_SillypostingCredits",
+                        pos = { x = 0, y = 0 }
                     },
                     {
                         name = "Eris",
@@ -5476,7 +5480,9 @@ return {
                     },
                     {
                         name = "basil_squared",
-                        text = {},
+                        text = {
+                            { "Emotional Support" },
+                        },
                     },
                 }
             },
