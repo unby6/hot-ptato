@@ -1,3 +1,8 @@
+<p align="center">
+  <img width="800" height="345" alt="hotpotlogo" src="https://github.com/user-attachments/assets/fea511c2-9b8d-4df6-a868-1323a1678d54" />
+</p>
+
+
 # Developer Chaos
 Hot Potato is a Balatro Mod Developer Event where teams were created and given a week on their own to contribute to a mod. Cross-team communication was not allowed outside of major bugfixing efforts. The ordeal took 2 months, and this mod is the culmination of this work.
 
