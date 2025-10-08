@@ -121,7 +121,7 @@ SMODS.Joker{ --Plink
     key = "plink",
     config = {
         extra = {
-            mult = 3
+            mult = 2
         }
     },
     pos = { x = 1, y = 2 },
