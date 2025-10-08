@@ -34,12 +34,16 @@ local function load_file_native(path)
 	end
 	local file_path = path
 	local file_content, err = NFS.read(file_path)
-	if not file_content then return nil,
-			"Error reading file '" .. path .. "' for mod with ID '" .. SMODS.current_mod.id .. "': " .. err end
+	if not file_content then
+		return nil,
+			"Error reading file '" .. path .. "' for mod with ID '" .. SMODS.current_mod.id .. "': " .. err
+	end
 	local short_path = string.sub(path, path_len, path:len())
 	local chunk, err = load(file_content, "=[SMODS " .. SMODS.current_mod.id .. ' "' .. short_path .. '"]')
-	if not chunk then return nil,
-			"Error processing file '" .. path .. "' for mod with ID '" .. SMODS.current_mod.id .. "': " .. err end
+	if not chunk then
+		return nil,
+			"Error processing file '" .. path .. "' for mod with ID '" .. SMODS.current_mod.id .. "': " .. err
+	end
 	return chunk
 end
 local blacklist = {
@@ -263,7 +267,7 @@ end
 HotPotato.set_window_title = function()
 	if HotPotatoConfig.window_title then
 		local title = "Balatro: " ..
-		((type(HPJTTT.text[HPJTTT.chosen]) == 'string' and HPJTTT.text[HPJTTT.chosen]) or 'Now with images!')
+			((type(HPJTTT.text[HPJTTT.chosen]) == 'string' and HPJTTT.text[HPJTTT.chosen]) or 'Now with images!')
 		if HPJTTT.balala then
 			title = "Balala"
 		end
@@ -280,10 +284,20 @@ HotPotato.custom_ui = function(mod_nodes)
 		n = G.UIT.R,
 		config = { minw = 4, minh = 4, align = "cm", padding = 0.2 },
 		nodes = {
-			UIBox_button({ label = { localize('hotpot_credits_button') }, minw = 5, colour = HotPotato.badge_colour, button =
-			"create_UIBox_credits" }),
-			UIBox_button({ label = { localize('hotpot_feature_info_button') }, minw = 5, colour = HotPotato.badge_colour, button =
-			"feature_info_menu" })
+			UIBox_button({
+				label = { localize('hotpot_credits_button') },
+				minw = 5,
+				colour = HotPotato.badge_colour,
+				button =
+				"create_UIBox_credits"
+			}),
+			UIBox_button({
+				label = { localize('hotpot_feature_info_button') },
+				minw = 5,
+				colour = HotPotato.badge_colour,
+				button =
+				"feature_info_menu"
+			})
 		}
 	}
 end
@@ -359,6 +373,9 @@ HotPotato.generate_credit_UIBox = function(team)
 					info_nodes.nodes[1].nodes[#info_nodes.nodes[1].nodes + 1] = create_text_box({ loc_target = v })
 				end
 			end
+			if member.name == 'Fey' then
+				info_nodes = {}
+			end
 			self:juice_up(0.05, 0.03)
 			play_sound('paper1', math.random() * 0.2 + 0.9, 0.35)
 			card.config.h_popup = info_nodes
@@ -370,7 +387,7 @@ HotPotato.generate_credit_UIBox = function(team)
 		if member.name == "Nxkoo" then
 			card.click = function(self)
 				if not card.cantclicklmao then
-					G.E_MANAGER:add_event(Event{
+					G.E_MANAGER:add_event(Event {
 						trigger = 'ease',
 						delay = 0.4,
 						ease = 'elastic',
@@ -390,8 +407,8 @@ HotPotato.generate_credit_UIBox = function(team)
 
 		-- name node for the fancy people
 		local temp_subname_node = {}
-		HotPotato.localize{type = 'name', loc_target = {name = member.name}, nodes = temp_subname_node, scale = 0.8, text_colour = G.C.L_BLACK, stylize = true, no_shadow = true, no_pop_in = true, no_bump = true, no_silent = true, no_spacing = true} 
-		temp_subname_node = hp_desc_from_rows(temp_subname_node,true,"cm",nil,0)
+		HotPotato.localize { type = 'name', loc_target = { name = member.name }, nodes = temp_subname_node, scale = 0.8, text_colour = G.C.L_BLACK, stylize = true, no_shadow = true, no_pop_in = true, no_bump = true, no_silent = true, no_spacing = true }
+		temp_subname_node = hp_desc_from_rows(temp_subname_node, true, "cm", nil, 0)
 		temp_subname_node.config.align = "cm"
 
 		-- create node for this mf
@@ -500,7 +517,7 @@ function G.FUNCS.create_UIBox_credits(e)
 	local uibox = HotPotato.generate_credit_UIBox(1)
 	local options = {}
 	for week, team in ipairs(G.localization.InfoMenu.hotpot_credits) do
-		options[#options+1] = localize('hotpot_credits_week').." "..week.." - "..team.name
+		options[#options + 1] = localize('hotpot_credits_week') .. " " .. week .. " - " .. team.name
 	end
 	SMODS.LAST_SELECTED_MOD_TAB = nil
 	local t = create_UIBox_generic_options({
@@ -553,7 +570,19 @@ function G.FUNCS.create_UIBox_credits(e)
 							align = "cm"
 						},
 						nodes = {
-							create_option_cycle({options = options, w = 11, scale = 0.8, cycle_shoulders = true, opt_callback = 'regenerate_hotpot_credits_page', current_option = 1, colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
+							create_option_cycle({
+								options = options,
+								w = 11,
+								scale = 0.8,
+								cycle_shoulders = true,
+								opt_callback =
+								'regenerate_hotpot_credits_page',
+								current_option = 1,
+								colour = G.ACTIVE_MOD_UI and
+									(G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED,
+								no_pips = true,
+								focus_args = { snap_to = true, nav = 'wide' }
+							})
 						}
 					}
 				}
@@ -573,11 +602,16 @@ function G.FUNCS.feature_info_menu(e)
 	local contents = {}
 	for info, menu in pairs(G.localization.InfoMenu) do
 		if info ~= "hotpot_credits" then
-			local fname = "hotpot_info_menu_"..info
+			local fname = "hotpot_info_menu_" .. info
 			G.FUNCS[fname] = function(e)
 				G.FUNCS.hotpot_info { menu_type = info, back_func = "feature_info_menu", no_first_time = true }
 			end
-			contents[#contents+1] = UIBox_button({ label = { HotPotato.localize { type = 'name_text', loc_target = { name = menu.name } } }, minw = 5, button = fname })
+			contents[#contents + 1] = UIBox_button({
+				label = { HotPotato.localize { type = 'name_text', loc_target = { name = menu.name } } },
+				minw = 5,
+				button =
+					fname
+			})
 		end
 	end
 	SMODS.LAST_SELECTED_MOD_TAB = nil
@@ -608,4 +642,5 @@ function G.FUNCS.feature_info_menu(e)
 		})
 	}
 end
+
 --#endregion

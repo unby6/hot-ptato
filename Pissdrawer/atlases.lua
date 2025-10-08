@@ -58,3 +58,8 @@ SMODS.Atlas {
     path = "Pissdrawer/credits.png",
     px = 71, py = 95
 }
+SMODS.Atlas {
+    key = "pdr_fey_credit",
+    path = "Pissdrawer/depression.png",
+    px = 71, py = 95
+}

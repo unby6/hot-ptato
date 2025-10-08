@@ -5729,7 +5729,8 @@ return {
                 members = {
                     {
                         name = "Fey",
-                        text = {},
+                        text = {{' '}},
+                        atlas = 'hpot_pdr_fey_credit'
                     },
                     {
                         name = "Eremel",
