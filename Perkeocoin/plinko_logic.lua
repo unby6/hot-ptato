@@ -60,6 +60,7 @@ function PlinkoLogic.f.generate_rewards()
   local extra_rare = tipping_my_point and #tipping_my_point or 0
   if extra_rare > 0 then
       G.GAME.plinko_rewards.Rare = math.min(7, PlinkoLogic.rewards.per_rarity.Rare + extra_rare)
+      check_for_unlock({ type = "max_rare_caps", conditions = G.GAME.plinko_rewards.Rare })
 
       G.GAME.plinko_rewards.Common = math.max(0, PlinkoLogic.rewards.per_rarity.Common - extra_rare)
       extra_rare = math.max(0, extra_rare - PlinkoLogic.rewards.per_rarity.Common)
@@ -249,4 +250,3 @@ function PlinkoLogic.f.handle_roll(use_dollars)
 end
 
 --#endregion
-
