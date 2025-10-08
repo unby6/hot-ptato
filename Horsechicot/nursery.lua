@@ -28,7 +28,6 @@ if Nursery then
     end
 end
 
-
 local start_run_ref = Game.start_run
 function Game:start_run(args)
     local ret = start_run_ref(self, args)
@@ -316,6 +315,7 @@ function nursery()
                             func = function()
                                 if G.nursery_mother and G.nursery_mother.cards and G.nursery_mother.cards[1] then
                                     G.nursery_mother.cards[1].ability.mother = nil
+                                    if child_prio.key == child_sec.key then check_for_unlock({type = 'selfcest'}) end
                                     G.GAME.child_prio, G.GAME.child_sec = nil, nil
                                     return true
                                 end

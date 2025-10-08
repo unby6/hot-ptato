@@ -6433,6 +6433,14 @@ return {
 			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
+        },
+        achievement_names = {
+            ach_hpot_sign_here = 'Sign Here, Please!',
+            ach_hpot_selfcest = "Self-Love is Important",
+        },
+        achievement_descriptions = {
+            ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
+            ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
         }
     }
 }
