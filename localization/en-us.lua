@@ -5216,7 +5216,20 @@ return {
                     },
                     {
                         name = "Victin",
-                        text = {},
+                        text = {
+                            {
+                                '{C:green}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Victin's Collection and",
+                                "{C:attention}Binding of Jimbo",
+                            },
+                        },
                     },
                 }
             },
@@ -5501,12 +5514,24 @@ return {
                     },
                     {
                         name = "RGBeet",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Madcap",
+                            },
+                        },
                     },
                     {
                         name = "basil_squared",
                         text = {
                             { "Emotional Support" },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Charcuterie",
+                            },
                         },
                     },
                 }
