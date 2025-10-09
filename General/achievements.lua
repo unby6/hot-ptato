@@ -20,6 +20,17 @@ SMODS.Achievement{
     end
 }
 
+SMODS.Achievement{
+    key = 'maniac',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    reset_on_startup = true,
+    unlock_condition = function(self, args)
+        return args.type == 'maniac'
+    end
+}
+
 SMODS.Achievement {
     key = 'rigged',
     bypass_all_unlocked = true,
@@ -48,4 +59,5 @@ SMODS.Achievement {
     unlock_condition = function(self, args)
         return (args.type == 'aura_farming' and args.conditions.joke <= 0 and args.conditions.cons <= 0 and args.conditions.hand <= 2)
     end
+
 }
