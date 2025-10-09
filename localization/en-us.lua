@@ -6516,9 +6516,8 @@ return {
             ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
             ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
             ach_hpot_cungadero = 'Win a run with 100 or more Ads on screen',
-            ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and at most 2 hands',
             ach_hpot_whoppers = 'Use a Hanafuda card to create another that produces more cards than the one you used.',
-            -- ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
+            ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
             ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
             ach_hpot_max_mood = 'Get any Joker to the best mood possible'
         }
