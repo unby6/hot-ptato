@@ -668,7 +668,7 @@ return {
                 name = 'Modification',
                 text = {
                     "A random joker gains",
-                    "a random {C:dark_edititon}#1# {C:attention}Modification{}"
+                    "a random {C:dark_edition}#1# {C:attention}Modification{}"
                 }
             },
             c_hpot_cap_sticker_bomb = {
@@ -1469,9 +1469,9 @@ return {
                 name = "Halo",
                 text = {
                     "Change the base of",
-                    "the requirement scaling for an ",
-                    "Nxkoo unkill",
-                    "from {X:edition,C:white}15{} to from {X:edition,C:white}10{}",
+                    "the requirement scaling for",
+                    "{C:attention}Nxkoo unkill{}",
+                    "from {X:dark_edition,C:white}15{} to {X:dark_edition,C:white}10{}",
                 }
             },
             j_hpot_graveyard = {
@@ -5241,8 +5241,9 @@ return {
                         name = "SleepyG11",
                         text = {
                             {
-                                "Balancing and bug fixing",
-                                "other team's additions"
+                                "Maintaining game {C:attention}performance{},",
+                                "balancing and bug fixing",
+                                "other team's additions",
                             },
                             {
                                 "The original {C:attention}event",
@@ -5325,7 +5326,8 @@ return {
                         name = "MissingNumber",
                         text = {
                             {
-                                "Most art for most jokers",
+                                "Most art for most",
+                                "jokers and ads",
                                 "{C:inactive}AGAIN!"
                             },
                             {
