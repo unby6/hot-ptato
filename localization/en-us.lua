@@ -5392,7 +5392,7 @@ return {
                                 "and {C:attention}code{}",
                             },
                             {
-                                "{C:attention}Implementation & Conceptualization{}",
+                                "{C:attention}Conceptualization{}",
                                 "of {C:green}Lime Deck{}, {C:attention}Postcard",
                                 "and others.",
                             },
@@ -5436,12 +5436,21 @@ return {
                         name = "Jogla",
                         text = {
                             {
-                                "Assisted in creating",
-                                "{C:attention}UI{}",
+                                "{C:attention}Implemented{}",
+                                "the {C:green}Reforge{} UI",
+                                "and {C:green}Lime Deck{}"
+                            },
+                            {
+                                "My other {s:0.5}(Balatro-related){} works:",
+                                "7th Beat Cards",
+                                "DebugPlusPlus",
+                                "Fool's Gambit",
+                                "Tonsmith"
                             },
                             {
                                 "My Message:",
-                                "{C:inactive}\"Play Fool's Gambit\"",
+                                "{C:inactive}\"Not a wizard\"",
+                                "{C:inactive,s:0.7}\"I just happen to look like one.\"",
                             }
                         },
                         atlas = "hpot_tname_jokers2",
