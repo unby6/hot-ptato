@@ -5621,7 +5621,14 @@ return {
                     },
                     {
                         name = "pangaea47",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                '{C:attention}fuckass spider'
+                            },
+                        },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 1, y = 1 },
                     },
