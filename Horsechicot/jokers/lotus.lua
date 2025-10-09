@@ -40,6 +40,7 @@ SMODS.Joker {
             for i, v in pairs(G.jokers.highlighted) do
                 if v ~= card then j = v end
             end
+            check_for_unlock({ type = "lotus_banish", key = j.config.center_key })
             G.GAME.banned_keys[j.config.center_key] = true
             j:start_dissolve()
             card:start_dissolve()

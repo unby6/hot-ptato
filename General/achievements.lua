@@ -57,7 +57,7 @@ SMODS.Achievement {
     hidden_name = true,
     hidden_text = false,
     unlock_condition = function(self, args)
-        return (args.type == 'aura_farming' and args.conditions.joke <= 0 and args.conditions.cons <= 0 and args.conditions.hand <= 2)
+        return (args.type == 'aura_farming' and args.conditions.joke <= 0 and args.conditions.cons <= 0 and args.conditions.hand <= 1)
     end
 
 }
@@ -70,5 +70,23 @@ SMODS.Achievement {
     --reset_on_startup = true,
     unlock_condition = function(self,args)
         return(args.type == 'whoppers')
+    key = 'destroy_the_stones',
+    hidden_name = false,
+    hidden_text = true,
+    bypass_all_unlocked = true,
+    unlock_condition = function(self, args)
+        if args.type == 'lotus_banish' and args.key == 'j_hpot_lotus' then
+            return true
+        end
+    end
+}
+
+SMODS.Achievement {
+    key = 'max_mood',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'max_mood' and args.conditions == 'trance')
     end
 }
