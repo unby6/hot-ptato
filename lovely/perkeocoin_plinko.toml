@@ -85,8 +85,8 @@ overwrite = false
 [[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
-position = "after"
-pattern = "G.shop = nil"
+position = "before"
+pattern = "G.STATE = G.STATES.BLIND_SELECT"
 payload = """
 -- Reset wheel rewards from old shop
 if G.GAME.load_wheel_rewards then
@@ -101,10 +101,6 @@ if G.plinko then
   G.load_plinko_rewards = nil
   G.plinko:remove()
   G.plinko = nil
-end
-if G.shop then
-  G.shop:remove()
-  G.shop = nil
 end
 """
 match_indent = true
