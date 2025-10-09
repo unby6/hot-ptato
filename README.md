@@ -60,6 +60,7 @@ Hot Potato is a Balatro Mod Developer Event where teams were created and given a
 - trif
 - Liafeon
 - SadCube
+- factwixard
 
 ### pissdrawer - Week 8
 - N'
