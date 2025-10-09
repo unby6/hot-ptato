@@ -43,28 +43,30 @@ SMODS.DrawStep {
 
             if not self.children.rarity then
                 self.children.rarity = Sprite(self.children.center.T.x, self.children.center.T.y, 1.8, 1.8, G.ASSET_ATLAS["ui_1"], {x = 2, y = 0})
-                self.children.rarity:set_alignment({
-                    major = self.children.center,
-                    type = 'bmi',
-                    offset = {x=0,y=0.45},
-                    xy_bond = 'Weak'
-                })
-                self.children.rarity:get_pos_pixel()
+
                 self.children.rarity:define_draw_steps({{
                     shader = 'hpot_bottlecap',
+                    other_obj = self.children.center,
+                    ms = 2.7,
+                    mx = 0.5,
+                    my = 0.45,
                     send = {
                         {name = 'radius_squared', func = function () return 
-                            (radius * (0.9 + math.sin(G.TIMERS.REAL * 1.3) * 0.1)) ^2
+                            (radius * (0.95 + math.sin(G.TIMERS.REAL * 1.3) * 0.05)) ^2
                         end},
                         {name = 'color', ref_table = colors, ref_value = self.ability.extra.chosen},
                         {name = 'image_details', ref_table = self.children.rarity, ref_value = 'image_dims'},
                         {name = 'texture_details', ref_table = self.children.rarity.RETS, ref_value = 'get_pos_pixel'},
                     }
                 }})
+                self.children.rarity.states.visible = false
+            else
+
+                self.children.rarity:get_pos_pixel()
+                self.children.rarity.states.visible = true
+                self.children.rarity:draw() -- uhhh I cba figuring out how to draw it before center
+                self.children.rarity.states.visible = false
             end
-            self.children.rarity.states.visible = true
-            self.children.rarity:draw() -- uhhh I cba figuring out how to draw it before center
-            self.children.rarity.states.visible = false
 
         end
     end,
