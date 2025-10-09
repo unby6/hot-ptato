@@ -2627,7 +2627,9 @@ HotPotato.EventStep {
 		end
 		if G.jokers.config.card_count < G.jokers.config.card_limit then
 			local chosen = pseudorandom_element(pool, pseudoseed('fey_tsup'))
-			SMODS.add_card({ key = chosen.key })
+			if chosen then
+				SMODS.add_card({ key = chosen.key })
+			end
 		end
 	end
 }
