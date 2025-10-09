@@ -27,7 +27,7 @@ function ease_plincoins(plink, instant)
             font = SMODS.Fonts.hpot_plincoin
         })
         
-        local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_plincoins')
+        local hpot_dollar_ui = G.shop:get_UIE_by_ID('hotpot_currency_plincoins')
         if hpot_dollar_ui then
             attention_text({
                 text = text .. tostring(math.abs(mod)),
@@ -97,6 +97,7 @@ end
 local pk_win_game = win_game
 function win_game()
     check_for_unlock({ type = "cungadero", conditions = #G.GAME.hotpot_ads or 0 })
+    check_for_unlock({ type = "aura_farming", conditions = {cons = G.consumeables.config.card_limit or 1, joke = G.jokers.config.card_limit or 1, hand = G.GAME.round_resets.hands or 3}})
     return pk_win_game()
 end
 
