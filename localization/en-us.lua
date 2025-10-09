@@ -6495,7 +6495,8 @@ return {
             ach_hpot_maniac = "Maniac",
             ach_hpot_rigged = 'Rig the Game',
             ach_hpot_cungadero = '[Specil Cungadero]',
-            ach_hpot_aura_farming = 'Aura Farming'
+            ach_hpot_aura_farming = 'Aura Farming',
+            ach_hpot_destroy_the_stones = 'I Used The Stones To Destroy The Stones',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6503,7 +6504,8 @@ return {
             ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
             ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
             ach_hpot_cungadero = 'Win a run with 100 or more Ads on screen',
-            ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and at most 2 hands'
+            ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and at most 2 hands',
+            ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
         }
     }
 }
