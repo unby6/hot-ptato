@@ -5737,7 +5737,8 @@ return {
                                 "{C:attention}It would not have been possible without all",
                                 "{C:attention}of the incredibly smart and talented",
                                 "{C:attention}people who chose to participate.",
-                                "{C:attention}I truly hope you enjoy your time with our work!!"
+                                "{C:attention}I truly hope you enjoy your time with our work!!",
+                                "{C:inactive}Also stream Madeon lol{}"
                             },
                         },
                         atlas = "hpot_oap_self_insert",
