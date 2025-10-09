@@ -12,13 +12,15 @@ pattern = "G.SPLASH_LOGO.dissolve = 1   "
 payload = '''
 if type(HPJTTT.text[HPJTTT.chosen]) == 'string' then
 Splash_text_type = 'str'
+local text_length = HPJTTT.text[HPJTTT.chosen]:len()
+local scale_scale = (text_length <= 60 and 1) or math.max(0.333, math.sqrt(60 / text_length))
 G.SPLASH_TEXT = DynaText {
 	string = HPJTTT.text[HPJTTT.chosen],
 	colours = { G.C.EDITION },
 	shadow = true,
 	spacing = 2,
 	bump = true,
-	scale = 0.4
+	scale = 0.4 * scale_scale
 }
 G.SPLASH_TEXT.VT.r = -0.2
 G.SPLASH_TEXT.T.r = -0.2
