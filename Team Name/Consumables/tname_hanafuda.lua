@@ -1965,11 +1965,16 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		for i = 1, hpt.high do
-			SMODS.add_card({
+			result = SMODS.add_card({
 				set = "Hanafuda",
 				area = G.consumeables,
 				edition = "e_negative",
 			})
+			if result.config.center_key:find('bush_clover') then
+				if tonumber(result.config.center_key:sub(-1)) < tonumber(card.config.center_key:sub(-1)) and tonumber(result.config.center_key:sub(-1)) < 3 then
+					check_for_unlock({type = 'whoppers'})
+				end
+			end
 		end
     end,
 	calculate = function (self, card, context)
@@ -2006,11 +2011,16 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		for i = 1, hpt.high do
-			SMODS.add_card({
+			result = SMODS.add_card({
 				set = "Hanafuda",
 				area = G.consumeables,
 				edition = "e_negative",
 			})
+			if result.config.center_key:find('bush_clover') then
+				if tonumber(result.config.center_key:sub(-1)) < tonumber(card.config.center_key:sub(-1)) and tonumber(result.config.center_key:sub(-1)) < 3 then
+					check_for_unlock({type = 'whoppers'})
+				end
+			end
 		end
     end,
 	calculate = function (self, card, context)
@@ -2047,11 +2057,16 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		for i = 1, hpt.high do
-			SMODS.add_card({
+			result = SMODS.add_card({
 				set = "Hanafuda",
 				area = G.consumeables,
 				edition = "e_negative",
 			})
+			if result.config.center_key:find('bush_clover') then
+				if tonumber(result.config.center_key:sub(-1)) < tonumber(card.config.center_key:sub(-1)) and tonumber(result.config.center_key:sub(-1)) < 3 then
+					check_for_unlock({type = 'whoppers'})
+				end
+			end
 		end
     end,
 	calculate = function (self, card, context)
@@ -2088,11 +2103,16 @@ SMODS.Consumable({
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		for i = 1, hpt.high do
-			SMODS.add_card({
+			result = SMODS.add_card({
 				set = "Hanafuda",
 				area = G.consumeables,
 				edition = "e_negative",
 			})
+			if result.config.center_key:find('bush_clover') then
+				if tonumber(result.config.center_key:sub(-1)) < tonumber(card.config.center_key:sub(-1)) and tonumber(result.config.center_key:sub(-1)) < 3 then
+					check_for_unlock({type = 'whoppers'})
+				end
+			end
 		end
     end,
 	calculate = function (self, card, context)
