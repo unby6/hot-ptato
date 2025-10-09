@@ -298,6 +298,8 @@ function nursery()
                                 center = child_sec
                             },
                         }, card)
+                        
+                        card.ability.is_primary_mother = G.GAME.child_colour == G.C.HPOT_PINK
                         update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
                             child_prio.pos)
                         --make children smaller

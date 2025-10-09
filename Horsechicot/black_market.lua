@@ -399,6 +399,17 @@ G.FUNCS.can_harvest_market = function(e)
 end
 
 G.FUNCS.harvest_market = function(e)
+  if G.jokers.highlighted[1].ability.quantum_1 then
+    local mother = G.jokers.highlighted[1].ability.quantum_2
+    local father = G.jokers.highlighted[1].ability.quantum_1
+    if G.jokers.highlighted[1].ability.is_primary_mother then
+      mother = G.jokers.highlighted[1].ability.quantum_1
+      father = G.jokers.highlighted[1].ability.quantum_2
+    end
+    if mother.ability.ordered and mother.key == "j_perkeo" and father.key == "j_hpot_hc_genghis_khan" then
+      check_for_unlock({type = "maniac"})
+    end
+  end
   G.jokers.highlighted[1]:start_dissolve()
   ease_cryptocurrency(G.harvest_cost)
   if HotPotatoConfig.family_friendly then

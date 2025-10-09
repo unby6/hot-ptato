@@ -6437,10 +6437,12 @@ return {
         achievement_names = {
             ach_hpot_sign_here = 'Sign Here, Please!',
             ach_hpot_selfcest = "Self-Love is Important",
+            ach_hpot_maniac = "Maniac",
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
             ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
+            ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
         }
     }
 }

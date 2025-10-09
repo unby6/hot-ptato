@@ -1052,6 +1052,7 @@ function hotpot_jtem_calculate_deliveries()
                     cct[k] = v
                 end
                 local c = SMODS.add_card(cct)
+                c.ability.ordered = true
                 --[[if delivery.extras then
                     for k, v in pairs(delivery.extras) do
                         c.ability[k] = v
