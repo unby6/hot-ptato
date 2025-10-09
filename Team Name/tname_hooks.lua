@@ -38,16 +38,16 @@ Game.init_game_object = function(self)
     ret.credits_cashout2 = 2
     ret.current_round.credits = 0
 
-    ret.cost_credits = 85
-    ret.cost_dollars = 20
-    ret.cost_sparks = 80135
-    ret.cost_plincoins = 5
+    ret.cost_credits = 80
+    ret.cost_dollars = 15
+    ret.cost_sparks = 80000
+    ret.cost_plincoins = 3
     ret.cost_cryptocurrency = 2
 
-    ret.cost_credit_default = 85
-    ret.cost_dollar_default = 20
-    ret.cost_spark_default = 80135
-    ret.cost_plincoin_default = 10
+    ret.cost_credit_default = 80
+    ret.cost_dollar_default = 15
+    ret.cost_spark_default = 80000
+    ret.cost_plincoin_default = 3
     ret.cost_cryptocurrency_default = 2
 
     -- ret.sticker_timer = 0
