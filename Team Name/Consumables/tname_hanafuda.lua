@@ -1705,13 +1705,13 @@ SMODS.Consumable({
 			trigger = "before",
 			delay = 0.2,
 			func = function()
-			print("initial step")
+			
 			modif = get_modification(G.jokers.highlighted[i])
-			print("attemtping to remove")
+			
 			if modif then
-				print("passed nil check")
+				
 				if HPTN.Modifications[modif].morality == "BAD" then
-					print("is bad")
+					
 					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
 					G.jokers.highlighted[i]:juice_up()
 				end
@@ -1771,13 +1771,13 @@ use = function(self, card, area, copier)
 			trigger = "before",
 			delay = 0.2,
 			func = function()
-			print("initial step")
+			
 			modif = get_modification(G.jokers.highlighted[i])
-			print("attemtping to remove")
+			
 			if modif then
-				print("passed nil check")
+				
 				if HPTN.Modifications[modif].morality == "BAD" then
-					print("is bad")
+					
 					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
 					G.jokers.highlighted[i]:juice_up()
 				end
@@ -1837,13 +1837,13 @@ use = function(self, card, area, copier)
 			trigger = "before",
 			delay = 0.2,
 			func = function()
-			print("initial step")
+			
 			modif = get_modification(G.jokers.highlighted[i])
-			print("attemtping to remove")
+			
 			if modif then
-				print("passed nil check")
+				
 				if HPTN.Modifications[modif].morality == "BAD" then
-					print("is bad")
+					
 					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
 					G.jokers.highlighted[i]:juice_up()
 				end
@@ -1903,13 +1903,13 @@ use = function(self, card, area, copier)
 			trigger = "before",
 			delay = 0.2,
 			func = function()
-			print("initial step")
+			
 			modif = get_modification(G.jokers.highlighted[i])
-			print("attemtping to remove")
+			
 			if modif then
-				print("passed nil check")
+				
 				if HPTN.Modifications[modif].morality == "BAD" then
-					print("is bad")
+					
 					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
 					G.jokers.highlighted[i]:juice_up()
 				end

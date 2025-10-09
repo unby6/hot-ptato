@@ -70,15 +70,16 @@ SMODS.Achievement {
     --reset_on_startup = true,
     unlock_condition = function(self,args)
         return(args.type == 'whoppers')
-    key = 'destroy_the_stones',
-    hidden_name = false,
-    hidden_text = true,
-    bypass_all_unlocked = true,
-    unlock_condition = function(self, args)
-        if args.type == 'lotus_banish' and args.key == 'j_hpot_lotus' then
-            return true
-        end
-    end
+    end,
+    ---key = 'destroy_the_stones',
+   -- hidden_name = false,
+   -- hidden_text = true,
+  --  bypass_all_unlocked = true,
+   -- unlock_condition = function(self, args)
+   --     if args.type == 'lotus_banish' and args.key == 'j_hpot_lotus' then
+   ----         return true
+   --     end
+   -- end
 }
 
 SMODS.Achievement {
