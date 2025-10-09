@@ -19,7 +19,7 @@ return {
             c_hpot_perception = {
                 name = "Aura of Perception",
                 text = {
-                    "{C:red}Permanently remove {C:blue}all hands but #1#{},",
+                    "{C:red}Permanently remove {C:blue}#1# hand#3#{},",
                     "{C:purple}+c.#2#{} for each hand removed"
                 }
             },
@@ -50,18 +50,6 @@ return {
                     "{C:purple}+c.#1#{C:inactive}"
                 }
             },
-            c_hpot_power = {
-                name = "Aura of Power",
-                text = {
-                    "{C:red}Remove ALL Credits{},",
-                    "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:purple}c.#1#{} removed,",
-                    "requirement increases by {C:purple}c.#4#{} per copy,",
-                    "max of #5# copies.",
-                    "{C:inactive}(Currently #3##2# Copies.)",
-                    "{C:inactive}(Copies do not have the same modifications as the copied joker.)"
-                }
-            }, -- budgets
             c_hpot_justice_budget = {
                 name = "Aura of Justice",
                 text = {
@@ -109,18 +97,6 @@ return {
                 name = "Aura of Lunacy",
                 text = {
                     "{C:attention}+e.#1#{C:inactive}"
-                }
-            },
-            c_hpot_power_budget = {
-                name = "Aura of Power",
-                text = {
-                    "{C:red}Remove ALL Budget{},",
-                    "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:attention}e.#1#{} removed.",
-                    "requirement increases by {C:attention}e.#4#{} per copy,",
-                    "max of #5# copies.",
-                    "{C:inactive}(Currently #3##2# Copies.)",
-                    "{C:inactive}(Copies do not have the same modifications as the copied joker.)"
                 }
             },
         },
@@ -2784,6 +2760,36 @@ return {
                     "Creates up to {C:attention}#1#",
                     "random {C:spectral}Spectral{} cards",
                     "{C:inactive}(Must have room)",
+                }
+            },
+            c_hpot_power = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Credits{},",
+                    "{C:attention}Create a negative copy",
+                    "{C:attention}of leftmost Joker",
+                    "for every {C:purple}c.#1#{} removed,",
+                    "requirement increases by",
+                    "{C:purple}c.#4#{} per copy,",
+                    "max of #5# copies.",
+                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Copies do not have the same",
+                    "{C:inactive}modifications as the copied joker.)"
+                }
+            },
+            c_hpot_power_budget = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Budget{},",
+                    "{C:attention}Create a negative copy",
+                    "{C:attention}of leftmost Joker",
+                    "for every {C:attention}e.#1#{} removed.",
+                    "requirement increases by",
+                    "{C:attention}e.#4#{} per copy,",
+                    "max of #5# copies.",
+                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Copies do not have the same",
+                    "{C:inactive}modifications as the copied joker.)"
                 }
             },
         },
