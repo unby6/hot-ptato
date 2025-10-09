@@ -143,7 +143,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			leavinghands = 2,
+			leavinghands = 1,
 			credits = 30
 		},
 	},
@@ -153,7 +153,7 @@ SMODS.Consumable({
 		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
-			vars = { hpt.leavinghands, hpt.credits },
+			vars = { hpt.leavinghands, hpt.credits, hpt.leavinghands > 1 and "s" or ""},
 			key = key
 		}
 	end,
@@ -166,17 +166,16 @@ SMODS.Consumable({
 	end,
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
-		local fuck = G.GAME.round_resets.hands
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				G.GAME.round_resets.hands = hpt.leavinghands
-				ease_hands_played(-(fuck - hpt.leavinghands))
+				G.GAME.round_resets.hands = G.GAME.round_resets.hands - hpt.leavinghands
+				ease_hands_played(- hpt.leavinghands)
 				return true
 			end,
 		}))
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				HPTN.ease_credits((fuck - hpt.leavinghands) * hpt.credits, false)
+				HPTN.ease_credits(hpt.leavinghands * hpt.credits, false)
 				return true
 			end,
 		}))
@@ -199,7 +198,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			credits = 1.5
+			credits = 3
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -286,7 +285,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			max = 65,
+			max = 200,
 			credits = 2
 		},
 	},
@@ -329,7 +328,7 @@ SMODS.Consumable({
 	},
 	config = {
 		extra = {
-			credits = 3
+			credits = 1
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -365,12 +364,14 @@ SMODS.Consumable({
 		end
 SMODS.Consumable({
 	key = "power",
-	set = "Aura",
+	set = "Spectral",
 	atlas = "tname_auras",
 	pos = {
 		x = 3,
 		y = 1
 	},
+    soul_set = 'Aura',
+	soul_pos = { x = 4, y = 1 },
 	config = {
 		extra = {
 			credits = 150,
@@ -391,7 +392,7 @@ SMODS.Consumable({
 				hpt.increment,
 				hpt.maximum,
 			},
-				key = key
+			key = key
 		}
 	end,
 	hotpot_credits = {
