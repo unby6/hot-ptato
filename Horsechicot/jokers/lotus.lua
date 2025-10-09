@@ -15,7 +15,12 @@ SMODS.Joker {
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = true,
-    can_use = function()
+    can_use = function(self, card)
+        for i, v in pairs(G.jokers.highlighted) do
+            if v ~= card and v.ability.quantum_1 then
+                return false
+            end
+        end
         return G.jokers and (#G.jokers.highlighted == 2 or G.PROFILES[G.SETTINGS.profile].hpot_lotus_joker)
     end,
     use = function(self, card)
