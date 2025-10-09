@@ -39,3 +39,13 @@ SMODS.Achievement {
         return (args.type == 'cungadero' and args.conditions >= 100)
     end
 }
+
+SMODS.Achievement {
+    key = 'aura_farming',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'aura_farming' and args.conditions.joke <= 0 and args.conditions.cons <= 0 and args.conditions.hand <= 2)
+    end
+}
