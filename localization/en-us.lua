@@ -1880,7 +1880,8 @@ return {
                     "Use this Joker to banish and {C:attention}store{}",
                     "a selected Joker for {C:attention}future{} retrieval",
                     "take {C:attention}50%{} of a random currency",
-                    "and {C:red}self destruct{}"
+                    "and {C:red}self destruct{}",
+                    "{C:inactive}(Does not work on children)"
                 }
             },
             j_hpot_lotus_filled = {
