@@ -1470,7 +1470,7 @@ return {
                 text = {
                     "Change the base of",
                     "the requirement scaling for",
-                    "{C:attention}Nxkoo unkill{}",
+                    "{C:chips}Nxkoo unkill{}",
                     "from {X:dark_edition,C:white}15{} to {X:dark_edition,C:white}10{}",
                 }
             },
