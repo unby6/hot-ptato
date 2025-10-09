@@ -5533,6 +5533,8 @@ return {
                             },
                         },
                     },
+                    atlas = "hpot_smiley_credits",
+                    pos = { x = 4, y = 0 },
                     {
                         name = "basil_squared",
                         text = {
@@ -5542,6 +5544,8 @@ return {
                                 "{C:attention}Charcuterie",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 3, y = 0 },
                     },
                 }
             },
@@ -5632,17 +5636,20 @@ return {
                         name = "pangaea47",
                         text = {
                             {
-                                '{C:attention}Artist and fuckass spider'
+                                "{C:red}Ideas{} and {C:attention}Art{}, Residential spider but", 
+                                "{C:red:,s:1.5}NOT{} fuckass bro these guys are {C:red:}BULLIES{}!!"
                             },
                             {
-                                '"i contributed to some mods including vallkarri',
-                                'and uhhh ifgorgor ok just include vallkarri"',
-                                "-pangaea, 2025"
+                                "Sprited half of the {C:attention}art{} for the team.",
+                                "Also has sprited the Horsechicot logo and group ad {s:0.8,C:inactive}(its peam){} and",
+                                "for some reason gave spriters the incentive to work on the logo for the {C:hpot_advert}mod{}.",
+                                "{s:0.9,C:inactive}i also sprited the big hot potato"
                             },
                             {
-                                "personal message:",
-                                'listen to tallah or darknet if you like',
-                                'metalcore idfk please they rock hard af'
+                                "My Message:",
+                                "{C:inactive}i love tallah and darknet go listen to them if you like {E:1,C:dark_edition,s:1.4}nu-metalcore{} {C:inactive}idfk{}",
+                                "{C:inactive}i also playtested for CloverPit early{}",
+                                "{s:0.7,C:inactive}can you like... click nxkoo real quick i don't like that guy{}"
                             },
                         },
                         atlas = "hpot_hc_apocalypse",
