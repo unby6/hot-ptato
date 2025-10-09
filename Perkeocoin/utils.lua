@@ -27,7 +27,7 @@ function ease_plincoins(plink, instant)
             font = SMODS.Fonts.hpot_plincoin
         })
         
-        local hpot_dollar_ui = G.shop:get_UIE_by_ID('hotpot_currency_plincoins')
+        local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_plincoins')
         if hpot_dollar_ui then
             attention_text({
                 text = text .. tostring(math.abs(mod)),
