@@ -5170,7 +5170,7 @@ return {
                             },
                             {
                                 "My message:",
-                                "There's not enough {E:1,C:hpot_advert}selfcest{} in this mod. SMH"
+                                "Oops! The game crashed: attempt to compare hotpot with vanilla+"
                             },
                         },
                         atlas = "hpot_perkeocoinjokers",
