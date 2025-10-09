@@ -262,6 +262,17 @@ function nursery()
                 func = function()
                     if G.nursery_child and G.nursery_child.cards then
                         G.GAME.breeding_finished = true
+                        for _, v in pairs(G.I.CARD) do
+                            if v.ability and v.ability.father then
+                                dad = v
+                                v.ability.father = nil
+                            end
+                        end
+                        SMODS.calculate_context {
+                            baby_made = true,
+                            father = dad,
+                            mother = mom
+                        }
                         G.GAME.breeding_rounds_passed = 0
                         local child_prio = G.P_CENTERS[G.GAME.child_prio]
                         local child_sec = G.P_CENTERS[G.GAME.child_sec]
