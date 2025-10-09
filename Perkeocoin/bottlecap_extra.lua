@@ -28,8 +28,8 @@ function Game:update(...)
     colors.Common = calculate_color(G.C.BLUE)
     colors.Uncommon = calculate_color(G.C.GREEN)
     colors.Rare = calculate_color(G.C.RED)
-    colors.Legendary = calculate_color(G.C.PURPLE)
-    colors.Bad = calculate_color(G.C.DARK_EDITION)
+    colors.Legendary = calculate_color(G.C.DARK_EDITION)
+    colors.Bad = calculate_color(G.C.GREY)
 
     return game_update(self, ...)
 end
@@ -38,7 +38,7 @@ SMODS.DrawStep {
     key = 'bottlecap_rarity',
     order = -20,
     func = function(self)
-        if self.children.center and self.config.center.set == 'bottlecap' and self.area and self.area == G.plinko_rewards then
+        if self.children.center and self.config.center.set == 'bottlecap' and self.area and self.area == G.plinko_rewards and colors[self.ability.extra.chosen] then
             local radius = 0.28
 
             if not self.children.rarity then
@@ -47,9 +47,11 @@ SMODS.DrawStep {
                 self.children.rarity:define_draw_steps({{
                     shader = 'hpot_bottlecap',
                     other_obj = self.children.center,
-                    ms = 2.7,
+                    ms = self.ability.extra.chosen == 'Legendary' 
+                            and 2.70
+                            or 2.67,
                     mx = 0.5,
-                    my = 0.45,
+                    my = 0.42,
                     send = {
                         {name = 'radius_squared', func = function () return 
                             (radius * (0.95 + math.sin(G.TIMERS.REAL * 1.3) * 0.05)) ^2
