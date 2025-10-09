@@ -5532,6 +5532,8 @@ return {
                                 "{C:attention}Madcap",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 4, y = 0 },
                     },
                     {
                         name = "basil_squared",
@@ -5542,6 +5544,8 @@ return {
                                 "{C:attention}Charcuterie",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 3, y = 0 },
                     },
                 }
             },
