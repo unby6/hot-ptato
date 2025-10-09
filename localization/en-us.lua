@@ -19,7 +19,7 @@ return {
             c_hpot_perception = {
                 name = "Aura of Perception",
                 text = {
-                    "{C:red}Permanently remove {C:blue}all hands but #1#{},",
+                    "{C:red}Permanently remove {C:blue}#1# hand#3#{},",
                     "{C:purple}+c.#2#{} for each hand removed"
                 }
             },
@@ -50,18 +50,6 @@ return {
                     "{C:purple}+c.#1#{C:inactive}"
                 }
             },
-            c_hpot_power = {
-                name = "Aura of Power",
-                text = {
-                    "{C:red}Remove ALL Credits{},",
-                    "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:purple}c.#1#{} removed,",
-                    "requirement increases by {C:purple}c.#4#{} per copy,",
-                    "max of #5# copies.",
-                    "{C:inactive}(Currently #3##2# Copies.)",
-                    "{C:inactive}(Copies do not have the same modifications as the copied joker.)"
-                }
-            }, -- budgets
             c_hpot_justice_budget = {
                 name = "Aura of Justice",
                 text = {
@@ -109,18 +97,6 @@ return {
                 name = "Aura of Lunacy",
                 text = {
                     "{C:attention}+e.#1#{C:inactive}"
-                }
-            },
-            c_hpot_power_budget = {
-                name = "Aura of Power",
-                text = {
-                    "{C:red}Remove ALL Budget{},",
-                    "{C:attention}Create a negative copy of leftmost Joker{}",
-                    "for every {C:attention}e.#1#{} removed.",
-                    "requirement increases by {C:attention}e.#4#{} per copy,",
-                    "max of #5# copies.",
-                    "{C:inactive}(Currently #3##2# Copies.)",
-                    "{C:inactive}(Copies do not have the same modifications as the copied joker.)"
                 }
             },
         },
@@ -668,7 +644,7 @@ return {
                 name = 'Modification',
                 text = {
                     "A random joker gains",
-                    "a random {C:dark_edititon}#1# {C:attention}Modification{}"
+                    "a random {C:dark_edition}#1# {C:attention}Modification{}"
                 }
             },
             c_hpot_cap_sticker_bomb = {
@@ -1469,9 +1445,9 @@ return {
                 name = "Halo",
                 text = {
                     "Change the base of",
-                    "the requirement scaling for an ",
-                    "Nxkoo unkill",
-                    "from {X:edition,C:white}15{} to from {X:edition,C:white}10{}",
+                    "the requirement scaling for",
+                    "{C:chips}Nxkoo unkill{}",
+                    "from {X:dark_edition,C:white}15{} to {X:dark_edition,C:white}10{}",
                 }
             },
             j_hpot_graveyard = {
@@ -2784,6 +2760,36 @@ return {
                     "Creates up to {C:attention}#1#",
                     "random {C:spectral}Spectral{} cards",
                     "{C:inactive}(Must have room)",
+                }
+            },
+            c_hpot_power = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Credits{},",
+                    "{C:attention}Create a negative copy",
+                    "{C:attention}of leftmost Joker",
+                    "for every {C:purple}c.#1#{} removed,",
+                    "requirement increases by",
+                    "{C:purple}c.#4#{} per copy,",
+                    "max of #5# copies.",
+                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Copies do not have the same",
+                    "{C:inactive}modifications as the copied joker.)"
+                }
+            },
+            c_hpot_power_budget = {
+                name = "Aura of Power",
+                text = {
+                    "{C:red}Remove ALL Budget{},",
+                    "{C:attention}Create a negative copy",
+                    "{C:attention}of leftmost Joker",
+                    "for every {C:attention}e.#1#{} removed.",
+                    "requirement increases by",
+                    "{C:attention}e.#4#{} per copy,",
+                    "max of #5# copies.",
+                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Copies do not have the same",
+                    "{C:inactive}modifications as the copied joker.)"
                 }
             },
         },
@@ -5241,8 +5247,9 @@ return {
                         name = "SleepyG11",
                         text = {
                             {
-                                "Balancing and bug fixing",
-                                "other team's additions"
+                                "Maintaining game {C:attention}performance{},",
+                                "balancing and bug fixing",
+                                "other team's additions",
                             },
                             {
                                 "The original {C:attention}event",
@@ -5325,7 +5332,8 @@ return {
                         name = "MissingNumber",
                         text = {
                             {
-                                "Most art for most jokers",
+                                "Most art for most",
+                                "jokers and ads",
                                 "{C:inactive}AGAIN!"
                             },
                             {
@@ -5524,6 +5532,8 @@ return {
                                 "{C:attention}Madcap",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 4, y = 0 },
                     },
                     {
                         name = "basil_squared",
@@ -5534,6 +5544,8 @@ return {
                                 "{C:attention}Charcuterie",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 3, y = 0 },
                     },
                 }
             },

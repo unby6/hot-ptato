@@ -559,13 +559,14 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
 end
 
 function hpot_jtem_create_special_deal_boxes(card, price_text, args)
+    if card.REMOVED then return end
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.43,
         blocking = false,
         blockable = false,
         func = (function()
-            if card.opening then return true end
+            if card.opening or card.REMOVED then return true end
 
             if not card.children.price then
                 local t1 = {
