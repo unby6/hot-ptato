@@ -73,6 +73,7 @@ function hot_mod_mood(card, mood_mod)
 			card.ability["hp_jtem_mood"] = index_to_mood
 				[math.max(1, math.min(mood_to_index[card.ability["hp_jtem_mood"]] + mood_mod, #index_to_mood))]
 			card:juice_up(0.5, 0.3)
+			check_for_unlock({type = "max_mood", conditions = card.ability["hp_jtem_mood"] or "bweh"})
 			-- TODO: sound
 			return true
 		end

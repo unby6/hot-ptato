@@ -5532,8 +5532,6 @@ return {
                                 "{C:attention}Madcap",
                             },
                         },
-                        atlas = "hpot_smiley_credits",
-                        pos = { x = 4, y = 0 },
                     },
                     {
                         name = "basil_squared",
@@ -5544,8 +5542,6 @@ return {
                                 "{C:attention}Charcuterie",
                             },
                         },
-                        atlas = "hpot_smiley_credits",
-                        pos = { x = 3, y = 0 },
                     },
                 }
             },
@@ -5636,20 +5632,17 @@ return {
                         name = "pangaea47",
                         text = {
                             {
-                                "{C:red}Ideas{} and {C:attention}Art{}, Residential spider but", 
-                                "{C:red:,s:1.5}NOT{} fuckass bro these guys are {C:red:}BULLIES{}!!"
+                                '{C:attention}Artist and fuckass spider'
                             },
                             {
-                                "Sprited half of the {C:attention}art{} for the team.",
-                                "Also has sprited the Horsechicot logo and group ad {s:0.8,C:inactive}(its peam){} and",
-                                "for some reason gave spriters the incentive to work on the logo for the {C:hpot_advert}mod{}.",
-                                "{s:0.9,C:inactive}i also sprited the big hot potato"
+                                '"i contributed to some mods including vallkarri',
+                                'and uhhh ifgorgor ok just include vallkarri"',
+                                "-pangaea, 2025"
                             },
                             {
-                                "My Message:",
-                                "{C:inactive}i love tallah and darknet go listen to them if you like {E:1,C:dark_edition,s:1.4}nu-metalcore{} {C:inactive}idfk{}",
-                                "{C:inactive}i also playtested for CloverPit early{}",
-                                "{s:0.7,C:inactive}can you like... click nxkoo real quick i don't like that guy{}"
+                                "personal message:",
+                                'listen to tallah or darknet if you like',
+                                'metalcore idfk please they rock hard af'
                             },
                         },
                         atlas = "hpot_hc_apocalypse",
@@ -6497,6 +6490,7 @@ return {
             ach_hpot_cungadero = '[Specil Cungadero]',
             ach_hpot_aura_farming = 'Aura Farming',
             ach_hpot_destroy_the_stones = 'I Used The Stones To Destroy The Stones',
+            ach_hpot_max_mood = 'Never Been Better'
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6504,8 +6498,9 @@ return {
             ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
             ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
             ach_hpot_cungadero = 'Win a run with 100 or more Ads on screen',
-            ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and at most 2 hands',
+            ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
             ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
+            ach_hpot_max_mood = 'Get any Joker to the best mood possible'
         }
     }
 }
