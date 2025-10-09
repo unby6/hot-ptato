@@ -5169,8 +5169,8 @@ return {
                                 "Also worked on: {E:1,C:blue}Paradox's Stupid Ideas"
                             },
                             {
-                                "My message:",
-                                "Oops! The game crashed: attempt to compare hotpot with vanilla+"
+                                '"do children have souls yet btw"'
+                                "-UnusedParadox, 2025"
                             },
                         },
                         atlas = "hpot_perkeocoinjokers",
