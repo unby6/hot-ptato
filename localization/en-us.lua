@@ -5634,7 +5634,7 @@ return {
                                 "{s:0.9,C:inactive}i also sprited the big hot potato"
                             },
                             {
-                                "personal message:",
+                                "My Message:",
                                 "{C:inactive}i love tallah and darknet go listen to them if you like {E:1,C:dark_edition,s:1.4}nu-metalcore{} {C:inactive}idfk{}",
                                 "{C:inactive}i also playtested for CloverPit early{}",
                                 "{s:0.7,C:inactive}can you like... click nxkoo real quick i don't like that guy{}"
