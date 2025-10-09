@@ -94,6 +94,12 @@ function Card:can_sell_card(context)
     return pk_can_sell(self, context)
 end
 
+local pk_win_game = win_game
+function win_game()
+    check_for_unlock({ type = "cungadero", conditions = #G.GAME.hotpot_ads or 0 })
+    return pk_win_game()
+end
+
 function show_shop()
     if G.shop and G.shop.alignment.offset.py then
         G.shop.alignment.offset.y = G.shop.alignment.offset.py

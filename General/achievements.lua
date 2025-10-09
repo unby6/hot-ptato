@@ -20,13 +20,22 @@ SMODS.Achievement{
     end
 }
 
-SMODS.Achievement{
-    key = 'maniac',
+SMODS.Achievement {
+    key = 'rigged',
+    bypass_all_unlocked = true,
+    hidden_name = false,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'max_rare_caps' and args.conditions == 7)
+    end
+}
+
+SMODS.Achievement {
+    key = 'cungadero',
     bypass_all_unlocked = true,
     hidden_name = true,
     hidden_text = false,
-    reset_on_startup = true,
     unlock_condition = function(self, args)
-        return args.type == 'maniac'
+        return (args.type == 'cungadero' and args.conditions >= 100)
     end
 }

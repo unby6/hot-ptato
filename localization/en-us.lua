@@ -5216,7 +5216,20 @@ return {
                     },
                     {
                         name = "Victin",
-                        text = {},
+                        text = {
+                            {
+                                '{C:green}Code{} and {C:attention}Content',
+                                '{C:attention}Implementation'
+                            },
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Victin's Collection and",
+                                "{C:attention}Binding of Jimbo",
+                            },
+                        },
                     },
                 }
             },
@@ -5501,12 +5514,24 @@ return {
                     },
                     {
                         name = "RGBeet",
-                        text = {},
+                        text = {
+                            {
+                                '{C:attention}Artist'
+                            },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Madcap",
+                            },
+                        },
                     },
                     {
                         name = "basil_squared",
                         text = {
                             { "Emotional Support" },
+                            {
+                                "Also worked on:",
+                                "{C:attention}Charcuterie",
+                            },
                         },
                     },
                 }
@@ -6438,11 +6463,15 @@ return {
             ach_hpot_sign_here = 'Sign Here, Please!',
             ach_hpot_selfcest = "Self-Love is Important",
             ach_hpot_maniac = "Maniac",
+            ach_hpot_rigged = 'Rig the Game',
+            ach_hpot_cungadero = '[Specil Cungadero]'
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
             ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
             ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
+            ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
+            ach_hpot_cungadero = 'Win a run with 100 or more Ads'
         }
     }
 }
