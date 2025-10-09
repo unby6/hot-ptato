@@ -5623,10 +5623,17 @@ return {
                         name = "pangaea47",
                         text = {
                             {
-                                '{C:attention}Artist'
+                                '{C:attention}Artist and fuckass spider'
                             },
                             {
-                                '{C:attention}fuckass spider'
+                                '"i contributed to some mods including vallkarri',
+                                'and uhhh ifgorgor ok just include vallkarri"',
+                                "-pangaea, 2025"
+                            },
+                            {
+                                "personal message:",
+                                'listen to tallah or darknet if you like',
+                                'metalcore idfk please they rock hard af'
                             },
                         },
                         atlas = "hpot_hc_apocalypse",
