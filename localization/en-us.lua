@@ -5169,8 +5169,8 @@ return {
                                 "Also worked on: {E:1,C:blue}Paradox's Stupid Ideas"
                             },
                             {
-                                "My message:",
-                                "There's not enough {E:1,C:hpot_advert}selfcest{} in this mod. SMH"
+                                '"do children have souls yet btw"'
+                                "-UnusedParadox, 2025"
                             },
                         },
                         atlas = "hpot_perkeocoinjokers",
