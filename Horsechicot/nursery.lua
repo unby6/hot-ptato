@@ -265,6 +265,7 @@ function nursery()
                         for _, v in pairs(G.I.CARD) do
                             if v.ability and v.ability.father then
                                 v:calculate_joker({ fathered_child = true })
+                                v.ability.father = false
                             end
                         end
                         SMODS.calculate_context {
