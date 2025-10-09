@@ -27,7 +27,7 @@ function ease_plincoins(plink, instant)
             font = SMODS.Fonts.hpot_plincoin
         })
         
-        local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_plincoins')
+        local hpot_dollar_ui = G.shop:get_UIE_by_ID('hotpot_currency_plincoins')
         if hpot_dollar_ui then
             attention_text({
                 text = text .. tostring(math.abs(mod)),
@@ -92,6 +92,12 @@ local pk_can_sell = Card.can_sell_card
 function Card:can_sell_card(context)
     if self.ability.set == 'bottlecap' and self.ability.eternal then return false end
     return pk_can_sell(self, context)
+end
+
+local pk_win_game = win_game
+function win_game()
+    check_for_unlock({ type = "cungadero", conditions = #G.GAME.hotpot_ads or 0 })
+    return pk_win_game()
 end
 
 function show_shop()

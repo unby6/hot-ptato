@@ -29,3 +29,13 @@ SMODS.Achievement {
         return (args.type == 'max_rare_caps' and args.conditions == 7)
     end
 }
+
+SMODS.Achievement {
+    key = 'cungadero',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'cungadero' and args.conditions >= 100)
+    end
+}
