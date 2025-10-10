@@ -286,6 +286,7 @@ SMODS.Joker({
 			and G.GAME.blind.config.blind.boss.showdown
 			and HPTN.is_shitfuck
 		then
+			check_for_unlock({type = 'get_fucked_lmao'})
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.4,

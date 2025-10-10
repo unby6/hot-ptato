@@ -123,3 +123,12 @@ SMODS.Achievement {
         return (args.type == 'nxkoo')
     end
 }
+SMODS.Achievement {
+    key = 'true_ending',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'get_fucked_lmao')
+    end
+}
