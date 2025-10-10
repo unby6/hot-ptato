@@ -5055,6 +5055,7 @@ return {
                                 "{C:attention}14{}/15 PerkeoCoin Jokers",
                                 "{C:attention}11{}/12 Cheques {S:0.8,C:inactive}Czechs?",
                                 "{C:attention}20{}/26 Bottlecaps",
+                                "{C:attention}Some{} achievements {S:0.8}idk it was a couple",
 								"Thanks for playing! Invest in PerkeoCoin for quick gains!"
                             },
                             {
@@ -6510,7 +6511,8 @@ return {
             ach_hpot_destroy_the_stones = 'I Used The Stones To Destroy The Stones',
             ach_hpot_max_mood = 'Never Been Better',
             ach_hpot_five_lights = 'Five Lights',
-            ach_hpot_fuck_soul = 'Turning Perkeo Into Plincoins'
+            ach_hpot_fuck_soul = 'Turning Perkeo Into Plincoins',
+            ach_hpot_nxkoo = 'Nxkoo\'s Really Dead This Time'
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6523,7 +6525,8 @@ return {
             ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
             ach_hpot_max_mood = 'Get any Joker to the best mood possible',
             ach_hpot_five_lights = 'Win a round while holding the best Koi-Koi hand',
-            ach_hpot_fuck_soul = 'Use the Sacrifice Cheque on a Legendary Joker'
+            ach_hpot_fuck_soul = 'Use the Sacrifice Cheque on a Legendary Joker',
+            ach_hpot_nxkoo = 'Kill the true Nxkoo'
         }
     }
 }

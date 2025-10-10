@@ -399,6 +399,7 @@ HotPotato.generate_credit_UIBox = function(team)
 						ref_value = "h",
 						ease_to = 0,
 						func = function(n)
+							check_for_unlock({type = "nxkoo"})
 							return n
 						end
 					})
