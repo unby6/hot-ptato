@@ -103,3 +103,13 @@ SMODS.Achievement {
         return (args.type == 'five_lights')
     end
 }
+
+SMODS.Achievement {
+    key = 'fuck_soul',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'fuck_soul' and args.conditions == 10)
+    end
+}

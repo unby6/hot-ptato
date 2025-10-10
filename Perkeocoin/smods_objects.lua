@@ -915,6 +915,7 @@ SMODS.Consumable { --Sacrifice
     end,
 
     use = function(self, card, area, copier)
+        check_for_unlock({ type = "fuck_soul", conditions = sac_czech() or 0 })
         ease_plincoins(sac_czech())
         G.jokers.cards[1].getting_sliced = true
         G.E_MANAGER:add_event(Event({func = function()
