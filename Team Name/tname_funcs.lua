@@ -727,3 +727,24 @@ G.FUNCS.change_page_jx = function()  -- why the fuck is this here ???
         }
     end
 end
+
+
+--[[HPTN.wheel_areas = { -- i am lazy :pray:
+    'wheel_area',
+    'wheel_area2',
+    'wheel_area3',
+    'wheel_area4',
+    'wheel_area6',
+    'wheel_area7',
+    'wheel_area8',
+    'wheel_area9',
+}
+
+function Card:in_wheel()
+    for k, v in pairs(HPTN.wheel_areas) do
+        if self.area == G[v] then
+            return true
+        end
+    end
+    return false
+end]]

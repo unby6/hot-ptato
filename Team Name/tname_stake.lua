@@ -11,7 +11,7 @@ SMODS.Stake{
     prefix_config = { applied_stakes = { mod = false} },
     loc_txt = {
         name = "[Texture Missing]",
-        text = {"Adds a shit bunch of fucking stickers by tname.",
+        text = {"Adds a bunch of stickers by tname.",
     "{C:inactive,s:0.7}We hope you hate it!"},
                 sticker = {
                     name = "Corrupted Sticker",

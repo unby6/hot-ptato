@@ -38,7 +38,7 @@ SMODS.DrawStep {
     key = 'bottlecap_rarity',
     order = -20,
     func = function(self)
-        if self.children.center and self.config.center.set == 'bottlecap' and self.area and self.area == G.plinko_rewards and colors[self.ability.extra.chosen] then
+        if self.children.center and self.config.center.set == 'bottlecap' and self.area and (self.area == G.plinko_rewards or self:in_wheel() )and colors[self.ability.extra.chosen] then
             local radius = 0.28
 
             if not self.children.rarity then
