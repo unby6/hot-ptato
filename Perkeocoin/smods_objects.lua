@@ -324,19 +324,31 @@ SMODS.Joker{ -- Kitchen Gun
     calculate = function(self, card, context)
         if context.ending_shop and context.cardarea == G.jokers then
             local adsRemoved = 0
-            for k, v in ipairs(G.GAME.hotpot_ads) do
+            for _, ad in ipairs(G.GAME.hotpot_ads) do
                 if SMODS.pseudorandom_probability(card, 'hpot_kg_kill_ad', 1, card.ability.extra.odds) then
-                    G.E_MANAGER:add_event(Event({
-                        delay = 0.3, func = function()
-                            play_sound('tarot1')
-                            v:juice_up(0.3,0.5)
-                            G.FUNCS.remove_ad({config = {adnum = v.config.id}})
-                        return true end
-                    }))
+
+                    G.E_MANAGER:add_event(Event {delay = 1, blockable = true, blocking = true, trigger = "before", func = function ()
+                        
+                        play_sound('tarot1')
+                        ad:juice_up(0.3,0.5)
+                        card:juice_up(0.3,0.5)
+                        
+                        G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.65,
+                        blockable = false,
+                        blocking = false,
+                        func = function()
+                            G.FUNCS.remove_ad({config = {adnum = ad.config.id}})
+                            return true
+                        
+                        end}))
+                        return true
+                    end})
+
                     adsRemoved = adsRemoved+1
                 end
             end
-            card.ability.extra.xmult = card.ability.extra.xmult + (adsRemoved*card.ability.extra.xmult_mod)
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "xmult",
@@ -542,7 +554,7 @@ SMODS.Joker{ --Bank Teller
     key = "bank_teller",
     config = {
         extra = {
-            compare = 5,
+            compare = 7,
             cards = 1
         }
     },
@@ -563,12 +575,12 @@ SMODS.Joker{ --Bank Teller
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.compare-1, card.ability.extra.cards, localize('k_czech')..(card.ability.extra.cards > 1 and "s" or "")}}
+        return {vars = {card.ability.extra.compare, card.ability.extra.cards, localize('k_czech')..(card.ability.extra.cards > 1 and "s" or "")}}
     end,
 
     calculate = function(self, card, context)
         if context.pk_cashout_row_but_just_looking and not context.blueprint then
-            if context.pk_cashout_row_but_just_looking.name == 'bottom' and context.pk_cashout_row_but_just_looking.dollars < 5 then
+            if context.pk_cashout_row_but_just_looking.name == 'bottom' and context.pk_cashout_row_but_just_looking.dollars >= card.ability.extra.compare then
                 if G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit then
                     local amount = math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards))
                     for i = 1, amount do

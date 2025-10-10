@@ -54,13 +54,15 @@ local this_dt_is_updated_every_fucking_frame = 0
 local update_ref = Game.update
 function Game:update(dt)
     update_ref(self, dt)
-    this_dt_is_updated_every_fucking_frame = this_dt_is_updated_every_fucking_frame + dt
-    if this_dt_is_updated_every_fucking_frame > 1 and G.jokers and G.GAME.scoring then
-        for i, v in pairs(G.jokers.cards) do
-            if v.config.center.this_function_runs_every_fucking_second then
-                v.config.center:this_function_runs_every_fucking_second(v)
+    if G.jokers and G.GAME.scoring then
+        this_dt_is_updated_every_fucking_frame = this_dt_is_updated_every_fucking_frame + dt
+        if this_dt_is_updated_every_fucking_frame > 1 then
+            for i, v in pairs(G.jokers.cards) do
+                if v.config.center.this_function_runs_every_fucking_second then
+                    v.config.center:this_function_runs_every_fucking_second(v)
+                end
             end
+            this_dt_is_updated_every_fucking_frame = 0
         end
-        this_dt_is_updated_every_fucking_frame = 0
     end
 end
