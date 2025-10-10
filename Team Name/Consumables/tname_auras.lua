@@ -102,11 +102,11 @@ SMODS.Consumable({
 			"hpot_spinning",
 			"hpot_uranium",
 			"hpot_nuke",
-			"hpot_spore",
+			"hpot_spores",
 			"hpot_rage"
 		}
 		local function g(joker)
-			local appliedsticker = badstickers[pseudorandom("fuck", 1, #badstickers)]
+			local appliedsticker = pseudorandom_element(badstickers, "fuck")
 			if joker.ability[appliedsticker] then
 				return g(joker)
 			else
@@ -119,6 +119,8 @@ SMODS.Consumable({
 				delay = 0.2,
 				func = function()
 					SMODS.Stickers[g(v)]:apply(v, true)
+					v:juice_up()
+					play_sound('card1')
 					HPTN.ease_credits(hpt.credits)
 					return true
 				end
