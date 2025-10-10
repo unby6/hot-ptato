@@ -8,7 +8,8 @@ function sticker_check(area, sticker, blacklist) -- make "sticker" a table check
                 end
             else
                 for l, b in pairs(SMODS.Stickers) do
-                    for kk, vv in pairs(blacklist) do
+                    
+                    for kk, vv in pairs(blacklist or {}) do
                         if l ~= vv then
                             if v.ability[l] or v[l] then
                                 amount = amount + 1
