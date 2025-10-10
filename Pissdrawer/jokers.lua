@@ -11,7 +11,7 @@ SMODS.Joker {
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
-        if context.using_consumeable and context.area == G.plinko_rewards and context.consumeable.edition and context.consumeable.edition.negative then
+        if context.using_consumeable and card and card.config.center and card.config.center.set == 'bottlecap' and card.ability.extra.chosen == 'Bad' then
             if G.GAME.current_round and G.GAME.current_round.plinko_preroll_cost and G.GAME.current_round.plinko_preroll_cost ~= 0 then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
