@@ -101,6 +101,36 @@ function win_game()
     return pk_win_game()
 end
 
+
+
+local pk_end_round = end_round
+function end_round()
+    if G.consumeables and #G.consumeables.cards >= 5 then
+        print("yay 1")
+        local thunk = {
+            ['c_hpot_pine_1'] = false,
+            ['c_hpot_sakura_1'] = false,
+            ['c_hpot_susuki_1'] = false,
+            ['c_hpot_willow_1'] = false,
+            ['c_hpot_paulownia_1'] = false,
+        }
+        for _, v in ipairs(G.consumeables.cards) do
+            print("yay 2")
+            if v.config.center_key == 'c_hpot_pine_1' then thunk['c_hpot_pine_1'] = true goto skippy end
+            if v.config.center_key == 'c_hpot_sakura_1' then thunk['c_hpot_sakura_1'] = true goto skippy end
+            if v.config.center_key == 'c_hpot_susuki_1' then thunk['c_hpot_susuki_1'] = true goto skippy end
+            if v.config.center_key == 'c_hpot_willow_1' then thunk['c_hpot_willow_1'] = true goto skippy end
+            if v.config.center_key == 'c_hpot_paulownia_1' then thunk['c_hpot_paulownia_1'] = true goto skippy end
+            ::skippy::
+        end
+        if thunk['c_hpot_pine_1'] and thunk['c_hpot_sakura_1'] and thunk['c_hpot_susuki_1'] and thunk['c_hpot_willow_1'] and thunk['c_hpot_paulownia_1'] then
+            print("yay 3")
+            check_for_unlock({type = 'five_lights'})
+        end
+    end
+    return pk_end_round()
+end
+
 function show_shop()
     if G.shop and G.shop.alignment.offset.py then
         G.shop.alignment.offset.y = G.shop.alignment.offset.py

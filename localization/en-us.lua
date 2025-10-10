@@ -6509,6 +6509,7 @@ return {
             ach_hpot_whoppers = 'Five whoppers, and five... more whoppers.',
             ach_hpot_destroy_the_stones = 'I Used The Stones To Destroy The Stones',
             ach_hpot_max_mood = 'Never Been Better',
+            ach_hpot_five_lights = 'Five Lights'
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6519,7 +6520,8 @@ return {
             ach_hpot_whoppers = 'Use a Hanafuda card to create another that produces more cards than the one you used.',
             ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
             ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
-            ach_hpot_max_mood = 'Get any Joker to the best mood possible'
+            ach_hpot_max_mood = 'Get any Joker to the best mood possible',
+            ach_hpot_five_lights = 'Win a round while holding the best Koi-Koi hand'
         }
     }
 }

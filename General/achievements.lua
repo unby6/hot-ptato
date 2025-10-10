@@ -93,3 +93,13 @@ SMODS.Achievement {
         return (args.type == 'max_mood' and args.conditions == 'trance')
     end
 }
+
+SMODS.Achievement {
+    key = 'five_lights',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'five_lights')
+    end
+}
