@@ -17,6 +17,7 @@ SMODS.Joker {
         code = {"Nxkoo"},
         team = {"Horsechicot"}
     },
+    pools = { Food = true },
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'SEAMLESSLYvanillamod', 1, card.ability.extra.odds) then
