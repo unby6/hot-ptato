@@ -16,7 +16,7 @@ SMODS.Joker({
 		local hpt = card.ability.extra
 		if G.jokers and G.jokers.cards then
 			return {
-				vars = { hpt.mult, hpt.mult * sticker_check(G.jokers.cards) },
+				vars = { hpt.mult, hpt.mult * sticker_check(G.jokers.cards, nil, {"hpot_jtem_mood"}) },
 			}
 		else
 			return {
@@ -28,12 +28,12 @@ SMODS.Joker({
 		local hpt = card.ability.extra
 		if context.joker_main then
 			return {
-				mult = hpt.mult * sticker_check(G.jokers.cards),
+				mult = hpt.mult * sticker_check(G.jokers.cards, nil, {"hpot_jtem_mood"}),
 			}
 		end
 	end,
 	in_pool = function(self)
-		if G.jokers and G.jokers.cards and sticker_check(G.jokers.cards) > 0 then
+		if G.jokers and G.jokers.cards and sticker_check(G.jokers.cards, nil,{ "hpot_jtem_mood"}) > 0 then
 			return true
 		end
 		return false
