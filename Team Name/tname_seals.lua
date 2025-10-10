@@ -6,7 +6,7 @@ SMODS.Seal {
     badge_colour = HEX('800058'),
 
     calculate = function(self, card, context)
-        if context.main_scoring and context.cardarea == G.play then
+        if context.main_scoring and (context.cardarea == G.play or context.cardarea == "unscored") then
             if G.consumeables.config.card_limit > #G.consumeables.cards + G.GAME.consumeable_buffer then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
@@ -19,9 +19,7 @@ SMODS.Seal {
                     end
                 }))
             else
-                return {
-                    message = localize("k_no_room_ex")
-                }
+                card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_no_room_ex") })
             end
         end
     end,

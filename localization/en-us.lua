@@ -3418,7 +3418,7 @@ return {
                 text = {
                     "Gives a random",
                     "{C:red}Hanafuda{} Card",
-                    "when scored",
+                    "when played",
                 },
             },
             --
