@@ -349,7 +349,6 @@ SMODS.Joker{ -- Kitchen Gun
                     adsRemoved = adsRemoved+1
                 end
             end
-            card.ability.extra.xmult = card.ability.extra.xmult + (adsRemoved*card.ability.extra.xmult_mod)
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "xmult",
