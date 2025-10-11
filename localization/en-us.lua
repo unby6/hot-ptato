@@ -6342,8 +6342,8 @@ return {
             hotpot_budget_cashout = 'Budget (#1# per interest)',
             hotpot_budget_cashout2 = 'Budget (#1# per interest, #2# per hand)',
 
-            k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
-            k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
+            k_oap_fine_print_no_rank = "*Played hand cannot contain #1#s",
+            k_oap_fine_print_no_suit = "*Played hand cannot contain #1#",
 
             k_oap_undying = "Can't kill me punk!", -- Had to put this in v_dictionary because that's what scale_card looks for :sob: - Astra
         },
