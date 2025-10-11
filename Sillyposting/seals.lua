@@ -17,7 +17,7 @@ SMODS.Seal {
     end,
 
     calculate = function(self, card, context)
-        if context.main_scoring and context.cardarea == G.play then
+        if context.main_scoring and context.cardarea == G.play and G.GAME.current_round.hands_played == 0 then
             ease_plincoins(card.ability.seal.extra.plincoin)
             return {
                 message = "+$"..card.ability.seal.extra.plincoin,
