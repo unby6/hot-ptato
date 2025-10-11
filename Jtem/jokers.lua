@@ -123,6 +123,23 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.x_mult } }
     end,
+
+    calculate = function(self, card, from_debuff)
+        local joker_keys = {}
+        for _, joker in ipairs(G.jokers.cards) do
+            local key = nil
+            if joker.config and joker.config.center_key then
+                key = joker.config.center_key
+            end
+            if key then
+                table.insert(joker_keys, key)
+            end
+        end
+        jokexodiaCheck = table.concat(joker_keys, ", "):find("j_hpot_jtemj, j_hpot_jtemo, j_hpot_jtemk, j_hpot_jteme, j_hpot_jtemr")
+        if jokexodiaCheck then
+            check_for_unlock({type = 'jokexodia'})
+        end
+    end,
     hotpot_credits = {
         art = { 'LocalThunk' },
         code = { 'Squidguset' },
@@ -138,7 +155,25 @@ SMODS.Joker {
     blueprint_compat = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.x_mult } }
+    end,    
+
+    calculate = function(self, card, from_debuff)
+        local joker_keys = {}
+        for _, joker in ipairs(G.jokers.cards) do
+            local key = nil
+            if joker.config and joker.config.center_key then
+                key = joker.config.center_key
+            end
+            if key then
+                table.insert(joker_keys, key)
+            end
+        end
+        jokexodiaCheck = table.concat(joker_keys, ", "):find("j_hpot_jtemj, j_hpot_jtemo, j_hpot_jtemk, j_hpot_jteme, j_hpot_jtemr")
+        if jokexodiaCheck then
+            check_for_unlock({type = 'jokexodia'})
+        end
     end,
+
     hotpot_credits = {
         art = { 'LocalThunk' },
         code = { 'Squidguset' },
@@ -154,7 +189,25 @@ SMODS.Joker {
     blueprint_compat = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.x_mult } }
+    end,   
+
+    calculate = function(self, card, from_debuff)
+        local joker_keys = {}
+        for _, joker in ipairs(G.jokers.cards) do
+            local key = nil
+            if joker.config and joker.config.center_key then
+                key = joker.config.center_key
+            end
+            if key then
+                table.insert(joker_keys, key)
+            end
+        end
+        jokexodiaCheck = table.concat(joker_keys, ", "):find("j_hpot_jtemj, j_hpot_jtemo, j_hpot_jtemk, j_hpot_jteme, j_hpot_jtemr")
+        if jokexodiaCheck then
+            check_for_unlock({type = 'jokexodia'})
+        end
     end,
+
     hotpot_credits = {
         art = { 'LocalThunk' },
         code = { 'Squidguset' },
@@ -172,6 +225,24 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.x_mult } }
     end,
+        
+    calculate = function(self, card, from_debuff)
+        local joker_keys = {}
+        for _, joker in ipairs(G.jokers.cards) do
+            local key = nil
+            if joker.config and joker.config.center_key then
+                key = joker.config.center_key
+            end
+            if key then
+                table.insert(joker_keys, key)
+            end
+        end
+        jokexodiaCheck = table.concat(joker_keys, ", "):find("j_hpot_jtemj, j_hpot_jtemo, j_hpot_jtemk, j_hpot_jteme, j_hpot_jtemr")
+        if jokexodiaCheck then
+            check_for_unlock({type = 'jokexodia'})
+        end
+    end,
+
     hotpot_credits = {
         art = { 'LocalThunk' },
         code = { 'Squidguset' },
@@ -189,6 +260,25 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.x_mult } }
     end,
+        
+    calculate = function(self, card, from_debuff)
+        local joker_keys = {}
+        for _, joker in ipairs(G.jokers.cards) do
+            local key = nil
+
+            if joker.config and joker.config.center_key then
+                key = joker.config.center_key
+            end
+            if key then
+                table.insert(joker_keys, key)
+            end
+        end
+        jokexodiaCheck = table.concat(joker_keys, ", "):find("j_hpot_jtemj, j_hpot_jtemo, j_hpot_jtemk, j_hpot_jteme, j_hpot_jtemr")
+        if jokexodiaCheck then
+            check_for_unlock({type = 'jokexodia'})
+        end
+    end,
+
     hotpot_credits = {
         art = { 'LocalThunk' },
         code = { 'Squidguset' },

@@ -164,3 +164,23 @@ SMODS.Achievement {
         return (args.type == 'frums')
     end
 }
+
+SMODS.Achievement {
+    key = 'jonceler',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'jonceler')
+    end
+}
+
+SMODS.Achievement {
+    key = 'jokexodia',
+    bypass_all_unlocked = true,
+    hidden_name = false,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        return (args.type == 'jokexodia')
+    end
+}

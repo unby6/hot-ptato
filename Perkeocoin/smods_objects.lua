@@ -591,6 +591,7 @@ SMODS.Joker{ --Bank Teller
                                 new_czech:add_to_deck()
                                 G.consumeables:emplace(new_czech)
                                 card:juice_up(0.3, 0.5)
+                                check_for_unlock({type = 'jonceler'})
                             return true end}))
                     end
                     card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "+"..amount.." "..localize('k_czech')..(amount > 1 and "s" or ""), colour = HEX("D2B48C")})

@@ -6515,6 +6515,8 @@ return {
             ach_hpot_sisyphus = 'Sisyphus',
             ach_hpot_this_writing_is_fire = 'Say That Again...',
             ach_hpot_frums = 'music if it was BASED',
+            ach_hpot_jonceler = 'How ba- a- a- ad can I be?',
+            ach_hpot_jokexodia = 'Exodia, obliterate!',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6533,6 +6535,8 @@ return {
             ach_hpot_sisyphus = 'Win a run',
             ach_hpot_this_writing_is_fire = 'Use the Hot Potato Joker in 8 different positions',
             ach_hpot_frums = 'Fully perish a perishable Credits EX joker',
+            ach_hpot_jonceler = 'Trigger a Bank Teller joker',
+            ach_hpot_jokexodia = 'Assemble the J.O.K.E.R.',
         }
     }
 }
