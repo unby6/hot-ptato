@@ -98,6 +98,7 @@ local pk_win_game = win_game
 function win_game()
     check_for_unlock({ type = "cungadero", conditions = #G.GAME.hotpot_ads or 0 })
     check_for_unlock({ type = "aura_farming", conditions = {cons = G.consumeables.config.card_limit or 1, joke = G.jokers.config.card_limit or 1, hand = G.GAME.round_resets.hands or 3}})
+    check_for_unlock({ type = "sisyphus"})
     return pk_win_game()
 end
 
