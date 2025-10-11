@@ -97,7 +97,7 @@ SMODS.Joker {
 			Revo = function(self, card, context)
 				if context.repetition and context.other_card:is_suit("Spades") then
 					return {
-						repetitions = 2
+						repetitions = card.ability.extra.functions.Revo.rep
 					}
 				end
 			end,
@@ -130,7 +130,7 @@ SMODS.Joker {
 				if context.individual then
 					if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Spades") then
 						return {
-							dollars = card.ability.extra.functions.Violet
+							dollars = card.ability.extra.functions.Violet[1]
 						}
 					end
 				end
