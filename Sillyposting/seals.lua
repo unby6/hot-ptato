@@ -16,6 +16,10 @@ SMODS.Seal {
         end
     end,
 
+    loc_vars = function(self, info_queue, tag)
+		return { vars = {self.config.extra.plincoin} }
+	end,
+
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play and G.GAME.current_round.hands_played == 0 then
             ease_plincoins(card.ability.seal.extra.plincoin)

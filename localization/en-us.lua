@@ -3406,7 +3406,7 @@ return {
             hpot_plincoin_seal = {
                 name = "Plincoin Seal",
                 text = {
-                    "{F:hpot_plincoin,C:hpot_plincoin}+$#1#{} when scored",
+                    "{f:hpot_plincoin,C:hpot_plincoin}+$#1#{} when scored",
                     "in first hand",
                     "of round",
                 },
