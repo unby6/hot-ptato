@@ -122,6 +122,7 @@ SMODS.Joker {
                             colour = G.C.MULT
                         }
                     })
+                    check_for_unlock({ type = "this_writing_is_fire", conditions = #card.ability.extra.used_positions or 0})
                 end
             end
         end
