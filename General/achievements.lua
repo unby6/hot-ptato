@@ -47,7 +47,7 @@ SMODS.Achievement {
     hidden_name = true,
     hidden_text = false,
     unlock_condition = function(self, args)
-        return (args.type == 'cungadero' and args.conditions >= 100)
+        return (args.type == 'cungadero' and args.conditions >= 97)
     end
 }
 
@@ -121,5 +121,36 @@ SMODS.Achievement {
     hidden_text = false,
     unlock_condition = function(self, args)
         return (args.type == 'nxkoo')
+    end
+}
+
+SMODS.Achievement {
+    key = 'true_ending',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'get_fucked_lmao')
+    end
+}
+
+SMODS.Achievement {
+    key = 'sisyphus',
+    bypass_all_unlocked = true,
+    reset_on_startup = true,
+    hidden_name = false,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'sisyphus')
+    end
+}
+
+SMODS.Achievement {
+    key = 'this_writing_is_fire',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'this_writing_is_fire' and args.conditions == 8)
     end
 }

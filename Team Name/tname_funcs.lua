@@ -1,4 +1,4 @@
-function sticker_check(area, sticker) -- make "sticker" a table check?
+function sticker_check(area, sticker, blacklist) -- make "sticker" a table check?
     local amount = 0
     for k, v in pairs(area) do
         if v and v.ability then
@@ -8,8 +8,19 @@ function sticker_check(area, sticker) -- make "sticker" a table check?
                 end
             else
                 for l, b in pairs(SMODS.Stickers) do
-                    if v.ability[l] or v[l] then
-                        amount = amount + 1
+
+                    if blacklist then
+                        for kk, vv in pairs(blacklist) do
+                            if l ~= vv then
+                                if v.ability[l] or v[l] then
+                                    amount = amount + 1
+                                end
+                            end
+                        end
+                    else
+                        if v.ability[l] or v[l] then
+                            amount = amount + 1
+                        end
                     end
                 end
             end
@@ -19,6 +30,7 @@ function sticker_check(area, sticker) -- make "sticker" a table check?
     end
     return amount
 end
+
 
 function remove_all_stickers(card)
     if card then
@@ -723,3 +735,24 @@ G.FUNCS.change_page_jx = function()  -- why the fuck is this here ???
         }
     end
 end
+
+
+--[[HPTN.wheel_areas = { -- i am lazy :pray:
+    'wheel_area',
+    'wheel_area2',
+    'wheel_area3',
+    'wheel_area4',
+    'wheel_area6',
+    'wheel_area7',
+    'wheel_area8',
+    'wheel_area9',
+}
+
+function Card:in_wheel()
+    for k, v in pairs(HPTN.wheel_areas) do
+        if self.area == G[v] then
+            return true
+        end
+    end
+    return false
+end]]

@@ -3418,7 +3418,7 @@ return {
                 text = {
                     "Gives a random",
                     "{C:red}Hanafuda{} Card",
-                    "when scored",
+                    "when played",
                 },
             },
             --
@@ -5151,12 +5151,17 @@ return {
                         name = "Eris",
                         text = {
                             {
+                                "Also worked on/contributed to:",
+                                "Hypernova, Giga, Handsome Devils"
+                            },
+                            {
                                 "hi i invented the concept of the",
                                 "consumable highlight shenanigans",
                                 "(and also like half of the code for it)",
                             },
                             {
-                                "also play {C:dark_edition}Hypernova{}",
+                                "{C:attention}My Message:",
+                                "play {C:dark_edition}Hypernova{}",
                                 "{C:inactive}please my mod has like no players{}"
                             }
                         },
@@ -5374,13 +5379,9 @@ return {
                             {
                                 "{C:attention}Conceptualization{}",
                                 "of {C:red}Hanafuda Cards{}, {C:attention}some stickers,",
-                                "{C:attention}Reforging{} & {C:green}Modific{C:red}ations and others,",
+                                "{C:attention}Reforging{} & {C:hpot_gtr}Modific{C:hpot_rtg}ations{} and others,",
                                 "Composer of the {C:attention}Reforge {}theme"
                             },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"idk actually\"",
-                            }
                         },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 0, y = 0 },
@@ -5416,14 +5417,14 @@ return {
                             },
                             {
                                 "{C:attention}Implementation & Conceptualization{}",
-                                "of {C:purple}Credits{}, {C:dark_edition}Auras",
+                                "of {C:purple,E:1}Credits{}, {C:dark_edition,E:1}Auras",
                                 "and others.",
                             },
                             {
                                 'Also worked on:',
-                                'Medium',
-                                'Tonsmith',
-                                'Fool\'s Gambit',
+                                '{C:attention,E:1}Medium',
+                                '{C:green,E:1}Tonsmith',
+                                '{C:hpot_pink,E:1}Fool\'s Gambit',
                             },
                             {
                                 "My Message:",
@@ -5438,15 +5439,15 @@ return {
                         text = {
                             {
                                 "{C:attention}Implemented{}",
-                                "the {C:green}Reforge{} UI",
-                                "and {C:green}Lime Deck{}"
+                                "the {C:attention,E:1}Reforge{} UI",
+                                "and {C:green,E:1}Lime Deck{}"
                             },
                             {
                                 "My other {s:0.5}(Balatro-related){} works:",
-                                "7th Beat Cards",
-                                "DebugPlusPlus",
-                                "Fool's Gambit",
-                                "Tonsmith"
+                                "{C:red,E:1}7th Beat Cards",
+                                "{C:green,E:1}DebugPlusPlus",
+                                '{C:hpot_pink,E:1}Fool\'s Gambit',
+                                '{C:green,E:1}Tonsmith',
                             },
                             {
                                 "My Message:",
@@ -5490,10 +5491,6 @@ return {
                                 "Conceptualized & Implemented",
                                 "{C:attention}Ultra Packs{}",
                             },
-                            {
-                                "My Message:",
-                                "{C:inactive}\"i also dont know\"",
-                            }
                         },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 5, y = 0 },
@@ -6512,21 +6509,27 @@ return {
             ach_hpot_max_mood = 'Never Been Better',
             ach_hpot_five_lights = 'Five Lights',
             ach_hpot_fuck_soul = 'Turning Perkeo Into Plincoins',
-            ach_hpot_nxkoo = 'Nxkoo\'s Really Dead This Time'
+            ach_hpot_nxkoo = 'Nxkoo\'s Really Dead This Time',
+            ach_hpot_true_ending = '"True Ending"',
+            ach_hpot_sisyphus = 'Sisyphus',
+            ach_hpot_this_writing_is_fire = 'Say That Again...'
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
             ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
             ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
             ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
-            ach_hpot_cungadero = 'Win a run with 100 or more Ads on screen',
+            ach_hpot_cungadero = 'Win a run with 97 or more Ads on screen',
             ach_hpot_whoppers = 'Use a Hanafuda card to create another that produces more cards than the one you used.',
             ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
             ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
             ach_hpot_max_mood = 'Get any Joker to the best mood possible',
             ach_hpot_five_lights = 'Win a round while holding the best Koi-Koi hand',
             ach_hpot_fuck_soul = 'Use the Sacrifice Cheque on a Legendary Joker',
-            ach_hpot_nxkoo = 'Kill the true Nxkoo'
+            ach_hpot_nxkoo = 'Kill the true Nxkoo',
+            ach_hpot_true_ending = 'Get to the Ante 8 showdown blind with Aries Card',
+            ach_hpot_sisyphus = 'Win a run',
+            ach_hpot_this_writing_is_fire = 'Use the Hot Potato Joker in 8 different positions'
         }
     }
 }
