@@ -6497,6 +6497,7 @@ return {
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
         },
+        -- Proto if you forget to use commas where needed i swear to fucking god...        Signed, proto
         achievement_names = {
             ach_hpot_sign_here = 'Sign Here, Please!',
             ach_hpot_selfcest = "Self-Love is Important",
@@ -6512,7 +6513,8 @@ return {
             ach_hpot_nxkoo = 'Nxkoo\'s Really Dead This Time',
             ach_hpot_true_ending = '"True Ending"',
             ach_hpot_sisyphus = 'Sisyphus',
-            ach_hpot_this_writing_is_fire = 'Say That Again...'
+            ach_hpot_this_writing_is_fire = 'Say That Again...',
+            ach_hpot_frums = 'music if it was BASED',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6529,7 +6531,8 @@ return {
             ach_hpot_nxkoo = 'Kill the true Nxkoo',
             ach_hpot_true_ending = 'Get to the Ante 8 showdown blind with Aries Card',
             ach_hpot_sisyphus = 'Win a run',
-            ach_hpot_this_writing_is_fire = 'Use the Hot Potato Joker in 8 different positions'
+            ach_hpot_this_writing_is_fire = 'Use the Hot Potato Joker in 8 different positions',
+            ach_hpot_frums = 'Fully perish a perishable Credits EX joker',
         }
     }
 }

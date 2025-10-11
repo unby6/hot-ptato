@@ -236,6 +236,9 @@ SMODS.Joker({
 		local hpt = card.ability.extra
 		if context.end_of_round then
 			HPTN.ease_credits(hpt.credits * hpt.hands)
+			if card.ability.perish_tally < 1 then
+				check_for_unlock({type = 'frums'})
+			end
 		end
 		if context.setting_blind then
 			hpt.hands = 0

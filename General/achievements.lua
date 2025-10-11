@@ -154,3 +154,13 @@ SMODS.Achievement {
         return (args.type == 'this_writing_is_fire' and args.conditions == 8)
     end
 }
+
+SMODS.Achievement {
+    key = 'frums',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'frums')
+    end
+}
