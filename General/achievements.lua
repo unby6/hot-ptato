@@ -184,3 +184,14 @@ SMODS.Achievement {
         return (args.type == 'jokexodia')
     end
 }
+
+SMODS.Achievement {
+    key = 'clippy',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    --reset_on_startup = true,
+    unlock_condition = function(self, args)
+        return (args.type == 'clippy')
+    end
+}

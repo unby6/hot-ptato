@@ -12,9 +12,20 @@ SMODS.Back {
                 return true
             end
         }))
-    end
+    end,
 }
-
+local _win = win_game
+function win_game()
+    ret = _win()
+    if G.GAME.selected_back.name == 'b_hpot_ublockdeck' then
+        check_for_unlock({type = 'clippy'})
+    end
+    return ret
+end
+--[[ 
+eval ease_ante(7)
+eval G.GAME.chips = G.GAME.blind.chips
+]]
 SMODS.ObjectType {
     key = 'ad_cards',
     cards = {
@@ -83,7 +94,7 @@ SMODS.Back {
                 for _ = 1, self.config.stones do
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            local c = pseudorandom_element(G.deck.cards, pseudoseed('gosh im so gassy'))
+                            local c = pseudorandom_element(G.deck.cards, pseudoseed('shoutouts to gay foxgirls'))
                             if c then
                                 c:set_ability(G.P_CENTERS.m_stone, true, true)
                                 c:set_edition('e_polychrome', true, true)
