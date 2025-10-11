@@ -17,10 +17,9 @@ SMODS.Joker {
 
 local original_add_tag = add_tag
 function add_tag(tag, immediate)
-    if next(SMODS.find_card("j_hpot_blunderfarming")) and G.GAME.skipping_blind then
+    if next(SMODS.find_card("j_hpot_blunderfarming")) and G.CONTROLLER.locks.skip_blind then
         if pseudorandom('blunder', 1, 2) == 1 then
-                original_add_tag(Tag(tag.key))
-            return
+            original_add_tag(Tag(tag.key), immediate)
         end
     end
     original_add_tag(tag, immediate)
