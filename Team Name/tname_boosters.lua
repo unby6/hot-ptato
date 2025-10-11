@@ -125,6 +125,7 @@ SMODS.Booster({
 	group_key = "k_hpot_auras_packs",
 	cost = 4,
 	weight = 0.6,
+    kind = "hpot_aura",
 	create_card = function(self, card, i)
 		return SMODS.create_card({
 			set = "Aura",
@@ -147,6 +148,7 @@ SMODS.Booster({
 	group_key = "k_hpot_auras_packs",
 	cost = 4,
 	weight = 0.6,
+    kind = "hpot_aura",
 	create_card = function(self, card, i)
 		return SMODS.create_card({
 			set = "Aura",
@@ -169,6 +171,7 @@ SMODS.Booster({
 	group_key = "k_hpot_auras_packs",
 	cost = 6,
 	weight = 0.3,
+    kind = "hpot_aura",
 	create_card = function(self, card, i)
 		return SMODS.create_card({
 			set = "Aura",
@@ -191,6 +194,7 @@ SMODS.Booster({
 	group_key = "k_hpot_auras_packs",
 	cost = 7,
 	weight = 0.11,
+    kind = "hpot_aura",
 	create_card = function(self, card, i)
 		return SMODS.create_card({
 			set = "Aura",
@@ -214,6 +218,7 @@ SMODS.Booster({
 	pos = { x = 4, y = 1 },
 	config = { extra = 7, choose = 3 },
 	group_key = "k_hpot_auras_packs",
+    kind = "hpot_aura",
 	create_card = function(self, card)
 		return 
 			SMODS.create_card({

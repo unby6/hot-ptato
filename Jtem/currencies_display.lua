@@ -71,6 +71,14 @@ function hpot_currencies_to_display()
 	if G.STATE == G.STATES.NURSERY then
 		return { "dollars" }
 	end
+    if G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER then
+        local kind = SMODS.OPENED_BOOSTER.config.center.kind
+        if kind == "hpot_czech" then
+            return { "plincoins" }
+        elseif kind == "hpot_aura" then
+            return { "credits" }
+        end
+    end
 	if G.STATE == G.STATES.SHOP then
 		local current_tab = PissDrawer.Shop.active_tab
 		if type(current_tab) == "table" then
