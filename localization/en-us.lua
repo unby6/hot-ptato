@@ -5007,11 +5007,13 @@ return {
                                 '{C:inactive}tbcwdus'
                             },
                             {
-                                "i coded {C:green,s:1.15}Plinko{}",
+                                "worked on {C:green,s:1.15}Plinko{}",
+                                "and {C:money}plincoins{}",
                                 "{s:0.3} ",
-                                "{s:0.8}i also helped with ",
-                                "{s:0.8,C:attention}testing{}{s:0.8} and {s:0.8,C:attention}bugfixes{}",
-                                "{s:0.3} ",
+                                "{s:0.8}also helped with ",
+                                "{s:0.8,C:attention}testing{}{s:0.8}, {s:0.8,C:attention}bugfixes{}",
+                                "{s:0.8}and {s:0.8,C:attention}balancing",
+                                "{s:0.3,C:black}you can't even read this :sob:",
                                 "{s:0.7,C:inactive}did you know? now you do",
                             },
                             {
