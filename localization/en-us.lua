@@ -6341,8 +6341,8 @@ return {
             hotpot_budget_cashout = 'Budget (#1# per interest)',
             hotpot_budget_cashout2 = 'Budget (#1# per interest, #2# per hand)',
 
-            k_oap_fine_print_no_rank = "*Hand cannot contain #1#s",
-            k_oap_fine_print_no_suit = "*Hand cannot contain #1#",
+            k_oap_fine_print_no_rank = "*Played hand cannot contain #1#s",
+            k_oap_fine_print_no_suit = "*Played hand cannot contain #1#",
 
             k_oap_undying = "Can't kill me punk!", -- Had to put this in v_dictionary because that's what scale_card looks for :sob: - Astra
         },
@@ -6499,6 +6499,7 @@ return {
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
         },
+        -- Proto if you forget to use commas where needed i swear to fucking god...        Signed, proto
         achievement_names = {
             ach_hpot_sign_here = 'Sign Here, Please!',
             ach_hpot_selfcest = "Self-Love is Important",
@@ -6513,13 +6514,18 @@ return {
             ach_hpot_fuck_soul = 'Turning Perkeo Into Plincoins',
             ach_hpot_nxkoo = 'Nxkoo\'s Really Dead This Time',
             ach_hpot_true_ending = '"True Ending"',
+            ach_hpot_sisyphus = 'Sisyphus',
+            ach_hpot_this_writing_is_fire = 'Say That Again...',
+            ach_hpot_frums = 'music if it was BASED',
+            ach_hpot_jonceler = 'How ba- a- a- ad can I be?',
+            ach_hpot_jokexodia = 'Exodia, obliterate!',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
             ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
             ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
             ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
-            ach_hpot_cungadero = 'Win a run with 100 or more Ads on screen',
+            ach_hpot_cungadero = 'Win a run with 97 or more Ads on screen',
             ach_hpot_whoppers = 'Use a Hanafuda card to create another that produces more cards than the one you used.',
             ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
             ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
@@ -6528,6 +6534,11 @@ return {
             ach_hpot_fuck_soul = 'Use the Sacrifice Cheque on a Legendary Joker',
             ach_hpot_nxkoo = 'Kill the true Nxkoo',
             ach_hpot_true_ending = 'Get to the Ante 8 showdown blind with Aries Card',
+            ach_hpot_sisyphus = 'Win a run',
+            ach_hpot_this_writing_is_fire = 'Use the Hot Potato Joker in 8 different positions',
+            ach_hpot_frums = 'Fully perish a perishable Credits EX joker',
+            ach_hpot_jonceler = 'Trigger a Bank Teller joker',
+            ach_hpot_jokexodia = 'Assemble the J.O.K.E.R.',
         }
     }
 }

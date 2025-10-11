@@ -8,12 +8,18 @@ function sticker_check(area, sticker, blacklist) -- make "sticker" a table check
                 end
             else
                 for l, b in pairs(SMODS.Stickers) do
-                    
-                    for kk, vv in pairs(blacklist or {}) do
-                        if l ~= vv then
-                            if v.ability[l] or v[l] then
-                                amount = amount + 1
+
+                    if blacklist then
+                        for kk, vv in pairs(blacklist) do
+                            if l ~= vv then
+                                if v.ability[l] or v[l] then
+                                    amount = amount + 1
+                                end
                             end
+                        end
+                    else
+                        if v.ability[l] or v[l] then
+                            amount = amount + 1
                         end
                     end
                 end
@@ -24,6 +30,7 @@ function sticker_check(area, sticker, blacklist) -- make "sticker" a table check
     end
     return amount
 end
+
 
 function remove_all_stickers(card)
     if card then

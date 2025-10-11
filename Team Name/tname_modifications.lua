@@ -111,18 +111,6 @@ SMODS.DrawStep({ -- drawstep like stickers
 			)
 		end
 
-		if self.modif and G.modif_corner[self.modif] then
-			G.modif_corner[self.modif].role.draw_major = self
-			G.modif_corner[self.modif]:draw_shader("dissolve", nil, nil, nil, self.children.center)
-			G.modif_corner[self.modif]:draw_shader(
-				"voucher",
-				nil,
-				self.ARGS.send_to_shader,
-				nil,
-				self.children.center
-			)
-		end
-
 		for k, v in pairs(HPTN.Modifications) do
 			if self.ability[v.key] then
 				if v and v.draw and type(v.draw) == "function" then
@@ -139,6 +127,26 @@ SMODS.DrawStep({ -- drawstep like stickers
 					)
 				end
 			end
+		end
+	end,
+	conditions = { vortex = false, facing = "front" },
+})
+
+SMODS.DrawStep({ -- drawstep like stickers
+	key = "modifications2",
+	order = 39,
+	func = function(self, layer)
+	if (self.children.center.scale.y + 0) >= 95 and (self.children.center.scale.x + 0) >= 71 then
+		if self.modif and G.modif_corner[self.modif] then
+			G.modif_corner[self.modif].role.draw_major = self
+			G.modif_corner[self.modif]:draw_shader("dissolve", nil, nil, nil, self.children.center)
+			G.modif_corner[self.modif]:draw_shader(
+				"voucher",
+				nil,
+				self.ARGS.send_to_shader,
+				nil,
+				self.children.center
+			)
 		end
 
 		for k, v in pairs(HPTN.Modifications) do
@@ -158,7 +166,8 @@ SMODS.DrawStep({ -- drawstep like stickers
 				end
 			end
 		end
-	end,
+	end
+end,
 	conditions = { vortex = false, facing = "front" },
 })
 
