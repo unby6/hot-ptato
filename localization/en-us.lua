@@ -6545,6 +6545,7 @@ return {
             ach_hpot_jokexodia = 'Exodia, obliterate!',
             ach_hpot_clippy = 'Viva la clippy',
             ach_hpot_ffingers = 'Four Fingers',
+            ach_hpot_candyland_tobu = 'How to mod Balatro **2025** [100% WORKING!!]',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6566,7 +6567,8 @@ return {
             ach_hpot_jonceler = 'Trigger a Bank Teller joker',
             ach_hpot_jokexodia = 'Assemble the J.O.K.E.R.',
             ach_hpot_clippy = 'Looks like you\'re trying to block ads, would you like some help?',
-            ach_hpot_ffingers = 'Scale a Loss joker to 4X'
+            ach_hpot_ffingers = 'Scale a Loss joker to 4X',
+            ach_hpot_candyland_tobu = 'Obtain... jimbo?... is he even real?... (Check out the VanillaRemade github repo for a guide on how to mod balatro)'
         }
     }
 }
