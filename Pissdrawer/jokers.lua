@@ -380,12 +380,7 @@ SMODS.Joker {
         end
     end
 }
--- Fallback to make the edited example from vanilla remade work because thats funnier than just writing a hook like a normal person
-if not print then
-    print = function(args)
-        return(args)
-    end
-end
+
 -- Vanilla Remade reference lmao
 -- First we save the original function to a local variable
 -- This will also save any other hooks made before
