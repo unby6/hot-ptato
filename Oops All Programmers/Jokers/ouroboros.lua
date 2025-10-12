@@ -5,7 +5,7 @@ SMODS.Joker {
     config = {
         extra = {
             Xmult = 1,
-            gain = 0.5
+            gain = 1/3
         }
     },
     atlas = "oap_jokers",

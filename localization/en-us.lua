@@ -925,7 +925,7 @@ return {
                 }
             },
             j_hpot_recycling = {
-                ['name'] = 'recycling',
+                ['name'] = 'Recycling',
                 ['text'] = {
                     [1] = 'Earn {C:money}$#1#{} each time',
                     [2] = 'a {C:attention}Bottlecap{} is used'
@@ -1926,7 +1926,8 @@ return {
                 name = 'Art of the Deal',
                 text = {
                     'Creates a random {C:hpot_czech}Cheque{}',
-                    'when a {C:attention}Blind{} is defeated'
+                    'when a {C:attention}Blind{} is defeated',
+                    '{C:inactive}(Must have room){}'
                 }
             },
             j_hpot_paper_jam = {
