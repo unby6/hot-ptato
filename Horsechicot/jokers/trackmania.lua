@@ -34,7 +34,7 @@ SMODS.Joker {
             xmult = math.floor(xmult * 10) / 10
             return { xmult = xmult }
         elseif context.beat_boss then
-            card.ability.start_time = love.timer.getTime()
+            card.ability.elapsed = 0
         end
     end,
     update = function (self, card, dt)
