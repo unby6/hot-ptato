@@ -3,10 +3,10 @@
 
 
 SMODS.Atlas {
-  key = "nursery_sign",
-  path = "Horsechicot/nursery_sign.png",
-  px = 113,py = 57,
-  frames = 4, atlas_table = 'ANIMATION_ATLAS'
+    key = "nursery_sign",
+    path = "Horsechicot/nursery_sign.png",
+    px = 113, py = 57,
+    frames = 4, atlas_table = 'ANIMATION_ATLAS'
 }
 
 G.STATES.NURSERY = 6942022367
@@ -38,10 +38,9 @@ end
 
 function update_nursery(dt) -- talen from plinko so idk
     if not G.STATE_COMPLETE then
-        
         stop_use()
         ease_background_colour_blind(G.STATES.NURSERY)
-    
+
 
         G.STATE_COMPLETE = true
     end
@@ -83,10 +82,7 @@ function G.FUNCS.hide_nursery(e)
     }))
 
     PissDrawer.Shop.change_shop_sign("shop_sign")
-
 end
-
-
 
 --maybe should make this only usable once a round
 function G.FUNCS.nursery_abort(e)
@@ -138,6 +134,7 @@ function G.FUNCS.nursery_breed(e)
         }
     end
 end
+
 --dont draw G.hand during nursery
 local ca_dref = CardArea.draw
 function CardArea:draw(...)
@@ -177,38 +174,20 @@ end
 G.C.HPOT_PINK = HEX("fe89d0")
 G.ARGS.LOC_COLOURS.hpot_pink = G.C.HPOT_PINK
 function Horsechicot.breed(mother, father)
-    local mother_center, father_center = mother.config.center, father.config.center
-    if mother_center.key == 'j_hpot_loss' or father_center.key == 'j_hpot_loss' then
-        local loss_card = mother_center.key == 'j_hpot_loss' and mother or father
-        local sec_card = mother_center.key == 'j_hpot_loss' and father or mother
-
-        G.GAME.child_prio = loss_card.config.center.key
-        G.GAME.child_sec = sec_card.config.center.key
-        G.GAME.child_prio_ability = copy_table(loss_card.ability)
-        G.GAME.child_sec_ability = copy_table(sec_card.ability)
-        G.GAME.child_prio_ability.extra.Xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
-        if G.GAME.child_sec == 'j_hpot_loss' then
-            G.GAME.child_sec_ability.extra.Xmult = sec_card.ability.extra.Xmult + sec_card.ability.extra.gain
-        end
-        if (G.GAME.child_prio_ability.extra.Xmult or G.GAME.child_sec == 'j_hpot_loss' and G.GAME.child_sec_ability.extra.Xmult or 1) > 3 then
-            check_for_unlock({type = 'ffingers'})
-        end    
+    local poll = pseudorandom("hc_breed_result")
+    --we choose which parent to make a new joker of || not anymore, quantum time
+    if poll > 0.5 then
+        G.GAME.child_colour = G.C.HPOT_PINK
+        G.GAME.child_prio = mother.config.center.key
+        G.GAME.child_sec = father.config.center.key
+        G.GAME.child_prio_ability = copy_table(mother.ability)
+        G.GAME.child_sec_ability = copy_table(father.ability)
     else
-        local poll = pseudorandom("hc_breed_result")
-        --we choose which parent to make a new joker of || not anymore, quantum time
-        if poll > 0.5 then
-            G.GAME.child_colour = G.C.HPOT_PINK
-            G.GAME.child_prio = mother.config.center.key
-            G.GAME.child_sec = father.config.center.key
-            G.GAME.child_prio_ability = copy_table(mother.ability)
-            G.GAME.child_sec_ability = copy_table(father.ability)
-        else
-            G.GAME.child_colour = G.C.BLUE
-            G.GAME.child_prio = father.config.center.key
-            G.GAME.child_sec = mother.config.center.key
-            G.GAME.child_prio_ability = copy_table(father.ability)
-            G.GAME.child_sec_ability = copy_table(mother.ability)
-        end
+        G.GAME.child_colour = G.C.BLUE
+        G.GAME.child_prio = father.config.center.key
+        G.GAME.child_sec = mother.config.center.key
+        G.GAME.child_prio_ability = copy_table(father.ability)
+        G.GAME.child_sec_ability = copy_table(mother.ability)
     end
     G.GAME.active_breeding = true
     G.GAME.breeding_rounds_passed = 0
@@ -241,7 +220,6 @@ function update_child_atlas(self, new_atlas, new_pos)
         self.children.floating_sprite.role.draw_major = self
         self.children.floating_sprite.states.hover.can = false
         self.children.floating_sprite.states.click.can = false
-        
     end
 end
 
@@ -263,7 +241,8 @@ function nursery()
         if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
             G.GAME.active_breeding = false
             G.E_MANAGER:add_event(Event({
-                trigger = 'immediate', blocking = false,
+                trigger = 'immediate',
+                blocking = false,
                 func = function()
                     if G.nursery_child and G.nursery_child.cards then
                         G.GAME.breeding_finished = true
@@ -314,7 +293,7 @@ function nursery()
                                 center = child_sec
                             },
                         }, card)
-                        
+
                         card.ability.is_primary_mother = G.GAME.child_colour == G.C.HPOT_PINK
                         update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
                             child_prio.pos)
@@ -322,11 +301,11 @@ function nursery()
 
                         card.ability.is_nursery_smalled = true
 
-                         G.E_MANAGER:add_event(Event {
+                        G.E_MANAGER:add_event(Event {
                             func = function()
                                 if G.nursery_mother and G.nursery_mother.cards and G.nursery_mother.cards[1] then
                                     G.nursery_mother.cards[1].ability.mother = nil
-                                    if child_prio.key == child_sec.key then check_for_unlock({type = 'selfcest'}) end
+                                    if child_prio.key == child_sec.key then check_for_unlock({ type = 'selfcest' }) end
                                     G.GAME.child_prio, G.GAME.child_sec = nil, nil
                                     return true
                                 end
@@ -334,14 +313,10 @@ function nursery()
                             blocking = false
                         })
                         return true
-                    end                
+                    end
                     return false
                 end
             }))
-            
-
-
-           
         end
     end
 end

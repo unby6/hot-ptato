@@ -2152,9 +2152,10 @@ return {
             j_hpot_loss = {
                 name = 'Loss',
                 text = {
-                    'Breeding with this card will {C:attention}always',
-                    'result in a copy of this {C:attention}Joker{} with',
-                    'an extra {X:mult,C:white}X#2#{} Mult',
+                    '{C:green}#3# probabilities{} for',
+                    '{C:attention}breeding{} to succeed',
+                    'Gains {X:mult,C:white}X#2#{} Mult when',
+                    'breeding {C:attention}fails{}',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
             },
