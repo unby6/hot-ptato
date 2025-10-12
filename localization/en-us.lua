@@ -906,7 +906,7 @@ return {
                 ['text'] = {
                     [1] = 'Create {C:attention}#2#{} {C:hpot_czech}#3#',
                     [2] = 'if {C:attention}Cash Out{} is',
-                    [3] = '{C:money}$#1#{} or smaller'
+                    [3] = '{C:money}$#1#{} or more'
                 }
             },
             j_hpot_balatro_premium = {

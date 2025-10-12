@@ -554,7 +554,7 @@ SMODS.Joker{ --Bank Teller
     key = "bank_teller",
     config = {
         extra = {
-            compare = 7,
+            compare = 10,
             cards = 1
         }
     },
