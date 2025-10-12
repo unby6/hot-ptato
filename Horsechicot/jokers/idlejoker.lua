@@ -5,7 +5,6 @@ function Blind:click()
         self.states.drag.can = false
 
         for _,joker in pairs(found) do
-            joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
             SMODS.scale_card(joker, {
                 ref_table = joker.ability.extra,
                 ref_value = "score",
