@@ -1604,10 +1604,10 @@ return {
             j_hpot_antidsestablishmentarianism = {
                 name = "Antidisestablishmentarianism",
                 text = {
-                    "Disable the effect of the {C:attention}Boss Blind{}",
+                    "Disable current {C:attention}Boss Blind{}",
                     "if played hand has {C:attention}3{} or more",
-                    "scored cards and all of them are {C:attention}debuffed{}",
-                    "{C:inactive}Once per round{}"
+                    "scored cards and all",
+                    "of them are {C:attention}debuffed{}"
                 }
             },
             j_hpot_notajoker = {
