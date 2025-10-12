@@ -68,7 +68,7 @@ SMODS.Joker({
             r_mults[#r_mults + 1] = jank..math.abs(i)
         end
         local loc_mult = {string = ' ', colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE}
-        main_start = {
+        local main_start = {
             { n = G.UIT.O, config = { object = DynaText({ string = r_mults, colours = { G.GAME.seeded and G.C.ORANGE or G.C.PURPLE }, pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0 }) } },
             {
                 n = G.UIT.O,
@@ -137,7 +137,8 @@ SMODS.Joker({
 
 	calc_dollar_bonus = function(self,card)
 		local hpt = card.ability.extra
-		return hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
+        local result = hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
+		return result > 0 and result or nil
 	end,
 
 	in_pool = function(self)
@@ -216,7 +217,8 @@ SMODS.Joker({
 		extra = {
 			xmult = 0.75,
 			credits = 30,
-			hands = 0
+			hands = 0,
+			fuckshit = true
 		},
 	},
     cost = 6,
@@ -235,13 +237,14 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
 		if context.end_of_round then
-			HPTN.ease_credits(hpt.credits * hpt.hands)
-			if card.ability.perish_tally < 1 then
+			if hpt.fuckshit then HPTN.ease_credits(hpt.credits * hpt.hands) hpt.fuckshit = false end
+			if (card.ability.perish_tally or 1.0001) < 1 then
 				check_for_unlock({type = 'frums'})
 			end
 		end
 		if context.setting_blind then
 			hpt.hands = 0
+			hpt.fuckshit = true
 		end
 		if context.press_play then
 			hpt.hands = hpt.hands + 1

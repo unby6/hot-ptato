@@ -925,7 +925,7 @@ return {
                 }
             },
             j_hpot_recycling = {
-                ['name'] = 'recycling',
+                ['name'] = 'Recycling',
                 ['text'] = {
                     [1] = 'Earn {C:money}$#1#{} each time',
                     [2] = 'a {C:attention}Bottlecap{} is used'
@@ -1413,8 +1413,8 @@ return {
                 name = "JankMan",
                 text = {
                     "{C:inactive}hahahahaha, im jankMan!",
-                    "{X:mult,C:white}#1#X{} {C:green}mult{} per {C:purple}sticker{} {C:attention}on{} {C:edition}this Joker{}",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} mjult)"
+                    "  +    {X:mult,C:white}#1#X{} {C:green}mult{} per {C:purple}sticker{} {C:attention}on{} {C:edition}this jkoker{}",
+                    "{C:inactive}(crurrently{X:mult,C:white}X#2#{C:inactive} mjult)" -- i SWEAR TO GOD if ANYONE adds the space back i will find them and i will KILL them
                 }
             },
             j_hpot_aurae_joker = {
@@ -1539,8 +1539,10 @@ return {
                 name = "--[----->+<]>---.+++++.+.------.++++++++++++.+++++.",
                 text = {
                     "Create a {C:attention}Luchador{} if",
-                    "played hand is in rank",
-                    "order {C:red}lowest{} to {C:green}highest{}"
+                    "played hand has {C:attention}5{} or more",
+                    "scored cards in rank order from",
+                    "{C:red}lowest{} to {C:green}highest{}",
+                    "{C:inactive,s:0.75}(Ace counts as lowest){}"
                 }
             },
             j_hpot_precognition = {
@@ -1579,7 +1581,7 @@ return {
             j_hpot_c_sharp = {
                 name = "C#3#",
                 text = {
-                    "Disable the effect of the {C:attention}Boss Blind{}",
+                    "Disable current {C:attention}Boss Blind{}",
                     "every {C:attention}#1#{} {C:inactive}[#2#]{} hands played"
                 }
             },
@@ -1602,9 +1604,10 @@ return {
             j_hpot_antidsestablishmentarianism = {
                 name = "Antidisestablishmentarianism",
                 text = {
-                    "Disable the effect of the {C:attention}Boss Blind{}",
-                    "if played hand consists of",
-                    "only {C:attention}debuffed{} cards"
+                    "Disable current {C:attention}Boss Blind{}",
+                    "if played hand has {C:attention}3{} or more",
+                    "scored cards and all",
+                    "of them are {C:attention}debuffed{}"
                 }
             },
             j_hpot_notajoker = {
@@ -1923,7 +1926,8 @@ return {
                 name = 'Art of the Deal',
                 text = {
                     'Creates a random {C:hpot_czech}Cheque{}',
-                    'when a {C:attention}Blind{} is defeated'
+                    'when a {C:attention}Blind{} is defeated',
+                    '{C:inactive}(Must have room){}'
                 }
             },
             j_hpot_paper_jam = {
@@ -2008,7 +2012,7 @@ return {
                     { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
                         "The next {C:attention}#1# {C:green}probabilities",
                         "are {C:attention}multiplied by #2#{}.",
-                        "Gains {C:attention}#3#{} more modifiers at",
+                        "Gains {C:attention}#3#{} more modifier at",
                         "the end of a round"
                     },
                 }
@@ -5015,6 +5019,8 @@ return {
                                 "{s:0.8}and {s:0.8,C:attention}balancing",
                                 "{s:0.3,C:black}you can't even read this :sob:",
                                 "{s:0.7,C:inactive}did you know? now you do",
+                                "{s:0.6} ",
+                                "{s:0.7,C:inactive}artwork by {s:0.7}dottykitty",
                             },
                             {
                                 "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",
@@ -5390,8 +5396,19 @@ return {
                                 "{C:attention}Conceptualization{}",
                                 "of {C:red}Hanafuda Cards{}, {C:attention}some stickers,",
                                 "{C:attention}Reforging{} & {C:hpot_gtr}Modific{C:hpot_rtg}ations{} and others,",
-                                "Composer of the {C:attention}Reforge {}theme"
+                                "Composer of the {C:attention}Reforge{} theme"
                             },
+							{
+								"Also worked on:",
+								"{C:red}Alloy{}, {C:tarot}JoJo Mod{},",
+								"and {C:blue}Photon Mod Manager",
+							},
+							{
+								"My Message:",
+								"Meow!",
+								"{C:inactive}(If you pat me enough in-game, something will happen.",
+								"{C:inactive}You have to pat me a lot, though.)"
+							}
                         },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 0, y = 0 },
@@ -6527,7 +6544,9 @@ return {
             ach_hpot_frums = 'music if it was BASED',
             ach_hpot_jonceler = 'How ba- a- a- ad can I be?',
             ach_hpot_jokexodia = 'Exodia, obliterate!',
-            ach_hpot_clippy = 'Viva la clippy'
+            ach_hpot_clippy = 'Viva la clippy',
+            ach_hpot_ffingers = 'Four Fingers',
+            ach_hpot_candyland_tobu = 'How to mod Balatro **2025** [100% WORKING!!]',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6548,7 +6567,9 @@ return {
             ach_hpot_frums = 'Fully perish a perishable Credits EX joker',
             ach_hpot_jonceler = 'Trigger a Bank Teller joker',
             ach_hpot_jokexodia = 'Assemble the J.O.K.E.R.',
-            ach_hpot_clippy = 'Looks like you\'re trying to block ads, would you like some help?'
+            ach_hpot_clippy = 'Looks like you\'re trying to block ads, would you like some help?',
+            ach_hpot_ffingers = 'Scale a Loss joker to 4X',
+            ach_hpot_candyland_tobu = 'Obtain... jimbo?... is he even real?... (Check out the VanillaRemade github repo for a guide on how to mod balatro)'
         }
     }
 }

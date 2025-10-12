@@ -56,16 +56,14 @@ function CardArea:align_cards()
     if self.config.hotpot_shop then
         for _, card in ipairs(self.cards or {}) do
             if not card.pissdrawer then
-                card.pissdrawer = {original_scale = card.T.scale, original_VT_scale = card.VT.scale}
-                card.T.scale = card.T.scale * PissDrawer.shop_scale
-                card.VT.scale = card.VT.scale * PissDrawer.shop_scale
+                card.pissdrawer = true
+                card:hotpot_resize(PissDrawer.shop_scale)
             end
         end
     else
          for _, card in ipairs(self.cards or {}) do
             if card.pissdrawer then
-                card.T.scale = card.pissdrawer.original_scale
-                card.VT.scale = card.pissdrawer.original_VT_scale
+                card:hotpot_resize(1/PissDrawer.shop_scale)
                 card.pissdrawer = nil
             end
         end
@@ -243,6 +241,11 @@ PissDrawer.Shop.change_shop_panel = function(shop_ui, pre, post, areas)
         main_shop_body.UIBox:add_child(shop_ui(), main_shop_body)
     if post then post(areas) end
     main_shop_body.UIBox:recalculate()
+    if #G.jokers.highlighted > 0 then
+        for _, joker in ipairs(G.jokers.highlighted) do
+            joker:highlight(true)
+        end
+    end
 end
 
 G.FUNCS.return_to_shop = function()
@@ -929,41 +932,50 @@ function Card:highlight(highlighted)
     elseif self.area == G.hp_jtem_delivery_queue then
         PissDrawer.Shop.create_delivery_refund_button(self)
     end
-    if not self.highlighted then
-        if self.children.hpot_reforge_button then
-            self.children.hpot_reforge_button:remove()
-            self.children.hpot_reforge_button = nil
-        end
-        if self.children.hp_nursery_buttons then
-            self.children.hp_nursery_buttons:remove()
-            self.children.hp_nursery_buttons = nil
-        end
-        if self.children.hpot_move_to_train then
-            self.children.hpot_move_to_train:remove()
-            self.children.hpot_move_to_train = nil
-        end
+    -- Clean up old buttons
+    if self.children.hpot_reforge_button then
+        self.children.hpot_reforge_button:remove()
+        self.children.hpot_reforge_button = nil
     end
+    if self.children.hp_nursery_buttons then
+        self.children.hp_nursery_buttons:remove()
+        self.children.hp_nursery_buttons = nil
+    end
+    if self.children.hpot_move_to_train then
+        self.children.hpot_move_to_train:remove()
+        self.children.hpot_move_to_train = nil
+    end
+    if self.ability.consumeable then
+        G.hpot_training_consumable_highlighted = nil
+    end
+    if self.children.hpot_train_button then
+        self.children.hpot_train_button:remove()
+        self.children.hpot_train_button = nil
+    end
+
     if self.highlighted and PissDrawer.Shop.active_tab == 'hotpot_nursery' and self.ability.set == 'Joker' then
         PissDrawer.Shop.create_nursery_buttons(self)
     end
     if self.highlighted and PissDrawer.Shop.active_tab == 'hotpot_shop_tab_hotpot_tname_toggle_reforge' and self.ability.set == 'Joker' then
         self.children.hpot_reforge_button = UIBox{
             definition = PissDrawer.Shop.reforge_emplace(self),
-            config = {
-            align = "bmi",
-            offset ={x=0,y=0.5},
-            parent = self
-            }
+            config = {align = "bmi", offset ={x=0,y=0.5}, parent = self}
         }
     end
     if self.highlighted and PissDrawer.Shop.active_tab == 'hotpot_shop_tab_hotpot_pissdrawer_toggle_training' and self.ability.hp_jtem_mood and self.ability.set == 'Joker' then
         self.children.hpot_move_to_train = UIBox{
             definition = PissDrawer.Shop.training_emplace(self),
-            config = {
-            align = "bmi",
-            offset ={x=0,y=0.5},
-            parent = self
-            }
+            config = {align = "bmi", offset ={x=0,y=0.5}, parent = self}
+        }
+    end
+    if self.ability.hpot_train_increase and self.highlighted and self.ability.consumeable then
+        -- set this as the highlighted consumeable
+        G.hpot_training_consumable_highlighted = self
+    end
+    if self.ability.set == "Joker" and not self.ability.hp_jtem_mood and G.jokers and self.area == G.jokers and (PissDrawer.Shop.active_tab ~= 'hotpot_shop_tab_hotpot_tname_toggle_reforge' and PissDrawer.Shop.active_tab ~= 'hotpot_nursery') then
+        self.children.hpot_train_button = UIBox{
+            definition = hpot_joker_train_button_definition(self),
+            config = {align = "bmi", offset ={x=0,y=0.7}, parent = self}
         }
     end
 end
@@ -1028,6 +1040,7 @@ function G.FUNCS.can_emplace_training(e)
 end
 
 function PissDrawer.Shop.black_market()
+    G.harvest_cost = G.harvest_cost or 0
     return
     {n=G.UIT.C, config = {align = 'tm', minh = 8}, nodes = {
         PissDrawer.Shop.help_button('black_market_help'),

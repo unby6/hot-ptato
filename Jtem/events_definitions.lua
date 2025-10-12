@@ -4502,7 +4502,7 @@ HotPotato.CombatEvents.generic = {
 			end
 		end
 
-		if context.debuff_hand and (effect.debuff or effect.set_to_zero) then
+		if context.debuff_hand and (effect.debuff or effect.set_to_zero or effect.one_hand_type or effect.no_repeat_hands) then
 			local set_to_zero = false
 			local debuff = false
 			if context.scoring_name == G.GAME.current_round.most_played_poker_hand then
@@ -5327,7 +5327,7 @@ HotPotato.EventStep {
 		end
 		if aces > 0 then
 			for i=1, aces do
-				if count <= 11 then print('High ace') count = count + 10 else break end
+				if count <= 11 then count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
@@ -5355,7 +5355,7 @@ HotPotato.EventStep {
 		end
 		if aces > 0 then
 			for i=1, aces do
-				if count <= 11 then print('High ace') count = count + 10 else break end
+				if count <= 11 then count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count

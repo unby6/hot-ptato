@@ -5,7 +5,6 @@ function Blind:click()
         self.states.drag.can = false
 
         for _,joker in pairs(found) do
-            joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
             SMODS.scale_card(joker, {
                 ref_table = joker.ability.extra,
                 ref_value = "score",
@@ -24,7 +23,7 @@ end
 
 SMODS.Joker {
     key = "idle",
-    rarity = 2,
+    rarity = 1,
     cost = 5,
     atlas = "hc_jokers",
     pos = {x = 2, y = 0},
@@ -40,7 +39,8 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     calc_dollar_bonus = function(self, card)
-        return (#tostring(card.ability.extra.score)) * card.ability.extra.money
+        local score = (#tostring(card.ability.extra.score))
+        return score > 0 and (score * card.ability.extra.money) or nil
     end,
     calculate = function(self, card, context)
         if context.main_eval and context.end_of_round then

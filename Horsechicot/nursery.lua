@@ -190,6 +190,9 @@ function Horsechicot.breed(mother, father)
         if G.GAME.child_sec == 'j_hpot_loss' then
             G.GAME.child_sec_ability.extra.Xmult = sec_card.ability.extra.Xmult + sec_card.ability.extra.gain
         end
+        if (G.GAME.child_prio_ability.extra.Xmult or G.GAME.child_sec == 'j_hpot_loss' and G.GAME.child_sec_ability.extra.Xmult or 1) > 3 then
+            check_for_unlock({type = 'ffingers'})
+        end    
     else
         local poll = pseudorandom("hc_breed_result")
         --we choose which parent to make a new joker of || not anymore, quantum time
@@ -315,14 +318,7 @@ function nursery()
                         card.ability.is_primary_mother = G.GAME.child_colour == G.C.HPOT_PINK
                         update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
                             child_prio.pos)
-                        --make children smaller
-                        card.T.h = card.T.h * 0.75
-                        card.T.w = card.T.w * 0.75
-
-                        card.children.center.scale_mag = math.min(
-                            card.children.center.atlas.px/card.T.w,
-                            card.children.center.atlas.py/card.T.h
-                        )
+                        card:hotpot_resize(0.75)
 
                         card.ability.is_nursery_smalled = true
 

@@ -381,6 +381,38 @@ SMODS.Joker {
     end
 }
 
+-- Vanilla Remade reference lmao
+-- First we save the original function to a local variable
+-- This will also save any other hooks made before
+local card_add_to_deck_ref = Card.add_to_deck
+-- Then we make another function with the same parameters as the original
+-- As a reminder, this is equivalent to `function Card.add_to_deck(self, from_debuff)`
+function Card:add_to_deck(from_debuff)
+    local function log(...) end
+
+    -- Here we optionally add any code we want to run before the function
+    log("Doing something before the original code")
+
+    -- We then run the original and save its return to a variable
+    -- (The arguments, in this case `self` and `from_debuff`, can be modified by your code if necessary)
+    -- Keep in mind the original function could also have multiple return values.
+    local ret = card_add_to_deck_ref(self, from_debuff)
+
+    -- Here we optionally add any code we want to run after the function
+    log("Doing something after the original code")
+
+    -- Finally we return the original return.
+    -- (`ret` can be modified by your code if necessary)
+    
+    -- This is where we deviate from the example to add the achievement
+    if self.config.center_key == "j_hpot_vremade_joker" then
+        check_for_unlock({type = 'candyland_tobu'})
+    end
+
+    -- Now back to the example
+
+    return ret
+end
 SMODS.Joker {
     key = "smods",
     hotpot_credits = {

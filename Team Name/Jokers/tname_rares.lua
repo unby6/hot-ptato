@@ -13,7 +13,7 @@ SMODS.Joker {
 	config = {
 		extra = {
 			functions = { -- values for your stuff, like card.ability.extra[whatever]
-				Corobo = { a = 1, b = 0.1 },
+				Corobo = { a = 1, b = 0.1, pats = 0, pat_increment_1 = 1, pat_increment_2 = 0.1, pat_reward = 0 },
 				GhostSalt = { 1.5 },
 				GoldenLeaf = { 20 },
 				Jogla = { 2 },
@@ -66,6 +66,14 @@ SMODS.Joker {
 						scalar_value = "b",
 					})
 					return { xmult = fuck.Corobo.a }
+				end
+				
+				if context.joker_main then
+					local chip_bonus = card.ability.extra.functions.Corobo.pat_reward
+					local chip_value = 50 -- hardcoded because secret :3
+					
+					card.ability.extra.functions.Corobo.pat_reward = 0
+					return { chips = chip_bonus * chip_value }
 				end
 			end,
 			GhostSalt = function(self, card, context)

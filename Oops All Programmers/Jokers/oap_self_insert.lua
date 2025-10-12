@@ -17,7 +17,7 @@ SMODS.Joker {
             modifiers = 2,
             multiplier = 4,
             modifier_resets = 2,
-            gain = 2
+            gain = 1
         },
         astra_effect = {},
         wix_effect = {
@@ -153,7 +153,7 @@ SMODS.Joker {
         if card.ability.extra.effect == "wix" and context.individual and context.cardarea == G.play and context.other_card:get_id() == 12 then
             return {
                 xchips = card.ability.wix_effect.xchips,
-                xchip_message = { message = localize{type='variable',key='a_xchips',vars={card.ability.wix_effect.xchips}}, sound = "hpot_forgiveness", colour = G.C.CHIPS }
+                xchip_message = { message = localize{type='variable',key='a_xchips',vars={card.ability.wix_effect.xchips}}, sound = "hpot_forgiveness", volume = 0.5, colour = G.C.CHIPS }
             }
         end
 
@@ -319,42 +319,44 @@ SMODS.Joker {
         end
 
         -- liafeon
-        if card.ability.extra.effect == "liafeon" and context.scoring_name == "High Card" and G.GAME.current_round.hands_played == 0 then
-            for i, v in ipairs(context.scoring_hand) do
-                G.E_MANAGER:add_event(
-                    Event({
-                        trigger = 'after',
-                        delay = 0.15,
-                        func = function()
-                            v:flip()
-                            card:juice_up(0.3, 0.3)
-                            play_sound('card1', 0.15);v:juice_up(0.3, 0.3)
-                            return true
-                        end
-                    })
-                )
-                G.E_MANAGER:add_event(
-                    Event({
-                        trigger = 'after',
-                        delay = 0.1,
-                        func = function()
-                            v:change_suit("Hearts")
-                            return true
-                        end
-                    })
-                )
-                G.E_MANAGER:add_event(
-                    Event({
-                        trigger = 'after',
-                        delay = 0.15,
-                        func = function()
-                            v:flip()
-                            play_sound('tarot2', percent, 0.6)
-                            v:juice_up(0.3, 0.3)
-                            return true
-                        end
-                    })
-                )
+        if card.ability.extra.effect == "lia" then
+            if context.before and context.scoring_name == "High Card" and G.GAME.current_round.hands_played == 0 then
+                for i, v in ipairs(context.scoring_hand) do
+                    G.E_MANAGER:add_event(
+                        Event({
+                            trigger = 'after',
+                            delay = 0.15,
+                            func = function()
+                                v:flip()
+                                card:juice_up(0.3, 0.3)
+                                play_sound('card1', 0.15);v:juice_up(0.3, 0.3)
+                                return true
+                            end
+                        })
+                    )
+                    G.E_MANAGER:add_event(
+                        Event({
+                            trigger = 'after',
+                            delay = 0.1,
+                            func = function()
+                                v:change_suit("Hearts")
+                                return true
+                            end
+                        })
+                    )
+                    G.E_MANAGER:add_event(
+                        Event({
+                            trigger = 'after',
+                            delay = 0.15,
+                            func = function()
+                                v:flip()
+                                play_sound('tarot2', percent, 0.6)
+                                v:juice_up(0.3, 0.3)
+                                return true
+                            end
+                        })
+                    )
+                end
             end
         end
     end,

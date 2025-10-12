@@ -23,8 +23,11 @@ SMODS.Joker {
         }
     },
     calculate = function(self, card, context)
-        if context.other_joker and context.other_joker.config.center.pools.self_inserts then
-            return { xmult = card.ability.extra.xmult_per_self_insert }
+        if context.other_joker then
+            local pools = context.other_joker.config.center.pools or {}
+            if pools.self_inserts then
+                return { xmult = card.ability.extra.xmult_per_self_insert }
+            end
         end
     end,
     hotpot_credits = {

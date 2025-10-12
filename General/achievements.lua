@@ -195,3 +195,26 @@ SMODS.Achievement {
         return (args.type == 'clippy')
     end
 }
+
+-- chat im starting to think true should be the default value for bypass_all_unlocked in this file
+SMODS.Achievement {
+    key = 'ffingers',
+    bypass_all_unlocked = true,
+    hidden_name = false,
+    hidden_text = true,
+    -- reset_on_startup = true,
+    unlock_condition = function(self, args)
+        return (args.type == 'ffingers')
+    end
+}
+
+SMODS.Achievement {
+    key = 'candyland_tobu',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    reset_on_startup = true,
+    unlock_condition = function(self, args)
+        return (args.type == 'candyland_tobu')
+    end
+}

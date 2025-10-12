@@ -1,3 +1,11 @@
+local debug_state = false
+
+local function log(str)
+	if debug_state then	
+		print(str)
+	end
+end
+
 local remove_old = Card.remove
 function Card:remove()
     if self.added_to_deck or (self.area and (self.area == G.hand or self.area == G.deck)) then -- guys idfk what im doing please help me im begging please aaaaaaaaaaaaaaaaaaaaaa
@@ -74,6 +82,45 @@ function Card:click()
         play_sound("hpot_sfx_tname_flip")
         self:flip()
     end
+	
+	-- Shhhh
+	local corobo_id = 1
+	if self and self.area == G.jokers and self.config.center.key == 'j_hpot_tname_postcard' and G.GAME.current_team_name_member == corobo_id then
+		self.ability.extra.functions.Corobo.pats = self.ability.extra.functions.Corobo.pats + 1
+
+		local pat_count = self.ability.extra.functions.Corobo.pats
+		if pat_count % 10 == 0 then
+			log("Hidden Reward 1")
+			self.ability.extra.functions.Corobo.pat_reward = self.ability.extra.functions.Corobo.pat_reward + self.ability.extra.functions.Corobo.pat_increment_1
+		end
+		if pat_count % 100 == 0 then
+			log("Hidden Reward 2")
+			self.ability.extra.functions.Corobo.b = self.ability.extra.functions.Corobo.b + self.ability.extra.functions.Corobo.pat_increment_2
+		end
+		if pat_count % 1000 == 0 then
+			log("Hidden Reward 3")
+			ease_dollars(5)
+		end
+		if pat_count % 10000 == 0 then
+			log("Hidden Reward 4")
+			self.ability.extra.functions.Corobo.pat_increment_1 = self.ability.extra.functions.Corobo.pat_increment_1 * 2
+			self.ability.extra.functions.Corobo.pat_increment_2 = self.ability.extra.functions.Corobo.pat_increment_2 * 2
+		end
+		if pat_count % 100000 == 0 then
+			log("Hidden Reward 5")
+			local copy = copy_card(self)
+			copy:add_to_deck()
+			G.jokers:emplace(copy)
+		end
+		if pat_count >= 1000000 then
+			log("Hidden Reward 6")
+			self.ability.extra.functions.Corobo.pats = 0
+			win_game()
+		end
+		
+		log(pat_count)
+	end
+	
     return ret
 end
 
