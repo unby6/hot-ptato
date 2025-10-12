@@ -23,7 +23,7 @@ end
 
 SMODS.Joker {
     key = "idle",
-    rarity = 2,
+    rarity = 1,
     cost = 5,
     atlas = "hc_jokers",
     pos = {x = 2, y = 0},
