@@ -5390,8 +5390,19 @@ return {
                                 "{C:attention}Conceptualization{}",
                                 "of {C:red}Hanafuda Cards{}, {C:attention}some stickers,",
                                 "{C:attention}Reforging{} & {C:hpot_gtr}Modific{C:hpot_rtg}ations{} and others,",
-                                "Composer of the {C:attention}Reforge {}theme"
+                                "Composer of the {C:attention}Reforge{} theme"
                             },
+							{
+								"Also worked on:",
+								"{C:red}Alloy{}, {C:tarot}JoJo Mod{},",
+								"and {C:blue}Photon Mod Manager",
+							},
+							{
+								"My Message:",
+								"Meow!",
+								"{C:inactive}(If you pet me enough in-game, something will happen.",
+								"{C:inactive}You have to pet me a lot, though.)"
+							}
                         },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 0, y = 0 },
