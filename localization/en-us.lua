@@ -1539,8 +1539,8 @@ return {
                 name = "--[----->+<]>---.+++++.+.------.++++++++++++.+++++.",
                 text = {
                     "Create a {C:attention}Luchador{} if",
-                    "played hand contains {C:attention}5{} or more cards",
-                    "and is in rank order from",
+                    "played hand has {C:attention}5{} or more",
+                    "scored cards in rank order from",
                     "{C:red}lowest{} to {C:green}highest{}"
                 }
             },
@@ -1604,8 +1604,9 @@ return {
                 name = "Antidisestablishmentarianism",
                 text = {
                     "Disable the effect of the {C:attention}Boss Blind{}",
-                    "if played hand consists of",
-                    "only {C:attention}debuffed{} cards"
+                    "if played hand has {C:attention}3{} or more",
+                    "scored cards and all of them are {C:attention}debuffed{}",
+                    "{C:inactive}Once per round{}"
                 }
             },
             j_hpot_notajoker = {

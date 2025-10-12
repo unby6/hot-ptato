@@ -21,14 +21,17 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.after and context.main_eval and not context.blueprint then
             if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
-                local all_debuffed = true
-                for _, played_card in ipairs(G.play.cards) do
-                    if not played_card.debuff then
-                        all_debuffed = false
-                        break
+                local cards = context.scoring_hand
+                local all_debuffed = #cards >= 3
+                if all_debuffed then
+                    for _, played_card in ipairs(G.play.cards) do
+                        if not played_card.debuff then
+                            all_debuffed = false
+                            break
+                        end
                     end
                 end
-                if all_debuffed and #G.play.cards > 0 then
+                if all_debuffed then
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             if to_big(G.GAME.chips - G.GAME.blind.chips) >= to_big(0) then return true end
