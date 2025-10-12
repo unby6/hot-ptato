@@ -287,13 +287,7 @@ SMODS.Joker {
 }
 
 function hpot_jtem_scale_card(card, key)
-    SMODS.scale_card(card, {
-        ref_table = card.ability.extra,
-        ref_value = key,
-        scalar_value = key .. "_mod",
-        operation = "+",
-        no_message = true
-    })
+    
 end
 
 SMODS.Joker {
@@ -305,27 +299,33 @@ SMODS.Joker {
     cost = 6,
     blueprint_compat = true,
     calculate = function(self, card, context)
-        if context.after and mult and hand_chips then
+        if context.after and not context.blueprint then
+            local shattered_count = 0
+            local survived_count = 0
             for k, v in pairs(context.scoring_hand) do
-                if SMODS.has_enhancement(v, "m_glass") and not v.shattered then
-                    hpot_jtem_scale_card(card, "xmult")
-                    G.E_MANAGER:add_event(Event {
-                        func = function()
-                            v:juice_up()
-                            return true
-                        end
-                    })
-                    SMODS.calculate_effect({
-                        message = localize('k_upgrade_ex'),
-                        delay = 0.4
-                    }, card)
+                if SMODS.has_enhancement(v, "m_glass") then
+                    if v.shattered then
+                        shattered_count = shattered_count + 1
+                    else
+                        survived_count = survived_count + 1
+                    end
                 end
             end
-        end
-        if context.remove_playing_cards and context.scoring_hand then
-            ease_plincoins(card.ability.extra.cion * #context.removed)
-            card_eval_status_text(card, 'jokers', nil, nil, nil,
-                { message = "Plink +" .. tostring(card.ability.extra.cion * #context.removed) .. "", colour = G.C.MONEY })
+            if survived_count > 0  then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_mod",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + survived_count * change
+                    end,
+                })
+            end
+            if shattered_count > 0 then
+                ease_plincoins(card.ability.extra.cion * shattered_count)
+                card_eval_status_text(card, 'jokers', nil, nil, nil,
+                    { message = "Plink +" .. tostring(card.ability.extra.cion * shattered_count) .. "", colour = G.C.MONEY })
+            end
         end
         if context.joker_main then
             return {
