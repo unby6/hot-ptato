@@ -1541,7 +1541,8 @@ return {
                     "Create a {C:attention}Luchador{} if",
                     "played hand has {C:attention}5{} or more",
                     "scored cards in rank order from",
-                    "{C:red}lowest{} to {C:green}highest{}"
+                    "{C:red}lowest{} to {C:green}highest{}",
+                    "{C:inactive,s:0.75}(Ace counts as lowest){}"
                 }
             },
             j_hpot_precognition = {
