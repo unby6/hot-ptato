@@ -31,6 +31,7 @@ SMODS.Joker {
                 if all_debuffed and #G.play.cards > 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
+                            if to_big(G.GAME.chips - G.GAME.blind.chips) >= to_big(0) then return true end
                             G.GAME.blind:disable()
                             play_sound('tarot1', 1.0)
                             card:juice_up(0.5, 0.5)
