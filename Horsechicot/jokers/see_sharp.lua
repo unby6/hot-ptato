@@ -4,7 +4,7 @@ SMODS.Joker {
     cost = 5,
     atlas = "hc_jokers",
     pos = { x = 7, y = 1 },
-    config = { extra = { reset = 12, left = 12 } },
+    config = { extra = { reset = 8, left = 8 } },
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
