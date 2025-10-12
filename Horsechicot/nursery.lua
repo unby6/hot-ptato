@@ -188,6 +188,9 @@ function Horsechicot.breed(mother, father)
         G.GAME.child_prio_ability = copy_table(loss_card.ability)
         G.GAME.child_sec_ability = copy_table(sec_card.ability)
         G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
+        if (G.GAME.loss_child_xmult or 1) > 3 then
+            check_for_unlock({type = 'ffingers'})
+        end    
     else
         local poll = pseudorandom("hc_breed_result")
         --we choose which parent to make a new joker of || not anymore, quantum time
