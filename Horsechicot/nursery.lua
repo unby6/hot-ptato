@@ -100,7 +100,6 @@ function G.FUNCS.nursery_abort(e)
         G.nursery_child.cards[1]:remove()
     end
     G.GAME.active_breeding = false
-    G.GAME.loss_child_xmult = nil
     SMODS.calculate_effect { card = G.nursery_mother.cards[1], message = localize("k_hotpot_aborted") }
 end
 
@@ -187,7 +186,10 @@ function Horsechicot.breed(mother, father)
         G.GAME.child_sec = sec_card.config.center.key
         G.GAME.child_prio_ability = copy_table(loss_card.ability)
         G.GAME.child_sec_ability = copy_table(sec_card.ability)
-        G.GAME.loss_child_xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
+        G.GAME.child_prio_ability.extra.Xmult = loss_card.ability.extra.Xmult + loss_card.ability.extra.gain
+        if G.GAME.child_sec == 'j_hpot_loss' then
+            G.GAME.child_sec_ability.extra.Xmult = sec_card.ability.extra.Xmult + sec_card.ability.extra.gain
+        end
     else
         local poll = pseudorandom("hc_breed_result")
         --we choose which parent to make a new joker of || not anymore, quantum time
