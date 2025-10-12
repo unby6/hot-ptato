@@ -56,16 +56,14 @@ function CardArea:align_cards()
     if self.config.hotpot_shop then
         for _, card in ipairs(self.cards or {}) do
             if not card.pissdrawer then
-                card.pissdrawer = {original_scale = card.T.scale, original_VT_scale = card.VT.scale}
-                card.T.scale = card.T.scale * PissDrawer.shop_scale
-                card.VT.scale = card.VT.scale * PissDrawer.shop_scale
+                card.pissdrawer = true
+                card:hotpot_resize(PissDrawer.shop_scale)
             end
         end
     else
          for _, card in ipairs(self.cards or {}) do
             if card.pissdrawer then
-                card.T.scale = card.pissdrawer.original_scale
-                card.VT.scale = card.pissdrawer.original_VT_scale
+                card:hotpot_resize(1/PissDrawer.shop_scale)
                 card.pissdrawer = nil
             end
         end

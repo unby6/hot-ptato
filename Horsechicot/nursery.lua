@@ -316,14 +316,7 @@ function nursery()
                         card.ability.is_primary_mother = G.GAME.child_colour == G.C.HPOT_PINK
                         update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
                             child_prio.pos)
-                        --make children smaller
-                        card.T.h = card.T.h * 0.75
-                        card.T.w = card.T.w * 0.75
-
-                        card.children.center.scale_mag = math.min(
-                            card.children.center.atlas.px/card.T.w,
-                            card.children.center.atlas.py/card.T.h
-                        )
+                        card:hotpot_resize(0.75)
 
                         card.ability.is_nursery_smalled = true
 
