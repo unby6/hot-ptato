@@ -1028,6 +1028,7 @@ function G.FUNCS.can_emplace_training(e)
 end
 
 function PissDrawer.Shop.black_market()
+    G.harvest_cost = G.harvest_cost or 0
     return
     {n=G.UIT.C, config = {align = 'tm', minh = 8}, nodes = {
         PissDrawer.Shop.help_button('black_market_help'),
