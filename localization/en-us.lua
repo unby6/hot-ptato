@@ -3860,9 +3860,9 @@ return {
             tag_hpot_plincoin = {
                 name = "Plincoin Tag",
                 text = {
-                    "After defeating",
+                    "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
+                    "after defeating",
                     "the Boss Blind,",
-                    "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                 },
             },
             tag_hpot_jokerexchange = {
