@@ -5018,6 +5018,8 @@ return {
                                 "{s:0.8}and {s:0.8,C:attention}balancing",
                                 "{s:0.3,C:black}you can't even read this :sob:",
                                 "{s:0.7,C:inactive}did you know? now you do",
+                                "{s:0.6} ",
+                                "{s:0.7,C:inactive}artwork by {s:0.7}dottykitty",
                             },
                             {
                                 "{s:1.2,X:hpot_stupid,C:hpot_smart}meow{}",

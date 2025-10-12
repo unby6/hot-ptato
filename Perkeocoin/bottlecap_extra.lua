@@ -15,7 +15,7 @@ SMODS.Shader { key = "bottlecap", path = "bottlecap.fs" }
 
 local function calculate_color(color)
     
-    local color_shift = math.sin(G.TIMERS.REAL % (2 * math.pi)) * 0.2
+    local color_shift = math.sin(G.TIMERS.REAL % (2 * math.pi)) * 0.16
     if color_shift > 0 then
         return darken(color, color_shift)
     else
@@ -28,7 +28,7 @@ function Game:update(...)
     colors.Common = calculate_color(G.C.BLUE)
     colors.Uncommon = calculate_color(G.C.GREEN)
     colors.Rare = calculate_color(G.C.RED)
-    colors.Legendary = calculate_color(G.C.DARK_EDITION)
+    colors.Legendary = calculate_color(SMODS.Gradients["hpot_plincoin"])
     colors.Bad = calculate_color(G.C.GREY)
 
     return game_update(self, ...)
@@ -48,7 +48,7 @@ SMODS.DrawStep {
                     shader = 'hpot_bottlecap',
                     other_obj = self.children.center,
                     ms = self.ability.extra.chosen == 'Legendary' 
-                            and 2.70
+                            and 2.75
                             or 2.67,
                     mx = 0.5,
                     my = 0.42,

@@ -220,11 +220,11 @@ function PlinkoUI.f.update_plinko_rewards(shuffle)
     func = (function()
       PlinkoLogic.f.generate_rewards()
 
-        if shuffle then
-          G.plinko_rewards:shuffle('plink')
-        end
-        PlinkoUI.f.adjust_rewards()
-        return true
+      if shuffle then
+        G.plinko_rewards:shuffle('plink')
+      end
+      PlinkoUI.f.adjust_rewards()
+      return true
     end)
   }))
 end
@@ -502,6 +502,7 @@ function update_plinko(dt)
                             if G.GAME.load_plinko_rewards then
                               G.plinko_rewards:load(G.GAME.load_plinko_rewards)
                               G.GAME.load_plinko_rewards = nil
+                              PlinkoUI.f.adjust_rewards()
                             end
 
                             -- Back to shop button
