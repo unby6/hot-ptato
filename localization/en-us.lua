@@ -5400,8 +5400,8 @@ return {
 							{
 								"My Message:",
 								"Meow!",
-								"{C:inactive}(If you pet me enough in-game, something will happen.",
-								"{C:inactive}You have to pet me a lot, though.)"
+								"{C:inactive}(If you pat me enough in-game, something will happen.",
+								"{C:inactive}You have to pat me a lot, though.)"
 							}
                         },
                         atlas = "hpot_tname_jokers2",
