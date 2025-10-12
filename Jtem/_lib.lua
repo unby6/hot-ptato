@@ -13,7 +13,7 @@ end
 SMODS.Gradient {
     key = 'plincoin',
     colours = {G.C.MONEY, G.C.GREEN},
-    cycle = 1.5
+    cycle = 2
 }
 SMODS.Gradient {
     key = 'advert',
