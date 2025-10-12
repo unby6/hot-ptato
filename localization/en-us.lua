@@ -1413,8 +1413,8 @@ return {
                 name = "JankMan",
                 text = {
                     "{C:inactive}hahahahaha, im jankMan!",
-                    "{X:mult,C:white}#1#X{} {C:green}mult{} per {C:purple}sticker{} {C:attention}on{} {C:edition}this Joker{}",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} mjult)"
+                    "  +    {X:mult,C:white}#1#X{} {C:green}mult{} per {C:purple}sticker{} {C:attention}on{} {C:edition}this jkoker{}",
+                    "{C:inactive}(crurrently{X:mult,C:white}X#2#{C:inactive} mjult)" -- i SWEAR TO GOD if ANYONE adds the space back i will find them and i will KILL them
                 }
             },
             j_hpot_aurae_joker = {
