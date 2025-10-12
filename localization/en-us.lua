@@ -5246,6 +5246,14 @@ return {
                             },
                         },
                     },
+                    {
+                        name = "HonuKane",
+                        text = {
+                            {
+                                '{C:attention}Artist'
+                            },
+                        },
+                    },
                 }
             },
             [3] = {
