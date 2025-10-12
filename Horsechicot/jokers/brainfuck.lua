@@ -17,16 +17,18 @@ SMODS.Joker {
         if context.joker_main then
             local cards = context.scoring_hand
             local last = -math.huge
-            local should_trigger = true
-            --classic straight check
-            ---@diagnostic disable-next-line: param-type-mismatch
-            for _, card in ipairs(cards) do
-                local id = card:get_id() --
-                if id < last then
-                    should_trigger = false
-                    break
-                else
-                    last = id
+            local should_trigger = #cards >= 5
+            if should_trigger then
+                --classic straight check
+                ---@diagnostic disable-next-line: param-type-mismatch
+                for _, card in ipairs(cards) do
+                    local id = card:get_id() --
+                    if id < last then
+                        should_trigger = false
+                        break
+                    else
+                        last = id
+                    end
                 end
             end
             --make luchador

@@ -1539,8 +1539,9 @@ return {
                 name = "--[----->+<]>---.+++++.+.------.++++++++++++.+++++.",
                 text = {
                     "Create a {C:attention}Luchador{} if",
-                    "played hand is in rank",
-                    "order {C:red}lowest{} to {C:green}highest{}"
+                    "played hand contains {C:attention}5{} or more cards",
+                    "and is in rank order from",
+                    "{C:red}lowest{} to {C:green}highest{}"
                 }
             },
             j_hpot_precognition = {
