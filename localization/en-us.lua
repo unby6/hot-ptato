@@ -1581,7 +1581,7 @@ return {
             j_hpot_c_sharp = {
                 name = "C#3#",
                 text = {
-                    "Disable the effect of the {C:attention}Boss Blind{}",
+                    "Disable current {C:attention}Boss Blind{}",
                     "every {C:attention}#1#{} {C:inactive}[#2#]{} hands played"
                 }
             },

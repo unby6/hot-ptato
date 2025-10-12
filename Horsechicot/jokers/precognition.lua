@@ -4,7 +4,7 @@ SMODS.Joker {
     cost = 6,
     config = {
         mult = 0,
-        mult_mod = 5
+        mult_mod = 4
     },
     atlas = "hc_jokers",
     pos = {x = 3, y = 0},
@@ -20,9 +20,9 @@ SMODS.Joker {
                     ref_value = "mult",
                     scalar_value = "mult_mod"
                 })
-                play_sound("hpot_correct")
+                play_sound("hpot_correct", nil, 0.25)
             else
-                play_sound("hpot_buzzer")
+                play_sound("hpot_buzzer", nil, 0.15)
                 G.GAME.precognition_guess = nil
             end
         end
