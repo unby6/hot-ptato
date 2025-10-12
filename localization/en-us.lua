@@ -925,7 +925,7 @@ return {
                 }
             },
             j_hpot_recycling = {
-                ['name'] = 'recycling',
+                ['name'] = 'Recycling',
                 ['text'] = {
                     [1] = 'Earn {C:money}$#1#{} each time',
                     [2] = 'a {C:attention}Bottlecap{} is used'
