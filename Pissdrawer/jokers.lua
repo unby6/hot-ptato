@@ -393,9 +393,10 @@ local card_add_to_deck_ref = Card.add_to_deck
 -- Then we make another function with the same parameters as the original
 -- As a reminder, this is equivalent to `function Card.add_to_deck(self, from_debuff)`
 function Card:add_to_deck(from_debuff)
+    local function log(...) end
 
     -- Here we optionally add any code we want to run before the function
-    print("Doing something before the original code")
+    log("Doing something before the original code")
 
     -- We then run the original and save its return to a variable
     -- (The arguments, in this case `self` and `from_debuff`, can be modified by your code if necessary)
@@ -403,7 +404,7 @@ function Card:add_to_deck(from_debuff)
     local ret = card_add_to_deck_ref(self, from_debuff)
 
     -- Here we optionally add any code we want to run after the function
-    print("Doing something after the original code")
+    log("Doing something after the original code")
 
     -- Finally we return the original return.
     -- (`ret` can be modified by your code if necessary)

@@ -5327,7 +5327,7 @@ HotPotato.EventStep {
 		end
 		if aces > 0 then
 			for i=1, aces do
-				if count <= 11 then print('High ace') count = count + 10 else break end
+				if count <= 11 then count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
@@ -5355,7 +5355,7 @@ HotPotato.EventStep {
 		end
 		if aces > 0 then
 			for i=1, aces do
-				if count <= 11 then print('High ace') count = count + 10 else break end
+				if count <= 11 then count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
