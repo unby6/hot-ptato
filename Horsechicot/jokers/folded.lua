@@ -9,7 +9,7 @@ SMODS.Joker {
     perishable_compat = true,
     config = { extra = { unscoring = 3, mult = 20 } },
     calculate = function(self, card, context)
-        if context.joker_main and (#context.full_hand - #context.scoring_hand) > card.ability.extra.unscoring then
+        if context.joker_main and (#context.full_hand - #context.scoring_hand) >= card.ability.extra.unscoring then
             return {
                 mult = card.ability.extra.mult
             }
