@@ -216,7 +216,8 @@ SMODS.Joker({
 		extra = {
 			xmult = 0.75,
 			credits = 30,
-			hands = 0
+			hands = 0,
+			fuckshit = true
 		},
 	},
     cost = 6,
@@ -235,13 +236,14 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
 		if context.end_of_round then
-			HPTN.ease_credits(hpt.credits * hpt.hands)
-			if card.ability.perish_tally < 1 then
+			if hpt.fuckshit then HPTN.ease_credits(hpt.credits * hpt.hands) hpt.fuckshit = false end
+			if (card.ability.perish_tally or 1.0001) < 1 then
 				check_for_unlock({type = 'frums'})
 			end
 		end
 		if context.setting_blind then
 			hpt.hands = 0
+			hpt.fuckshit = true
 		end
 		if context.press_play then
 			hpt.hands = hpt.hands + 1
