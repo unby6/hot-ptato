@@ -4,7 +4,7 @@ SMODS.Joker {
     cost = 6,
     config = {
         mult = 0,
-        mult_mod = 3
+        mult_mod = 4
     },
     atlas = "hc_jokers",
     pos = {x = 3, y = 0},
