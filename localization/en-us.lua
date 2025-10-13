@@ -5223,14 +5223,16 @@ return {
                         text = {
 							{
 								"I exist.",
-								"I did art."
+								"I did art.",
+								"and shader.",
 							},
 							{
-								"Also worked on:",
-								"{C:mult}Mayhem{}. yes",
-								"{C:edition}Cryptec{}",
-								"{C:attention}Ortalab{}",
-								"And Revo's Vault.",
+								"Also contributed to:",
+								"{C:mult}Mayhem{},{C:edition}Cryptid{}",
+								"{C:attention}Ortalab{},{C:blue}Revo's Vault{}",
+								"the forbidden {C:purple}tangents{} mod",
+								"{C:inactive}im sorry i had to{}",
+								"and more i forgot about."
 							},
 							{
 								"My message:",
@@ -6318,6 +6320,7 @@ return {
             k_hotpot_badsocial = "oh my god bruh",
             k_hotpot_scurvy = "Scurvy!",
             k_hotpot_rocks = "God Valley!",
+            k_hotpot_leek = "Hot pot leek!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",
