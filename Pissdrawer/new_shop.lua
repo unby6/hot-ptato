@@ -114,7 +114,7 @@ function PissDrawer.Shop.currency_display()
             'spark_points', no_bump = true
             }),
             jank,
-            {
+            not G.GAME.modifiers.hpot_plinko_4ever and {
                n=G.UIT.C,
                 config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1 },
                 nodes = {
@@ -284,7 +284,7 @@ function G.UIDEF.shop()
     return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
                 {n=G.UIT.C, config = {align = 'cm'}, nodes = {
                     -- Buttons across top of shop to swtich between different shop areas
-                    {n=G.UIT.R, config = {align = 'bl', minh = 0.8, colour = G.C.CLEAR, padding = -0.2}, nodes = {
+                    {n=G.UIT.R, config = {align = 'bl', minh = 0.8, colour = G.C.CLEAR, padding = -0.2}, nodes = not G.GAME.modifiers.hpot_plinko_4ever and { -- Don't show these tab nodes if playing Plinko 4Ever
                         {n=G.UIT.B, config = {w = 0.75, h=0.1}},
                         PissDrawer.Shop.tab_button({
                             atlas = 'hpot_pissdrawer_shop_icons', destination = 'return_to_shop', label = ' Shop'

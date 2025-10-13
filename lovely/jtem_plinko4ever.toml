@@ -15,28 +15,33 @@ pattern = '''if not G.STATE_COMPLETE then
 payload = '''
 local plinko = false
 if G.GAME.modifiers.hpot_plinko_4ever then
-	G.FUNCS.show_plinko()
-	plinko = true
-	G.shop_booster = CardArea(
-      G.hand.T.x+0,
-      G.hand.T.y+G.ROOM.T.y + 9,
-      1.2*G.CARD_W,
-      1.15*G.CARD_H, 
-      {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
-	-- Dummy card areas. These will never appear in the plinko shop
-	G.shop_jokers = CardArea(
-      0, 0,
-      G.CARD_W*2,
-      G.CARD_H, 
-      {card_limit = 1, type = 'shop', highlight_limit = 1})
-	G.shop_jokers.states.visible = false
+    G.E_MANAGER:add_event(Event({ 
+        func = function() 
+            G.FUNCS.open_plinko()
+            plinko = true
+            G.shop_booster = CardArea(
+            G.hand.T.x+0,
+            G.hand.T.y+G.ROOM.T.y + 9,
+            1.2*G.CARD_W,
+            1.15*G.CARD_H, 
+            {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
+            -- Dummy card areas. These will never appear in the plinko shop
+            G.shop_jokers = CardArea(
+            0, 0,
+            G.CARD_W*2,
+            G.CARD_H, 
+            {card_limit = 1, type = 'shop', highlight_limit = 1})
+            G.shop_jokers.states.visible = false
 
-    G.shop_vouchers = CardArea(
-      0, 0,
-      G.CARD_W,
-      G.CARD_H, 
-      {card_limit = 1, type = 'shop', highlight_limit = 1})
-	G.shop_vouchers.states.visible = false
+            G.shop_vouchers = CardArea(
+            0, 0,
+            G.CARD_W,
+            G.CARD_H, 
+            {card_limit = 1, type = 'shop', highlight_limit = 1})
+            G.shop_vouchers.states.visible = false
+            return true 
+        end
+    }))
 end
 '''
 match_indent = true
