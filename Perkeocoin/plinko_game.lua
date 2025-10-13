@@ -32,7 +32,7 @@ PlinkoGame = {
     s = {
         meter = 150,
         acceleration_x = 0,
-        acceleration_y = 9.81,
+        acceleration_y = 6.81,
         world_width = 660,  -- x
         world_height = 590, -- y
 
@@ -50,10 +50,10 @@ PlinkoGame = {
         ball_density = 1,
         -- How much velocity is saved after collision?
         -- range: [0.0, 1.0]
-        ball_bounce = 0.85,
+        ball_bounce = 0.75,
 
-        wall_height = 110,
-        wall_width = 5,
+        wall_height = 100,
+        wall_width = 3,
 
         moving_pegs = false,
         peg_speed = 25, -- per second
@@ -80,7 +80,7 @@ PlinkoGame = {
 --#region Testing how draw game relative to the center of the screen
 
 local screen_w, screen_h
-local world_T = {x = 0, y = 0, w = 8.000, h = 7.195}
+local world_T = {x = 0, y = 0, w = 7.000, h = 6.195}
 
 local function t_x(x)
     return to_pixels(
@@ -109,15 +109,12 @@ end
 --#endregion
 
 function PlinkoGame.f.draw()
+    if not G.shop then return end
   if PlinkoGame.world == 'undefined' then
     return
   end
   if PlinkoLogic.STATE == PlinkoLogic.STATES.CLOSED then
       return
-  end
-
-  if not G.plinko or not G.plinko_rewards then
-    return
   end
   
   PlinkoUI.f.init_sprites()
@@ -125,9 +122,9 @@ function PlinkoGame.f.draw()
   -- update window size
   screen_w, screen_h = love.window.getMode()
   -- update transform to use cardarea width
-  world_T = {x = -3.6 + 0.588, y = -3. + 0.701, w = 8, h = 7.195}
+  world_T = {x = -3.6 + 0.588, y = -3. + 0.701, w = 7, h = 5.5}
 
-  local plinking = G.plinko:get_UIE_by_ID("plinking_area")
+  local plinking = G.shop:get_UIE_by_ID("plinking_area")
   if plinking then
     PlinkoGame.UI = {
       x = plinking.VT.x,
@@ -140,7 +137,7 @@ function PlinkoGame.f.draw()
 
   love.graphics.push()
   -- draw properly with screenshake
-  G.plinko:translate_container()
+  G.shop:translate_container()
   
   PlinkoGame.f.draw_objects()
   
@@ -512,8 +509,8 @@ function PlinkoGame.f.create_rewards()
         PlinkoGame.o["reward_"..tostring(i)] = fix {
             body = love.physics.newBody(
                 PlinkoGame.world,
-                world_offset.x + width * i - width/2, -- in the middle
-                world_offset.y + PlinkoGame.s.world_height - 1 -- at the bottom
+                world_offset.x + (width + 1) * i - width/2, -- in the middle
+                world_offset.y + PlinkoGame.s.world_height  -- at the bottom
             ),
             color = {i/PlinkoGame.s.world_width * 100/255, 255/255, i/PlinkoGame.s.world_width * 190/255},
             shape = love.physics.newRectangleShape(width, 1),
@@ -528,7 +525,7 @@ function PlinkoGame.f.create_rewards()
                 body = love.physics.newBody(
                     PlinkoGame.world,
                     world_offset.x + width * i, -- in the middle
-                    world_offset.y + PlinkoGame.s.world_height - wall_height/2 - 1 -- at the bottom
+                    world_offset.y + PlinkoGame.s.world_height - wall_height + 40 -- at the bottom
                 ),
                 shape = love.physics.newRectangleShape(wall_width, wall_height),
                 debug_draw = PlinkoGame.f.polygon,

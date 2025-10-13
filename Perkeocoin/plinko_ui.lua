@@ -199,7 +199,8 @@ end
 function PlinkoUI.f.adjust_rewards()
   for _, card in pairs(G.plinko_rewards.cards) do
     -- Scale down
-        card:hard_set_T(nil, nil, G.CARD_W * PlinkoUI.s.reward_area_w, G.CARD_H * PlinkoUI.s.reward_area_h);
+        -- card:hard_set_T(nil, nil, G.CARD_W * PlinkoUI.s.reward_area_w, G.CARD_H * PlinkoUI.s.reward_area_h);
+        card:hotpot_resize(0.8)
   end
 end
 
@@ -362,9 +363,17 @@ G.FUNCS.can_plinko = function(e)
   if PlinkoLogic.STATE ~= PlinkoLogic.STATES.IDLE or not PlinkoLogic.f.can_roll() then
       e.config.colour = G.C.UI.BACKGROUND_INACTIVE
       e.config.button = nil
+      e.config.hover = nil
+      for _, child in ipairs(e.children[1].children) do
+        child.children[1].config.object.colours = {G.C.UI.TEXT_INACTIVE}
+      end
   else
-      e.config.colour = G.C.MONEY
+      e.config.colour = SMODS.Gradients.hpot_plincoin
       e.config.button = 'start_plinko'
+      e.config.hover = true
+      for _, child in ipairs(e.children[1].children) do
+        child.children[1].config.object.colours = {G.C.UI.TEXT_LIGHT}
+      end
   end
 end
 
@@ -372,9 +381,17 @@ G.FUNCS.can_plinko_dollars = function(e)
   if PlinkoLogic.STATE ~= PlinkoLogic.STATES.IDLE or not PlinkoLogic.f.can_roll_dollars() then
       e.config.colour = G.C.UI.BACKGROUND_INACTIVE
       e.config.button = nil
+      e.config.hover = nil
+      for _, child in ipairs(e.children[1].children) do
+        child.children[1].config.object.colours = {G.C.UI.TEXT_INACTIVE}
+      end
   else
-      e.config.colour = G.C.GREEN
+      e.config.colour = G.C.GOLD
       e.config.button = 'start_plinko_dollars'
+      e.config.hover = true
+      for _, child in ipairs(e.children[1].children) do
+        child.children[1].config.object.colours = {G.C.UI.TEXT_LIGHT}
+      end
   end
 end
 
@@ -467,22 +484,16 @@ function update_plinko(dt)
       
         stop_use()
         ease_background_colour({new_colour = HEX('ffe96e'), special_colour = G.C.GREEN, tertiary_colour = darken( G.C.BLACK,0.1), contrast = 5})
-        local plinko_exists = not not G.plinko
-        G.plinko = G.plinko or UIBox{
-            definition = G.UIDEF.plinko(),
-            config = {align='tmi', offset = {x=0,y=G.ROOM.T.y+11},major = G.hand, bond = 'Weak'}
-        }
+        local plinko_exists = true
 
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.plinko.alignment.offset.y = -5.3
-                G.plinko.alignment.offset.x = 0
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.2,
                     blockable = false,
                     func = function()
-                        if math.abs(G.plinko.T.y - G.plinko.VT.y) < 3 then
+                        if math.abs(G.shop:get_UIE_by_ID('main_shop_body').T.y - G.shop:get_UIE_by_ID('main_shop_body').VT.y) < 3 then
                             G.ROOM.jiggle = G.ROOM.jiggle + 3
                             play_sound('cardFan2')
 
@@ -506,7 +517,6 @@ function update_plinko(dt)
                             end
 
                             -- Back to shop button
-                            G.CONTROLLER:snap_to({node = G.plinko:get_UIE_by_ID('shop_button')})
 
                             return true
                         end
@@ -556,7 +566,6 @@ G.FUNCS.hide_plinko = function(e)
   show_shop()
 
   PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED
-  G.plinko.alignment.offset.y = G.ROOM.T.y + 29
 
   G.E_MANAGER:add_event(Event({func = function()
       if G.shop then G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')}) end

@@ -4992,6 +4992,20 @@ return {
                 },
             },
         },
+        hotpot_plinko = {
+            name = "Plinko",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "pls explain plinko xoxo"
+                        },
+                    }
+                },
+            },
+        },
+        
         -- This is sorted by week!
         hotpot_credits = {
             -- Members format goes like this

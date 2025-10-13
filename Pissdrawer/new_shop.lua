@@ -214,6 +214,21 @@ G.FUNCS.open_nursery = function(e)
     ease_background_colour({new_colour = HEX("75cdff"), special_colour = HEX("ff8ff4"), tertiary_colour = darken(G.C.BLACK,0.1), contrast = 3})
 end
 
+G.FUNCS.open_plinko = function(e)
+    PissDrawer.Shop.active_tab = "hotpot_plinko"
+    PissDrawer.Shop.change_shop_sign('hpot_plinko_sign')
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.plinko, nil, PissDrawer.Shop.gen_plinko)
+    G.STATE = G.STATES.PLINKO
+    G.STATE_COMPLETE = false
+    PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
+    ease_background_colour({new_colour = HEX("75cdff"), special_colour = HEX("ff8ff4"), tertiary_colour = darken(G.C.BLACK,0.1), contrast = 3})
+end
+
+PissDrawer.Shop.gen_plinko = function()
+    PlinkoLogic.f.generate_rewards()
+    PlinkoUI.f.adjust_rewards()
+end
+
 PissDrawer.Shop.change_shop_sign = function(atlas, sound)
     local sign_sprite = G.SHOP_SIGN.UIRoot.children[1].children[1].children[1].config.object
     ease_background_colour_blind(G.STATES.SHOP)
@@ -235,10 +250,11 @@ PissDrawer.Shop.change_shop_sign = function(atlas, sound)
 end
 
 PissDrawer.Shop.change_shop_panel = function(shop_ui, pre, post, areas)
+    if PlinkoLogic.STATE ~= 0 then PlinkoLogic.STATE = 0; G.STATE = G.STATES.SHOP end
     local main_shop_body = G.shop:get_UIE_by_ID('main_shop_body')
     main_shop_body:remove()
     if pre then pre() end
-        main_shop_body.UIBox:add_child(shop_ui(), main_shop_body)
+    main_shop_body.UIBox:add_child(shop_ui(), main_shop_body)
     if post then post(areas) end
     main_shop_body.UIBox:recalculate()
     if #G.jokers.highlighted > 0 then
@@ -351,7 +367,7 @@ function PissDrawer.Shop.main_shop()
                 {n=G.UIT.O, config={object = G.shop_jokers}},
             }},
             {n=G.UIT.C, config = {align='cm', padding = 0.1}, nodes = {
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_plinko_button", button = 'show_plinko', shadow = true}, nodes = {
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_plinko_button", button = 'open_plinko', shadow = true}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 0, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
@@ -620,6 +636,10 @@ PissDrawer.Shop.help_button = function(func)
     }}
 end
 
+G.FUNCS.plinko_help = function()
+    G.FUNCS.hotpot_info{menu_type = "hotpot_plinko"}
+end
+
 G.FUNCS.delivery_help = function()
     G.FUNCS.hotpot_info{menu_type = "hotpot_delivery"}
 end
@@ -659,6 +679,9 @@ PissDrawer.Shop.area_keys.training = {
 }
 PissDrawer.Shop.area_keys.nursery = {
     'nursery_father', 'nursery_mother', 'nursery_child'
+}
+PissDrawer.Shop.area_keys.plinko = {
+    'plinko_rewards'
 }
 
 local car = CardArea.remove
@@ -849,7 +872,7 @@ function PissDrawer.Shop.create_nursery_buttons(card)
                     }}
                 }}
             }}
-            y = 0.54 + (card.ability.is_nursery_smalled and 0.2 or 0)
+            y = 0.64 + (card.ability.is_nursery_smalled and 0.2 or 0)
         end
         if not buttons then return end
 
@@ -1339,4 +1362,160 @@ function G.FUNCS.can_emplace_training(e)
         e.config.colour = G.C.BLUE
         e.config.button = 'training_return'
     end
+end
+
+function PissDrawer.Shop.plinko()
+    local reward_scale=  0.7
+    G.plinko_rewards = CardArea(
+        G.hand.T.x+0,
+        G.hand.T.y+9,
+        7.8,
+        PlinkoUI.s.reward_area_h/0.6*G.CARD_H,
+        {card_limit = PlinkoLogic.rewards.total, type = 'shop', highlight_limit = 0, plinko_rewards = true}
+    )
+
+    local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
+    local play_dollars = not not G.GAME.plinko_dollars_cost
+    local plinko_4ever = G.GAME.modifiers.hpot_plinko_4ever
+
+
+    return
+    {n=G.UIT.C, config = {align='tm', minh = 8}, nodes = {
+        PissDrawer.Shop.help_button('plinko_help'),
+        {n=G.UIT.R, config={align = "tm"}, nodes={
+            {n=G.UIT.C, config={align = "tm"}, nodes={
+                {n=G.UIT.R, config = {minh = 0.8}},
+                {n=G.UIT.R, config={align = "cm", padding = -0.3}, nodes={
+                    {n=G.UIT.C, config={minw = 0.6}},
+                    {n=G.UIT.C, config={colour=G.C.L_BLACK, padding = 0.15, r=0.1}, nodes = {
+                        {n=G.UIT.C, config={align='bm', minw = 2.6, r=0.1, colour = G.C.BLACK}, nodes = {
+                            {n=G.UIT.R, config = {align = 'cm', minw = 1, colour = G.C.BLACK, r=0.2}, nodes = {
+                                {n=G.UIT.C, config = {align = 'cm', padding = 0.1}, nodes = {
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.O, config={id = 'reset_plinko', object = DynaText({string = {{ref_table = G.GAME.current_round.plinko_cost_reset, ref_value = use_ante and 'ante_left' or 'rounds_left', prefix = 'Resets in ', suffix = use_ante and localize('hotpot_plinko_reset2_ante') or localize('hotpot_plinko_reset2_round')}},
+                                            colours = {G.C.L_BLACK}, maxw = 2.3, scale = 0.5})}}
+                                    }},
+                                    -- {n=G.UIT.R, config = {minh = 0.1}},
+                                    {n=G.UIT.R, config = {align='cm', minw = 1, r=0.1, padding = 0.1}, nodes = {
+                                        {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                                            G.GAME.plinko_dollars_cost and {n=G.UIT.R, config = {align='cm', padding = 0.2}, nodes = {
+                                                {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, padding = 0.05, r = 0.05, minh=0.45, minw = 1.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align='cl', colour = G.C.BLACK, minw = 0.5, r = 0.05, hover = true, button_dist = 0, button = 'toggle_plinko_cost'}, nodes = {
+                                                        {n=G.UIT.C, config = {align = 'cm', colour = SMODS.Gradients.hpot_plincoin, r=0.1, minw=0.3, minh = 0.3}, nodes = {
+                                                            {n=G.UIT.T, config = {text = '$', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, font = SMODS.Fonts.hpot_plincoin}}
+                                                        }},
+                                                        {n=G.UIT.C, config = {align = 'cr', colour = G.C.CLEAR, r=0.1, minw=0.3, minh = 0.3}, nodes = {
+                                                            {n=G.UIT.T, config = {text = '»', colour = G.C.UI.TEXT_INACTIVE, scale = 0.3, font = SMODS.Fonts.hpot_plincoin}}
+                                                        }},
+                                                        {n=G.UIT.C, config = {align = 'cm', colour = G.C.CLEAR, r=0.1, minw=0.3, minh = 0.3}, nodes = {
+                                                            {n=G.UIT.T, config = {text = '$', colour = G.C.UI.TEXT_INACTIVE, scale = 0.3}}
+                                                        }}
+                                                    }}
+                                                }},
+                                            }} or {n=G.UIT.R, config = {minh = 0.7}},
+                                            {n=G.UIT.R, config={align='cm', padding = -0.25, minw = 2.5}, nodes = {
+                                                {n=G.UIT.C, config = {align='cm', padding = 0.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = SMODS.Gradients.hpot_plincoin, cost_up = 3, func = 'handle_plinko_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }},
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = G.C.UI.TEXT_DARK, cost_up = 2, func = 'handle_plinko_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }},
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = G.C.UI.TEXT_DARK, cost_up = 1, func = 'handle_plinko_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }}
+                                                }},
+                                                {n=G.UIT.C, config = {align = 'cm', padding = 0.1, r=0.1, colour = G.C.L_BLACK}, nodes = {
+                                                    {n=G.UIT.C, config = {hover = true, button = 'start_plinko', button_dist = 0.1, func = 'can_plinko', align = 'cm', minw = 1.4, maxw = 1.4, colour = SMODS.Gradients.hpot_plincoin, emboss=-0.03, r=0.2, padding = 0.1}, nodes = {
+                                                        {n=G.UIT.R, config = {align = 'cm', padding = 0.1}, nodes = {
+                                                            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                                                {n=G.UIT.O, config={object = DynaText({string = {{string = 'Play'}},
+                                                                colours = {G.C.WHITE}, maxw = 1.6, shadow = true, spacing = 2, scale = 0.5})}},
+                                                            }},
+                                                            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                                                {n=G.UIT.O, config={id = 'plinko_cost', object = DynaText({string = {{ref_table = G.GAME.current_round, ref_value = 'plinko_roll_cost', prefix = '$', font = SMODS.Fonts.hpot_plincoin}},
+                                                                colours = {G.C.WHITE}, maxw = 1.6, shadow = true, spacing = 2, scale = 0.5})}}
+                                                            }}
+                                                        }},
+                                                        
+                                                    }},
+                                                }},
+                                                {n=G.UIT.C, config = {align='cm', padding = 0.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {minw=0.5}}
+                                                    }}
+                                                }},
+                                            }},
+                                        }}
+                                    }},
+                                    {n=G.UIT.R, config = {minh = 0.15}},
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.T, config={text = 'Increases after', scale = 0.35, colour = G.C.L_BLACK}},
+                                    }},
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.T, config={text = '3 plays', scale = 0.35, colour = G.C.L_BLACK}},
+                                    }}
+                                }},
+                            }},
+                        }},
+                    }},
+                
+                }},
+            }},
+            {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 6.8}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r=0.2, minh = 4, maxh=5 }, nodes={
+                    {n=G.UIT.R, config={id = "plinking_area", align = "tm", colour = G.C.BLACK, r=0.2,  padding = 0., minw = 7, maxw = 7, minh = 5, maxh=5}, nodes={
+                    
+                    }},
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.O, config={object = G.plinko_rewards}}
+                    }},
+                }},
+            }},
+        }}
+    }}
+end
+
+function G.FUNCS.toggle_plinko_cost(e)
+    local container = e
+    local cost = container.UIBox:get_UIE_by_ID('plinko_cost')
+    if container.config.align == 'cl' then
+        -- dollars
+        container.config.align = 'cr'
+        e.children[3].config.colour = G.C.GOLD
+        e.children[1].config.colour = G.C.CLEAR
+        e.children[1].children[1].config.colour = G.C.UI.TEXT_INACTIVE
+        e.children[3].children[1].config.colour = G.C.UI.TEXT_LIGHT
+        e.children[2].config.align = 'cm'
+        e.children[2].children[1].config.text = '«'
+        cost.config.object.config.string[1].ref_value = 'plinko_roll_cost_dollars'
+        cost.config.object.config.string[1].font = nil
+        cost.parent.parent.parent.config.colour = G.C.GOLD
+        cost.parent.parent.parent.config.func = 'can_plinko_dollars'
+        cost.parent.parent.parent.config.button = 'start_plinko_dollars'
+        PissDrawer.Shop.plinko_dollars = true
+    else
+        -- plincoins
+        container.config.align = 'cl'
+        e.children[1].config.colour = SMODS.Gradients.hpot_plincoin
+        e.children[3].config.colour = G.C.CLEAR
+        e.children[1].children[1].config.colour = G.C.UI.TEXT_LIGHT
+        e.children[3].children[1].config.colour = G.C.UI.TEXT_INACTIVE
+        e.children[2].config.align = 'cr'
+        e.children[2].children[1].config.text = '»'
+        cost.config.object.config.string[1].ref_value = 'plinko_roll_cost'
+        cost.config.object.config.string[1].font = SMODS.Fonts.hpot_plincoin
+        cost.parent.parent.parent.config.colour = SMODS.Gradients.hpot_plincoin
+        cost.parent.parent.parent.config.func = 'can_plinko'
+        cost.parent.parent.parent.config.button = 'start_plinko'
+        PissDrawer.Shop.plinko_dollars = nil
+    end
+    cost.config.object:update_text(true)
+    container.UIBox:recalculate()
+end
+
+function G.FUNCS.handle_plinko_colour(e)
+    e.config.active = not PissDrawer.Shop.reset_plinko_counter and (3 - (G.GAME.current_round.plinko_rolls % 3)) >= e.config.cost_up
+    e.config.colour = PissDrawer.Shop.plinko_dollars and G.C.GOLD or SMODS.Gradients.hpot_plincoin
+    e.config.colour = e.config.active and e.config.colour or G.C.BLACK
 end
