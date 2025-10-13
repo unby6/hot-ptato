@@ -1,27 +1,54 @@
-local css = Card.set_sprites
-function Card:set_sprites(c, f)
-    css(self, c, f)
-    if self.config.center and self.config.center.pos_extra and (self.config.center.discovered or (self.params and self.params.bypass_discovery_center)) then
-        if not self.children.front then
-            self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h,
-                G.ASSET_ATLAS[self.config.center.atlas_extra or self.config.center.atlas],
-                self.config.center.pos_extra)
-            self.children.front.states.hover = self.states.hover
-            self.children.front.states.click = self.states.click
-            self.children.front.states.drag = self.states.drag
-            self.children.front.states.collide.can = false
-            self.children.front:set_role({ major = self, role_type = 'Glued', draw_major = self })
-        else
-            self.children.front:set_sprite_pos(self.config.center.pos_extra)
-        end
+SMODS.DrawStep {
+  key = 'extra',
+  order = 21,
+  func = function(self, layer)
+    if not self.hpot_extra and self.config.center.pos_extra then
+      local atlas = G.ASSET_ATLAS[self.config.center.atlas_extra or self.config.center.atlas]
+      self.hpot_extra = Sprite(0, 0, atlas.px, atlas.py,
+        atlas, self.config.center.pos_extra)
     end
-end
+    if self.hpot_extra then
+      if self.config.center.discovered or (self.params and self.params.bypass_discovery_center) then
+        self.hpot_extra:set_sprite_pos(self.config.center.pos_extra)
+        self.hpot_extra.role.draw_major = self
+        if (self.edition and self.edition.negative and (not self.delay_edition or self.delay_edition.negative)) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
+          self.hpot_extra:draw_shader('negative', nil, self.ARGS.send_to_shader, nil, self.children.center)
+        elseif not self:should_draw_base_shader() then
+        elseif not self.greyed then
+          self.hpot_extra:draw_shader('dissolve', nil, nil, nil, self.children.center)
+        end
 
-local cd = Card.draw
-function Card:draw(layer)
-    if self.config and self.config.center and self.config.center.pos_extra then self:set_sprites() end
-    cd(self, layer)
-end
+        if self.ability.name == 'Invisible Joker' and (self.config.center.discovered or self.bypass_discovery_center) then
+          if self:should_draw_base_shader() then
+            self.hpot_extra:draw_shader('voucher', nil, self.ARGS.send_to_shader, nil, self.children.center)
+          end
+        end
+
+        local center = self.config.center
+        if center.draw_extra and type(center.draw_extra) == 'function' then
+          self.hpot_extra:draw_extra(self, layer)
+        end
+
+        local edition = self.delay_edition or self.edition
+        if edition then
+          for k, v in pairs(G.P_CENTER_POOLS.Edition) do
+            if edition[v.key:sub(3)] and v.shader then
+              if type(v.draw) == 'function' then
+                v:draw(self, layer)
+              else
+                self.hpot_extra:draw_shader(v.shader, nil, self.ARGS.send_to_shader, nil, self.children.center)
+              end
+            end
+          end
+        end
+        if (edition and edition.negative) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
+          self.hpot_extra:draw_shader('negative_shine', nil, self.ARGS.send_to_shader, nil, self.children.center)
+        end
+      end
+    end
+  end,
+  conditions = { vortex = false, facing = 'front' },
+}
 
 
 

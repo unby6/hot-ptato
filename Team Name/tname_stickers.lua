@@ -375,7 +375,7 @@ SMODS.Sticker({
 		if context.setting_blind then
 			local stickers = {}
 			for k, v in pairs(SMODS.Stickers) do
-				if (card.ability[k] or card[k]) and k ~= "hpot_cannibal" then
+				if (card.ability[k] or card[k]) and k ~= "hpot_cannibal" and k ~= "hpot_jtem_mood" then
 					stickers[#stickers + 1] = k
 				end
 			end
@@ -426,7 +426,7 @@ SMODS.Sticker({
 		if context.setting_blind then
 			local stickers, remove_stickers = {}, {}
 			for k, v in pairs(SMODS.Stickers) do
-				if k ~= "hpot_binary" then
+				if k ~= "hpot_binary" and k ~= 'hpot_jtem_mood' then
 					if not card.ability[k] and not card[k] then
 						stickers[#stickers+1] = k
 					else
