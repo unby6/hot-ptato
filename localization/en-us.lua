@@ -5001,8 +5001,15 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "pls explain plinko xoxo"
+                            "Spend {C:hpot_plincoin}Plincoins{} to drop the {C:attention}ball", 
+                            "and {C:attention}obtain{} the {C:green}bottlecap{} the ball lands on"
                         },
+                        {
+                            '{C:money}Dollars{} can also be used after redeeming {C:attention}"Currency Exchange".',
+                            "After the {C:attention}voucher{} is redeemed", 
+                            "the {C:money}currency{} can be changed by selecting",
+                            "it above the play button"
+                        }
                     }
                 },
             },
