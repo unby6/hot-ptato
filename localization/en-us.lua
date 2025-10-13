@@ -6318,6 +6318,7 @@ return {
             k_hotpot_badsocial = "oh my god bruh",
             k_hotpot_scurvy = "Scurvy!",
             k_hotpot_rocks = "God Valley!",
+            k_hotpot_leek = "Hot pot leek!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",
