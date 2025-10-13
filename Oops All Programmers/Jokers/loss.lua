@@ -2,8 +2,8 @@ SMODS.Joker {
     key = 'loss',
     atlas = 'oap_jokers',
     pos = {x = 2, y = 1},
-    rarity = 2,
-    cost = 6,
+    rarity = 3,
+    cost = 7,
     config = {
         extra = {
             Xmult = 1,
