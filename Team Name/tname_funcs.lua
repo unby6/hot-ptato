@@ -35,7 +35,7 @@ end
 function remove_all_stickers(card)
     if card then
         for k, v in pairs(SMODS.Stickers) do
-            if card.ability[k] or card[k] then
+            if (card.ability[k] or card[k]) and k ~= 'hpot_jtem_mood' then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = function()
