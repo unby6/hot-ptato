@@ -24,6 +24,7 @@ function ease_spark_points(mod, instant)
 			cover_colour = col,
 			align = 'cm',
 		})
+        dollar_UI.config.object:pop_in(0.01)
 		local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_spark_points')
         if hpot_dollar_ui then
             attention_text({
