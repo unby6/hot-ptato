@@ -56,10 +56,13 @@ function PlinkoLogic.f.reset_plinko()
 end
 
 function PlinkoLogic.f.generate_rewards()
-  if PissDrawer.Shop['load_plinko_rewards'] then
-    G.plinko_rewards:load(PissDrawer.Shop['load_plinko_rewards'])
+  local load_rewards = PissDrawer.Shop['load_plinko_rewards']
+  if load_rewards then
     PissDrawer.Shop.load_plinko_rewards = nil
-    return
+    if load_rewards.cards and #load_rewards.cards > 0 then
+      G.plinko_rewards:load(load_rewards)
+      return
+    end
   end
   local tipping_my_point = SMODS.find_card("j_hpot_tipping_point", false)
   local extra_rare = tipping_my_point and #tipping_my_point or 0
@@ -159,15 +162,29 @@ function PlinkoLogic.f.won_reward(reward_num)
         play_sound('hpot_bottlecap')
       end
 
-      PlinkoUI.f.update_plinko_rewards(true)
-      
-      PlinkoLogic.f.update_roll_cost()
-      PlinkoLogic.f.reset_plinko()
+      G.E_MANAGER:add_event(Event({
+        func = function()
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              PlinkoUI.f.update_plinko_rewards(true)
+              PlinkoLogic.f.update_roll_cost()
 
+              G.E_MANAGER:add_event(Event({
+                func = function()
+                  PlinkoLogic.f.reset_plinko()
+                  if card and not card.config.center.ignore_save then
+                      save_run();
+                  end
+                  return true
+                end,
+              }))
+              return true
+            end
+          }))
+          return true
+        end,
+      }))
 
-      if card and not card.config.center.ignore_save then
-        G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
-      end
       return true
     end
   }))
