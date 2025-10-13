@@ -59,8 +59,7 @@ if hpot_dollar_ui then
         hold = 0.7,
         cover = hpot_dollar_ui,
         cover_colour = col,
-        align = 'cm',
-        font = SMODS.Fonts.hpot_plincoin
+        align = 'cm'
     })
 end
 '''

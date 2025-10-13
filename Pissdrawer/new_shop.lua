@@ -175,6 +175,15 @@ function PissDrawer.Shop.tab_button(args)
 end
 
 G.FUNCS.shop_tab_active = function(e)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        e.config.button = nil
+    else
+        e.config.button = "toggle_shop_tab"
+    end
     if e.config.id == PissDrawer.Shop.active_tab then
         e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2)
         if e.config.minh ~= 1.1 then

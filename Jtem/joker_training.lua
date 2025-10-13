@@ -202,6 +202,67 @@ function hpot_calc_stat_multiplier(card, stat)
 	return multiplier
 end
 
+local function format_stat_effect(stat, value)
+    if stat == "speed" then
+        local speed = value - 200
+        local retriggers, percent = 0, 0
+        if speed > 0 then
+            retriggers = math.floor(speed / 1000)
+            percent = math.fmod(speed, 1000) / 1000 * 100
+        end
+        if retriggers > 0 then
+            return SMODS.localize_box(loc_parse_string("{C:attention}#1#+#2#%{} retrigger"), {
+                vars = { retriggers, percent },
+                scale = 0.7,
+                text_colour = G.C.UI.TEXT_INACTIVE
+            })
+        else
+            return SMODS.localize_box(loc_parse_string("{C:attention}#1#%{} to retrigger"), {
+                vars = { percent },
+                scale = 0.7,
+                text_colour = G.C.UI.TEXT_INACTIVE
+            })
+        end
+    elseif stat == "wits" then
+        local percent = math.floor(value <= 150 and 0 or ((value - 150) / 50)) * 100
+        return SMODS.localize_box(loc_parse_string("{C:attention}+#1#%{} sell cost"), {
+            vars = { percent },
+            scale = 0.7,
+            text_colour = G.C.UI.TEXT_INACTIVE
+        })
+    elseif stat == "stamina" then
+        local percent = math.min(value / 800, 0.9) * 100
+        return SMODS.localize_box(loc_parse_string("{C:attention}-#1#%{} energy cost"), {
+            vars = { percent },
+            scale = 0.7,
+            text_colour = G.C.UI.TEXT_INACTIVE
+        })
+    elseif stat == "power" then
+        local xvalue = 1 + ((value / 800) * 100) / 100
+        return SMODS.localize_box(loc_parse_string("{X:chips,C:white}X#1#{} & {X:mult,C:white}X#2#{}"), {
+            vars = { xvalue, xvalue },
+            scale = 0.7,
+            text_colour = G.C.UI.TEXT_INACTIVE
+        })
+    elseif stat == "guts" then
+        local scale_value = value > 150 and ((value - 150) / 200) * 100 or 0
+        return SMODS.localize_box(loc_parse_string("{C:attention}+#1#%{} Joker values"), {
+            vars = { scale_value },
+            scale = 0.7,
+            text_colour = G.C.UI.TEXT_INACTIVE
+        })
+    elseif stat == "energy_income" then
+        local income_value = mood_to_passive_energy[value]
+        return SMODS.localize_box(loc_parse_string("{C:attention}+#1#{}/round"), {
+            vars = { income_value },
+            scale = 0.7,
+            text_colour = G.C.UI.TEXT_INACTIVE
+        })
+    else
+        return {}
+    end
+end
+
 -- Taken from training grounds
 local function create_stat_display(stat, values, multipliers)
 	local rank, col = hpot_get_rank_and_colour(values[stat])
@@ -214,71 +275,81 @@ local function create_stat_display(stat, values, multipliers)
 		subcol = G.C.HP_JTEM.RANKS[subrank == "S" and "SS" or subrank] or G.C.UI.TEXT_DARK
 	end
 	return {
-		n = G.UIT.R,
-		config = { align = "cm", padding = 0.05 },
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = { align = "cm" },
-				nodes = {
-					{
-						n = G.UIT.R,
-						nodes = {
-							{
-								n = G.UIT.C,
-								config = { align = "bm" },
-								nodes = {
-									{ n = G.UIT.T, config = { text = rank, scale = 0.6, colour = col, shadow = true } },
-								}
-							},
-							subrank and {
-								n = G.UIT.C,
-								config = { align = "bm" },
-								nodes = {
-									{ n = G.UIT.T, config = { text = subrank, scale = 0.4, colour = subcol, shadow = true } },
-								}
-							} or nil
-						}
-					}
-				}
-			},
-            { n = G.UIT.C, config = { minw = 0.05 }},
-			{
-				n = G.UIT.C,
-				config = { align = "cm" },
-				nodes = {
-					{
-						n = G.UIT.R,
-						config = { align = "cm" },
-						nodes = {
-							{ n = G.UIT.T, config = { ref_table = values, ref_value = stat, scale = 0.425, colour = G.C.UI.TEXT_DARK } },
-						}
-					},
-                    { n = G.UIT.R, config = { minh = 0.02 } },
-					{
-						n = G.UIT.R,
-						config = { align = "cm" },
-						nodes = {
-							{ n = G.UIT.T, config = { text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK } },
-						}
-					},
-                    { n = G.UIT.R, config = { minh = 0.02 } },
-					-- stat multiplier
-					{
-						n = G.UIT.R,
-						config = { align = "cm" },
-						nodes = {
-							{ n = G.UIT.T, config = { text = "+", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
-							{ n = G.UIT.T, config = { text = (multipliers[stat] - 1) * 100, scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
-							{ n = G.UIT.T, config = { text = "%", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
-						}
-					},
-				}
-			},
-		}
-
-
-	}
+        n = G.UIT.C,
+        config = { align = "cm" },
+        nodes = {
+            {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0.05 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm" },
+                        nodes = {
+                            {
+                                n = G.UIT.R,
+                                nodes = {
+                                    {
+                                        n = G.UIT.C,
+                                        config = { align = "bm" },
+                                        nodes = {
+                                            { n = G.UIT.T, config = { text = rank, scale = 0.6, colour = col, shadow = true } },
+                                        }
+                                    },
+                                    subrank and {
+                                        n = G.UIT.C,
+                                        config = { align = "bm" },
+                                        nodes = {
+                                            { n = G.UIT.T, config = { text = subrank, scale = 0.4, colour = subcol, shadow = true } },
+                                        }
+                                    } or nil
+                                }
+                            }
+                        }
+                    },
+                    { n = G.UIT.C, config = { minw = 0.05 }},
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm" },
+                        nodes = {
+                            {
+                                n = G.UIT.R,
+                                config = { align = "cm" },
+                                nodes = {
+                                    { n = G.UIT.T, config = { ref_table = values, ref_value = stat, scale = 0.425, colour = G.C.UI.TEXT_DARK } },
+                                }
+                            },
+                            { n = G.UIT.R, config = { minh = 0.02 } },
+                            {
+                                n = G.UIT.R,
+                                config = { align = "cm" },
+                                nodes = {
+                                    { n = G.UIT.T, config = { text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK } },
+                                }
+                            },
+                            { n = G.UIT.R, config = { minh = 0.02 } },
+                            -- stat multiplier
+                            -- idk what to do with it. Is it really that important to show in info queue?
+                            -- {
+                            -- 	n = G.UIT.R,
+                            -- 	config = { align = "cm" },
+                            -- 	nodes = {
+                            -- 		{ n = G.UIT.T, config = { text = "+", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+                            -- 		{ n = G.UIT.T, config = { text = (multipliers[stat] - 1) * 100, scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+                            -- 		{ n = G.UIT.T, config = { text = "%", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
+                            -- 	}
+                            -- },
+                        }
+                    },
+                }
+            },
+            {
+                n = G.UIT.R,
+                config = { align = "cm" },
+                nodes = format_stat_effect(stat, values[stat]) or {}
+            }
+        }
+    }
 end
 
 -- Mood stickers
@@ -398,9 +469,7 @@ SMODS.Sticker {
 				hpot_jtem_misprintize({ val = c.ability, amt = 1 + ((((stats.guts - 150) / 200) * 100) / 100) })
 			end
 		end)
-		if stats.wits and stats.wits > 150 then
-            card.sell_cost = math.ceil(card.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50))
-		end
+        card:set_cost()
 	end,
 	draw = function(self, card, layer)
 		local val = card.ability["hp_jtem_mood"] or "normal"
@@ -476,46 +545,60 @@ SMODS.Sticker {
                 n = G.UIT.C,
 				config = { align = "cm", minw = w, maxw = w, minh = h, maxh = h },
 				nodes = {
-					{
-                        n = G.UIT.R,
+                    {
+                        n = G.UIT.C,
                         config = { align = "cm" },
                         nodes = {
                             {
-                                n = G.UIT.T,
-                                config = {
-                                    ref_table = card.ability,
-                                    ref_value = 'hp_jtem_energy',
-                                    colour = energy_colour,
-                                    scale = 0.425
-                                }
+                                n = G.UIT.R,
+                                config = { align = "cm", padding = 0.05 },
+                                nodes = {
+                                    {
+                                        n = G.UIT.C,
+                                        config = { align = "cm" },
+                                        nodes = {
+                                            {
+                                                n = G.UIT.R,
+                                                config = { align = "cm" },
+                                                nodes = {
+                                                    {
+                                                        n = G.UIT.T,
+                                                        config = {
+                                                            ref_table = card.ability,
+                                                            ref_value = 'hp_jtem_energy',
+                                                            colour = energy_colour,
+                                                            scale = 0.425
+                                                        }
+                                                    },
+                                                },
+                                            },
+                                            { n = G.UIT.R, config = { minh = 0.02 } },
+                                            {
+                                                n = G.UIT.R,
+                                                config = { align ="cm" },
+                                                nodes = {
+                                                    {
+                                                        n = G.UIT.T,
+                                                        config = {
+                                                            text = '/100', -- no support for dynamic max energy cap? What a lame Aiko
+                                                            colour = G.C.UI.TEXT_DARK,
+                                                            scale = 0.3
+                                                        }
+                                                    },
+                                                }
+                                            },
+                                            { n = G.UIT.R, config = { minh = 0.02 } },
+                                        }
+                                    }
+                                },
                             },
-                        },
-                    },
-                    { n = G.UIT.R, config = { minh = 0.02 } },
-                    {
-                        n = G.UIT.R,
-                        config = { align ="cm" },
-                        nodes = {
                             {
-                                n = G.UIT.T,
-                                config = {
-                                    text = '/100', -- no support for dynamic max energy cap? What a lame Aiko
-                                    colour = G.C.UI.TEXT_DARK,
-                                    scale = 0.3
-                                }
+                                n = G.UIT.R,
+                                config = { align = "cm" },
+                                nodes = format_stat_effect("energy_income", card.ability['hp_jtem_mood'] or "normal")
                             },
                         }
-                    },
-                    { n = G.UIT.R, config = { minh = 0.02 } },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {
-                            { n = G.UIT.T, config = { text = "+", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
-                            { n = G.UIT.T, config = { text = mood_to_passive_energy[card.ability["hp_jtem_mood"] or "normal"], scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } },
-                            { n = G.UIT.T, config = { text = "/round", scale = 0.2, colour = G.C.UI.TEXT_INACTIVE } }, -- localize? Who is this guy?
-                        }
-                    },
+                    }
 				}
             }
         end
@@ -535,36 +618,36 @@ SMODS.Sticker {
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-								        create_stat_header("speed", 1.6),
-										create_stat_header("stamina", 1.6),
-										create_stat_header("power", 1.6),
+								        create_stat_header("speed", 1.75),
+										create_stat_header("stamina", 1.75),
+										create_stat_header("power", 1.75),
 									}
 								},
                                 {
                                     n = G.UIT.R,
-                                    config = { align = "cm", colour = G.C.WHITE, r = 0.15 },
+                                    config = { align = "cm", colour = G.C.WHITE, r = 0.15, padding = 0.05 },
                                     nodes = {
-									    create_stat("speed", 1.6),
-										create_stat("stamina", 1.6),
-										create_stat("power", 1.6),
+									    create_stat("speed", 1.75),
+										create_stat("stamina", 1.75),
+										create_stat("power", 1.75),
                                     }
                                 },
 								{
 									n = G.UIT.R,
 									config = { align = "cm" },
 									nodes = {
-										create_stat_header("guts", 1.6),
-										create_stat_header("wits", 1.6),
-										create_stat_header("energy", 1.6)
+										create_stat_header("guts", 1.75),
+										create_stat_header("wits", 1.75),
+										create_stat_header("energy", 1.75)
 									}
 								},
                                 {
                                     n = G.UIT.R,
-                                    config = { align = "cm", colour = G.C.WHITE, r = 0.15 },
+                                    config = { align = "cm", colour = G.C.WHITE, r = 0.15, padding = 0.05 },
                                     nodes = {
-										create_stat("guts", 1.6),
-										create_stat("wits", 1.6),
-                                        create_energy_stat(1.6)
+										create_stat("guts", 1.75),
+										create_stat("wits", 1.75),
+                                        create_energy_stat(1.75)
                                     }
                                 },
 							}

@@ -201,10 +201,7 @@ function Card:mod_training_stat(stat, num)
                     hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
                 end
             end)
-            -- Wit
-            if stats.wits and stats.wits > 150 then
-                self.sell_cost = math.ceil(self.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50))
-            end
+            self:set_cost()
         else
             -- energy isnt a traditional stat like everything else
             self.ability.hp_jtem_energy = math.min(math.max(0, (self.ability.hp_jtem_energy or 0) + num), 100)

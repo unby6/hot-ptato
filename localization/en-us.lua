@@ -906,7 +906,7 @@ return {
                 ['text'] = {
                     [1] = 'Create {C:attention}#2#{} {C:hpot_czech}#3#',
                     [2] = 'if {C:attention}Cash Out{} is',
-                    [3] = '{C:money}$#1#{} or smaller'
+                    [3] = '{C:money}$#1#{} or more'
                 }
             },
             j_hpot_balatro_premium = {
@@ -3860,9 +3860,9 @@ return {
             tag_hpot_plincoin = {
                 name = "Plincoin Tag",
                 text = {
-                    "After defeating",
+                    "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
+                    "after defeating",
                     "the Boss Blind,",
-                    "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                 },
             },
             tag_hpot_jokerexchange = {
@@ -5001,8 +5001,15 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "pls explain plinko xoxo"
+                            "Spend {C:hpot_plincoin}Plincoins{} to drop the {C:attention}ball", 
+                            "and {C:attention}obtain{} the {C:green}bottlecap{} the ball lands on"
                         },
+                        {
+                            '{C:money}Dollars{} can also be used after redeeming {C:attention}"Currency Exchange".',
+                            "After the {C:attention}voucher{} is redeemed", 
+                            "the {C:money}currency{} can be changed by selecting",
+                            "it above the play button"
+                        }
                     }
                 },
             },
@@ -5137,7 +5144,7 @@ return {
                                 '{C:attention}Musician{},',
                                 '{C:attention}Ideas person{} and',
                                 '{C:attention}A little bit of code{}',
-                                '{C:inactive}also i added a couple small easter eggs and drew this clippy!Ralsei'
+                                '{C:inactive}also i added a bunch of achievements and drew this clippy!Ralsei'
                             },
                             {
                                 'I did a small amount compared to everyone else,',
