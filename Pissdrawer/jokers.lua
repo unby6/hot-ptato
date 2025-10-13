@@ -11,8 +11,8 @@ SMODS.Joker {
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
-        if context.using_consumeable and card and card.config.center and card.config.center.set == 'bottlecap' and card.ability.extra.chosen == 'Bad' then
-            if G.GAME.current_round and G.GAME.current_round.plinko_preroll_cost and G.GAME.current_round.plinko_preroll_cost ~= 0 then
+        if context.using_consumeable and context.consumeable and G.plinko_rewards and context.area == G.plinko_rewards then
+            if context.consumeable.ability.set == 'bottlecap' and context.consumeable.ability.extra.chosen == 'Bad' then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
@@ -31,7 +31,7 @@ SMODS.Joker {
                     }
                 end
             end
-        end
+        end 
         return nil, true
     end,
 }
