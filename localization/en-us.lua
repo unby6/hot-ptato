@@ -6567,6 +6567,7 @@ return {
             ach_hpot_ffingers = 'Four Fingers',
             ach_hpot_candyland_tobu = 'How to mod Balatro **2025** [100% WORKING!!]',
             ach_hpot_deck_joker = 'Double Decker',
+            ach_hpot_swoon = 'SWOON',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6591,6 +6592,7 @@ return {
             ach_hpot_ffingers = 'Scale a Loss joker to 4X',
             ach_hpot_candyland_tobu = 'Obtain... jimbo?... is he even real?... (Check out the VanillaRemade github repo for a guide on how to mod balatro)',
             ach_hpot_deck_joker = 'Activate any Deck Joker with a deck size of 100 using the corresponding deck',
+            ach_hpot_swoon = 'Encounter the Roaring Knight',
         }
     }
 }

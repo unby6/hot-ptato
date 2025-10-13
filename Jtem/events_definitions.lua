@@ -6279,6 +6279,7 @@ HotPotato.EventStep {
 	finish = function(self, event)
 		ease_background_colour_blind(G.STATE, 'Small Blind')
 		G.SETTINGS.SOUND.music_volume = HotPotato.vol
+		check_for_unlock({type = 'swoon'})
 	end
 }
 --#endregion

@@ -228,3 +228,13 @@ SMODS.Achievement {
         return (args.type == 'deck_joker' and args.conditions >= 100)
     end
 }
+
+SMODS.Achievement {
+    key = 'swoon',
+    bypass_all_unlocked = true,
+    hidden_name = false,
+    hidden_text = true,
+    unlock_condition = function(self, args)
+        return (args.type == 'swoon')
+    end
+}
