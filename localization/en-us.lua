@@ -5266,14 +5266,18 @@ return {
                                 "{C:attention}Binding of Jimbo",
                             },
                         },
+					    atlas = "hpot_SillypostingJokers",
+                        pos = { x = 3, y = 0 },
                     },
                     {
                         name = "HonuKane",
                         text = {
                             {
-                                '{C:attention}Artist'
+                                'Emotional Support'
                             },
                         },
+					    atlas = "hpot_SillypostingJokers",
+                        pos = { x = 6, y = 0 },
                     },
                 }
             },
