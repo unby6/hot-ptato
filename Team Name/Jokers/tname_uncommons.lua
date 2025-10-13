@@ -137,7 +137,8 @@ SMODS.Joker({
 
 	calc_dollar_bonus = function(self,card)
 		local hpt = card.ability.extra
-		return hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
+        local result = hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
+		return result > 0 and result or nil
 	end,
 
 	in_pool = function(self)

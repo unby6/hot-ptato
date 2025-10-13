@@ -925,7 +925,7 @@ return {
                 }
             },
             j_hpot_recycling = {
-                ['name'] = 'recycling',
+                ['name'] = 'Recycling',
                 ['text'] = {
                     [1] = 'Earn {C:money}$#1#{} each time',
                     [2] = 'a {C:attention}Bottlecap{} is used'
@@ -1926,7 +1926,8 @@ return {
                 name = 'Art of the Deal',
                 text = {
                     'Creates a random {C:hpot_czech}Cheque{}',
-                    'when a {C:attention}Blind{} is defeated'
+                    'when a {C:attention}Blind{} is defeated',
+                    '{C:inactive}(Must have room){}'
                 }
             },
             j_hpot_paper_jam = {
@@ -2011,7 +2012,7 @@ return {
                     { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
                         "The next {C:attention}#1# {C:green}probabilities",
                         "are {C:attention}multiplied by #2#{}.",
-                        "Gains {C:attention}#3#{} more modifiers at",
+                        "Gains {C:attention}#3#{} more modifier at",
                         "the end of a round"
                     },
                 }
@@ -2151,9 +2152,10 @@ return {
             j_hpot_loss = {
                 name = 'Loss',
                 text = {
-                    'Breeding with this card will {C:attention}always',
-                    'result in a copy of this {C:attention}Joker{} with',
-                    'an extra {X:mult,C:white}X#2#{} Mult',
+                    '{C:green}#3# probabilities{} for',
+                    '{C:attention}breeding{} to succeed',
+                    'Gains {X:mult,C:white}X#2#{} Mult when',
+                    'breeding {C:attention}fails{}',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
             },

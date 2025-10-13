@@ -7,8 +7,8 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
+    no_prosopagnosia = true,
     loc_vars = function(self, info_queue, card)
-
         --info_queue for every sold joker
         for key, _ in pairs(G.GAME.removed_joker_keys or {}) do
             if G.P_CENTERS[key] and not G.P_CENTERS[key].no_prosopagnosia then

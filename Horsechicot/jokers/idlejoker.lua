@@ -39,7 +39,8 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     calc_dollar_bonus = function(self, card)
-        return (#tostring(card.ability.extra.score)) * card.ability.extra.money
+        local score = (#tostring(card.ability.extra.score))
+        return score > 0 and (score * card.ability.extra.money) or nil
     end,
     calculate = function(self, card, context)
         if context.main_eval and context.end_of_round then

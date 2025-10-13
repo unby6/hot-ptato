@@ -2,21 +2,35 @@ SMODS.Joker {
     key = 'loss',
     atlas = 'oap_jokers',
     pos = {x = 2, y = 1},
-    rarity = 2,
-    cost = 6,
+    rarity = 3,
+    cost = 7,
     config = {
         extra = {
             Xmult = 1,
-            gain = 1
+            gain = 0.25,
+            prob = -1
         }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.gain } }
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.gain, card.ability.extra.prob } }
     end,
     calculate = function(self, card, context)
+        if context.mod_probability and context.identifier == 'nursery_breeding' and context.numerator >= 0 then
+            return {
+                numerator = context.numerator + card.ability.extra.prob
+            }
+        end
+
+        if context.pseudorandom_result and not context.result and context.identifier == 'nursery_breeding' then
+            SMODS.scale_card(card, {ref_table = card.ability.extra, ref_value = "Xmult", scalar_value = "gain"})
+            if card.ability.extra.Xmult >= 4 then
+                check_for_unlock({type = 'ffingers'})
+            end
+        end
+
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult
+                xmult = card.ability.extra.Xmult
             }
         end
     end,

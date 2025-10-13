@@ -19,12 +19,11 @@ SMODS.Joker {
                 colour = G.C.MONEY
             }
         end
-        if context.end_of_round and context.cardarea == G.jokers then
-            return {
-                dollars = card.ability.extra.money *
-                    (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Czech or 0)
-            }
-        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        local uses = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Czech or 0)
+        return uses > 0 and (card.ability.extra.money * uses) or nil
+
     end,
     hotpot_credits = {
         art = { 'SadCube' },
