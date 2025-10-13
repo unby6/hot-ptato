@@ -23,6 +23,9 @@ SMODS.Joker {
 
         if context.pseudorandom_result and not context.result and context.identifier == 'nursery_breeding' then
             SMODS.scale_card(card, {ref_table = card.ability.extra, ref_value = "Xmult", scalar_value = "gain"})
+            if card.ability.extra.Xmult >= 4 then
+                check_for_unlock({type = 'ffingers'})
+            end
         end
 
         if context.joker_main then
