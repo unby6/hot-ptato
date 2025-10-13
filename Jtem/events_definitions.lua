@@ -1490,7 +1490,10 @@ HotPotato.EventScenario {
 		idea = { "th30ne" },
 		code = { "theAstra" },
 		team = { "O!AP" },
-	}
+	},
+	in_pool = function()
+		return sticker_check(G.jokers.cards) > 0
+	end
 }
 
 HotPotato.EventStep {
@@ -1546,11 +1549,7 @@ HotPotato.EventStep {
 		play_sound('hpot_forgiveness')
 		for _, joker in pairs(G.jokers.cards) do
 			joker:juice_up(0.8, 0.8)
-			for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
-				if joker.ability[sticker] and sticker ~= 'hpot_jtem_mood' then
-					joker.ability[sticker] = nil
-				end
-			end
+			remove_all_stickers(joker)
 		end
 	end,
 	finish = function(self, event)
