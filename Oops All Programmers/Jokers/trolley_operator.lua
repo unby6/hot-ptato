@@ -6,15 +6,14 @@ SMODS.Joker {
     pos = { x = 7, y = 1 },
     config = {
         extra = {
-            money = 3,
-            hand_goal = 5
+            money = 3
         }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.hand_goal, card.ability.extra.money } }
+        return { vars = { card.ability.extra.money } }
     end,
     calculate = function(self, card, context)
-        if context.before and #G.hand.cards == card.ability.extra.hand_goal then
+        if context.before and #G.hand.cards == 5 then
             local chosen_card = pseudorandom_element(G.hand.cards)
             G.E_MANAGER:add_event(Event({
                 func = function()

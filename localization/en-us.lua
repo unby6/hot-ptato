@@ -2091,9 +2091,9 @@ return {
             j_hpot_trolley_operator = {
                 name = 'Trolley Operator',
                 text = {
-                    'If there are {C:attention}exactly #1#{} cards',
+                    'If there are {C:attention}exactly 5{} cards',
                     'held in hand after playing a hand,',
-                    'earn {C:money}$#2#{} and {C:red}destroy{} one',
+                    'earn {C:money}$#1#{} and {C:red}destroy{} one',
                     'random card held in hand'
                 }
             },
