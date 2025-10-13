@@ -5223,14 +5223,16 @@ return {
                         text = {
 							{
 								"I exist.",
-								"I did art."
+								"I did art.",
+								"and shader.",
 							},
 							{
-								"Also worked on:",
-								"{C:mult}Mayhem{}. yes",
-								"{C:edition}Cryptec{}",
-								"{C:attention}Ortalab{}",
-								"And Revo's Vault.",
+								"Also contributed to:",
+								"{C:mult}Mayhem{},{C:edition}Cryptid{}",
+								"{C:attention}Ortalab{},{C:blue}Revo's Vault{}",
+								"the forbidden {C:purple}tangents{} mod",
+								"{C:inactive}im sorry i had to{}",
+								"and more i forgot about."
 							},
 							{
 								"My message:",
