@@ -1393,6 +1393,16 @@ function PissDrawer.Shop.plinko()
         PissDrawer.Shop.help_button('plinko_help'),
         {n=G.UIT.R, config={align = "tm"}, nodes={
             {n=G.UIT.C, config={align = "tm"}, nodes={
+                plinko_4ever and {n=G.UIT.R,config={id = 'next_round_button', align = "cm", minw = 1.8, minh = 1.3, r=0.15,colour = G.C.RED, one_press = true, button = 'toggle_shop', hover = true,shadow = true}, nodes = {
+                    {n=G.UIT.R, config={align = "cm", padding = 0.07, focus_args = {button = 'y', orientation = 'cr'}, func = 'set_button_pip'}, nodes={
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
+                            {n=G.UIT.T, config={text = localize('b_next_round_1'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                        }},
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.3}, nodes={
+                            {n=G.UIT.T, config={text = localize('b_next_round_2'), scale = 0.4, colour = G.C.WHITE, shadow = true}}
+                        }}
+                    }},
+                }},
                 {n=G.UIT.R, config = {minh = 0.8}},
                 {n=G.UIT.R, config={align = "cm", padding = -0.3}, nodes={
                     {n=G.UIT.C, config={minw = 0.6}},

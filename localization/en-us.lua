@@ -906,7 +906,7 @@ return {
                 ['text'] = {
                     [1] = 'Create {C:attention}#2#{} {C:hpot_czech}#3#',
                     [2] = 'if {C:attention}Cash Out{} is',
-                    [3] = '{C:money}$#1#{} or smaller'
+                    [3] = '{C:money}$#1#{} or more'
                 }
             },
             j_hpot_balatro_premium = {
@@ -3860,9 +3860,9 @@ return {
             tag_hpot_plincoin = {
                 name = "Plincoin Tag",
                 text = {
-                    "After defeating",
+                    "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
+                    "after defeating",
                     "the Boss Blind,",
-                    "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                 },
             },
             tag_hpot_jokerexchange = {
