@@ -5137,7 +5137,7 @@ return {
                                 '{C:attention}Musician{},',
                                 '{C:attention}Ideas person{} and',
                                 '{C:attention}A little bit of code{}',
-                                '{C:inactive}also i added a couple small easter eggs and drew this clippy!Ralsei'
+                                '{C:inactive}also i added a bunch of achievements and drew this clippy!Ralsei'
                             },
                             {
                                 'I did a small amount compared to everyone else,',
