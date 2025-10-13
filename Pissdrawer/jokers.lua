@@ -456,6 +456,9 @@ SMODS.Joker {
                     local discards = card.ability.extra.discards *
                         (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if discards > 0 then
+                        if G.GAME.selected_back.name == 'Red Deck' then
+                            check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
+                        end
                         ease_discard(discards, nil, true)
                     end
                     return true
@@ -490,6 +493,9 @@ SMODS.Joker {
                     local hands = card.ability.extra.hands *
                         (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if hands > 0 then
+                        if G.GAME.selected_back.name == 'Blue Deck' then
+                            check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
+                        end
                         ease_hands_played(hands)
                     end
                     return true
@@ -524,6 +530,9 @@ SMODS.Joker {
                     local dollars = card.ability.extra.dollars *
                         (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if dollars > 0 then
+                        if G.GAME.selected_back.name == 'Yellow Deck' then
+                            check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
+                        end
                         ease_dollars(dollars)
                     end
                     return true
