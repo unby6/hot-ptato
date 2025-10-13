@@ -6568,6 +6568,7 @@ return {
             ach_hpot_candyland_tobu = 'How to mod Balatro **2025** [100% WORKING!!]',
             ach_hpot_deck_joker = 'Double Decker',
             ach_hpot_swoon = 'SWOON',
+            ach_hpot_paytowin = 'Just Get ReVanced',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6593,6 +6594,7 @@ return {
             ach_hpot_candyland_tobu = 'Obtain... jimbo?... is he even real?... (Check out the VanillaRemade github repo for a guide on how to mod balatro)',
             ach_hpot_deck_joker = 'Activate any Deck Joker with a deck size of 100 using the corresponding deck',
             ach_hpot_swoon = 'Encounter the Roaring Knight',
+            ach_hpot_paytowin = 'Subscribe to Balatro Premium for 8 antes in a row',
         }
     }
 }

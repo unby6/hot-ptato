@@ -608,6 +608,7 @@ SMODS.Joker{ --Balatro **PREMIUM**
     config = {
         extra = {
             dollars = 5,
+            sofar = 0
         }
     },
     pos = { x = 4, y = 0 },
@@ -645,6 +646,8 @@ SMODS.Joker{ --Balatro **PREMIUM**
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual and not context.blueprint then
             ease_dollars(-card.ability.extra.dollars)
+            card.ability.extra.sofar = card.ability.extra.sofar + 1
+            check_for_unlock({type = 'paytowin', conditions = card.ability.extra.sofar})
             return {
                 message = "-"..localize("$")..card.ability.extra.dollars,
                 colour = G.C.MONEY

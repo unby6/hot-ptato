@@ -238,3 +238,13 @@ SMODS.Achievement {
         return (args.type == 'swoon')
     end
 }
+
+SMODS.Achievement {
+    key = 'paytowin',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    unlock_condition = function(self, args)
+        return (args.type == 'paytowin' and args.conditions == 8)
+    end
+}
