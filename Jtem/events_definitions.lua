@@ -1249,7 +1249,7 @@ HotPotato.EventStep({
 					event.start_step("hpot_sticker_success")
 				end,
 				func = function()
-					return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= 3
+					return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= self.config.extra.cost
 				end,
 			},
 			{
