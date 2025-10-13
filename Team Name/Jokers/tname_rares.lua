@@ -135,10 +135,19 @@ SMODS.Joker {
 						CArdb:flip()
 					end
 				end
-				if context.individual then
+				if context.individual and context.cardarea == G.play then
 					if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Spades") then
+                        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.functions.Violet[1]
 						return {
-							dollars = card.ability.extra.functions.Violet[1]
+							dollars = card.ability.extra.functions.Violet[1],
+                            func = function()
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        G.GAME.dollar_buffer = 0
+                                        return true
+                                    end
+                                }))
+                            end
 						}
 					end
 				end
@@ -146,6 +155,9 @@ SMODS.Joker {
 		}
 		return funcs[getcurrentperson(G.GAME.current_team_name_member)](self, card, context)
 	end,
+    load = function(self, card)
+        card.children.center:set_sprite_pos { x = (G.GAME.current_team_name_member or 1) - 1, y = 0 }
+    end,
 	hotpot_credits = {
 		art = { 'GhostSalt' },
 		code = { "Goldenleaf" },
