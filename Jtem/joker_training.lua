@@ -398,9 +398,7 @@ SMODS.Sticker {
 				hpot_jtem_misprintize({ val = c.ability, amt = 1 + ((((stats.guts - 150) / 200) * 100) / 100) })
 			end
 		end)
-		if stats.wits and stats.wits > 150 then
-            card.sell_cost = math.ceil(card.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50))
-		end
+        card:set_cost()
 	end,
 	draw = function(self, card, layer)
 		local val = card.ability["hp_jtem_mood"] or "normal"
