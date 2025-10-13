@@ -5585,9 +5585,9 @@ return {
                                 "{C:attention}Madcap",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 4, y = 0 },
                     },
-                    atlas = "hpot_smiley_credits",
-                    pos = { x = 4, y = 0 },
                     {
                         name = "basil_squared",
                         text = {
