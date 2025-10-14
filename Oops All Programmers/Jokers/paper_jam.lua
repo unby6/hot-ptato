@@ -4,7 +4,7 @@ SMODS.Joker {
     cost = 6,
     config = {
         extra = {
-            retriggers = 4,
+            retriggers = 3,
             chosen_card = nil
         }
     },

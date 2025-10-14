@@ -5033,7 +5033,7 @@ return {
                                 '{C:inactive}tbcwdus'
                             },
                             {
-                                "worked on {C:green,s:1.15}Plinko{}",
+                                "coded {C:green,s:1.15}Plinko{}",
                                 "and {C:money}plincoins{}",
                                 "{s:0.3} ",
                                 "{s:0.8}also helped with ",
