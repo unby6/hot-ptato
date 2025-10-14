@@ -959,11 +959,11 @@ return {
                 name = 'Hangman',
                 text = {
                     "Each round, this Joker",
-                    "{C:dark_edition,E:1}secretly{} chooses {C:attention}5 ranks",
+                    "{C:dark_edition,E:1}secretly{} chooses {C:attention}#1# ranks",
                     "{s:0.33} ",
                     "{C:attention}The first time{}",
-                    "{C:attention}you score each{}, earn {C:money}$#1#",
-                    "Play all to earn {C:money}$#2#"
+                    "{C:attention}you score each{}, earn {C:money}$#2#",
+                    "Play all to earn {C:money}$#3#"
                 }
             },
             j_hpot_joker_forge = {

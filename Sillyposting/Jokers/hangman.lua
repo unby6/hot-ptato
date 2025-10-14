@@ -54,6 +54,7 @@ SMODS.Joker { --Recycling
             n_seen = 0,
             dollars = 2,
             dollars_extra = 4,
+            n_ranks = 5,
         }
     },
     pos = { x = 3, y = 0 },
@@ -74,7 +75,7 @@ SMODS.Joker { --Recycling
 
     loc_vars = function(self, info_queue, card)
         return {
-            vars = { card.ability.extra.dollars, card.ability.extra.dollars_extra },
+            vars = { card.ability.extra.n_ranks, card.ability.extra.dollars, card.ability.extra.dollars_extra },
             main_end = generate_main_end_hangman(card)
         }
     end,
@@ -88,7 +89,7 @@ SMODS.Joker { --Recycling
             pseudoshuffle(candidate_ranks, pseudoseed("hpot_hangman"))
 
             local selected_ranks = {}
-            for i = 1, 5 do
+            for i = 1, card.ability.extra.n_ranks do
                 selected_ranks[i] = candidate_ranks[i]
                 --sendDebugMessage(tprint(candidate_ranks[i]))
             end
@@ -103,7 +104,7 @@ SMODS.Joker { --Recycling
                     card.ability.extra.seen[rank] = true
                     card.ability.extra.n_seen = card.ability.extra.n_seen + 1
                     return { dollars = card.ability.extra.dollars +
-                    (card.ability.extra.n_seen >= 5 and card.ability.extra.dollars_extra or 0) }
+                    (((card.ability.extra.n_seen >= math.floor(card.ability.extra.n_ranks)) and card.ability.extra.dollars_extra) or 0) }
                 end
             end
         elseif context.end_of_round and context.cardarea == G.jokers then

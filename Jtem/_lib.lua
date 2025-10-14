@@ -182,6 +182,7 @@ local MisprintizeForbidden = {
 	["qty"] = true,
 	["rounds_reset"] = true, -- Login Bonus
 	["current_cycle"] = true, -- also Login Bonus
+	["n_seen"] = true, -- Hangman
 	["selected_d6_face"] = true,
 	["h_x_mult"] = true,
 	["h_x_chips"] = true,
