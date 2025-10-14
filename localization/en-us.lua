@@ -5238,18 +5238,17 @@ return {
                         name = "Victin",
                         text = {
                             {
-                                '{C:green}Code{} and {C:attention}Content',
-                                '{C:attention}Implementation'
-                            },
-                            {
-                                '{C:attention}Artist'
+                                '{C:attention}Hangman{} implementation',
+                                'and other {C:attention}Code'
                             },
                             {
                                 "Also worked on:",
-                                "{C:attention}Victin's Collection and",
-                                "{C:attention}Binding of Jimbo",
+                                "{C:attention}Victin's Collection{} and",
+                                "{C:attention}Cosmos",
                             },
                         },
+                        atlas = "hpot_SillypostingCredits",
+                        pos = { x = 2, y = 0 }
                     },
                     {
                         name = "HonuKane",
@@ -5930,8 +5929,8 @@ return {
                             },
                             {
                                 "Also worked on:",
-                                "JokerDisplay, JoyousSpring",
-                                "N's Repertorium, VanillaRemade"
+                                "{C:green}JokerDisplay{}, {C:hearts}JoyousSpring",
+                                "{C:purple}N's Repertorium{}, {C:blue}VanillaRemade"
                             }
                         },
                         atlas = "hpot_pdr_credits",
