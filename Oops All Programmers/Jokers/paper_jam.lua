@@ -4,8 +4,7 @@ SMODS.Joker {
     cost = 6,
     config = {
         extra = {
-            retriggers = 4,
-            card_threshold = 5,
+            retriggers = 3,
             chosen_card = nil
         }
     },
@@ -15,15 +14,14 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.retriggers,
-                card.ability.extra.card_threshold
+                card.ability.extra.retriggers
             }
         }
     end,
     calculate = function(self, card, context)
         if context.before
             and context.main_eval
-            and #context.scoring_hand >= card.ability.extra.card_threshold then
+            and #context.scoring_hand >= 5 then
             card.ability.extra.chosen_card = pseudorandom_element(context.scoring_hand)
         end
         if context.repetition

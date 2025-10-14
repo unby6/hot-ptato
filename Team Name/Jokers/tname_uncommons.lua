@@ -137,7 +137,8 @@ SMODS.Joker({
 
 	calc_dollar_bonus = function(self,card)
 		local hpt = card.ability.extra
-		return hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
+        local result = hpt.dollars * sticker_check(add_tables({G.jokers.cards, G.playing_cards}), "hpot_uranium")
+		return result > 0 and result or nil
 	end,
 
 	in_pool = function(self)
@@ -286,21 +287,26 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
 		if context.joker_type_destroyed then
-			SMODS.scale_card(card, {
+			hpt.destroyed = hpt.destroyed + 1
+            SMODS.scale_card(card, {
 				ref_table = hpt,
-				ref_value = "destroyed",
+				ref_value = "xmult",
 				scalar_value = "xmultg",
 			})
 		end
-		if context.press_play then
+		if context.after and not context.blueprint then
 			SMODS.scale_card(card, {
 				ref_table = hpt,
 				ref_value = "xmult",
 				scalar_value = "xmultm",
-				operation = "-"
+				operation = "-",
+                scaling_message = {
+                    message = localize('k_hotpot_leek'),
+                    colour = G.C.MULT
+                }
 			})
+            hpt.xmult = math.max(hpt.xmult, hpt.min)
 		end
-		hpt.xmult = math.max(hpt.xmult, hpt.min)
 		if context.joker_main then
 			return {
 				xmult = hpt.xmult
@@ -328,13 +334,19 @@ SMODS.Joker({
 	atlas = "tname_jokers2",
 	calculate = function(self, card, context)
 		if context.ending_shop and G.consumeables.cards[1] then
+            local cards_to_replace = {}
 			for k,v in pairs(G.consumeables.cards) do
 				if v.ability.set ~= "Aura" then
-					v:start_dissolve(nil, true)
-					SMODS.add_card{set = "Aura"}
-					return{message = localize("teamname_replaced")}
+                    table.insert(cards_to_replace, v)
 				end
 			end
+            if #cards_to_replace > 0 then
+                for _, v in ipairs(cards_to_replace) do
+                    v:start_dissolve(nil, true)
+					SMODS.add_card{set = "Aura"}
+                end
+                return {message = localize("teamname_replaced")}
+            end
 		end
 	end,
     hotpot_credits = {

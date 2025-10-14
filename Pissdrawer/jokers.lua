@@ -11,8 +11,8 @@ SMODS.Joker {
         team = { 'Pissdrawer' }
     },
     calculate = function(self, card, context)
-        if context.using_consumeable and card and card.config.center and card.config.center.set == 'bottlecap' and card.ability.extra.chosen == 'Bad' then
-            if G.GAME.current_round and G.GAME.current_round.plinko_preroll_cost and G.GAME.current_round.plinko_preroll_cost ~= 0 then
+        if context.using_consumeable and context.consumeable and G.plinko_rewards and context.area == G.plinko_rewards then
+            if context.consumeable.ability.set == 'bottlecap' and context.consumeable.ability.extra.chosen == 'Bad' then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
@@ -31,7 +31,7 @@ SMODS.Joker {
                     }
                 end
             end
-        end
+        end 
         return nil, true
     end,
 }
@@ -156,7 +156,7 @@ HotPotato.allcalcs = HotPotato.allcalcs or {
 local maozedong = win_game
 function win_game()
     local ret = maozedong()
-    if SMODS.find_card('j_hpot_social_credit') then
+    if next(SMODS.find_card('j_hpot_social_credit')) then
         HPTN.set_credits(0)
     end
     return ret
@@ -381,6 +381,38 @@ SMODS.Joker {
     end
 }
 
+-- Vanilla Remade reference lmao
+-- First we save the original function to a local variable
+-- This will also save any other hooks made before
+local card_add_to_deck_ref = Card.add_to_deck
+-- Then we make another function with the same parameters as the original
+-- As a reminder, this is equivalent to `function Card.add_to_deck(self, from_debuff)`
+function Card:add_to_deck(from_debuff)
+    local function log(...) end
+
+    -- Here we optionally add any code we want to run before the function
+    log("Doing something before the original code")
+
+    -- We then run the original and save its return to a variable
+    -- (The arguments, in this case `self` and `from_debuff`, can be modified by your code if necessary)
+    -- Keep in mind the original function could also have multiple return values.
+    local ret = card_add_to_deck_ref(self, from_debuff)
+
+    -- Here we optionally add any code we want to run after the function
+    log("Doing something after the original code")
+
+    -- Finally we return the original return.
+    -- (`ret` can be modified by your code if necessary)
+    
+    -- This is where we deviate from the example to add the achievement
+    if self.config.center_key == "j_hpot_vremade_joker" then
+        check_for_unlock({type = 'candyland_tobu'})
+    end
+
+    -- Now back to the example
+
+    return ret
+end
 SMODS.Joker {
     key = "smods",
     hotpot_credits = {
@@ -424,6 +456,9 @@ SMODS.Joker {
                     local discards = card.ability.extra.discards *
                         (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if discards > 0 then
+                        if G.GAME.selected_back.name == 'Red Deck' then
+                            check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
+                        end
                         ease_discard(discards, nil, true)
                     end
                     return true
@@ -458,6 +493,9 @@ SMODS.Joker {
                     local hands = card.ability.extra.hands *
                         (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if hands > 0 then
+                        if G.GAME.selected_back.name == 'Blue Deck' then
+                            check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
+                        end
                         ease_hands_played(hands)
                     end
                     return true
@@ -492,6 +530,9 @@ SMODS.Joker {
                     local dollars = card.ability.extra.dollars *
                         (math.floor(#G.playing_cards / card.ability.extra.cards_req))
                     if dollars > 0 then
+                        if G.GAME.selected_back.name == 'Yellow Deck' then
+                            check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
+                        end
                         ease_dollars(dollars)
                     end
                     return true

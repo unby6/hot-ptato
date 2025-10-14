@@ -35,7 +35,7 @@ end
 function remove_all_stickers(card)
     if card then
         for k, v in pairs(SMODS.Stickers) do
-            if card.ability[k] or card[k] then
+            if (card.ability[k] or card[k]) and k ~= 'hpot_jtem_mood' then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = function()
@@ -464,6 +464,7 @@ function HPTN.ease_credits(amount, instant)
                     cover_colour = col,
                     align = 'cm',
                 })
+                dollar_UI.config.object:pop_in(0.01)
                 local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_TNameCredits')
                 if hpot_dollar_ui then
                     attention_text({

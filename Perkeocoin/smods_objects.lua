@@ -554,7 +554,7 @@ SMODS.Joker{ --Bank Teller
     key = "bank_teller",
     config = {
         extra = {
-            compare = 7,
+            compare = 10,
             cards = 1
         }
     },
@@ -608,6 +608,7 @@ SMODS.Joker{ --Balatro **PREMIUM**
     config = {
         extra = {
             dollars = 5,
+            sofar = 0
         }
     },
     pos = { x = 4, y = 0 },
@@ -645,6 +646,8 @@ SMODS.Joker{ --Balatro **PREMIUM**
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual and not context.blueprint then
             ease_dollars(-card.ability.extra.dollars)
+            card.ability.extra.sofar = card.ability.extra.sofar + 1
+            check_for_unlock({type = 'paytowin', conditions = card.ability.extra.sofar})
             return {
                 message = "-"..localize("$")..card.ability.extra.dollars,
                 colour = G.C.MONEY
@@ -800,12 +803,14 @@ SMODS.Joker{ --Tipping Point
     key = "tipping_point",
     config = {
         extra = {
+            tipping = 1
         }
     },
     pos = { x = 4, y = 1 },
     cost = 4,
     rarity = 1,
     blueprint_compat = false,
+    
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -819,7 +824,7 @@ SMODS.Joker{ --Tipping Point
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {}}
+        return {vars = {card.ability.extra.tipping}}
     end,
 
     calculate = function(self, card, context)

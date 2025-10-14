@@ -928,6 +928,7 @@ function hotpot_jtem_generate_special_deals(deals)
 end
 
 function hotpot_delivery_refresh_card()
+    if not G.hp_jtem_delivery_queue.cards then return end
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_special_deals, true)
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue, true)
     for _, _obj in ipairs(G.GAME.hp_jtem_delivery_queue) do

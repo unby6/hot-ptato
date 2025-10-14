@@ -1249,7 +1249,7 @@ HotPotato.EventStep({
 					event.start_step("hpot_sticker_success")
 				end,
 				func = function()
-					return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= 3
+					return sticker_check(G.jokers.cards) > 0 and G.GAME.plincoins >= self.config.extra.cost
 				end,
 			},
 			{
@@ -1490,7 +1490,10 @@ HotPotato.EventScenario {
 		idea = { "th30ne" },
 		code = { "theAstra" },
 		team = { "O!AP" },
-	}
+	},
+	in_pool = function()
+		return sticker_check(G.jokers.cards) > 0
+	end
 }
 
 HotPotato.EventStep {
@@ -1546,11 +1549,7 @@ HotPotato.EventStep {
 		play_sound('hpot_forgiveness')
 		for _, joker in pairs(G.jokers.cards) do
 			joker:juice_up(0.8, 0.8)
-			for _, sticker in pairs(SMODS.Sticker.obj_buffer) do
-				if joker.ability[sticker] and sticker ~= 'hpot_jtem_mood' then
-					joker.ability[sticker] = nil
-				end
-			end
+			remove_all_stickers(joker)
 		end
 	end,
 	finish = function(self, event)
@@ -5327,7 +5326,7 @@ HotPotato.EventStep {
 		end
 		if aces > 0 then
 			for i=1, aces do
-				if count <= 11 then print('High ace') count = count + 10 else break end
+				if count <= 11 then count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
@@ -5355,7 +5354,7 @@ HotPotato.EventStep {
 		end
 		if aces > 0 then
 			for i=1, aces do
-				if count <= 11 then print('High ace') count = count + 10 else break end
+				if count <= 11 then count = count + 10 else break end
 			end
 		end
 		G.GAME.BJ_CARDS.TOTAL = count
@@ -6280,6 +6279,7 @@ HotPotato.EventStep {
 	finish = function(self, event)
 		ease_background_colour_blind(G.STATE, 'Small Blind')
 		G.SETTINGS.SOUND.music_volume = HotPotato.vol
+		check_for_unlock({type = 'swoon'})
 	end
 }
 --#endregion

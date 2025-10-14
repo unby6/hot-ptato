@@ -906,7 +906,7 @@ return {
                 ['text'] = {
                     [1] = 'Create {C:attention}#2#{} {C:hpot_czech}#3#',
                     [2] = 'if {C:attention}Cash Out{} is',
-                    [3] = '{C:money}$#1#{} or smaller'
+                    [3] = '{C:money}$#1#{} or more'
                 }
             },
             j_hpot_balatro_premium = {
@@ -925,7 +925,7 @@ return {
                 }
             },
             j_hpot_recycling = {
-                ['name'] = 'recycling',
+                ['name'] = 'Recycling',
                 ['text'] = {
                     [1] = 'Earn {C:money}$#1#{} each time',
                     [2] = 'a {C:attention}Bottlecap{} is used'
@@ -943,7 +943,7 @@ return {
             j_hpot_tipping_point = {
                 ['name'] = 'Tipping Point',
                 ['text'] = {
-                    [1] = '{C:attention}+1 {C:red}Rare{} bottlecap',
+                    [1] = '{C:attention}+#1# {C:red}Rare{} bottlecap',
                     [2] = 'in each {C:hpot_plincoin}Plinko{},',
                     [3] = 'pegs always {C:attention}move'
                 }
@@ -959,11 +959,11 @@ return {
                 name = 'Hangman',
                 text = {
                     "Each round, this Joker",
-                    "{C:dark_edition,E:1}secretly{} chooses {C:attention}5 ranks",
+                    "{C:dark_edition,E:1}secretly{} chooses {C:attention}#1# ranks",
                     "{s:0.33} ",
                     "{C:attention}The first time{}",
-                    "{C:attention}you score each{}, earn {C:money}$#1#",
-                    "Play all to earn {C:money}$#2#"
+                    "{C:attention}you score each{}, earn {C:money}$#2#",
+                    "Play all to earn {C:money}$#3#"
                 }
             },
             j_hpot_joker_forge = {
@@ -1926,7 +1926,8 @@ return {
                 name = 'Art of the Deal',
                 text = {
                     'Creates a random {C:hpot_czech}Cheque{}',
-                    'when a {C:attention}Blind{} is defeated'
+                    'when a {C:attention}Blind{} is defeated',
+                    '{C:inactive}(Must have room){}'
                 }
             },
             j_hpot_paper_jam = {
@@ -2011,7 +2012,7 @@ return {
                     { "{s:1.2,C:planet}SadCube's{s:1.2} Ability:",
                         "The next {C:attention}#1# {C:green}probabilities",
                         "are {C:attention}multiplied by #2#{}.",
-                        "Gains {C:attention}#3#{} more modifiers at",
+                        "Gains {C:attention}#3#{} more modifier at",
                         "the end of a round"
                     },
                 }
@@ -2090,9 +2091,9 @@ return {
             j_hpot_trolley_operator = {
                 name = 'Trolley Operator',
                 text = {
-                    'If there are {C:attention}exactly #1#{} cards',
+                    'If there are {C:attention}exactly 5{} cards',
                     'held in hand after playing a hand,',
-                    'earn {C:money}$#2#{} and {C:red}destroy{} one',
+                    'earn {C:money}$#1#{} and {C:red}destroy{} one',
                     'random card held in hand'
                 }
             },
@@ -2151,9 +2152,10 @@ return {
             j_hpot_loss = {
                 name = 'Loss',
                 text = {
-                    'Breeding with this card will {C:attention}always',
-                    'result in a copy of this {C:attention}Joker{} with',
-                    'an extra {X:mult,C:white}X#2#{} Mult',
+                    '{C:green}Halves probabilities{} for',
+                    '{C:attention}breeding{} to succeed',
+                    'Gains {X:mult,C:white}X#2#{} Mult when',
+                    'breeding {C:attention}fails{}',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
             },
@@ -3858,9 +3860,9 @@ return {
             tag_hpot_plincoin = {
                 name = "Plincoin Tag",
                 text = {
-                    "After defeating",
+                    "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
+                    "after defeating",
                     "the Boss Blind,",
-                    "gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                 },
             },
             tag_hpot_jokerexchange = {
@@ -4992,6 +4994,27 @@ return {
                 },
             },
         },
+        hotpot_plinko = {
+            name = "Plinko",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "Spend {C:hpot_plincoin}Plincoins{} to drop the {C:attention}ball",
+                            "and {C:attention}obtain{} the {C:green}bottlecap{} the ball lands on"
+                        },
+                        {
+                            '{C:money}Dollars{} can also be used after redeeming {C:attention}"Currency Exchange".',
+                            "After the {C:attention}voucher{} is redeemed",
+                            "the {C:money}currency{} can be changed by selecting",
+                            "it above the play button"
+                        }
+                    }
+                },
+            },
+        },
+
         -- This is sorted by week!
         hotpot_credits = {
             -- Members format goes like this
@@ -5010,7 +5033,7 @@ return {
                                 '{C:inactive}tbcwdus'
                             },
                             {
-                                "worked on {C:green,s:1.15}Plinko{}",
+                                "coded {C:green,s:1.15}Plinko{}",
                                 "and {C:money}plincoins{}",
                                 "{s:0.3} ",
                                 "{s:0.8}also helped with ",
@@ -5026,9 +5049,9 @@ return {
                             },
                         },
                         atlas = "hpot_PerkeocoinCredits",
-                        extra = {spin = true},
+                        extra = { spin = true },
                         pos = { x = 3, y = 0 },
-                        soul_pos = { x = 4, y = 0, draw = function () end }
+                        soul_pos = { x = 4, y = 0, draw = function() end }
                     },
                     {
                         name = "Omegaflowey18",
@@ -5044,9 +5067,9 @@ return {
                                 "You're telling me there's men in your {C:dark_edition}gitis{},",
                                 "But I just like to {X:chips,C:white}play{} and {X:dark_edition,C:white}draw.",
                             },
-							{
-								"Also a guest artist on {C:attention}Garbshit"
-							}
+                            {
+                                "Also a guest artist on {C:attention}Garbshit"
+                            }
                         },
                         atlas = "hpot_PerkeocoinCredits",
                         pos = { x = 0, y = 0 }
@@ -5063,7 +5086,7 @@ return {
                                 "{C:attention}11{}/12 Cheques {S:0.8,C:inactive}Czechs?",
                                 "{C:attention}20{}/26 Bottlecaps",
                                 "{C:attention}Some{} achievements {S:0.8}idk it was a couple",
-								"Thanks for playing! Invest in PerkeoCoin for quick gains!"
+                                "Thanks for playing! Invest in PerkeoCoin for quick gains!"
                             },
                             {
                                 "Also worked on:",
@@ -5085,13 +5108,13 @@ return {
                                 'and some {C:attention}Jokers{} and {C:attention}Vouchers{}!',
                             },
                             {
-                               'Do you think God {C:inactive,s:0.8}(me){}',
-                               'stays in Heaven out of fear',
-                               'of what they created? {C:inactive,s:0.8}(Balatro University Mpreg){}',
+                                'Do you think God {C:inactive,s:0.8}(me){}',
+                                'stays in Heaven out of fear',
+                                'of what they created? {C:inactive,s:0.8}(Balatro University Mpreg){}',
                                 'I mean um-',
                                 '{C:green,E:2}Plinko :D{}',
                                 '{C:inactive,s:0.7}Perkeo please I just want my wheel of fortune back.....{}',
-                           }
+                            }
                         },
                         atlas = "hpot_PerkeocoinCredits",
                         pos = { x = 9, y = 0 },
@@ -5121,7 +5144,7 @@ return {
                                 '{C:attention}Musician{},',
                                 '{C:attention}Ideas person{} and',
                                 '{C:attention}A little bit of code{}',
-                                '{C:inactive}also i added a couple small easter eggs and drew this clippy!Ralsei'
+                                '{C:inactive}also i added a bunch of achievements and drew this clippy!Ralsei'
                             },
                             {
                                 'I did a small amount compared to everyone else,',
@@ -5138,7 +5161,7 @@ return {
                             }
                         },
                         atlas = "hpot_PerkeocoinCredits",
-                        pos = { x= 5, y = 0},
+                        pos = { x = 5, y = 0 },
                         soul_pos = { x = 6, y = 0 }
                     },
                 }
@@ -5198,40 +5221,42 @@ return {
                     {
                         name = "Supernova",
                         text = {
-							{
-								"I exist.",
-								"I did art."
-							},
-							{
-								"Also worked on:",
-								"{C:mult}Mayhem{}. yes",
-								"{C:edition}Cryptec{}",
-								"{C:attention}Ortalab{}",
-								"And Revo's Vault.",
-							},
-							{
-								"My message:",
-								"I have {C:money}20 million{}",
-								"score in {C:hpot_plincoin}subway surfers{}!",
-							},
-						},
-						atlas = "hpot_SillypostingCredits",
+                            {
+                                "I exist.",
+                                "I did art.",
+                                "and shader.",
+                            },
+                            {
+                                "Also contributed to:",
+                                "{C:mult}Mayhem{},{C:edition}Cryptid{}",
+                                "{C:attention}Ortalab{},{C:blue}Revo's Vault{}",
+                                "the forbidden {C:purple}tangents{} mod",
+                                "{C:inactive}im sorry i had to{}",
+                                "and more i forgot about."
+                            },
+                            {
+                                "My message:",
+                                "I have {C:money}20 million{}",
+                                "score in {C:hpot_plincoin}subway surfers{}!",
+                            },
+                        },
+                        atlas = "hpot_SillypostingCredits",
                         pos = { x = 1, y = 0 }
                     },
                     {
                         name = "Jaydchw",
                         text = {
-							{
-								"I did some of the art",
-								"and some of the coding"
-							},
-						    {
-								"My message:",
-								"GO USE JOKER FORGE",
-								"{C:blue}jokerforge.jaydchw.com"
-							}
-						},
-					    atlas = "hpot_SillypostingJokers",
+                            {
+                                "I did some of the art",
+                                "and some of the coding"
+                            },
+                            {
+                                "My message:",
+                                "GO USE JOKER FORGE",
+                                "{C:blue}jokerforge.jaydchw.com"
+                            }
+                        },
+                        atlas = "hpot_SillypostingJokers",
                         pos = { x = 1, y = 0 },
                     },
                     {
@@ -5254,9 +5279,11 @@ return {
                         name = "HonuKane",
                         text = {
                             {
-                                '{C:attention}Artist'
+                                'Emotional Support'
                             },
                         },
+                        atlas = "hpot_SillypostingJokers",
+                        pos = { x = 6, y = 0 },
                     },
                 }
             },
@@ -5268,7 +5295,7 @@ return {
                         text = {
                             {
                                 "Maintaining game {C:attention}performance{},",
-                                "balancing and bug fixing",
+                                "balancing and {C:mult}A LOT{} of bug fixing",
                                 "other team's additions",
                             },
                             {
@@ -5396,17 +5423,17 @@ return {
                                 "{C:attention}Reforging{} & {C:hpot_gtr}Modific{C:hpot_rtg}ations{} and others,",
                                 "Composer of the {C:attention}Reforge{} theme"
                             },
-							{
-								"Also worked on:",
-								"{C:red}Alloy{}, {C:tarot}JoJo Mod{},",
-								"and {C:blue}Photon Mod Manager",
-							},
-							{
-								"My Message:",
-								"Meow!",
-								"{C:inactive}(If you pat me enough in-game, something will happen.",
-								"{C:inactive}You have to pat me a lot, though.)"
-							}
+                            {
+                                "Also worked on:",
+                                "{C:red}Alloy{}, {C:tarot}JoJo Mod{},",
+                                "and {C:blue}Photon Mod Manager",
+                            },
+                            {
+                                "My Message:",
+                                "Meow!",
+                                "{C:inactive}(If you pat me enough in-game, something will happen.",
+                                "{C:inactive}You have to pat me a lot, though.)"
+                            }
                         },
                         atlas = "hpot_tname_jokers2",
                         pos = { x = 0, y = 0 },
@@ -5528,15 +5555,15 @@ return {
                     {
                         name = "PokéRen",
                         text = {
-							{
-								"Contributions:",
-								"{C:green}Code{}"
-							},
-							{
-								"Also the best and",
-								"only dev of", "{C:attention}Hodgepodge{}"
-							}
-						},
+                            {
+                                "Contributions:",
+                                "{C:green}Code{}"
+                            },
+                            {
+                                "Also the best and",
+                                "only dev of", "{C:attention}Hodgepodge{}"
+                            }
+                        },
                         atlas = "hpot_smiley_credits",
                         pos = { x = 0, y = 0 },
                         soul_pos = { x = 1, y = 0 },
@@ -5544,9 +5571,9 @@ return {
                     {
                         name = "notmario",
                         text = {
-                            { 
+                            {
                                 "Contributions:",
-                                "{C:green}Code{}", 
+                                "{C:green}Code{}",
                             },
                             { "{C:red,f:hpot_emoji}🔺{C:red}I{} {C:green,s:1.5}2{C:green}too{} {C:money,f:hpot_emoji}📻{C:money}am{} {f:hpot_emoji}📩{}in{} {C:dark_edition,f:hpot_emoji}⬇️{C:dark_edition}this{} {C:hpot_advert,f:hpot_emoji}🥔{C:hpot_advert}modification" }
                         },
@@ -5564,9 +5591,9 @@ return {
                                 "{C:attention}Madcap",
                             },
                         },
+                        atlas = "hpot_smiley_credits",
+                        pos = { x = 4, y = 0 },
                     },
-                    atlas = "hpot_smiley_credits",
-                    pos = { x = 4, y = 0 },
                     {
                         name = "basil_squared",
                         text = {
@@ -5668,7 +5695,7 @@ return {
                         name = "pangaea47",
                         text = {
                             {
-                                "{C:red}Ideas{} and {C:attention}Art{}, Residential spider but", 
+                                "{C:red}Ideas{} and {C:attention}Art{}, Residential spider but",
                                 "{C:red:,s:1.5}NOT{} fuckass bro these guys are {C:red:}BULLIES{}!!"
                             },
                             {
@@ -5691,7 +5718,7 @@ return {
                         name = "baccon",
                         text = {
                             { "Emotional Support" },
-							{ "My Message:", "{C:inactive}lily nepo baby"}
+                            { "My Message:",      "{C:inactive}lily nepo baby" }
                         },
                         atlas = "hpot_hc_apocalypse",
                         pos = { x = 2, y = 1 },
@@ -5777,13 +5804,13 @@ return {
                             {
                                 'Also worked on:',
                                 '{C:green}Homelatro',
-								'{C:mult}Upgrade Cards'
+                                '{C:mult}Upgrade Cards'
                             },
-							{
-								'My message:',
-								'good luck, have fun.',
-								'also, {X:chips,C:white}XChips{} is {X:dark_edition,C:white}peak.'
-							}
+                            {
+                                'My message:',
+                                'good luck, have fun.',
+                                'also, {X:chips,C:white}XChips{} is {X:dark_edition,C:white}peak.'
+                            }
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 3, y = 0 }
@@ -5801,9 +5828,9 @@ return {
                                 '{C:purple}blindexpander{}, {C:blue}uwuifier'
                             },
                             {
-								'My message:',
-								'{C:green}Oops! All{} content taken from other media',
-							}
+                                'My message:',
+                                '{C:green}Oops! All{} content taken from other media',
+                            }
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 4, y = 0 }
@@ -5827,15 +5854,19 @@ return {
                         name = "th30ne",
                         text = {
                             {
-                                '{C:attention}Code{} and {C:attention}Content',
-                                '{C:attention}Implementation'
-                            },
-                            {
-                                '{C:attention}Artist'
+                                'Art for {C:attention}19{} Jokers',
+                                'Concept for {C:attention}16{} Jokers',
+                                'Code for {C:attention}4{} Jokers',
                             },
                             {
                                 'Also worked on:',
-                                '{C:attention}Grab Bag'
+                                '{C:tarot}Grab Bag'
+                            },
+                            {
+                                'did you know that the codebase',
+                                'contains the {E:1,C:dark_edition}naughty f word',
+                                '{C:attention}117{} times? how rude',
+                                'oh also play {E:1,C:dark_edition}corru.observer'
                             }
                         },
                         atlas = "hpot_oap_self_insert",
@@ -5848,7 +5879,7 @@ return {
                 members = {
                     {
                         name = "Fey",
-                        text = {{' '}},
+                        text = { { ' ' } },
                         atlas = 'hpot_pdr_fey_credit'
                     },
                     {
@@ -6290,6 +6321,7 @@ return {
             k_hotpot_badsocial = "oh my god bruh",
             k_hotpot_scurvy = "Scurvy!",
             k_hotpot_rocks = "God Valley!",
+            k_hotpot_leek = "Hot pot leek!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",
@@ -6508,7 +6540,7 @@ return {
 			" ",
 			"\"Hey, would you like to invest in my business idea?\"",
 		},
-		
+
 		choices = {
 			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
 			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
@@ -6544,16 +6576,22 @@ return {
             ach_hpot_jokexodia = 'Exodia, obliterate!',
             ach_hpot_clippy = 'Viva la clippy',
             ach_hpot_ffingers = 'Four Fingers',
+            ach_hpot_candyland_tobu = 'How to mod Balatro **2025** [100% WORKING!!]',
+            ach_hpot_deck_joker = 'Double Decker',
+            ach_hpot_swoon = 'SWOON',
+            ach_hpot_paytowin = 'Just Get ReVanced',
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
             ach_hpot_selfcest = "Successfully breed a Joker with a copy of itself",
-            ach_hpot_maniac = "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
+            ach_hpot_maniac =
+            "me when i order a perkeo and then breed her with genghis khan and harvest the babies organs",
             ach_hpot_rigged = 'Guarantee only Rare Bottlecaps in Plinko',
             ach_hpot_cungadero = 'Win a run with 97 or more Ads on screen',
             ach_hpot_whoppers = 'Use a Hanafuda card to create another that produces more cards than the one you used.',
             ach_hpot_aura_farming = 'Win a run with 0 Joker slots, 0 Consumable slots, and 1 hand',
-            ach_hpot_destroy_the_stones = 'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
+            ach_hpot_destroy_the_stones =
+            'Banish Lotus Flower with another Lotus Flower (You will never see that card on this profile ever again)',
             ach_hpot_max_mood = 'Get any Joker to the best mood possible',
             ach_hpot_five_lights = 'Win a round while holding the best Koi-Koi hand',
             ach_hpot_fuck_soul = 'Use the Sacrifice Cheque on a Legendary Joker',
@@ -6565,7 +6603,12 @@ return {
             ach_hpot_jonceler = 'Trigger a Bank Teller joker',
             ach_hpot_jokexodia = 'Assemble the J.O.K.E.R.',
             ach_hpot_clippy = 'Looks like you\'re trying to block ads, would you like some help?',
-            ach_hpot_ffingers = 'Scale a Loss joker to 4X'
+            ach_hpot_ffingers = 'Scale a Loss joker to 4X',
+            ach_hpot_candyland_tobu =
+            'Obtain... jimbo?... is he even real?... (Check out the VanillaRemade github repo for a guide on how to mod balatro)',
+            ach_hpot_deck_joker = 'Activate any Deck Joker with a deck size of 100 using the corresponding deck',
+            ach_hpot_swoon = 'Encounter the Roaring Knight',
+            ach_hpot_paytowin = 'Subscribe to Balatro Premium for 8 antes in a row',
         }
     }
 }

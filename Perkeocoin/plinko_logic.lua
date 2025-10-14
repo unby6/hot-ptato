@@ -56,8 +56,20 @@ function PlinkoLogic.f.reset_plinko()
 end
 
 function PlinkoLogic.f.generate_rewards()
+  local load_rewards = PissDrawer.Shop['load_plinko_rewards']
+  if load_rewards then
+    PissDrawer.Shop.load_plinko_rewards = nil
+    if load_rewards.cards and #load_rewards.cards > 0 then
+      G.plinko_rewards:load(load_rewards)
+      return
+    end
+  end
   local tipping_my_point = SMODS.find_card("j_hpot_tipping_point", false)
-  local extra_rare = tipping_my_point and #tipping_my_point or 0
+  local extra_rare = 0
+  for _, v in ipairs(tipping_my_point) do
+    extra_rare = extra_rare + v.ability.extra.tipping
+  end
+  extra_rare = math.floor(extra_rare)
   if extra_rare > 0 then
       G.GAME.plinko_rewards.Rare = math.min(7, PlinkoLogic.rewards.per_rarity.Rare + extra_rare)
       check_for_unlock({ type = "max_rare_caps", conditions = G.GAME.plinko_rewards.Rare })
@@ -106,7 +118,15 @@ end
 function PlinkoLogic.f.won_reward(reward_num)
   assert(type(reward_num) == "number", "won_reward must be called with a number")
   
-  PlinkoGame.f.remove_balls()
+  G.E_MANAGER:add_event(Event({
+      trigger = 'after', delay = 0.5,
+      func = function()
+                          
+        PlinkoGame.f.remove_balls()
+          return true
+      end
+  }))
+
 
   local reward = assert(G.plinko_rewards.cards[reward_num], "reward #"..tostring(reward_num).." does not exist! was something wrong with plinko?")
 
@@ -146,13 +166,29 @@ function PlinkoLogic.f.won_reward(reward_num)
         play_sound('hpot_bottlecap')
       end
 
-      PlinkoUI.f.update_plinko_rewards(true)
+      G.E_MANAGER:add_event(Event({
+        func = function()
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              PlinkoUI.f.update_plinko_rewards(true)
+              PlinkoLogic.f.update_roll_cost()
 
-      PlinkoLogic.f.reset_plinko()
+              G.E_MANAGER:add_event(Event({
+                func = function()
+                  PlinkoLogic.f.reset_plinko()
+                  if card and not card.config.center.ignore_save then
+                      save_run();
+                  end
+                  return true
+                end,
+              }))
+              return true
+            end
+          }))
+          return true
+        end,
+      }))
 
-      if card and not card.config.center.ignore_save then
-        G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
-      end
       return true
     end
   }))
@@ -217,6 +253,7 @@ function PlinkoLogic.f.update_roll_cost()
 
   -- Cost grows every 3 rounds +1
   if G.GAME.current_round.plinko_rolls % G.GAME.rolls_to_up_cost == 0 then
+    PissDrawer.Shop.reset_plinko_counter = nil
     PlinkoLogic.f.change_roll_cost(G.GAME.current_round.plinko_roll_cost + 1)
   end
 end
@@ -245,8 +282,7 @@ function PlinkoLogic.f.handle_roll(use_dollars)
   end
 
   G.GAME.current_round.plinko_rolls = G.GAME.current_round.plinko_rolls + 1
-
-  PlinkoLogic.f.update_roll_cost()
+  PissDrawer.Shop.reset_plinko_counter = G.GAME.current_round.plinko_rolls % 3 == 0
 end
 
 --#endregion

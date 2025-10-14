@@ -15,94 +15,33 @@ pattern = '''if not G.STATE_COMPLETE then
 payload = '''
 local plinko = false
 if G.GAME.modifiers.hpot_plinko_4ever then
-	G.FUNCS.show_plinko()
-	plinko = true
-	G.shop_booster = CardArea(
-      G.hand.T.x+0,
-      G.hand.T.y+G.ROOM.T.y + 9,
-      1.2*G.CARD_W,
-      1.15*G.CARD_H, 
-      {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
-	-- Dummy card areas. These will never appear in the plinko shop
-	G.shop_jokers = CardArea(
-      0, 0,
-      G.CARD_W*2,
-      G.CARD_H, 
-      {card_limit = 1, type = 'shop', highlight_limit = 1})
-	G.shop_jokers.states.visible = false
+    G.E_MANAGER:add_event(Event({ 
+        func = function() 
+            G.FUNCS.open_plinko()
+            plinko = true
+            G.shop_booster = CardArea(
+            G.hand.T.x+0,
+            G.hand.T.y+G.ROOM.T.y + 9,
+            1.2*G.CARD_W,
+            1.15*G.CARD_H, 
+            {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
+            -- Dummy card areas. These will never appear in the plinko shop
+            G.shop_jokers = CardArea(
+            0, 0,
+            G.CARD_W*2,
+            G.CARD_H, 
+            {card_limit = 1, type = 'shop', highlight_limit = 1})
+            G.shop_jokers.states.visible = false
 
-    G.shop_vouchers = CardArea(
-      0, 0,
-      G.CARD_W,
-      G.CARD_H, 
-      {card_limit = 1, type = 'shop', highlight_limit = 1})
-	G.shop_vouchers.states.visible = false
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'at'
-pattern = '''G.shop.alignment.offset.y = G.shop.alignment.offset.py
-		G.shop.alignment.offset.py = nil'''
-payload = '''
-if not G.GAME.modifiers.hpot_plinko_4ever then
-	G.shop.alignment.offset.y = G.shop.alignment.offset.py
-	G.shop.alignment.offset.py = nil
-else
-	G.plinko.alignment.offset.y = G.plinko.alignment.offset.py
-	G.plinko.alignment.offset.py = nil
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'at'
-pattern = '''if G.shop and G.shop.alignment.offset.py then'''
-payload = '''
-if (G.shop and G.shop.alignment.offset.py) or (G.plinko and G.plinko.alignment.offset.py) then
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'before'
-pattern = '''if G.shop and not G.shop.alignment.offset.py then'''
-payload = '''
-if not G.shop and G.plinko and not G.plinko.alignment.offset.py then
-	G.plinko.alignment.offset.py = G.plinko.alignment.offset.y
-    G.plinko.alignment.offset.y = G.ROOM.T.y + 29
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'at'
-pattern = '''if G.shop then '''
-payload = '''
-if G.shop or G.plinko then 
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'at'
-pattern = '''G.shop.alignment.offset.y = G.ROOM.T.y + 29
-          G.SHOP_SIGN.alignment.offset.y = -15'''
-payload = '''
-if G.shop then
-	G.shop.alignment.offset.y = G.ROOM.T.y + 29
-	G.SHOP_SIGN.alignment.offset.y = -15
-elseif G.plinko then
-	G.plinko.alignment.offset.y = G.ROOM.T.y + 29
+            G.shop_vouchers = CardArea(
+            0, 0,
+            G.CARD_W,
+            G.CARD_H, 
+            {card_limit = 1, type = 'shop', highlight_limit = 1})
+            G.shop_vouchers.states.visible = false
+            return true 
+        end
+    }))
 end
 '''
 match_indent = true
@@ -137,6 +76,9 @@ payload = '''
 if G.SHOP_SIGN then
 	G.SHOP_SIGN:remove()
 	G.SHOP_SIGN = nil
+end
+if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then
+    PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED
 end
 '''
 match_indent = true

@@ -133,7 +133,9 @@ function Card:hotpot_resize(mod)
     remove_all(self.children)
     self.children = {}
     self.children.shadow = Moveable(0, 0, 0, 0)
-    self:set_sprites(self.config.center, self.base.id and self.config.card)
+    self:set_sprites(self.ability and self.ability.quantum_1 and self.ability.quantum_1.config.center or self.config.center, self.base.id and self.config.card)
+    self.CT.w = self.T.w
+    self.CT.h = self.T.h
 end
 
 function HotPotato.create_fake_card(c_key, area)

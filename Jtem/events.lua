@@ -753,7 +753,7 @@ function hpot_event_start_scenario()
 
 		current_step = nil,
 		previous_step = nil,
-		next_step = scenario.starting_step_key,
+		next_step = HotPotato.EventSteps[scenario.starting_step_key],
 
 		ability = G.GAME.hpot_event_scenario_data,
 
@@ -844,8 +844,8 @@ function hpot_event_start_step(key)
 
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				if G.hpot_event.previous_step then
-					G.hpot_event.previous_step:finish(G.hpot_event)
+				if G.hpot_event.current_step then
+					G.hpot_event.current_step:finish(G.hpot_event)
 					SMODS.calculate_context({
 						hpot_event_step_end = true,
 						event = G.hpot_event,

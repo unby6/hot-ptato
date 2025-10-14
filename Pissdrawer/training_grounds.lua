@@ -17,6 +17,12 @@ G.dynamic_train_messages = {
     stats_guts = "",
     stats_wits = "",
 
+    stat_multiplier_speed = "+?%",
+    stat_multiplier_stamina = "+?%",
+    stat_multiplier_power = "+?%",
+    stat_multiplier_guts = "+?%",
+    stat_multiplier_wits = "+?%",
+
     energy = 0,
     dummy_energy_cost = 0,
 
@@ -201,10 +207,7 @@ function Card:mod_training_stat(stat, num)
                     hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-150)/200)*100)/100) })
                 end
             end)
-            -- Wit
-            if stats.wits and stats.wits > 150 then
-                self.sell_cost = math.ceil(self.jp_jtem_orig_sell_cost * ( 1 + ( stats.wits - 150 ) / 50))
-            end
+            self:set_cost()
         else
             -- energy isnt a traditional stat like everything else
             self.ability.hp_jtem_energy = math.min(math.max(0, (self.ability.hp_jtem_energy or 0) + num), 100)
@@ -246,6 +249,7 @@ function Game:update(...)
             if joker_stats then
                 local card = G.train_jokers.cards[1]    
                 local stats = card.ability.hp_jtem_stats
+                local multipliers = card.ability.hp_jtem_train_mult
                 local specific_stat = stats[v]
 
                 G.dynamic_train_messages[v] = hpot_get_rank_and_colour(specific_stat)
@@ -254,6 +258,7 @@ function Game:update(...)
                     G.dynamic_train_messages[v] = G.dynamic_train_messages[v]:sub(1,1)
                 end
                 G.dynamic_train_messages["stats_"..v] = specific_stat
+                G.dynamic_train_messages["stat_multiplier_"..v] = "+"..((multipliers[v] - 1) * 100).."%"
 
                 local energy = G.train_jokers.cards[1].ability.hp_jtem_energy
                 if energy then
@@ -263,6 +268,7 @@ function Game:update(...)
                 G.dynamic_train_messages[v] = "?"
                 G.dynamic_train_messages[v.."_subrank"] = ""
                 G.dynamic_train_messages["stats_"..v] = "?"
+                G.dynamic_train_messages["stat_multiplier_"..v] = "+?%"
                 G.dynamic_train_messages["failure_rate_"..v] = "??%"
             end
         end 
@@ -730,6 +736,9 @@ function G.UIDEF.hotpot_pd_training_section()
                     }},
                     {n = G.UIT.R, config = {align = "cm"}, nodes = {
                         {n = G.UIT.T, config = {text = "/1200", scale = 0.3, colour = G.C.UI.TEXT_DARK, shadow = true}},
+                    }},
+                    {n = G.UIT.R, config = { align = "cm" }, nodes = {
+                        { n = G.UIT.T, config = { ref_table = G.dynamic_train_messages, ref_value = "stat_multiplier_"..stat, scale = 0.235, colour = G.C.UI.TEXT_INACTIVE } },
                     }},
                 }},
             }},

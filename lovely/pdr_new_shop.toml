@@ -51,6 +51,7 @@ pattern = '''
 play_sound('coin1')
 '''
 payload = '''
+dollar_UI.config.object:pop_in(0.01)
 local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_dollars')
 if hpot_dollar_ui then
     attention_text({
@@ -59,8 +60,66 @@ if hpot_dollar_ui then
         hold = 0.7,
         cover = hpot_dollar_ui,
         cover_colour = col,
-        align = 'cm',
-        font = SMODS.Fonts.hpot_plincoin
+        align = 'cm'
     })
 end
 '''
+
+# Patch bottlecap tooltip in plinko
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+local sign = 1
+'''
+payload = '''
+
+if self.area and self.area.config.plinko_rewards then
+    popup_direction = 'tm'
+end
+'''
+
+# Fix booster/voucher spawns
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+card.ability.booster_pos = #G.shop_booster.cards + 1
+card:start_materialize()
+G.shop_booster:emplace(card)
+'''
+payload = '''
+if G.shop_booster.cards then
+    card.ability.booster_pos = #G.shop_booster.cards + 1
+    card:start_materialize()
+    G.shop_booster:emplace(card)
+elseif PissDrawer.Shop.load_shop_booster then
+    table.insert(PissDrawer.Shop.load_shop_booster.cards, card:save())
+    card:remove()
+end
+'''
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+card:start_materialize()
+        G.shop_vouchers:emplace(card)
+        G.shop_vouchers.config.card_limit = #G.shop_vouchers.cards
+'''
+payload = '''
+if G.shop_vouchers.cards then
+    card:start_materialize()
+    G.shop_vouchers:emplace(card)
+    G.shop_vouchers.config.card_limit = #G.shop_vouchers.cards
+elseif PissDrawer.Shop.load_shop_vouchers then
+    table.insert(PissDrawer.Shop.load_shop_vouchers.cards, card:save())
+    card:remove()
+end
+'''
+

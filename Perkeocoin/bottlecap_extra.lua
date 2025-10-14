@@ -42,16 +42,16 @@ SMODS.DrawStep {
             local radius = 0.28
 
             if not self.children.rarity then
-                self.children.rarity = Sprite(self.children.center.T.x, self.children.center.T.y, 1.8, 1.8, G.ASSET_ATLAS["ui_1"], {x = 2, y = 0})
+                self.children.rarity = Sprite(self.children.center.T.x, self.children.center.T.y, self.children.center.T.w*2, self.children.center.T.h*2, G.ASSET_ATLAS["ui_1"], {x = 2, y = 0})
 
                 self.children.rarity:define_draw_steps({{
                     shader = 'hpot_bottlecap',
                     other_obj = self.children.center,
                     ms = self.ability.extra.chosen == 'Legendary' 
-                            and 2.75
-                            or 2.67,
-                    mx = 0.5,
-                    my = 0.42,
+                            and 2.75 * 1.5
+                            or 2.67 * 1.5,
+                    mx = self.children.center.T.w*1.1,
+                    my = self.children.center.T.h*1.1,
                     send = {
                         {name = 'radius_squared', func = function () return 
                             (radius * (0.95 + math.sin(G.TIMERS.REAL * 1.3) * 0.05)) ^2

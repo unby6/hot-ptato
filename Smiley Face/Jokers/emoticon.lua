@@ -2,7 +2,7 @@ SMODS.Joker {
     key = "emoticon",
     config = {
         extra = {
-            x_mult = 1.25
+            x_mult = 1.4
         }
     },
     loc_vars = function (self, info_queue, card)

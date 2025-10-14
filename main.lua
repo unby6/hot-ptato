@@ -128,47 +128,46 @@ function SMODS.create_mod_badges(obj, badges)
 					string = strings[i],
 				}
 			end
-			local hotpot_badge = {
-				n = G.UIT.R,
-				config = { align = "cm" },
-				nodes = {
-					{
-						n = G.UIT.R,
-						config = {
-							align = "cm",
-							colour = HotPotato.badge_colour,
-							r = 0.1,
-							minw = 2 / min_scale_fac,
-							minh = 0.36,
-							emboss = 0.05,
-							padding = 0.03 * 0.9,
-						},
-						nodes = {
-							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
-							{
-								n = G.UIT.O,
-								config = {
-									object = DynaText({
-										string = ct or "ERROR",
-										colours = { obj.hotpot_credits and obj.hotpot_credits.text_colour or G.C.WHITE },
-										silent = true,
-										float = true,
-										shadow = true,
-										offset_y = -0.03,
-										spacing = 1,
-										scale = 0.33 * 0.9,
-									}),
-								},
-							},
-							{ n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
-						},
-					},
-				},
-			}
 			for i = 1, #badges do
 				if badges[i].nodes[1].nodes[2].config.object.string == HotPotato.display_name then --this was meant to be a hex code but it just doesnt work for like no reason so its hardcoded
 					badges[i].nodes[1].nodes[2].config.object:remove()
-					badges[i] = hotpot_badge
+					badges[i] = {
+                        n = G.UIT.R,
+                        config = { align = "cm" },
+                        nodes = {
+                            {
+                                n = G.UIT.R,
+                                config = {
+                                    align = "cm",
+                                    colour = HotPotato.badge_colour,
+                                    r = 0.1,
+                                    minw = 2 / min_scale_fac,
+                                    minh = 0.36,
+                                    emboss = 0.05,
+                                    padding = 0.03 * 0.9,
+                                },
+                                nodes = {
+                                    { n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+                                    {
+                                        n = G.UIT.O,
+                                        config = {
+                                            object = DynaText({
+                                                string = ct or "ERROR",
+                                                colours = { obj.hotpot_credits and obj.hotpot_credits.text_colour or G.C.WHITE },
+                                                silent = true,
+                                                float = true,
+                                                shadow = true,
+                                                offset_y = -0.03,
+                                                spacing = 1,
+                                                scale = 0.33 * 0.9,
+                                            }),
+                                        },
+                                    },
+                                    { n = G.UIT.B, config = { h = 0.1, w = 0.03 } },
+                                },
+                            },
+                        },
+                    }
 					break
 				end
 			end
