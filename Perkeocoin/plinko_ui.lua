@@ -112,7 +112,7 @@ SMODS.Sound {
   key = "music_plinko_stupid",
   path = "music_plinko_stupid.ogg",
   select_music_track = function (self)
-    if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.changed == "stupid" then
+    if false and PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED and PlinkoUI.sprites.changed == "stupid" then
       return 1338
     end
   end,
