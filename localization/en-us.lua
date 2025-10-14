@@ -943,7 +943,7 @@ return {
             j_hpot_tipping_point = {
                 ['name'] = 'Tipping Point',
                 ['text'] = {
-                    [1] = '{C:attention}+1 {C:red}Rare{} bottlecap',
+                    [1] = '{C:attention}+#1# {C:red}Rare{} bottlecap',
                     [2] = 'in each {C:hpot_plincoin}Plinko{},',
                     [3] = 'pegs always {C:attention}move'
                 }

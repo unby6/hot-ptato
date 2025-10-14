@@ -803,12 +803,14 @@ SMODS.Joker{ --Tipping Point
     key = "tipping_point",
     config = {
         extra = {
+            tipping = 1
         }
     },
     pos = { x = 4, y = 1 },
     cost = 4,
     rarity = 1,
     blueprint_compat = false,
+    
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -822,7 +824,7 @@ SMODS.Joker{ --Tipping Point
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {}}
+        return {vars = {card.ability.extra.tipping}}
     end,
 
     calculate = function(self, card, context)

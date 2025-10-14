@@ -65,7 +65,11 @@ function PlinkoLogic.f.generate_rewards()
     end
   end
   local tipping_my_point = SMODS.find_card("j_hpot_tipping_point", false)
-  local extra_rare = tipping_my_point and #tipping_my_point or 0
+  local extra_rare = 0
+  for _, v in ipairs(tipping_my_point) do
+    extra_rare = extra_rare + v.ability.extra.tipping
+  end
+  extra_rare = math.floor(extra_rare)
   if extra_rare > 0 then
       G.GAME.plinko_rewards.Rare = math.min(7, PlinkoLogic.rewards.per_rarity.Rare + extra_rare)
       check_for_unlock({ type = "max_rare_caps", conditions = G.GAME.plinko_rewards.Rare })
