@@ -330,6 +330,7 @@ local function create_stat_display(stat, values, multipliers)
                             { n = G.UIT.R, config = { minh = 0.02 } },
                             -- stat multiplier
                             -- idk what to do with it. Is it really that important to show in info queue?
+							-- Moved it to training grounds instead- you dont need to see it all the time -haya
                             -- {
                             -- 	n = G.UIT.R,
                             -- 	config = { align = "cm" },
