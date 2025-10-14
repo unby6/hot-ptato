@@ -210,6 +210,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
+    if not self.loaded then return end
     self.children.center.sprite_pos = new_pos
     self.children.center.atlas.name = new_atlas and new_atlas.key or 'Joker'
     self.children.center:reset()
@@ -295,14 +296,14 @@ function nursery()
                         }, card)
 
                         card.ability.is_primary_mother = G.GAME.child_colour == G.C.HPOT_PINK
-                        update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'],
-                            child_prio.pos)
                         card:hotpot_resize(0.75)
 
                         card.ability.is_nursery_smalled = true
 
                         G.E_MANAGER:add_event(Event {
                             func = function()
+                                card.loaded = true
+                                update_child_atlas(card, G.ASSET_ATLAS[child_prio.atlas or 'Joker'], child_prio.pos)
                                 if G.nursery_mother and G.nursery_mother.cards and G.nursery_mother.cards[1] then
                                     G.nursery_mother.cards[1].ability.mother = nil
                                     if child_prio.key == child_sec.key then check_for_unlock({ type = 'selfcest' }) end

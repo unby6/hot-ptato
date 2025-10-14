@@ -231,9 +231,8 @@ SMODS.Joker {
     end,
     update = function(self, card, dt)
         if card.loaded then
+            update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[card.ability.quantum_1.key].atlas or 'Joker'], G.P_CENTERS[card.ability.quantum_1.key].pos)
             card.loaded = false
-            update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[card.ability.quantum_1.key].atlas or 'Joker'],
-                G.P_CENTERS[card.ability.quantum_1.key].pos)
             Card.update(card.ability.quantum_1, dt)
             Card.update(card.ability.quantum_2, dt)
         end
