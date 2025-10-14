@@ -32,7 +32,7 @@ PlinkoGame = {
     s = {
         meter = 150,
         acceleration_x = 0,
-        acceleration_y = 6.81,
+        acceleration_y = 9.81,
         world_width = 660,  -- x
         world_height = 590, -- y
 
@@ -50,7 +50,7 @@ PlinkoGame = {
         ball_density = 1,
         -- How much velocity is saved after collision?
         -- range: [0.0, 1.0]
-        ball_bounce = 0.75,
+        ball_bounce = 0.84,
 
         wall_height = 100,
         wall_width = 3,
@@ -259,6 +259,7 @@ function PlinkoGame.f.ballin(dt)
     plinko_balling = plinko_balling + where_is_plinko_balling * how_much_balling_per_second * G.real_dt
     if plinko_balling >= plinko_should_be_balling_in_a_different_direction or plinko_balling <= 1 then
         where_is_plinko_balling = -where_is_plinko_balling
+        plinko_balling = math.max(1, math.min(plinko_should_be_balling_in_a_different_direction, plinko_balling))
     end
 
     if PlinkoGame.o.dummy_ball then
@@ -339,6 +340,7 @@ local function draw_perkeorb(self)
 end
 
 local custom_sprites = {
+    [42] = "stupid",
     [69] = "stupid",
     [88] = "jcoin",
     [80] = "fisch",
@@ -509,8 +511,8 @@ function PlinkoGame.f.create_rewards()
         PlinkoGame.o["reward_"..tostring(i)] = fix {
             body = love.physics.newBody(
                 PlinkoGame.world,
-                world_offset.x + (width + 1) * i - width/2, -- in the middle
-                world_offset.y + PlinkoGame.s.world_height  -- at the bottom
+                world_offset.x + width * i - width/2, -- in the middle
+                world_offset.y + PlinkoGame.s.world_height - 1  -- at the bottom
             ),
             color = {i/PlinkoGame.s.world_width * 100/255, 255/255, i/PlinkoGame.s.world_width * 190/255},
             shape = love.physics.newRectangleShape(width, 1),
