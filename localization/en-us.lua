@@ -5857,16 +5857,20 @@ return {
                         name = "th30ne",
                         text = {
                             {
-                                '{C:attention}Code{} and {C:attention}Content',
-                                '{C:attention}Implementation'
-                            },
-                            {
-                                '{C:attention}Artist'
+                                'Art for {C:attention}19{} Jokers',
+                                'Concept for {C:attention}16{} Jokers',
+                                'Code for {C:attention}4{} Jokers',
                             },
                             {
                                 'Also worked on:',
-                                '{C:attention}Grab Bag'
-                            }
+                                '{C:tarot}Grab Bag'
+                            },
+                            {
+								'did you know that the codebase',
+                                'contains the {E:1,C:dark_edition}naughty f word',
+                                '{C:attention}117{} times? how rude',
+                                'oh also play {E:1,C:dark_edition}corru.observer'
+							}
                         },
                         atlas = "hpot_oap_self_insert",
                         pos = { x = 6, y = 0 }
