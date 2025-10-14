@@ -156,7 +156,7 @@ HotPotato.allcalcs = HotPotato.allcalcs or {
 local maozedong = win_game
 function win_game()
     local ret = maozedong()
-    if SMODS.find_card('j_hpot_social_credit') then
+    if next(SMODS.find_card('j_hpot_social_credit')) then
         HPTN.set_credits(0)
     end
     return ret
