@@ -5298,7 +5298,7 @@ return {
                         text = {
                             {
                                 "Maintaining game {C:attention}performance{},",
-                                "balancing and bug fixing",
+                                "balancing and {C:mult}A LOT{} of bug fixing",
                                 "other team's additions",
                             },
                             {
