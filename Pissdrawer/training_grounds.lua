@@ -795,8 +795,11 @@ function G.UIDEF.hotpot_pd_training_section()
                             {n = G.UIT.T, config = {text = localize("hotpot_training_joker"), scale = 0.4, colour = G.C.BLACK}},
                         }},
                         {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                            {n = G.UIT.C, config = {align = "cm", padding = 0.1, r = 0.2, colour = G.C.BLACK}, nodes = {
-                                {n = G.UIT.O, config = {object = G.train_jokers}},
+                            {n = G.UIT.C, config = {align = "cm", r = 0.2, colour = G.C.BLACK}, nodes = {
+                                {n = G.UIT.C, nodes = {
+                                    {n = G.UIT.O, config = {object = G.train_jokers}},
+                                }},
+                                {n = G.UIT.C, config = { minw = 0.5 }},
                             }},
                         }},
                         {n = G.UIT.R, config = {align = "cm", minh = 0.05}},

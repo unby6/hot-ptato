@@ -798,7 +798,7 @@ function PissDrawer.Shop.create_training_areas()
     G.train_jokers = CardArea(
         G.hand.T.x + 0,
         G.hand.T.y + G.ROOM.T.y + 9,
-        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W) - 0.25,
         1.05 * G.CARD_H,
         { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true }
     )
