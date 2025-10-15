@@ -55,10 +55,12 @@ function PlinkoLogic.f.reset_plinko()
   PlinkoGame.f.init_dummy_ball()
 end
 
-function PlinkoLogic.f.generate_rewards()
+function PlinkoLogic.f.generate_rewards(no_load)
+  if no_load then
+    PissDrawer.Shop['load_plinko_rewards'] = nil
+  end
   local load_rewards = PissDrawer.Shop['load_plinko_rewards']
   if load_rewards then
-    PissDrawer.Shop.load_plinko_rewards = nil
     if load_rewards.cards and #load_rewards.cards > 0 then
       G.plinko_rewards:load(load_rewards)
       return
@@ -99,9 +101,9 @@ function PlinkoLogic.f.generate_rewards()
           rarity = rarity
         }
         if rarity == 'Bad' then
-          card:set_edition("e_negative")
+          card:set_edition("e_negative", nil, true)
         else
-          card:set_edition()
+          card:set_edition(nil, nil, true)
         end
         card.ability.extra.chosen = rarity
         if pseudorandom("legendary_cap") < 0.003 and card.config.center.pools.bottlecap_Legendary then
@@ -111,6 +113,7 @@ function PlinkoLogic.f.generate_rewards()
       end
     end
   end
+  G.plinko_rewards:shuffle('plink')
 end
 
 -- GIVE REWARD
