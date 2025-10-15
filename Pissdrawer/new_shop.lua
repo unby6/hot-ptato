@@ -1031,8 +1031,10 @@ end
 G.FUNCS.training_emplace = function ()
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
         local c = G.jokers.highlighted[1]
-        c.children.hpot_move_to_train:remove()
-        c.children.hpot_move_to_train = nil
+        if c.children.hpot_move_to_train then
+            c.children.hpot_move_to_train:remove()
+            c.children.hpot_move_to_train = nil
+        end
         HPTN.move_card(c, G.train_jokers)
     end
 end
@@ -1040,8 +1042,10 @@ end
 G.FUNCS.training_return = function ()
     if G.train_jokers and G.train_jokers.cards then
         if #G.train_jokers.cards > 0 and G.FUNCS.check_for_buy_space(G.train_jokers.cards[1]) then
-            G.train_jokers.cards[1].children.hpot_move_to_train:remove()
-            G.train_jokers.cards[1].children.hpot_move_to_train = nil
+            if G.train_jokers.cards[1].children.hpot_move_to_train then
+                G.train_jokers.cards[1].children.hpot_move_to_train:remove()
+                G.train_jokers.cards[1].children.hpot_move_to_train = nil
+            end
             HPTN.move_card(G.train_jokers.cards[1], G.jokers)
         end
     end
@@ -1338,8 +1342,10 @@ end
 G.FUNCS.training_emplace = function ()
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
         local c = G.jokers.highlighted[1]
-        c.children.hpot_move_to_train:remove()
-        c.children.hpot_move_to_train = nil
+        if c.children.hpot_move_to_train then
+            c.children.hpot_move_to_train:remove()
+            c.children.hpot_move_to_train = nil
+        end
         HPTN.move_card(c, G.train_jokers)
     end
 end
@@ -1347,8 +1353,10 @@ end
 G.FUNCS.training_return = function ()
     if G.train_jokers and G.train_jokers.cards then
         if #G.train_jokers.cards > 0 and G.FUNCS.check_for_buy_space(G.train_jokers.cards[1]) then
-            G.train_jokers.cards[1].children.hpot_move_to_train:remove()
-            G.train_jokers.cards[1].children.hpot_move_to_train = nil
+            if G.train_jokers.cards[1].children.hpot_move_to_train then
+                G.train_jokers.cards[1].children.hpot_move_to_train:remove()
+                G.train_jokers.cards[1].children.hpot_move_to_train = nil
+            end
             HPTN.move_card(G.train_jokers.cards[1], G.jokers)
         end
     end
