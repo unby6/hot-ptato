@@ -59,13 +59,12 @@ SMODS.Joker {
 		end
 		local funcs = {
 			Corobo = function(self, card, context)
-				if context.individual and context.cardarea == G.play then
+				if context.individual and context.cardarea == G.play and not context.blueprint then
 					SMODS.scale_card(card, {
 						ref_table = card.ability.extra.functions.Corobo,
 						ref_value = "a",
 						scalar_value = "b",
 					})
-					return { xmult = fuck.Corobo.a }
 				end
 				
 				if context.joker_main then
@@ -73,7 +72,7 @@ SMODS.Joker {
 					local chip_value = 50 -- hardcoded because secret :3
 					
 					card.ability.extra.functions.Corobo.pat_reward = 0
-					return { chips = chip_bonus * chip_value }
+					return { chips = chip_bonus * chip_value, xmult = fuck.Corobo.a }
 				end
 			end,
 			GhostSalt = function(self, card, context)
