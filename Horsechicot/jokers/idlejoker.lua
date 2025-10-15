@@ -5,11 +5,15 @@ function Blind:click()
         self.states.drag.can = false
 
         for _,joker in pairs(found) do
+            joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
+            card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+            --[[
             SMODS.scale_card(joker, {
                 ref_table = joker.ability.extra,
                 ref_value = "score",
                 scalar_value = "gain",
             })
+            ]]
         end
 
         self:juice_up()
