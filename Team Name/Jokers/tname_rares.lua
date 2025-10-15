@@ -3,6 +3,108 @@ local function getcurrentperson(num)
 	num = num or 1
 	return array[num]
 end
+local tname_postcard_funcs = {
+    Corobo = function(self, card, context)
+        local fuck = card.ability.extra.functions
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra.functions.Corobo,
+                ref_value = "a",
+                scalar_value = "b",
+            })
+        end
+        
+        if context.joker_main then
+            local chip_bonus = card.ability.extra.functions.Corobo.pat_reward
+            local chip_value = 50 -- hardcoded because secret :3
+            
+            card.ability.extra.functions.Corobo.pat_reward = 0
+            return { chips = chip_bonus * chip_value, xmult = fuck.Corobo.a }
+        end
+    end,
+    GhostSalt = function(self, card, context)
+        local fuck = card.ability.extra.functions
+        if context.other_consumeable then
+            return { xmult = fuck.GhostSalt[1] }
+        end
+    end,
+    GoldenLeaf = function(self, card, context)
+        local fuck = card.ability.extra.functions
+        if context.joker_main then
+            HPTN.ease_credits(fuck.GoldenLeaf[1], false)
+            return { message = localize("k_hotpot_added") }
+        end
+    end,
+    Jogla = function(self, card, context)
+        local fuck = card.ability.extra.functions
+        if context.ending_shop and G.consumeables.cards[1] then
+            local target_card_key = G.consumeables.cards[1].config.center.key
+            if target_card_key ~= nil then
+                card_eval_status_text(card, "extra", nil, nil, nil,
+                    { message = localize("k_duplicated_ex", "dictionary"), colour = G.C.ORANGE })
+                for i = 1, fuck["Jogla"][1] do
+                    SMODS.add_card {
+                        key = target_card_key,
+                        edition = "e_negative"
+                    }
+                end
+            end
+        end
+    end,
+    Revo = function(self, card, context)
+        local fuck = card.ability.extra.functions
+        if context.repetition and context.other_card:is_suit("Spades") then
+            return {
+                repetitions = card.ability.extra.functions.Revo.rep
+            }
+        end
+    end,
+    Violet = function(self, card, context)
+        local fuck = card.ability.extra.functions
+        if context.initial_scoring_step then
+            local CArda, CArdb
+            local cardLock = false
+            for k, v in ipairs(G.play.cards) do
+                if v:is_suit("Hearts") then
+                    if not cardLock then
+                        CArda = v
+                        cardLock = true
+                    end
+                end
+                if v:is_suit("Spades") then
+                    CArdb = v
+                end
+            end
+            if CArda and CArda ~= nil then
+                CArda:flip()
+                local a = SMODS.change_base(CArda, "Spades")
+                CArda:flip()
+            end
+            if CArdb and CArdb ~= nil then
+                CArdb:flip()
+                local a = SMODS.change_base(CArdb, "Hearts")
+                CArdb:flip()
+            end
+        end
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Spades") then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.functions.Violet[1]
+                return {
+                    dollars = card.ability.extra.functions.Violet[1],
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                G.GAME.dollar_buffer = 0
+                                return true
+                            end
+                        }))
+                    end
+                }
+            end
+        end
+    end,
+}
+
 SMODS.Joker {
 	key = "tname_postcard",
 	atlas = "tname_jokers2",
@@ -45,117 +147,16 @@ SMODS.Joker {
 
 	blueprint_compat = true,
 	calculate = function(self, card, context)
-		local fuck = card.ability.extra.functions
-		if context.starting_shop then
-			if card.quantum then
-				card = card.quantum
-			end
-			card.children.center:set_sprite_pos { x = G.GAME.current_team_name_member - 1, y = 0 }
-			return {
-				message = localize("k_changedperson"),
-				colour = G.C.ATTENTION,
-				card = card
-			}
-		end
-		local funcs = {
-			Corobo = function(self, card, context)
-				if context.individual and context.cardarea == G.play and not context.blueprint then
-					SMODS.scale_card(card, {
-						ref_table = card.ability.extra.functions.Corobo,
-						ref_value = "a",
-						scalar_value = "b",
-					})
-				end
-				
-				if context.joker_main then
-					local chip_bonus = card.ability.extra.functions.Corobo.pat_reward
-					local chip_value = 50 -- hardcoded because secret :3
-					
-					card.ability.extra.functions.Corobo.pat_reward = 0
-					return { chips = chip_bonus * chip_value, xmult = fuck.Corobo.a }
-				end
-			end,
-			GhostSalt = function(self, card, context)
-				if context.other_consumeable then
-					return { xmult = fuck.GhostSalt[1] }
-				end
-			end,
-			GoldenLeaf = function(self, card, context)
-				if context.joker_main then
-					HPTN.ease_credits(fuck.GoldenLeaf[1], false)
-					return { message = localize("k_hotpot_added") }
-				end
-			end,
-			Jogla = function(self, card, context)
-				if context.ending_shop and G.consumeables.cards[1] then
-					local target_card_key = G.consumeables.cards[1].config.center.key
-					if target_card_key ~= nil then
-						card_eval_status_text(card, "extra", nil, nil, nil,
-							{ message = localize("k_duplicated_ex", "dictionary"), colour = G.C.ORANGE })
-						for i = 1, fuck["Jogla"][1] do
-							local new_card = SMODS.add_card {
-								key = target_card_key,
-								edition = "e_negative"
-							}
-						end
-					end
-				end
-			end,
-			Revo = function(self, card, context)
-				if context.repetition and context.other_card:is_suit("Spades") then
-					return {
-						repetitions = card.ability.extra.functions.Revo.rep
-					}
-				end
-			end,
-			Violet = function(self, card, context)
-				if context.initial_scoring_step then
-					local CArda, CArdb
-					local cardLock = false
-					for k, v in ipairs(G.play.cards) do
-						if v:is_suit("Hearts") then
-							if not cardLock then
-								CArda = v
-								cardLock = true
-							end
-						end
-						if v:is_suit("Spades") then
-							CArdb = v
-						end
-					end
-					if CArda and CArda ~= nil then
-						CArda:flip()
-						local a = SMODS.change_base(CArda, "Spades")
-						CArda:flip()
-					end
-					if CArdb and CArdb ~= nil then
-						CArdb:flip()
-						local a = SMODS.change_base(CArdb, "Hearts")
-						CArdb:flip()
-					end
-				end
-				if context.individual and context.cardarea == G.play then
-					if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Spades") then
-                        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.functions.Violet[1]
-						return {
-							dollars = card.ability.extra.functions.Violet[1],
-                            func = function()
-                                G.E_MANAGER:add_event(Event({
-                                    func = function()
-                                        G.GAME.dollar_buffer = 0
-                                        return true
-                                    end
-                                }))
-                            end
-						}
-					end
-				end
-			end,
-		}
-		return funcs[getcurrentperson(G.GAME.current_team_name_member)](self, card, context)
+		return tname_postcard_funcs[getcurrentperson(G.GAME.current_team_name_member)](self, card, context)
 	end,
-    load = function(self, card)
-        card.children.center:set_sprite_pos { x = (G.GAME.current_team_name_member or 1) - 1, y = 0 }
+    set_sprites = function(self, card, front)
+        card.children.center:set_sprite_pos({ x = (G.GAME and G.GAME.current_team_name_member or 1) - 1, y = 0 })
+    end,
+    update = function(self, card)
+        local target_pos = (G.GAME and G.GAME.current_team_name_member or 1) - 1
+        if card.children.center.sprite_pos.x ~= target_pos then
+            card.children.center:set_sprite_pos { x = target_pos, y = 0 }
+        end
     end,
 	hotpot_credits = {
 		art = { 'GhostSalt' },
