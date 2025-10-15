@@ -210,7 +210,7 @@ function PlinkoUI.f.clear_plinko_rewards()
   end
 end
 
-function PlinkoUI.f.update_plinko_rewards(shuffle)
+function PlinkoUI.f.update_plinko_rewards(no_load)
   if not G.plinko_rewards then
     return
   end
@@ -219,11 +219,7 @@ function PlinkoUI.f.update_plinko_rewards(shuffle)
   G.E_MANAGER:add_event(Event({
     delay = 0.4,
     func = (function()
-      PlinkoLogic.f.generate_rewards()
-
-      if shuffle then
-        G.plinko_rewards:shuffle('plink')
-      end
+      PlinkoLogic.f.generate_rewards(no_load)
       PlinkoUI.f.adjust_rewards()
       return true
     end)
@@ -437,9 +433,7 @@ G.FUNCS.start_plinko = function(e, use_dollars)
         ---------------------------------------------------------------
         -- TODO : maybe this should be moved to when reward is given?
         ---------------------------------------------------------------
-        for i = 1, #G.jokers.cards do
-          G.jokers.cards[i]:calculate_joker({start_plinko = true})
-        end
+        SMODS.calculate_context({start_plinko = true})
         return true
       end
     }))
@@ -478,50 +472,8 @@ function update_plinko(dt)
     if G.STAGE ~= G.STAGES.RUN then return end
     PlinkoGame.f.update_plinko_world(dt)
     if not G.STATE_COMPLETE then
-      
         stop_use()
         ease_background_colour({new_colour = HEX('ffe96e'), special_colour = G.C.GREEN, tertiary_colour = darken( G.C.BLACK,0.1), contrast = 5})
-        local plinko_exists = true
-
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.2,
-                    blockable = false,
-                    func = function()
-                        if math.abs(G.shop:get_UIE_by_ID('main_shop_body').T.y - G.shop:get_UIE_by_ID('main_shop_body').VT.y) < 3 then
-                            G.ROOM.jiggle = G.ROOM.jiggle + 3
-                            play_sound('cardFan2')
-
-                            if not plinko_exists then                            
-                                if G.load_plinko_rewards then
-                                    G.plinko_rewards:load(G.load_plinko_rewards)
-                                    G.load_plinko_rewards = nil
-                                    PlinkoUI.f.adjust_rewards()
-                                else
-                                  PlinkoUI.f.update_plinko_rewards(true)
-                                end
-
-                            end
-
-                            -- When plinko is closed, rewards are cached to allow dupes in other instances
-                            -- reload rewards when opening plinko
-                            if G.GAME.load_plinko_rewards then
-                              G.plinko_rewards:load(G.GAME.load_plinko_rewards)
-                              G.GAME.load_plinko_rewards = nil
-                              PlinkoUI.f.adjust_rewards()
-                            end
-
-                            -- Back to shop button
-
-                            return true
-                        end
-                    end}))
-                return true
-            end
-        }))
-
         G.STATE_COMPLETE = true
     end
 
