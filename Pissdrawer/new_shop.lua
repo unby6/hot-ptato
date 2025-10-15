@@ -595,7 +595,10 @@ function PissDrawer.Shop.reforge_shop()
                             {n = G.UIT.T, config = {text = localize("k_place_card_text"), colour = G.C.GREY, scale = 0.4, align = "tm"}},
                         }},
                         {n=G.UIT.R, config = {align = 'cm'}, nodes = {
-                            {n=G.UIT.O, config = {object = G.reforge_area}},
+                            {n = G.UIT.C, nodes = {
+                                {n=G.UIT.O, config = {object = G.reforge_area}},
+                            }},
+                            {n = G.UIT.C, config = { minw = 0.45 }},
                         }},
                     }}
                 }},
