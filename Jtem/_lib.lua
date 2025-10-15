@@ -183,6 +183,7 @@ local MisprintizeForbidden = {
 	["rounds_reset"] = true, -- Login Bonus
 	["current_cycle"] = true, -- also Login Bonus
 	["n_seen"] = true, -- Hangman
+	["times_scaled"] = true, -- Greedy Bastard's Big Eater achievement
 	["selected_d6_face"] = true,
 	["h_x_mult"] = true,
 	["h_x_chips"] = true,

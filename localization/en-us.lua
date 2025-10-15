@@ -1112,7 +1112,7 @@ return {
                     "All {C:attention}Food Jokers{} may appear multiple times",
                     "When a {C:attention}Food Joker{} is destroyed,",
                     "this Joker gains {C:mult}+#1#{} Mult",
-                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mults)"
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },
             j_hpot_labubu = {
@@ -6580,6 +6580,7 @@ return {
             ach_hpot_deck_joker = 'Double Decker',
             ach_hpot_swoon = 'SWOON',
             ach_hpot_paytowin = 'Just Get ReVanced',
+            ach_hpot_big_eater = "Big Eater"
         },
         achievement_descriptions = {
             ach_hpot_sign_here = 'Find 3 clauses on a Fine Print Joker',
@@ -6609,6 +6610,7 @@ return {
             ach_hpot_deck_joker = 'Activate any Deck Joker with a deck size of 100 using the corresponding deck',
             ach_hpot_swoon = 'Encounter the Roaring Knight',
             ach_hpot_paytowin = 'Subscribe to Balatro Premium for 8 antes in a row',
+            ach_hpot_big_eater = "Scale one copy of Greedy Bastard 10 times"
         }
     }
 }

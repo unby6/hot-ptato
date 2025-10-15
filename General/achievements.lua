@@ -25,7 +25,6 @@ SMODS.Achievement{
     bypass_all_unlocked = true,
     hidden_name = true,
     hidden_text = false,
-    reset_on_startup = true,
     unlock_condition = function(self, args)
         return args.type == 'maniac'
     end
@@ -246,5 +245,16 @@ SMODS.Achievement {
     hidden_text = false,
     unlock_condition = function(self, args)
         return (args.type == 'paytowin' and args.conditions == 8)
+    end
+}
+
+SMODS.Achievement{
+    key = 'big_eater',
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    hidden_text = false,
+    reset_on_startup = true,
+    unlock_condition = function(self, args)
+        return args.type == 'greedybastardscaled' and args.conditions >= 10
     end
 }

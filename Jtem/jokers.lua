@@ -75,8 +75,9 @@ SMODS.Joker {
     config = {
         mult = 0,
         extra = {
-            gain = 12
-        }
+            gain = 12,
+            times_scaled = 0
+        },
     },
     loc_vars = function(self, info_queue, card)
         return {
@@ -99,6 +100,8 @@ SMODS.Joker {
                             scalar_table = card.ability.extra,
                             scalar_value = "gain"
                         })
+                        card.ability.extra.times_scaled = card.ability.extra.times_scaled + 1
+                        check_for_unlock({type = "greedybastardscaled", conditions = card.ability.extra.times_scaled})
                     end,
                 }
             end
