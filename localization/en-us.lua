@@ -3862,7 +3862,7 @@ return {
                 text = {
                     "Gain {C:hpot_plincoin,f:hpot_plincoin}${C:hpot_plincoin}#1#{}",
                     "after defeating",
-                    "the Boss Blind,",
+                    "the Boss Blind",
                 },
             },
             tag_hpot_jokerexchange = {

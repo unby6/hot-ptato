@@ -108,6 +108,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_fragile")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -155,6 +156,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_fragile")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
 	end,
 	calculate = function (self, card, context)
@@ -203,6 +205,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_uranium")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
 	end,
 	calculate = function (self, card, context)
@@ -251,6 +254,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_uranium")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -299,6 +303,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_redirect")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -345,6 +350,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_redirect")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
 	end,
 	calculate = function (self, card, context)
@@ -391,6 +397,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_cannibal")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
 	end,
 	calculate = function (self, card, context)
@@ -437,6 +444,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_cannibal")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -487,6 +495,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_spores")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -535,6 +544,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_spores")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -581,6 +591,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_cfour")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -627,6 +638,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_cfour")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -680,6 +692,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_overclock")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -730,6 +743,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_overclock")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -776,6 +790,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_rage")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -822,6 +837,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_rage")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -870,6 +886,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_spinning")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -916,6 +933,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_spinning")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -962,6 +980,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_binary")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1008,6 +1027,7 @@ SMODS.Consumable({
 				apply_remove_sticker(G.hand.highlighted[i], "hpot_binary")
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1206,6 +1226,7 @@ SMODS.Consumable({
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
+        play_sound("hpot_tname_reforge")
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1244,6 +1265,7 @@ SMODS.Consumable({
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
+        play_sound("hpot_tname_reforge")
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1282,6 +1304,7 @@ SMODS.Consumable({
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
+        play_sound("hpot_tname_reforge")
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1320,6 +1343,7 @@ SMODS.Consumable({
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
+        play_sound("hpot_tname_reforge")
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1368,6 +1392,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1414,6 +1439,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1460,6 +1486,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1506,6 +1533,7 @@ SMODS.Consumable({
 				SMODS.Stickers[key]:apply(G.hand.highlighted[i], true)
 			end
 		end
+        play_sound('gold_seal', 1.2, 0.4)
 		unhighlight_hj()
     end,
 	calculate = function (self, card, context)
@@ -1697,38 +1725,19 @@ SMODS.Consumable({
 		return highlight_jokers_hand(hpt.high, true)
 	end,
 	use = function(self, card, area, copier)
-		
-		local modif
-		local remove = {}
+        local is_activated = false
 		for i = 1, #G.jokers.highlighted do
-		G.E_MANAGER:add_event(Event({
-			trigger = "before",
-			delay = 0.2,
-			func = function()
-			
-			modif = get_modification(G.jokers.highlighted[i])
-			
-			if modif then
-				
-				if HPTN.Modifications[modif].morality == "BAD" then
-					
-					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
-					G.jokers.highlighted[i]:juice_up()
-				end
-			end
-			return true
+            local modif = get_modification(G.jokers.highlighted[i])
+            if modif and HPTN.Modifications[modif].morality == "BAD" then
+                is_activated = true
+                HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+                G.jokers.highlighted[i]:juice_up()
+            end
 		end
-		}))
-		end
-
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			delay = 0.2,
-			func = function()
-				unhighlight_hj()
-			return true
-		end
-		}))
+        if is_activated then
+            play_sound("hpot_tname_reforge")
+        end
+        unhighlight_hj()
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria with Cuckoo"}, context)
@@ -1762,39 +1771,20 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		return highlight_jokers_hand(hpt.high, true)
 	end,
-use = function(self, card, area, copier)
-		
-		local modif
-		local remove = {}
+    use = function(self, card, area, copier)
+        local is_activated = false
 		for i = 1, #G.jokers.highlighted do
-		G.E_MANAGER:add_event(Event({
-			trigger = "before",
-			delay = 0.2,
-			func = function()
-			
-			modif = get_modification(G.jokers.highlighted[i])
-			
-			if modif then
-				
-				if HPTN.Modifications[modif].morality == "BAD" then
-					
-					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
-					G.jokers.highlighted[i]:juice_up()
-				end
-			end
-			return true
+            local modif = get_modification(G.jokers.highlighted[i])
+            if modif and HPTN.Modifications[modif].morality == "BAD" then
+                is_activated = true
+                HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+                G.jokers.highlighted[i]:juice_up()
+            end
 		end
-		}))
-		end
-
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			delay = 0.2,
-			func = function()
-				unhighlight_hj()
-			return true
-		end
-		}))
+        if is_activated then
+            play_sound("hpot_tname_reforge")
+        end
+        unhighlight_hj()
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria with Ribbon"}, context)
@@ -1828,39 +1818,20 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		return highlight_jokers_hand(hpt.high, true)
 	end,
-use = function(self, card, area, copier)
-		
-		local modif
-		local remove = {}
+    use = function(self, card, area, copier)
+        local is_activated = false
 		for i = 1, #G.jokers.highlighted do
-		G.E_MANAGER:add_event(Event({
-			trigger = "before",
-			delay = 0.2,
-			func = function()
-			
-			modif = get_modification(G.jokers.highlighted[i])
-			
-			if modif then
-				
-				if HPTN.Modifications[modif].morality == "BAD" then
-					
-					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
-					G.jokers.highlighted[i]:juice_up()
-				end
-			end
-			return true
+            local modif = get_modification(G.jokers.highlighted[i])
+            if modif and HPTN.Modifications[modif].morality == "BAD" then
+                is_activated = true
+                HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+                G.jokers.highlighted[i]:juice_up()
+            end
 		end
-		}))
-		end
-
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			delay = 0.2,
-			func = function()
-				unhighlight_hj()
-			return true
-		end
-		}))
+        if is_activated then
+            play_sound("hpot_tname_reforge")
+        end
+        unhighlight_hj()
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria", "Wisteria_2"}, context)
@@ -1894,39 +1865,20 @@ SMODS.Consumable({
 		local hpt = card.ability.extra
 		return highlight_jokers_hand(hpt.high, true)
 	end,
-use = function(self, card, area, copier)
-		
-		local modif
-		local remove = {}
+    use = function(self, card, area, copier)
+        local is_activated = false
 		for i = 1, #G.jokers.highlighted do
-		G.E_MANAGER:add_event(Event({
-			trigger = "before",
-			delay = 0.2,
-			func = function()
-			
-			modif = get_modification(G.jokers.highlighted[i])
-			
-			if modif then
-				
-				if HPTN.Modifications[modif].morality == "BAD" then
-					
-					HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
-					G.jokers.highlighted[i]:juice_up()
-				end
-			end
-			return true
+            local modif = get_modification(G.jokers.highlighted[i])
+            if modif and HPTN.Modifications[modif].morality == "BAD" then
+                is_activated = true
+                HPTN.Modifications[modif]:apply(G.jokers.highlighted[i], false)
+                G.jokers.highlighted[i]:juice_up()
+            end
 		end
-		}))
-		end
-
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			delay = 0.2,
-			func = function()
-				unhighlight_hj()
-			return true
-		end
-		}))
+        if is_activated then
+            play_sound("hpot_tname_reforge")
+        end
+        unhighlight_hj()
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Wisteria", "Wisteria_2"}, context)
@@ -2101,18 +2053,26 @@ SMODS.Consumable({
 		return true
 	end,
 	use = function(self, card, area, copier)
+        local result
 		local hpt = card.ability.extra
 		for i = 1, hpt.high do
-			result = SMODS.add_card({
-				set = "Hanafuda",
-				area = G.consumeables,
-				edition = "e_negative",
-			})
-			if result.config.center_key:find('bush_clover') then
-				if tonumber(result.config.center_key:sub(-1)) < tonumber(card.config.center_key:sub(-1)) and tonumber(result.config.center_key:sub(-1)) < 3 then
-					check_for_unlock({type = 'whoppers'})
-				end
-			end
+            G.E_MANAGER:add_event(Event({
+                trigger = "after",
+                delay = 0.4,
+                func = function()
+                    result = SMODS.add_card({
+                        set = "Hanafuda",
+                        area = G.consumeables,
+                        edition = "e_negative",
+                    })
+                    if result.config.center_key:find('bush_clover') then
+                        if tonumber(result.config.center_key:sub(-1)) < tonumber(card.config.center_key:sub(-1)) and tonumber(result.config.center_key:sub(-1)) < 3 then
+                            check_for_unlock({type = 'whoppers'})
+                        end
+                    end
+                    return true
+                end,
+            }))
 		end
     end,
 	calculate = function (self, card, context)
