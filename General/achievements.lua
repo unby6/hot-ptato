@@ -134,17 +134,6 @@ SMODS.Achievement {
 }
 
 SMODS.Achievement {
-    key = 'sisyphus',
-    bypass_all_unlocked = true,
-    reset_on_startup = true,
-    hidden_name = false,
-    hidden_text = false,
-    unlock_condition = function(self, args)
-        return (args.type == 'sisyphus')
-    end
-}
-
-SMODS.Achievement {
     key = 'this_writing_is_fire',
     bypass_all_unlocked = true,
     hidden_name = true,
