@@ -830,13 +830,13 @@ function PissDrawer.Shop.create_nursery_areas()
     G.nursery_father = CardArea(
             G.hand.T.x - 1,
             G.hand.T.y + G.ROOM.T.y + 9,
-            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+            math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W) - 0.3,
             1.05 * G.CARD_H,
             { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
     G.nursery_mother = CardArea(
         G.hand.T.x + 1,
         G.hand.T.y + G.ROOM.T.y + 9,
-        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W),
+        math.min(1.02 * G.CARD_W, 4.08 * G.CARD_W) - 0.3,
         1.05 * G.CARD_H,
         { card_limit = 1, type = 'shop', highlight_limit = 1, negative_info = true, hotpot_shop = true })
     G.nursery_child = CardArea(
@@ -1216,7 +1216,8 @@ function PissDrawer.Shop.nursery()
                             {n=G.UIT.C, config = {align='cm', padding = -1 * G.CARD_W}, nodes = {
                                 {n=G.UIT.O, config = {padding = -1, object = Sprite(0, 0, G.CARD_W, G.CARD_W, G.ASSET_ATLAS['hpot_nursery_icons_lblack'], { x = 1, y = 0 })}},
                                 {n=G.UIT.O, config = {padding = -1, object = G.nursery_father, align = "cm", id = "shop_nursery_father" }},
-                            }}
+                            }},
+                            {n=G.UIT.C, config = {minw = 0.3}},
                         }}
                     }},
                 }},
@@ -1260,7 +1261,7 @@ function PissDrawer.Shop.nursery()
                                     {n=G.UIT.O, config = {padding = -1, object = Sprite(0, 0, G.CARD_W, G.CARD_W, G.ASSET_ATLAS['hpot_nursery_icons_lblack'], { x = 0, y = 0 })}},
                                     {n=G.UIT.O, config = {padding = -1, object = G.nursery_mother, align = "cm", id = "shop_nursery_mother" }},
                                 }},
-                                {n=G.UIT.C, config = {minw = 0.15}},
+                                {n=G.UIT.C, config = {minw = 0.45}},
                             }},
                         }},
                     }},
