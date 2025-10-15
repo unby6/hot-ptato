@@ -253,7 +253,6 @@ SMODS.Achievement{
     bypass_all_unlocked = true,
     hidden_name = true,
     hidden_text = false,
-    reset_on_startup = true,
     unlock_condition = function(self, args)
         return args.type == 'greedybastardscaled' and args.conditions >= 10
     end
