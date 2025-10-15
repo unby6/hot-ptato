@@ -1942,8 +1942,8 @@ return {
             j_hpot_mega_mushroom = {
                 name = 'Mega Mushroom',
                 text = {
-                    'Level up the next {C:attention}3 {C:inactive}(#1#)',
-                    'final poker hands {C:attention}twice',
+                    'Level up the next {C:attention}#1#',
+                    '{C:attention}final hands{} of round {C:attention}twice',
                 }
             },
             j_hpot_pump_and_dump = {
