@@ -496,8 +496,7 @@ function UIElement:stop_hover(...)
 end
 
 function PissDrawer.Shop.delivery_shop()
-    return
-    {n=G.UIT.C, nodes = {
+    local ret = {n=G.UIT.C, nodes = {
         PissDrawer.Shop.help_button('delivery_help'),
         {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
             {n=G.UIT.C, config = {padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, align = "tm" }, nodes = {
@@ -527,7 +526,9 @@ function PissDrawer.Shop.delivery_shop()
                 }}
             }}
         }},
-        {n=G.UIT.R, config = {minh = 2, align = 'tr', padding = 0.05}, nodes = {
+    }}
+    if G.GAME.hp_jtem_should_allow_custom_order then
+        ret.nodes[#ret.nodes + 1] = {n=G.UIT.R, config = {minh = 2, align = 'tr', padding = 0.05}, nodes = {
             {n=G.UIT.R, config = {minw = 6.7, align = 'cm'}, nodes = {
                 {n=G.UIT.C, config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.1, minw = 2.8, minh = 1, shadow = true,
                  button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true }, nodes = {
@@ -550,7 +551,12 @@ function PissDrawer.Shop.delivery_shop()
                 }}
             }}
         }}
-    }}
+    else
+        ret.nodes[#ret.nodes + 1] = {n=G.UIT.R, config = {minh = 2, align = 'tr', padding = 0.05}, nodes = {
+            {n=G.UIT.R, config = {minw = 6.7, align = 'cm'}}
+        }}
+    end
+    return ret
 end
 
 G.FUNCS.update_modification_info = function(e)
