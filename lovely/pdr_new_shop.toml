@@ -123,3 +123,15 @@ elseif PissDrawer.Shop.load_shop_vouchers then
 end
 '''
 
+# Prevent removing card from G.GAME.used_jokers if it stays on training or breeding or yk
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if not next(SMODS.find_card(self.config.center.key, true)) then
+'''
+payload = '''
+if not next(SMODS.find_card(self.config.center.key, true)) and not PissDrawer.Shop.is_temp_joker_area(self.area) then
+'''

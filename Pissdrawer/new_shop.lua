@@ -50,6 +50,15 @@ SMODS.Atlas({
     atlas_table = 'ANIMATION_ATLAS'
 })
 
+function PissDrawer.Shop.is_temp_joker_area(area)
+    return area and (
+        area == G.train_jokers
+        or area == G.reforge_area
+        or area == G.nursery_father
+        or area == G.nursery_mother
+    )
+end
+
 local pissdrawer_cardarea_align_cards = CardArea.align_cards
 function CardArea:align_cards()
     pissdrawer_cardarea_align_cards(self)
