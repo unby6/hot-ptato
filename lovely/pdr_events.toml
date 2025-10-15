@@ -60,6 +60,20 @@ if G.GAME.blind:get_type() == 'Boss' and not G.GAME.hpot_combat_event then
 '''
 match_indent = true
 
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = 'at'
+pattern = '''
+else
+  G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+'''
+payload = '''
+elseif not G.GAME.hpot_combat_event then
+  G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+'''
+match_indent = true
+
 # G.FUNCS.use_card
 [[patches]]
 [patches.pattern]
@@ -83,6 +97,20 @@ payload = '''
 if self.hpot_transaction_price then
   ease_currency(self.hpot_transaction_price.currency, -self.hpot_transaction_price.price)
 elseif self.cost ~= 0 then
+'''
+match_indent = true
+times = 1
+
+# reset_blinds
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+'''
+position = 'at'
+payload = '''
+if G.GAME.round_resets.blind_states.Boss == 'Defeated' and not G.GAME.hpot_combat_event then
 '''
 match_indent = true
 times = 1
