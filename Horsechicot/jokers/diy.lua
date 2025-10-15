@@ -106,9 +106,10 @@ function HotPotato.diy_effect(self, card, context)
         end
         local seal = pseudorandom_element(G.P_CENTER_POOLS.Seal, pseudoseed("hpot_diy")).key
         local card = SMODS.create_card {
+            set = "Playing Card",
             seal = seal,
             edition = edition,
-            key = enhancement.key
+            key = enhancement
         }
         table.insert(G.playing_cards, card)
         G.deck:emplace(card)
