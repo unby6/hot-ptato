@@ -13,7 +13,7 @@ SMODS.Joker {
 
 HotPotato.find_lock_in = function()
     for _, v in ipairs(G.jokers.cards) do
-        if v.config.center.key == "j_hpot_lockin" or v.ability.quantum_1.key == "j_hpot_lockin" or v.ability.quantum_2.key == "j_hpot_lockin" then
+        if v.config.center.key == "j_hpot_lockin" or (v.ability.quantum_1 and v.ability.quantum_1.key == "j_hpot_lockin") or (v.ability.quantum_2 and v.ability.quantum_2.key == "j_hpot_lockin") then
             if not v.debuff then return v end
         end
     end
