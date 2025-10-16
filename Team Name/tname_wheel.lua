@@ -5,7 +5,7 @@
 -- PLEASE DO MORE WITH WHEEL I BEG
 
 -- mostly copied from plinko btw
-
+G.STATES.WHEEL = 9182657195
 
 -- dont mind the G.GAME ones please i was to lazy to change them to use Wheel{}
 Wheel = {
@@ -117,7 +117,7 @@ function CardArea:align_cards()
 end
 
 -- remove after ( for testing ) ( i did not remove and its not indeed being used by the main code)
-function set_wheel(no_arrow, vval_only)
+function set_wheel(no_arrow, vval_only, no_load)
   if not G.GAME.vval then
     G.GAME.vval = math.random(1, 63)
     G.GAME.winning_vval = (G.GAME.vval / 10)
@@ -132,17 +132,19 @@ function set_wheel(no_arrow, vval_only)
       card.states.hover.can = false
     end
 
-    if PissDrawer.Shop.load_wheel_rewards then
-      local load_rewards = PissDrawer.Shop.load_wheel_rewards
-      if load_rewards then
-        PissDrawer.Shop.load_wheel_rewards = nil
-        if load_rewards.cards and #load_rewards.cards > 0 then
-          G.wheel_rewards:load(load_rewards)
-          return
+    if not no_load then
+        if PissDrawer.Shop.load_wheel_rewards then
+          local load_rewards = PissDrawer.Shop.load_wheel_rewards
+          if load_rewards then
+            PissDrawer.Shop.load_wheel_rewards = nil
+            if load_rewards.cards and #load_rewards.cards > 0 then
+              G.wheel_rewards:load(load_rewards)
+              return
+            end
+          end
+        else
+          generate_wheel_rewards()
         end
-      end
-    else
-      generate_wheel_rewards()
     end
 
     if not G.GAME.wheel_reset then
@@ -272,11 +274,9 @@ function grant_wheel_reward(card)
   G.E_MANAGER:add_event(Event({
     delay = 5,
     func = function()
+      remove_wheel_rewards()
       if first_time then
         first_time = false
-
-        remove_wheel_rewards()
-
         G.CONTROLLER:snap_to { node = G.wheel_rewards.cards[1] }
       end
 
@@ -374,15 +374,33 @@ function grant_wheel_reward(card)
         end
       end
 
-      set_wheel(true)
+      G.E_MANAGER:add_event(Event({
+        func = function()
+            G.E_MANAGER:add_event(Event({
+              func = function()
+                  if Wheel.cost_up == 0 then
+                      Wheel.Price = Wheel.Price + Wheel.Increase
+                      Wheel.cost_up = Wheel.default_cost_up
+                      PissDrawer.Shop.reset_wheel_counter = nil
+                  end
+                  PissDrawer.Shop.load_wheel_rewards = nil
+                  generate_wheel_rewards()
+                  set_wheel(true, nil, true)
       
-      if Wheel.cost_up == 0 then
-        Wheel.Price = Wheel.Price + Wheel.Increase
-        Wheel.cost_up = Wheel.default_cost_up
-        PissDrawer.Shop.reset_wheel_counter = nil
-      end
+                  G.E_MANAGER:add_event(Event({
+                      func = function()
+                          save_run()
+                          return true
+                      end,
+                  }))
       
-      save_run()
+                  return true
+              end,
+            }))
+            return true
+        end,
+      }))
+
       return true
     end
   }))
@@ -467,4 +485,11 @@ function CardArea:can_highlight(...)
     return false
   end
   return ca_can_highlight(self, ...)
+end
+
+-- updte rewards
+local next_round_button_for_delivery_area_destruction = G.FUNCS.toggle_shop
+function G.FUNCS.toggle_shop(e)
+    PissDrawer.Shop.load_wheel_rewards = nil
+    return next_round_button_for_delivery_area_destruction(e)
 end

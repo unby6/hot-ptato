@@ -476,7 +476,6 @@ function update_plinko(dt)
         ease_background_colour({new_colour = HEX('ffe96e'), special_colour = G.C.GREEN, tertiary_colour = darken( G.C.BLACK,0.1), contrast = 5})
         G.STATE_COMPLETE = true
     end
-
 end
 
 -- Let's go gambling

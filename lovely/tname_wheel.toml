@@ -36,28 +36,6 @@ payload = '''
 (self.config.type == 'hand' and G.STATE == G.STATES.WHEEL) or'''
 match_indent = true
 
-# Stop shop from re-appearing after consumable was used
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'before'
-pattern = '''
-G.shop.alignment.offset.y = G.shop.alignment.offset.py'''
-payload = '''
-if G.STATE ~= G.STATES.WHEEL then
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-position = 'after'
-pattern = '''
-G.shop.alignment.offset.py = nil'''
-payload = '''
-end
-'''
-match_indent = true
 
 [[patches]]
 [patches.pattern]
