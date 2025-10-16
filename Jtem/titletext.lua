@@ -86,8 +86,6 @@ HPJTTT = {
         "Friends of Jimbo Edition",
         "Great Value Blueberries",
         "Wordle in #general",
-        "posted gore award",
-        "now with big naturals", -- ???????????
         "DOES SENDING HTTP REQUEST COUNT AS FAIR GAME???",
         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "its peaj...",
@@ -138,7 +136,6 @@ HPJTTT = {
         "George, the evil and intimidating horse",
         "big mac and a large fries",
         "punching grandmas 🤜 👵",
-        "nxgoon, the \"aro-ace\"", -- wtf nxkoo why are you like this
         "Update your Steamodded",
         "Compatible with Windows, macOS, and Linux!",
         "why is my patch not working",
@@ -242,7 +239,6 @@ HPJTTT = {
         "Backboost",
         "silly ahh drivables - @lily.felli",
         "130 lbs",
-        "Niko: She's 10. Can I Mate?",
         CardPronouns and "This is so woke!" or "Uhh.... install CardPronouns!", --cprns prio is  literally -99 million :3 - this wont load anymore
         "awawa awebo",
         "I wish shadows had rights",
@@ -306,7 +302,6 @@ HPJTTT = {
         "cant wait for blue stake to die horribly",
         "i scream, you scream, we all scream, in the great fire at family reunion",
         "i'm killing you -jerma",
-        "You've gotta put your entire hot potussy into it",
         "Magna-funk asbestos!",
         "Check out Minecraft!",
         "i'm da joker, baby",
