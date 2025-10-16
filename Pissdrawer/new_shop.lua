@@ -56,6 +56,11 @@ function PissDrawer.Shop.is_temp_joker_area(area)
         or area == G.reforge_area
         or area == G.nursery_father
         or area == G.nursery_mother
+        or (PissDrawer.Shop.is_tab_swap and (
+            area == G.shop_jokers
+            or area == G.shop_vouchers
+            or area == G.shop_booster
+        ))
     )
 end
 
@@ -331,8 +336,10 @@ PissDrawer.Shop.change_shop_panel = function(shop_ui, pre, post, areas)
     if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED; G.STATE = G.STATES.SHOP end
     if G.STATE == G.STATES.WHEEL then G.STATE = G.STATES.SHOP end
     if G.STATE == G.STATES.NURSERY then G.STATE = G.STATES.SHOP end
+    PissDrawer.Shop.is_tab_swap = true
     local main_shop_body = G.shop:get_UIE_by_ID('main_shop_body')
     main_shop_body:remove()
+    PissDrawer.Shop.is_tab_swap = nil
     if pre then pre() end
     main_shop_body.UIBox:add_child(shop_ui(), main_shop_body)
     if post then post(areas) end
