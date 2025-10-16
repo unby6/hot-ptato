@@ -5028,7 +5028,8 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "Wheel goes brrrrrrrr"
+                            "Spend {C:purple}credits{} to spin the {C:attention}wheel",
+                            "and {C:attention}obtain{} the {C:green}reward{} the arrow points towards"
                         }
                     }
                 },
