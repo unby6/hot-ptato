@@ -1725,3 +1725,27 @@ function G.FUNCS.handle_wheel_colour(e)
     e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
     e.config.colour = e.config.active and e.config.colour or G.C.BLACK
 end
+
+local old_can_sell = Card.can_sell_card
+function Card:can_sell_card(...)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        return false
+    end
+    return old_can_sell(self, ...)
+end
+
+local old_can_use = Card.can_use_consumeable
+function Card:can_use_consumeable(...)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        return false
+    end
+    return old_can_use(self, ...)
+end

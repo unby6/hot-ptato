@@ -286,12 +286,10 @@ function grant_wheel_reward(card)
 
       local card = G.play.cards[1]
       if card.ability.set == "bottlecap" then
-        if card then
-          card:use_consumeable()
-          SMODS.calculate_context({ using_consumeable = true, consumeable = card, area = G.wheel_rewards })
-          card:start_dissolve({ G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY }, true, 4)
-          play_sound('hpot_bottlecap')
-        end
+        card:use_consumeable()
+        SMODS.calculate_context({ using_consumeable = true, consumeable = card, area = G.wheel_rewards })
+        card:start_dissolve({ G.C.BLACK, G.C.WHITE, G.C.RED, G.C.GREY, G.C.JOKER_GREY }, true, 4)
+        play_sound('hpot_bottlecap')
       else -- fuck elseif
         if card.ability.set == "Joker" then
           if (#G.jokers.cards < G.jokers.config.card_limit) or (card.edition and card.edition == "e_negative") then
@@ -378,6 +376,8 @@ function grant_wheel_reward(card)
         func = function()
             G.E_MANAGER:add_event(Event({
               func = function()
+                  -- I dont care, just fix vouhers not resetting state, fuck you
+                  G.STATE = G.STATES.WHEEL
                   if Wheel.cost_up == 0 then
                       Wheel.Price = Wheel.Price + Wheel.Increase
                       Wheel.cost_up = Wheel.default_cost_up
@@ -445,6 +445,7 @@ function spin_for_real_this_time(t)
   end
   Wheel.b = t
 
+  stop_use()
   spin_wheel()            -- spin it
   Wheel.should_spin = nil -- its spining so it shouldnt spin
   Wheel.a = 0             -- set to 0 to restart

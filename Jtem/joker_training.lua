@@ -680,10 +680,15 @@ end
 G.FUNCS.hpot_can_train_joker = function(e)
 	---@type Card
 	local card = e.config.ref_table
-	if not ((G.play and #G.play.cards > 0) or
-			(G.CONTROLLER.locked) or
-			(G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
-			(G.GAME.spark_points < hpot_get_training_cost(card))) then
+	if not (
+        ((G.play and #G.play.cards > 0) or
+        (G.CONTROLLER.locked) or
+        (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
+        (G.GAME.spark_points < hpot_get_training_cost(card))) or
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS or
+        PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD or
+        Wheel.STATE.SPUN
+    ) then
 		e.config.colour = G.C.CHIPS
 		e.config.button = 'hpot_start_training_joker'
 	else

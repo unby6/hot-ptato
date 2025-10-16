@@ -433,15 +433,13 @@ G.FUNCS.start_plinko = function(e, use_dollars)
         ---------------------------------------------------------------
         -- TODO : maybe this should be moved to when reward is given?
         ---------------------------------------------------------------
-        SMODS.calculate_context({start_plinko = true})
+        SMODS.calculate_context({plinko_started = true})
         return true
       end
     }))
     return true
   end
   }))
-  SMODS.calculate_context({plinko_started = true})
-  G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
 end
 
 local caac = CardArea.align_cards
