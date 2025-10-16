@@ -567,7 +567,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.setting_blind then
             local area = card.area or G.jokers
-            local pos = find_self(card, area)
+            local pos = find_self(card, area.cards)
             if not pos then return end
             if pos ~= 1 then
                 for i = 1, pos - 1 do
@@ -576,6 +576,7 @@ SMODS.Joker {
                     if order >= #G.P_CENTER_POOLS.Joker then order = 1 end
                     if blard.config.center.set == 'Joker' then
                         blard:set_ability(G.P_CENTER_POOLS.Joker[order])
+                        blard:juice_up()
                     end
                 end
             end
