@@ -164,7 +164,7 @@ function PissDrawer.Shop.currency_display()
             jank,
             not G.GAME.modifiers.hpot_plinko_4ever and {
                n=G.UIT.C,
-                config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1 },
+                config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', func = 'can_open_exchange', button_dist = 0.1 },
                 nodes = {
                     {n=G.UIT.O, config = { object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 }) } },
                 }
@@ -255,6 +255,18 @@ G.FUNCS.toggle_shop_tab = function(e)
     end
     PissDrawer.Shop.active_tab = e.config.id
     G.FUNCS[e.config.destination]()
+end
+
+G.FUNCS.can_open_exchange = function(e)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        e.config.button = nil
+    else
+        e.config.button = "open_exchange"
+    end
 end
 
 G.FUNCS.open_exchange = function(e)
