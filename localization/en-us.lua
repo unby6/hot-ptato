@@ -6346,6 +6346,7 @@ return {
             k_hotpot_scurvy = "Scurvy!",
             k_hotpot_rocks = "God Valley!",
             k_hotpot_leek = "Hot pot leek!",
+            k_hotpot_delivery = "Special delivery!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",
@@ -6414,6 +6415,8 @@ return {
             hotpot_train_energy_down = "Energy Down -#1#",
 
             hotpot_exchange_bonus = " +#1# BONUS!",
+
+            hotpot_deliveries_refunded = "#1# deliveries refunded...",
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
             hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)',

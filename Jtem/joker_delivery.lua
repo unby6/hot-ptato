@@ -1039,6 +1039,7 @@ end
 -- calculate delivery which is calculated at the start of the round along with giving out cards
 function hotpot_jtem_calculate_deliveries()
     G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
+    local refunded = 0
     for _, delivery in pairs(G.GAME.hp_jtem_delivery_queue) do
         delivery.rounds_total = delivery.rounds_total or 999 -- just in case an order was badly made
         if delivery.key == "j_hpot_smods" then
@@ -1048,13 +1049,17 @@ function hotpot_jtem_calculate_deliveries()
         if delivery.rounds_passed > delivery.rounds_total then
             local area = G.P_CENTERS[delivery.key].consumeable and G.consumeables or
                 G.P_CENTERS[delivery.key].set == 'Joker' and G.jokers
-            if area and area.cards and #area.cards < area.config.card_limit then
+            if 
+                (delivery.create_card_args.hp_jtem_silent_edition and delivery.create_card_args.hp_jtem_silent_edition == "e_negative")
+                or (area and area.cards and #area.cards < area.config.card_limit)
+            then
                 local cct = { key = delivery.key, skip_materialize = true }
                 for k, v in pairs(delivery.create_card_args) do
                     cct[k] = v
                 end
                 local c = SMODS.add_card(cct)
                 c.ability.ordered = true
+                card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize('k_hotpot_delivery'), colour = G.C.CHIPS})
                 --[[if delivery.extras then
                     for k, v in pairs(delivery.extras) do
                         c.ability[k] = v
@@ -1062,6 +1067,7 @@ function hotpot_jtem_calculate_deliveries()
                 end]]--
             else
                 ease_currency(delivery.currency, delivery.price)
+                refunded = refunded + 1
                 --ease_dollars(delivery.price)
             end
         end
@@ -1072,6 +1078,18 @@ function hotpot_jtem_calculate_deliveries()
         if delivery.rounds_passed > delivery.rounds_total then
             remove_element_from_list(G.GAME.hp_jtem_delivery_queue, delivery)
         end
+    end
+
+    if refunded > 0 then
+        local text = localize({
+			type = "variable",
+			key = "hotpot_deliveries_refunded",
+			vars = { refunded },
+		})
+        play_sound('tarot1', 1.5)
+        attention_text({
+            scale = 0.75, text = text, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+        })
     end
 end
 
