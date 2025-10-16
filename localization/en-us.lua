@@ -4861,7 +4861,7 @@ return {
                             "{s:0.3} ",
                             '{C:attention}Other currencies{} can also be used',
                             "after redeeming {C:attention}Anvil{} vouchers",
-                            "or a specific Joker",
+                            "or with a specific Joker",
                         },
                     }
                 },
