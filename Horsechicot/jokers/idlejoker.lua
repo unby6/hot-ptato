@@ -6,7 +6,7 @@ function Blind:click()
 
         for _,joker in pairs(found) do
             joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
-            card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+            card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), instant = true})
             --[[
             SMODS.scale_card(joker, {
                 ref_table = joker.ability.extra,
