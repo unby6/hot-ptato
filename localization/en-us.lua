@@ -2247,7 +2247,7 @@ return {
             j_hpot_goblin_tinkerer = {
                 name = 'Goblin Tinkerer',
                 text = {
-                    '{C:attention}Reforging{} is available',
+                    '{C:attention}Reforging{} is always available',
                     'and refunded by {C:attention}#1#%{}'
                 }
             },
@@ -4856,11 +4856,12 @@ return {
                             "which grants different {C:attention}traits{} to an item",
                         },
                         {
-                            "You can spend {C:purple}Credits{} to add",
-                            "a {C:attention}modification{} to a Joker,",
-                            "though reforging with {C:attention}other currencies{}",
-                            "can be unlocked with specific {C:attention}items{},",
-                            "such as {C:attention}vouchers{}."
+                            "Spend {C:purple}Credits{} to apply a random",
+                            "{C:attention}modification{} to a Joker",
+                            "{s:0.3} ",
+                            '{C:attention}Other currencies{} can also be used',
+                            "after redeeming {C:attention}Anvil{} vouchers",
+                            "or a specific Joker",
                         },
                     }
                 },
@@ -5012,10 +5013,11 @@ return {
                             "and {C:attention}obtain{} the {C:green}bottlecap{} the ball lands on"
                         },
                         {
-                            '{C:money}Dollars{} can also be used after redeeming {C:attention}"Currency Exchange".',
-                            "After the {C:attention}voucher{} is redeemed",
-                            "the {C:money}currency{} can be changed by selecting",
-                            "it above the play button"
+                            '{C:money}Dollars{} can also be used after redeeming',
+                            "{C:attention}Currency Exchange{} voucher",
+                            "{s:0.3} ",
+                            "Toggle for {C:money}currency{} will appear",
+                            "above the play button"
                         }
                     }
                 },
@@ -5028,7 +5030,7 @@ return {
                     name = "Overview",
                     text = {
                         {
-                            "Spend {C:purple}credits{} to spin the {C:attention}wheel",
+                            "Spend {C:purple}Credits{} to spin the {C:attention}wheel",
                             "and {C:attention}obtain{} the {C:green}reward{} the arrow points towards"
                         }
                     }
