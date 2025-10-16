@@ -4805,6 +4805,7 @@ return {
                         },
                         {
                             "Order {C:attention}Jokers{} using different currencies",
+                            "{s:0.3} ",
                             "Orders arrive after a few {C:attention}rounds{}",
                             "directly into your {C:dark_edition}Joker slots{}",
                             "{s:0.9,C:inactive}Must have room{}",
