@@ -3,20 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-# Game:update
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-position = 'before'
-pattern = '''if self.STATE == self.STATES.PLAY_TAROT then'''
-payload = '''
-if self.STATE == self.STATES.WHEEL then
-  update_wheel(dt)
-end
-
-'''
-match_indent = true
-
 # Game:draw
 [[patches]]
 [patches.pattern]

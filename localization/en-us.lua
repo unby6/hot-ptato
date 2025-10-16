@@ -5014,7 +5014,20 @@ return {
                 },
             },
         },
-
+        hotpot_wheel = {
+            name = "Wheel",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "Wheel goes brrrrrrrr"
+                        }
+                    }
+                },
+            },
+        },
+        
         -- This is sorted by week!
         hotpot_credits = {
             -- Members format goes like this
