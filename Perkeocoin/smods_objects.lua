@@ -673,7 +673,7 @@ SMODS.Joker{ --Skimming
     pos = { x = 2, y = 2 },
     cost = 4,
     rarity = 1,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
