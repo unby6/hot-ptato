@@ -5014,7 +5014,20 @@ return {
                 },
             },
         },
-
+        hotpot_wheel = {
+            name = "Wheel",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "Wheel goes brrrrrrrr"
+                        }
+                    }
+                },
+            },
+        },
+        
         -- This is sorted by week!
         hotpot_credits = {
             -- Members format goes like this
@@ -5271,6 +5284,10 @@ return {
                                 "{C:attention}Victin's Collection{} and",
                                 "{C:attention}Cosmos",
                             },
+                            {
+                                "{s:0.8,C:inactive}Art by AssassinChara",
+                                "{s:0.8,C:inactive}Original design by Adell and Scarab"
+                            }
                         },
                         atlas = "hpot_SillypostingCredits",
                         pos = { x = 2, y = 0 }

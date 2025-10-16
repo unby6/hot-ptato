@@ -62,22 +62,61 @@ end
 local pissdrawer_cardarea_align_cards = CardArea.align_cards
 function CardArea:align_cards()
     pissdrawer_cardarea_align_cards(self)
-    if self.config.hotpot_shop then
+    if self.config.hotpot_shop or self.config.wheel_rewards then
         for _, card in ipairs(self.cards or {}) do
             if not card.pissdrawer then
-                card.pissdrawer = true
+                card.pissdrawer = PissDrawer.shop_scale
                 card:hotpot_resize(PissDrawer.shop_scale)
+                if self.config.wheel_rewards then
+                    card.pissdrawer = PissDrawer.shop_scale ^ 2
+                    card:hotpot_resize(PissDrawer.shop_scale)  
+                end
             end
         end
     else
          for _, card in ipairs(self.cards or {}) do
             if card.pissdrawer then
-                card:hotpot_resize(1/PissDrawer.shop_scale)
+                card:hotpot_resize(1/card.pissdrawer)
                 card.pissdrawer = nil
             end
         end
     end
+    if self == G.wheel_rewards and #self.cards > 1 then
+        -- Align wheel rewards in a circle
+        local self_w = math.max(self.T.w, 3.2)
+        local positions = PissDrawer.Shop.circle_coords(G.CARD_W * 1.25, 8)
+        for i = 1, math.min(#self.cards, 8) do
+            local card = self.cards[i]
+            card.T.x = self.T.x + self.T.w/2 - (G.CARD_W * PissDrawer.shop_scale^2)/2 + positions[i].x + (G.CARD_W*(PissDrawer.shop_scale^2) - card.T.w)/2
+            card.T.y = self.T.y + self.T.h/2 - (G.CARD_H * PissDrawer.shop_scale^2)/2 + positions[i].y + (G.CARD_H*(PissDrawer.shop_scale^2) - card.T.h)/2
+            if i % 4 == 0 then
+                card.T.r = 0.3
+            elseif i % 4 == 2 then
+                card.T.r = -0.3
+            end
+        end
+    end
+    if self == G.wheel_arrow and #self.cards > 0 then
+        self.cards[1].T.y = self.cards[1].T.y - 3.15
+        self.cards[1].T.x = self.cards[1].T.x - 0.15
+    end
 end
+
+function PissDrawer.Shop.circle_coords(radius, numCards)
+    local coords = {}
+    for i = 0, numCards - 1 do
+        local angle = (2 * math.pi * i / numCards)
+        local x = radius * math.cos(angle) * 0.9
+        local y = radius * math.sin(angle) * 0.9
+        if i % 2 == 1 then
+            x = x * 0.85
+            y = y * 1.1
+        end
+        table.insert(coords, {x = x, y = y})
+    end
+    return coords
+end
+
 
 function PissDrawer.Shop.currency_node(args)
     assert(type(args) == 'table', 'No table provided to shop_currency_node')
@@ -242,6 +281,15 @@ G.FUNCS.open_plinko = function(e)
     ease_background_colour({new_colour = HEX("75cdff"), special_colour = HEX("ff8ff4"), tertiary_colour = darken(G.C.BLACK,0.1), contrast = 3})
 end
 
+G.FUNCS.open_wheel = function(e)
+    PissDrawer.Shop.active_tab = "hotpot_wheel"
+    PissDrawer.Shop.change_shop_sign('hpot_tname_arrow_sign')
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.wheel, nil, set_wheel)
+    G.STATE = G.STATES.WHEEL
+    G.STATE_COMPLETE = false
+    ease_background_colour({new_colour = G.C.GOLD, special_colour = G.C.BLACK, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
+end
+
 PissDrawer.Shop.gen_plinko = function()
     PlinkoLogic.f.generate_rewards()
     PlinkoUI.f.adjust_rewards()
@@ -389,7 +437,7 @@ function PissDrawer.Shop.main_shop()
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 0, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_wheel_button", button = 'show_wheel', shadow = true}, nodes = {
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_wheel_button", button = 'open_wheel', shadow = true}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 1, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
@@ -667,6 +715,10 @@ G.FUNCS.plinko_help = function()
     G.FUNCS.hotpot_info{menu_type = "hotpot_plinko"}
 end
 
+G.FUNCS.wheel_help = function()
+    G.FUNCS.hotpot_info{menu_type = "hotpot_wheel"}
+end
+
 G.FUNCS.delivery_help = function()
     G.FUNCS.hotpot_info{menu_type = "hotpot_delivery"}
 end
@@ -709,6 +761,9 @@ PissDrawer.Shop.area_keys.nursery = {
 }
 PissDrawer.Shop.area_keys.plinko = {
     'plinko_rewards'
+}
+PissDrawer.Shop.area_keys.wheel = {
+    'wheel_rewards'
 }
 
 local car = CardArea.remove
@@ -1563,5 +1618,108 @@ end
 function G.FUNCS.handle_plinko_colour(e)
     e.config.active = not PissDrawer.Shop.reset_plinko_counter and (3 - (G.GAME.current_round.plinko_rolls % 3)) >= e.config.cost_up
     e.config.colour = PissDrawer.Shop.plinko_dollars and G.C.GOLD or SMODS.Gradients.hpot_plincoin
+    e.config.colour = e.config.active and e.config.colour or G.C.BLACK
+end
+
+
+
+function PissDrawer.Shop.wheel()
+    local reward_scale=  0.7
+    G.wheel_rewards = CardArea(
+        G.hand.T.x+0,
+        G.hand.T.y+9,
+        6,
+        6,
+        {card_limit = 8, type = 'shop', highlight_limit = 0, wheel_rewards = true}
+    )
+    G.wheel_arrow = CardArea(
+        0, 0, 0, 0,
+        { card_limit = 1, type = "shop", highlight_limit = 0, hotpot_shop = true }
+    )
+    
+  local use_ante = Wheel.ante_left > 0
+  local play_dollars = not not G.GAME.plinko_dollars_cost
+    return
+    {n=G.UIT.C, config = {align='tm', minh = 8}, nodes = {
+        PissDrawer.Shop.help_button('wheel_help'),
+        {n=G.UIT.R, config={align = "tm"}, nodes={
+            {n=G.UIT.C, config={align = "tm"}, nodes={
+                {n=G.UIT.R, config = {minh = 0.8}},
+                {n=G.UIT.R, config={align = "cm", padding = -0.3}, nodes={
+                    {n=G.UIT.C, config={minw = 0.6}},
+                    {n=G.UIT.C, config={colour=G.C.L_BLACK, padding = 0.15, r=0.1}, nodes = {
+                        {n=G.UIT.C, config={align='bm', minw = 2.6, r=0.1, colour = G.C.BLACK}, nodes = {
+                            {n=G.UIT.R, config = {align = 'cm', minw = 1, colour = G.C.BLACK, r=0.2}, nodes = {
+                                {n=G.UIT.C, config = {align = 'cm', padding = 0.1}, nodes = {
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.O, config={object = DynaText({string = { { ref_table = Wheel, ref_value = use_ante and 'ante_left' or 'rounds_left', prefix = 'Resets in ', suffix = use_ante and localize('hotpot_plinko_reset2_ante') or localize('hotpot_plinko_reset2_round') } },
+                                            colours = {G.C.L_BLACK}, maxw = 2.3, scale = 0.5})}}
+                                    }},
+                                    -- {n=G.UIT.R, config = {minh = 0.1}},
+                                    {n=G.UIT.R, config = {align='cm', minw = 1, r=0.1, padding = 0.1}, nodes = {
+                                        {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                                            {n=G.UIT.R, config = {minh = 0.7}},
+                                            {n=G.UIT.R, config={align='cm', padding = -0.25, minw = 2.5}, nodes = {
+                                                {n=G.UIT.C, config = {align='cm', padding = 0.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = G.C.UI.TEXT_DARK, cost_up = 2, func = 'handle_wheel_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }},
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = G.C.UI.TEXT_DARK, cost_up = 1, func = 'handle_wheel_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }}
+                                                }},
+                                                {n=G.UIT.C, config = {align = 'cm', padding = 0.1, r=0.1, colour = G.C.L_BLACK}, nodes = {
+                                                    {n=G.UIT.C, config = {hover = true, button = 'wheel_spin', button_dist = 0.1, func = 'can_wheel_spin', align = 'cm', minw = 1.4, maxw = 1.4, colour = G.C.PURPLE, emboss=-0.03, r=0.2, padding = 0.1}, nodes = {
+                                                        {n=G.UIT.R, config = {align = 'cm', padding = 0.1}, nodes = {
+                                                            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                                                {n=G.UIT.O, config={object = DynaText({string = {{string = localize("wheel_spin_button1")}},
+                                                                colours = {G.C.WHITE}, maxw = 1.6, shadow = true, spacing = 2, scale = 0.5})}},
+                                                            }},
+                                                            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                                                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = Wheel, ref_value = 'Price', prefix = G.GAME.seeded and localize('hotpot_reforge_budget') or localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin}},
+                                                                colours = {G.C.WHITE}, maxw = 1.6, shadow = true, spacing = 2, scale = 0.5})}}
+                                                            }}
+                                                        }},
+                                                    }},
+                                                }},
+                                                {n=G.UIT.C, config = {align='cm', padding = 0.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {minw=0.5}}
+                                                    }}
+                                                }},
+                                            }},
+                                        }}
+                                    }},
+                                    {n=G.UIT.R, config = {minh = 0.15}},
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.T, config={text = 'Increases after', scale = 0.35, colour = G.C.L_BLACK}},
+                                    }},
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.T, config={text = '2 plays', scale = 0.35, colour = G.C.L_BLACK}},
+                                    }}
+                                }},
+                            }},
+                        }},
+                    }},
+                
+                }},
+            }},
+            {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 6.8, minh = 6.8}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r=0.2, padding = 0.2 }, nodes={
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.O, config={object = G.wheel_rewards}}
+                    }},
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.O, config={object = G.wheel_arrow}}
+                    }},
+                }},
+            }},
+        }}
+    }}
+end
+
+function G.FUNCS.handle_wheel_colour(e)
+    e.config.active = not PissDrawer.Shop.reset_wheel_counter and (2 - (Wheel.cost_up % 2)) >= e.config.cost_up
+    e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
     e.config.colour = e.config.active and e.config.colour or G.C.BLACK
 end
