@@ -1052,10 +1052,16 @@ return {
             j_hpot_magic_factory = {
                 name = "Magic Factory",
                 text = {
-                    "When {C:attention}Blind{} is selected",
-                    "and you have no {C:dark_edition}Negative{} consumables,",
-                    "create a random {C:dark_edition}Negative{} consumable",
-                    "{C:inactive,s:0.8}mass-produced tarotslop"
+                    {
+                        "When {C:attention}Blind{} is selected",
+                        "and you have no {C:dark_edition}Negative{} consumables,",
+                        "create a random {C:dark_edition}Negative{} consumable",
+                        "{C:inactive,s:0.8}mass-produced tarotslop"
+                    },
+                    {
+                        "All consumables can affect",
+                        "{C:mult}#2#{} less card",
+                    }
                 }
             },
             j_hpot_jtemj = {
