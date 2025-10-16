@@ -169,6 +169,7 @@ SMODS.Joker {
 SMODS.Joker({
 	key = "jankman",
 	rarity = 3,
+    blueprint_compat = true,
 	config = {
 		extra = {
 			xmultg = 0.5,
@@ -217,6 +218,7 @@ end
 SMODS.Joker({
 	key = "sunset",
 	rarity = 3,
+    blueprint_compat = true,
 	config = {
 		extra = {
 			suit = 'Hearts',
@@ -277,6 +279,7 @@ SMODS.Joker({
 		},
 	},
     cost = 6,
+    blueprint_compat = true,
 	pos = {x=1,y=1},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)
@@ -287,7 +290,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
-		if context.joker_type_destroyed then
+		if context.joker_type_destroyed and not context.blueprint then
 			hpt.destroyed = hpt.destroyed + 1
 			return{
 					message = localize("k_upgrade_ex")

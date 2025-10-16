@@ -2,6 +2,8 @@ SMODS.Joker {
     key = "sonloaf",
     atlas = "oap_jokers",
     pos = { x = 3, y = 2 },
+    rarity = 1,
+    blueprint_compat = false,
     hotpot_credits = {
         art = { 'Omegaflowey18' },
         code = { 'factwixard' },

@@ -20,7 +20,7 @@ SMODS.Joker {
             return {
                 xmult = card.ability.current
             }
-        elseif context.fathered_child then
+        elseif context.fathered_child and not context.blueprint then
             SMODS.scale_card(card, {ref_table = card.ability, ref_value = "current", scalar_value = "increment"})
         end
     end

@@ -72,6 +72,7 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = { x = 4, y = 1 },
     rarity = 2,
+    blueprint_compat = false,
     config = {
         mult = 0,
         extra = {

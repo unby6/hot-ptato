@@ -17,7 +17,7 @@ SMODS.Joker {
         change_max_highlight(-card.ability.extra.bonus_highlight)
     end,
     calculate = function(self, card, context) -- Everyone say thank you N for vanillaremade perkeo
-        if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then
+        if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit and not context.blueprint then
             local can_create = true
             for _, v in ipairs(G.consumeables.cards) do
                 if v.edition and v.edition.key == "e_negative" then

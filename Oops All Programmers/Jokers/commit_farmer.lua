@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "commit_farmer",
     rarity = 3,
+    blueprint_compat = true,
     cost = 8,
     config = {
         extra = {

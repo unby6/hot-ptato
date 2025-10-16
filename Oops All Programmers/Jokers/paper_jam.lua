@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'paper_jam',
     rarity = 1,
+    blueprint_compat = true,
     cost = 6,
     config = {
         extra = {

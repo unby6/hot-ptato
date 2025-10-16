@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'undying',
     rarity = 3,
+    blueprint_compat = true,
     cost = 7,
     atlas = "oap_jokers",
     pos = { x = 0, y = 1 },
@@ -14,7 +15,7 @@ SMODS.Joker {
         return { vars = {  card.ability.extra.Xmult, card.ability.extra.gain } }
     end,
     calculate = function(self, card, context)
-        if context.joker_type_destroyed and context.card == card then
+        if context.joker_type_destroyed and context.card == card and not context.blueprint then
             local new_card = SMODS.add_card {
                 key = 'j_hpot_undying',
             }

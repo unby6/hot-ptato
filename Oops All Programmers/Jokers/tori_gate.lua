@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'tori_gate',
     rarity = 1,
+    blueprint_compat = true,
     cost = 5,
     atlas = "oap_jokers",
     pos = { x = 6, y = 1 },

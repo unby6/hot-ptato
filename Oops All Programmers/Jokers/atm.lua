@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'atm',
     rarity = 1,
+    blueprint_compat = false,
     cost = 5,
     atlas = "oap_jokers",
     pos = { x = 8, y = 1 },

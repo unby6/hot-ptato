@@ -3,6 +3,7 @@ SMODS.Joker{
     atlas = "hc_jokers",
     pos = { x = 5, y = 4 },
     rarity = 2,
+    blueprint_compat = false,
     cost = 10,
     config = {
         extra = {
@@ -10,7 +11,7 @@ SMODS.Joker{
         }
     },
     calculate = function(self, card, context)
-        if context.after then
+        if context.after and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'hpot_cloverpit', 1, card.ability.extra.odds) then
                 if G.GAME.dollars_ante and G.GAME.dollars_ante > 0 then
                     G.E_MANAGER:add_event(Event{

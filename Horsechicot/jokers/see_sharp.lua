@@ -9,7 +9,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             card.ability.extra.left = card.ability.extra.left - 1
             if card.ability.extra.left < 1 then
                 card.ability.extra.left = card.ability.extra.reset

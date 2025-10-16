@@ -11,6 +11,7 @@ SMODS.Joker {
         return { vars = { numerator, denominator } }
     end,
     rarity = 1,
+    blueprint_compat = false,
     cost = 3,
     atlas = "smiley_jokers",
     pos = {x=1,y=1},

@@ -7,6 +7,7 @@ SMODS.Joker({
 		},
 	},
     cost = 6,
+    blueprint_compat = true,
 	atlas = "tname_jokers",
 	pos = {
 		x = 0,
@@ -49,6 +50,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "missing_texture",
 	rarity = 2,
+    blueprint_compat = true,
 	atlas = "tname_jokers",
 	pos = {
 		x = 2,
@@ -113,6 +115,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "power_plant",
 	rarity = 2,
+    blueprint_compat = false,
 	cost = 0,
 	credits = 5,
 	config = {
@@ -159,6 +162,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "sticker_dealer",
 	rarity = 2,
+    blueprint_compat = true,
 	config = {
 		extra = {
 			xmult = 1,
@@ -176,7 +180,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		local hpt = card.ability.extra
-		if context.setting_blind then
+		if context.setting_blind and not context.blueprint then
 			local rr = find_self(card, G.jokers.cards)
 			if not rr then return end
 
@@ -213,6 +217,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "credits_ex",
 	rarity = 2,
+    blueprint_compat = true,
 	config = {
 		extra = {
 			xmult = 0.75,
@@ -266,6 +271,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "leek",
 	rarity = 2,
+    blueprint_compat = true,
 	config = {
 		extra = {
 			xmult = 2,
@@ -324,6 +330,7 @@ SMODS.Joker({
 SMODS.Joker({
 	key = "aurae_joker",
 	rarity = 2,
+    blueprint_compat = false,
     cost = 8,
 	loc_vars = function(self, info_queue, card)
 			return {
@@ -333,7 +340,7 @@ SMODS.Joker({
 	pos = {x=10,y=0},
 	atlas = "tname_jokers2",
 	calculate = function(self, card, context)
-		if context.ending_shop and G.consumeables.cards[1] then
+		if context.ending_shop and G.consumeables.cards[1] and not context.blueprint then
             local cards_to_replace = {}
 			for k,v in pairs(G.consumeables.cards) do
 				if v.ability.set ~= "Aura" then

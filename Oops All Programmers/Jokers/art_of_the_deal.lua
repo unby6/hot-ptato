@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'art_of_the_deal',
     rarity = 2,
+    blueprint_compat = true,
     cost = 6,
     atlas = "oap_jokers",
     pos = { x = 2, y = 0 },

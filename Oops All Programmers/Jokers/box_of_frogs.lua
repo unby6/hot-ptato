@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'box_of_frogs',
     rarity = 3,
+    blueprint_compat = false,
     cost = 7,
     atlas = "oap_jokers",
     pos = { x = 9, y = 0 },

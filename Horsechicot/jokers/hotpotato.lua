@@ -87,7 +87,7 @@ SMODS.Joker {
             main_end = main_end
         }
     end,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     rarity = 2,

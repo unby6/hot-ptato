@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'numberslop',
     rarity = 2,
+    blueprint_compat = true,
     cost = 5,
     atlas = "oap_jokers",
     pos = { x = 3, y = 1 },
@@ -14,7 +15,7 @@ SMODS.Joker {
     end,
     pools = { Food = true },
     calculate = function(self, card, context)
-        if context.after and G.GAME.blind.chips * 2 < SMODS.calculate_round_score() then
+        if context.after and G.GAME.blind.chips * 2 < SMODS.calculate_round_score() and not context.blueprint then
             SMODS.destroy_cards(card, nil, nil, true)
             return {
                 message = localize('k_oap_too_much_slop')

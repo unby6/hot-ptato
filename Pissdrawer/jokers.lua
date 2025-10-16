@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'minimum_prize_guarantee',
     rarity = 1,
+    blueprint_compat = true,
     cost = 5,
     atlas = "pdr_joker",
     pos = { x = 5, y = 1 },
@@ -64,6 +65,7 @@ SMODS.Joker {
     key = 'kindergarten',
     rarity = 3,
     cost = 7,
+    blueprint_compat = true,
     atlas = "pdr_joker",
     pos = { x = 0, y = 1 },
     config = { extra = { xmult = 1.75 } },
@@ -276,6 +278,7 @@ SMODS.Joker {
         }
     end,
     rarity = 3, cost = 3,
+    blueprint_compat = true,
     atlas = 'pdr_joker',
     pos = { x = 5, y = 0 },
     calculate = function(self, card, context)
@@ -291,6 +294,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = 'goblin_tinkerer',
     rarity = 2,
+    blueprint_compat = true,
     cost = 6,
     atlas = "pdr_joker",
     pos = { x = 4, y = 0 },
@@ -449,6 +453,7 @@ SMODS.Joker {
     atlas = "pdr_joker",
     pos = { x = 4, y = 1 },
     rarity = 2,
+    blueprint_compat = true,
     calculate = function(self, card, context)
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
@@ -486,6 +491,7 @@ SMODS.Joker {
     atlas = "pdr_joker",
     pos = { x = 6, y = 1 },
     rarity = 2,
+    blueprint_compat = true,
     calculate = function(self, card, context)
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
@@ -523,6 +529,7 @@ SMODS.Joker {
     atlas = "pdr_joker",
     pos = { x = 7, y = 1 },
     rarity = 2,
+    blueprint_compat = true,
     calculate = function(self, card, context)
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
@@ -563,9 +570,10 @@ SMODS.Joker {
     },
     atlas = "pdr_polymorphine",
     rarity = 3,
+    blueprint_compat = false,
     cost = 8,
     calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.setting_blind and not context.blueprint then
             local area = card.area or G.jokers
             local pos = find_self(card, area.cards)
             if not pos then return end

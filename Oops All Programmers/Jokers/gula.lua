@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'gula',
     rarity = 3,
+    blueprint_compat = false,
     cost = 7,
     atlas = "oap_jokers",
     config = {extra = {x_mult = 1}},

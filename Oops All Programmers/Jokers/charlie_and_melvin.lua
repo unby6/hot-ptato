@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'charlie',
     rarity = 1,
+    blueprint_compat = true,
     cost = 5,
     config = {
         extra = {

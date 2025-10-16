@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'death_note',
     rarity = 1,
+    blueprint_compat = false,
     cost = 4,
     atlas = "oap_jokers",
     pos = { x = 1, y = 1 },
@@ -18,7 +19,7 @@ SMODS.Joker {
         reset_death_note(card)
     end,
     calculate = function(self, card, context)
-        if context.post_draw_individual and context.card and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) then
+        if context.post_draw_individual and context.card and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 1,
