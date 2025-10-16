@@ -67,10 +67,10 @@ function SMODS.find_card(key, count_debuffed)
             for _, v in pairs(area.cards) do
                 if v and type(v) == 'table' and v.ability and v.ability.quantum_1 then
                     if (v.ability.quantum_1.key == key) and (count_debuffed or not v.debuff) then
-                        table.insert(results, v)
+                        table.insert(results, v.ability.quantum_1)
                     end
                     if (v.ability.quantum_2.key == key) and (count_debuffed or not v.debuff) then
-                        table.insert(results, v)
+                        table.insert(results, v.ability.quantum_2)
                     end
                 end
             end
