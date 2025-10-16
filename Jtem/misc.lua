@@ -49,22 +49,21 @@ SMODS.Sound {
 }
 
 SMODS.Sound {
-  key = "music_delivery",
-  path = "music_delivery.ogg",
-    select_music_track = function(self)
-    if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_jtem_toggle_delivery" or (G.HP_JTEM_DELIVERY_VISIBLE and G.hpot_event) then
-      return 1349
+  key = "music_nxkill",
+  path = "music_nxkill.ogg",
+  select_music_track = function(self)
+    if SMODS.LAST_SELECTED_MOD_TAB == "HotPotato_1" and G.OVERLAY_MENU then
+      return 1353
     end
   end,
   hpot_purpose = {
-    "Music that plays in",
-    "the Delivery tab"
+    "Music that plays while",
+    "killing Nxkoo"
   },
   hotpot_credits = {
     team = { "Jtem" }
   }
 }
-
 SMODS.Sound {
   key = "music_training",
   path = "music_training.ogg",
@@ -76,6 +75,24 @@ SMODS.Sound {
   hpot_purpose = {
     "Music that plays in",
     "the Training Tab"
+  },
+  pitch = 1,
+  hotpot_credits = {
+    team = { "Jtem" }
+  }
+}
+
+SMODS.Sound {
+  key = "music_delivery",
+  path = "music_delivery.ogg",
+    select_music_track = function(self)
+    if PissDrawer.Shop.active_tab == "hotpot_shop_tab_hotpot_jtem_toggle_delivery" or (G.HP_JTEM_DELIVERY_VISIBLE and G.hpot_event) then
+      return 1351
+    end
+  end,
+  hpot_purpose = {
+    "Music that plays in",
+    "the Delivery tab"
   },
   hotpot_credits = {
     team = { "Jtem" }
