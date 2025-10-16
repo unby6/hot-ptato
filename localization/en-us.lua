@@ -4205,7 +4205,7 @@ return {
             },
             hpot_currency_exchange_success = {
                 text = {
-                    "Plessure doing bussiness with you.",
+                    "Pleasure doing bussiness with you.",
                 }
             },
 
