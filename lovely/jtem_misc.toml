@@ -250,7 +250,7 @@ if not first_pass and not (_c.set == 'Edition') and full_UI_table.badges then
     if sticker then
       if sticker.generate_ui then
         local specific_vars = specific_vars or {}
-        sticker:generate_ui(info_queue, card or full_UI_table.backup_card, desc_nodes, specific_vars, full_UI_table)
+        if type(sticker.generate_ui) == "function" then sticker:generate_ui(info_queue, card or full_UI_table.backup_card, desc_nodes, specific_vars, full_UI_table) end
       end
     end
   end
