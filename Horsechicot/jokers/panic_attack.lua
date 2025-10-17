@@ -38,7 +38,7 @@ SMODS.Joker {
         end
     end,
     this_function_runs_every_fucking_second = function(self, card)
-        card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_mod
+        card.ability.extra.xmult = math.max(1, card.ability.extra.xmult - card.ability.extra.xmult_mod)
     end,
     loc_vars = function(self, q, card)
         return {
