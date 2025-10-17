@@ -4621,7 +4621,18 @@ HotPotato.CombatEvents.generic = {
 			end
 		end
 
-		if reward.tags then
+        if reward.tags then
+			G.GAME.orbital_choices = G.GAME.orbital_choices or {}
+			G.GAME.orbital_choices[G.GAME.round_resets.ante] = G.GAME.orbital_choices[G.GAME.round_resets.ante] or {}
+
+			if not G.GAME.orbital_choices[G.GAME.round_resets.ante]['Small'] then 
+				local _poker_hands = {}
+				for k, v in pairs(G.GAME.hands) do
+					if SMODS.is_poker_hand_visible(k) then _poker_hands[#_poker_hands+1] = k end
+				end
+
+				G.GAME.orbital_choices[G.GAME.round_resets.ante]['Small'] = pseudorandom_element(_poker_hands, 'orbital')
+			end
 			for _, tag_key in ipairs(reward.tags.keys or {}) do
 				add_tag(Tag(tag_key, false, 'Small'))
 			end
