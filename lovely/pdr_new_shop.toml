@@ -133,5 +133,5 @@ pattern = '''
 if not next(SMODS.find_card(self.config.center.key, true)) then
 '''
 payload = '''
-if not next(SMODS.find_card(self.config.center.key, true)) and not PissDrawer.Shop.is_temp_joker_area(self.area) then
+if not next(SMODS.find_card(self.config.center.key, true)) and not (PissDrawer and PissDrawer.Shop.is_temp_joker_area(self.area)) then
 '''

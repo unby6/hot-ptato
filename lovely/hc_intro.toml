@@ -10,7 +10,7 @@ target = "game.lua"
 pattern = "SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_joker'])"
 position = "after"
 payload = '''
-SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_hpot_thetruehotpotato'],{bypass_discovery_center = true, bypass_discovery_ui = true})
+SC = not HotPotato and SC or Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_hpot_thetruehotpotato'],{bypass_discovery_center = true, bypass_discovery_ui = true})
 '''
 match_indent = true
 
@@ -25,17 +25,24 @@ local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
 '''
 position = "at"
 payload = '''
-local centers = {}
-for _, v in pairs(G.P_CENTERS) do
-    centers[#centers+1] = v
+local card
+if HotPotato then
+    local centers = {}
+    for _, v in pairs(G.P_CENTERS) do
+        centers[#centers+1] = v
+    end
+    local card_proto
+    while not (card_proto and card_proto.original_mod and card_proto.original_mod.id == 'HotPotato') do
+        card_proto = centers[math.random(1, #centers)]
+    end
+    card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
+                        card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
+                        card_size*G.CARD_W, card_size*G.CARD_H, G.P_CARDS.empty, card_proto,{bypass_discovery_center = true, bypass_discovery_ui = true})
+else
+    card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
+                        card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
+                        card_size*G.CARD_W, card_size*G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)
 end
-local card_proto
-while not (card_proto and card_proto.original_mod and card_proto.original_mod.id == 'HotPotato') do
-    card_proto = centers[math.random(1, #centers)]
-end
-local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
-                    card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
-                    card_size*G.CARD_W, card_size*G.CARD_H, G.P_CARDS.empty, card_proto,{bypass_discovery_center = true, bypass_discovery_ui = true})
 '''
 match_indent = true
 times = 1

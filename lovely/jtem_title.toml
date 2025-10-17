@@ -10,38 +10,40 @@ target = 'game.lua'
 position = 'after'
 pattern = "G.SPLASH_LOGO.dissolve = 1   "
 payload = '''
-if type(HPJTTT.text[HPJTTT.chosen]) == 'string' then
-Splash_text_type = 'str'
-local text_length = HPJTTT.text[HPJTTT.chosen]:len()
-local scale_scale = (text_length <= 60 and 1) or math.max(0.333, math.sqrt(60 / text_length))
-G.SPLASH_TEXT = DynaText {
-	string = HPJTTT.text[HPJTTT.chosen],
-	colours = { G.C.EDITION },
-	shadow = true,
-	spacing = 2,
-	bump = true,
-	scale = 0.4 * scale_scale
-}
-G.SPLASH_TEXT.VT.r = -0.2
-G.SPLASH_TEXT.T.r = -0.2
--- Starts at 0 scale initially
-G.SPLASH_TEXT.scale_mod = 0
-G.SPLASH_TEXT:update_text(true)
-G.E_MANAGER.queues.splash_text = G.E_MANAGER.queues.splash_text or {}
-elseif type(HPJTTT.text[HPJTTT.chosen]) == 'table' then
-Splash_text_type = 'img'
-local img = G.ASSET_ATLAS[HPJTTT.text[HPJTTT.chosen][1]]
-G.SPLASH_TEXT = Sprite(0, 0, 
-        3*SC_scale, 
-        3*SC_scale*(img.py/img.px),
-        img, {x=0,y=0})
+if HPJTTT then
+    if type(HPJTTT.text[HPJTTT.chosen]) == 'string' then
+    Splash_text_type = 'str'
+    local text_length = HPJTTT.text[HPJTTT.chosen]:len()
+    local scale_scale = (text_length <= 60 and 1) or math.max(0.333, math.sqrt(60 / text_length))
+    G.SPLASH_TEXT = DynaText {
+        string = HPJTTT.text[HPJTTT.chosen],
+        colours = { G.C.EDITION },
+        shadow = true,
+        spacing = 2,
+        bump = true,
+        scale = 0.4 * scale_scale
+    }
+    G.SPLASH_TEXT.VT.r = -0.2
+    G.SPLASH_TEXT.T.r = -0.2
+    -- Starts at 0 scale initially
+    G.SPLASH_TEXT.scale_mod = 0
+    G.SPLASH_TEXT:update_text(true)
+    G.E_MANAGER.queues.splash_text = G.E_MANAGER.queues.splash_text or {}
+    elseif type(HPJTTT.text[HPJTTT.chosen]) == 'table' then
+    Splash_text_type = 'img'
+    local img = G.ASSET_ATLAS[HPJTTT.text[HPJTTT.chosen][1]]
+    G.SPLASH_TEXT = Sprite(0, 0, 
+            3*SC_scale, 
+            3*SC_scale*(img.py/img.px),
+            img, {x=0,y=0})
+    end
+    G.SPLASH_TEXT:set_alignment({
+        major = G.title_top,
+        type = 'cm',
+        bond = 'Strong',
+        offset = {x=5,y=2}
+    })
 end
-G.SPLASH_TEXT:set_alignment({
-    major = G.title_top,
-    type = 'cm',
-    bond = 'Strong',
-    offset = {x=5,y=2}
-})
 '''
 match_indent = true
 
@@ -51,7 +53,9 @@ target = 'game.lua'
 position = 'after'
 pattern = "ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, 2.3)"
 payload = '''
-if Splash_text_type == 'str' then ease_splash_text(0.1) else rotate_image(G.SPLASH_TEXT) end
+if G.SPLASH_TEXT then
+    if Splash_text_type == 'str' then ease_splash_text(0.1) else rotate_image(G.SPLASH_TEXT) end
+end
 '''
 match_indent = true
 
@@ -61,7 +65,9 @@ target = 'game.lua'
 position = 'after'
 pattern = "ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, change_context == 'splash' and 2.3 or 0.9)"
 payload = '''
-if Splash_text_type == 'str' then ease_splash_text(0.1) else rotate_image(G.SPLASH_TEXT) end
+if G.SPLASH_TEXT then
+    if Splash_text_type == 'str' then ease_splash_text(0.1) else rotate_image(G.SPLASH_TEXT) end
+end
 '''
 match_indent = true
 
