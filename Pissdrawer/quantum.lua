@@ -194,8 +194,8 @@ SMODS.Joker {
                 if card.ability.quantum_1 and card.ability.quantum_2 then
                     Card.add_to_deck(card.ability.quantum_1)
                     Card.add_to_deck(card.ability.quantum_2)
-                    return true
                 end
+                return true
             end
         }))
     end,
@@ -206,8 +206,8 @@ SMODS.Joker {
                 if card.ability.quantum_1 and card.ability.quantum_2 then
                     Card.remove_from_deck(card.ability.quantum_1)
                     Card.remove_from_deck(card.ability.quantum_2)
-                    return true
                 end
+                return true
             end
         }))
     end,
@@ -229,10 +229,13 @@ SMODS.Joker {
             card.loaded = true
         end
     end,
-    update = function(self, card, dt)
-        if card.loaded then
+    set_sprites = function(self, card)
+        if card.ability and card.ability.quantum_1 then
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[card.ability.quantum_1.key].atlas or 'Joker'], G.P_CENTERS[card.ability.quantum_1.key].pos)
-            card.loaded = false
+        end
+    end,
+    update = function(self, card, dt)
+        if card.loaded and card.ability and card.ability.quantum_1 then
             Card.update(card.ability.quantum_1, dt)
             Card.update(card.ability.quantum_2, dt)
         end
@@ -374,6 +377,7 @@ function copy_card(card, new_card, card_scale, playing_card, strip_edition)
 
         update_child_atlas(ret, G.ASSET_ATLAS[ret.ability.quantum_1.config.center.atlas or 'Joker'],
             ret.ability.quantum_1.config.center.pos)
+        ret.loaded = true
         --make children smaller
         ret.T.h = ret.T.h * 0.75
         ret.T.w = ret.T.w * 0.75

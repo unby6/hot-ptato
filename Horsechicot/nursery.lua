@@ -210,7 +210,6 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
 end
 
 function update_child_atlas(self, new_atlas, new_pos)
-    if not self.loaded then return end
     self.children.center.sprite_pos = new_pos
     self.children.center.atlas.name = new_atlas and new_atlas.key or 'Joker'
     self.children.center:reset()
@@ -221,6 +220,8 @@ function update_child_atlas(self, new_atlas, new_pos)
         self.children.floating_sprite.role.draw_major = self
         self.children.floating_sprite.states.hover.can = false
         self.children.floating_sprite.states.click.can = false
+    elseif self.ability.quantum_1 and not self.ability.quantum_1.config.center.soul_pos and self.children.floating_sprite then
+        self.children.floating_sprite:remove()
     end
 end
 
