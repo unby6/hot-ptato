@@ -236,7 +236,7 @@ function PlinkoGame.f.update_plinko_world(dt)
         end
     end
 
-    local capped_dt = math.min(0.1, dt)
+    local capped_dt = math.min(0.02, dt)
 
     move_pegs(capped_dt)
 
