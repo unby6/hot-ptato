@@ -1,7 +1,25 @@
+local allowed_sets = {
+    -- Vanilla
+    ["Joker"] = true,
+    ["Planet"] = true,
+    ["Tarot"] = true,
+    ["Spectral"] = true,
+    ["Voucher"] = true,
+    -- HotPot (some of them capitalized some of them not, so add all of them because fuck it)
+    ["Hanafuda"] = true,
+    ["hanafuda"] = true,
+    ["Bottlecap"] = true,
+    ["bottlecap"] = true,
+    ["Imaginary"] = true,
+    ["imaginary"] = true,
+    ["Aura"] = true,
+    ["Czech"] = true,
+}
+
 function get_team_card(team, seed)
     local cards = {}
     for i, v in pairs(G.P_CENTERS) do
-        if v.set ~= "Enhanced" and v.set ~= "Edition" and not v.hidden and v.hotpot_credits and string.lower(v.hotpot_credits.team[1]) == string.lower(team) and v.rarity ~= 4 and v.set ~= "Booster" then
+        if v.set and allowed_sets[v.set] and not v.hidden and v.hotpot_credits and string.lower(v.hotpot_credits.team[1]) == string.lower(team) and v.rarity ~= 4 then
             cards[#cards+1] = v
         end
     end

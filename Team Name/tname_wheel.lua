@@ -30,6 +30,11 @@ Wheel = {
   accel = 0.6
 }
 
+SMODS.ObjectType {
+    key = "Arrow",
+    default = "j_hpot_the_arrow_1"
+}
+
 SMODS.Arrow = SMODS.Joker:extend({ -- the arrow thingy
   rarity = 1,
   unlocked = true,

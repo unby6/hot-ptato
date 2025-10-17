@@ -2209,7 +2209,7 @@ return {
             j_hpot_social_credit = {
                 name = 'Social Credit',
                 text = {
-                    'Earn {C:purple}+c.#1#{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    'Earn {C:purple}+c.#1#{} per {C:purple}1000{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
@@ -2777,15 +2777,16 @@ return {
                 name = "Aura of Power",
                 text = {
                     "{C:red}Remove ALL Credits{},",
-                    "{C:attention}Create a negative copy",
+                    "{C:attention}Create a simple negative copy",
                     "{C:attention}of leftmost Joker",
                     "for every {C:purple}c.#1#{} removed,",
                     "requirement increases by",
                     "{C:purple}c.#4#{} per copy,",
                     "max of #5# copies.",
-                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Currently #3##2# copies)",
                     "{C:inactive}(Copies do not have the same",
-                    "{C:inactive}modifications as the copied joker.)"
+                    "{C:inactive}modifications as the copied joker)",
+                    "{C:inactive}(Cannot copy child)",
                 }
             },
             c_hpot_power_budget = {

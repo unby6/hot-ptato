@@ -77,11 +77,11 @@ pattern = '''if G.F_SOUND_THREAD then
     G.SOUND_MANAGER.channel:push(G.ARGS.push)'''
 position = 'before'
 payload = '''
-if JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
+if JTJukebox and JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
 	desired_track = JTJukebox.ActuallyPlaying
 	G.ARGS.push.desired_track = desired_track
 end
-if JTJukebox.Music[desired_track] and JTJukebox.Music[desired_track].discoverable and not JTJukebox.Music[desired_track].discovered then
+if JTJukebox and JTJukebox.Music[desired_track] and JTJukebox.Music[desired_track].discoverable and not JTJukebox.Music[desired_track].discovered then
   JTJukebox.Music[desired_track].discovered = true
   G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] = G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] or {}
   G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][desired_track] = true
