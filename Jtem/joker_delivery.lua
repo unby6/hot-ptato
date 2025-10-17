@@ -102,94 +102,96 @@ function get_stickers(center)
 end
 
 function G.UIDEF.hotpot_jtem_shop_delivery_btn()
-    return {
-        n = G.UIT.C,
-        config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
-        nodes = {
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_go_reforge",
-                button = "hotpot_tname_toggle_reforge",
-                atlas = "hpot_tname_shop_reforge"
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_go_market",
-                button = "hotpot_horsechicot_toggle_market",
-                atlas = "hpot_horsechicot_market"
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_go_training",
-                button = "hotpot_pd_toggle_training",
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 7,
-                            w = 0.1
+    if not G.GAME.modifiers.no_shop_jokers then
+        return {
+            n = G.UIT.C,
+            config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
+            nodes = {
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_go_reforge",
+                    button = "hotpot_tname_toggle_reforge",
+                    atlas = "hpot_tname_shop_reforge"
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_go_market",
+                    button = "hotpot_horsechicot_toggle_market",
+                    atlas = "hpot_horsechicot_market"
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_go_training",
+                    button = "hotpot_pd_toggle_training",
+                },
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 7,
+                                w = 0.1
+                            }
                         }
                     }
-                }
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 12.2,
-                            w = 0.1
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 12.2,
+                                w = 0.1
+                            }
                         }
                     }
-                }
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_delivery_back",
-                button = "hotpot_tname_toggle_reforge",
-                atlas = "hpot_tname_shop_reforge",
-                pos = { x = 1, y = 0 }
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 10.5,
-                            w = 0.1
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_delivery_back",
+                    button = "hotpot_tname_toggle_reforge",
+                    atlas = "hpot_tname_shop_reforge",
+                    pos = { x = 1, y = 0 }
+                },
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 10.5,
+                                w = 0.1
+                            }
                         }
                     }
-                }
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_delivery_back",
-                button = "hotpot_horsechicot_toggle_market",
-                atlas = "hpot_tname_shop_reforge",
-                pos = { x = 1, y = 0 }
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 10.5,
-                            w = 0.1
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_delivery_back",
+                    button = "hotpot_horsechicot_toggle_market",
+                    atlas = "hpot_tname_shop_reforge",
+                    pos = { x = 1, y = 0 }
+                },
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 10.5,
+                                w = 0.1
+                            }
                         }
                     }
-                }
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_delivery_back",
+                    button = "hotpot_pd_toggle_training",
+                    atlas = "hpot_tname_shop_reforge",
+                    pos = { x = 1, y = 0 }
+                },
             },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_delivery_back",
-                button = "hotpot_pd_toggle_training",
-                atlas = "hpot_tname_shop_reforge",
-                pos = { x = 1, y = 0 }
-            },
-        },
-    }
+        }
+    end
 end
 
 G.FUNCS.hp_jtem_can_exchange_d2j = function(e)

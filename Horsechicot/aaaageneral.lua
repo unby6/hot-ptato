@@ -125,19 +125,27 @@ function Horsechicot.post_load()
         c_death = true,
         c_hanged_man = true,
     }
+    local cards_jokerless = {
+        c_death = true,
+        c_hanged_man = true,
+    }
     local sets = {
         Spectral = true,
         Omen = true,
     }
     for i, v in pairs(G.P_CENTERS) do
-        if (v.set == "Joker" and v.rarity == 3) or (sets[v.set]) then
+        if (v.set == "Joker" and v.rarity == 3) then
             cards[i] = true
+        elseif (sets[v.set]) then
+            cards[i] = true
+            cards_jokerless[i] = true
         end
     end
 
     for k, v in pairs(G.P_CENTERS) do
         if v.set == 'Booster' and (string.find(k, string.lower("ultra")) ~= nil or string.find(k, string.lower("mega")) ~= nil) then
             cards[k] = true
+            cards_jokerless[k] = true
         end
     end
 
@@ -147,6 +155,12 @@ function Horsechicot.post_load()
         cards = cards
     }
     SMODS.ObjectTypes.BlackMarket:inject()
+    SMODS.ObjectType {
+        key = 'BlackMarketJokerless',
+        default = "c_wraith",
+        cards = cards_jokerless
+    }
+    SMODS.ObjectTypes.BlackMarketJokerless:inject()
     if Cryptid then
         HotPotato.manipulate = Cryptid.manipulate
         HotPotato.manipulate_table = Cryptid.manipulate_table

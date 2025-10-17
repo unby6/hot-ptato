@@ -368,6 +368,45 @@ function G.UIDEF.shop()
     PissDrawer.Shop.create_shop_areas()
     shop()
     PissDrawer.Shop.active_tab = 'hotpot_shop_tab_return_to_shop'
+    if G.GAME.modifiers.no_shop_jokers then
+        return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
+                    {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                        -- Buttons across top of shop to swtich between different shop areas
+                        {n=G.UIT.R, config = {align = 'bl', minh = 0.8, colour = G.C.CLEAR, padding = -0.2}, nodes = not G.GAME.modifiers.hpot_plinko_4ever and { -- Don't show these tab nodes if playing Plinko 4Ever
+                            {n=G.UIT.B, config = {w = 0.75, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_pissdrawer_shop_icons', destination = 'return_to_shop', label = ' Shop'
+                            }),
+                            {n=G.UIT.B, config = {w = 0.55, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_tname_shop_reforge', destination = 'hotpot_tname_toggle_reforge', label = ' Reforge'
+                            }),
+                            {n=G.UIT.B, config = {w = 0.55, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_horsechicot_market', destination = 'hotpot_horsechicot_toggle_market', label = ' Black Market'
+                            }),
+                            {n=G.UIT.B, config = {w = 0.55, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_pissdrawer_shop_icons', x = 2, destination = 'hotpot_pissdrawer_toggle_training', label = ' Training'
+                            }),
+                        }},
+                        -- Main shop nodes
+                        {n=G.UIT.R, config = {align = 'cm', colour = G.C.DYN_UI.MAIN, padding = 0.08, r = 0.1}, nodes = {
+                            {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, r = 0.1, colour = G.C.DYN_UI.BOSS_MAIN}, nodes={
+                                -- Currency container
+                                PissDrawer.Shop.currency_display(),
+                                -- spacer
+                                {n=G.UIT.R, config={minh = 0.2}},
+                                -- Top shop row
+                                {n=G.UIT.R, config = {id = 'main_shop_body', align = 'cm'}, nodes = {
+                                    PissDrawer.Shop.main_shop()
+                                }},
+                                {n=G.UIT.R, config={minh = 0.5}},
+                            }},
+                        }},
+                    }},
+                }}
+    end
     return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
                 {n=G.UIT.C, config = {align = 'cm'}, nodes = {
                     -- Buttons across top of shop to swtich between different shop areas

@@ -7,7 +7,12 @@ function hotpot_horsechicot_market_section_init_cards()
     if not G.GAME.market_filled then
       G.GAME.market_filled = {}
       for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-        local new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        local new_shop_card
+        if G.GAME.modifiers.no_shop_jokers then
+          new_shop_card = SMODS.create_card { set = "BlackMarketJokerless", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        else
+          new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        end
         G.market_jokers:emplace(new_shop_card)
         create_market_card_ui(new_shop_card)
         new_shop_card:juice_up()
@@ -163,7 +168,12 @@ G.FUNCS.reroll_market = function(e)
 
       --
       for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-        local new_market_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        local new_market_card
+        if G.GAME.modifiers.no_shop_jokers then
+          new_market_card = SMODS.create_card { set = "BlackMarketJokerless", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        else
+          new_market_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        end
         G.market_jokers:emplace(new_market_card)
         create_market_card_ui(new_market_card)
         new_market_card:juice_up()
