@@ -1992,7 +1992,7 @@ return {
                 text = {
                     '{C:red}Destroys{} the next',
                     'drawn {C:attention}#1#{} of {V:1}#2#{}',
-                    '{s:0.8,C:inactive}(Rank and Suit change every trigger)'
+                    '{s:0.8,C:inactive}(Rank and Suit changes every trigger and round)'
                 }
             },
             j_hpot_OAP = {

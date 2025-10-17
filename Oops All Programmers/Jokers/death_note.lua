@@ -34,6 +34,9 @@ SMODS.Joker {
                 }))
             end
         end
+        if context.end_of_round and not context.blueprint then
+            reset_death_note(card)
+        end
     end,
     hotpot_credits = {
         art = { 'th30ne' },
