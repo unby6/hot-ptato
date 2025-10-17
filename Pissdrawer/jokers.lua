@@ -182,7 +182,7 @@ SMODS.Joker {
         china = 'piss',
         trig = false,
         extra = {
-            credit_gain = 0.01,
+            credit_gain = 0.1,
             social_credit = 0,
             social_credit_max = 1,
         }
@@ -239,7 +239,7 @@ SMODS.Joker {
             end
         end
         if context.end_of_round then
-            HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / 100))
+            HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / 1000))
         end
         if context.selling_self and not context.blueprint then
             return {
