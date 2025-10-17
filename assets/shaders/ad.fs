@@ -18,7 +18,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     float cutout = 0.015;
     // Cut corners so they don't go outside of ad window when using rounded corners
     if (uv.y > max_y - cutout && (uv.x < cutout || uv.x > max_x - cutout)) {
-        return vec4(0);
+        return vec4(0.);
     }
 
     return Texel(texture, texture_coords);

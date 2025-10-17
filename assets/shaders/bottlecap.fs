@@ -17,7 +17,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 adjusted_uv = uv - vec2(0.5, 0.5);
     adjusted_uv = adjusted_uv * texture_details.a / texture_details.b; 
 
-    float val = 1 - smoothstep(0., radius_squared, adjusted_uv.x * adjusted_uv.x + adjusted_uv.y * adjusted_uv.y);
+    float val = 1. - smoothstep(0., radius_squared, adjusted_uv.x * adjusted_uv.x + adjusted_uv.y * adjusted_uv.y);
 
     return vec4(color.rgb, color.a * val * 0.8);
 }
