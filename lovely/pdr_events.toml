@@ -114,3 +114,17 @@ if G.GAME.round_resets.blind_states.Boss == 'Defeated' and not G.GAME.hpot_comba
 '''
 match_indent = true
 times = 1
+
+# Fix overstock crashing in shop events
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+if G.shop_jokers and G.shop_jokers.cards then
+'''
+position = 'at'
+payload = '''
+if G.shop and G.shop_jokers and G.shop_jokers.cards then
+'''
+match_indent = true
+times = 1
