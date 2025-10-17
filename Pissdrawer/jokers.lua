@@ -182,7 +182,7 @@ SMODS.Joker {
         china = 'piss',
         trig = false,
         extra = {
-            credit_gain = 0.1,
+            credit_gain = 0.01,
             social_credit = 0,
             social_credit_max = 1,
         }
