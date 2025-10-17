@@ -2,11 +2,12 @@ SMODS.Joker {
     key = 'ouroboros',
     rarity = 3,
     blueprint_compat = true,
+    eternal_compat = false,
     cost = 8,
     config = {
         extra = {
             Xmult = 1,
-            gain = 1/3
+            gain = 1 / 3
         }
     },
     atlas = "oap_jokers",
@@ -19,20 +20,24 @@ SMODS.Joker {
             local eligible_cards = {}
 
             for k, v in pairs(G.jokers.cards) do
-                if v ~= card and v ~= context.card then
+                if v ~= card and v ~= context.card and not v.ability.eternal then
                     eligible_cards[#eligible_cards + 1] = v
                 end
             end
 
-            local destroy_card = pseudorandom_element(eligible_cards)
-            SMODS.destroy_cards({ destroy_card }, true) --wait, it does not check eternals at all
+            if next(eligible_cards) then
+                local destroy_card = pseudorandom_element(eligible_cards)
+                SMODS.destroy_cards({ destroy_card })
 
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = 'Xmult',
-                scalar_value = 'gain',
-                message_colour = G.C.MULT
-            })
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = 'Xmult',
+                    scalar_value = 'gain',
+                    message_colour = G.C.MULT
+                })
+            else
+                SMODS.destroy_cards({ card })
+            end
         end
 
         if context.joker_main and card.ability.extra.Xmult > 1 then
