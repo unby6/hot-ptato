@@ -89,7 +89,7 @@ end
 function get_stickers(center)
     local stickers = {}
     for k, v in pairs(SMODS.Sticker.obj_table) do
-        if k ~= "eternal" and k ~= "rental" and k ~= "perishable" and type(v.should_apply) == 'function' and v:should_apply(nil, center) then
+        if k ~= "eternal" and k ~= "rental" and k ~= "perishable" and type(v.should_apply) == 'function' and v:should_apply(nil, center, nil, true) then
             if pseudorandom("hpjtem_delivery_" .. k) < v.rate then
                 local sticker_compatible = v.default_compat
                 if sticker_compatible == nil then sticker_compatible = true end
@@ -328,7 +328,7 @@ local function hpot_create_joker_from_amazon(card, center)
         bypass_discovery_ui = true,
         bypass_discovery_center = true,
         stickers = stickers,
-        force_stickers = true
+        no_stickers = true
     }
     if create_card_args.hp_jtem_silent_edition == nil then create_card_args.hp_jtem_silent_edition = "e_base" end
     -- TODO: Needs tweaking. This isn't free joker simulator :V
@@ -377,7 +377,8 @@ local function hpot_create_joker_from_amazon(card, center)
                     eternal = should_spawn_with_eternal,
                     perishable = should_spawn_with_perishable,
                     unpack(stickers)
-                }
+                },
+                no_stickers = true
             }
         })
     end
@@ -892,7 +893,7 @@ function hotpot_jtem_generate_special_deals(deals)
             bypass_discovery_ui = true,
             bypass_discovery_center = true,
             stickers = stickers,
-            force_stickers = true
+            no_stickers = true
         }
     if create_card_args.hp_jtem_silent_edition == nil then create_card_args.hp_jtem_silent_edition = "e_base" end
         if center and center.credits then
@@ -933,7 +934,7 @@ function hotpot_delivery_refresh_card()
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue, true)
     for _, _obj in ipairs(G.GAME.hp_jtem_delivery_queue) do
         local temp_str = { str = (_obj.rounds_passed .. "/" .. _obj.rounds_total) }
-        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true }
+        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true, no_stickers = true, force_stickers = true }
         for k, v in pairs(_obj.create_card_args) do
             cct[k] = v
         end
@@ -951,7 +952,7 @@ function hotpot_delivery_refresh_card()
         G.hp_jtem_delivery_queue:emplace(_c)
     end
     for _, _obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
-        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true }
+        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true, no_stickers = true, force_stickers = true }
         for k, v in pairs(_obj.create_card_args) do
             cct[k] = v
         end
@@ -1053,7 +1054,7 @@ function hotpot_jtem_calculate_deliveries()
                 (delivery.create_card_args.hp_jtem_silent_edition and delivery.create_card_args.hp_jtem_silent_edition == "e_negative")
                 or (area and area.cards and #area.cards < area.config.card_limit)
             then
-                local cct = { key = delivery.key, skip_materialize = true }
+                local cct = { key = delivery.key, skip_materialize = true, no_stickers = true, force_stickers = true }
                 for k, v in pairs(delivery.create_card_args) do
                     cct[k] = v
                 end
@@ -1110,6 +1111,22 @@ function Game:start_run(args)
         end)
     end
     return unpack(x)
+end
+
+local card_creator = SMODS.create_card
+function SMODS.create_card(t)
+    local ret = card_creator(t)
+    if t.no_stickers then
+		for k, v in pairs(SMODS.Stickers) do
+			if (ret.ability[k] or ret[k]) then v:apply(ret, false) end
+		end
+        if t.stickers then
+            for i, v in ipairs(t.stickers) do
+                ret:add_sticker(v, t.force_stickers)
+            end
+        end
+    end
+    return ret
 end
 
 -- destroy cards below
