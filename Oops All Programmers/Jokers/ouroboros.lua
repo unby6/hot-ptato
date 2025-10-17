@@ -20,7 +20,7 @@ SMODS.Joker {
             local eligible_cards = {}
 
             for k, v in pairs(G.jokers.cards) do
-                if v ~= card and v ~= context.card and not v.ability.eternal then
+                if v ~= card and v ~= context.card and not SMODS.is_eternal(v, card) then
                     eligible_cards[#eligible_cards + 1] = v
                 end
             end
