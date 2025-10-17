@@ -1,7 +1,7 @@
---[[SMODS.Sound {
+SMODS.Sound {
   key = "sfx_tname_flip",
   path = "sfx_tname_flip.ogg",
-}]]--
+}
 
 SMODS.Sound {
   key = "music_reforge",
