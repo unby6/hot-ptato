@@ -12,7 +12,7 @@ return {
                 name = "Aura of Fear",
                 text = {
                     "{C:attention}All current Jokers{} gain",
-                    "{C:red}negative{} stickers,",
+                    "{C:red}bad{} stickers,",
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
             },
@@ -61,7 +61,7 @@ return {
                 name = "Aura of Fear",
                 text = {
                     "{C:attention}All current Jokers{} gain",
-                    "{C:red}negative{} stickers,",
+                    "{C:red}bad{} stickers,",
                     "{C:attention}+e.#1#{} for each sticker added"
                 }
             },
