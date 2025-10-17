@@ -322,7 +322,7 @@ SMODS.Joker{ -- Kitchen Gun
         return{vars = {n, d, card.ability.extra.xmult_mod, card.ability.extra.xmult}}
     end,
     calculate = function(self, card, context)
-        if context.ending_shop and context.cardarea == G.jokers then
+        if context.ending_shop and context.cardarea == G.jokers and not context.blueprint then
             local adsRemoved = 0
             for _, ad in ipairs(G.GAME.hotpot_ads) do
                 if SMODS.pseudorandom_probability(card, 'hpot_kg_kill_ad', 1, card.ability.extra.odds) then
