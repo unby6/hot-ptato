@@ -19,7 +19,7 @@ SMODS.Joker {
                 no_destroy = true,
                 dollars = card.ability.extra.money,
                 func = function()
-                    card:start_dissolve()
+                    SMODS.destroy_cards({ card })
                 end
             }
         end

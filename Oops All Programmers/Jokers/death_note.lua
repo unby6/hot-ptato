@@ -20,17 +20,19 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.post_draw_individual and context.card and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 1,
-                func = function()
-                    context.card:start_dissolve()
-                    card:juice_up(0.8, 0.8)
-
-                    reset_death_note(card)
-                    return true;
-                end
-            }))
+            if not context.card.hpot_deathnote_removed then
+                context.card.hpot_deathnote_removed = true
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 1,
+                    func = function()
+                        card:juice_up(0.8, 0.8)
+                        SMODS.destroy_cards({ context.card })
+                        reset_death_note(card)
+                        return true;
+                    end
+                }))
+            end
         end
     end,
     hotpot_credits = {

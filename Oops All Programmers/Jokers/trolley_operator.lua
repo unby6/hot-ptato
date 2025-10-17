@@ -18,7 +18,7 @@ SMODS.Joker {
             local chosen_card = pseudorandom_element(G.hand.cards)
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    chosen_card:start_dissolve()
+                    SMODS.destroy_cards({ chosen_card }) -- again, no eternal check
                     return true;
                 end
             }))
