@@ -243,14 +243,14 @@ SMODS.Joker{ --Tribcoin
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.Xmult,G.GAME.plincoins and (1 + ((G.GAME.plincoins * card.ability.extra.Xmult))) or 1}}
+        return {vars = {card.ability.extra.Xmult,G.GAME.plincoins and (1 + math.max(0, G.GAME.plincoins * card.ability.extra.Xmult)) or 1}}
     end,
 
     calculate = function(self, card, context)
         if context.joker_main then
             if G.GAME.plincoins > 0 then
-                return{
-                    xmult = 1 + (G.GAME.plincoins * card.ability.extra.Xmult)
+                return {
+                    xmult = 1 + math.max(0, G.GAME.plincoins * card.ability.extra.Xmult)
                 }
             end
         end
