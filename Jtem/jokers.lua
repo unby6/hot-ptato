@@ -636,6 +636,7 @@ SMODS.Joker {
                     simple_add_event(
                         function()
                             card.ability.extras.person = x + 1
+                            card.children.center.atlas = G.ASSET_ATLAS['hpot_jtem_jokers']
                             card.children.center:set_sprite_pos({ x = x, y = 3 })
                             card:juice_up(0.4, 0.4)
                             return true

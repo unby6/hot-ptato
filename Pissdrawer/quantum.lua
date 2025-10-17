@@ -11,6 +11,7 @@ end
 
 function Quantum:init(args, source)
     --ty eremel <3
+    -- NOTE: this should probably be reworked to use metatables to access base card properties rather than pretend ones, but I do not have the motivation to do that right now -eremel
     self.base_cost = args.base_cost or 0
     self.extra_cost = args.extra_cost or 0
     self.cost = args.cost or 0
@@ -23,6 +24,14 @@ function Quantum:init(args, source)
     self.ability = args.ability
     self.config = args.config
     self.quantum = source
+    self.children = setmetatable({quantum = source}, {
+        __index = function(t, key)
+            return t.quantum.children[key]        
+        end,
+        __newindex = function(t, key, value)
+            rawset(t.quantum.children, key, value)
+        end
+    })
 end
 
 function Quantum:save()
@@ -218,12 +227,10 @@ SMODS.Joker {
         if table.ability and table.ability.quantum_1 then
             local args = table.quantum_1
             args.config.center = G.P_CENTERS[args.key]
-            table.ability.quantum_1 = Quantum(args)
+            table.ability.quantum_1 = Quantum(args, card)
             args = table.quantum_2
             args.config.center = G.P_CENTERS[args.key]
-            table.ability.quantum_2 = Quantum(args)
-            table.ability.quantum_1.quantum = card
-            table.ability.quantum_2.quantum = card
+            table.ability.quantum_2 = Quantum(args, card)
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key].atlas or 'Joker'],
                 G.P_CENTERS[table.ability.quantum_1.key].pos)
             card.loaded = true
