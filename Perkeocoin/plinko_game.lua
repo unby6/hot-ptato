@@ -236,10 +236,12 @@ function PlinkoGame.f.update_plinko_world(dt)
         end
     end
 
-    move_pegs(dt)
+    local capped_dt = math.min(0.1, dt)
 
-    PlinkoGame.f.ballin(dt)
-    PlinkoGame.world:update(dt)
+    move_pegs(capped_dt)
+
+    PlinkoGame.f.ballin(capped_dt)
+    PlinkoGame.world:update(capped_dt)
 end
 
 
@@ -256,7 +258,7 @@ local function get_dummy_ball_x()
 end
 
 function PlinkoGame.f.ballin(dt)
-    plinko_balling = plinko_balling + where_is_plinko_balling * how_much_balling_per_second * G.real_dt
+    plinko_balling = plinko_balling + where_is_plinko_balling * how_much_balling_per_second * dt
     if plinko_balling >= plinko_should_be_balling_in_a_different_direction or plinko_balling <= 1 then
         where_is_plinko_balling = -where_is_plinko_balling
         plinko_balling = math.max(1, math.min(plinko_should_be_balling_in_a_different_direction, plinko_balling))
