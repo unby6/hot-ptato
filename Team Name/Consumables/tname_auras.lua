@@ -406,13 +406,14 @@ SMODS.Consumable({
 	can_use = function(self, card)
 		local hpt = card.ability.extra
 		return ((#G.jokers.cards > 0) and (calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment) > 0))
+            and G.jokers.cards[0].config.center.key ~= "j_hpot_child"
 	end,
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
 		local a = math.min(calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment))
 		HPTN.ease_credits(-(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits), false)
 		local target_card_key = G.jokers.cards[1].config.center.key
-		if target_card_key ~= nil then
+		if target_card_key ~= nil and target_card_key ~= "j_hpot_child" then
 			for i = 1, a do
 				SMODS.add_card {
 					key = target_card_key,
