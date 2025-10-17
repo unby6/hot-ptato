@@ -1904,12 +1904,17 @@ return {
             },
             j_hpot_ouroboros = {
                 name = 'Ouroboros',
-                text = {
+                text = { {
                     '{C:attention}Jokers{} can be added to',
                     'Joker Slots {C:attention}over the limit',
                     '{C:red}Destroys{} one random other Joker and',
                     'gains {X:mult,C:white}X#1#{} Mult when limit is exceeded',
                     '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
+                },
+                {
+                    'If {C:attention}no other cards{} can be destroyed,',
+                    'this Joker will {C:red}eat{} itself instead'
+                }
                 }
             },
             j_hpot_charlie = {
@@ -5038,7 +5043,7 @@ return {
                 },
             },
         },
-        
+
         -- This is sorted by week!
         hotpot_credits = {
             -- Members format goes like this
