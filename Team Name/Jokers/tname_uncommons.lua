@@ -348,8 +348,8 @@ SMODS.Joker({
 				end
 			end
             if #cards_to_replace > 0 then
+                SMODS.destroy_cards(cards_to_replace)
                 for _, v in ipairs(cards_to_replace) do
-                    v:start_dissolve(nil, true)
 					SMODS.add_card{set = "Aura"}
                 end
                 return {message = localize("teamname_replaced")}

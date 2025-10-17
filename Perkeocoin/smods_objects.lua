@@ -938,7 +938,7 @@ SMODS.Consumable { --Sacrifice
         G.jokers.cards[1].getting_sliced = true
         G.E_MANAGER:add_event(Event({func = function()
             card:juice_up(0.8, 0.8)
-            G.jokers.cards[1]:start_dissolve({G.C.RED}, nil, 1.6)
+            SMODS.destroy_cards({ G.jokers.cards[1] }, true)
         return true end }))
     end
 }

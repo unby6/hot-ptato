@@ -421,7 +421,7 @@ SMODS.Joker {
                     if selected_joker then
                         selected_joker.slop_live_removing = true
                         simple_add_event(function()
-                            selected_joker:start_dissolve()
+                            SMODS.destroy_cards({ selected_joker })
                             return true
                         end)
                         local tg = Tag("tag_buffoon")

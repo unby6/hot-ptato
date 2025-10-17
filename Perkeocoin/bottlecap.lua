@@ -602,7 +602,7 @@ in_pool = function(self, args)
                 byebye.getting_sliced = true
                 G.E_MANAGER:add_event(Event({func = function()
                     card:juice_up(0.8, 0.8)
-                    byebye:start_dissolve({G.C.RED}, nil, 1.6)
+                    SMODS.destroy_cards({ byebye })
                 return true end }))
             end
         end

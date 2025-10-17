@@ -25,7 +25,7 @@ SMODS.Joker {
             end
 
             local destroy_card = pseudorandom_element(eligible_cards)
-            destroy_card:start_dissolve()
+            SMODS.destroy_cards({ destroy_card }, true) --wait, it does not check eternals at all
 
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
