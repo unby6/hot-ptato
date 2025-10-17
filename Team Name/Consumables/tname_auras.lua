@@ -304,10 +304,8 @@ SMODS.Consumable({
 	can_use = function(self, card)
 		return #G.jokers.cards > 0
 	end,
-	use = function(self, card, area, copier)
-		for _, joker in pairs(G.jokers.cards) do
-			joker:start_dissolve(nil, true)
-		end
+	use = function(self, card, area, copier)    
+        SMODS.destroy_cards(G.jokers.cards)
 		local hpt = card.ability.extra
 		local retval = math.min(hpt.max, (hpt.credits - 1) * (G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits))
 		HPTN.ease_credits(retval, false)
