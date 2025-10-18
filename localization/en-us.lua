@@ -6326,7 +6326,7 @@ return {
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
             hpot_diy_random_card = "Create a Random Playing Card",
-            k_harvest = HotPotatoConfig.family_friendly and "Harvest Joy" or "Harvest Organs",
+            k_harvest = HotPotatoConfig and HotPotatoConfig.family_friendly and "Harvest Joy" or "Harvest Organs",
             k_none = "none",
 
             k_oap_fine_print_no_full_slots = "*Joker Slots cannot be full",
