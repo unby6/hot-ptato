@@ -402,7 +402,7 @@ function copy_card(card, new_card, card_scale, playing_card, strip_edition)
                 ability = copy_table(q2.ability),
                 config = {
                     center = q2.config.center,
-                    center_key = q1.config.center.key
+                    center_key = q2.config.center.key
                 },
             }, ret)
 
