@@ -61,7 +61,7 @@ function poll_sticker(guaranteed, card, seed, blacklist)
 
     for k, v in pairs(SMODS.Stickers) do
         -- Check if the current sticker is on the current card (if the current card exists)
-        if card and (ability[k] or card[k]) then
+        if card and (ability[k] or card[k] or not v:should_apply(card, card.config and card.config.center, card.area, nil)) then
             goto poll_sticker_skip
         end
 
