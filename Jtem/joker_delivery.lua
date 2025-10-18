@@ -1060,9 +1060,14 @@ function hotpot_jtem_calculate_deliveries()
                 for k, v in pairs(delivery.create_card_args) do
                     cct[k] = v
                 end
-                local c = SMODS.add_card(cct)
-                c.ability.ordered = true
-                card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize('k_hotpot_delivery'), colour = G.C.CHIPS})
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local c = SMODS.add_card(cct)
+                        c.ability.ordered = true
+                        card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize('k_hotpot_delivery'), colour = G.C.CHIPS})
+                        return true
+                    end,
+                }))
                 --[[if delivery.extras then
                     for k, v in pairs(delivery.extras) do
                         c.ability[k] = v
@@ -1091,7 +1096,7 @@ function hotpot_jtem_calculate_deliveries()
 		})
         play_sound('tarot1', 1.5)
         attention_text({
-            scale = 0.75, text = text, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+            scale = 0.75, text = text, hold = 3, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
         })
     end
 end
