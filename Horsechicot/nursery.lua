@@ -284,7 +284,8 @@ function nursery()
                             key = child_prio.key,
                             ability = copy_table(G.GAME.child_prio_ability),
                             config = {
-                                center = child_prio
+                                center = child_prio,
+                                center_key = child_prio.key
                             },
                         }, card)
                         card.ability.quantum_2 = Quantum({
@@ -292,7 +293,8 @@ function nursery()
                             key = child_sec.key,
                             ability = copy_table(G.GAME.child_sec_ability),
                             config = {
-                                center = child_sec
+                                center = child_sec,
+                                center_key = child_sec.key
                             },
                         }, card)
 
