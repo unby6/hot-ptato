@@ -661,6 +661,7 @@ SMODS.Sticker {
 		}
 		full_UI_table.sticker_pass = true
 	end,
+    should_apply = function() return false end,
 	badge_colour = HEX('ffcc11'),
 	hotpot_credits = {
 		art = { "Aikoyori" },
