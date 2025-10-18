@@ -533,7 +533,10 @@ SMODS.Joker {
                         if G.GAME.selected_back.name == 'Yellow Deck' then
                             check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
                         end
-                        ease_dollars(dollars)
+                        SMODS.calculate_effect{
+                            card = card,
+                            dollars = dollars
+                        }
                     end
                     return true
                 end
