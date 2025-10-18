@@ -1,14 +1,46 @@
 if not JokerDisplay then return end
 
 ---@type table<string,JDJokerDefinition>
-local jd_def = JokerDisplay.Definitions -- You can assign it to a variable to use as shorthand
+local jd_def = JokerDisplay.Definitions
 
-jd_def["j_joker"] = {                   -- Joker
+jd_def["j_joker"] = { -- Joker
 
 }
 
 jd_def["j_hpot_antidsestablishmentarianism"] = { -- Antidisestablishmentarianism
-
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "active_text" },
+    },
+    calc_function = function(card)
+        local disableable = G.GAME and G.GAME.blind and G.GAME.blind.get_type and
+            ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss'))
+        local all_debuffed = true
+        if disableable then
+            local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+            if text ~= 'Unknown' then
+                all_debuffed = #scoring_hand >= 3
+                if all_debuffed then
+                    for _, played_card in pairs(JokerDisplay.current_hand) do
+                        if not played_card.debuff then
+                            all_debuffed = false
+                            break
+                        end
+                    end
+                end
+            end
+        end
+        local is_hand = all_debuffed and 'k_active' or "jdis_inactive"
+        card.joker_display_values.active = disableable and all_debuffed
+        card.joker_display_values.active_text = localize(disableable and is_hand or 'ph_no_boss_active')
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if reminder_text and reminder_text.children[1] then
+            reminder_text.children[1].config.colour = card.joker_display_values.active and G.C.GREEN or G.C.RED
+            reminder_text.children[1].config.scale = card.joker_display_values.active and 0.35 or 0.3
+            return true
+        end
+        return false
+    end
 }
 
 jd_def["j_hpot_iou"] = { -- I.O.U
@@ -16,15 +48,64 @@ jd_def["j_hpot_iou"] = { -- I.O.U
 }
 
 jd_def["j_hpot_banana_of_doom"] = { -- Banana of Doom
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_doom')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 jd_def["j_hpot_bayharbourjoker"] = { -- Bay Harbour Joker
-
+    text = {
+        { text = "+£",                             font = "hpot_plincoin" },
+        { ref_table = "card.joker_display_values", ref_value = "crypto" },
+    },
+    text_config = { colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } },
+    calc_function = function(card)
+        local my_pos
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then
+                my_pos = i
+                break
+            end
+        end
+        local sell_value = 0
+        if my_pos and G.jokers.cards[my_pos + 1] then
+            local right_joker = G.jokers.cards[my_pos + 1]
+            sell_value = right_joker.sell_cost
+        end
+        card.joker_display_values.crypto = sell_value
+    end
 }
 
 jd_def["j_hpot_blunderfarming"] = { -- Blunderfarming
-
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'blunderfarming')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 jd_def["j_hpot_brainfuck"] = { -- --[----->+<]>---.+++++.+.------.++++++++++++.+++++.
@@ -279,7 +360,7 @@ jd_def["j_hpot_numberslop"] = { -- Numberslop
 
 }
 
-jd_def["j_hpot_OAP"] = { --
+jd_def["j_hpot_OAP"] = { -- Oops! A Programmer
 
 }
 
