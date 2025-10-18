@@ -16,7 +16,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.card_added and context.card.ability.set == 'Joker' and #G.jokers.cards == G.jokers.config.card_limit and not (context.card.ability.card_limit and context.card.ability.card_limit >= 1) and not context.blueprint then
+        if context.card_added and context.card.ability.set == 'Joker' and #G.jokers.cards >= G.jokers.config.card_limit and not (context.card.ability.card_limit and context.card.ability.card_limit >= 1) and not context.blueprint then
             local eligible_cards = {}
 
             for k, v in pairs(G.jokers.cards) do
