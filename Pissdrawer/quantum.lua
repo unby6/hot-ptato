@@ -173,9 +173,9 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if card.ability.quantum_1 and card.ability.quantum_2 then
-            --local ret, trig = card.ability.quantum_1:calculate_joker(context)
             local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
-            --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
+            if ret then SMODS.update_context_flags(context, ret) end
+
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
             local function bp(quantum)
                 local to_copy
