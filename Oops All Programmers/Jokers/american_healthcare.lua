@@ -1,6 +1,8 @@
 SMODS.Joker {
     key = 'american_healthcare',
     blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
     rarity = 3,
     cost = 7,
     atlas = "oap_jokers",

@@ -2,6 +2,8 @@ SMODS.Joker {
     key = 'undying',
     rarity = 3,
     blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
     cost = 7,
     atlas = "oap_jokers",
     pos = { x = 0, y = 1 },

@@ -971,7 +971,8 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "Create a {C:attention}Modded{} Joker",
-                    "{C:inactive, s:0.6}slop not included!{}"
+                    "{C:inactive}(No room required)",
+                    "{C:inactive,S:0.6}slop not included!{}",
                 }
             },
             j_hpot_slop = {
@@ -1904,17 +1905,20 @@ return {
             },
             j_hpot_ouroboros = {
                 name = 'Ouroboros',
-                text = { {
-                    '{C:attention}Jokers{} can be added to',
-                    'Joker Slots {C:attention}over the limit',
-                    '{C:red}Destroys{} one random other Joker and',
-                    'gains {X:mult,C:white}X#1#{} Mult when limit is exceeded',
-                    '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
-                },
-                {
-                    'If {C:attention}no other cards{} can be destroyed,',
-                    'this Joker will {C:red}eat{} itself instead'
-                }
+                text = {
+                    {
+                        '{C:attention}Jokers{} can be added to',
+                        'Joker Slots {C:attention}over the limit',
+                    },
+                    {
+                        '{C:red}Destroys{} one random other Joker and',
+                        'gains {X:mult,C:white}X#1#{} Mult when limit is exceeded',
+                        '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
+                    },
+                    {
+                        'If {C:attention}no other cards{} can be destroyed,',
+                        'this Joker will {C:red}eat{} itself instead'
+                    }
                 }
             },
             j_hpot_charlie = {

@@ -17,6 +17,8 @@ SMODS.Joker {
         }
     end,
     blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = false,
     pools = { Food = true },
     calculate = function(self, card, context)
         if context.before

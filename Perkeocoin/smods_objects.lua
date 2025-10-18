@@ -307,7 +307,7 @@ SMODS.Joker{ -- Kitchen Gun
     pos = { x = 1 , y = 0 },
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = true,
+    perishable_compat = false,
     unlocked = true,
     discovered = true,
 

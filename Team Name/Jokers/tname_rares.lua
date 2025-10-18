@@ -280,6 +280,8 @@ SMODS.Joker({
 	},
     cost = 6,
     blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
 	pos = {x=1,y=1},
 	atlas = "tname_jokers2",
 	loc_vars = function(self, info_queue, card)

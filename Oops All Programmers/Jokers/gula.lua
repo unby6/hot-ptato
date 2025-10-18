@@ -2,10 +2,11 @@ SMODS.Joker {
     key = 'gula',
     rarity = 3,
     blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = true,
     cost = 7,
     atlas = "oap_jokers",
     config = {extra = {x_mult = 1}},
-    perishable_compat = false,
     pos = { x = 8, y = 0 },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.x_mult } }

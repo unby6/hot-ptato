@@ -1636,6 +1636,7 @@ in_pool = function(self, args)
         end
         if can_use then
             local random_joker = pseudorandom_element(G.jokers.cards)
+            play_sound("hpot_tname_reforge")
             apply_modification(random_joker, random_modif(card.ability.extra[card.ability.extra.chosen], card).key)
         else
             nope(card)

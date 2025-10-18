@@ -163,6 +163,8 @@ SMODS.Joker({
 	key = "sticker_dealer",
 	rarity = 2,
     blueprint_compat = true,
+    perishable_compat = false,
+    eternal_compat = true,
 	config = {
 		extra = {
 			xmult = 1,
