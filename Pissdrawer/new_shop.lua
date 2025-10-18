@@ -373,19 +373,19 @@ function G.UIDEF.shop()
                     {n=G.UIT.C, config = {align = 'cm'}, nodes = {
                         -- Buttons across top of shop to swtich between different shop areas
                         {n=G.UIT.R, config = {align = 'bl', minh = 0.8, colour = G.C.CLEAR, padding = -0.2}, nodes = not G.GAME.modifiers.hpot_plinko_4ever and { -- Don't show these tab nodes if playing Plinko 4Ever
-                            {n=G.UIT.B, config = {w = 0.75, h=0.1}},
+                            {n=G.UIT.B, config = {w = 0.92, h=0.1}},
                             PissDrawer.Shop.tab_button({
                                 atlas = 'hpot_pissdrawer_shop_icons', destination = 'return_to_shop', label = ' Shop'
                             }),
-                            {n=G.UIT.B, config = {w = 0.55, h=0.1}},
+                            {n=G.UIT.B, config = {w = 0.67, h=0.1}},
                             PissDrawer.Shop.tab_button({
                                 atlas = 'hpot_tname_shop_reforge', destination = 'hotpot_tname_toggle_reforge', label = ' Reforge'
                             }),
-                            {n=G.UIT.B, config = {w = 0.55, h=0.1}},
+                            {n=G.UIT.B, config = {w = 0.67, h=0.1}},
                             PissDrawer.Shop.tab_button({
                                 atlas = 'hpot_horsechicot_market', destination = 'hotpot_horsechicot_toggle_market', label = ' Black Market'
                             }),
-                            {n=G.UIT.B, config = {w = 0.55, h=0.1}},
+                            {n=G.UIT.B, config = {w = 0.67, h=0.1}},
                             PissDrawer.Shop.tab_button({
                                 atlas = 'hpot_pissdrawer_shop_icons', x = 2, destination = 'hotpot_pissdrawer_toggle_training', label = ' Training'
                             }),
