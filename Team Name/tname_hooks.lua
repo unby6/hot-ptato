@@ -79,7 +79,7 @@ function Card:click()
         end
     end
     if self and self.ability.hpot_spinning and (self.highlighted == true or can_spin) then
-        play_sound("hpot_sfx_tname_flip")
+        play_sound("card1")
         self:flip()
     end
 	

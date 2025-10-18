@@ -1,9 +1,4 @@
 SMODS.Sound {
-  key = "sfx_tname_flip",
-  path = "sfx_tname_flip.ogg",
-}
-
-SMODS.Sound {
   key = "music_reforge",
   path = "music_reforge_menu.ogg",
   pitch = 1,

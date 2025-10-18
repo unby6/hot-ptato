@@ -76,12 +76,14 @@ target = "functions/UI_definitions.lua"
 pattern = "badges.mod_set = nil"
 position = "before"
 payload = '''
-for k, v in pairs(HPTN.Modifications) do
-  if card and card.ability and card.ability[k] and G.your_collection then
-    for i = 1, #G.your_collection do
-        if card.area == G.your_collection[i] then
-            SMODS.create_mod_badges(HPTN.Modifications[k], badges)
-        end
+if HPTN then
+  for k, v in pairs(HPTN.Modifications) do
+    if card and card.ability and card.ability[k] and G.your_collection then
+      for i = 1, #G.your_collection do
+          if card.area == G.your_collection[i] then
+              SMODS.create_mod_badges(HPTN.Modifications[k], badges)
+          end
+      end
     end
   end
 end
@@ -96,9 +98,12 @@ pattern = 'return G.BADGE_COL[key] or {1, 0, 0, 1}'
 position = 'before'
 match_indent = true
 payload = '''
-for k, v in pairs(HPTN.Modifications) do
-    G.BADGE_COL[k] = v.badge_colour
-end'''
+if HPTN then
+  for k, v in pairs(HPTN.Modifications) do
+      G.BADGE_COL[k] = v.badge_colour
+  end
+end
+'''
 
 
 # set HPTN.during_scoring
