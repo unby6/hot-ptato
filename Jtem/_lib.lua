@@ -203,6 +203,7 @@ local MisprintizeForbidden = {
 	['wits'] = true,
 	["quantum"] = true,
 	["config"] = true, -- Here for quantum jokers.... You shouldn't modify this!
+    ["cards_req"] = true, -- Blue, Red and Yellow Deck Jokers
 	--["x_mult"] = true,
 }
 
