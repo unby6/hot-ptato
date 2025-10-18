@@ -348,6 +348,7 @@ SMODS.DrawStep {
 
 local old = copy_card
 function copy_card(card, new_card, card_scale, playing_card, strip_edition)
+    card = card.quantum or card
     if card.ability.quantum_1 then
         local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
         card.ability.quantum_1, card.ability.quantum_2 = nil, nil
