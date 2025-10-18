@@ -88,6 +88,27 @@ function SMODS.find_card(key, count_debuffed)
     return results
 end
 
+local discover_jonkler = find_joker
+function find_joker(name, non_debuff)
+    local results = discover_jonkler(name, non_debuff)
+    if not G.jokers or not G.jokers.cards then return {} end
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+        if area.cards then
+            for _, v in pairs(area.cards) do
+                if v and type(v) == 'table' and v.ability and v.ability.quantum_1 then
+                    if (v.ability.quantum_1.ability.name == name) and (non_debuff or not v.debuff) then
+                        table.insert(results, v.ability.quantum_1)
+                    end
+                    if (v.ability.quantum_2.ability.name == name) and (non_debuff or not v.debuff) then
+                        table.insert(results, v.ability.quantum_2)
+                    end
+                end
+            end
+        end
+    end
+    return results
+end
+
 local smods_destroy_cards = SMODS.destroy_cards
 function SMODS.destroy_cards(cards, ...)
     if not cards[1] then
