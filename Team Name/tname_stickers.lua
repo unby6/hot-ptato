@@ -500,7 +500,7 @@ SMODS.Sticker({
 		team = { "Team Name" }
 	},
 	should_apply = function(self, card, center, area, bypass_roll)
-               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers and center.set == "Joker"
+               return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll) and G.GAME.tnamestickers
 	end
 })
 
