@@ -205,7 +205,9 @@ function generate_wheel_rewards(_amount)
 	-- Logic for extra reward with that rarity is kinda ass
 	-- didn't have time to think of something better
   for i=1, _amount or 8 do
-    local reward = pseudorandom_element({ "Joker", "Consumable" }, "hpot_arrows_rewards_type")
+    local rewards = { "Joker", "Consumable" }
+    if G.GAME.modifiers.no_shop_jokers then rewards = {"Consumable"} end
+    local reward = pseudorandom_element(rewards, "hpot_arrows_rewards_type")
     if reward == "Joker" then
       local acard = SMODS.create_card({
         set = "Joker",
