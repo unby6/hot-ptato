@@ -391,7 +391,8 @@ function copy_card(card, new_card, card_scale, playing_card, strip_edition)
                 key = q1.config.center.key,
                 ability = copy_table(q1.ability),
                 config = {
-                    center = q1.config.center
+                    center = q1.config.center,
+                    center_key = q1.config.center.key
                 },
             }, ret)
         ret.ability.quantum_2 =
@@ -400,7 +401,8 @@ function copy_card(card, new_card, card_scale, playing_card, strip_edition)
                 key = q2.config.center.key,
                 ability = copy_table(q2.ability),
                 config = {
-                    center = q2.config.center
+                    center = q2.config.center,
+                    center_key = q2.config.center.key
                 },
             }, ret)
 
