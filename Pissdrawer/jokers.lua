@@ -294,7 +294,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = 'goblin_tinkerer',
     rarity = 2,
-    blueprint_compat = true,
+    blueprint_compat = false,
     cost = 6,
     atlas = "pdr_joker",
     pos = { x = 4, y = 0 },
@@ -315,7 +315,7 @@ SMODS.Joker {
         G.GAME.goblin_acquired = nil
     end,
     calculate = function(self, card, context)
-        if context.reforging and not context.free then
+        if context.reforging and not context.free and not context.blueprint then
             if context.currency == "DOLLAR" then
                 ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability
                     .extra))
