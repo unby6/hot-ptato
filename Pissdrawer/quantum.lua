@@ -22,6 +22,8 @@ function Quantum:init(args, source)
     self.key = args.key
     self.fake_card = true
     self.ability = args.ability
+    self.ability.mother = false
+    self.ability.father = false
     self.config = args.config
     self.quantum = source
     self.children = setmetatable({quantum = source}, {
