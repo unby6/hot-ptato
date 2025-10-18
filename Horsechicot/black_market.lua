@@ -73,6 +73,7 @@ function Game:start_run(args)
   if saveTable and saveTable.cardAreas then
     G.GAME.market_table = saveTable.cardAreas.market_jokers
   end
+  G.GAME.current_round.market_reroll_cost = tonumber(G.GAME.current_round.market_reroll_cost) or 0
   G.GAME.cryptocurrency = G.GAME.cryptocurrency or 0.5
   return ret
 end
