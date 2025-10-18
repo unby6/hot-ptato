@@ -431,6 +431,7 @@ SMODS.Joker {
     soul_pos = { x = 2, y = 1 },
     rarity = 4,
     cost = 0,
+    discovered = true,
     in_pool = function(self, args)
         return false
     end
