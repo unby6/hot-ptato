@@ -246,7 +246,8 @@ SMODS.Joker {
             Card.update(card.ability.quantum_1, dt)
             Card.update(card.ability.quantum_2, dt)
         end
-    end
+    end,
+    hpot_unbreedable = true
 }
 
 function PissDrawer.replace_quantum(effects, quantum, host)
