@@ -14,6 +14,8 @@
 		"Steamodded (>=1.0.0~BETA-1016c)"
 	],
     "conflicts": [
-        "Talisman"
+        "Talisman",
+		"Multiplayer",
+		"VirtualizedMultiplayer"
     ]
 }
