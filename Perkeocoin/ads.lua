@@ -305,7 +305,7 @@ function create_ads(number_of_ads)
                 end
 
                 local ad_type_poll = pseudorandom('ad_type')
-                if ad_type_poll <= 0.95 then
+                if ad_type_poll <= 0.9 then
                     ad_to_use = pseudorandom_element(HotPotato.Ads.Adverts,'generate_ad')
                 else
                     ad_to_use = pseudorandom_element(HotPotato.Ads.Shitposts,'generate_ad')
