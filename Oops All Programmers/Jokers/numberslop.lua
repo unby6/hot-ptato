@@ -2,6 +2,8 @@ SMODS.Joker {
     key = 'numberslop',
     rarity = 2,
     blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
     cost = 5,
     atlas = "oap_jokers",
     pos = { x = 3, y = 1 },

@@ -13,7 +13,7 @@ SMODS.Joker {
         }
     end,
     blueprint_compat = false,
-    eternal_compat = true,
+    eternal_compat = false,
     perishable_compat = true,
     rarity = 2,
     cost = 4,

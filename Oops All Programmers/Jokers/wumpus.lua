@@ -2,6 +2,8 @@ SMODS.Joker {
     key = 'wumpus',
     rarity = 1,
     blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
     cost = 4,
     atlas = "oap_jokers",
     pos = { x = 4, y = 1 },

@@ -302,6 +302,8 @@ SMODS.Joker {
     config = { extra = { xmult = 1, xmult_mod = 0.1, cion = 1 } },
     cost = 6,
     blueprint_compat = true,
+    perishable_compat = false,
+    eternal_compat = true,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
             local shattered_count = 0
@@ -381,6 +383,9 @@ SMODS.Joker {
             }
         }
     end,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.joker_main then
             return {

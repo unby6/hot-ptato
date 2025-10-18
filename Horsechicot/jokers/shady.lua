@@ -17,7 +17,7 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
         }
     end,
     blueprint_compat = false,
-    eternal_compat = true,
+    eternal_compat = false,
     perishable_compat = true,
     rarity = 1,
     cost = 3,

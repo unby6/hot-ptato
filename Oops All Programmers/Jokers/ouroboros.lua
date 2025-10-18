@@ -3,6 +3,7 @@ SMODS.Joker {
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
     cost = 8,
     config = {
         extra = {
@@ -36,7 +37,7 @@ SMODS.Joker {
                     message_colour = G.C.MULT
                 })
             else
-                SMODS.destroy_cards({ card })
+                SMODS.destroy_cards({ card }, true)
             end
         end
 
