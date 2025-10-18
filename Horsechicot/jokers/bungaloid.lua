@@ -1,6 +1,6 @@
 SMODS.Joker {
     key = "bungaloid",
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     rarity = 3,
