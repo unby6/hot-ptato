@@ -2,10 +2,10 @@ SMODS.Joker {
     key = "hc_genghis_khan",
     config = {
         current = 1,
-        increment = 0.5
+        increment = 0.6
     },
-    cost = 8,
-    rarity = 3,
+    cost = 6,
+    rarity = 2,
     atlas = "hc_jokers",
     pos = {x = 3, y = 4},
     hotpot_credits = Horsechicot.credit("cg223", "Pangaea", "cg223"),
@@ -14,13 +14,13 @@ SMODS.Joker {
     end,
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = true,
+    perishable_compat = false,
     calculate = function (self, card, context)
         if context.joker_main then
             return {
                 xmult = card.ability.current
             }
-        elseif context.fathered_child then
+        elseif context.fathered_child and not context.blueprint then
             SMODS.scale_card(card, {ref_table = card.ability, ref_value = "current", scalar_value = "increment"})
         end
     end

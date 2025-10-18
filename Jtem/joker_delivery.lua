@@ -89,7 +89,7 @@ end
 function get_stickers(center)
     local stickers = {}
     for k, v in pairs(SMODS.Sticker.obj_table) do
-        if k ~= "eternal" and k ~= "rental" and k ~= "perishable" and type(v.should_apply) == 'function' and v:should_apply(nil, center) then
+        if k ~= "eternal" and k ~= "rental" and k ~= "perishable" and type(v.should_apply) == 'function' and v:should_apply(nil, center, nil, true) then
             if pseudorandom("hpjtem_delivery_" .. k) < v.rate then
                 local sticker_compatible = v.default_compat
                 if sticker_compatible == nil then sticker_compatible = true end
@@ -102,94 +102,96 @@ function get_stickers(center)
 end
 
 function G.UIDEF.hotpot_jtem_shop_delivery_btn()
-    return {
-        n = G.UIT.C,
-        config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
-        nodes = {
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_go_reforge",
-                button = "hotpot_tname_toggle_reforge",
-                atlas = "hpot_tname_shop_reforge"
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_go_market",
-                button = "hotpot_horsechicot_toggle_market",
-                atlas = "hpot_horsechicot_market"
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_go_training",
-                button = "hotpot_pd_toggle_training",
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 7,
-                            w = 0.1
+    if not G.GAME.modifiers.no_shop_jokers then
+        return {
+            n = G.UIT.C,
+            config = { padding = 0.05, r = 0.05, w = 0.1, h = 0.1 },
+            nodes = {
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component(),
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_go_reforge",
+                    button = "hotpot_tname_toggle_reforge",
+                    atlas = "hpot_tname_shop_reforge"
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_go_market",
+                    button = "hotpot_horsechicot_toggle_market",
+                    atlas = "hpot_horsechicot_market"
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_go_training",
+                    button = "hotpot_pd_toggle_training",
+                },
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 7,
+                                w = 0.1
+                            }
                         }
                     }
-                }
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 12.2,
-                            w = 0.1
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component("back_from_delivery"),
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 12.2,
+                                w = 0.1
+                            }
                         }
                     }
-                }
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_delivery_back",
-                button = "hotpot_tname_toggle_reforge",
-                atlas = "hpot_tname_shop_reforge",
-                pos = { x = 1, y = 0 }
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 10.5,
-                            w = 0.1
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_delivery_back",
+                    button = "hotpot_tname_toggle_reforge",
+                    atlas = "hpot_tname_shop_reforge",
+                    pos = { x = 1, y = 0 }
+                },
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 10.5,
+                                w = 0.1
+                            }
                         }
                     }
-                }
-            },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_delivery_back",
-                button = "hotpot_horsechicot_toggle_market",
-                atlas = "hpot_tname_shop_reforge",
-                pos = { x = 1, y = 0 }
-            },
-            {
-                n = G.UIT.R,
-                nodes = {
-                    {
-                        n = G.UIT.B,
-                        config = {
-                            h = 10.5,
-                            w = 0.1
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_delivery_back",
+                    button = "hotpot_horsechicot_toggle_market",
+                    atlas = "hpot_tname_shop_reforge",
+                    pos = { x = 1, y = 0 }
+                },
+                {
+                    n = G.UIT.R,
+                    nodes = {
+                        {
+                            n = G.UIT.B,
+                            config = {
+                                h = 10.5,
+                                w = 0.1
+                            }
                         }
                     }
-                }
+                },
+                G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
+                    loc_txt = "hotpot_delivery_back",
+                    button = "hotpot_pd_toggle_training",
+                    atlas = "hpot_tname_shop_reforge",
+                    pos = { x = 1, y = 0 }
+                },
             },
-            G.UIDEF.hotpot_jtem_shop_delivery_btn_component {
-                loc_txt = "hotpot_delivery_back",
-                button = "hotpot_pd_toggle_training",
-                atlas = "hpot_tname_shop_reforge",
-                pos = { x = 1, y = 0 }
-            },
-        },
-    }
+        }
+    end
 end
 
 G.FUNCS.hp_jtem_can_exchange_d2j = function(e)
@@ -328,7 +330,7 @@ local function hpot_create_joker_from_amazon(card, center)
         bypass_discovery_ui = true,
         bypass_discovery_center = true,
         stickers = stickers,
-        force_stickers = true
+        no_stickers = true
     }
     if create_card_args.hp_jtem_silent_edition == nil then create_card_args.hp_jtem_silent_edition = "e_base" end
     -- TODO: Needs tweaking. This isn't free joker simulator :V
@@ -377,7 +379,8 @@ local function hpot_create_joker_from_amazon(card, center)
                     eternal = should_spawn_with_eternal,
                     perishable = should_spawn_with_perishable,
                     unpack(stickers)
-                }
+                },
+                no_stickers = true
             }
         })
     end
@@ -892,7 +895,7 @@ function hotpot_jtem_generate_special_deals(deals)
             bypass_discovery_ui = true,
             bypass_discovery_center = true,
             stickers = stickers,
-            force_stickers = true
+            no_stickers = true
         }
     if create_card_args.hp_jtem_silent_edition == nil then create_card_args.hp_jtem_silent_edition = "e_base" end
         if center and center.credits then
@@ -933,7 +936,7 @@ function hotpot_delivery_refresh_card()
     hotpot_jtem_destroy_all_card_in_an_area(G.hp_jtem_delivery_queue, true)
     for _, _obj in ipairs(G.GAME.hp_jtem_delivery_queue) do
         local temp_str = { str = (_obj.rounds_passed .. "/" .. _obj.rounds_total) }
-        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true }
+        local cct = { area = G.hp_jtem_delivery_queue, key = _obj.key, skip_materialize = true, no_edition = true, no_stickers = true, force_stickers = true }
         for k, v in pairs(_obj.create_card_args) do
             cct[k] = v
         end
@@ -951,7 +954,7 @@ function hotpot_delivery_refresh_card()
         G.hp_jtem_delivery_queue:emplace(_c)
     end
     for _, _obj in ipairs(G.GAME.round_resets.hp_jtem_special_offer) do
-        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true }
+        local cct = { area = G.hp_jtem_delivery_special_deals, key = _obj.key, skip_materialize = true, no_edition = true, no_stickers = true, force_stickers = true }
         for k, v in pairs(_obj.create_card_args) do
             cct[k] = v
         end
@@ -1039,6 +1042,7 @@ end
 -- calculate delivery which is calculated at the start of the round along with giving out cards
 function hotpot_jtem_calculate_deliveries()
     G.GAME.hp_jtem_delivery_queue = G.GAME.hp_jtem_delivery_queue or {}
+    local refunded = 0
     for _, delivery in pairs(G.GAME.hp_jtem_delivery_queue) do
         delivery.rounds_total = delivery.rounds_total or 999 -- just in case an order was badly made
         if delivery.key == "j_hpot_smods" then
@@ -1048,13 +1052,22 @@ function hotpot_jtem_calculate_deliveries()
         if delivery.rounds_passed > delivery.rounds_total then
             local area = G.P_CENTERS[delivery.key].consumeable and G.consumeables or
                 G.P_CENTERS[delivery.key].set == 'Joker' and G.jokers
-            if area and area.cards and #area.cards < area.config.card_limit then
-                local cct = { key = delivery.key, skip_materialize = true }
+            if 
+                (delivery.create_card_args.hp_jtem_silent_edition and delivery.create_card_args.hp_jtem_silent_edition == "e_negative")
+                or (area and area.cards and #area.cards < area.config.card_limit)
+            then
+                local cct = { key = delivery.key, skip_materialize = true, no_stickers = true, force_stickers = true }
                 for k, v in pairs(delivery.create_card_args) do
                     cct[k] = v
                 end
-                local c = SMODS.add_card(cct)
-                c.ability.ordered = true
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local c = SMODS.add_card(cct)
+                        c.ability.ordered = true
+                        card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize('k_hotpot_delivery'), colour = G.C.CHIPS})
+                        return true
+                    end,
+                }))
                 --[[if delivery.extras then
                     for k, v in pairs(delivery.extras) do
                         c.ability[k] = v
@@ -1062,6 +1075,7 @@ function hotpot_jtem_calculate_deliveries()
                 end]]--
             else
                 ease_currency(delivery.currency, delivery.price)
+                refunded = refunded + 1
                 --ease_dollars(delivery.price)
             end
         end
@@ -1072,6 +1086,18 @@ function hotpot_jtem_calculate_deliveries()
         if delivery.rounds_passed > delivery.rounds_total then
             remove_element_from_list(G.GAME.hp_jtem_delivery_queue, delivery)
         end
+    end
+
+    if refunded > 0 then
+        local text = localize({
+			type = "variable",
+			key = "hotpot_deliveries_refunded",
+			vars = { refunded },
+		})
+        play_sound('tarot1', 1.5)
+        attention_text({
+            scale = 0.75, text = text, hold = 3, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+        })
     end
 end
 
@@ -1092,6 +1118,22 @@ function Game:start_run(args)
         end)
     end
     return unpack(x)
+end
+
+local card_creator = SMODS.create_card
+function SMODS.create_card(t)
+    local ret = card_creator(t)
+    if t.no_stickers then
+		for k, v in pairs(SMODS.Stickers) do
+			if (ret.ability[k] or ret[k]) then v:apply(ret, false) end
+		end
+        if t.stickers then
+            for i, v in ipairs(t.stickers) do
+                ret:add_sticker(v, t.force_stickers)
+            end
+        end
+    end
+    return ret
 end
 
 -- destroy cards below

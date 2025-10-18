@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = 'death_note',
     rarity = 1,
+    blueprint_compat = false,
     cost = 4,
     atlas = "oap_jokers",
     pos = { x = 1, y = 1 },
@@ -18,18 +19,23 @@ SMODS.Joker {
         reset_death_note(card)
     end,
     calculate = function(self, card, context)
-        if context.post_draw_individual and context.card and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 1,
-                func = function()
-                    context.card:start_dissolve()
-                    card:juice_up(0.8, 0.8)
-
-                    reset_death_note(card)
-                    return true;
-                end
-            }))
+        if context.post_draw_individual and context.card and context.card:get_id() == card.ability.extra.id and context.card:is_suit(card.ability.extra.suit) and not context.blueprint then
+            reset_death_note(card)
+            if not context.card.hpot_deathnote_removed then
+                context.card.hpot_deathnote_removed = true
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 1,
+                    func = function()
+                        card:juice_up(0.8, 0.8)
+                        SMODS.destroy_cards({ context.card })
+                        return true;
+                    end
+                }))
+            end
+        end
+        if context.end_of_round and not context.blueprint then
+            reset_death_note(card)
         end
     end,
     hotpot_credits = {

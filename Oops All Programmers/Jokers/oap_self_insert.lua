@@ -4,6 +4,7 @@ SMODS.Joker {
     atlas = 'oap_self_insert',
     pos = { x = 0, y = 0 },
     rarity = 2,
+    blueprint_compat = true,
     cost = 6,
     discovered = true,
     config = {

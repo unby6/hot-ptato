@@ -115,7 +115,9 @@ function G.UIDEF.profile_option(_profile)
 '''
 position = "after"
 payload = '''
+if HPTN then
   HPTN.Profile = _profile
+end
 '''
 match_indent = true
 

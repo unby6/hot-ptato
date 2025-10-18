@@ -11,6 +11,7 @@ end
 
 function Quantum:init(args, source)
     --ty eremel <3
+    -- NOTE: this should probably be reworked to use metatables to access base card properties rather than pretend ones, but I do not have the motivation to do that right now -eremel
     self.base_cost = args.base_cost or 0
     self.extra_cost = args.extra_cost or 0
     self.cost = args.cost or 0
@@ -23,6 +24,14 @@ function Quantum:init(args, source)
     self.ability = args.ability
     self.config = args.config
     self.quantum = source
+    self.children = setmetatable({quantum = source}, {
+        __index = function(t, key)
+            return t.quantum.children[key]        
+        end,
+        __newindex = function(t, key, value)
+            rawset(t.quantum.children, key, value)
+        end
+    })
 end
 
 function Quantum:save()
@@ -67,10 +76,31 @@ function SMODS.find_card(key, count_debuffed)
             for _, v in pairs(area.cards) do
                 if v and type(v) == 'table' and v.ability and v.ability.quantum_1 then
                     if (v.ability.quantum_1.key == key) and (count_debuffed or not v.debuff) then
-                        table.insert(results, v)
+                        table.insert(results, v.ability.quantum_1)
                     end
                     if (v.ability.quantum_2.key == key) and (count_debuffed or not v.debuff) then
-                        table.insert(results, v)
+                        table.insert(results, v.ability.quantum_2)
+                    end
+                end
+            end
+        end
+    end
+    return results
+end
+
+local discover_jonkler = find_joker
+function find_joker(name, non_debuff)
+    local results = discover_jonkler(name, non_debuff)
+    if not G.jokers or not G.jokers.cards then return {} end
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+        if area.cards then
+            for _, v in pairs(area.cards) do
+                if v and type(v) == 'table' and v.ability and v.ability.quantum_1 then
+                    if (v.ability.quantum_1.ability.name == name) and (non_debuff or not v.debuff) then
+                        table.insert(results, v.ability.quantum_1)
+                    end
+                    if (v.ability.quantum_2.ability.name == name) and (non_debuff or not v.debuff) then
+                        table.insert(results, v.ability.quantum_2)
                     end
                 end
             end
@@ -143,9 +173,9 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if card.ability.quantum_1 and card.ability.quantum_2 then
-            --local ret, trig = card.ability.quantum_1:calculate_joker(context)
             local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
-            --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
+            if ret then SMODS.update_context_flags(context, ret) end
+
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
             local function bp(quantum)
                 local to_copy
@@ -194,8 +224,8 @@ SMODS.Joker {
                 if card.ability.quantum_1 and card.ability.quantum_2 then
                     Card.add_to_deck(card.ability.quantum_1)
                     Card.add_to_deck(card.ability.quantum_2)
-                    return true
                 end
+                return true
             end
         }))
     end,
@@ -206,8 +236,8 @@ SMODS.Joker {
                 if card.ability.quantum_1 and card.ability.quantum_2 then
                     Card.remove_from_deck(card.ability.quantum_1)
                     Card.remove_from_deck(card.ability.quantum_2)
-                    return true
                 end
+                return true
             end
         }))
     end,
@@ -218,25 +248,27 @@ SMODS.Joker {
         if table.ability and table.ability.quantum_1 then
             local args = table.quantum_1
             args.config.center = G.P_CENTERS[args.key]
-            table.ability.quantum_1 = Quantum(args)
+            table.ability.quantum_1 = Quantum(args, card)
             args = table.quantum_2
             args.config.center = G.P_CENTERS[args.key]
-            table.ability.quantum_2 = Quantum(args)
-            table.ability.quantum_1.quantum = card
-            table.ability.quantum_2.quantum = card
+            table.ability.quantum_2 = Quantum(args, card)
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[table.ability.quantum_1.key].atlas or 'Joker'],
                 G.P_CENTERS[table.ability.quantum_1.key].pos)
             card.loaded = true
         end
     end,
-    update = function(self, card, dt)
-        if card.loaded then
+    set_sprites = function(self, card)
+        if card.ability and card.ability.quantum_1 then
             update_child_atlas(card, G.ASSET_ATLAS[G.P_CENTERS[card.ability.quantum_1.key].atlas or 'Joker'], G.P_CENTERS[card.ability.quantum_1.key].pos)
-            card.loaded = false
+        end
+    end,
+    update = function(self, card, dt)
+        if card.loaded and card.ability and card.ability.quantum_1 then
             Card.update(card.ability.quantum_1, dt)
             Card.update(card.ability.quantum_2, dt)
         end
-    end
+    end,
+    hpot_unbreedable = true
 }
 
 function PissDrawer.replace_quantum(effects, quantum, host)
@@ -360,7 +392,8 @@ function copy_card(card, new_card, card_scale, playing_card, strip_edition)
                 key = q1.config.center.key,
                 ability = copy_table(q1.ability),
                 config = {
-                    center = q1.config.center
+                    center = q1.config.center,
+                    center_key = q1.config.center.key
                 },
             }, ret)
         ret.ability.quantum_2 =
@@ -369,12 +402,14 @@ function copy_card(card, new_card, card_scale, playing_card, strip_edition)
                 key = q2.config.center.key,
                 ability = copy_table(q2.ability),
                 config = {
-                    center = q2.config.center
+                    center = q2.config.center,
+                    center_key = q2.config.center.key
                 },
             }, ret)
 
         update_child_atlas(ret, G.ASSET_ATLAS[ret.ability.quantum_1.config.center.atlas or 'Joker'],
             ret.ability.quantum_1.config.center.pos)
+        ret.loaded = true
         --make children smaller
         ret.T.h = ret.T.h * 0.75
         ret.T.w = ret.T.w * 0.75

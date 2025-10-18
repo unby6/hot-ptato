@@ -602,7 +602,7 @@ in_pool = function(self, args)
                 byebye.getting_sliced = true
                 G.E_MANAGER:add_event(Event({func = function()
                     card:juice_up(0.8, 0.8)
-                    byebye:start_dissolve({G.C.RED}, nil, 1.6)
+                    SMODS.destroy_cards({ byebye })
                 return true end }))
             end
         end
@@ -1636,6 +1636,7 @@ in_pool = function(self, args)
         end
         if can_use then
             local random_joker = pseudorandom_element(G.jokers.cards)
+            play_sound("hpot_tname_reforge")
             apply_modification(random_joker, random_modif(card.ability.extra[card.ability.extra.chosen], card).key)
         else
             nope(card)

@@ -11,6 +11,14 @@ SMODS.Joker {
     perishable_compat = true,
 }
 
+HotPotato.find_lock_in = function()
+    for _, v in ipairs(G.jokers.cards) do
+        if v.config.center.key == "j_hpot_lockin" or (v.ability.quantum_1 and v.ability.quantum_1.key == "j_hpot_lockin") or (v.ability.quantum_2 and v.ability.quantum_2.key == "j_hpot_lockin") then
+            if not v.debuff then return v end
+        end
+    end
+end
+
 local old = G.draw
 function G:draw()
     local card = G.lock_in_card
@@ -22,27 +30,28 @@ end
 
 local old = end_round
 function end_round()
-    local card = SMODS.find_card("j_hpot_lockin")[1]
-    if card and (G.GAME.chips / G.GAME.blind.chips) < 1 then
-        card.ability.can_save = false
-        card.ability.was_clicked = false
-        card.ability.start_time = love.timer.getTime()
+    local cardparent = HotPotato.find_lock_in()
+    local cardquantum = SMODS.find_card("j_hpot_lockin", false)[1]
+    if cardparent and (G.GAME.chips / G.GAME.blind.chips) < 1 then
+        cardquantum.ability.can_save = false
+        cardparent.ability.was_clicked = false
+        cardparent.ability.start_time = love.timer.getTime()
         G.draw_lockin_background = true
-        SMODS.calculate_effect({ message = localize("k_hotpot_lock_in") }, card)
-        local time_given = (G.GAME.chips / G.GAME.blind.chips) * card.ability.leniency
+        SMODS.calculate_effect({ message = localize("k_hotpot_lock_in") }, cardparent)
+        local time_given = (G.GAME.chips / G.GAME.blind.chips) * cardquantum.ability.leniency
         local last_juice_time = love.timer.getTime()
-        G.jokers:remove_card(card)
-        G.lock_in_card = card
-        card.T.x = pseudorandom("hc_lockinpos", 0, G.ROOM.T.w - G.CARD_W)
-        card.T.y = pseudorandom("hc_lockinpos", 0, G.ROOM.T.h - G.CARD_H)
+        G.jokers:remove_card(cardparent)
+        G.lock_in_card = cardparent
+        cardparent.T.x = pseudorandom("hc_lockinpos", 0, G.ROOM.T.w - G.CARD_W)
+        cardparent.T.y = pseudorandom("hc_lockinpos", 0, G.ROOM.T.h - G.CARD_H)
         G.E_MANAGER:add_event(Event({
             func = function()
-                if (love.timer.getTime() - time_given) > card.ability.start_time or card.ability.was_clicked then
+                if (love.timer.getTime() - time_given) > cardquantum.ability.start_time or cardquantum.ability.was_clicked then
                     return true
                 else
                     if love.timer.getTime() - 0.3 > last_juice_time then
                         last_juice_time = love.timer.getTime()
-                        card:juice_up(0.1, 0.08)
+                        cardparent:juice_up(0.1, 0.08)
                     end
                 end
             end
@@ -50,10 +59,10 @@ function end_round()
         G.E_MANAGER:add_event(Event {
             func = function()
                 G.draw_lockin_background = false
-                if card.ability.was_clicked then
-                    card.ability.can_save = true
+                if cardparent.ability.was_clicked then
+                    cardquantum.ability.can_save = true
                 else
-                    card.ability.can_save = false
+                    cardquantum.ability.can_save = false
                 end
                 return true
             end
@@ -84,7 +93,7 @@ end
 local old = Card.click
 function Card:click()
     old(self)
-    if self.config.center.key == "j_hpot_lockin" and self.ability.start_time + 0.05 < love.timer.getTime()  then
+    if (self.config.center.key == "j_hpot_lockin" or self.ability.quantum_1 and (self.ability.quantum_1.key == "j_hpot_lockin" or self.ability.quantum_2.key == "j_hpot_lockin")) and self.ability.start_time and self.ability.start_time + 0.05 < love.timer.getTime()  then
         self.ability.was_clicked = true
     end
 end

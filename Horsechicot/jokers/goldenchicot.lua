@@ -70,7 +70,7 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.type == "boss_blind_disabled" then
+        if context.type == "boss_blind_disabled" and not context.blueprint then
             SMODS.scale_card(card, {
 	            ref_table = card.ability.extra,
                 ref_value = "disabled_bosses",

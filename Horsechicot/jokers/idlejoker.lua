@@ -6,7 +6,7 @@ function Blind:click()
 
         for _,joker in pairs(found) do
             joker.ability.extra.score = joker.ability.extra.score + joker.ability.extra.gain
-            card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+            card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), instant = true})
             --[[
             SMODS.scale_card(joker, {
                 ref_table = joker.ability.extra,
@@ -44,13 +44,9 @@ SMODS.Joker {
     perishable_compat = true,
     calc_dollar_bonus = function(self, card)
         local score = (#tostring(card.ability.extra.score))
+        card.ability.extra.score = 0
+        SMODS.calculate_effect({message = localize("k_reset")}, card)
         return score > 0 and (score * card.ability.extra.money) or nil
-    end,
-    calculate = function(self, card, context)
-        if context.main_eval and context.end_of_round then
-            card.ability.extra.score = 0
-            SMODS.calculate_effect({message = localize("k_reset")}, card)
-        end
     end,
     hotpot_credits = Horsechicot.credit("Lily Felli", "pangaea47", "lord.ruby")
 }

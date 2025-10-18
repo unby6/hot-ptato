@@ -72,6 +72,7 @@ SMODS.Joker {
     atlas = "jtem_jokers",
     pos = { x = 4, y = 1 },
     rarity = 2,
+    blueprint_compat = false,
     config = {
         mult = 0,
         extra = {
@@ -301,6 +302,8 @@ SMODS.Joker {
     config = { extra = { xmult = 1, xmult_mod = 0.1, cion = 1 } },
     cost = 6,
     blueprint_compat = true,
+    perishable_compat = false,
+    eternal_compat = true,
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
             local shattered_count = 0
@@ -380,6 +383,9 @@ SMODS.Joker {
             }
         }
     end,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
@@ -420,7 +426,7 @@ SMODS.Joker {
                     if selected_joker then
                         selected_joker.slop_live_removing = true
                         simple_add_event(function()
-                            selected_joker:start_dissolve()
+                            SMODS.destroy_cards({ selected_joker })
                             return true
                         end)
                         local tg = Tag("tag_buffoon")
@@ -635,6 +641,7 @@ SMODS.Joker {
                     simple_add_event(
                         function()
                             card.ability.extras.person = x + 1
+                            card.children.center.atlas = G.ASSET_ATLAS['hpot_jtem_jokers']
                             card.children.center:set_sprite_pos({ x = x, y = 3 })
                             card:juice_up(0.4, 0.4)
                             return true

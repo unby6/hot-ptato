@@ -12,7 +12,7 @@ return {
                 name = "Aura of Fear",
                 text = {
                     "{C:attention}All current Jokers{} gain",
-                    "{C:red}negative{} stickers,",
+                    "{C:red}bad{} stickers,",
                     "{C:purple}+c.#1#{} for each sticker added"
                 }
             },
@@ -61,7 +61,7 @@ return {
                 name = "Aura of Fear",
                 text = {
                     "{C:attention}All current Jokers{} gain",
-                    "{C:red}negative{} stickers,",
+                    "{C:red}bad{} stickers,",
                     "{C:attention}+e.#1#{} for each sticker added"
                 }
             },
@@ -971,7 +971,8 @@ return {
                 text = {
                     "When {C:attention}Blind{} is selected,",
                     "Create a {C:attention}Modded{} Joker",
-                    "{C:inactive, s:0.6}slop not included!{}"
+                    "{C:inactive}(No room required)",
+                    "{C:inactive,S:0.6}slop not included!{}",
                 }
             },
             j_hpot_slop = {
@@ -1052,10 +1053,16 @@ return {
             j_hpot_magic_factory = {
                 name = "Magic Factory",
                 text = {
-                    "When {C:attention}Blind{} is selected",
-                    "and you have no {C:dark_edition}Negative{} consumables,",
-                    "create a random {C:dark_edition}Negative{} consumable",
-                    "{C:inactive,s:0.8}mass-produced tarotslop"
+                    {
+                        "When {C:attention}Blind{} is selected",
+                        "and you have no {C:dark_edition}Negative{} consumables,",
+                        "create a random {C:dark_edition}Negative{} consumable",
+                        "{C:inactive,s:0.8}mass-produced tarotslop"
+                    },
+                    {
+                        "All consumables can affect",
+                        "{C:mult}#2#{} less card",
+                    }
                 }
             },
             j_hpot_jtemj = {
@@ -1899,11 +1906,19 @@ return {
             j_hpot_ouroboros = {
                 name = 'Ouroboros',
                 text = {
-                    '{C:attention}Jokers{} can be added to',
-                    'Joker Slots {C:attention}over the limit',
-                    '{C:red}Destroys{} one random other Joker and',
-                    'gains {X:mult,C:white}X#1#{} Mult when limit is exceeded',
-                    '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
+                    {
+                        '{C:attention}Jokers{} can be added to',
+                        'Joker Slots {C:attention}over the limit',
+                    },
+                    {
+                        '{C:red}Destroys{} one random other Joker and',
+                        'gains {X:mult,C:white}X#1#{} Mult when limit is exceeded',
+                        '{C:inactive}(Currently: {X:mult,C:white}X#2#{C:inactive} Mult)'
+                    },
+                    {
+                        'If {C:attention}no other cards{} can be destroyed,',
+                        'this Joker will {C:red}eat{} itself instead'
+                    }
                 }
             },
             j_hpot_charlie = {
@@ -1981,7 +1996,7 @@ return {
                 text = {
                     '{C:red}Destroys{} the next',
                     'drawn {C:attention}#1#{} of {V:1}#2#{}',
-                    '{s:0.8,C:inactive}(Rank and Suit change every trigger)'
+                    '{s:0.8,C:inactive}(Rank and Suit changes every trigger and round)'
                 }
             },
             j_hpot_OAP = {
@@ -2203,7 +2218,7 @@ return {
             j_hpot_social_credit = {
                 name = 'Social Credit',
                 text = {
-                    'Earn {C:purple}+c.#1#{} per {C:purple}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    'Earn {C:purple}+c.#1#{} per {C:purple}1000{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
@@ -2241,7 +2256,7 @@ return {
             j_hpot_goblin_tinkerer = {
                 name = 'Goblin Tinkerer',
                 text = {
-                    '{C:attention}Reforging{} is available',
+                    '{C:attention}Reforging{} is always available',
                     'and refunded by {C:attention}#1#%{}'
                 }
             },
@@ -2771,15 +2786,16 @@ return {
                 name = "Aura of Power",
                 text = {
                     "{C:red}Remove ALL Credits{},",
-                    "{C:attention}Create a negative copy",
+                    "{C:attention}Create a simple negative copy",
                     "{C:attention}of leftmost Joker",
                     "for every {C:purple}c.#1#{} removed,",
                     "requirement increases by",
                     "{C:purple}c.#4#{} per copy,",
                     "max of #5# copies.",
-                    "{C:inactive}(Currently #3##2# Copies.)",
+                    "{C:inactive}(Currently #3##2# copies)",
                     "{C:inactive}(Copies do not have the same",
-                    "{C:inactive}modifications as the copied joker.)"
+                    "{C:inactive}modifications as the copied joker)",
+                    "{C:inactive}(Cannot copy child)",
                 }
             },
             c_hpot_power_budget = {
@@ -4199,7 +4215,7 @@ return {
             },
             hpot_currency_exchange_success = {
                 text = {
-                    "Plessure doing bussiness with you.",
+                    "Pleasure doing bussiness with you.",
                 }
             },
 
@@ -4799,6 +4815,7 @@ return {
                         },
                         {
                             "Order {C:attention}Jokers{} using different currencies",
+                            "{s:0.3} ",
                             "Orders arrive after a few {C:attention}rounds{}",
                             "directly into your {C:dark_edition}Joker slots{}",
                             "{s:0.9,C:inactive}Must have room{}",
@@ -4849,11 +4866,12 @@ return {
                             "which grants different {C:attention}traits{} to an item",
                         },
                         {
-                            "You can spend {C:purple}Credits{} to add",
-                            "a {C:attention}modification{} to a Joker,",
-                            "though reforging with {C:attention}other currencies{}",
-                            "can be unlocked with specific {C:attention}items{},",
-                            "such as {C:attention}vouchers{}."
+                            "Spend {C:purple}Credits{} to apply a random",
+                            "{C:attention}modification{} to a Joker",
+                            "{s:0.3} ",
+                            '{C:attention}Other currencies{} can also be used',
+                            "after redeeming {C:attention}Anvil{} vouchers",
+                            "or with a specific Joker",
                         },
                     }
                 },
@@ -5005,10 +5023,25 @@ return {
                             "and {C:attention}obtain{} the {C:green}bottlecap{} the ball lands on"
                         },
                         {
-                            '{C:money}Dollars{} can also be used after redeeming {C:attention}"Currency Exchange".',
-                            "After the {C:attention}voucher{} is redeemed",
-                            "the {C:money}currency{} can be changed by selecting",
-                            "it above the play button"
+                            '{C:money}Dollars{} can also be used after redeeming',
+                            "{C:attention}Currency Exchange{} voucher",
+                            "{s:0.3} ",
+                            "Toggle for {C:money}currency{} will appear",
+                            "above the play button"
+                        }
+                    }
+                },
+            },
+        },
+        hotpot_wheel = {
+            name = "Wheel",
+            text = {
+                {
+                    name = "Overview",
+                    text = {
+                        {
+                            "Spend {C:purple}Credits{} to spin the {C:attention}wheel",
+                            "and {C:attention}obtain{} the {C:green}reward{} the arrow points towards"
                         }
                     }
                 },
@@ -5271,6 +5304,10 @@ return {
                                 "{C:attention}Victin's Collection{} and",
                                 "{C:attention}Cosmos",
                             },
+                            {
+                                "{s:0.8,C:inactive}Art by AssassinChara",
+                                "{s:0.8,C:inactive}Original design by Adell and Scarab"
+                            }
                         },
                         atlas = "hpot_SillypostingCredits",
                         pos = { x = 2, y = 0 }
@@ -6293,7 +6330,7 @@ return {
             hpot_diy_earn_crypto = "Earn 0.25 Cryptocurrency",
             hpot_diy_random_consumable = "Create a Random Consumable",
             hpot_diy_random_card = "Create a Random Playing Card",
-            k_harvest = HotPotatoConfig.family_friendly and "Harvest Joy" or "Harvest Organs",
+            k_harvest = HotPotatoConfig and HotPotatoConfig.family_friendly and "Harvest Joy" or "Harvest Organs",
             k_none = "none",
 
             k_oap_fine_print_no_full_slots = "*Joker Slots cannot be full",
@@ -6322,6 +6359,7 @@ return {
             k_hotpot_scurvy = "Scurvy!",
             k_hotpot_rocks = "God Valley!",
             k_hotpot_leek = "Hot pot leek!",
+            k_hotpot_delivery = "Special delivery!",
 
             hotpot_perkeocoin_fortnite = "Fortnite",
             hotpot_perkeocoin_direct_deposit = "Plink X",
@@ -6390,6 +6428,8 @@ return {
             hotpot_train_energy_down = "Energy Down -#1#",
 
             hotpot_exchange_bonus = " +#1# BONUS!",
+
+            hotpot_deliveries_refunded = "#1# deliveries refunded...",
 
             hotpot_credits_cashout = 'Credits (#1# per interest)',
             hotpot_credits_cashout2 = 'Credits (#1# per interest, #2# per hand)',

@@ -56,28 +56,72 @@ function PissDrawer.Shop.is_temp_joker_area(area)
         or area == G.reforge_area
         or area == G.nursery_father
         or area == G.nursery_mother
+        or (PissDrawer.Shop.is_tab_swap and (
+            area == G.shop_jokers
+            or area == G.shop_vouchers
+            or area == G.shop_booster
+        ))
     )
 end
 
 local pissdrawer_cardarea_align_cards = CardArea.align_cards
 function CardArea:align_cards()
     pissdrawer_cardarea_align_cards(self)
-    if self.config.hotpot_shop then
+    if self.config.hotpot_shop or self.config.wheel_rewards then
         for _, card in ipairs(self.cards or {}) do
             if not card.pissdrawer then
-                card.pissdrawer = true
+                card.pissdrawer = PissDrawer.shop_scale
                 card:hotpot_resize(PissDrawer.shop_scale)
+                if self.config.wheel_rewards then
+                    card.pissdrawer = PissDrawer.shop_scale ^ 2
+                    card:hotpot_resize(PissDrawer.shop_scale)  
+                end
             end
         end
     else
          for _, card in ipairs(self.cards or {}) do
             if card.pissdrawer then
-                card:hotpot_resize(1/PissDrawer.shop_scale)
+                card:hotpot_resize(1/card.pissdrawer)
                 card.pissdrawer = nil
             end
         end
     end
+    if self == G.wheel_rewards and #self.cards > 1 then
+        -- Align wheel rewards in a circle
+        local self_w = math.max(self.T.w, 3.2)
+        local positions = PissDrawer.Shop.circle_coords(G.CARD_W * 1.25, 8)
+        for i = 1, math.min(#self.cards, 8) do
+            local card = self.cards[i]
+            card.T.x = self.T.x + self.T.w/2 - (G.CARD_W * PissDrawer.shop_scale^2)/2 + positions[i].x + (G.CARD_W*(PissDrawer.shop_scale^2) - card.T.w)/2
+            card.T.y = self.T.y + self.T.h/2 - (G.CARD_H * PissDrawer.shop_scale^2)/2 + positions[i].y + (G.CARD_H*(PissDrawer.shop_scale^2) - card.T.h)/2
+            if i % 4 == 0 then
+                card.T.r = 0.3
+            elseif i % 4 == 2 then
+                card.T.r = -0.3
+            end
+        end
+    end
+    if self == G.wheel_arrow and #self.cards > 0 then
+        self.cards[1].T.y = self.cards[1].T.y - 3.15
+        self.cards[1].T.x = self.cards[1].T.x - 0.15
+    end
 end
+
+function PissDrawer.Shop.circle_coords(radius, numCards)
+    local coords = {}
+    for i = 0, numCards - 1 do
+        local angle = (2 * math.pi * i / numCards)
+        local x = radius * math.cos(angle) * 0.9
+        local y = radius * math.sin(angle) * 0.9
+        if i % 2 == 1 then
+            x = x * 0.85
+            y = y * 1.1
+        end
+        table.insert(coords, {x = x, y = y})
+    end
+    return coords
+end
+
 
 function PissDrawer.Shop.currency_node(args)
     assert(type(args) == 'table', 'No table provided to shop_currency_node')
@@ -125,7 +169,7 @@ function PissDrawer.Shop.currency_display()
             jank,
             not G.GAME.modifiers.hpot_plinko_4ever and {
                n=G.UIT.C,
-                config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', button_dist = 0.1 },
+                config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', func = 'can_open_exchange', button_dist = 0.1 },
                 nodes = {
                     {n=G.UIT.O, config = { object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 }) } },
                 }
@@ -218,6 +262,18 @@ G.FUNCS.toggle_shop_tab = function(e)
     G.FUNCS[e.config.destination]()
 end
 
+G.FUNCS.can_open_exchange = function(e)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        e.config.button = nil
+    else
+        e.config.button = "open_exchange"
+    end
+end
+
 G.FUNCS.open_exchange = function(e)
     PissDrawer.Shop.active_tab = {exchange = e}
     e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2)
@@ -229,6 +285,7 @@ G.FUNCS.open_nursery = function(e)
     PissDrawer.Shop.active_tab = "hotpot_nursery"
     PissDrawer.Shop.change_shop_sign('hpot_nursery_sign')
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.nursery, PissDrawer.Shop.create_nursery_areas, PissDrawer.Shop.reload_shop_areas, PissDrawer.Shop.area_keys.nursery)
+    G.STATE = G.STATES.NURSERY
     ease_background_colour({new_colour = HEX("75cdff"), special_colour = HEX("ff8ff4"), tertiary_colour = darken(G.C.BLACK,0.1), contrast = 3})
 end
 
@@ -240,6 +297,14 @@ G.FUNCS.open_plinko = function(e)
     G.STATE_COMPLETE = false
     PlinkoLogic.STATE = PlinkoLogic.STATES.IDLE
     ease_background_colour({new_colour = HEX("75cdff"), special_colour = HEX("ff8ff4"), tertiary_colour = darken(G.C.BLACK,0.1), contrast = 3})
+end
+
+G.FUNCS.open_wheel = function(e)
+    PissDrawer.Shop.active_tab = "hotpot_wheel"
+    PissDrawer.Shop.change_shop_sign('hpot_tname_arrow_sign')
+    PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.wheel, nil, set_wheel)
+    G.STATE = G.STATES.WHEEL
+    ease_background_colour({new_colour = G.C.GOLD, special_colour = G.C.BLACK, tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
 end
 
 PissDrawer.Shop.gen_plinko = function()
@@ -268,9 +333,13 @@ PissDrawer.Shop.change_shop_sign = function(atlas, sound)
 end
 
 PissDrawer.Shop.change_shop_panel = function(shop_ui, pre, post, areas)
-    if PlinkoLogic.STATE ~= 0 then PlinkoLogic.STATE = 0; G.STATE = G.STATES.SHOP end
+    if PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then PlinkoLogic.STATE = PlinkoLogic.STATES.CLOSED; G.STATE = G.STATES.SHOP end
+    if G.STATE == G.STATES.WHEEL then G.STATE = G.STATES.SHOP end
+    if G.STATE == G.STATES.NURSERY then G.STATE = G.STATES.SHOP end
+    PissDrawer.Shop.is_tab_swap = true
     local main_shop_body = G.shop:get_UIE_by_ID('main_shop_body')
     main_shop_body:remove()
+    PissDrawer.Shop.is_tab_swap = nil
     if pre then pre() end
     main_shop_body.UIBox:add_child(shop_ui(), main_shop_body)
     if post then post(areas) end
@@ -299,6 +368,45 @@ function G.UIDEF.shop()
     PissDrawer.Shop.create_shop_areas()
     shop()
     PissDrawer.Shop.active_tab = 'hotpot_shop_tab_return_to_shop'
+    if G.GAME.modifiers.no_shop_jokers then
+        return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
+                    {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                        -- Buttons across top of shop to swtich between different shop areas
+                        {n=G.UIT.R, config = {align = 'bl', minh = 0.8, colour = G.C.CLEAR, padding = -0.2}, nodes = not G.GAME.modifiers.hpot_plinko_4ever and { -- Don't show these tab nodes if playing Plinko 4Ever
+                            {n=G.UIT.B, config = {w = 0.92, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_pissdrawer_shop_icons', destination = 'return_to_shop', label = ' Shop'
+                            }),
+                            {n=G.UIT.B, config = {w = 0.67, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_tname_shop_reforge', destination = 'hotpot_tname_toggle_reforge', label = ' Reforge'
+                            }),
+                            {n=G.UIT.B, config = {w = 0.67, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_horsechicot_market', destination = 'hotpot_horsechicot_toggle_market', label = ' Black Market'
+                            }),
+                            {n=G.UIT.B, config = {w = 0.67, h=0.1}},
+                            PissDrawer.Shop.tab_button({
+                                atlas = 'hpot_pissdrawer_shop_icons', x = 2, destination = 'hotpot_pissdrawer_toggle_training', label = ' Training'
+                            }),
+                        }},
+                        -- Main shop nodes
+                        {n=G.UIT.R, config = {align = 'cm', colour = G.C.DYN_UI.MAIN, padding = 0.08, r = 0.1}, nodes = {
+                            {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, r = 0.1, colour = G.C.DYN_UI.BOSS_MAIN}, nodes={
+                                -- Currency container
+                                PissDrawer.Shop.currency_display(),
+                                -- spacer
+                                {n=G.UIT.R, config={minh = 0.2}},
+                                -- Top shop row
+                                {n=G.UIT.R, config = {id = 'main_shop_body', align = 'cm'}, nodes = {
+                                    PissDrawer.Shop.main_shop()
+                                }},
+                                {n=G.UIT.R, config={minh = 0.5}},
+                            }},
+                        }},
+                    }},
+                }}
+    end
     return {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
                 {n=G.UIT.C, config = {align = 'cm'}, nodes = {
                     -- Buttons across top of shop to swtich between different shop areas
@@ -389,7 +497,7 @@ function PissDrawer.Shop.main_shop()
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 0, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
-                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_wheel_button", button = 'show_wheel', shadow = true}, nodes = {
+                {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_wheel_button", button = 'open_wheel', shadow = true}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 1, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
                 }},
 
@@ -496,8 +604,7 @@ function UIElement:stop_hover(...)
 end
 
 function PissDrawer.Shop.delivery_shop()
-    return
-    {n=G.UIT.C, nodes = {
+    local ret = {n=G.UIT.C, nodes = {
         PissDrawer.Shop.help_button('delivery_help'),
         {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
             {n=G.UIT.C, config = {padding = 0.15, colour = G.C.L_BLACK, r = 0.2, emboss = 0.05, align = "tm" }, nodes = {
@@ -527,7 +634,9 @@ function PissDrawer.Shop.delivery_shop()
                 }}
             }}
         }},
-        {n=G.UIT.R, config = {minh = 2, align = 'tr', padding = 0.05}, nodes = {
+    }}
+    if G.GAME.hp_jtem_should_allow_custom_order then
+        ret.nodes[#ret.nodes + 1] = {n=G.UIT.R, config = {minh = 2, align = 'tr', padding = 0.05}, nodes = {
             {n=G.UIT.R, config = {minw = 6.7, align = 'cm'}, nodes = {
                 {n=G.UIT.C, config = { colour = G.C.RED, align = "cm", padding = 0.05, r = 0.1, minw = 2.8, minh = 1, shadow = true,
                  button = 'hotpot_jtem_delivery_request_item', func = "hp_jtem_can_request_joker", hover = true }, nodes = {
@@ -550,7 +659,12 @@ function PissDrawer.Shop.delivery_shop()
                 }}
             }}
         }}
-    }}
+    else
+        ret.nodes[#ret.nodes + 1] = {n=G.UIT.R, config = {minh = 2, align = 'tr', padding = 0.05}, nodes = {
+            {n=G.UIT.R, config = {minw = 6.7, align = 'cm'}}
+        }}
+    end
+    return ret
 end
 
 G.FUNCS.update_modification_info = function(e)
@@ -661,6 +775,10 @@ G.FUNCS.plinko_help = function()
     G.FUNCS.hotpot_info{menu_type = "hotpot_plinko"}
 end
 
+G.FUNCS.wheel_help = function()
+    G.FUNCS.hotpot_info{menu_type = "hotpot_wheel"}
+end
+
 G.FUNCS.delivery_help = function()
     G.FUNCS.hotpot_info{menu_type = "hotpot_delivery"}
 end
@@ -703,6 +821,9 @@ PissDrawer.Shop.area_keys.nursery = {
 }
 PissDrawer.Shop.area_keys.plinko = {
     'plinko_rewards'
+}
+PissDrawer.Shop.area_keys.wheel = {
+    'wheel_rewards'
 }
 
 local car = CardArea.remove
@@ -1292,7 +1413,7 @@ G.FUNCS.nursery_progress = function(e)
 end
 
 G.FUNCS.nursery_father = function(e)
-    if #G.nursery_father.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then 
+    if #G.nursery_father.cards > 0 or e.config.ref_table.config.center.hpot_unbreedable then 
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -1302,7 +1423,7 @@ G.FUNCS.nursery_father = function(e)
 end
 
 G.FUNCS.nursery_mother = function(e)
-    if #G.nursery_mother.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then 
+    if #G.nursery_mother.cards > 0 or e.config.ref_table.config.center.hpot_unbreedable then 
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -1312,17 +1433,17 @@ G.FUNCS.nursery_mother = function(e)
 end
 
 G.FUNCS.nursery_father_button = function(e)
-    if (not G.nursery_father.cards) or #G.nursery_father.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
+    if (not G.nursery_father.cards) or #G.nursery_father.cards > 0 or e.config.ref_table.config.center.hpot_unbreedable then return end
     HPTN.move_card(e.config.ref_table, G.nursery_father)
 end
 
 G.FUNCS.nursery_mother_button = function(e)
-    if (not G.nursery_father.cards) or #G.nursery_mother.cards > 0 or e.config.ref_table.ability.is_nursery_smalled then return end
+    if (not G.nursery_father.cards) or #G.nursery_mother.cards > 0 or e.config.ref_table.config.center.hpot_unbreedable then return end
     HPTN.move_card(e.config.ref_table, G.nursery_mother)
 end
 
 G.FUNCS.nursery_ready = function(e)
-    if (#G.nursery_father.cards == 1 or G.GAME.parthenogenesis) and #G.nursery_mother.cards == 1 and #G.nursery_child.cards == 0 and not G.GAME.active_breeding and ((G.GAME.dollars-G.GAME.bankrupt_at) - 5 >= 0) then
+    if (#G.nursery_father.cards == 1 or G.GAME.parthenogenesis) and #G.nursery_mother.cards == 1 and #G.nursery_child.cards == 0 and not G.GAME.active_breeding and ((G.GAME.dollars-G.GAME.bankrupt_at) - to_big(5) >= to_big(0)) then
         e.config.colour = G.C.HPOT_PINK
         e.children[1].config.colour = G.C.WHITE
         PissDrawer.Shop.nursery_text = localize('nursery_breed')
@@ -1558,4 +1679,131 @@ function G.FUNCS.handle_plinko_colour(e)
     e.config.active = not PissDrawer.Shop.reset_plinko_counter and (3 - (G.GAME.current_round.plinko_rolls % 3)) >= e.config.cost_up
     e.config.colour = PissDrawer.Shop.plinko_dollars and G.C.GOLD or SMODS.Gradients.hpot_plincoin
     e.config.colour = e.config.active and e.config.colour or G.C.BLACK
+end
+
+
+
+function PissDrawer.Shop.wheel()
+    local reward_scale=  0.7
+    G.wheel_rewards = CardArea(
+        G.hand.T.x+0,
+        G.hand.T.y+9,
+        6,
+        6,
+        {card_limit = 8, type = 'shop', highlight_limit = 0, wheel_rewards = true}
+    )
+    G.wheel_arrow = CardArea(
+        0, 0, 0, 0,
+        { card_limit = 1, type = "shop", highlight_limit = 0, hotpot_shop = true }
+    )
+    
+  local use_ante = Wheel.ante_left > 0
+  local play_dollars = not not G.GAME.plinko_dollars_cost
+    return
+    {n=G.UIT.C, config = {align='tm', minh = 8}, nodes = {
+        PissDrawer.Shop.help_button('wheel_help'),
+        {n=G.UIT.R, config={align = "tm"}, nodes={
+            {n=G.UIT.C, config={align = "tm"}, nodes={
+                {n=G.UIT.R, config = {minh = 0.8}},
+                {n=G.UIT.R, config={align = "cm", padding = -0.3}, nodes={
+                    {n=G.UIT.C, config={minw = 0.6}},
+                    {n=G.UIT.C, config={colour=G.C.L_BLACK, padding = 0.15, r=0.1}, nodes = {
+                        {n=G.UIT.C, config={align='bm', minw = 2.6, r=0.1, colour = G.C.BLACK}, nodes = {
+                            {n=G.UIT.R, config = {align = 'cm', minw = 1, colour = G.C.BLACK, r=0.2}, nodes = {
+                                {n=G.UIT.C, config = {align = 'cm', padding = 0.1}, nodes = {
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.O, config={object = DynaText({string = { { ref_table = Wheel, ref_value = use_ante and 'ante_left' or 'rounds_left', prefix = 'Resets in ', suffix = use_ante and localize('hotpot_plinko_reset2_ante') or localize('hotpot_plinko_reset2_round') } },
+                                            colours = {G.C.L_BLACK}, maxw = 2.3, scale = 0.5})}}
+                                    }},
+                                    -- {n=G.UIT.R, config = {minh = 0.1}},
+                                    {n=G.UIT.R, config = {align='cm', minw = 1, r=0.1, padding = 0.1}, nodes = {
+                                        {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+                                            {n=G.UIT.R, config = {minh = 0.7}},
+                                            {n=G.UIT.R, config={align='cm', padding = -0.25, minw = 2.5}, nodes = {
+                                                {n=G.UIT.C, config = {align='cm', padding = 0.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = G.C.UI.TEXT_DARK, cost_up = 2, func = 'handle_wheel_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }},
+                                                    {n=G.UIT.R, config = {align = 'cm', colour = G.C.L_BLACK, r = 0.3, padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {colour = G.C.UI.TEXT_DARK, cost_up = 1, func = 'handle_wheel_colour', r=0.1, minw=0.5, minh = 0.15}}
+                                                    }}
+                                                }},
+                                                {n=G.UIT.C, config = {align = 'cm', padding = 0.1, r=0.1, colour = G.C.L_BLACK}, nodes = {
+                                                    {n=G.UIT.C, config = {hover = true, button = 'wheel_spin', button_dist = 0.1, func = 'can_wheel_spin', align = 'cm', minw = 1.4, maxw = 1.4, colour = G.C.PURPLE, emboss=-0.03, r=0.2, padding = 0.1}, nodes = {
+                                                        {n=G.UIT.R, config = {align = 'cm', padding = 0.1}, nodes = {
+                                                            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                                                {n=G.UIT.O, config={object = DynaText({string = {{string = localize("wheel_spin_button1")}},
+                                                                colours = {G.C.WHITE}, maxw = 1.6, shadow = true, spacing = 2, scale = 0.5})}},
+                                                            }},
+                                                            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                                                {n=G.UIT.O, config={object = DynaText({string = {{ref_table = Wheel, ref_value = 'Price', prefix = G.GAME.seeded and localize('hotpot_reforge_budget') or localize('hotpot_reforge_credits'), font = SMODS.Fonts.hpot_plincoin}},
+                                                                colours = {G.C.WHITE}, maxw = 1.6, shadow = true, spacing = 2, scale = 0.5})}}
+                                                            }}
+                                                        }},
+                                                    }},
+                                                }},
+                                                {n=G.UIT.C, config = {align='cm', padding = 0.05}, nodes = {
+                                                    {n=G.UIT.R, config = {align = 'cm', padding = 0.05}, nodes = {
+                                                        {n=G.UIT.R, config = {minw=0.5}}
+                                                    }}
+                                                }},
+                                            }},
+                                        }}
+                                    }},
+                                    {n=G.UIT.R, config = {minh = 0.15}},
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.T, config={text = 'Increases after', scale = 0.35, colour = G.C.L_BLACK}},
+                                    }},
+                                    {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                                        {n=G.UIT.T, config={text = '2 plays', scale = 0.35, colour = G.C.L_BLACK}},
+                                    }}
+                                }},
+                            }},
+                        }},
+                    }},
+                
+                }},
+            }},
+            {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = G.C.L_BLACK, emboss = 0.05, minw = 6.8, minh = 6.8}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r=0.2, padding = 0.2 }, nodes={
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.O, config={object = G.wheel_rewards}}
+                    }},
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.O, config={object = G.wheel_arrow}}
+                    }},
+                }},
+            }},
+        }}
+    }}
+end
+
+function G.FUNCS.handle_wheel_colour(e)
+    e.config.active = not PissDrawer.Shop.reset_wheel_counter and (2 - (Wheel.cost_up % 2)) >= e.config.cost_up
+    e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
+    e.config.colour = e.config.active and e.config.colour or G.C.BLACK
+end
+
+local old_can_sell = Card.can_sell_card
+function Card:can_sell_card(...)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        return false
+    end
+    return old_can_sell(self, ...)
+end
+
+local old_can_use = Card.can_use_consumeable
+function Card:can_use_consumeable(...)
+    if
+        PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS
+        or PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD
+        or Wheel.STATE.SPUN
+    then
+        return false
+    end
+    return old_can_use(self, ...)
 end

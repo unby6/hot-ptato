@@ -25,7 +25,7 @@ target = "game.lua"
 position = "after"
 pattern = "timer_checkpoint('uiboxes', 'draw')"
 payload = """
-if self.STATE == self.STATES.PLINKO or PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then
+if self.STATE == self.STATES.PLINKO or PlinkoLogic and PlinkoLogic.STATE ~= PlinkoLogic.STATES.CLOSED then
   PlinkoGame.f.draw()
 end
 
@@ -65,7 +65,7 @@ target = "functions/misc_functions.lua"
 position = "at"
 pattern = "STATE = G.STATE,"
 payload = """
-STATE = (G.STATE == G.STATES.PLINKO and G.STATES.SHOP) or (G.STATES == G.STATES.WHEEL and G.STATES.SHOP) or (G.STATES == G.STATES.NURSERY and G.STATES.SHOP) or G.STATE,
+STATE = (G.STATE == G.STATES.PLINKO and G.STATES.SHOP) or (G.STATE == G.STATES.WHEEL and G.STATES.SHOP) or (G.STATE == G.STATES.NURSERY and G.STATES.SHOP) or G.STATE,
 """
 match_indent = true
 overwrite = false
@@ -88,12 +88,7 @@ target = "functions/button_callbacks.lua"
 position = "before"
 pattern = "G.STATE = G.STATES.BLIND_SELECT"
 payload = """
--- Reset wheel rewards from old shop
-if G.GAME.load_wheel_rewards then
-  G.GAME.load_wheel_rewards = nil
-end
 if G.plinko_rewards then
-  G.GAME.load_plinko_rewards = nil
   G.plinko_rewards:remove()
   G.plinko_rewards = nil
 end

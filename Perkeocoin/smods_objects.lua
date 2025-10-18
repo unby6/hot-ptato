@@ -243,14 +243,14 @@ SMODS.Joker{ --Tribcoin
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.Xmult,G.GAME.plincoins and (1 + ((G.GAME.plincoins * card.ability.extra.Xmult))) or 1}}
+        return {vars = {card.ability.extra.Xmult,G.GAME.plincoins and (1 + math.max(0, G.GAME.plincoins * card.ability.extra.Xmult)) or 1}}
     end,
 
     calculate = function(self, card, context)
         if context.joker_main then
             if G.GAME.plincoins > 0 then
-                return{
-                    xmult = 1 + (G.GAME.plincoins * card.ability.extra.Xmult)
+                return {
+                    xmult = 1 + math.max(0, G.GAME.plincoins * card.ability.extra.Xmult)
                 }
             end
         end
@@ -307,7 +307,7 @@ SMODS.Joker{ -- Kitchen Gun
     pos = { x = 1 , y = 0 },
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = true,
+    perishable_compat = false,
     unlocked = true,
     discovered = true,
 
@@ -322,7 +322,7 @@ SMODS.Joker{ -- Kitchen Gun
         return{vars = {n, d, card.ability.extra.xmult_mod, card.ability.extra.xmult}}
     end,
     calculate = function(self, card, context)
-        if context.ending_shop and context.cardarea == G.jokers then
+        if context.ending_shop and context.cardarea == G.jokers and not context.blueprint then
             local adsRemoved = 0
             for _, ad in ipairs(G.GAME.hotpot_ads) do
                 if SMODS.pseudorandom_probability(card, 'hpot_kg_kill_ad', 1, card.ability.extra.odds) then
@@ -673,7 +673,7 @@ SMODS.Joker{ --Skimming
     pos = { x = 2, y = 2 },
     cost = 4,
     rarity = 1,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -938,7 +938,7 @@ SMODS.Consumable { --Sacrifice
         G.jokers.cards[1].getting_sliced = true
         G.E_MANAGER:add_event(Event({func = function()
             card:juice_up(0.8, 0.8)
-            G.jokers.cards[1]:start_dissolve({G.C.RED}, nil, 1.6)
+            SMODS.destroy_cards({ G.jokers.cards[1] }, true)
         return true end }))
     end
 }

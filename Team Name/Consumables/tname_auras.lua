@@ -304,10 +304,8 @@ SMODS.Consumable({
 	can_use = function(self, card)
 		return #G.jokers.cards > 0
 	end,
-	use = function(self, card, area, copier)
-		for _, joker in pairs(G.jokers.cards) do
-			joker:start_dissolve(nil, true)
-		end
+	use = function(self, card, area, copier)    
+        SMODS.destroy_cards(G.jokers.cards)
 		local hpt = card.ability.extra
 		local retval = math.min(hpt.max, (hpt.credits - 1) * (G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits))
 		HPTN.ease_credits(retval, false)
@@ -406,13 +404,14 @@ SMODS.Consumable({
 	can_use = function(self, card)
 		local hpt = card.ability.extra
 		return ((#G.jokers.cards > 0) and (calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment) > 0))
+            and G.jokers.cards[1] and G.jokers.cards[1].config and G.jokers.cards[1].config.center_key ~= "j_hpot_child"
 	end,
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
-		local a = math.min(calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment))
+		local a = math.min(math.max(0, calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment)), hpt.maximum)
 		HPTN.ease_credits(-(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits), false)
-		local target_card_key = G.jokers.cards[1].config.center.key
-		if target_card_key ~= nil then
+		local target_card_key = G.jokers.cards[1].config.center_key
+		if target_card_key ~= nil and target_card_key ~= "j_hpot_child" then
 			for i = 1, a do
 				SMODS.add_card {
 					key = target_card_key,

@@ -9,7 +9,7 @@ SMODS.Joker {
         }
     },
     blueprint_compat = true,
-    eternal_compat = true,
+    eternal_compat = false,
     perishable_compat = true,
     atlas = "hc_jokers",
     pos = {x = 0, y = 0},

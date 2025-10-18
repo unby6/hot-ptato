@@ -1,11 +1,14 @@
 SMODS.Joker {
     key = 'ouroboros',
     rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
     cost = 8,
     config = {
         extra = {
             Xmult = 1,
-            gain = 1/3
+            gain = 1 / 3
         }
     },
     atlas = "oap_jokers",
@@ -14,24 +17,28 @@ SMODS.Joker {
         return { vars = { card.ability.extra.gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.card_added and context.card.ability.set == 'Joker' and #G.jokers.cards == G.jokers.config.card_limit and not (context.card.ability.card_limit and context.card.ability.card_limit >= 1) then
+        if context.card_added and context.card.ability.set == 'Joker' and #G.jokers.cards >= G.jokers.config.card_limit and not (context.card.ability.card_limit and context.card.ability.card_limit >= 1) and not context.blueprint then
             local eligible_cards = {}
 
             for k, v in pairs(G.jokers.cards) do
-                if v ~= card and v ~= context.card then
+                if v ~= card and v ~= context.card and not SMODS.is_eternal(v, card) then
                     eligible_cards[#eligible_cards + 1] = v
                 end
             end
 
-            local destroy_card = pseudorandom_element(eligible_cards)
-            destroy_card:start_dissolve()
+            if next(eligible_cards) then
+                local destroy_card = pseudorandom_element(eligible_cards)
+                SMODS.destroy_cards({ destroy_card })
 
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = 'Xmult',
-                scalar_value = 'gain',
-                message_colour = G.C.MULT
-            })
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = 'Xmult',
+                    scalar_value = 'gain',
+                    message_colour = G.C.MULT
+                })
+            else
+                SMODS.destroy_cards({ card }, true)
+            end
         end
 
         if context.joker_main and card.ability.extra.Xmult > 1 then

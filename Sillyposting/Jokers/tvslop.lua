@@ -31,6 +31,7 @@ SMODS.Joker {
     discovered = true,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
     calculate = function(self, card, context)
         if context.joker_main then
             return {

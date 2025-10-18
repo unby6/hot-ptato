@@ -433,15 +433,13 @@ G.FUNCS.start_plinko = function(e, use_dollars)
         ---------------------------------------------------------------
         -- TODO : maybe this should be moved to when reward is given?
         ---------------------------------------------------------------
-        SMODS.calculate_context({start_plinko = true})
+        SMODS.calculate_context({plinko_started = true})
         return true
       end
     }))
     return true
   end
   }))
-  SMODS.calculate_context({plinko_started = true})
-  G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
 end
 
 local caac = CardArea.align_cards
@@ -476,7 +474,6 @@ function update_plinko(dt)
         ease_background_colour({new_colour = HEX('ffe96e'), special_colour = G.C.GREEN, tertiary_colour = darken( G.C.BLACK,0.1), contrast = 5})
         G.STATE_COMPLETE = true
     end
-
 end
 
 -- Let's go gambling
@@ -498,16 +495,10 @@ G.FUNCS.hide_plinko = function(e)
   end
   stop_use()
 
-  --#region Save plinko rewards to allow dupes in other instances
-  local plinko_rewards = G.plinko_rewards:save()
-  if plinko_rewards then
-    G.GAME.load_plinko_rewards = plinko_rewards
-    for i = #G.plinko_rewards.cards,1, -1 do
-      local c = G.plinko_rewards:remove_card(G.plinko_rewards.cards[i])
-      c:remove()
-    end
+  for i = #G.plinko_rewards.cards,1, -1 do
+    local c = G.plinko_rewards:remove_card(G.plinko_rewards.cards[i])
+    c:remove()
   end
-  --#endregion
 
   G.STATE = G.STATES.SHOP
   G.STATE_COMPLETE = false

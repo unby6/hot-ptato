@@ -15,7 +15,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = true,
     calculate = function(self, card, context)
-        if context.post_final_scoring_step then
+        if context.post_final_scoring_step and not context.blueprint then
             local score = SMODS.calculate_round_score()
             if score > G.GAME.blind.chips then
                 local stolen = SMODS.get_scoring_parameter("mult") * card.ability.extra.take

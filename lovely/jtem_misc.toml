@@ -77,11 +77,11 @@ pattern = '''if G.F_SOUND_THREAD then
     G.SOUND_MANAGER.channel:push(G.ARGS.push)'''
 position = 'before'
 payload = '''
-if JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
+if JTJukebox and JTJukebox.CurrentlyPlaying and JTJukebox.ActuallyPlaying then
 	desired_track = JTJukebox.ActuallyPlaying
 	G.ARGS.push.desired_track = desired_track
 end
-if JTJukebox.Music[desired_track] and JTJukebox.Music[desired_track].discoverable and not JTJukebox.Music[desired_track].discovered then
+if JTJukebox and JTJukebox.Music[desired_track] and JTJukebox.Music[desired_track].discoverable and not JTJukebox.Music[desired_track].discovered then
   JTJukebox.Music[desired_track].discovered = true
   G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] = G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"] or {}
   G.PROFILES[G.SETTINGS.profile]["hpot_discovered_tracks"][desired_track] = true
@@ -250,7 +250,7 @@ if not first_pass and not (_c.set == 'Edition') and full_UI_table.badges then
     if sticker then
       if sticker.generate_ui then
         local specific_vars = specific_vars or {}
-        sticker:generate_ui(info_queue, card or full_UI_table.backup_card, desc_nodes, specific_vars, full_UI_table)
+        if type(sticker.generate_ui) == "function" then sticker:generate_ui(info_queue, card or full_UI_table.backup_card, desc_nodes, specific_vars, full_UI_table) end
       end
     end
   end

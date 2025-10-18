@@ -79,7 +79,7 @@ function Card:click()
         end
     end
     if self and self.ability.hpot_spinning and (self.highlighted == true or can_spin) then
-        play_sound("hpot_sfx_tname_flip")
+        play_sound("card1")
         self:flip()
     end
 	
@@ -126,7 +126,7 @@ end
 
 local ref = G.FUNCS.can_buy -- credits buyable thingy hook
 function G.FUNCS.can_buy(e)
-    if e.config.ref_table.config.center.credits then
+    if e.config.ref_table.config.center.credits and not e.config.ref_table.hpot_transaction_price then
         if (not HPTN.check_if_enough_credits(e.config.ref_table.config.center.credits)) and
             e.config.ref_table.config.center.credits then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE

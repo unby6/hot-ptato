@@ -78,7 +78,7 @@ SMODS.Joker {
                     highest_name = team_name
                 end
             end
-            if highest_name == "Horsechicot" then
+            if highest_name == "Horsechicot" and not context.blueprint then
                 if pseudorandom('hpot_truman', 1, 2) == 1 then
                     SMODS.destroy_cards({ card })
                 end

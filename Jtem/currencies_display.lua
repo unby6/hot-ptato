@@ -2,7 +2,7 @@ local function currencies_dictionary()
 	local result = {
 		dollars = {
 			symbol = "$", -- waiting for correct one
-			colour = G.C.GOLD,
+			colour = G.C.MONEY,
 			ref_value = "dollars",
 		},
 		plincoins = {

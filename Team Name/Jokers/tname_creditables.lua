@@ -3,6 +3,7 @@ SMODS.Joker:take_ownership("j_joker", {
 	atlas = "teamname_shitfuck",
 	credits = 120,
 	rarity = "hpot_creditable",
+    blueprint_compat = true,
 	cost = 0,
 	loc_txt = { name = "Joker", text = { "{C:attention}Revives{} one character" } },
     loc_vars = function(self, info_queue, card)

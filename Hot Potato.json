@@ -9,8 +9,14 @@
 	"priority": -100000000,
 	"badge_colour": "#f5e27a",
 	"badge_text_colour": "#ffffff",
-	"version": "0.1.0",
+	"version": "1.0.1",
 	"dependencies": [
-		"Steamodded (>=1.0.0~BETA-0827c)"
-	]
+		"Steamodded (>=1.0.0~BETA-1016c)"
+	],
+    "conflicts": [
+        "Talisman",
+		"Multiplayer",
+		"VirtualizedMultiplayer",
+        "SlayTheJokers"
+    ]
 }

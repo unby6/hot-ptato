@@ -60,20 +60,6 @@ SMODS.Joker {
                         }
                     }
                 },
-                {
-                    n = G.UIT.C,
-                    config = { align = "bm", minh = 0.3, padding = 0.05 },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = positions_remaining,
-                                scale = 0.3,
-                                colour = G.C.UI.TEXT_LIGHT
-                            }
-                        }
-                    }
-                }
             }
         end
 
@@ -87,7 +73,7 @@ SMODS.Joker {
             main_end = main_end
         }
     end,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     rarity = 2,

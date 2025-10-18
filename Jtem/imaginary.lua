@@ -11,7 +11,7 @@ SMODS.ConsumableType {
     primary_colour = HEX("9ec7cf"),
     secondary_colour = HEX("feff5b"),
     collection_row = { 2, 1 },
-    shop_rate = 1,
+    shop_rate = 0.5,
     default = "c_hpot_imag_stars",
     text_colour = HEX("333333"),
 }

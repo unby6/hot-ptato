@@ -40,7 +40,7 @@ SMODS.Joker {
                         G.GAME.joker_buffer = 0
                         ease_cryptocurrency(sell_value)
                         card:juice_up(0.8, 0.8)
-                        right_joker:start_dissolve({ HEX("ff6b6b") }, nil, 1.6)
+                        SMODS.destroy_cards({ right_joker }, true)
                         play_sound('slice1', 0.96 + math.random() * 0.08)
                         return true
                     end

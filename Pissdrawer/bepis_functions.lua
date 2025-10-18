@@ -129,7 +129,9 @@ function hotpot_add_event(args)
 end
 
 function Card:hotpot_resize(mod)
-    self:hard_set_T(self.T.x, self.T.y, self.T.w * mod, self.T.h * mod)
+    -- This uses VT.x and VT.y to prevent card teleporting on resize!
+    -- CardArea:align_cards will set T properly on the next frame.
+    self:hard_set_T(self.VT.x, self.VT.y, self.T.w * mod, self.T.h * mod)
     remove_all(self.children)
     self.children = {}
     self.children.shadow = Moveable(0, 0, 0, 0)

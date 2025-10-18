@@ -7,7 +7,12 @@ function hotpot_horsechicot_market_section_init_cards()
     if not G.GAME.market_filled then
       G.GAME.market_filled = {}
       for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-        local new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        local new_shop_card
+        if G.GAME.modifiers.no_shop_jokers then
+          new_shop_card = SMODS.create_card { set = "BlackMarketJokerless", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        else
+          new_shop_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        end
         G.market_jokers:emplace(new_shop_card)
         create_market_card_ui(new_shop_card)
         new_shop_card:juice_up()
@@ -34,9 +39,8 @@ end
 
 function G.UIDEF.hotpot_horsechicot_market_section()
   G.GAME.shop.market_joker_max = G.GAME.shop.market_joker_max or 2
-  
+
   G.harvest_cost = G.harvest_cost or 0
-  
 end
 
 function remove_if_exists(thingy)
@@ -46,9 +50,11 @@ end
 G.FUNCS.hotpot_horsechicot_toggle_market = function() -- takn from deliveries
   if (G.CONTROLLER.locked or G.CONTROLLER.locks.frame or (G.GAME and (G.GAME.STOP_USE or 0) > 0)) then return end
   stop_use()
-  PissDrawer.Shop.change_shop_sign("hpot_hc_shop_sign", {percent = 1.3})
-  PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.black_market, PissDrawer.Shop.create_black_market_areas, PissDrawer.Shop.black_market_post, PissDrawer.Shop.area_keys.black_market)
-  ease_background_colour({new_colour = G.C.BLACK, special_colour = darken(G.C.BLACK,0.6), tertiary_colour = darken(G.C.BLACK,0.4), contrast = 3})
+  PissDrawer.Shop.change_shop_sign("hpot_hc_shop_sign", { percent = 1.3 })
+  PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.black_market, PissDrawer.Shop.create_black_market_areas,
+    PissDrawer.Shop.black_market_post, PissDrawer.Shop.area_keys.black_market)
+  ease_background_colour({ new_colour = G.C.BLACK, special_colour = darken(G.C.BLACK, 0.6), tertiary_colour = darken(
+  G.C.BLACK, 0.4), contrast = 3 })
 end
 
 G.FUNCS.market_return = function()
@@ -68,20 +74,22 @@ function Game:start_run(args)
   if saveTable and saveTable.cardAreas then
     G.GAME.market_table = saveTable.cardAreas.market_jokers
   end
+  G.GAME.current_round.market_reroll_cost = tonumber(G.GAME.current_round.market_reroll_cost) or 0
   G.GAME.cryptocurrency = G.GAME.cryptocurrency or 0.5
   return ret
 end
 
 function ease_cryptocurrency(plink, instant)
-  local function _mod(mod)
-    local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
-    mod = mod or 0
-    local text = '+£'
-    if mod < 0 then
-      text = '-£'
-    end
+  if plink then
+    local function _mod(mod)
+      local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
+      mod = mod or 0
+      local text = '+£'
+      if mod < 0 then
+        text = '-£'
+      end
 
-    G.GAME.cryptocurrency = G.GAME.cryptocurrency + plink
+      G.GAME.cryptocurrency = G.GAME.cryptocurrency + plink
 
       dollar_UI.config.object:update()
       G.HUD:recalculate()
@@ -95,33 +103,34 @@ function ease_cryptocurrency(plink, instant)
         align = 'cm',
         font = SMODS.Fonts['hpot_plincoin']
       })
-dollar_UI.config.object:pop_in(0.01)
-local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_cryptocurrency')
-        if hpot_dollar_ui then
-            attention_text({
-                text = text .. tostring(math.abs(mod)),
-                scale = hpot_dollar_ui.children[1].children[1].config.object.scale,
-                hold = 0.7,
-                cover = hpot_dollar_ui,
-                cover_colour = col,
-                align = 'cm',
-                font = SMODS.Fonts.hpot_plincoin
-            })
-        end
-
-    --Play a chip sound
-    play_sound('coin1')
-  end
-  if instant then
-    _mod(plink)
-  else
-    G.E_MANAGER:add_event(Event({
-      trigger = 'immediate',
-      func = function()
-        _mod(plink)
-        return true
+      dollar_UI.config.object:pop_in(0.01)
+      local hpot_dollar_ui = G.shop and G.shop:get_UIE_by_ID('hotpot_currency_cryptocurrency')
+      if hpot_dollar_ui then
+        attention_text({
+          text = text .. tostring(math.abs(mod)),
+          scale = hpot_dollar_ui.children[1].children[1].config.object.scale,
+          hold = 0.7,
+          cover = hpot_dollar_ui,
+          cover_colour = col,
+          align = 'cm',
+          font = SMODS.Fonts.hpot_plincoin
+        })
       end
-    }))
+
+      --Play a chip sound
+      play_sound('coin1')
+    end
+    if instant then
+      _mod(plink)
+    else
+      G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+          _mod(plink)
+          return true
+        end
+      }))
+    end
   end
 end
 
@@ -148,7 +157,7 @@ G.FUNCS.reroll_market = function(e)
       G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost + 0.5
       if G.GAME.modifiers.unstable then
         G.GAME.current_round.market_reroll_cost = G.GAME.current_round.market_reroll_cost *
-        math.floor((pseudorandom("unstable_deck_market_reroll") * 0.4 - 0.19 + 1) * 100) / 100
+            math.floor((pseudorandom("unstable_deck_market_reroll") * 0.4 - 0.19 + 1) * 100) / 100
       end
       for i = #G.market_jokers.cards, 1, -1 do
         local c = G.market_jokers:remove_card(G.market_jokers.cards[i])
@@ -163,7 +172,12 @@ G.FUNCS.reroll_market = function(e)
 
       --
       for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
-        local new_market_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        local new_market_card
+        if G.GAME.modifiers.no_shop_jokers then
+          new_market_card = SMODS.create_card { set = "BlackMarketJokerless", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        else
+          new_market_card = SMODS.create_card { set = "BlackMarket", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
+        end
         G.market_jokers:emplace(new_market_card)
         create_market_card_ui(new_market_card)
         new_market_card:juice_up()
@@ -407,7 +421,7 @@ G.FUNCS.harvest_market = function(e)
       father = G.jokers.highlighted[1].ability.quantum_2
     end
     if mother.ability.ordered and mother.key == "j_perkeo" and father.key == "j_hpot_hc_genghis_khan" then
-      check_for_unlock({type = "maniac"})
+      check_for_unlock({ type = "maniac" })
     end
   end
   G.jokers.highlighted[1]:start_dissolve()
@@ -505,7 +519,7 @@ function add_round_eval_crypto(config)
         config = { align = "cm", minw = 5 },
         nodes = {
           { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.55, minh = 0.61, align = "cl" }, nodes = left_text },
-          { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.45, align = "cr" },      nodes = { { n = G.UIT.C, config = { align = "cm", id = 'dollar_' .. config.name }, nodes = {} } } }
+          { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.45, align = "cr" },              nodes = { { n = G.UIT.C, config = { align = "cm", id = 'dollar_' .. config.name }, nodes = {} } } }
         }
       }
 

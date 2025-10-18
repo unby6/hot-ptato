@@ -17,7 +17,7 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
         }
     end,
     blueprint_compat = false,
-    eternal_compat = true,
+    eternal_compat = false,
     perishable_compat = true,
     rarity = 1,
     cost = 3,
@@ -34,21 +34,13 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
             card.ability.extra.uses_remaining = card.ability.extra.uses_remaining - 1
             if card.ability.extra.uses_remaining <= 0 then
                 return {
-                    message = localize('k_extinct_ex'),
+                    message = localize('k_extinct_ex'), -- so Shady is a vegetable. ok
                     colour = G.C.RED,
                     func = function()
                         G.E_MANAGER:add_event(Event({
                             func = function()
+                                ease_cryptocurrency(1)
                                 card:start_dissolve()
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.3,
-                                    blockable = false,
-                                    func = function()
-                                        card:remove()
-                                        return true
-                                    end
-                                }))
                                 return true
                             end
                         }))

@@ -32,3 +32,18 @@ local cardarea = CardArea(
   {card_limit = 2, type = 'title', highlight_limit = 0, collection = true})
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+position = 'at'
+pattern = '''
+else
+    self.GAME.modifiers[v.id] = true 
+end
+'''
+payload = '''
+end
+self.GAME.modifiers[v.id] = true 
+'''
+match_indent = true
