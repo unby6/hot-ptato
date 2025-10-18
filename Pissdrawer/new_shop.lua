@@ -1443,7 +1443,7 @@ G.FUNCS.nursery_mother_button = function(e)
 end
 
 G.FUNCS.nursery_ready = function(e)
-    if (#G.nursery_father.cards == 1 or G.GAME.parthenogenesis) and #G.nursery_mother.cards == 1 and #G.nursery_child.cards == 0 and not G.GAME.active_breeding and ((G.GAME.dollars-G.GAME.bankrupt_at) - 5 >= 0) then
+    if (#G.nursery_father.cards == 1 or G.GAME.parthenogenesis) and #G.nursery_mother.cards == 1 and #G.nursery_child.cards == 0 and not G.GAME.active_breeding and ((G.GAME.dollars-G.GAME.bankrupt_at) - to_big(5) >= to_big(0)) then
         e.config.colour = G.C.HPOT_PINK
         e.children[1].config.colour = G.C.WHITE
         PissDrawer.Shop.nursery_text = localize('nursery_breed')
