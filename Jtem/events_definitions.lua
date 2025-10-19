@@ -2970,7 +2970,7 @@ HotPotato.EventScenario {
 	hotpot_credits = {
 		code = { "N'" },
 		team = { "Pissdrawer" },
-    },
+	},
 	in_pool = function(self)
 		return not next(SMODS.find_card("j_hpot_diy", true))
 	end
@@ -4458,13 +4458,23 @@ HotPotato.CombatEvents.generic = {
 			end
 
 			if effect.total_hands or effect.hands then
-				ease_hands_played((effect.total_hands and (-G.GAME.round_resets.hands + effect.total_hands) or 0) +
-					(effect.hands or 0))
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						ease_hands_played((effect.total_hands and
+							(-G.GAME.current_round.hands_left + effect.total_hands) or 0) + (effect.hands or 0))
+						return true
+					end
+				}))
 			end
 
 			if effect.total_discards or effect.discards then
-				ease_discard((effect.total_discards and (-G.GAME.current_round.discards_left + effect.total_discards) or 0) +
-					(effect.discards or 0))
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						ease_discard((effect.total_discards and
+							(-G.GAME.current_round.discards_left + effect.total_discards) or 0) + (effect.discards or 0))
+						return true
+					end
+				}))
 			end
 
 			effect.hpot_hands = {}
@@ -4799,6 +4809,9 @@ HotPotato.CombatEvents.generic = {
 }
 
 local hpot_event_get_random_boss = function(seed)
+	if true then
+		return "bl_needle"
+	end
 	local eligible_bosses = {}
 	for k, v in pairs(G.P_BLINDS) do
 		local res, options = SMODS.add_to_pool(v)
@@ -4820,14 +4833,12 @@ local hpot_event_get_random_combat_effect = function(seed)
 		{ debuff = { jokers = true },                                text = "but all Jokers are debuffed" },
 		{ debuff = { suit = true },                                  text = "but all [suit] are debuffed" }, -- not valid, randomizes later
 		{ debuff = { face = true },                                  text = "but all face cards are debuffed" },
-		-- { debuff = { played_this_ante = true },                      text = "but all cards played this ante are debuffed" },
 		{ debuff = { most_played_hand = true },                      text = "but " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " is not allowed" },
 		{ set_to_zero = { most_played_hand = true, dollars = true }, text = "but playing " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " sets money to 0" },
 		{ no_repeat_hands = true,                                    text = "but no repeat hand types" },
 		{ one_hand_type = true,                                      text = "but ony one hand type can be played" },
 		{ flipped = { suit = true },                                 text = "but all [suit] are drawn facedown" }, -- not valid, randomizes later
 		{ flipped = { face = true },                                 text = "but all face cards are drawn facedown" },
-		-- { flipped = { played_this_ante = true },                     text = "but all cards played this ante are drawn facedown" },
 		{ flipped = { first_hand = true },                           text = "but first hand is drawn facedown" },
 		{ base_score_halved = true,                                  text = "but base Chips and Mult are halved" },
 	}
@@ -4848,7 +4859,7 @@ local hpot_event_get_random_combat_effect = function(seed)
 
 	effects[#effects + 1] = {
 		debuff = { rank = rank_key },
-		text = "but all " .. localize(rank_key, "ranks") .. " are debuffed"
+		text = "but all " .. localize(rank_key, "ranks") .. "s are debuffed"
 	}
 
 	local chosen_effect = pseudorandom_element(effects, seed or "hpot_event_combat_effect")
