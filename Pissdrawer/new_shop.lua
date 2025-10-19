@@ -870,6 +870,7 @@ function save_run()
         end
     end
     pissdrawer_save_run()
+    G.culled_table = G.culled_table or {}
     G.culled_table.pissdrawer_shop = {}
     for _, tab in pairs(PissDrawer.Shop.area_keys) do
         for _, key in ipairs(tab) do
