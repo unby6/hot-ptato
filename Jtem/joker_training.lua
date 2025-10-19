@@ -469,8 +469,8 @@ SMODS.Sticker {
 		-- this probably isnt needed but idk
 		local stats = card.ability["hp_jtem_stats"]
 		hpot_jtem_with_deck_effects(card, function(c)
-			if stats.guts > 150 then
-				hpot_jtem_misprintize({ val = c.ability, amt = 1 + ((((stats.guts - 150) / 200) * 100) / 100) })
+			if stats.guts > 200 then
+				hpot_jtem_misprintize({ val = c.ability, amt = 1 + ((((stats.guts - 200) / 500) * 100) / 100) })
 			end
 		end)
         card:set_cost()
