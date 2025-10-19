@@ -53,7 +53,7 @@ SMODS.Consumable({
 		}))
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				HPTN.ease_credits(60, false)
+				HPTN.ease_credits(hpt.credits, false)
 				return true
 			end,
 		}))
