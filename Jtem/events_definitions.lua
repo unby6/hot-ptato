@@ -2970,7 +2970,10 @@ HotPotato.EventScenario {
 	hotpot_credits = {
 		code = { "N'" },
 		team = { "Pissdrawer" },
-	},
+    },
+	in_pool = function(self)
+		return not next(SMODS.find_card("j_hpot_diy", true))
+	end
 }
 
 HotPotato.EventStep {
