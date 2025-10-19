@@ -197,7 +197,7 @@ function hpot_calc_stat_multiplier(card, stat)
 		local centers = {joker.config.center, joker.ability.quantum_1 and joker.ability.quantum_1.config.center, joker.ability.quantum_2 and joker.ability.quantum_2.config.center}
 		for _, center in pairs(centers) do
 			if center and center.calc_training_mul then
-				multiplier = multiplier * center:calc_training_mul(joker, card, multiplier, stat)
+				multiplier = center:calc_training_mul(joker, card, multiplier, stat) or multiplier
 			end
 		end
 	end
