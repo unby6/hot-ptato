@@ -297,8 +297,8 @@ function Blind:defeat(silent)
     if G.GAME.hpot_combat_event then
         if type(HotPotato.CombatEvents[G.GAME.hpot_combat_event].defeat) == "function" then
             HotPotato.CombatEvents[G.GAME.hpot_combat_event]:defeat()
-            if MP and MP.GAME then
-                MP.GAME.prevent_eval = false
+            if MP and MP.GAME then       
+                MP.GAME.round_ended = true
             end
         end
     end
