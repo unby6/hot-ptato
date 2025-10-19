@@ -1213,7 +1213,7 @@ HotPotato.EventScenario {
 		team = { "Team Name" },
 	},
 	in_pool = function()
-		return G.GAME.dollars < 5
+		return to_big(G.GAME.dollars) < to_big(5)
 	end
 }
 
@@ -5203,7 +5203,7 @@ HotPotato.EventScenario {
 		team = { "Pissdrawer" },
 	},
 	in_pool = function()
-		if #G.deck.cards >= 2 and G.GAME.dollars > 0 then return true end
+		if #G.deck.cards >= 2 and to_big(G.GAME.dollars) > to_big(0) then return true end
 	end,
 }
 
