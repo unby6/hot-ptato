@@ -185,6 +185,7 @@ SMODS.Joker {
             credit_gain = 0.1,
             social_credit = 0,
             social_credit_max = 1,
+            conversion_rate = 2000
         }
     },
     hotpot_credits = {
@@ -208,7 +209,8 @@ SMODS.Joker {
             vars = {
                 card.ability.extra.credit_gain,
                 card.ability.extra.social_credit,
-                card.ability.extra.social_credit_max
+                card.ability.extra.social_credit_max,
+                card.ability.extra.conversion_rate
             },
             key = key
         }
@@ -219,11 +221,14 @@ SMODS.Joker {
         card:add_sticker('perishable', true)
     end,
     calculate = function(self, card, context)
+        if context.game_over then
+            HPTN.set_credits(0)
+        end
         local hpt = card.ability.extra
         if context[card.ability.china] and card.ability.trig == false and not context.blueprint then
             card.ability.trig = true
             card.ability.china = (HotPotato and HotPotato.allcalcs[math.floor(pseudorandom('china', 1, #HotPotato.allcalcs))])
-            hpt.social_credit_max = pseudorandom('social_credit', -1000000, 1000000)
+            hpt.social_credit_max = pseudorandom('social_credit', -1005000, 1000000)
             hpt.social_credit = hpt.social_credit + hpt.social_credit_max
             if hpt.social_credit < 0 then
                 return {
@@ -239,7 +244,7 @@ SMODS.Joker {
             end
         end
         if context.end_of_round then
-            HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / 1000))
+            HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / hpt.conversion_rate))
         end
         if context.selling_self and not context.blueprint then
             return {
