@@ -1027,7 +1027,7 @@ jd_def["j_hpot_numberslop"] = { -- Numberslop
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         if text ~= 'Unknown' then
             for _, scoring_card in pairs(scoring_hand) do
-                if not (context.other_card:is_face() or context.other_card:get_id() == 14) then
+                if not (scoring_card:is_face() or scoring_card:get_id() == 14) then
                     xmult = xmult *
                         (card.ability.extra.Xmult ^
                             JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
@@ -1039,119 +1039,119 @@ jd_def["j_hpot_numberslop"] = { -- Numberslop
 }
 
 jd_def["j_hpot_OAP"] = { -- Oops! A Programmer
-    -- text = {
-    --     {
-    --         border_nodes = {
-    --             { ref_table = "card.joker_display_values", ref_value = "text" }
-    --         },
-    --     }
-    -- },
-    -- calc_function = function(card)
-    --     card.joker_display_values.text = ""
-    --     local triggers = JokerDisplay.calculate_joker_triggers(card)
-    --     if card.ability.extra.effect == 'trif' then
-    --         card.joker_display_values.text = "(" ..
-    --             localize(#JokerDisplay.current_hand == 5 and 'k_active' or "jdis_inactive") .. ")"
-    --     end
-    --     if card.ability.extra.effect == 'sadcube' then
-    --     end
-    --     if card.ability.extra.effect == 'astra' then
-    --         local active = #JokerDisplay.current_hand == 1 and
-    --             not (JokerDisplay.current_hand[1]:is_face() or JokerDisplay.current_hand[1]:get_id() == 14)
-    --         card.joker_display_values.text = "(" ..
-    --             localize(active and 'k_active' or "jdis_inactive") .. ")"
-    --     end
-    --     if card.ability.extra.effect == 'wix' then
-    --         local xchips = 1
-    --         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-    --         if text ~= 'Unknown' then
-    --             for _, scoring_card in pairs(scoring_hand) do
-    --                 if scoring_card:get_id() == 12 then
-    --                     xchips = xchips *
-    --                         (card.ability.wix_effect.xchips ^
-    --                             JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
-    --                 end
-    --             end
-    --         end
-    --         card.joker_display_values.text = "X" .. JokerDisplay.number_format(xchips ^ triggers)
-    --     end
-    --     if card.ability.extra.effect == 'myst' then
-    --         local xmult = 1
-    --         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-    --         if text ~= 'Unknown' then
-    --             for _, scoring_card in pairs(scoring_hand) do
-    --                 if not scoring_card:is_face() then
-    --                     xmult = xmult *
-    --                         (card.ability.myst_effect.x_mult ^
-    --                             JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
-    --                 end
-    --             end
-    --         end
-    --         card.joker_display_values.text = "X" .. JokerDisplay.number_format(xmult ^ triggers)
-    --     end
-    --     if card.ability.extra.effect == 'th30ne' then
-    --         local xmult = 1
-    --         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-    --         if text ~= 'Unknown' then
-    --             local aces = {}
-    --             local threes = {}
-    --             for _, playing_card in ipairs(scoring_hand) do
-    --                 if playing_card:get_id() == 3 then
-    --                     table.insert(threes, playing_card)
-    --                 elseif playing_card:get_id() == 14 then
-    --                     table.insert(aces, playing_card)
-    --                 end
-    --             end
-    --             if #aces > 0 and #threes > 0 then
-    --                 for _, ace in ipairs(aces) do
-    --                     for _, three in ipairs(threes) do
-    --                         if ace.base.suit ~= three.base.suit
-    --                             and not SMODS.has_enhancement(ace, 'm_wild')
-    --                             and not SMODS.has_enhancement(three, 'm_wild') then
-    --                             xmult = card.ability.th30ne_effect.xmult
-    --                             break
-    --                         end
-    --                     end
-    --                     if xmult ~= 1 then
-    --                         break
-    --                     end
-    --                 end
-    --             end
-    --         end
-    --         card.joker_display_values.text = "X" .. JokerDisplay.number_format(xmult ^ triggers)
-    --     end
-    --     if card.ability.extra.effect == 'lia' then
-    --         card.joker_display_values.text = "X" ..
-    --             JokerDisplay.number_format((#JokerDisplay.current_hand == card.ability.extra.cards_needed and card.ability.extra.xmult or 1) ^
-    --                 triggers)
-    --     end
-    -- end,
-    -- style_function = function(card, text, reminder_text, extra)
-    --     if text and text.children[1] and text.children[1].children[1] then
-    --         local border_config = text.children[1].config
-    --         local text_config = text.children[1].children[1].config
+    text = {
+        {
+            border_nodes = {
+                { ref_table = "card.joker_display_values", ref_value = "text" }
+            },
+        }
+    },
+    calc_function = function(card)
+        card.joker_display_values.text = ""
+        local triggers = JokerDisplay.calculate_joker_triggers(card)
+        if card.ability.extra.effect == 'trif' then
+            card.joker_display_values.text = "(" ..
+                localize(#JokerDisplay.current_hand == 5 and 'k_active' or "jdis_inactive") .. ")"
+        end
+        if card.ability.extra.effect == 'sadcube' then
+        end
+        if card.ability.extra.effect == 'astra' then
+            local active = #JokerDisplay.current_hand == 1 and
+                not (JokerDisplay.current_hand[1]:is_face() or JokerDisplay.current_hand[1]:get_id() == 14)
+            card.joker_display_values.text = "(" ..
+                localize(active and 'k_active' or "jdis_inactive") .. ")"
+        end
+        if card.ability.extra.effect == 'wix' then
+            local xchips = 1
+            local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+            if text ~= 'Unknown' then
+                for _, scoring_card in pairs(scoring_hand) do
+                    if scoring_card:get_id() == 12 then
+                        xchips = xchips *
+                            (card.ability.wix_effect.xchips ^
+                                JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
+                    end
+                end
+            end
+            card.joker_display_values.text = "X" .. JokerDisplay.number_format(xchips ^ triggers)
+        end
+        if card.ability.extra.effect == 'myst' then
+            local xmult = 1
+            local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+            if text ~= 'Unknown' then
+                for _, scoring_card in pairs(scoring_hand) do
+                    if not scoring_card:is_face() then
+                        xmult = xmult + card.ability.myst_effect.x_mult *
+                            JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                    end
+                end
+            end
+            card.joker_display_values.text = "X" .. JokerDisplay.number_format(xmult ^ triggers)
+        end
+        if card.ability.extra.effect == 'th30ne' then
+            local xmult = 1
+            local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+            if text ~= 'Unknown' then
+                local aces = {}
+                local threes = {}
+                for _, playing_card in ipairs(scoring_hand) do
+                    if playing_card:get_id() == 3 then
+                        table.insert(threes, playing_card)
+                    elseif playing_card:get_id() == 14 then
+                        table.insert(aces, playing_card)
+                    end
+                end
+                if #aces > 0 and #threes > 0 then
+                    for _, ace in ipairs(aces) do
+                        for _, three in ipairs(threes) do
+                            if ace.base.suit ~= three.base.suit
+                                and not SMODS.has_enhancement(ace, 'm_wild')
+                                and not SMODS.has_enhancement(three, 'm_wild') then
+                                xmult = card.ability.th30ne_effect.xmult
+                                break
+                            end
+                        end
+                        if xmult ~= 1 then
+                            break
+                        end
+                    end
+                end
+            end
+            card.joker_display_values.text = "X" .. JokerDisplay.number_format(xmult ^ triggers)
+        end
+        if card.ability.extra.effect == 'lia' then
+            local text, _, _ = JokerDisplay.evaluate_hand()
+            local active = text == "High Card" and G.GAME.current_round.hands_played == 0
+            card.joker_display_values.text = "(" ..
+                localize(active and 'k_active' or "jdis_inactive") .. ")"
+        end
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] and text.children[1].children[1] then
+            local border_config = text.children[1].config
+            local text_config = text.children[1].children[1].config
 
-    --         if card.ability.horseman == "ruby" or card.ability.horseman == "baccon"
-    --             or card.ability.horseman == "nxkoo" then
-    --             border_config.colour = G.C.MULT
-    --             text_config.colour = G.C.UI.TEXT_LIGHT
-    --         end
-    --         if card.ability.horseman == "cg" then
-    --             border_config.colour = G.C.CLEAR
-    --             text_config.colour = G.C.CHIPS
-    --         end
-    --         if card.ability.horseman == "lily" then
-    --             border_config.colour = G.C.CLEAR
-    --             text_config.colour = G.C.GREEN
-    --         end
-    --         if card.ability.horseman == "pangaea" then
-    --             border_config.colour = G.C.CLEAR
-    --             text_config.colour = G.C.CLEAR
-    --         end
-    --         return true
-    --     end
-    --     return false
-    -- end
+            if card.ability.extra.effect == 'myst' or card.ability.extra.effect == 'th30ne' then
+                border_config.colour = G.C.MULT
+                text_config.colour = G.C.UI.TEXT_LIGHT
+            end
+            if card.ability.extra.effect == "wix" then
+                border_config.colour = G.C.CHIPS
+                text_config.colour = G.C.UI.TEXT_LIGHT
+            end
+            if card.ability.extra.effect == 'lia' or card.ability.extra.effect == 'astra'
+                or card.ability.extra.effect == 'trif' then
+                border_config.colour = G.C.CLEAR
+                text_config.colour = G.C.UI.TEXT_INACTIVE
+            end
+            if card.ability.extra.effect == "sadcube" then
+                border_config.colour = G.C.CLEAR
+                text_config.colour = G.C.CLEAR
+            end
+            return true
+        end
+        return false
+    end
 }
 
 jd_def["j_hpot_ouroboros"] = { -- Ouroboros
