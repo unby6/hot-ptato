@@ -870,6 +870,7 @@ function save_run()
         end
     end
     pissdrawer_save_run()
+    G.culled_table = G.culled_table or {}
     G.culled_table.pissdrawer_shop = {}
     for _, tab in pairs(PissDrawer.Shop.area_keys) do
         for _, key in ipairs(tab) do
@@ -1161,9 +1162,9 @@ function PissDrawer.Shop.training_emplace(card)
     }}
 end
 
-G.FUNCS.training_emplace = function ()
+G.FUNCS.training_emplace = function (e)
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
-        local c = G.jokers.highlighted[1]
+        local c = e.config.ref_table
         if c.children.hpot_move_to_train then
             c.children.hpot_move_to_train:remove()
             c.children.hpot_move_to_train = nil
@@ -1473,9 +1474,9 @@ G.FUNCS.nursery_remove = function(e)
 end
 
 
-G.FUNCS.training_emplace = function ()
+G.FUNCS.training_emplace = function (e)
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
-        local c = G.jokers.highlighted[1]
+        local c = e.config.ref_table
         if c.children.hpot_move_to_train then
             c.children.hpot_move_to_train:remove()
             c.children.hpot_move_to_train = nil

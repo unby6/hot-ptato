@@ -323,26 +323,7 @@ SMODS.Sticker({
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind and SMODS.pseudorandom_probability(card, "hpot_nuke", 1, 6) then
-			local destroy_tab = {}
-
-			local area = card.area
-			local rr = nil
-			for i = 1, #area.cards do
-				if area.cards[i] == card then
-					rr = i
-				end
-			end
-
-			destroy_tab[#destroy_tab + 1] = card
-
-			if area.cards[rr + 1] then
-				destroy_tab[#destroy_tab + 1] = area.cards[rr + 1]
-			end
-			if area.cards[rr - 1] then
-				destroy_tab[#destroy_tab + 1] = area.cards[rr - 1]
-			end
-
-			SMODS.destroy_cards(destroy_tab)
+			SMODS.destroy_cards({card})
 		end
 	end,
 	atlas = "tname_stickers",

@@ -185,6 +185,7 @@ SMODS.Joker {
             credit_gain = 0.1,
             social_credit = 0,
             social_credit_max = 1,
+            conversion_rate = 2000
         }
     },
     hotpot_credits = {
@@ -208,7 +209,8 @@ SMODS.Joker {
             vars = {
                 card.ability.extra.credit_gain,
                 card.ability.extra.social_credit,
-                card.ability.extra.social_credit_max
+                card.ability.extra.social_credit_max,
+                card.ability.extra.conversion_rate
             },
             key = key
         }
@@ -219,11 +221,14 @@ SMODS.Joker {
         card:add_sticker('perishable', true)
     end,
     calculate = function(self, card, context)
+        if context.game_over then
+            HPTN.set_credits(0)
+        end
         local hpt = card.ability.extra
         if context[card.ability.china] and card.ability.trig == false and not context.blueprint then
             card.ability.trig = true
             card.ability.china = (HotPotato and HotPotato.allcalcs[math.floor(pseudorandom('china', 1, #HotPotato.allcalcs))])
-            hpt.social_credit_max = pseudorandom('social_credit', -1000000, 1000000)
+            hpt.social_credit_max = pseudorandom('social_credit', -1005000, 1000000)
             hpt.social_credit = hpt.social_credit + hpt.social_credit_max
             if hpt.social_credit < 0 then
                 return {
@@ -239,7 +244,7 @@ SMODS.Joker {
             end
         end
         if context.end_of_round then
-            HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / 1000))
+            HPTN.ease_credits(hpt.credit_gain * math.floor(hpt.social_credit / hpt.conversion_rate))
         end
         if context.selling_self and not context.blueprint then
             return {
@@ -298,9 +303,9 @@ SMODS.Joker {
     cost = 6,
     atlas = "pdr_joker",
     pos = { x = 4, y = 0 },
-    config = { extra = 2 },
+    config = { extra = 0.5 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { math.floor(100 / card.ability.extra) } }
+        return { vars = { math.floor(card.ability.extra * 100) } }
     end,
     hotpot_credits = {
         idea = { 'SDM_0' },
@@ -317,20 +322,15 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.reforging and not context.free and not context.blueprint then
             if context.currency == "DOLLAR" then
-                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) / card.ability
-                    .extra))
+                ease_dollars(math.floor((G.GAME.cost_dollars - context.card.ability.reforge_dollars) * card.ability.extra))
             elseif context.currency == "CREDIT" then
-                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) /
-                    card.ability.extra))
+                HPTN.ease_credits(math.floor((G.GAME.cost_credits - context.card.ability.reforge_credits) * card.ability.extra))
             elseif context.currency == "SPARKLE" then
-                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) /
-                    card.ability.extra))
+                ease_spark_points(math.floor((G.GAME.cost_sparks - context.card.ability.reforge_sparks) * card.ability.extra))
             elseif context.currency == "PLINCOIN" then
-                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) /
-                    card.ability.extra))
+                ease_plincoins(math.floor((G.GAME.cost_plincoins - context.card.ability.reforge_plincoins) * card.ability.extra))
             elseif context.currency == "CRYPTOCURRENCY" then
-                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) /
-                    card.ability.extra))
+                ease_cryptocurrency(math.floor((G.GAME.cost_cryptocurrency - context.card.ability.reforge_cryptocurrency) * card.ability.extra))
             end
             card:juice_up()
         end

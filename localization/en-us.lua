@@ -2219,7 +2219,7 @@ return {
             j_hpot_social_credit = {
                 name = 'Social Credit',
                 text = {
-                    'Earn {C:purple}+c.#1#{} per {C:purple}1000{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    'Earn {C:purple}+c.#1#{} per {C:attention}#4#{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
@@ -2227,7 +2227,7 @@ return {
             j_hpot_social_credit_budget = {
                 name = 'Social Budget',
                 text = {
-                    'Earn {C:attention}+e.#1#{} per {C:attention}100{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
+                    'Earn {C:attention}+e.#1#{} per {C:attention}#4#{} {X:red,C:attention}Social {}{X:attention,C:red}Credit{} at end of round',
                     '{C:inactive}Social Credit (Currently {C:red}#2#{C:inactive}) will alter',
                     '{C:inactive}depending on your performance{}'
                 }
@@ -3645,7 +3645,8 @@ return {
             hpot_overclock = {
                 name = "Overclock",
                 text = {
-                    "{C:attention}Retriggers{} for", "{C:attention}#1#{} Rounds.",
+                    "{C:attention}Retriggers{} for", 
+                    "{C:attention}#1#{} Rounds.",
                     "{C:red}debuff{} afterwards.",
                     "{C:inactive}({C:attention}#2#{C:inactive} Remaining)"
                 }
@@ -3654,7 +3655,7 @@ return {
                 name = "Redirect",
                 text = {
                     "When this card",
-                    "is going to be destroyed",
+                    "is going to be destroyed,",
                     "{C:red}destroy{} another card instead."
                 }
             },
@@ -3671,17 +3672,18 @@ return {
                 name = "Rage",
                 text = {
                     "{C:attention}Retrigger{} this card.",
-                    "{C:red}destroys{} adjacent cards"
+                    "{C:red}destroys{} adjacent cards",
+                    "when triggered"
                 }
             },
             hpot_spores = {
                 name = "Spore",
                 text = {
                     "{C:green}#1# in 2{} Chance to",
-                    "give a spore to {C:attention}adjacent{} cards",
-                    "when in hand.",
-                    "{C:red}Destroyed{} if adjacent cards",
-                    "all have spores"
+                    "give a spore to {C:attention}adjacent{} cards,",
+                    "{C:red}Destroyed{} if cards on both sides",
+                    "all have spores at the",
+                    "{C:attention}end of round"
                 }
             },
             hpot_nuke = {
@@ -3689,8 +3691,7 @@ return {
                 text = {
                     "When a {C:attention}Blind",
                     "is selected, {C:green}#1# in 6{}",
-                    "Chance to {C:red}Destroy{} self and",
-                    "adjacent cards"
+                    "Chance to {C:red}Destroy{} self"
                 }
             },
             hpot_cannibal = {
@@ -6567,33 +6568,7 @@ return {
             hpot_tech_support_ask_bepis = "Ask Bepis",
             hpot_tech_support_ask_deadbeet = "Ask Deadbeet",
             hpot_tech_support_ask_fey = "Ask Fey",
-            hpot_tech_support_ask_tacashumi = "Ask Tacashumi", -- revo do your shenanigans
-            --[[hpot_business_venture_1_start_budget_invest_100 = "Invest {C:attention}e.100",
-            hpot_business_venture_1_start_budget_invest_500 = "Invest {C:attention}e.500",
-            hpot_business_venture_1_start_budget_invest_1000 = "Invest {C:attention}e.1000",
-            hpot_postlatro_start_budgetcredits = "{C:money}$10{} > {C:attention}e.100",
-            hpot_postlatro_start_budget_invest_500 = "Invest {C:attention}e.500",
-            hpot_postlatro_start_budget_invest_1000 = "Invest {C:attention}e.1000",
-        }
-            hpot_postlatro_start_budget = {
-		text = {
-			"A stange guy approaches you on the street.",
-			" ",
-			"\"Hey, would you like to invest in my business idea?\"",
-		},
-
-		choices = {
-			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
-			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
-			credits = "{C:money}$10{} > {C:purple}c.100",
-			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
-			from_spark = "{C:blue,f:hpot_plincoin}͸10k{} > {C:money}$1{}",
-			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
-			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
-			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
-			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
-			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
-		}]]
+            hpot_tech_support_ask_tacashumi = "Ask Tacashumi", 
         },
         CombatEventRewards = {
             generic = {

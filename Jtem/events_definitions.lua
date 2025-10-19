@@ -1213,7 +1213,7 @@ HotPotato.EventScenario {
 		team = { "Team Name" },
 	},
 	in_pool = function()
-		return G.GAME.dollars < 5
+		return to_big(G.GAME.dollars) < to_big(5)
 	end
 }
 
@@ -5203,7 +5203,7 @@ HotPotato.EventScenario {
 		team = { "Pissdrawer" },
 	},
 	in_pool = function()
-		if #G.deck.cards >= 2 and G.GAME.dollars > 0 then return true end
+		if #G.deck.cards >= 2 and to_big(G.GAME.dollars) > to_big(0) then return true end
 	end,
 }
 
@@ -5544,11 +5544,11 @@ HotPotato.EventStep {
 		choices = {
 			spark = "{C:money}$1{} > {C:blue,f:hpot_plincoin}͸5k",
 			plincoins = "{C:money}$10{} > {C:hpot_plincoin,f:hpot_plincoin}$1",
-			credits = "{C:money}$10{} > {C:purple}c.100",
+			credits = "{C:money}$10{} > {C:purple}c.45",
 			crypto = "{C:money}$20{} > {C:hpot_advert,f:hpot_plincoin}£1",
 			from_spark = "{C:blue,f:hpot_plincoin}͸10k{} > {C:money}$1{}",
 			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$1{} > {C:money}$5{}",
-			from_credits = "{C:purple}c.100{} > {C:money}$5{}",
+			from_credits = "{C:purple}c.50{} > {C:money}$5{}",
 			from_crypto = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$10{}",
 			trade_dreams = "Sell Dreams for {C:hpot_plincoin,f:hpot_plincoin}$10",
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
@@ -5580,7 +5580,7 @@ HotPotato.EventStep {
 				key = "credits",
 				button = function()
 					ease_currency("dollars", -10)
-					ease_currency("credits", 100)
+					ease_currency("credits", 45)
 				end,
 				func = function()
 					return to_big(get_currency_amount("dollars") - G.GAME.bankrupt_at) >= to_big(10)
@@ -5619,7 +5619,7 @@ HotPotato.EventStep {
 			{
 				key = "from_credits",
 				button = function()
-					ease_currency("credits", -100)
+					ease_currency("credits", -50)
 					ease_currency("dollars", 5)
 				end,
 				func = function()
@@ -5829,11 +5829,11 @@ HotPotato.EventStep {
 			dollars = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:money}$20{}",
 			spark = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:blue,f:hpot_plincoin}͸100k",
 			plincoins = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:hpot_plincoin,f:hpot_plincoin}$6",
-			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.600",
+			credits = "{C:hpot_advert,f:hpot_plincoin}£1{} > {C:purple}c.90",
 			from_dollars = "{C:money}$30{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			from_spark = "{C:blue,f:hpot_plincoin}͸300k{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			from_plincoins = "{C:hpot_plincoin,f:hpot_plincoin}$8{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
-			from_credits = "{C:purple}c.800{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
+			from_credits = "{C:purple}c.185{} > {C:hpot_advert,f:hpot_plincoin}£1{}",
 			trade_questions = "Sell Questions for {C:hpot_advert,f:hpot_plincoin}£10{}",
 			trade_emotions = "Sell Emotions for {C:hpot_advert,f:hpot_plincoin}£10{}"
 		}
@@ -5874,7 +5874,7 @@ HotPotato.EventStep {
 				key = "credits",
 				button = function()
 					ease_currency("crypto", -1)
-					ease_currency("credits", 600)
+					ease_currency("credits", 90)
 				end,
 				func = function()
 					return get_currency_amount("crypto") >= 1
@@ -5913,7 +5913,7 @@ HotPotato.EventStep {
 			{
 				key = "from_credits",
 				button = function()
-					ease_currency("credits", -800)
+					ease_currency("credits", -185)
 					ease_currency("crypto", 1)
 				end,
 				func = function()
