@@ -194,9 +194,11 @@ end
 function hpot_calc_stat_multiplier(card, stat)
 	local multiplier = (card.ability["hp_jtem_train_mult"][stat] * mood_to_multiply[card.ability["hp_jtem_mood"] or "normal"])
 	for _, joker in pairs(G.jokers.cards) do
-		local center = joker.config.center
-		if center and center.calc_training_mul then
-			multiplier = center:calc_training_mul(joker, card, multiplier, stat)
+		local centers = {joker.config.center, joker.ability.quantum_1 and joker.ability.quantum_1.config.center, joker.ability.quantum_2 and joker.ability.quantum_2.config.center}
+		for _, center in pairs(centers) do
+			if center and center.calc_training_mul then
+				multiplier = multiplier * center:calc_training_mul(joker, card, multiplier, stat)
+			end
 		end
 	end
 	return multiplier
