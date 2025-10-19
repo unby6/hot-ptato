@@ -22,6 +22,8 @@ function Quantum:init(args, source)
     self.key = args.key
     self.fake_card = true
     self.ability = args.ability
+    self.ability.mother = false
+    self.ability.father = false
     self.config = args.config
     self.quantum = source
     self.children = setmetatable({quantum = source}, {
@@ -173,9 +175,9 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if card.ability.quantum_1 and card.ability.quantum_2 then
-            --local ret, trig = card.ability.quantum_1:calculate_joker(context)
             local ret, trig = Card.calculate_joker(card.ability.quantum_1, context)
-            --local ret2, trig2 = card.ability.quantum_2:calculate_joker(context)
+            if ret then SMODS.update_context_flags(context, ret) end
+
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
             local function bp(quantum)
                 local to_copy
@@ -380,6 +382,7 @@ SMODS.DrawStep {
 
 local old = copy_card
 function copy_card(card, new_card, card_scale, playing_card, strip_edition)
+    card = card.quantum or card
     if card.ability.quantum_1 then
         local q1, q2 = card.ability.quantum_1, card.ability.quantum_2
         card.ability.quantum_1, card.ability.quantum_2 = nil, nil

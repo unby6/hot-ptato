@@ -53,7 +53,7 @@ SMODS.Consumable({
 		}))
 		G.E_MANAGER:add_event(Event({
 			func = function()
-				HPTN.ease_credits(60, false)
+				HPTN.ease_credits(hpt.credits, false)
 				return true
 			end,
 		}))
@@ -401,6 +401,14 @@ SMODS.Consumable({
 		code = { "GoldenLeaf" },
 		team = { "Team Name" },
 	},
+	in_pool = function (self, args)
+		if G.jokers then
+			if #G.jokers.cards > 0 and calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), self.config.extra.credits, self.config.extra.increment) > 0 then
+				return true
+			end
+		end
+		return false
+	end,
 	can_use = function(self, card)
 		local hpt = card.ability.extra
 		return ((#G.jokers.cards > 0) and (calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment) > 0))

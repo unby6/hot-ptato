@@ -29,6 +29,7 @@ HotPotato.Ads = {
         ad_roffle = {atlas = "hpot_oap_roffle", pos = {x = 0, y = 0}},
         ad_daniel = {atlas = "hpot_oap_danielad", pos = {x = 0, y = 0}},
         ad_palombi = {atlas = "hpot_oap_palombi", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.1},
+        ad_death = {atlas = "hpot_oap_Death", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.15},
     },
     Shitposts = { -- Adverts are very rarely pulled from this pool.
         ad_digging = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=3,y=0}, animated = false, base_size = 0.75},
@@ -63,7 +64,6 @@ HotPotato.Ads = {
         ad_donut = {atlas = "hpot_oap_donut", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.1},
         ad_greg = {atlas = "hpot_oap_greg", pos = {x = 0, y = 0}, base_size = 0.5, max_scale = 0.25},
         ad_isopods = {atlas = "hpot_oap_isopods", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.1},
-        ad_death = {atlas = "hpot_oap_Death", pos = {x = 0, y = 0}, base_size = 0.4, max_scale = 0.15},
         ad_barga = {atlas = "hpot_oap_barga", pos = {x = 0, y = 0}, base_size = 0.6, max_scale = 0.15},
         ad_birdcoin = {atlas = "hpot_birdcoin",pos = {x=0,y=0}},
         ad_codeofethics = {atlas = "hpot_codeofethics",pos = {x=0,y=0}},

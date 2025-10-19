@@ -297,6 +297,9 @@ function Blind:defeat(silent)
     if G.GAME.hpot_combat_event then
         if type(HotPotato.CombatEvents[G.GAME.hpot_combat_event].defeat) == "function" then
             HotPotato.CombatEvents[G.GAME.hpot_combat_event]:defeat()
+            if MP and MP.GAME then       
+                MP.GAME.round_ended = true
+            end
         end
     end
 end
@@ -366,6 +369,15 @@ function event_collection_domains_ui()
             contents = { t }
         })
     end
+end
+
+local old_update = Game.update
+function Game:update(...)
+    if MP and MP.GAME and G.GAME and G.GAME.hpot_combat_event then
+        MP.GAME.round_ended = false
+        MP.GAME.prevent_eval = false
+    end
+    return old_update(self, ...)
 end
 
 --#endregion

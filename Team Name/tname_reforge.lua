@@ -100,9 +100,9 @@ function G.FUNCS.place_return_reforge(e)
     end
 end
 
-G.FUNCS.reforge_place = function ()
+G.FUNCS.reforge_place = function (e)
     if G.jokers and G.jokers.highlighted and #G.jokers.highlighted > 0 then
-        local c = G.jokers.highlighted[1]
+        local c = e.config.ref_table
         HPTN.move_card(c, G.reforge_area)
         G.GAME.ref_placed = true
         ready_to_reforge() -- give the card the dependencies 
