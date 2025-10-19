@@ -371,4 +371,13 @@ function event_collection_domains_ui()
     end
 end
 
+local old_update = Game.update
+function Game:update(...)
+    if MP and MP.GAME and G.GAME and G.GAME.hpot_combat_event then
+        MP.GAME.round_ended = false
+        MP.GAME.prevent_eval = false
+    end
+    return old_update(self, ...)
+end
+
 --#endregion
