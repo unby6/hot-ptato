@@ -4867,36 +4867,42 @@ end
 local hpot_event_get_random_combat_reward = function(domain, seed)
 	-- TODO: localize these
 	local combat_rewards = {
-		{ jokers = { { rarity = "Common" } },                                           text = "A random Common Joker (Doesn't need room)" },
-		{ jokers = { { rarity = "Uncommon", need_room = true } },                       text = "A random Uncommon Joker (Must have room)" },
-		{ consumables = { { set = "Tarot", need_room = true, amount = 2 } },            text = "Up to 2 random Tarot cards (Must have room)" },
-		{ consumables = { { set = "Planet", need_room = true, amount = 2 } },           text = "Up to 2 random Planet cards (Must have room)" },
-		{ consumables = { { set = "bottlecap_Common", need_room = true, amount = 2 } }, text = "Up to 2 random Common Bottlecaps (Must have room)" },
-		{ consumables = { { set = "bottlecap_Uncommon", need_room = true } },           text = "1 random Uncommon Bottlecap (Must have room)" },
-		{ consumables = { { set = "Czech", need_room = true } },                        text = "1 random Cheque card (Must have room)" },
-		{ consumables = { { set = "Hanafuda", need_room = true, amount = 2 } },         text = "Up to 2 random Hanafuda cards (Must have room)" },
-		{ tags = { random_amount = 2 },                                                 text = "2 random Tags" },
-		{ tags = { keys = { "tag_double" } },                                           text = "A Double Tag" },
-		{ dollars = 4,                                                                  text = "$4" },
-		{ credits = 30,                                                                 text = "30 credits" },
-		{ sparkle = 35000,                                                              text = "35000 Jicks" },
-		{ crypto = 0.5,                                                                 text = "0.5 Cryptocurrency" },
+		{ jokers = { { rarity = "Common" } },                                           },
+		{ jokers = { { rarity = "Uncommon", need_room = true } },                       },
+		{ consumables = { { set = "Tarot", need_room = true, amount = 2 } },            },
+		{ consumables = { { set = "Planet", need_room = true, amount = 2 } },           },
+		{ consumables = { { set = "bottlecap_Common", need_room = true, amount = 2 } }, },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true } },           },
+		{ consumables = { { set = "Czech", need_room = true } },                        },
+		{ consumables = { { set = "Hanafuda", need_room = true, amount = 2 } },         },
+		{ tags = { random_amount = 2 },                                                 },
+		{ tags = { keys = { "tag_double" } },                                           },
+		{ dollars = 4,                                                                  },
+		{ credits = 30,                                                                 },
+		{ sparkle = 35000,                                                              },
+		{ crypto = 0.5,                                                                 },
 	}
+	for k, v in ipairs(G.localization.misc.CombatEventRewards.generic) do
+		if combat_rewards[k] then combat_rewards[k].text = v end
+	end
 
 	local encounter_rewards = {
-		{ jokers = { { rarity = "Uncommon" } },                                           text = "A random Uncommon Joker (Doesn't need room)" },
-		{ jokers = { { rarity = "Rare", need_room = true } },                             text = "A random Rare Joker (Must have room)" },
-		{ consumables = { { set = "Spectral", need_room = true, amount = 2 } },           text = "1 random Spectral card (Must have room)" },
-		{ consumables = { { set = "bottlecap_Uncommon", need_room = true, amount = 2 } }, text = "Up to 2 random Uncommon Bottlecaps (Must have room)" },
-		{ consumables = { { set = "bottlecap_Rare", need_room = true } },                 text = "1 random Rare Bottlecap (Must have room)" },
-		{ consumables = { { set = "Czech", need_room = true, amount = 2 } },              text = "Up to 2 random Cheque cards (Must have room)" },
-		{ tags = { random_amount = 5 },                                                   text = "5 random Tags" },
-		{ tags = { keys = { "tag_double", "tag_double" } },                               text = "2 Double Tags" },
-		{ dollars = 8,                                                                    text = "$8" },
-		{ credits = 85,                                                                   text = "85 credits" },
-		{ sparkle = 75000,                                                                text = "75000 Jicks" },
-		{ crypto = 2,                                                                     text = "2 Cryptocurrency" },
+		{ jokers = { { rarity = "Uncommon" } },                                           },
+		{ jokers = { { rarity = "Rare", need_room = true } },                             },
+		{ consumables = { { set = "Spectral", need_room = true, amount = 2 } },           },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true, amount = 2 } }, },
+		{ consumables = { { set = "bottlecap_Rare", need_room = true } },                 },
+		{ consumables = { { set = "Czech", need_room = true, amount = 2 } },              },
+		{ tags = { random_amount = 5 },                                                   },
+		{ tags = { keys = { "tag_double", "tag_double" } },                               },
+		{ dollars = 8,                                                                    },
+		{ credits = 85,                                                                   },
+		{ sparkle = 75000,                                                                },
+		{ crypto = 2,                                                                     },
 	}
+	for k, v in ipairs(G.localization.misc.EncounterEventRewards.generic) do
+		if encounter_rewards[k] then encounter_rewards[k].text = v end
+	end
 
 	local _handname, _played = 'High Card', -1
 	for hand_key, hand in pairs(G.GAME.hands) do
