@@ -1104,9 +1104,10 @@ jd_def["j_hpot_OAP"] = { -- Oops! A Programmer
                 if #aces > 0 and #threes > 0 then
                     for _, ace in ipairs(aces) do
                         for _, three in ipairs(threes) do
-                            if ace.base.suit ~= three.base.suit
-                                and not SMODS.has_enhancement(ace, 'm_wild')
-                                and not SMODS.has_enhancement(three, 'm_wild') then
+                            if SMODS.has_no_suit(ace) or SMODS.has_no_suit(three) or
+                                (ace.base.suit ~= three.base.suit
+                                    and not SMODS.has_any_suit(ace)
+                                    and not SMODS.has_any_suit(three)) then
                                 xmult = card.ability.th30ne_effect.xmult
                                 break
                             end

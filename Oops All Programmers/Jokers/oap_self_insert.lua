@@ -61,7 +61,8 @@ SMODS.Joker {
 
         if card.ability.extra.effect == 'th30ne' then vars = { card.ability.th30ne_effect.xmult } end
         if card.ability.extra.effect == 'wix' then vars = { card.ability.wix_effect.xchips } end
-        if card.ability.extra.effect == 'sadcube' then vars = { card.ability.sadcube_effect.modifiers, card.ability.sadcube_effect.multiplier, card.ability.sadcube_effect.gain } end
+        if card.ability.extra.effect == 'sadcube' then vars = { card.ability.sadcube_effect.modifiers, card.ability
+                .sadcube_effect.multiplier, card.ability.sadcube_effect.gain } end
         if card.ability.extra.effect == 'myst' then vars = { card.ability.myst_effect.x_mult } end
 
         return {
@@ -84,9 +85,10 @@ SMODS.Joker {
             if #aces > 0 and #threes > 0 then
                 for _, ace in ipairs(aces) do
                     for _, three in ipairs(threes) do
-                        if ace.base.suit ~= three.base.suit
-                            and not SMODS.has_enhancement(ace, 'm_wild')
-                            and not SMODS.has_enhancement(three, 'm_wild') then
+                        if SMODS.has_no_suit(ace) or SMODS.has_no_suit(three) or
+                            (ace.base.suit ~= three.base.suit
+                                and not SMODS.has_any_suit(ace)
+                                and not SMODS.has_any_suit(three)) then
                             return {
                                 xmult = card.ability.th30ne_effect.xmult
                             }
@@ -154,7 +156,7 @@ SMODS.Joker {
         if card.ability.extra.effect == "wix" and context.individual and context.cardarea == G.play and context.other_card:get_id() == 12 then
             return {
                 xchips = card.ability.wix_effect.xchips,
-                xchip_message = { message = localize{type='variable',key='a_xchips',vars={card.ability.wix_effect.xchips}}, sound = "hpot_forgiveness", volume = 0.5, colour = G.C.CHIPS }
+                xchip_message = { message = localize { type = 'variable', key = 'a_xchips', vars = { card.ability.wix_effect.xchips } }, sound = "hpot_forgiveness", volume = 0.5, colour = G.C.CHIPS }
             }
         end
 
@@ -184,11 +186,11 @@ SMODS.Joker {
         if card.ability.extra.effect == "myst" then
             if G.STATE == G.STATES.HAND_PLAYED and context.modify_scoring_hand and not context.blueprint then
                 for _, _card in ipairs(context.scoring_hand) do
-                    if _card == context.other_card or SMODS.always_scores(context.other_card) or next(find_joker('Splash')) then 
+                    if _card == context.other_card or SMODS.always_scores(context.other_card) or next(find_joker('Splash')) then
                         if not _card.ability.oap_myst_activated or not _card.ability.oap_myst_activated[card.sort_id] then
                             _card.ability.oap_myst_activated = _card.ability.oap_myst_activated or {}
                             _card.ability.oap_myst_activated[card.sort_id or card.quantum and card.quantum.sort_id] = true
-                            
+
                             if not _card:is_face() then
                                 card.ability.myst_effect.count = card.ability.myst_effect.count + 1
                                 card:juice_up()
@@ -225,7 +227,8 @@ SMODS.Joker {
         -- trif
         if card.ability.extra.effect == "trif" then
             if context.before and #context.full_hand == 5 then
-                local chosen = pseudorandom_element({"enhancement", "edition", "seal", "modification"}, "oap_trif_effect")
+                local chosen = pseudorandom_element({ "enhancement", "edition", "seal", "modification" },
+                    "oap_trif_effect")
                 local _card = pseudorandom_element(context.full_hand, "oap_trif_card")
 
                 if chosen == "enhancement" then
@@ -241,7 +244,7 @@ SMODS.Joker {
                     }))
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            _card:set_ability(SMODS.poll_enhancement({key="oap_trif", guaranteed=true}))
+                            _card:set_ability(SMODS.poll_enhancement({ key = "oap_trif", guaranteed = true }))
                             return true
                         end
                     }))
@@ -304,7 +307,7 @@ SMODS.Joker {
                         trigger = 'after',
                         delay = 0.1,
                         func = function()
-                            _card:set_seal(SMODS.poll_seal({key="oap_trif", guaranteed=true}), nil, true)
+                            _card:set_seal(SMODS.poll_seal({ key = "oap_trif", guaranteed = true }), nil, true)
                             return true
                         end
                     }))
@@ -330,7 +333,7 @@ SMODS.Joker {
                             func = function()
                                 v:flip()
                                 card:juice_up(0.3, 0.3)
-                                play_sound('card1', 0.15);v:juice_up(0.3, 0.3)
+                                play_sound('card1', 0.15); v:juice_up(0.3, 0.3)
                                 return true
                             end
                         })
