@@ -637,7 +637,8 @@ return {
                 ['name'] = 'Duplicate',
                 ['text'] = {
                     [1] = "{C:attention}Duplicate{} a random Joker",
-                    [2] = "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)"
+                    [2] = "{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)",
+                    [3] = "{C:inactive}(Must have room)",
                 }
             },
             c_hpot_cap_modif = {
