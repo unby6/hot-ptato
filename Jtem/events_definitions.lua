@@ -4809,9 +4809,6 @@ HotPotato.CombatEvents.generic = {
 }
 
 local hpot_event_get_random_boss = function(seed)
-	if true then
-		return "bl_needle"
-	end
 	local eligible_bosses = {}
 	for k, v in pairs(G.P_BLINDS) do
 		local res, options = SMODS.add_to_pool(v)
