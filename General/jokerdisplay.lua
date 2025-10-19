@@ -1155,15 +1155,43 @@ jd_def["j_hpot_OAP"] = { -- Oops! A Programmer
 }
 
 jd_def["j_hpot_ouroboros"] = { -- Ouroboros
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+            },
+        }
+    },
 }
 
 jd_def["j_hpot_paper_jam"] = { -- Paper Jam
     -- Definition left intentionally empty
 }
 
-jd_def["j_hpot_pump_and_dump"] = { -- Pump And Dump
-
+jd_def["j_hpot_pump_and_dump"] = {                                    -- Pump And Dump
+    text = {
+        { text = "+$",                      font = "hpot_plincoin" }, -- TODO: Fix font
+        { ref_table = "card.ability.extra", ref_value = "crypto" },
+    },
+    text_config = { colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+            { text = "X0",                             colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } }
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_pump_and_dump')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 jd_def["j_hpot_sonloaf"] = { -- Son Loaf
@@ -1171,11 +1199,28 @@ jd_def["j_hpot_sonloaf"] = { -- Son Loaf
 }
 
 jd_def["j_hpot_tori_gate"] = { -- Tori Gate
-
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        card.joker_display_values.chips = card.ability.extra.chips *
+            ((G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Hanafuda or 0) + card.ability.extra.joy_hanafuda_count)
+    end
 }
 
 jd_def["j_hpot_trolley_operator"] = { -- Trolley Operator
-
+    text = {
+        { text = "+$" },
+        { ref_table = "card.joker_display_values", ref_value = "dollars", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.GOLD },
+    calc_function = function(card)
+        local in_play = not not next(G.play.cards)
+        card.joker_display_values.dollars = ((#G.hand.cards - (in_play and 0 or #JokerDisplay.current_hand)) == 5) and
+            card.ability.extra.money or 0
+    end
 }
 
 jd_def["j_hpot_undying"] = { -- Jimbo The Undying
