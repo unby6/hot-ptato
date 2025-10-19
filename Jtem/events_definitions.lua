@@ -4547,7 +4547,7 @@ HotPotato.CombatEvents.generic = {
 					end
 					if effect.set_to_zero.credits then
 						HPTN.ease_credits(
-						math.min(0, G.GAME.seeded and -G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits),
+							math.min(0, G.GAME.seeded and -G.GAME.budget or -G.PROFILES[G.SETTINGS.profile].TNameCredits),
 							true)
 					end
 					if effect.set_to_zero.sparkle then
@@ -4621,14 +4621,14 @@ HotPotato.CombatEvents.generic = {
 			end
 		end
 
-        if reward.tags then
+		if reward.tags then
 			G.GAME.orbital_choices = G.GAME.orbital_choices or {}
 			G.GAME.orbital_choices[G.GAME.round_resets.ante] = G.GAME.orbital_choices[G.GAME.round_resets.ante] or {}
 
-			if not G.GAME.orbital_choices[G.GAME.round_resets.ante]['Small'] then 
+			if not G.GAME.orbital_choices[G.GAME.round_resets.ante]['Small'] then
 				local _poker_hands = {}
 				for k, v in pairs(G.GAME.hands) do
-					if SMODS.is_poker_hand_visible(k) then _poker_hands[#_poker_hands+1] = k end
+					if SMODS.is_poker_hand_visible(k) then _poker_hands[#_poker_hands + 1] = k end
 				end
 
 				G.GAME.orbital_choices[G.GAME.round_resets.ante]['Small'] = pseudorandom_element(_poker_hands, 'orbital')
@@ -4867,38 +4867,38 @@ end
 local hpot_event_get_random_combat_reward = function(domain, seed)
 	-- TODO: localize these
 	local combat_rewards = {
-		{ jokers = { { rarity = "Common" } },                                           },
-		{ jokers = { { rarity = "Uncommon", need_room = true } },                       },
-		{ consumables = { { set = "Tarot", need_room = true, amount = 2 } },            },
-		{ consumables = { { set = "Planet", need_room = true, amount = 2 } },           },
+		{ jokers = { { rarity = "Common" } }, },
+		{ jokers = { { rarity = "Uncommon", need_room = true } }, },
+		{ consumables = { { set = "Tarot", need_room = true, amount = 2 } }, },
+		{ consumables = { { set = "Planet", need_room = true, amount = 2 } }, },
 		{ consumables = { { set = "bottlecap_Common", need_room = true, amount = 2 } }, },
-		{ consumables = { { set = "bottlecap_Uncommon", need_room = true } },           },
-		{ consumables = { { set = "Czech", need_room = true } },                        },
-		{ consumables = { { set = "Hanafuda", need_room = true, amount = 2 } },         },
-		{ tags = { random_amount = 2 },                                                 },
-		{ tags = { keys = { "tag_double" } },                                           },
-		{ dollars = 4,                                                                  },
-		{ credits = 30,                                                                 },
-		{ sparkle = 35000,                                                              },
-		{ crypto = 0.5,                                                                 },
+		{ consumables = { { set = "bottlecap_Uncommon", need_room = true } }, },
+		{ consumables = { { set = "Czech", need_room = true } }, },
+		{ consumables = { { set = "Hanafuda", need_room = true, amount = 2 } }, },
+		{ tags = { random_amount = 2 }, },
+		{ tags = { keys = { "tag_double" } }, },
+		{ dollars = 4, },
+		{ credits = 30, },
+		{ sparkle = 35000, },
+		{ crypto = 0.5, },
 	}
 	for k, v in ipairs(G.localization.misc.CombatEventRewards.generic) do
 		if combat_rewards[k] then combat_rewards[k].text = v end
 	end
 
 	local encounter_rewards = {
-		{ jokers = { { rarity = "Uncommon" } },                                           },
-		{ jokers = { { rarity = "Rare", need_room = true } },                             },
-		{ consumables = { { set = "Spectral", need_room = true, amount = 2 } },           },
+		{ jokers = { { rarity = "Uncommon" } }, },
+		{ jokers = { { rarity = "Rare", need_room = true } }, },
+		{ consumables = { { set = "Spectral", need_room = true, amount = 2 } }, },
 		{ consumables = { { set = "bottlecap_Uncommon", need_room = true, amount = 2 } }, },
-		{ consumables = { { set = "bottlecap_Rare", need_room = true } },                 },
-		{ consumables = { { set = "Czech", need_room = true, amount = 2 } },              },
-		{ tags = { random_amount = 5 },                                                   },
-		{ tags = { keys = { "tag_double", "tag_double" } },                               },
-		{ dollars = 8,                                                                    },
-		{ credits = 85,                                                                   },
-		{ sparkle = 75000,                                                                },
-		{ crypto = 2,                                                                     },
+		{ consumables = { { set = "bottlecap_Rare", need_room = true } }, },
+		{ consumables = { { set = "Czech", need_room = true, amount = 2 } }, },
+		{ tags = { random_amount = 5 }, },
+		{ tags = { keys = { "tag_double", "tag_double" } }, },
+		{ dollars = 8, },
+		{ credits = 85, },
+		{ sparkle = 75000, },
+		{ crypto = 2, },
 	}
 	for k, v in ipairs(G.localization.misc.EncounterEventRewards.generic) do
 		if encounter_rewards[k] then encounter_rewards[k].text = v end
@@ -5342,7 +5342,7 @@ HotPotato.EventStep {
 			end
 		end
 		if aces > 0 then
-			for i=1, aces do
+			for i = 1, aces do
 				if count <= 11 then count = count + 10 else break end
 			end
 		end
@@ -5370,7 +5370,7 @@ HotPotato.EventStep {
 			end
 		end
 		if aces > 0 then
-			for i=1, aces do
+			for i = 1, aces do
 				if count <= 11 then count = count + 10 else break end
 			end
 		end
@@ -6180,6 +6180,16 @@ HotPotato.jokersthatcanspellkrisorliterallyarekris = {
 	"j_hpot_sticker_dealer"
 }
 
+local function hotpot_joker_is_kris(label)
+	local tbl = HotPotato.jokersthatcanspellkrisorliterallyarekris
+	if not tbl then return false end
+	if tbl[label] ~= nil then return tbl[label] end
+	for _, v in ipairs(tbl) do
+		if v == label then return true end
+	end
+	return false
+end
+
 local drawhook = love.draw
 function love.draw()
 	drawhook()
@@ -6284,7 +6294,7 @@ HotPotato.EventStep {
 				blocking = false,
 				func = (function()
 					for _, j in ipairs(G.jokers.cards) do
-						if not HotPotato.jokersthatcanspellkrisorliterallyarekris[j.label] then
+						if not hotpot_joker_is_kris(j.label) then
 							SMODS.debuff_card(j, true, "swoon")
 						end
 					end
@@ -6296,7 +6306,7 @@ HotPotato.EventStep {
 	finish = function(self, event)
 		ease_background_colour_blind(G.STATE, 'Small Blind')
 		G.SETTINGS.SOUND.music_volume = HotPotato.vol
-		check_for_unlock({type = 'swoon'})
+		check_for_unlock({ type = 'swoon' })
 	end
 }
 --#endregion
