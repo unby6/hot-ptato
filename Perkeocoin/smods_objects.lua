@@ -474,7 +474,7 @@ SMODS.Joker{ --Free To Use
     },
 
     loc_vars = function(self, info_queue, card)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'wheel_of_plinko')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, 'free_to_use')
         return {vars = {card.ability.extra.reps, new_numerator, new_denominator}}
     end,
 
