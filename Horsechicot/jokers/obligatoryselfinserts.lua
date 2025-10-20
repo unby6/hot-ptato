@@ -19,7 +19,7 @@ SMODS.Joker {
     end,
     config = {
         extra = {
-            xmult_per_self_insert = 1.5,
+            xmult_per_self_insert = 2.5,
         }
     },
     calculate = function(self, card, context)
