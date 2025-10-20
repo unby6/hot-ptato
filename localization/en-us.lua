@@ -1099,10 +1099,11 @@ return {
             j_hpot_nxkoodead = {
                 name = "Nxkoo found dead",
                 text = {
-                    "For every {C:attention}#1#{} Nxkoo's killed",
+                    "For every {C:attention}#1#{} Nxkoo killed",
                     "this Joker gains {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Max of {X:mult,C:white}X15{C:inactive} Mult)",
-                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
+                    "{C:inactive,S:0.6}(Check mod config){}"
                 }
             },
             j_hpot_retriggered = {
@@ -1452,10 +1453,9 @@ return {
             j_hpot_nxkoo_joker = {
                 name = "Halo",
                 text = {
-                    "Change the base of",
-                    "the requirement scaling for",
+                    "Decrease scaling for",
                     "{C:chips}Nxkoo unkill{}",
-                    "from {X:dark_edition,C:white}15{} to {X:dark_edition,C:white}10{}",
+                    "{C:inactive,S:0.6}(Check mod config){}"
                 }
             },
             j_hpot_graveyard = {

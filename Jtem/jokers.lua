@@ -561,7 +561,7 @@ SMODS.Joker {
     pos = { x = 4, y = 2 },
     cost = 6,
     rarity = 2,
-    blueprint_compat = true,
+    blueprint_compat = false,
     calc_training_mul = function(self, card, joker, mult, stat)
         return mult * 2
     end,
@@ -687,7 +687,7 @@ SMODS.Joker {
     soul_pos = { x = 1, y = 0 },
     rarity = 4,
     cost = 20,
-    blueprint_compat = true,
+    blueprint_compat = false,
     calc_training_mul = function(self, card, joker, mult, stat)
         return mult * 4
     end,
