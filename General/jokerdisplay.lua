@@ -1225,7 +1225,14 @@ jd_def["j_hpot_trolley_operator"] = { -- Trolley Operator
 }
 
 jd_def["j_hpot_undying"] = { -- Jimbo The Undying
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+            },
+        }
+    },
 }
 
 jd_def["j_hpot_wumpus"] = { -- Wumpus
@@ -1233,39 +1240,116 @@ jd_def["j_hpot_wumpus"] = { -- Wumpus
 }
 
 jd_def["j_hpot_fortnite"] = { -- 19 Plincoin Fortnite Card
-
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "bosses", colour = G.C.FILTER },
+        { text = "/" },
+        { text = "3",                       colour = G.C.FILTER },
+        { text = ")" },
+    },
 }
 
 jd_def["j_hpot_plink"] = { -- Plink
-
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+    calc_function = function(card)
+        card.joker_display_values.mult = card.ability.extra.mult * G.GAME.balls_dropped
+    end
 }
 
 jd_def["j_hpot_metal_detector"] = { -- Metal Detector
-
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "skipped", colour = G.C.FILTER },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "needs",   colour = G.C.FILTER },
+        { text = ")" },
+    },
 }
 
 jd_def["j_hpot_tribcoin"] = { -- Tribcoin
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
+    calc_function = function(card)
+        card.joker_display_values.xmult = 1 + math.max(0, G.GAME.plincoins * card.ability.extra.Xmult)
+    end
 }
 
 jd_def["j_hpot_adspace"] = { -- Adspace
-
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        card.joker_display_values.chips = card.ability.extra.chips * #G.GAME.hotpot_ads
+    end
 }
 
 jd_def["j_hpot_kitchen_gun"] = { -- Kitchen Gun
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'hpot_kitchen_gun')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 jd_def["j_hpot_tv_dinner"] = { -- TV Dinner
-
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
 }
 
 jd_def["j_hpot_free_to_use"] = { -- Free To Use
-
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den,
+            'free_to_use')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 jd_def["j_hpot_direct_deposit"] = { -- Direct Deposit
-
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "so_far",  colour = G.C.FILTER },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "dollars", colour = G.C.FILTER },
+        { text = ")" },
+    },
 }
 
 jd_def["j_hpot_bank_teller"] = { -- Bank Teller
@@ -1273,19 +1357,49 @@ jd_def["j_hpot_bank_teller"] = { -- Bank Teller
 }
 
 jd_def["j_hpot_balatro_premium"] = { -- Balatro **PREMIUM**
-
+    text = {
+        { text = "-$" },
+        { ref_table = "card.ability.extra", ref_value = "dollars" },
+    },
+    text_config = { colour = G.C.GOLD },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+    end
 }
 
 jd_def["j_hpot_skimming"] = { -- Skimming
-
+    text = {
+        { text = "+$" },
+        { ref_table = "card.ability.extra", ref_value = "dollars" },
+    },
+    text_config = { colour = G.C.GOLD },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+    end
 }
 
 jd_def["j_hpot_recycling"] = { -- Recycling
     -- Definition left intentionally empty
 }
 
-jd_def["j_hpot_dont_touch_that_dial"] = { -- Don't Touch That Dial!
-
+jd_def["j_hpot_dont_touch_that_dial"] = {                               -- Don't Touch That Dial!
+    text = {
+        { text = "+$",                        font = "hpot_plincoin" }, -- TODO: Fix font
+        { ref_table = "G.GAME.current_round", ref_value = "discards_left" },
+    },
+    text_config = { colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+    end
 }
 
 jd_def["j_hpot_tipping_point"] = { -- Tipping Point
@@ -1305,11 +1419,39 @@ jd_def["j_hpot_minimum_prize_guarantee"] = { -- Minimum Prize Guarantee
 }
 
 jd_def["j_hpot_kindergarten"] = { -- Kindergarten
-
+    mod_function = function(card, mod_joker)
+        return {
+            x_mult = card.ability.is_nursery_smalled and
+                mod_joker.ability.extra.xmult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil
+        }
+    end
 }
 
 jd_def["j_hpot_social_credit"] = { -- Social Credit
-
+    text = {
+        { ref_table = "card.joker_display_values", ref_value = "sign" },
+        { text = "c.", },
+        { ref_table = "card.joker_display_values", ref_value = "credits" },
+    },
+    text_config = { colour = G.C.PURPLE },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    extra = {
+        {
+            { text = "(", },
+            { ref_table = "card.ability.extra", ref_value = "social_credit", colour = G.C.RED },
+            { text = ")", },
+        }
+    },
+    extra_config = { scale = 0.35 },
+    calc_function = function(card)
+        card.joker_display_values.credits = card.ability.extra.credit_gain *
+            math.floor(card.ability.extra.social_credit / card.ability.extra.conversion_rate)
+        card.joker_display_values.sign = card.joker_display_values.credits >= 0 and "+" or "-"
+        card.joker_display_values.credits = math.abs(card.joker_display_values.credits)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+    end
 }
 
 jd_def["j_hpot_togore"] = { -- Togore
@@ -1321,7 +1463,11 @@ jd_def["j_hpot_goblin_tinkerer"] = { -- Goblin Tinkerer
 }
 
 jd_def["j_hpot_vremade_joker"] = { -- vremade_Joker
-
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT }
 }
 
 jd_def["j_hpot_smods"] = { -- SMODS
@@ -1329,15 +1475,42 @@ jd_def["j_hpot_smods"] = { -- SMODS
 }
 
 jd_def["j_hpot_red_deck_joker"] = { -- Red Deck Joker
-
+    reminder_text = {
+        { text = "(" },
+        { text = "+",                              colour = G.C.RED },
+        { ref_table = "card.joker_display_values", ref_value = "discards", colour = G.C.RED },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.discards = card.ability.extra.discards *
+            (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+    end
 }
 
 jd_def["j_hpot_blue_deck_joker"] = { -- Blue Deck Joker
-
+    reminder_text = {
+        { text = "(" },
+        { text = "+",                              colour = G.C.BLUE },
+        { ref_table = "card.joker_display_values", ref_value = "hands", colour = G.C.BLUE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.hands = card.ability.extra.hands *
+            (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+    end
 }
 
 jd_def["j_hpot_yellow_deck_joker"] = { -- Yellow Deck Joker
-
+    reminder_text = {
+        { text = "(" },
+        { text = "+$",                             colour = G.C.GOLD },
+        { ref_table = "card.joker_display_values", ref_value = "hands", colour = G.C.GOLD },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.hands = card.ability.extra.dollars *
+            (math.floor((G.playing_cards and #G.playing_cards or 1) / card.ability.extra.cards_req))
+    end
 }
 
 jd_def["j_hpot_polymorph"] = { -- Polymorphine
@@ -1345,31 +1518,74 @@ jd_def["j_hpot_polymorph"] = { -- Polymorphine
 }
 
 jd_def["j_hpot_golden_apple"] = { -- Golden Apple
-
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "uses_left", colour = G.C.FILTER },
+        { text = "/" },
+        { text = "5",                       colour = G.C.FILTER },
+        { text = ")" },
+    },
 }
 
 jd_def["j_hpot_hangman"] = { -- Hangman
-
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "n_seen",  colour = G.C.FILTER },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "n_ranks", colour = G.C.FILTER },
+        { text = ")" },
+    },
 }
 
-jd_def["j_hpot_jade"] = { -- Jade Joker
-
+jd_def["j_hpot_jade"] = {                                             -- Jade Joker
+    text = {
+        { text = "+$",                      font = "hpot_plincoin" }, -- TODO: Fix font
+        { ref_table = "card.ability.extra", ref_value = "coins" },
+    },
+    text_config = { colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+    end
 }
 
 jd_def["j_hpot_joker_forge"] = { -- Joker Forge
     -- Definition left intentionally empty
 }
 
-jd_def["j_hpot_login_bonus"] = { -- Login Bonus
-
+jd_def["j_hpot_login_bonus"] = {                                                                                                                  -- Login Bonus
+    text = {
+        { text = "+$",                             font = "hpot_plincoin", colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } }, -- TODO: Fix font
+        { ref_table = "card.joker_display_values", ref_value = "coins",    colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } },
+        { text = " +$",                            colour = G.C.GOLD },
+        { ref_table = "card.joker_display_values", ref_value = "dollars",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+        local cycle = card.ability.extra.current_cycle + 1
+        card.joker_display_values.coins = card.ability.extra.rewards[cycle].plincoins
+        card.joker_display_values.dollars = card.ability.extra.rewards[cycle].dollars
+    end
 }
 
 jd_def["j_hpot_magic_factory"] = { -- Magic Factory
-
+    -- Definition left intentionally empty
 }
 
 jd_def["j_hpot_slop"] = { -- TV Slop
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
 }
 
 jd_def["j_hpot_wizard_tower"] = { -- Wizard Tower
@@ -1377,27 +1593,112 @@ jd_def["j_hpot_wizard_tower"] = { -- Wizard Tower
 }
 
 jd_def["j_hpot_emoticon"] = { -- Emoticon
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
+    calc_function = function(card)
+        local xmult = 1
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if scoring_card:is_face(false, { ignore_emoticon = true }) then
+                    xmult = xmult *
+                        (card.ability.extra.x_mult ^
+                            JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
+                end
+            end
+        end
+        card.joker_display_values.xmult = xmult
+    end
 }
 
 jd_def["j_hpot_faceblindness"] = { -- Face Blindness
-    -- Definition left intentionally empty
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, card.ability.extra.numerator,
+            card.ability.extra.denominator, 'faceblindness')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end
 }
 
 jd_def["j_hpot_ifstatements"] = { -- 1000000 If Statements
     -- Definition left intentionally empty
 }
 
-jd_def["j_hpot_plinkodemayo"] = { -- Plinko de Mayo
-
+jd_def["j_hpot_plinkodemayo"] = {                                            -- Plinko de Mayo
+    text = {
+        { text = "+$",                             font = "hpot_plincoin" }, -- TODO: Fix font
+        { ref_table = "card.joker_display_values", ref_value = "coins",   retrigger_type = 'mult' },
+    },
+    text_config = { colour = { ref_table = SMODS.Gradients, ref_value = "hpot_advert" } },
+    calc_function = function(card)
+        local coins = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if scoring_card:get_id() == 5 then
+                    coins = coins +
+                        (card.ability.extra.plincoins *
+                            JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
+                end
+            end
+        end
+        card.joker_display_values.coins = coins
+    end
 }
 
 jd_def["j_hpot_potatosmileys"] = { -- Potato Smileys
-
+    text = {
+        { text = "+", },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = 'mult' },
+    },
+    text_config = { colour = G.C.MULT },
+    calc_function = function(card)
+        local mult = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, scoring_card in pairs(scoring_hand) do
+                if scoring_card:is_face() then
+                    mult = mult +
+                        (card.ability.extra.mult *
+                            JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand))
+                end
+            end
+        end
+        card.joker_display_values.mult = mult
+    end
 }
 
 jd_def["j_hpot_upsidedownsmiley"] = { -- Upside-down Smiley Face
-
+    text = {
+        { text = "+", },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = 'mult' },
+    },
+    text_config = { colour = G.C.MULT },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        local count = 0
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card:is_face() then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
+            end
+        end
+        card.joker_display_values.mult = card.ability.extra.mult * count
+    end
 }
 
 jd_def["j_hpot_nxkoo_joker"] = { -- Halo
@@ -1417,11 +1718,18 @@ jd_def["j_hpot_grand_spectral"] = { -- Grand Spectral
 }
 
 jd_def["j_hpot_grand_brachial"] = { -- Grand Brachial
-
+    -- TODO: If someone wants to figure out double blueprint with jokerdisplay go ahead
 }
 
 jd_def["j_hpot_grand_chocolatier"] = { -- Grand Chocolatier
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
 }
 
 jd_def["j_hpot_aries_card"] = { -- Aries Card
@@ -1429,43 +1737,249 @@ jd_def["j_hpot_aries_card"] = { -- Aries Card
 }
 
 jd_def["j_hpot_tname_postcard"] = { -- Postcard
+    text = {
+        {
+            border_nodes = {
+                { ref_table = "card.joker_display_values", ref_value = "text" }
+            },
+        }
+    },
+    calc_function = function(card)
+        local members = { "Corobo", "GhostSalt", "GoldenLeaf", "Jogla", "Revo", "Violet" }
+        local current_member = members[G.GAME.current_team_name_member or 1]
+        card.joker_display_values.text = ""
+        local triggers = JokerDisplay.calculate_joker_triggers(card)
+        if current_member == 'Corobo' then
+            card.joker_display_values.text = "X" ..
+                JokerDisplay.number_format(card.ability.extra.functions.Corobo.a ^ triggers)
+        end
+        if current_member == 'GhostSalt' then
+            card.joker_display_values.text = "X" ..
+                JokerDisplay.number_format(card.ability.extra.functions.GhostSalt[1] ^ (#G.consumeables.cards * triggers))
+        end
+        if current_member == 'GoldenLeaf' then
+            card.joker_display_values.text = "+c." ..
+                JokerDisplay.number_format(card.ability.extra.functions.GoldenLeaf[1] * triggers)
+        end
+        if current_member == 'Jogla' then
+        end
+        if current_member == 'Revo' then
+        end
+        if current_member == 'Violet' then
+            local dollars = 0
+            local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+            if text ~= 'Unknown' then
+                for _, scoring_card in pairs(scoring_hand) do
+                    if scoring_card:is_suit("Spades") or scoring_card:is_suit("Hearts") then
+                        dollars = dollars +
+                            card.ability.extra.functions.Violet[1] *
+                            JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                    end
+                end
+            end
+            card.joker_display_values.text = "+$" ..
+                JokerDisplay.number_format(dollars * triggers)
+        end
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] and text.children[1].children[1] then
+            local border_config = text.children[1].config
+            local text_config = text.children[1].children[1].config
 
+            local members = { "Corobo", "GhostSalt", "GoldenLeaf", "Jogla", "Revo", "Violet" }
+            local current_member = members[G.GAME.current_team_name_member or 1]
+
+            if current_member == 'Corobo' or current_member == 'GhostSalt' then
+                border_config.colour = G.C.MULT
+                text_config.colour = G.C.UI.TEXT_LIGHT
+            end
+            if current_member == 'Violet' then
+                border_config.colour = G.C.CLEAR
+                text_config.colour = G.C.GOLD
+            end
+            if current_member == 'GoldenLeaf' then
+                border_config.colour = G.C.CLEAR
+                text_config.colour = G.C.PURPLE
+            end
+            if current_member == 'Jogla' or current_member == 'Revo' then
+                border_config.colour = G.C.CLEAR
+                text_config.colour = G.C.CLEAR
+            end
+            return true
+        end
+        return false
+    end,
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        local members = { "Corobo", "GhostSalt", "GoldenLeaf", "Jogla", "Revo", "Violet" }
+        local current_member = members[G.GAME.current_team_name_member or 1]
+        return (current_member == "Revo" and playing_card:is_suit("Spades")) and
+            joker_card.ability.extra.functions.Revo.rep * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
 }
 
 jd_def["j_hpot_jankman"] = { -- JankMan
-
+    text = {
+        {
+            border_nodes = {
+                { text = "x " },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" },
+                { text = "  m" },
+            },
+        }
+    },
+    calc_function = function(card)
+        local stickers = 0
+        for k, _ in pairs(SMODS.Stickers) do
+            if card.ability[k] == true then
+                stickers = stickers + 1
+            end
+        end
+        card.joker_display_values.xmult = card.ability.extra.xmult + card.ability.extra.xmultg * stickers
+    end
 }
 
 jd_def["j_hpot_sunset"] = { -- Sunset
-
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "add", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "active" },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local is_active = false
+        if card.ability.extra.availability then
+            for _, v in ipairs(JokerDisplay.current_hand) do
+                if v:is_suit(card.ability.extra.suit) then
+                    is_active = true
+                    break
+                end
+            end
+        end
+        card.joker_display_values.add = is_active and 1 or 0
+        card.joker_display_values.active = localize(card.ability.extra.availability and 'k_active' or "jdis_inactive")
+    end
 }
 
 jd_def["j_hpot_graveyard"] = { -- Graveyard
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" },
+            },
+        }
+    },
+    calc_function = function(card)
+        card.joker_display_values.xmult = card.ability.extra.xmult +
+            card.ability.extra.xmultg * card.ability.extra.destroyed
+    end
 }
 
 jd_def["j_hpot_sticker_master"] = { -- Sticker Master
-
+    text = {
+        { text = "+", },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = 'mult' },
+    },
+    text_config = { colour = G.C.MULT },
+    calc_function = function(card)
+        card.joker_display_values.mult = card.ability.extra.mult *
+            sticker_check(G.jokers.cards, nil, { "hpot_jtem_mood" })
+    end
 }
 
 jd_def["j_hpot_missing_texture"] = { -- Missing Texture
-
+    text = {
+        {
+            dynatext = {
+                string = (
+                    function()
+                        local r_mult = {}
+                        local jank = ""
+                        for i = -20, 45 do
+                            if i < 0 then
+                                jank = "- c."
+                            else
+                                jank = "+ c."
+                            end
+                            r_mult[#r_mult + 1] = jank .. math.abs(i)
+                        end
+                        return r_mult
+                    end
+                )(),
+                colours = { G.C.PURPLE },
+                pop_in_rate = 9999999,
+                silent = true,
+                random_element = true,
+                pop_delay = 0.5,
+                scale = 0.4,
+                min_cycle_time = 0
+            }
+        }
+    }
 }
 
 jd_def["j_hpot_power_plant"] = { -- Power Plant
-
+    text = {
+        { text = "+$" },
+        { ref_table = "card.joker_display_values", ref_value = "dollars" }
+    },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    text_config = { colour = G.C.GOLD },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+        card.joker_display_values.dollars = card.ability.extra.dollars *
+            sticker_check(add_tables({ G.jokers.cards, G.playing_cards }), "hpot_uranium")
+    end
 }
 
 jd_def["j_hpot_sticker_dealer"] = { -- Sticker Addict
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
 }
 
 jd_def["j_hpot_credits_ex"] = { -- Credits EX
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        },
+    },
+    reminder_text = {
+        { text = "+c.",                            colour = G.C.PURPLE },
+        { ref_table = "card.joker_display_values", ref_value = "credits",       colour = G.C.PURPLE },
+        { text = " " },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+        card.joker_display_values.credits = card.ability.extra.credits * card.ability.extra.hands
+    end
 }
 
 jd_def["j_hpot_leek"] = { -- Leek Hotpot
-
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            },
+        }
+    },
 }
 
 jd_def["j_hpot_aurae_joker"] = { -- Aurae Joker
