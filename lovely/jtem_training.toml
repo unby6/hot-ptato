@@ -12,7 +12,7 @@ pattern = "self.sell_cost = math.max(1, math.floor(self.cost/2)) + (self.ability
 payload = '''
 if self.ability and self.ability["hp_jtem_stats"] then
     local wits = self.ability["hp_jtem_stats"].wits or 0
-    if wits > 150 then
+    if to_number(wits) > 150 then
         self.sell_cost = self.sell_cost + math.max(1, math.floor(self.cost/2)) * (1 + (wits - 150) / 50)
     end
 end
