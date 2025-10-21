@@ -28,7 +28,7 @@ function Quantum:init(args, source)
     self.quantum = source
     self.children = setmetatable({quantum = source}, {
         __index = function(t, key)
-            return t.quantum.children[key]        
+            return rawget(t.quantum.children, key)
         end,
         __newindex = function(t, key, value)
             rawset(t.quantum.children, key, value)
@@ -154,6 +154,23 @@ SMODS.Rarity {
     badge_colour = G.C.HPOT_PINK,
 }
 
+function PissDrawer.quantum_calc_currency_bonus(bonus, card)
+    if not (card.ability.quantum_1 or card.ability.quantum_2) then return 0 end
+
+    bonus = bonus or "dollar"
+    local f = Card["calculate_"..bonus.."_bonus"]
+
+    if not f then return 0 end
+
+    local ret1 = f(card.ability.quantum_1)
+    local ret2 = f(card.ability.quantum_2)
+    if ret1 and ret2 and type(ret1) == 'number' and type(ret2) == 'number' then
+        ret1 = ret1 + ret2
+    end
+
+    return ret1 or ret2
+end
+
 SMODS.Joker {
     key = 'child',
     rarity = 'hpot_child',
@@ -210,13 +227,37 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        if card.ability.quantum_1 and card.ability.quantum_2 then
-            local ret1 = Card.calculate_dollar_bonus(card.ability.quantum_1)
-            local ret2 = Card.calculate_dollar_bonus(card.ability.quantum_2)
-            if ret1 and ret2 and type(ret1) == 'number' and type(ret2) == 'number' then
-                ret1 = ret1 + ret2
+        return PissDrawer.quantum_calc_currency_bonus("dollar", card)
+    end,
+    calc_plincoin_bonus = function(self, card)
+        return PissDrawer.quantum_calc_currency_bonus("plincoin", card)
+    end,
+    calc_crypto_bonus = function(self, card)
+        return PissDrawer.quantum_calc_currency_bonus("crypto", card)
+    end,
+    calc_spark_point_bonus = function(self, card)
+        return PissDrawer.quantum_calc_currency_bonus("spark_point", card)
+    end,
+    calc_credits_point_bonus = function(self, card)
+        return PissDrawer.quantum_calc_currency_bonus("credits", card)
+    end,
+    calc_scaling = function(self, card, other_card, scaling_value, scalar_value, args)
+        if other_card.ability.quantum_1 and other_card.ability.quantum_2 then
+            local center1 = other_card.ability.quantum_1.config.center
+            local center2 = other_card.ability.quantum_2.config.center
+            local ret, ret2 = {}, {}
+
+            if center1.calc_scaling and type(center1.calc_scaling) == "function" then
+                ret = center1:calc_scaling(card, other_card.ability.quantum_1, scaling_value, scalar_value, args)
             end
-            return ret1 or ret2
+            if center2.calc_scaling and type(center2.calc_scaling) == "function" then
+                ret2 = center2:calc_scaling(card, other_card.ability.quantum_2, scaling_value, scalar_value, args)
+            end
+
+            if ret then PissDrawer.replace_quantum(ret, other_card.ability.quantum_1, other_card) end
+            if ret2 then PissDrawer.replace_quantum(ret2, other_card.ability.quantum_2, other_card) end
+
+            return SMODS.merge_effects { ret or {}, ret2 or {} }
         end
     end,
     add_to_deck = function(self, card)

@@ -33,16 +33,14 @@ payload = """
 \tend
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         for _, _card in ipairs(area.cards) do
-            if _card.config.center.calc_crypto_bonus then
-                local ret = _card.config.center:calc_crypto_bonus(_card)
+            local ret = _card:calculate_crypto_bonus()
         
-                -- TARGET: calc_crypto_bonus per card
-                if ret then
-                    i = i+1
-                    add_round_eval_crypto({name='cryptocurrency', cryptocurrency = ret, bonus = true, pitch = pitch, card = _card})
-\t\t\t\t\tcrypto = crypto + ret
-                    pitch = pitch + 0.06
-                end
+            -- TARGET: calc_crypto_bonus per card
+            if ret then
+                i = i+1
+                add_round_eval_crypto({name='cryptocurrency', cryptocurrency = ret, bonus = true, pitch = pitch, card = _card})
+\t\t\t\tcrypto = crypto + ret
+                pitch = pitch + 0.06
             end
         end
     end
