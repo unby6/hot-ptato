@@ -89,13 +89,16 @@ end
 function get_stickers(center)
     local stickers = {}
     if center then
-        for k, v in pairs(SMODS.Sticker.obj_table) do
-            if k ~= "eternal" and k ~= "rental" and k ~= "perishable" and type(v.should_apply) == 'function' and v:should_apply(nil, center, nil, true) then
-                if pseudorandom("hpjtem_delivery_" .. k) < v.rate then
-                    local sticker_compatible = v.default_compat
-                    if sticker_compatible == nil then sticker_compatible = true end
-                    if center[k.."_compat"] ~= nil then sticker_compatible = center[k.."_compat"] end
-                    if sticker_compatible then stickers[#stickers + 1] = k end
+          for k, v in pairs(SMODS.Sticker.obj_table) do
+            local success, should_apply = pcall(v.should_apply, v, nil, center, nil, true)
+            if success then
+                if k ~= "eternal" and k ~= "rental" and k ~= "perishable" and type(v.should_apply) == 'function' and v:should_apply(nil, center, nil, true) then
+                    if pseudorandom("hpjtem_delivery_" .. k) < v.rate then
+                        local sticker_compatible = v.default_compat
+                        if sticker_compatible == nil then sticker_compatible = true end
+                        if center[k.."_compat"] ~= nil then sticker_compatible = center[k.."_compat"] end
+                        if sticker_compatible then stickers[#stickers + 1] = k end
+                    end
                 end
             end
         end  
