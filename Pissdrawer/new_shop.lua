@@ -169,7 +169,7 @@ function PissDrawer.Shop.currency_display()
             jank,
             not G.GAME.modifiers.hpot_plinko_4ever and {
                n=G.UIT.C,
-                config = { align = 'cm', minh = 0.6, minw = 0.6, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', func = 'can_open_exchange', button_dist = 0.1 },
+                config = { align = 'cm', minh = 0.6, minw = 0.6, outline = 1, outline_colour = G.C.BLUE, colour = G.C.DYN_UI.BOSS_MAIN, r = 0.1, padding = 0.05, hover = true, button = 'open_exchange', func = 'can_open_exchange', button_dist = 0.1, shadow = true, shadow_height = 0.25 },
                 nodes = {
                     {n=G.UIT.O, config = { object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS['hpot_pissdrawer_shop_icons'], { x = 1, y = 0 }) } },
                 }
@@ -272,11 +272,15 @@ G.FUNCS.can_open_exchange = function(e)
     else
         e.config.button = "open_exchange"
     end
+    if not (PissDrawer.Shop.active_tab and PissDrawer.Shop.active_tab.exchange) then
+        e.config.outline_colour = G.C.BLUE
+    end
 end
 
 G.FUNCS.open_exchange = function(e)
     PissDrawer.Shop.active_tab = {exchange = e}
-    e.config.colour = lighten(G.C.DYN_UI.MAIN, 0.2)
+    e.config.colour = darken(G.C.BLUE, 0.2)
+    e.config.outline_colour = lighten(G.C.BLUE, 0.4)
     PissDrawer.Shop.change_shop_sign("hpot_pissdrawer_shop_sign_currency")
     PissDrawer.Shop.change_shop_panel(PissDrawer.Shop.currency_exchange)
 end
