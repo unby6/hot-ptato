@@ -454,6 +454,7 @@ HPTN.Modification({
 
 reset_hyper = function()
     for k, v in pairs(G.jokers.cards) do
+		if not v.ability.hpot_blunder then
         if v.ability["modif_hpot_hyper"] then
             if v.prevent_trigger then
                 v.prevent_trigger = nil
@@ -469,6 +470,7 @@ reset_hyper = function()
 			end
         end
     end
+end
 end
 
 HPTN.Modification({
