@@ -354,7 +354,7 @@ HPTN.Modification({
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.post_trigger and context.other_card == card then
+		if context.post_trigger and context.other_card == card and not context.other_context.mod_probability and not context.other_context.fix_probability then
 			if SMODS.pseudorandom_probability(card, "hpot_damaged", 1, 5) then
 				SMODS.destroy_cards(card)
 			end
