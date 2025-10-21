@@ -435,8 +435,8 @@ end
 -- probably shouldve made this a global function but whatever
 function HPTN.ease_credits(amount, instant)
     if not G.GAME.seeded then
-    amount = to_big(amount or 0)
-    if ExtraCredit and (amount > to_big(0)) then
+    amount = to_number(amount or 0)
+    if ExtraCredit and (amount > to_number(0)) then
         amount = amount * 3
     end
     local function _mod(mod) -- Taken from ease_plincoins()
@@ -444,12 +444,13 @@ function HPTN.ease_credits(amount, instant)
         mod = mod or 0
         local text = '+c.'
         local col = G.C.PURPLE
-        if to_big(mod) < to_big(0) then
+        if to_number(mod) < to_number(0) then
             text = '-c.'
             col = G.C.RED
         end
 
-        G.PROFILES[G.SETTINGS.profile].TNameCredits = G.PROFILES[G.SETTINGS.profile].TNameCredits + amount
+        if type(G.PROFILES[G.SETTINGS.profile].TNameCredits) == "table" then G.PROFILES[G.SETTINGS.profile].TNameCredits = 0 end
+        G.PROFILES[G.SETTINGS.profile].TNameCredits = to_number(G.PROFILES[G.SETTINGS.profile].TNameCredits + amount)
         G.GAME.credits_text = G.PROFILES[G.SETTINGS.profile].TNameCredits
 
             dollar_UI.config.object:update()
@@ -478,7 +479,7 @@ function HPTN.ease_credits(amount, instant)
                     })
                 end
                 --Play a chip sound
-                if amount > to_big(0) then
+                if amount > to_number(0) then
                     play_sound("hpot_tname_gaincred")
                 else
                     play_sound("hpot_tname_losecred")
@@ -501,8 +502,8 @@ function HPTN.ease_credits(amount, instant)
 
     G:save_progress()
 else
-    amount = to_big(amount or 0)
-    if ExtraCredit and (amount > to_big(0)) then
+    amount = to_number(amount or 0)
+    if ExtraCredit and (amount > to_number(0)) then
         amount = amount * 3
     end
     local function _mod(mod) -- Taken from ease_plincoins()
@@ -510,7 +511,7 @@ else
         mod = mod or 0
         local text = '+e.'
         local col = G.C.ORANGE
-        if to_big(mod) < to_big(0) then
+        if to_number(mod) < to_number(0) then
             text = '-e.'
             col = G.C.RED
         end
@@ -531,7 +532,7 @@ else
                     align = 'cm',
                 })
                 --Play a chip sound
-                if amount > to_big(0) then
+                if amount > to_number(0) then
                     play_sound("hpot_tname_gaincred")
                 else
                     play_sound("hpot_tname_losecred")
