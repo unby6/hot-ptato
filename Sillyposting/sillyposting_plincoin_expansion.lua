@@ -13,6 +13,13 @@ function Card:calculate_plincoin_bonus_delayed(dollars)
         return obj:calc_plincoin_bonus_delayed(self, dollars)
     end
 end
+function Card:calculate_crypto_bonus()
+    if not self:can_calculate() then return end
+    local obj = self.config.center
+    if obj.calc_crypto_bonus and type(obj.calc_crypto_bonus) == 'function' then
+        return obj:calc_crypto_bonus(self)
+    end
+end
 --#region Spark point stuff
 function Card:calculate_spark_point_bonus()
     if not self:can_calculate() then return end
