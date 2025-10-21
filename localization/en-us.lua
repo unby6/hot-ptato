@@ -4894,7 +4894,7 @@ return {
                             "to purchase an {C:attention}item{}",
                         },
                         {
-                            "You can also harvest {C:attention}Jokers{}",
+                            "You can also harvest a {C:attention}Joker{} in your posession",
                             "to earn {C:hpot_advert,f:hpot_plincoin}Cryptocurrency{}",
                             "{C:inactive}(Once per shop)"
                         },
@@ -4913,12 +4913,12 @@ return {
                             "Gacha Racing game about {C:attention}Anime Horse girls{}",
                         },
                         {
-                            "Select a Joker to begin {C:attention}Training{}",
+                            "Select a Joker and click {C:blue}TRAIN{} to begin {C:attention}Training{}",
                             "You can purchase {C:blue}Jicks{} in Currency Exchange",
                         },
                         {
-                            "{C:attention}Training Packs{} contain cards that can {C:attention}increase",
-                            "the respective stats of the Joker if {C:green}Successful{}",
+                            "{C:attention}Arcana Packs{} and {C:attention}Training Packs{} contain cards",
+                            "that can {C:attention}increase the respective stats of the Joker if {C:green}Successful{}",
                         },
                     }
                 },

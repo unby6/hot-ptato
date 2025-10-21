@@ -346,3 +346,19 @@ SMODS.DynaTextEffect {
 		letter.letter = font_cache[dynatext.font.key or dynatext.font.file][rnd]
   end
 }
+
+function hp_jtem_juice_card_until(card, eval_func, first, delay, s, r, interval)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',delay = delay or 0.1, blocking = false, blockable = false, timer = 'REAL',
+        func = (function() local result, s2, r2, interval2 = eval_func(card, s, r, interval) if result then if not first or first then card:juice_up(s2 or s or 0.1, r2 or r or 0.1) end;hp_jtem_juice_card_until(card, eval_func, nil, interval2 or interval or 0.8, s, r, interval2 or interval) end return true end)
+    }))
+end
+
+function hp_jtem_create_UIBox_card_alert(args)
+  args = args or {}
+  return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR, refresh_movement = true}, nodes={
+      {n=G.UIT.R, config={align = "cm", r = 0.15, minw = 0.42, minh = 0.42, colour = args.no_bg and G.C.CLEAR or args.bg_col or ((args.red_bad and darken(G.C.RED, 0.1) or G.C.RED)), draw_layer = 1, emboss = 0.05, refresh_movement = true}, nodes={
+        {n=G.UIT.O, config={object = DynaText({string = args.text or '!', colours = {args.text_colour or G.C.WHITE},shadow = true, rotate = true,H_offset = args.y_offset or 0,bump_rate = args.text and 3 or 7, bump_amount = args.bump_amount or 3, bump = true,maxw = args.maxw, text_rot = args.text_rot or  0.2, spacing = 3*(args.scale or 1), scale = args.scale or 0.48})}}
+      }},
+  }}
+end
