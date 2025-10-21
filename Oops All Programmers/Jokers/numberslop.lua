@@ -17,7 +17,7 @@ SMODS.Joker {
     end,
     pools = { Food = true },
     calculate = function(self, card, context)
-        if context.after and G.GAME.blind.chips * 2 < SMODS.calculate_round_score() and not context.blueprint then
+        if context.after and to_big(G.GAME.blind.chips * 2) < to_big(SMODS.calculate_round_score()) and not context.blueprint then
             SMODS.destroy_cards(card, nil, nil, true)
             return {
                 message = localize('k_oap_too_much_slop')

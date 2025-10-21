@@ -80,7 +80,7 @@ SMODS.Joker{ --19 plincoin fortnite card
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if G.GAME.blind.boss then
                 card.ability.extra.bosses = card.ability.extra.bosses - 1
-                if card.ability.extra.bosses <= 0 then
+                if to_number(card.ability.extra.bosses) <= 0 then
                     --[[ease_plincoins(card.ability.extra.fortnite)
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -102,7 +102,7 @@ SMODS.Joker{ --19 plincoin fortnite card
         end
     end,
     calc_plincoin_bonus = function(self, card)
-        if card.ability.extra.bosses <= 0 then
+        if to_number(card.ability.extra.bosses) <= 0 then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound('tarot1')
@@ -424,7 +424,7 @@ SMODS.Joker{ --TV Dinner
                 }
             end
         elseif context.close_ad and not context.blueprint then
-            if card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then 
+            if to_big(card.ability.extra.mult - card.ability.extra.mult_mod) <= to_big(0) then 
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),

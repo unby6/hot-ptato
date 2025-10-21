@@ -238,7 +238,7 @@ function HotPotato.manipulate_value(num, args, is_big, name)
 		return (HotPotato.sanity_check(num, false))
 	end
 	local val = HotPotato.sanity_check(num, is_big)
-	if (val) > (-1e100) and (val) < (1e100) then
+	if to_big(val) > to_big(-1e100) and to_big(val) < to_big(1e100) then
 		return (val)
 	end
 	return val

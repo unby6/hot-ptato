@@ -7,7 +7,7 @@ function ease_plincoins(plink, instant)
         mod = mod or 0
         local text = '+$'
         local col = SMODS.Gradients.hpot_plincoin
-        if mod < 0 then
+        if to_big(mod) < to_big(0) then
             text = '-$'
             col = G.C.RED
         end

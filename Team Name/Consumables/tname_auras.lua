@@ -160,7 +160,7 @@ SMODS.Consumable({
 		}
 	end,
 	can_use = function(self, card)
-		if G.GAME.round_resets.hands <= card.ability.extra.leavinghands then
+		if to_number(G.GAME.round_resets.hands) <= to_number(card.ability.extra.leavinghands) then
 			return false
 		else
 			return true
@@ -350,20 +350,24 @@ SMODS.Consumable({
 	end,
 })
 		local calc_amount_increased = function(amount, initial, scaling, maximum)
+            amount = to_big(amount)
+            initial = to_big(initial)
+            scaling = to_big(scaling)
+            maximum = to_big(maximum)
 			if amount < initial then
-				return 0
+				return to_big(0)
 			end
-			local alpha = initial
+			local alpha = to_big(initial)
 			for i = 1, math.ceil(amount/initial) do
 				alpha = alpha + initial + scaling * i
 				if alpha > amount then
-					return i
+					return to_big(i)
 				end
-				if i > maximum then
+				if to_big(i) > maximum then
 					return maximum
 				end
 			end
-			return 1
+			return to_big(1)
 		end
 SMODS.Consumable({
 	key = "power",
@@ -391,7 +395,7 @@ SMODS.Consumable({
 			vars = {
 				hpt.credits,
 				math.max(0, calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment, hpt.maximum)),
-				((math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits) < 0) and "") or "+",
+				((to_big(math.floor((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits) / hpt.credits)) < to_big(0)) and "") or "+",
 				hpt.increment,
 				hpt.maximum,
 			},

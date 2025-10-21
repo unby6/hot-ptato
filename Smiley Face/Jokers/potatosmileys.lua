@@ -29,7 +29,7 @@ SMODS.Joker {
             }
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            if card.ability.extra.mult - card.ability.extra.mult_loss <= 0 then
+            if to_big(card.ability.extra.mult - card.ability.extra.mult_loss) <= to_big(0) then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),

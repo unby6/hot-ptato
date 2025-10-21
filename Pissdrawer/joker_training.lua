@@ -2,7 +2,7 @@ function hpot_joker_train_indicator_definition(stat, num, colours)
 	return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
         {n = G.UIT.C, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
-                {n = G.UIT.T, config = {shadow = true, text = num and num < 0 and "v" or "^", colour = (colours or {})[1] or G.C.FILTER, scale = 1}},
+                {n = G.UIT.T, config = {shadow = true, text = num and to_number(num) < 0 and "v" or "^", colour = (colours or {})[1] or G.C.FILTER, scale = 1}},
             }},
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
                 {n = G.UIT.T, config = {shadow = true, text = (num and ((num >= 0 and "+"..num) or num)) or "+0", colour = (colours or {})[1] or G.C.FILTER, scale = 0.7}},

@@ -62,7 +62,7 @@ SMODS.Joker({
         local r_mults = {}
 		local jank = ""
         for i = card.ability.extra.min, card.ability.extra.max do
-			if i < 0 then
+			if to_number(i) < 0 then
 				jank = G.GAME.seeded and " + e." or " - c."
 			else
 				jank = G.GAME.seeded and " + e." or " + c." 
@@ -95,7 +95,7 @@ SMODS.Joker({
     end,
 	calculate = function(self, card, context)
 		local fuck = pseudorandom("fuck", card.ability.extra.min, card.ability.extra.max)
-		local jank = fuck < 0 and "-" or "+"
+		local jank = to_big(fuck) < to_big(0) and "-" or "+"
 		if context.joker_main then
 			HPTN.ease_credits(fuck, false)
 			return {
@@ -245,7 +245,7 @@ SMODS.Joker({
 		local hpt = card.ability.extra
 		if context.end_of_round then
 			if hpt.fuckshit then HPTN.ease_credits(hpt.credits * hpt.hands) hpt.fuckshit = false end
-			if (card.ability.perish_tally or 1.0001) < 1 then
+			if to_number(card.ability.perish_tally or 1.0001) < 1 then
 				check_for_unlock({type = 'frums'})
 			end
 		end

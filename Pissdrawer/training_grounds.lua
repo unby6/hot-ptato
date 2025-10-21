@@ -190,7 +190,8 @@ end
 
 function calc_energy_cost(joker_stats, energy)
     if not joker_stats then return energy or 0 end
-    return ((energy or 0) >= 0 and math.ceil(energy * (1 - math.min(joker_stats.stamina / 800, 0.9)))) or (math.ceil((energy or 0) * (1 + (joker_stats.stamina / 1200))))
+    energy = to_number(energy)
+    return to_number((energy or 0) >= 0 and math.ceil(energy * (1 - math.min(joker_stats.stamina / 800, 0.9)))) or (math.ceil((energy or 0) * (1 + (joker_stats.stamina / 1200))))
 end
 
 function Card:mod_training_stat(stat, num)
@@ -400,7 +401,7 @@ end
 function G.FUNCS.hotpot_training_grounds_train_button(e)
     local config = e.config
 
-    if G.CONTROLLER.locks.hpot_training_grounds or G.GAME.spark_points < G.GAME.spark_per_turn or not (G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards)) then
+    if G.CONTROLLER.locks.hpot_training_grounds or to_big(G.GAME.spark_points) < to_big(G.GAME.spark_per_turn) or not (G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards)) then
         config.colour = G.C.UI.BACKGROUND_INACTIVE
         config.button = nil
         if e.states.hover.is then

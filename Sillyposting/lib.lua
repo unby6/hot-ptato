@@ -119,7 +119,7 @@ SMODS.Consumable:take_ownership('magician',
     config = { max_highlighted = 2, mod_conv = 'm_lucky' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -1 then
             key = key .. "_s"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
@@ -135,7 +135,7 @@ SMODS.Consumable:take_ownership('empress',
     config = { max_highlighted = 2, mod_conv = 'm_mult' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -1 then
             key = key .. "_s"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
@@ -151,7 +151,7 @@ SMODS.Consumable:take_ownership('heirophant',
     config = { max_highlighted = 2, mod_conv = 'm_bonus' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -1 then
             key = key .. "_s"
         end
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
@@ -215,7 +215,7 @@ SMODS.Consumable:take_ownership('strength',
     config = { max_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -1 then
             key = key .. "_s"
         end
         return { key = key, vars = { card.ability.max_highlighted } }
@@ -286,7 +286,7 @@ SMODS.Consumable:take_ownership('hanged_man',
     config = { max_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -1 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -1 then
             key = key .. "_s"
         end
         return { key = key, vars = { card.ability.max_highlighted,
@@ -494,7 +494,7 @@ SMODS.Consumable:take_ownership('star',
     config = { max_highlighted = 3, suit_conv = 'Diamonds' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -2 then
             key = key .. "_s"
         end
         return { key = key, vars = { card.ability.max_highlighted,
@@ -510,7 +510,7 @@ SMODS.Consumable:take_ownership('moon',
     config = { max_highlighted = 3, suit_conv = 'Clubs' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -2 then
             key = key .. "_s"
         end
         return { key = key, vars = { card.ability.max_highlighted,
@@ -526,7 +526,7 @@ SMODS.Consumable:take_ownership('sun',
     config = { max_highlighted = 3, suit_conv = 'Hearts' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -2 then
             key = key .. "_s"
         end
         return { key = key, vars = { card.ability.max_highlighted,
@@ -542,7 +542,7 @@ SMODS.Consumable:take_ownership('world',
     config = { max_highlighted = 3, suit_conv = 'Spades' },
     loc_vars = function(self, info_queue, card)
         local key = self.key .. "_v2"
-        if (G.GAME.max_highlighted_mod or 0) <= -2 then
+        if to_number(G.GAME.max_highlighted_mod or 0) <= -2 then
             key = key .. "_s"
         end
         return { key = key, vars = { card.ability.max_highlighted,

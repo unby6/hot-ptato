@@ -32,7 +32,7 @@ local old = end_round
 function end_round()
     local cardparent = HotPotato.find_lock_in()
     local cardquantum = SMODS.find_card("j_hpot_lockin", false)[1]
-    if cardparent and (G.GAME.chips / G.GAME.blind.chips) < 1 then
+    if cardparent and to_big(G.GAME.chips / G.GAME.blind.chips) < to_big(1) then
         cardquantum.ability.can_save = false
         cardparent.ability.was_clicked = false
         cardparent.ability.start_time = love.timer.getTime()

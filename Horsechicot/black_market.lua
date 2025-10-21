@@ -85,7 +85,7 @@ function ease_cryptocurrency(plink, instant)
       local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
       mod = mod or 0
       local text = '+£'
-      if mod < 0 then
+      if to_big(mod) < to_big(0) then
         text = '-£'
       end
 
@@ -135,7 +135,7 @@ function ease_cryptocurrency(plink, instant)
 end
 
 G.FUNCS.can_reroll_market = function(e)
-  if ((G.GAME.cryptocurrency) - G.GAME.current_round.market_reroll_cost < 0) and G.GAME.current_round.market_reroll_cost ~= 0 then
+  if (to_big(G.GAME.cryptocurrency - G.GAME.current_round.market_reroll_cost) < to_big(0)) and G.GAME.current_round.market_reroll_cost ~= 0 then
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else

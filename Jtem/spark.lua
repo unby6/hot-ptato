@@ -6,7 +6,7 @@ function ease_spark_points(mod, instant)
 		mod = mod or 0
 		local text = '+'
 		local col = G.C.BLUE
-		if mod < 0 then
+		if to_big(mod) < to_big(0) then
 			text = '-'
 			col = G.C.RED
 		end

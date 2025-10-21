@@ -25,7 +25,7 @@ SMODS.Joker {
     atlas = 'TeamNameAnims1',
     calculate = function (self, card, context)
         if context.using_consumeable and context.consumeable.ability.max_highlighted and not context.blueprint then
-            if card.ability.extra.uses_left - 1 <= 0 then 
+            if to_number(card.ability.extra.uses_left - 1) <= 0 then 
                 SMODS.destroy_cards(self, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),

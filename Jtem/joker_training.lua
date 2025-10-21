@@ -84,6 +84,7 @@ end
 ---@param energy number
 ---@return integer
 function hpot_calc_failure_rate(energy)
+    energy = to_number(energy)
 	-- if special week is here then no failure
 	if next(SMODS.find_card("j_hpot_jtem_special_week")) then return 0 end
 	-- energy with atlast 70 or above yields always success
@@ -91,8 +92,7 @@ function hpot_calc_failure_rate(energy)
 	-- no one can save you
 	if energy <= 0 then return 1 end
 	if energy < 10 then return 0.99 end
-	local en = energy
-	return math.floor((1 - (en / 70)) * 100) / 100
+	return math.floor((1 - (energy / 70)) * 100) / 100
 end
 
 --- Returns the rank name and the color given the score.
@@ -100,6 +100,7 @@ end
 --- @return string
 --- @return table|SMODS.Gradient
 function hpot_get_rank_and_colour(score)
+    score = to_number(score)
 	if score >= 1900 then
 		return "US", SMODS.Gradients["hpot_jtem_training_ug"]
 	elseif score >= 1800 then
@@ -205,6 +206,7 @@ function hpot_calc_stat_multiplier(card, stat)
 end
 
 local function format_stat_effect(stat, value)
+    value = to_number(value)
     if stat == "speed" then
         local speed = value - 200
         local retriggers, percent = 0, 0
@@ -396,7 +398,7 @@ SMODS.Sticker {
 		-- energy
 		table.insert(st, card.ability.hp_jtem_energy)
 		-- energy color
-		clr[#clr + 1] = card.ability.hp_jtem_energy <= 25 and G.C.RED or card.ability.hp_jtem_energy <= 50 and G.C.BLUE or
+		clr[#clr + 1] = to_number(card.ability.hp_jtem_energy) <= 25 and G.C.RED or to_number(card.ability.hp_jtem_energy) <= 50 and G.C.BLUE or
 			G.C.UI.TEXT_DARK
 		-- failure rate
 		if G.hpot_training_consumable_highlighted and G.hpot_training_consumable_highlighted.ability and not G.hpot_training_consumable_highlighted.ability.hpot_skip_fail_check then
@@ -490,9 +492,10 @@ SMODS.Sticker {
 	calculate = function(self, card, context)
 		local stats = card.ability["hp_jtem_stats"]
 		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card == card then
+            local speed_n = to_number(stats.speed)
 			-- Speed checks
-			if stats.speed > 200 then
-				local speed = (stats.speed - 200)
+			if speed_n > 200 then
+				local speed = (speed_n - 200)
 				-- if stat is at least 1200 guarantee a retrig
 				local retriggers = math.floor(speed / 1000)
 				-- and the remainder gets calculated as chance
@@ -543,7 +546,7 @@ SMODS.Sticker {
         local function create_energy_stat(w, h)
             w = w or 2
 			h = h or 1
-            local energy_colour = card.ability.hp_jtem_energy <= 25 and G.C.RED or card.ability.hp_jtem_energy <= 50 and G.C.BLUE or
+            local energy_colour = to_number(card.ability.hp_jtem_energy) <= 25 and G.C.RED or to_number(card.ability.hp_jtem_energy) <= 50 and G.C.BLUE or
                 G.C.UI.TEXT_DARK
             return {
                 n = G.UIT.C,
@@ -687,7 +690,7 @@ G.FUNCS.hpot_can_train_joker = function(e)
         ((G.play and #G.play.cards > 0) or
         (G.CONTROLLER.locked) or
         (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
-        (G.GAME.spark_points < hpot_get_training_cost(card))) or
+        (to_big(G.GAME.spark_points) < to_big(hpot_get_training_cost(card)))) or
         PlinkoLogic.STATE == PlinkoLogic.STATES.IN_PROGRESS or
         PlinkoLogic.STATE == PlinkoLogic.STATES.REWARD or
         Wheel.STATE.SPUN
@@ -807,7 +810,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			old_stats[joker.sort_id] = copy_table(joker.ability["hp_jtem_stats"])
 			local stats = joker.ability["hp_jtem_stats"]
 			-- roll for luck!
-			local fail_rate = hpot_calc_failure_rate(joker.ability.hp_jtem_energy)
+			local fail_rate = to_number(hpot_calc_failure_rate(joker.ability.hp_jtem_energy))
 			if pseudorandom('hpot_fail_train') < fail_rate and not card.ability.hpot_skip_fail_check then
 				-- Failure...
 				success = false
@@ -827,7 +830,7 @@ function hpot_training_tarot_use(self, card, area, copier)
 			end
 			-- reduce energy if possible, only if successful
 			if card.ability.hpot_energy_change and success then
-				energy_changed = card.ability.hpot_energy_change
+				energy_changed = to_number(card.ability.hpot_energy_change)
 				if energy_changed < 0 then
 					energy_changed = math.ceil(energy_changed * (1 - math.min(stats.stamina / 800, 0.9)))
 				else

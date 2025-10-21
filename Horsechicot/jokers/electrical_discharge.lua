@@ -23,7 +23,7 @@ SMODS.Joker {
                 SMODS.calculate_effect({xmult = (1 - card.ability.extra.take)}, card)
             end
             score = SMODS.calculate_round_score()
-            if score < G.GAME.blind.chips then
+            if to_big(score) < to_big(G.GAME.blind.chips) then
                 SMODS.calculate_effect({mult = card.ability.extra.stored_mult, message = localize("k_reset")}, card)
                 card.ability.extra.stored_mult = 0
 

@@ -444,7 +444,7 @@ function HPTN.ease_credits(amount, instant)
         mod = mod or 0
         local text = '+c.'
         local col = G.C.PURPLE
-        if mod < 0 then
+        if to_big(mod) < to_big(0) then
             text = '-c.'
             col = G.C.RED
         end
@@ -510,7 +510,7 @@ else
         mod = mod or 0
         local text = '+e.'
         local col = G.C.ORANGE
-        if mod < 0 then
+        if to_big(mod) < to_big(0) then
             text = '-e.'
             col = G.C.RED
         end
