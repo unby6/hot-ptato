@@ -278,7 +278,7 @@ jd_def["j_hpot_folded"] = { -- Folded Joker
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
         local active = false
         if text ~= 'Unknown' then
-            active = (#JokerDisplay.current_hand - #scoring_hand) >= card.ability.extra.unscoring
+            active = (#JokerDisplay.current_hand - #scoring_hand) >= to_number(card.ability.extra.unscoring)
         end
         card.joker_display_values.mult = active and card.ability.extra.mult or 0
     end
@@ -868,7 +868,7 @@ jd_def["j_hpot_atm"] = { -- ATM
         { ref_table = "card.joker_display_values", ref_value = "localized_text" },
     },
     calc_function = function(card)
-        local uses = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Czech or 0)
+        local uses = to_number(G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Czech or 0)
         card.joker_display_values.dollars = uses > 0 and (card.ability.extra.money * uses) or 0
         card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
     end

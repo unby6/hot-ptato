@@ -30,7 +30,7 @@ SMODS.Joker { -- tried getting it working, no luck - nxkoo
     },
     pos = { x = 2, y = 1 },
     calculate = function(self, card, context)
-        if (context.reroll_shop or context.reroll_market) and not context.blueprint and card.ability.extra.uses_remaining > 0 then
+        if (context.reroll_shop or context.reroll_market) and not context.blueprint and to_number(card.ability.extra.uses_remaining) > 0 then
             card.ability.extra.uses_remaining = card.ability.extra.uses_remaining - 1
             if card.ability.extra.uses_remaining <= 0 then
                 return {

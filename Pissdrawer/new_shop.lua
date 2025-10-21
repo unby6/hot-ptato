@@ -1677,7 +1677,7 @@ function G.FUNCS.toggle_plinko_cost(e)
 end
 
 function G.FUNCS.handle_plinko_colour(e)
-    e.config.active = not PissDrawer.Shop.reset_plinko_counter and (3 - (G.GAME.current_round.plinko_rolls % 3)) >= e.config.cost_up
+    e.config.active = not PissDrawer.Shop.reset_plinko_counter and (3 - (G.GAME.current_round.plinko_rolls % 3)) >= to_number(e.config.cost_up)
     e.config.colour = PissDrawer.Shop.plinko_dollars and G.C.GOLD or SMODS.Gradients.hpot_plincoin
     e.config.colour = e.config.active and e.config.colour or G.C.BLACK
 end
@@ -1780,7 +1780,7 @@ function PissDrawer.Shop.wheel()
 end
 
 function G.FUNCS.handle_wheel_colour(e)
-    e.config.active = not PissDrawer.Shop.reset_wheel_counter and (2 - (Wheel.cost_up % 2)) >= e.config.cost_up
+    e.config.active = not PissDrawer.Shop.reset_wheel_counter and (2 - (Wheel.cost_up % 2)) >= to_number(e.config.cost_up)
     e.config.colour = G.GAME.seeded and G.C.ORANGE or G.C.PURPLE
     e.config.colour = e.config.active and e.config.colour or G.C.BLACK
 end

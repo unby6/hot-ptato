@@ -36,7 +36,7 @@ SMODS.Sticker({
 			if card.ability.over_tally == nil then
 				card.ability.over_tally = G.GAME.overclock_timer - 1
 			end
-			if card.ability.over_tally > 1 then
+			if to_number(card.ability.over_tally) > 1 then
 				card.ability.over_tally = card.ability.over_tally - 1
 				card_eval_status_text(card, "extra", nil, nil, nil, {
 					message = localize({
@@ -60,7 +60,7 @@ SMODS.Sticker({
 			if card.ability.over_tally == nil then
 				card.ability.over_tally = G.GAME.overclock_timer - 1
 			end
-			if card.ability.over_tally > 1 then
+			if to_number(card.ability.over_tally) > 1 then
 				card.ability.over_tally = card.ability.over_tally - 1
 				card_eval_status_text(card, "extra", nil, nil, nil, {
 					message = localize({

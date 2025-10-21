@@ -79,7 +79,7 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        return card.ability.extra.disabled_bosses > 0 and (card.ability.extra.disabled_bosses * card.ability.extra.dollars_per_boss) or nil
+        return to_number(card.ability.extra.disabled_bosses) > 0 and (card.ability.extra.disabled_bosses * card.ability.extra.dollars_per_boss) or nil
     end,
     add_to_deck = function(self, card, from_debuff)
         card.ability.extra.disabled_bosses = card.ability.extra.disabled_bosses or 0

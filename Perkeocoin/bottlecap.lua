@@ -1445,7 +1445,7 @@ in_pool = function(self, args)
     end,
 
     use = function(self, card, area, copier)
-        if G.GAME.plincoins > 0 then
+        if to_big(G.GAME.plincoins) > to_big(0) then
             ease_plincoins(math.min(card.ability.extra[card.ability.extra.chosen], G.GAME.plincoins))
         else
             nope(card)

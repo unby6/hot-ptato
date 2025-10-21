@@ -232,7 +232,7 @@ G.FUNCS.hp_jtem_can_exchange_b2j = function(e)
 end
 G.FUNCS.hp_jtem_can_order = function(e)
     local _c = e.config.ref_table
-    if (_c.ability.hp_jtem_currency_bought_value > get_currency_amount(_c.ability.hp_jtem_currency_bought) - (_c.ability.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0)) then
+    if (to_big(_c.ability.hp_jtem_currency_bought_value) > to_big(get_currency_amount(_c.ability.hp_jtem_currency_bought) - (_c.ability.hp_jtem_currency_bought == "dollars" and G.GAME.bankrupt_at or 0))) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else
@@ -444,7 +444,7 @@ end
 G.FUNCS.hp_jtem_order = function(e)
     G.GAME.hp_jtem_queue_max_size = G.GAME.hp_jtem_queue_max_size or 2
     local card = e.config.ref_table
-    if #G.GAME.hp_jtem_delivery_queue >= G.GAME.hp_jtem_queue_max_size then
+    if #G.GAME.hp_jtem_delivery_queue >= to_number(G.GAME.hp_jtem_queue_max_size) then
         alert_no_space(card, G.hp_jtem_delivery_queue)
         e.disable_button = nil
         return
@@ -1049,7 +1049,7 @@ function hotpot_jtem_calculate_deliveries()
             delivery.rounds_total = delivery.rounds_total + 1
         end
         delivery.rounds_passed = (delivery.rounds_passed or 0) + 1
-        if delivery.rounds_passed > delivery.rounds_total then
+        if to_number(delivery.rounds_passed) > to_number(delivery.rounds_total) then
             local area = G.P_CENTERS[delivery.key].consumeable and G.consumeables or
                 G.P_CENTERS[delivery.key].set == 'Joker' and G.jokers
             if 
@@ -1083,7 +1083,7 @@ function hotpot_jtem_calculate_deliveries()
 
     for i = #G.GAME.hp_jtem_delivery_queue, 1, -1 do
         local delivery = G.GAME.hp_jtem_delivery_queue[i]
-        if delivery.rounds_passed > delivery.rounds_total then
+        if to_number(delivery.rounds_passed) > to_number(delivery.rounds_total) then
             remove_element_from_list(G.GAME.hp_jtem_delivery_queue, delivery)
         end
     end

@@ -148,7 +148,7 @@ G.FUNCS.reroll_market = function(e)
   stop_use()
   G.CONTROLLER.locks.shop_reroll = true
   if G.CONTROLLER:save_cardarea_focus('market_jokers') then G.CONTROLLER.interrupt.focus = true end
-  if G.GAME.current_round.market_reroll_cost > 0 then
+  if to_big(G.GAME.current_round.market_reroll_cost) > to_big(0) then
     ease_cryptocurrency(-G.GAME.current_round.market_reroll_cost)
   end
   G.E_MANAGER:add_event(Event({
@@ -351,7 +351,7 @@ function create_market_card_ui(card, type, area)
 end
 
 G.FUNCS.can_buy_from_market = function(e)
-  if ((e.config.ref_table.market_cost - G.GAME.cryptocurrency > 0.0001) and (e.config.ref_table.market_cost > 0)) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
+  if ((to_big(e.config.ref_table.market_cost - G.GAME.cryptocurrency) > to_big(0.0001)) and (to_number(e.config.ref_table.market_cost) > 0)) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else
@@ -368,7 +368,7 @@ G.FUNCS.can_buy_from_market = function(e)
 end
 
 G.FUNCS.can_buy_and_use_from_market = function(e)
-  if ((((e.config.ref_table.market_cost - G.GAME.cryptocurrency > 0.0001) and (e.config.ref_table.market_cost > 0)) or (not e.config.ref_table:can_use_consumeable()))) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
+  if ((((to_big(e.config.ref_table.market_cost - G.GAME.cryptocurrency) > to_big(0.0001)) and (to_number(e.config.ref_table.market_cost) > 0)) or (not e.config.ref_table:can_use_consumeable()))) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
     e.UIBox.states.visible = false
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
@@ -382,7 +382,7 @@ G.FUNCS.can_buy_and_use_from_market = function(e)
 end
 
 G.FUNCS.can_redeem_from_market = function(e)
-  if ((e.config.ref_table.market_cost - G.GAME.cryptocurrency > 0.0001) and (e.config.ref_table.market_cost > 0)) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
+  if ((to_big(e.config.ref_table.market_cost - G.GAME.cryptocurrency) > to_big(0.0001)) and (to_number(e.config.ref_table.market_cost) > 0)) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else
@@ -392,7 +392,7 @@ G.FUNCS.can_redeem_from_market = function(e)
 end
 
 G.FUNCS.can_open_from_market = function(e)
-  if (e.config.ref_table.market_cost - G.GAME.cryptocurrency > 0.0001) and (e.config.ref_table.market_cost > 0) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
+  if (to_big(e.config.ref_table.market_cost - G.GAME.cryptocurrency) > to_big(0.0001)) and (to_number(e.config.ref_table.market_cost) > 0) and not (Entropy and Entropy.has_rune("rune_entr_naudiz")) then
     e.config.colour = G.C.UI.BACKGROUND_INACTIVE
     e.config.button = nil
   else
@@ -474,7 +474,7 @@ SMODS.Atlas {
 function add_round_eval_crypto(config)
   local config = config or {}
   local width = G.round_eval.T.w - 0.51
-  local num_dollars = config.cryptocurrency or 1
+  local num_dollars = to_big(config.cryptocurrency or 1)
   local scale = 0.9
 
   if not G.round_eval.divider_added then
@@ -531,7 +531,7 @@ function add_round_eval_crypto(config)
     end
   }))
   local dollar_row = 0
-  if num_dollars > 60 then
+  if num_dollars > to_big(60) then
     G.E_MANAGER:add_event(Event({
       trigger = 'before',
       delay = 0.38,
@@ -555,7 +555,7 @@ function add_round_eval_crypto(config)
     for i = 1, math.max(num_dollars or 1, 1) do
       G.E_MANAGER:add_event(Event({
         trigger = 'before',
-        delay = 0.18 - ((num_dollars > 20 and 0.13) or (num_dollars > 9 and 0.1) or 0),
+        delay = 0.18 - ((num_dollars > to_big(20) and 0.13) or (num_dollars > to_big(9) and 0.1) or 0),
         func = function()
           if i % 30 == 1 then
             G.round_eval:add_child(
@@ -565,7 +565,7 @@ function add_round_eval_crypto(config)
           end
 
           local r = { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], colour = SMODS.Gradients.hpot_advert, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true } }
-          play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
+          play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > to_big(20) and 0.2 or 0))
 
           if config.name == 'blind1' then
             G.GAME.current_round.dollars_to_be_earned = G.GAME.current_round.dollars_to_be_earned:sub(2)

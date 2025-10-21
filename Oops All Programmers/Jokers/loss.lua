@@ -17,7 +17,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.Xmult, card.ability.extra.gain } }
     end,
     calculate = function(self, card, context)
-        if context.mod_probability and context.identifier == 'nursery_breeding' and context.numerator >= 0 and not context.blueprint then
+        if context.mod_probability and context.identifier == 'nursery_breeding' and to_number(context.numerator) >= 0 and not context.blueprint then
             return {
                 numerator = context.numerator / 2
             }
@@ -25,7 +25,7 @@ SMODS.Joker {
 
         if context.pseudorandom_result and not context.result and context.identifier == 'nursery_breeding' and not context.blueprint then
             SMODS.scale_card(card, {ref_table = card.ability.extra, ref_value = "Xmult", scalar_value = "gain"})
-            if card.ability.extra.Xmult >= 4 then
+            if to_number(card.ability.extra.Xmult) >= 4 then
                 check_for_unlock({type = 'ffingers'})
             end
         end

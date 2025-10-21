@@ -72,7 +72,7 @@ end
 G.FUNCS.hpot_can_buy_jx_screen = function (e)
     local buy_table = e.config.ref_table
     
-    if (buy_table.take > get_currency_amount(buy_table.currency) - (buy_table.currency == "dollars" and G.GAME.bankrupt_at or 0)) then
+    if (to_big(buy_table.take) > to_big(get_currency_amount(buy_table.currency) - (buy_table.currency == "dollars" and G.GAME.bankrupt_at or 0))) then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
     else

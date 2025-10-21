@@ -62,7 +62,7 @@ SMODS.Scoring_Calculation {
                 }
             }
         }
-        if G.GAME.windows_unlocked and G.GAME.windows_unlocked > 0 then
+        if G.GAME.windows_unlocked and to_number(G.GAME.windows_unlocked) > 0 then
             for i = 1, G.GAME.windows_unlocked do
                 nodes[#nodes + 1] = SMODS.GUI.operator(0.4 / (1 + (G.GAME.windows_unlocked or 0)))
                 nodes[#nodes + 1] = window_container(i, math.max(0.4 - 0.1 * (G.GAME.windows_unlocked or 0), 0.1), w, w/2)
@@ -142,7 +142,7 @@ end
 local level_up_handref = level_up_hand
 function level_up_hand(c, hand, ...)
     level_up_handref(c, hand, ...)
-    if G.GAME.windows_unlocked and G.GAME.windows_unlocked > 0 and G.GAME.hands[hand] then
+    if G.GAME.windows_unlocked and to_number(G.GAME.windows_unlocked) > 0 and G.GAME.hands[hand] then
         for i = 1, G.GAME.windows_unlocked do
             G.GAME.hands[hand][i] = (G.GAME.hands[hand][i] or 0) + 1. / i
         end

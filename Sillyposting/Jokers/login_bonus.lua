@@ -29,11 +29,11 @@ SMODS.Joker {
     atlas = 'SillypostingJokers',
     calc_plincoin_bonus = function(self, card)
         local cycle = card.ability.extra.current_cycle
-        if card.ability.extra.rewards[cycle].plincoins > 0 then return card.ability.extra.rewards[cycle].plincoins else return nil end
+        if to_number(card.ability.extra.rewards[cycle].plincoins) > 0 then return card.ability.extra.rewards[cycle].plincoins else return nil end
     end,
     calc_dollar_bonus = function(self, card)
         local cycle = card.ability.extra.current_cycle
-        if card.ability.extra.rewards[cycle].dollars > 0 then return card.ability.extra.rewards[cycle].dollars else return nil end
+        if to_number(card.ability.extra.rewards[cycle].dollars) > 0 then return card.ability.extra.rewards[cycle].dollars else return nil end
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then

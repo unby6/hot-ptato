@@ -464,7 +464,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.using_consumeable and (not G.plinko_rewards or context.area ~= G.plinko_rewards) then
             card.ability.consumeables_used = (card.ability.consumeables_used or 0) + 1
-            if card.ability.consumeables_used >= card.ability.extra.consumeables then
+            if to_number(card.ability.consumeables_used) >= to_number(card.ability.extra.consumeables) then
                 card.ability.consumeables_used = 0
                 ease_plincoins(card.ability.extra.plincoin)
                 card_eval_status_text(card, 'jokers', nil, nil, nil,

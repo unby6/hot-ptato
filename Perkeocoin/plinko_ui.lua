@@ -234,7 +234,7 @@ function G.UIDEF.plinko()
       PlinkoUI.s.reward_area_h/reward_scale*G.CARD_H,
       {card_limit = PlinkoLogic.rewards.total, type = 'shop', highlight_limit = 0})
 
-    local use_ante = G.GAME.current_round.plinko_cost_reset.ante_left > 0
+    local use_ante = to_number(G.GAME.current_round.plinko_cost_reset.ante_left) > 0
     local play_dollars = not not G.GAME.plinko_dollars_cost
     local plinko_4ever = G.GAME.modifiers.hpot_plinko_4ever
 

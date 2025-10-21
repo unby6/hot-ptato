@@ -189,7 +189,7 @@ SMODS.Joker{ --Metal Detector
         if context.skipping_booster and not context.blueprint then
             card.ability.extra.skipped = card.ability.extra.skipped + 1
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = card.ability.extra.skipped.."/"..card.ability.extra.needs , colour = G.C.FILTER})
-            if card.ability.extra.skipped >= card.ability.extra.needs then
+            if to_number(card.ability.extra.skipped) >= to_number(card.ability.extra.needs) then
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     local rarity = pseudorandom_element({'Bad','Common','Common','Common','Uncommon','Uncommon','Rare'}, pseudoseed('detected'))
@@ -360,7 +360,7 @@ SMODS.Joker{ -- Kitchen Gun
                 message_colour = G.C.RED
             })
         end
-        if context.joker_main and card.ability.extra.xmult > 1 then
+        if context.joker_main and to_big(card.ability.extra.xmult) > to_big(1) then
             return{
                     Xmult = card.ability.extra.xmult
                 }
@@ -418,7 +418,7 @@ SMODS.Joker{ --TV Dinner
 
     calculate = function(self, card, context)
         if context.joker_main then
-            if card.ability.extra.mult > 0 then
+            if to_big(card.ability.extra.mult) > to_big(0) then
                 return{
                     mult = card.ability.extra.mult
                 }
@@ -525,7 +525,7 @@ SMODS.Joker{ --Direct Deposit
     calculate = function(self, card, context)
         if context.pk_cashout_row and not context.blueprint then
             local new_config = context.pk_cashout_row
-            if new_config.name == 'bottom' and new_config.dollars > 0 then
+            if new_config.name == 'bottom' and to_number(new_config.dollars) > 0 then
                 new_config.dollars = 0
             end
             return {
@@ -538,7 +538,7 @@ SMODS.Joker{ --Direct Deposit
     calc_plincoin_bonus_delayed = function(self, card, dollars)
         local earnings = nil
         card.ability.extra.so_far = card.ability.extra.so_far + dollars
-        if card.ability.extra.so_far >= card.ability.extra.dollars then
+        if to_big(card.ability.extra.so_far) >= to_big(card.ability.extra.dollars) then
             earnings = math.floor(card.ability.extra.so_far / card.ability.extra.dollars)
             card.ability.extra.so_far = card.ability.extra.so_far % card.ability.extra.dollars
         else
@@ -575,12 +575,12 @@ SMODS.Joker{ --Bank Teller
     },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.compare, card.ability.extra.cards, localize('k_czech')..(card.ability.extra.cards > 1 and "s" or "")}}
+        return {vars = {card.ability.extra.compare, card.ability.extra.cards, localize('k_czech')..(to_number(card.ability.extra.cards) > 1 and "s" or "")}}
     end,
 
     calculate = function(self, card, context)
         if context.pk_cashout_row_but_just_looking and not context.blueprint then
-            if context.pk_cashout_row_but_just_looking.name == 'bottom' and context.pk_cashout_row_but_just_looking.dollars >= card.ability.extra.compare then
+            if context.pk_cashout_row_but_just_looking.name == 'bottom' and to_big(context.pk_cashout_row_but_just_looking.dollars) >= to_big(card.ability.extra.compare) then
                 if G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit then
                     local amount = math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards))
                     for i = 1, amount do
@@ -594,7 +594,7 @@ SMODS.Joker{ --Bank Teller
                                 check_for_unlock({type = 'jonceler'})
                             return true end}))
                     end
-                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "+"..amount.." "..localize('k_czech')..(amount > 1 and "s" or ""), colour = HEX("D2B48C")})
+                    card_eval_status_text(card, 'jokers', nil, nil, nil, {message = "+"..amount.." "..localize('k_czech')..(to_number(amount) > 1 and "s" or ""), colour = HEX("D2B48C")})
                 end
             end
         end
@@ -691,7 +691,7 @@ SMODS.Joker{ --Skimming
     end,
 
     calc_dollar_bonus = function(self, card)
-        local thunk = card.ability.extra.dollars
+        local thunk = to_number(card.ability.extra.dollars)
         if G.GAME.blind.boss then
             card.ability.extra.dollars = 0
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize('k_reset'), colour = G.C.FILTER})
@@ -785,14 +785,14 @@ SMODS.Joker{ --Don't Touch That Dial!
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.current_round.discards_left > 0 and not (context.blueprint or context.individual or context.repetition) then
+        if context.end_of_round and to_number(G.GAME.current_round.discards_left) > 0 and not (context.blueprint or context.individual or context.repetition) then
             --ease_plincoins(G.GAME.current_round.discards_left)
             create_ads(G.GAME.current_round.discards_left)
             card_eval_status_text(card, 'jokers', nil, nil, nil, {message = localize("hotpot_perkeocoin_stay_tuned"), colour = G.C.MONEY})
         end
     end,
     calc_plincoin_bonus = function(self, card)
-        if G.GAME.current_round.discards_left > 0 then
+        if to_number(G.GAME.current_round.discards_left) > 0 then
             return G.GAME.current_round.discards_left
         end
     end
@@ -872,7 +872,7 @@ SMODS.Consumable { --Cash Exchange
     end,
 
     can_use = function(self, card)
-        return G.GAME.dollars >= card.ability.extra.dollars
+        return to_big(G.GAME.dollars) >= to_big(card.ability.extra.dollars)
     end,
 
     use = function(self, card, area, copier)
@@ -1310,7 +1310,7 @@ SMODS.Consumable { --Meteor
 
     can_use = function(self, card)
         local thunk = mostplayedhand()
-        return G.GAME.hands[thunk].level > 0
+        return to_big(G.GAME.hands[thunk].level) > to_big(0)
     end,
 
     use = function(self, card, area, copier)
@@ -1408,7 +1408,7 @@ SMODS.Consumable { --Mystery Box
             for k, v in ipairs(G.jokers.cards) do
                 if v.facing == 'front' then
                     thunk = thunk + 1
-                    if thunk >= card.ability.extra.facedowns then return true end
+                    if thunk >= to_number(card.ability.extra.facedowns) then return true end
                 end
             end
         end

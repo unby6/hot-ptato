@@ -23,7 +23,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.before
             and G.GAME.current_round.hands_left == 0
-            and card.ability.extra.hands_left > 0 
+            and to_number(card.ability.extra.hands_left) > 0 
         then
             if not context.blueprint then
                 card.ability.extra.hands_left = card.ability.extra.hands_left - 1

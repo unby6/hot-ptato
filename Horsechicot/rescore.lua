@@ -1,6 +1,6 @@
 local old_draw = G.FUNCS.draw_from_play_to_discard
 G.FUNCS.draw_from_play_to_discard = function(e)
-    if G.GAME.rescore and G.GAME.rescore > 0 and (G.STATE == 1 or G.STATE == 2) then
+    if G.GAME.rescore and to_number(G.GAME.rescore) > 0 and (G.STATE == 1 or G.STATE == 2) then
         G.GAME.rescore = G.GAME.rescore - 1
 
         G.GAME.rescoring = true

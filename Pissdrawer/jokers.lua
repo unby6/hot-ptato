@@ -459,8 +459,8 @@ SMODS.Joker {
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local discards = card.ability.extra.discards *
-                        (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    local discards = to_number(card.ability.extra.discards *
+                        (math.floor(#G.playing_cards / card.ability.extra.cards_req)))
                     if discards > 0 then
                         if G.GAME.selected_back.name == 'Red Deck' then
                             check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
@@ -497,8 +497,8 @@ SMODS.Joker {
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local hands = card.ability.extra.hands *
-                        (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    local hands = to_number(card.ability.extra.hands *
+                        (math.floor(#G.playing_cards / card.ability.extra.cards_req)))
                     if hands > 0 then
                         if G.GAME.selected_back.name == 'Blue Deck' then
                             check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})
@@ -535,8 +535,8 @@ SMODS.Joker {
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local dollars = card.ability.extra.dollars *
-                        (math.floor(#G.playing_cards / card.ability.extra.cards_req))
+                    local dollars = to_number(card.ability.extra.dollars *
+                        (math.floor(#G.playing_cards / card.ability.extra.cards_req)))
                     if dollars > 0 then
                         if G.GAME.selected_back.name == 'Yellow Deck' then
                             check_for_unlock({type = 'deck_joker', conditions = #G.playing_cards})

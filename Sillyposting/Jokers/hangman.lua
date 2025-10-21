@@ -104,7 +104,7 @@ SMODS.Joker { --Recycling
                     card.ability.extra.seen[rank] = true
                     card.ability.extra.n_seen = card.ability.extra.n_seen + 1
                     return { dollars = card.ability.extra.dollars +
-                    (((card.ability.extra.n_seen >= #card.ability.extra.secret) and card.ability.extra.dollars_extra) or 0) }
+                    (((to_number(card.ability.extra.n_seen) >= #card.ability.extra.secret) and card.ability.extra.dollars_extra) or 0) }
                 end
             end
         elseif context.end_of_round and context.cardarea == G.jokers then

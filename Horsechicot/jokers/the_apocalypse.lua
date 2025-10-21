@@ -32,7 +32,7 @@ function get_currency_mult()
     local cm = 0.01
     local jm = 0.000005
     local c_softcap = 100 --prevent metaprogression farming too hard
-    local extra = G.PROFILES[G.SETTINGS.profile].TNameCredits > c_softcap and math.log(G.PROFILES[G.SETTINGS.profile].TNameCredits - c_softcap) or 0
+    local extra = to_big(G.PROFILES[G.SETTINGS.profile].TNameCredits) > to_big(c_softcap) and math.log(G.PROFILES[G.SETTINGS.profile].TNameCredits - c_softcap) or 0
     local xmult = 
     G.GAME.dollars * dm + G.GAME.plincoins + pm + G.GAME.cryptocurrency * bm + G.GAME.spark_points * jm
     + (math.min(G.PROFILES[G.SETTINGS.profile].TNameCredits, c_softcap) + extra) * cm

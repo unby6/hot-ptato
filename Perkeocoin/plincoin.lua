@@ -31,7 +31,7 @@ end
 function add_round_eval_plincoins(config)
     local config = config or {}
     local width = G.round_eval.T.w - 0.51
-    local num_dollars = config.plincoins or 1
+    local num_dollars = to_big(config.plincoins or 1)
     local scale = 0.9
     
     if not G.round_eval.divider_added then
@@ -84,7 +84,7 @@ function add_round_eval_plincoins(config)
             end
         }))
         local dollar_row = 0
-        if num_dollars > 60 then
+        if num_dollars > to_big(60) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',delay = 0.38,
                 func = function()
@@ -102,7 +102,7 @@ function add_round_eval_plincoins(config)
         else
             for i = 1, num_dollars or 1 do
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'before',delay = 0.18 - ((num_dollars > 20 and 0.13) or (num_dollars > 9 and 0.1) or 0),
+                    trigger = 'before',delay = 0.18 - ((num_dollars > to_big(20) and 0.13) or (num_dollars > to_big(9) and 0.1) or 0),
                     func = function()
                         if i%30 == 1 then 
                             G.round_eval:add_child(
@@ -111,8 +111,8 @@ function add_round_eval_plincoins(config)
                                 dollar_row = dollar_row+1
                         end
 
-                        local r = {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients.hpot_plincoin, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
-                        play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
+                        local r = {n=G.UIT.T, config={text = localize('$'), font = SMODS.Fonts.hpot_plincoin, colour = SMODS.Gradients.hpot_plincoin, scale = ((num_dollars > to_big(20) and 0.28) or (num_dollars > to_big(9) and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true}}
+                        play_sound('coin3', 0.9+0.2*math.random(), 0.7 - (num_dollars > to_big(20) and 0.2 or 0))
                         
                         if config.name == 'blind1' then 
                             G.GAME.current_round.dollars_to_be_earned = G.GAME.current_round.dollars_to_be_earned:sub(2)

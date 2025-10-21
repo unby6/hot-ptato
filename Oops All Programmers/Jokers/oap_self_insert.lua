@@ -162,7 +162,7 @@ SMODS.Joker {
 
         --SadCube
         if card.ability.extra.effect == 'sadcube' then
-            if context.mod_probability and card.ability.sadcube_effect.modifiers > 0 then
+            if context.mod_probability and to_number(card.ability.sadcube_effect.modifiers) > 0 then
                 if context.from_roll then
                     card.ability.sadcube_effect.modifiers = card.ability.sadcube_effect.modifiers - 1
                 end

@@ -23,7 +23,7 @@ SMODS.Joker {
     end,
     calc_dollar_bonus = function(self, card)
         local uses = (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.Czech or 0)
-        return uses > 0 and (card.ability.extra.money * uses) or nil
+        return to_number(uses) > 0 and (card.ability.extra.money * uses) or nil
 
     end,
     hotpot_credits = {

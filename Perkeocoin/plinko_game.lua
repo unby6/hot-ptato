@@ -377,7 +377,7 @@ function PlinkoGame.f.init_dummy_ball()
 
     local custom = custom_sprites[choice]
 
-    if G.GAME.balls_dropped and G.GAME.balls_dropped > 0 and custom then
+    if G.GAME.balls_dropped and to_number(G.GAME.balls_dropped) > 0 and custom then
         PlinkoUI.sprites.changed = custom
         PlinkoUI.sprites.perkeorb = PlinkoUI.sprites[custom]
         PlinkoUI.sprites.is_stupid = custom == "stupid"

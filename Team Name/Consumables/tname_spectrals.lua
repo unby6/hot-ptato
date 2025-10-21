@@ -21,7 +21,7 @@ SMODS.Consumable {
             end
             key = key .. (JoyousSpring and "_joy" or "") .. (PTASaka and "_pta" or "")
         end
-        if (G.GAME.max_highlighted_mod or 0) > 0 then
+        if to_number(G.GAME.max_highlighted_mod or 0) > 0 then
             key = key .. "_p"
         end
         return { key = key, vars = { card.ability.max_highlighted, numerator, denominator, colours = { HEX('800058') } } }

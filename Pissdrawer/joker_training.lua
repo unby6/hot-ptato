@@ -5,7 +5,7 @@ function hpot_joker_train_indicator_definition(stat, num, colours)
                 {n = G.UIT.T, config = {shadow = true, text = num and to_number(num) < 0 and "v" or "^", colour = (colours or {})[1] or G.C.FILTER, scale = 1}},
             }},
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
-                {n = G.UIT.T, config = {shadow = true, text = (num and ((num >= 0 and "+"..num) or num)) or "+0", colour = (colours or {})[1] or G.C.FILTER, scale = 0.7}},
+                {n = G.UIT.T, config = {shadow = true, text = (num and ((to_number(num) >= 0 and "+"..num) or num)) or "+0", colour = (colours or {})[1] or G.C.FILTER, scale = 0.7}},
             }},
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
                 {n = G.UIT.T, config = {shadow = true, text = stat and localize("hotpot_"..stat) or "?", colour = (colours or {})[2] or G.C.UI.TEXT_LIGHT, scale = 0.6}},
@@ -32,6 +32,7 @@ function move_train_text(node, positive)
 end
 
 function Card:create_train_popup(stat, num)
+    num = to_number(num)
     local train_popup = nil
     hotpot_add_event{
         trigger = "before",

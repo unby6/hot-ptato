@@ -13,7 +13,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'hpot_cloverpit', 1, card.ability.extra.odds) then
-                if G.GAME.dollars_ante and G.GAME.dollars_ante > 0 then
+                if G.GAME.dollars_ante and to_big(G.GAME.dollars_ante) > to_big(0) then
                     G.E_MANAGER:add_event(Event{
                         func = function()
                             ease_dollars(-(G.GAME.dollars_ante or 0))
@@ -23,7 +23,7 @@ SMODS.Joker{
                     })
                 end
             else
-                if G.GAME.hands[context.scoring_name].mult > 0 then
+                if to_big(G.GAME.hands[context.scoring_name].mult) > to_big(0) then
                     G.E_MANAGER:add_event(Event{
                         func = function()
                             ease_dollars(G.GAME.hands[context.scoring_name].mult)

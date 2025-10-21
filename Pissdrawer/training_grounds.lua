@@ -160,7 +160,7 @@ G.training_boost = {
 
 function acc_hp_calc_failure_rate(energy, train)
     if next(SMODS.find_card("j_hpot_jtem_special_week")) then return 0 end
-    local energy = math.max(energy, 0)
+    local energy = to_number(math.max(energy, 0))
     local energy_start_calc = 0
     local max_failure_rate = 0
     if train == "speed" then
@@ -203,7 +203,7 @@ function Card:mod_training_stat(stat, num)
             local stats = self.ability.hp_jtem_stats
             -- Guts
             hpot_jtem_with_deck_effects(self, function(c)
-                if stats.guts > 200 then
+                if to_number(stats.guts) > 200 then
                     hpot_jtem_misprintize({ val = c.ability, amt = 1/(1+((((math.max(200,old_stats.guts)-200)/500)*100)/100)) })
                     hpot_jtem_misprintize({ val = c.ability, amt = 1+((((stats.guts-200)/500)*100)/100) })
                 end
@@ -344,7 +344,7 @@ function G.FUNCS.hotpot_training_grounds_train(e)
     local train = config.train
     local card = G.train_jokers and G.train_jokers.cards and next(G.train_jokers.cards) and G.train_jokers.cards[1]
     if G.CONTROLLER.locks.hpot_training_grounds then return end
-    if card and G.GAME and G.GAME.spark_points and G.GAME.spark_points >= G.GAME.spark_per_turn then
+    if card and G.GAME and G.GAME.spark_points and to_big(G.GAME.spark_points) >= to_big(G.GAME.spark_per_turn) then
         G.CONTROLLER.locks.hpot_training_grounds = true
         ease_currency("joker_exchange", -G.GAME.spark_per_turn)
         local joker_stats = card.ability.hp_jtem_stats
@@ -474,7 +474,7 @@ function hpot_hover_train_button_stat(colour, num)
     return {n = G.UIT.ROOT, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
         {n = G.UIT.C, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
             {n = G.UIT.R, config = {align = "cm", colour = G.C.CLEAR}, nodes = {
-                {n = G.UIT.T, config = {shadow = true, text = (((num or 0) >= 0 and "+") or nil)..num, colour = colour or G.C.FILTER, scale = 0.6}},
+                {n = G.UIT.T, config = {shadow = true, text = ((to_number(num or 0) >= 0 and "+") or nil)..num, colour = colour or G.C.FILTER, scale = 0.6}},
             }},
         }}
     }}

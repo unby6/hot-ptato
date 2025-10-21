@@ -155,7 +155,7 @@ SMODS.Consumable({
 		key = (self.key .. fucking)
 		local hpt = card.ability.extra
 		return {
-			vars = { hpt.leavinghands, hpt.credits, hpt.leavinghands > 1 and "s" or ""},
+			vars = { hpt.leavinghands, hpt.credits, to_number(hpt.leavinghands) > 1 and "s" or ""},
 			key = key
 		}
 	end,
@@ -255,7 +255,7 @@ SMODS.Consumable({
 		}
 	end,
 	can_use = function(self, card)
-		return G.consumeables.config.card_limit - card.ability.extra.slots >= 0
+		return to_number(G.consumeables.config.card_limit - card.ability.extra.slots) >= 0
 	end,
 	use = function(self, card, area, copier)
 		local hpt = card.ability.extra
@@ -418,7 +418,7 @@ SMODS.Consumable({
 	end,
 	can_use = function(self, card)
 		local hpt = card.ability.extra
-		return ((#G.jokers.cards > 0) and (calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment, hpt.maximum) > 0))
+		return ((#G.jokers.cards > 0) and (to_big(calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), hpt.credits, hpt.increment, hpt.maximum)) > to_big(0)))
             and G.jokers.cards[1] and G.jokers.cards[1].config and G.jokers.cards[1].config.center_key ~= "j_hpot_child"
 	end,
 	use = function(self, card, area, copier)

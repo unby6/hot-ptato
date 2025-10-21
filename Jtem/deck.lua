@@ -109,7 +109,7 @@ HotPotato.currencies = {
 function add_round_eval_all_currencies(config)
     local config = config or {}
     local width = G.round_eval.T.w - 0.51
-    local num_dollars = 1
+    local num_dollars = to_big(1)
     local scale = 0.9
 
     if not G.round_eval.divider_added then
@@ -161,7 +161,7 @@ function add_round_eval_all_currencies(config)
     for i = 1, num_dollars or 1 do
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
-            delay = 0.18 - ((num_dollars > 20 and 0.13) or (num_dollars > 9 and 0.1) or 0),
+            delay = 0.18 - ((num_dollars > to_big(20) and 0.13) or (num_dollars > to_big(9) and 0.1) or 0),
             func = function()
                 if i % 30 == 1 then
                     G.round_eval:add_child(
@@ -176,14 +176,14 @@ function add_round_eval_all_currencies(config)
                             text = v.text,
                             font = v.font,
                             colour = v.color,
-                            scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58),
+                            scale = ((num_dollars > to_big(20) and 0.28) or (num_dollars > to_big(9) and 0.43) or 0.58),
                             shadow = true,
                             hover = true,
                             can_collide = false,
                             juice = true
                         }
                     }
-                    play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > 20 and 0.2 or 0))
+                    play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > to_big(20) and 0.2 or 0))
 
                     G.round_eval:add_child(r, G.round_eval:get_UIE_by_ID('dollar_row_' .. (dollar_row) ..
                     '_' .. config.name))

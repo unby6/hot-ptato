@@ -240,7 +240,7 @@ end
 function nursery()
     if G.GAME.active_breeding then
         G.GAME.breeding_rounds_passed = G.GAME.breeding_rounds_passed + 1
-        if G.GAME.breeding_rounds_passed >= (G.GAME.quick_preggo and 2 or 3) then
+        if to_number(G.GAME.breeding_rounds_passed) >= (G.GAME.quick_preggo and 2 or 3) then
             G.GAME.active_breeding = false
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
