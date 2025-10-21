@@ -849,7 +849,7 @@ function PissDrawer.Shop.reload_shop_areas(keys)
                 if key == 'hp_jtem_delivery_queue' then
                     local temp_str = { str = (v.ability.hp_delivery_obj.rounds_passed .. "/" .. v.ability.hp_delivery_obj.rounds_total) }
                     local args = generate_currency_string_args(v.ability.hp_jtem_currency_bought)
-                    hpot_jtem_create_delivery_boxes(v, { { ref_table = temp_str, ref_value = 'str' } }, args)
+                    hpot_jtem_create_delivery_boxes(v, { { ref_table = temp_str, ref_value = 'str', object = v.ability.hp_delivery_obj } }, args)
                 elseif key == 'hp_jtem_delivery_special_deals' then
                     local args = generate_currency_string_args(v.ability.hp_jtem_currency_bought)
                     hpot_jtem_create_special_deal_boxes(v, {{prefix = args.symbol, ref_table = v.ability, ref_value = "hp_jtem_currency_bought_value"}}, args)

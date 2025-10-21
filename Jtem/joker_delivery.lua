@@ -468,7 +468,7 @@ G.FUNCS.hp_jtem_order = function(e)
     end
     local args = generate_currency_string_args(card.ability.hp_jtem_currency_bought)
     local temp_str = { str = (object.rounds_passed .. "/" .. object.rounds_total) }
-    hpot_jtem_create_delivery_boxes(card, { { ref_table = temp_str, ref_value = 'str' } }, args)
+    hpot_jtem_create_delivery_boxes(card, { { ref_table = temp_str, ref_value = 'str', object = object } }, args)
     --hotpot_delivery_refresh_card()
 end
 G.FUNCS.hp_jtem_cancel = function(e)
@@ -556,6 +556,14 @@ function hpot_jtem_create_delivery_boxes(card, rounds_text, args)
 
                 } }
             card.children.price.alignment.offset.y = card.ability.set == 'Booster' and 0.5 or 0.38
+            local _obj = card.ability.hp_delivery_obj or rounds_text.object
+            if _obj and _obj.rounds_passed == _obj.rounds_total then
+                card.children.hp_jtem_delivery_alert = UIBox{
+                    definition = hp_jtem_create_UIBox_card_alert({ bg_col = G.C.PURPLE }), 
+                    config = { align="tri", offset = {x = 0.1, y = 0.1}, parent = card}
+                }
+                card.children.hp_jtem_delivery_alert.states.collide.can = false
+            end
             return true
         end)
     }))
@@ -945,7 +953,13 @@ function hotpot_delivery_refresh_card()
         _c.ability.hp_jtem_currency_bought_value = _obj.price
         _c.ability.hp_delivery_obj = _obj
         local args = generate_currency_string_args(_c.ability.hp_jtem_currency_bought)
-        hpot_jtem_create_delivery_boxes(_c, { { ref_table = temp_str, ref_value = 'str' } }, args)
+        if _obj.rounds_passed == _obj.rounds_total then
+            hp_jtem_juice_card_until(_c, function (card)
+                local will_overflow = #G.jokers.cards >= G.jokers.config.card_limit
+                return card, will_overflow and 0.15 or 0.1, will_overflow and 0.15 or 0.05, will_overflow and 0.6 or 0.8
+            end, true, 0, 0.2, 0.2, 0.5)
+        end
+        hpot_jtem_create_delivery_boxes(_c, { { ref_table = temp_str, ref_value = 'str', object = _obj } }, args)
         --[[if _obj.extras then
             for k, v in pairs(_obj.extras) do
                 _c.ability[k] = v
