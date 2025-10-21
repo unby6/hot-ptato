@@ -272,10 +272,10 @@ function HotPotato.sanity_check(val, is_big)
 		return 1e300
 	end
 	if type(val) == "table" then
-		if val > (1e300) then
+		if val > to_big(1e300) then
 			return 1e300
 		end
-		if val < (-1e300) then
+		if val < to_big(-1e300) then
 			return -1e300
 		end
 		return (val)
