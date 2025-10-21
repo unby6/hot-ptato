@@ -6,7 +6,7 @@ function hotpot_horsechicot_market_section_init_cards()
   else
     if not G.GAME.market_filled then
       G.GAME.market_filled = {}
-      for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
+      for i = 1, to_number(G.GAME.shop.market_joker_max) - #G.market_jokers.cards do
         local new_shop_card
         if G.GAME.modifiers.no_shop_jokers then
           new_shop_card = SMODS.create_card { set = "BlackMarketJokerless", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
@@ -171,7 +171,7 @@ G.FUNCS.reroll_market = function(e)
       play_sound('other1')
 
       --
-      for i = 1, G.GAME.shop.market_joker_max - #G.market_jokers.cards do
+      for i = 1, to_number(G.GAME.shop.market_joker_max) - #G.market_jokers.cards do
         local new_market_card
         if G.GAME.modifiers.no_shop_jokers then
           new_market_card = SMODS.create_card { set = "BlackMarketJokerless", area = G.market_jokers, bypass_discovery_ui = true, bypass_discovery_center = true }
@@ -552,7 +552,7 @@ function add_round_eval_crypto(config)
       end
     }))
   else
-    for i = 1, math.max(num_dollars or 1, 1) do
+    for i = 1, to_number(math.max(num_dollars or 1, 1)) do
       G.E_MANAGER:add_event(Event({
         trigger = 'before',
         delay = 0.18 - ((num_dollars > to_big(20) and 0.13) or (num_dollars > to_big(9) and 0.1) or 0),

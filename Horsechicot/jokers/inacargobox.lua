@@ -22,7 +22,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local valid_deliveries = G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue or 0
+            local valid_deliveries = to_number(G.GAME.hp_jtem_delivery_queue and #G.GAME.hp_jtem_delivery_queue or 0)
             if valid_deliveries > 0 then
                 for i = 1, valid_deliveries do
                     SMODS.calculate_effect({ xmult = card.ability.extra.xmult_per_delivery }, card)

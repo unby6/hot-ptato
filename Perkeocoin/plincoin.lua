@@ -100,7 +100,7 @@ function add_round_eval_plincoins(config)
                 end
             }))
         else
-            for i = 1, num_dollars or 1 do
+            for i = 1, to_number(num_dollars or 1) do
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',delay = 0.18 - ((num_dollars > to_big(20) and 0.13) or (num_dollars > to_big(9) and 0.1) or 0),
                     func = function()

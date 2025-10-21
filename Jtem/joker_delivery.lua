@@ -850,7 +850,7 @@ function hotpot_jtem_generate_special_deals(deals)
     G.GAME.round_resets.hp_jtem_special_offer = {}
     PissDrawer.Shop.delivery_spawn = false
     G.GAME.hp_jtem_special_offer_count = G.GAME.hp_jtem_special_offer_count or 3
-    for i = 1, (deals or G.GAME.hp_jtem_special_offer_count) do
+    for i = 1, to_number(deals or G.GAME.hp_jtem_special_offer_count) do
         local _pool, _pool_key = get_current_pool("Joker")
         _pool = remove_unavailable(_pool)
         local center_key = pseudorandom_element(_pool, pseudoseed(_pool_key))

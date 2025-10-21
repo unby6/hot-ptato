@@ -13,7 +13,7 @@ SMODS.Consumable {
         return { vars = { card.ability.extra.spectrals } }
     end,
     use = function(self, card, area, copier)
-        for i = 1, math.min(card.ability.extra.spectrals, G.consumeables.config.card_limit - #G.consumeables.cards) do
+        for i = 1, to_number(math.min(card.ability.extra.spectrals, G.consumeables.config.card_limit - #G.consumeables.cards)) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,

@@ -583,7 +583,7 @@ SMODS.Joker{ --Bank Teller
             if context.pk_cashout_row_but_just_looking.name == 'bottom' and to_big(context.pk_cashout_row_but_just_looking.dollars) >= to_big(card.ability.extra.compare) then
                 if G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit then
                     local amount = math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards))
-                    for i = 1, amount do
+                    for i = 1, to_number(amount) do
                         G.E_MANAGER:add_event(Event({
                             trigger = 'after', delay = 0.4, func = function()
                                 play_sound('timpani')
@@ -1257,7 +1257,7 @@ SMODS.Consumable { --Czech Republic
     end,
 
     use = function(self, card, area, copier)
-        for i = 1, math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards)) do
+        for i = 1, to_number(math.min(card.ability.extra.cards, (G.consumeables.config.card_limit - #G.consumeables.cards))) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after', delay = 0.4, func = function()
                     play_sound('timpani')
@@ -1359,7 +1359,7 @@ SMODS.Consumable { --Yard Sale
                 delay = 0.7,
                 func = function() 
                     local cards = {}
-                    for i=1, card.ability.extra.cards do
+                    for i=1, to_number(card.ability.extra.cards) do
                         cards[i] = true
                         local _suit, _rank = nil, nil
                             _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('yardsale'))

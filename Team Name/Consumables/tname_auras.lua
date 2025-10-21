@@ -358,7 +358,7 @@ SMODS.Consumable({
 				return to_big(0)
 			end
 			local alpha = to_big(initial)
-			for i = 1, math.ceil(amount/initial) do
+			for i = 1, to_number(math.ceil(amount/initial)) do
 				alpha = alpha + initial + scaling * i
 				if alpha > amount then
 					return to_big(i)
@@ -427,7 +427,7 @@ SMODS.Consumable({
 		HPTN.ease_credits(-(G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits), false)
 		local target_card_key = G.jokers.cards[1].config.center_key
 		if target_card_key ~= nil and target_card_key ~= "j_hpot_child" then
-			for i = 1, a do
+			for i = 1, to_number(a) do
 				SMODS.add_card {
 					key = target_card_key,
 					edition = "e_negative"
