@@ -274,7 +274,7 @@ end
 function PlinkoLogic.f.can_roll_dollars()
   local cost = G.GAME.current_round.plinko_roll_cost * G.GAME.plinko_dollars_cost
 
-  return not (((G.GAME.dollars-G.GAME.bankrupt_at) - cost < 0) and cost ~= 0)
+  return not ((to_big((G.GAME.dollars-G.GAME.bankrupt_at) - cost) < to_big(0)) and cost ~= 0)
 end
 
 function PlinkoLogic.f.handle_roll(use_dollars)

@@ -410,7 +410,7 @@ SMODS.Consumable({
 	},
 	in_pool = function (self, args)
 		if G.jokers then
-			if #G.jokers.cards > 0 and calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), self.config.extra.credits, self.config.extra.increment, self.config.extra.maximum) > 0 then
+			if #G.jokers.cards > 0 and to_big(calc_amount_increased(tonumber((G.GAME.seeded and G.GAME.budget or G.PROFILES[G.SETTINGS.profile].TNameCredits)), self.config.extra.credits, self.config.extra.increment, self.config.extra.maximum)) > to_big(0) then
 				return true
 			end
 		end

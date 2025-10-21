@@ -2681,7 +2681,7 @@ HotPotato.EventScenario {
 		team = { "Pissdrawer" },
 	},
 	in_pool = function(self)
-		return tonumber(G.GAME.credits_text) >= 100 and not G.GAME.hpot_event_triboulet_invested and
+		return to_number(G.GAME.credits_text) >= 100 and not G.GAME.hpot_event_triboulet_invested and
 			not G.PROFILES[G.SETTINGS.profile].hpot_event_triboulet_invested
 	end
 }
@@ -2712,7 +2712,7 @@ HotPotato.EventStep {
 					event.start_step("hpot_business_venture_1_finish")
 				end,
 				func = function()
-					return tonumber(G.GAME.credits_text) >= 100
+					return to_number(G.GAME.credits_text) >= 100
 				end
 			},
 			{
@@ -2724,7 +2724,7 @@ HotPotato.EventStep {
 					event.start_step("hpot_business_venture_1_finish")
 				end,
 				func = function()
-					return tonumber(G.GAME.credits_text) >= 500
+					return to_number(G.GAME.credits_text) >= 500
 				end
 			},
 			{
@@ -2736,7 +2736,7 @@ HotPotato.EventStep {
 					event.start_step("hpot_business_venture_1_finish")
 				end,
 				func = function()
-					return tonumber(G.GAME.credits_text) >= 1000
+					return to_number(G.GAME.credits_text) >= 1000
 				end
 			},
 			moveon()
@@ -2851,7 +2851,7 @@ HotPotato.EventScenario {
 		team = { "Pissdrawer" },
 	},
 	in_pool = function(self)
-		return tonumber(G.GAME.credits_text) <= -100 and not G.GAME.hpot_event_triboulet_invested and
+		return to_number(G.GAME.credits_text) <= -100 and not G.GAME.hpot_event_triboulet_invested and
 			not G.PROFILES[G.SETTINGS.profile].hpot_event_triboulet_invested
 	end
 }
@@ -2885,8 +2885,8 @@ HotPotato.EventStep {
 				key = "dollars",
 				button = function()
 					G.GAME.hpot_event_triboulet_invested = true
-					ease_dollars(tonumber(G.GAME.credits_text))
-					HPTN.ease_credits(-tonumber(G.GAME.credits_text))
+					ease_dollars(G.GAME.credits_text)
+					HPTN.ease_credits(G.GAME.credits_text)
 					event.start_step("hpot_business_venture_3_finish")
 				end,
 			},
@@ -2894,8 +2894,8 @@ HotPotato.EventStep {
 				key = "plincoins",
 				button = function()
 					G.GAME.hpot_event_triboulet_invested = true
-					ease_plincoins(tonumber(G.GAME.credits_text))
-					HPTN.ease_credits(-tonumber(G.GAME.credits_text))
+					ease_plincoins(G.GAME.credits_text)
+					HPTN.ease_credits(G.GAME.credits_text)
 					event.start_step("hpot_business_venture_3_finish")
 				end,
 			},
@@ -2903,8 +2903,8 @@ HotPotato.EventStep {
 				key = "crypto",
 				button = function()
 					G.GAME.hpot_event_triboulet_invested = true
-					ease_cryptocurrency(tonumber(G.GAME.credits_text))
-					HPTN.ease_credits(-tonumber(G.GAME.credits_text))
+					ease_cryptocurrency(G.GAME.credits_text)
+					HPTN.ease_credits(G.GAME.credits_text)
 					event.start_step("hpot_business_venture_3_finish")
 				end,
 			},
@@ -2912,8 +2912,8 @@ HotPotato.EventStep {
 				key = "spark",
 				button = function()
 					G.GAME.hpot_event_triboulet_invested = true
-					ease_spark_points(tonumber(G.GAME.credits_text))
-					HPTN.ease_credits(-tonumber(G.GAME.credits_text))
+					ease_spark_points(G.GAME.credits_text)
+					HPTN.ease_credits(G.GAME.credits_text)
 					event.start_step("hpot_business_venture_3_finish")
 				end,
 			},
