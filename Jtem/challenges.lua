@@ -23,7 +23,9 @@ SMODS.Challenge {
 			{ id = "tag_foil" },
 			{ id = "tag_holo" },
 			{ id = "tag_polychrome" },
-			{ id = "tag_negative" }
+			{ id = "tag_negative" },
+			{ id = "tag_hpot_psychedelic_tag" },
+			{ id = "tag_hpot_phantasmic" }
 		}
 	}
 }
