@@ -6596,6 +6596,40 @@ return {
 			trade_interests = "Sell Interests for {C:blue,f:hpot_plincoin}͸100k{}"
 		}]]
         },
+        CombatEventRewards = {
+            generic = {
+		        "A random Common Joker (Doesn't need room)",
+		        "A random Uncommon Joker (Must have room)",
+		        "Up to 2 random Tarot cards (Must have room)",
+		        "Up to 2 random Planet cards (Must have room)",
+		        "Up to 2 random Common Bottlecaps (Must have room)",
+		        "1 random Uncommon Bottlecap (Must have room)",
+		        "1 random Cheque card (Must have room)",
+		        "Up to 2 random Hanafuda cards (Must have room)",
+		        "2 random Tags",
+		        "A Double Tag",
+		        "$4",
+		        "30 credits",
+		        "35000 Jicks",
+		        "0.5 Cryptocurrency",
+            },
+        },
+        EncounterEventRewards = {
+            generic = {
+                "A random Uncommon Joker (Doesn't need room)",
+                "A random Rare Joker (Must have room)",
+                "1 random Spectral card (Must have room)",
+                "Up to 2 random Uncommon Bottlecaps (Must have room)",
+                "1 random Rare Bottlecap (Must have room)",
+                "Up to 2 random Cheque cards (Must have room)",
+                "5 random Tags",
+                "2 Double Tags",
+                "$8",
+                "85 credits",
+                "75000 Jicks",
+                "2 Cryptocurrency",
+            }
+        },
         -- Proto if you forget to use commas where needed i swear to fucking god...        Signed, proto
         achievement_names = {
             ach_hpot_sign_here = 'Sign Here, Please!',
