@@ -1153,7 +1153,7 @@ end
 function PissDrawer.Shop.reforge_emplace(card)
 	return
     {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minh = 0.4 * card.T.h,
-        hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'reforge_place', func = 'place_return_reforge' }, nodes = {
+        hover = true, shadow = true, colour = G.C.RED, button = 'reforge_place', func = 'place_return_reforge' }, nodes = {
         {n=G.UIT.R, config={align = 'cm'}, nodes = {{n = G.UIT.T, config = { text = localize('hotpot_go_reforge'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}}}
     }}
 end
@@ -1161,7 +1161,7 @@ end
 function PissDrawer.Shop.training_emplace(card)
 	return
     {n = G.UIT.R, config = {ref_table = card, r = 0.08, padding = 0.1, align = "bm", minh = 0.4 * card.T.h,
-        hover = true, shadow = true, colour = G.C.RED, one_press = true, button = 'training_emplace', func = 'can_emplace_training' }, nodes = {
+        hover = true, shadow = true, colour = G.C.RED, button = 'training_emplace', func = 'can_emplace_training' }, nodes = {
         {n = G.UIT.T, config = { text = localize('hotpot_go_train'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true }}
     }}
 end

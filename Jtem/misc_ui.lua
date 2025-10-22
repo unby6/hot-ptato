@@ -1,10 +1,10 @@
 local index_to_jx_mult = {
 -- from_multiplier, to multiplier, first_time_bonus_multiplier
-    { 1 , 1, 1 },
-    { 3 , 3.1, 1.25 },
-    { 7 , 7.5, 1.5 },
-    { 13 , 14.2, 1.8 },
-    { 22 , 24, 2.2 },
+    { 1 , 1, 1.1 },
+    { 5 , 5.3, 1.35 },
+    { 11 , 12, 1.65 },
+    { 20 , 24, 2.1 },
+    { 35 , 43, 3.2 },
 }
 local function hp_jtem_buy_jx_individual( b_type, index )
     local am
