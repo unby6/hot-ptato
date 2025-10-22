@@ -819,6 +819,12 @@ return {
             },
         },
         Joker = {
+            j_joker = {
+                name = 'Joker',
+                text = {
+                    '{C:attention}Revives{} one character'
+                }
+            },
             j_hpot_hc_trackmania = {
                 name = "Trackmania",
                 text = {
