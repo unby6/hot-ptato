@@ -50,7 +50,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.retriggers } }
     end,
     calculate = function(self, card, context)
-        if (context.repetition) then
+        if (context.repetition and context.cardarea == G.play) then
             return {
                 repetitions = card.ability.extra.retriggers,
                 sound = "hpot_ws_again"
