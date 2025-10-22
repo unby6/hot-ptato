@@ -214,7 +214,15 @@ end
 
 function PissDrawer.Shop.tab_button(args)
     assert(type(args) == 'table', 'No table provided to shop_tab_button')
-
+    local notify = false
+    if args.destination == "hotpot_jtem_toggle_delivery" then
+        for _, obj in ipairs(G.GAME.hp_jtem_delivery_queue) do
+            if obj.rounds_passed == obj.rounds_total then
+                notify = true
+                break
+            end
+        end
+    end
 
     return
         {n=G.UIT.C, config = {align = 'bm'}, nodes = {
@@ -222,8 +230,21 @@ function PissDrawer.Shop.tab_button(args)
                 {n=G.UIT.R, config = {align = 'cl'}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.4, 0.4, G.ASSET_ATLAS[args.atlas or 'hpot_jtem_pkg'], { x = args.x or 0, y = args.y or 0 })}},
                     {n=G.UIT.T, config = {text= args.label or ' no label', colour =G.C.WHITE, scale = 0.35, shadow = true}},
-                }}
-            }},
+                    notify and {
+                        n=G.UIT.C,
+                        config = { maxw = 0, maxh = 0, w = 0, h = 0, minw = 0, minh = 0 },
+                        nodes={
+                            {n=G.UIT.O, config = {
+                                maxw = 0, maxh = 0, w = 0, h = 0, minw = 0, minh = 0,
+                                object = UIBox{
+                                    definition = hp_jtem_create_UIBox_card_alert({ bg_col = G.C.RED }), 
+                                    config = { align= "tri", offset = {x = 0.3, y = -0.3}}
+                                }
+                            }},
+                        }
+                    }
+                }},
+            }}
         }}
 end
 
@@ -507,6 +528,19 @@ function PissDrawer.Shop.main_shop()
 
                 {n=G.UIT.R, config={align = "cm", minw = 0.5, maxw = 0.7, minh = 0.8, r=0.15,colour = G.C.CLEAR, id = "show_nursery_button", button = 'open_nursery', shadow = true}, nodes = {
                     {n=G.UIT.O, config = {object = Sprite(0, 0, 0.9, 0.9, G.ASSET_ATLAS['hpot_pissdrawer_shop'], { x = 2, y = 0 }), shadow = true, hover = true, button_dist = 0.63}},
+                    (to_number(G.GAME.breeding_rounds_passed) >= (G.GAME.quick_preggo and 2 or 3)) and {
+                        n=G.UIT.C,
+                        config = { maxw = 0, maxh = 0, w = 0, h = 0, minw = 0, minh = 0 },
+                        nodes={
+                            {n=G.UIT.O, config = {
+                                maxw = 0, maxh = 0, w = 0, h = 0, minw = 0, minh = 0,
+                                object = UIBox{
+                                    definition = hp_jtem_create_UIBox_card_alert({ bg_col = G.C.RED }), 
+                                    config = { align= "tri", offset = {x = 0.2, y = -0.2}}
+                                }
+                            }},
+                        }
+                    }
                 }},
             }}
         }},
