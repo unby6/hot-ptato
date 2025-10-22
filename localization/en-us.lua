@@ -956,6 +956,14 @@ return {
                     "{C:attention}+#1#{} extra card"
                 }
             },
+            j_hpot_wizard_tower_rounded = {
+                ["name"] = "Wizard Tower",
+                ["text"] = {
+                    "All {C:attention}consumables{} can affect",
+                    "{C:attention}+#1#{} extra card",
+                    "{C:inactive}(Rounded down)"
+                }
+            },
             j_hpot_hangman = {
                 name = 'Hangman',
                 text = {
@@ -1049,6 +1057,14 @@ return {
                     "The next {C:attention}#1#{} used consumables",
                     "can affect {C:attention}#2#{} extra card",
                     "{C:inactive}(if applicable){}"
+                }
+            },
+            j_hpot_golden_apple_rounded = {
+                name = "Golden Apple",
+                text = {
+                    "The next {C:attention}#1#{} used consumables",
+                    "can affect {C:attention}#2#{} extra card",
+                    "{C:inactive}(Rounded down, if applicable){}"
                 }
             },
             j_hpot_magic_factory = {
@@ -3460,6 +3476,14 @@ return {
                 text = {
                     "When Death is used with {C:attention}3 or more{} cards,",
                     "{C:attention}all cards{} become the right most card"
+                }
+            },
+            hpot_death_clarification_big = {
+                name = "Notice: Death with a lot of cards",
+                text = {
+                    "If Death asks you to select {C:attention}more cards than is possible,{}",
+                    "selecting {C:attention}every card{} will allow you to use it.",
+                    "{C:inactive}(Assuming Death does not ask you to select 1 card)"
                 }
             },
             hpot_death_clarification_minus = {

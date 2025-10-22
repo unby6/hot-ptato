@@ -323,6 +323,15 @@ SMODS.Consumable:take_ownership('death',
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         if card.ability.max_highlighted >= 3 then
             info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification_plus"}
+            if G.hand then
+                if (#G.hand.cards >= 1) then
+                    if math.floor(card.ability.max_highlighted) > #G.hand.cards then
+                        info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification_big"}
+                    end
+                elseif math.floor(card.ability.max_highlighted) > math.floor(G.hand.config.card_limit) then
+                    info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification_big"}
+                end
+            end
         elseif card.ability.max_highlighted <= 1 then
             key = key .. "_s"
             info_queue[#info_queue + 1] = { set = "Other", key = "hpot_death_clarification_minus"}
@@ -396,7 +405,7 @@ SMODS.Consumable:take_ownership('death',
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted == card.ability.max_highlighted
+        return G.hand and (#G.hand.highlighted == math.floor(card.ability.max_highlighted) or #G.hand.highlighted == #G.hand.cards)
     end
     }
 , true)

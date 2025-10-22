@@ -3,7 +3,9 @@ SMODS.Joker {
     key = "golden_apple",
     config = { extra = { uses_left = 5, bonus_highlight = 1} },
     loc_vars = function (self, info_queue, card)
-        return { vars = { card.ability.extra.uses_left, card.ability.extra.bonus_highlight } }
+        local key = self.key
+        local append = (card.ability.extra.bonus_highlight == math.floor(card.ability.extra.bonus_highlight)) and "" or "_rounded"
+        return { vars = { card.ability.extra.uses_left, card.ability.extra.bonus_highlight }, key = key..append }
     end,
     rarity = 2,
     cost = 5,
