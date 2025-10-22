@@ -3669,7 +3669,7 @@ return {
                 text = {
                     "{C:green}#1# in 2{} Chance to",
                     "apply Spore to {C:attention}adjacent{} cards",
-                    "when in hand",
+                    "when present.",
                     "{C:red}Destroyed{} if adjacent cards",
                     "all have Spore"
                 }

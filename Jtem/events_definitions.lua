@@ -4907,7 +4907,7 @@ local hpot_event_get_random_combat_reward = function(domain, seed)
 		{ tags = { random_amount = 5 }, },
 		{ tags = { keys = { "tag_double", "tag_double" } }, },
 		{ dollars = 8, },
-		{ credits = 85, },
+		{ credits = 30, },
 		{ sparkle = 75000, },
 		{ crypto = 2, },
 	}
