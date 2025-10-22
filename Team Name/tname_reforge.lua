@@ -154,7 +154,7 @@ function G.FUNCS.can_reforge_with_credits(e)
     end
 
 function G.FUNCS.can_reforge_with_dollars(e)
-    if not (G.GAME.used_vouchers["v_hpot_ref_dollars"] or G.GAME.goblin_acquired) or to_big(G.GAME.dollars) < to_big(G.GAME.cost_dollars) or not G.GAME.ref_placed then
+    if not (G.GAME.used_vouchers["v_hpot_ref_dollars"] or G.GAME.goblin_acquired) or to_big(to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) < to_big(G.GAME.cost_dollars) or not G.GAME.ref_placed then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
     else
