@@ -3030,7 +3030,7 @@ HotPotato.EventStep {
 			park = "To the park",
 			carnival = "To the town fair",
 			casino = "To the casino",
-			no_date = "Winners don't go on dates"
+			no_date = "Nowhere, because nothing ever happens"
 		}
 	},
 	get_choices = function(self, event)
