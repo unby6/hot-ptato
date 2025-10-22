@@ -1210,12 +1210,14 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			high = 3,
+			odds = 4
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, hpt.odds, "hpot_chrysanthemum")
 		return {
-			vars = { hpt.high },
+			vars = { hpt.high ,numerator, denominator },
 		}
 	end,
 	can_use = function(self, card)
@@ -1223,11 +1225,15 @@ SMODS.Consumable({
 		return highlight_jokers_hand(hpt.high, true)
 	end,
 	use = function(self, card, area, copier)
+	if SMODS.pseudorandom_probability(card, "hpot_chrysanthemum", 1, card.ability.extra.odds ) then
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
         play_sound("hpot_tname_reforge")
 		unhighlight_hj()
+	else
+		noping_it(card)
+	end
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Chrysanthemum with Sake"}, context)
@@ -1249,12 +1255,14 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			high = 2,
+			odds = 4,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, hpt.odds, "hpot_chrysanthemum")
 		return {
-			vars = { hpt.high },
+			vars = { hpt.high ,numerator, denominator },
 		}
 	end,
 	can_use = function(self, card)
@@ -1262,11 +1270,15 @@ SMODS.Consumable({
 		return highlight_jokers_hand(hpt.high, true)
 	end,
 	use = function(self, card, area, copier)
+	if SMODS.pseudorandom_probability(card, "hpot_chrysanthemum", 1, card.ability.extra.odds ) then
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
         play_sound("hpot_tname_reforge")
 		unhighlight_hj()
+	else
+		noping_it(card)
+	end
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Chrysanthemum with Ribbon"}, context)
@@ -1288,12 +1300,14 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			high = 1,
+			odds = 4,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, hpt.odds, "hpot_chrysanthemum")
 		return {
-			vars = { hpt.high },
+			vars = { hpt.high ,numerator, denominator },
 		}
 	end,
 	can_use = function(self, card)
@@ -1301,11 +1315,15 @@ SMODS.Consumable({
 		return highlight_jokers_hand(hpt.high, true)
 	end,
 	use = function(self, card, area, copier)
+	if SMODS.pseudorandom_probability(card, "hpot_chrysanthemum", 1, card.ability.extra.odds ) then
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
         play_sound("hpot_tname_reforge")
 		unhighlight_hj()
+	else
+		noping_it(card)
+	end
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Chrysanthemum", "Chrysanthemum_2"}, context)
@@ -1327,12 +1345,14 @@ SMODS.Consumable({
 	config = {
 		extra = {
 			high = 1,
+			odds = 4,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		local hpt = card.ability.extra
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, hpt.odds, "hpot_chrysanthemum")
 		return {
-			vars = { hpt.high },
+			vars = { hpt.high ,numerator, denominator },
 		}
 	end,
 	can_use = function(self, card)
@@ -1340,11 +1360,15 @@ SMODS.Consumable({
 		return highlight_jokers_hand(hpt.high, true)
 	end,
 	use = function(self, card, area, copier)
+	if SMODS.pseudorandom_probability(card, "hpot_chrysanthemum", 1, card.ability.extra.odds ) then
 		for i = 1, #G.jokers.highlighted do
 			apply_modification(G.jokers.highlighted[i], random_modif("GOOD", card).key)
 		end
         play_sound("hpot_tname_reforge")
 		unhighlight_hj()
+	else
+		noping_it(card)
+	end
     end,
 	calculate = function (self, card, context)
 		return joy_hanafuda_score({"Chrysanthemum", "Chrysanthemum_2"}, context)

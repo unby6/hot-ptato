@@ -318,7 +318,8 @@ return {
             c_hpot_chrysanthemum_1 = {
                 name = "Sake (Chrysanthemum)",
                 text = {
-                    "Give a random",
+                    "{C:green}#2# in #3#{} Chance to",
+                    "give a random",
                     "{C:attention}Good modification{} to",
                     "{C:attention}#1#{} selected Jokers"
                 }
@@ -326,7 +327,8 @@ return {
             c_hpot_chrysanthemum_2 = {
                 name = "Blue Ribbon (Chrysanthemum)",
                 text = {
-                    "Give a random",
+                    "{C:green}#2# in #3#{} Chance to",
+                    "give a random",
                     "{C:attention}Good modification{} to",
                     "{C:attention}#1#{} selected Jokers"
                 }
@@ -334,7 +336,8 @@ return {
             c_hpot_chrysanthemum_3 = {
                 name = "Chrysanthemum Plain",
                 text = {
-                    "Give a random",
+                    "{C:green}#2# in #3#{} Chance to",
+                    "give a random",
                     "{C:attention}Good modification{} to",
                     "{C:attention}#1#{} selected Joker"
                 }
@@ -342,7 +345,8 @@ return {
             c_hpot_chrysanthemum_4 = {
                 name = "Chrysanthemum Plain",
                 text = {
-                    "Give a random",
+                    "{C:green}#2# in #3#{} Chance to",
+                    "give a random",
                     "{C:attention}Good modification{} to",
                     "{C:attention}#1#{} selected Joker"
                 }

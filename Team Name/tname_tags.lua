@@ -1,6 +1,6 @@
 SMODS.Tag({
 	key = "credits_tag",
-	config = { add = 35 },
+	config = { add = 20 },
 	atlas = "tname_tags",
 	pos = { x = 3, y = 0 },
 	min_ante = 3, 
