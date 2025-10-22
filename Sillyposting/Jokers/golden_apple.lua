@@ -28,13 +28,13 @@ SMODS.Joker {
     calculate = function (self, card, context)
         if context.using_consumeable and context.consumeable.ability.max_highlighted and not context.blueprint then
             if to_number(card.ability.extra.uses_left - 1) <= 0 then 
-                SMODS.destroy_cards(self, nil, nil, true)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.GOLD
                 }
             else
-                SMODS.scale_card(self, {
+                SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "uses_left",
                     scalar_table = {mod = 1},
