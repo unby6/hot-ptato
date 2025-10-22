@@ -1,5 +1,9 @@
 local ad_corners_radius = 0.1
 
+function hp_isDesktopPlatform()
+    return love.system.getOS() == "Windows" or love.system.getOS() == "OS X" or love.system.getOS() == "Linux"
+end
+
 HotPotato.Ads = {
     Adverts = { -- Adverts are pulled from this pool most of the time.
         ad_lusty = {atlas = 'hpot_Perkeocoin_Ads', pos = {x=1,y=0}, base_size = 0.75},
@@ -21,7 +25,7 @@ HotPotato.Ads = {
         ad_error1 = {atlas = 'hpot_jtem_ad_error1',pos = {x=0,y=0}},
         ad_broken_page = {atlas = 'hpot_jtemads',pos = {x=3,y=0}},
 
-        ad_indiepaketphoenix = love.system.getOS() == "Windows" and {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true} or nil,
+        ad_indiepaketphoenix = hp_isDesktopPlatform() and {atlas = 'hpot_paket_balala',pos = {x=0,y=0},video = true} or nil,
         -- Horsechicot
         ad_banana = {atlas = "hpot_hcbananaad", pos = {x = 0, y = 0}},
         ad_numberslop = {atlas = "hpot_hcnumberslop", pos = {x = 0, y = 0}},
@@ -76,17 +80,17 @@ HotPotato.Ads = {
 }
 
 for i, v in pairs(HotPotato.Ads.Adverts) do
-    if v.video and love.system.getOS() ~= "Windows" then
+    if v.video and not hp_isDesktopPlatform() then
         HotPotato.Ads.Adverts[i] = nil
     end
 end
 for i, v in pairs(HotPotato.Ads.Shitposts) do
-    if v.video and love.system.getOS() ~= "Windows" then
+    if v.video and not hp_isDesktopPlatform() then
         HotPotato.Ads.Adverts[i] = nil
     end
 end
 for i, v in pairs(HotPotato.Ads.Special) do
-    if v.video and love.system.getOS() ~= "Windows" then
+    if v.video and not hp_isDesktopPlatform() then
         HotPotato.Ads.Adverts[i] = nil
     end
 end
@@ -158,8 +162,13 @@ function create_UIBox_ad(args)
             ad_image.video = love.graphics.newVideo(ad_atlas.video_stream, {dpiscale = 1})
             ad_image.video:play()
             -- tweak the video audio source to use the current volume
-            local source = ad_image.video:getSource()
-            source:setVolume(((G.SETTINGS.SOUND.volume/100.0)*(G.SETTINGS.SOUND.music_volume/100.0))/1.5)
+            simple_add_event(function ()
+                local source = ad_image.video:getSource()
+                if source then
+                    source:setVolume(((G.SETTINGS.SOUND.volume/100.0)*(G.SETTINGS.SOUND.music_volume/100.0))/1.5)
+                end
+                return true
+            end)
         end
     end
 
