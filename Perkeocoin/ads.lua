@@ -162,13 +162,10 @@ function create_UIBox_ad(args)
             ad_image.video = love.graphics.newVideo(ad_atlas.video_stream, {dpiscale = 1})
             ad_image.video:play()
             -- tweak the video audio source to use the current volume
-            simple_add_event(function ()
-                local source = ad_image.video:getSource()
-                if source then
-                    source:setVolume(((G.SETTINGS.SOUND.volume/100.0)*(G.SETTINGS.SOUND.music_volume/100.0))/1.5)
-                end
-                return true
-            end)
+            local source = ad_image.video:getSource()
+            if source then
+                source:setVolume(((G.SETTINGS.SOUND.volume/100.0)*(G.SETTINGS.SOUND.music_volume/100.0))/1.5)
+            end
         end
     end
 

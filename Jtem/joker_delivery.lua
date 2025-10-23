@@ -961,7 +961,7 @@ function hotpot_delivery_refresh_card()
         if _obj.rounds_passed == _obj.rounds_total then
             hp_jtem_juice_card_until(_c, function (card)
                 local will_overflow = #G.jokers.cards >= G.jokers.config.card_limit
-                return card, will_overflow and 0.15 or 0.1, will_overflow and 0.8 or 0.05, will_overflow and 0.2 or 0.8
+                return card, will_overflow and 0.15 or 0.1, will_overflow and 0.2 or 0.05, will_overflow and 0.4 or 0.8
             end, true, 0, 0.2, 0.2, 0.5)
         end
         hpot_jtem_create_delivery_boxes(_c, { { ref_table = temp_str, ref_value = 'str', object = _obj } }, args)
