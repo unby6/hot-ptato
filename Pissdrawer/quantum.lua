@@ -196,30 +196,6 @@ SMODS.Joker {
             if ret then SMODS.update_context_flags(context, ret) end
 
             local ret2, trig2 = Card.calculate_joker(card.ability.quantum_2, context)
-            local function bp(quantum)
-                local to_copy
-                for i, v in pairs(G.jokers.cards) do
-                    if v.ability.quantum_1 == quantum or v.ability.quantum_2 == quantum then
-                        to_copy = G.jokers.cards[i + 1]
-                    end
-                end
-                return SMODS.blueprint_effect(card, to_copy, context)
-            end
-            if card.ability.quantum_1.config.center.key == "j_blueprint" then
-                ret, trig = bp(card.ability.quantum_1)
-            end
-
-            if card.ability.quantum_2.config.center.key == "j_blueprint" then
-                ret2, trig2 = bp(card.ability.quantum_2)
-            end
-
-            if card.ability.quantum_1.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
-                ret, trig = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
-            end
-
-            if card.ability.quantum_2.config.center.key == "j_brainstorm" and card ~= G.jokers.cards[1] then
-                ret2, trig2 = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
-            end
 
             if ret then PissDrawer.replace_quantum(ret, card.ability.quantum_1, card) end
             if ret2 then PissDrawer.replace_quantum(ret2, card.ability.quantum_2, card) end
@@ -313,6 +289,12 @@ SMODS.Joker {
     end,
     hpot_unbreedable = true
 }
+
+local bpe = SMODS.blueprint_effect
+function SMODS.blueprint_effect(copier, copied_card, context)
+    if copier.quantum and copier.quantum == copied_card then return end
+    return bpe(copier, copied_card, context)
+end
 
 function PissDrawer.replace_quantum(effects, quantum, host)
     if type(effects) == 'table' then
