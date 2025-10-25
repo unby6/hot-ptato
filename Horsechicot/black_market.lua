@@ -564,7 +564,7 @@ function add_round_eval_crypto(config)
             dollar_row = dollar_row + 1
           end
 
-          local r = { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], colour = SMODS.Gradients.hpot_advert, scale = ((num_dollars > 20 and 0.28) or (num_dollars > 9 and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true } }
+          local r = { n = G.UIT.T, config = { text = "£", font = SMODS.Fonts['hpot_plincoin'], colour = SMODS.Gradients.hpot_advert, scale = ((num_dollars > to_big(20) and 0.28) or (num_dollars > to_big(9) and 0.43) or 0.58), shadow = true, hover = true, can_collide = false, juice = true } }
           play_sound('coin3', 0.9 + 0.2 * math.random(), 0.7 - (num_dollars > to_big(20) and 0.2 or 0))
 
           if config.name == 'blind1' then
