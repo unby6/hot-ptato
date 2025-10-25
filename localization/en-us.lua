@@ -2177,7 +2177,7 @@ return {
             j_hpot_undying = {
                 name = 'Jimbo The Undying',
                 text = {
-                    'When this Joker is {C:red}destroyed{},',
+                    'When this Joker is naturally {C:red}destroyed{},',
                     'create a copy with an extra {X:mult,C:white}X#2#{} Mult',
                     '{C:inactive}(Currently: {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
