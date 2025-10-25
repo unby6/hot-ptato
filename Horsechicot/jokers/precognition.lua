@@ -25,6 +25,11 @@ SMODS.Joker {
                 play_sound("hpot_buzzer", nil, 0.15)
                 G.GAME.precognition_guess = nil
             end
+
+            elseif context.joker_main then
+            return {
+                mult = card.ability.mult
+            }
         end
     end,
     use = function(self, card)
