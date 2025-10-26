@@ -7,7 +7,7 @@ SMODS.Joker {
         mult_mod = 4
     },
     atlas = "hc_jokers",
-    pos = {x = 3, y = 0},
+    pos = { x = 3, y = 0 },
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
@@ -25,8 +25,7 @@ SMODS.Joker {
                 play_sound("hpot_buzzer", nil, 0.15)
                 G.GAME.precognition_guess = nil
             end
-
-            elseif context.joker_main then
+        elseif context.joker_main then
             return {
                 mult = card.ability.mult
             }
@@ -52,9 +51,9 @@ SMODS.Joker {
 function create_UIBox_precognition()
     local t = create_UIBox_generic_options({
         no_back = true,
-        contents = {	
+        contents = {
             create_option_cycle({
-                options = {localize("k_success"), localize("k_failure")},
+                options = { localize("k_success"), localize("k_failure") },
                 w = 4.5,
                 cycle_shoulders = true,
                 opt_callback = "precognition_trigger",
@@ -131,43 +130,94 @@ end
 --i hate my life
 local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
-	local abc = G_UIDEF_use_and_sell_buttons_ref(card)
+    local abc = G_UIDEF_use_and_sell_buttons_ref(card)
     if (card.area == G.jokers and G.jokers and card.config.center.use) and not card.debuff then
-        sell = {n=G.UIT.C, config={align = "cr"}, nodes={
-            {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card', handy_insta_action = 'sell'}, nodes={
-              {n=G.UIT.B, config = {w=0.1,h=0.6}},
-              {n=G.UIT.C, config={align = "tm"}, nodes={
-                {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-                  {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
-                }},
-                {n=G.UIT.R, config={align = "cm"}, nodes={
-                  {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
-                  {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
-                }}
-              }}
-            }},
-        }}
-        transition = {n=G.UIT.C, config={align = "cr"}, nodes={
-            {n=G.UIT.C, config={ref_table = card, align = "cm",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'use_joker', func = 'can_use_joker', handy_insta_action = 'use'}, nodes={
-              {n=G.UIT.B, config = {w=0.1,h=0.3}},
-              {n=G.UIT.C, config={align = "tm"}, nodes={
-                {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-                  {n=G.UIT.T, config={text = localize(card.config.center.use_key or "b_use"),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
-                }},
-              }}
-            }},
-        }}
+        sell = {
+            n = G.UIT.C,
+            config = { align = "cr" },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card', handy_insta_action = 'sell' },
+                    nodes = {
+                        { n = G.UIT.B, config = { w = 0.1, h = 0.6 } },
+                        {
+                            n = G.UIT.C,
+                            config = { align = "tm" },
+                            nodes = {
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm", maxw = 1.25 },
+                                    nodes = {
+                                        { n = G.UIT.T, config = { text = localize('b_sell'), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true } }
+                                    }
+                                },
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm" },
+                                    nodes = {
+                                        { n = G.UIT.T, config = { text = localize('$'), colour = G.C.WHITE, scale = 0.4, shadow = true } },
+                                        { n = G.UIT.T, config = { ref_table = card, ref_value = 'sell_cost_label', colour = G.C.WHITE, scale = 0.55, shadow = true } }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+        }
+        transition = {
+            n = G.UIT.C,
+            config = { align = "cr" },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { ref_table = card, align = "cm", padding = 0.1, r = 0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'use_joker', func = 'can_use_joker', handy_insta_action = 'use' },
+                    nodes = {
+                        { n = G.UIT.B, config = { w = 0.1, h = 0.3 } },
+                        {
+                            n = G.UIT.C,
+                            config = { align = "tm" },
+                            nodes = {
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "cm", maxw = 1.25 },
+                                    nodes = {
+                                        { n = G.UIT.T, config = { text = localize(card.config.center.use_key or "b_use"), colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true } }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+            }
+        }
         return {
-            n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-              {n=G.UIT.C, config={padding = 0, align = 'cl'}, nodes={
-                {n=G.UIT.R, config={align = 'cl'}, nodes={
-                  sell
-                }},
-                {n=G.UIT.R, config={align = 'cl'}, nodes={
-                  transition
-                }},
-            }},
-        }}
+            n = G.UIT.ROOT,
+            config = { padding = 0, colour = G.C.CLEAR },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { padding = 0, align = 'cl' },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = { align = 'cl' },
+                            nodes = {
+                                sell
+                            }
+                        },
+                        {
+                            n = G.UIT.R,
+                            config = { align = 'cl' },
+                            nodes = {
+                                transition
+                            }
+                        },
+                    }
+                },
+            }
+        }
     end
     return abc
 end
