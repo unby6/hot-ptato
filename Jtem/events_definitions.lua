@@ -4833,7 +4833,7 @@ local hpot_event_get_random_combat_effect = function(seed)
 		{ debuff = { most_played_hand = true },                      text = "but " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " is not allowed" },
 		{ set_to_zero = { most_played_hand = true, dollars = true }, text = "but playing " .. localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') .. " sets money to 0" },
 		{ no_repeat_hands = true,                                    text = "but no repeat hand types" },
-		{ one_hand_type = true,                                      text = "but ony one hand type can be played" },
+		{ one_hand_type = true,                                      text = "but only one hand type can be played" },
 		{ flipped = { suit = true },                                 text = "but all [suit] are drawn facedown" }, -- not valid, randomizes later
 		{ flipped = { face = true },                                 text = "but all face cards are drawn facedown" },
 		{ flipped = { first_hand = true },                           text = "but first hand is drawn facedown" },
