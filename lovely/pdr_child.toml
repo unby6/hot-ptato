@@ -174,3 +174,22 @@ if ret then
     return ret
 end
 '''
+
+# Joker Stencil properly looks for Children with Stencil effects
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if G.jokers.cards[i].ability.name == 'Joker Stencil' then self.ability.x_mult = self.ability.x_mult + 1 end
+'''
+position = 'after'
+payload = '''
+if G.jokers.cards[i].config.center_key == 'j_hpot_child' then
+    if G.jokers.cards[i].ability.quantum_1.ability.name == 'Joker Stencil' then
+        self.ability.x_mult = self.ability.x_mult + 1
+    elseif G.jokers.cards[i].ability.quantum_2.ability.name == 'Joker Stencil' then
+        self.ability.x_mult = self.ability.x_mult + 1
+    end
+end
+'''
+match_indent = true
