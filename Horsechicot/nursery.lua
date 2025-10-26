@@ -352,3 +352,4 @@ G.FUNCS.hpot_nursery_tutorial = function(e)
 end
 
 G.P_CENTERS.j_wee.hpot_unbreedable = true
+G.P_CENTERS.j_invisible.hpot_unbreedable = true
